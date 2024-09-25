@@ -21,7 +21,7 @@ function SearchBar() {
                 <Form.Control
                     onChange={handleChange}
                     type="search"
-                    placeholder="Search..."
+                    placeholder="Search datasets..."
                     value={searchTerm}
                 />
                 <InputGroup.Text>

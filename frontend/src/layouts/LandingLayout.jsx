@@ -1,12 +1,10 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Footer from '../components/Footer'
-import Header from '../components/Header/Header'
 
-function AppLayout() {
+function LandingLayout() {
     return (
         <>
-            <Header />
             <div className='main-content-wrapper'>
                 <Outlet />
             </div>
@@ -17,4 +15,4 @@ function AppLayout() {
     )
 }
 
-export default AppLayout
+export default LandingLayout

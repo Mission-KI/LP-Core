@@ -1,0 +1,4 @@
+.resultItem {
+    border-bottom: 2px solid var(--color-light-gray) !important;
+    padding: .7rem 0;
+}

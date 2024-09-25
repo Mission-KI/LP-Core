@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from "react-router-dom";
+import styles from './Results.module.css'
 
 function ResultItem() {
     return (
-        <>
-            <hr />
+        <div className={styles.resultItem}>
 
-            <p className='bold medium mb-3'>Logistik Transportaufträge</p>
+            <Link to="/details/Logistik" className='bold medium mb-3'>Logistik Transportaufträge</Link>
             <p className='small'>Ein multidimensionaler Datensatz bestehend aus 86 Attributen mit unterschiedlichen Datentypen und 8.424 Zeilen. In dem Datensatz sind Transportevents zwischen zwei geographischen Lokationen beschrieben inklusive Frachtrate, Tonnage, etc.</p>
 
             <div className='d-flex justify-content-between mt-4'>
@@ -18,7 +19,7 @@ function ResultItem() {
                 <span className='medium'>two years ago</span>
             </div>
 
-        </>
+        </div>
     )
 }
 

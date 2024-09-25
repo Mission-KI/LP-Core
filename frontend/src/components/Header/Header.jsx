@@ -1,14 +1,17 @@
 import React from 'react'
 import SearchBar from '../Search/SearchBar'
 import { Download, Star, StarFill } from 'react-bootstrap-icons'
+import icon from '../../assets/img/brand/icon.webp'
+import styles from './Header.module.css'
+import { Link } from 'react-router-dom'
 
 function Header() {
     return (
-        <div className='d-flex w-100 px-4 py-3 border-bottom'>
+        <div id={styles.header}>
             <div className='d-flex align-items-center pe-4'>
-                <a href="/" className='text-decoration-none'>
-                    <h3 className='mb-0'>DSE</h3>
-                </a>
+                <Link to="/">
+                    <img src={icon} alt="" id={styles.logo} />
+                </Link>
             </div>
             <div>
                 <SearchBar />
