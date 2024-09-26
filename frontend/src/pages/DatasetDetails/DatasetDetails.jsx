@@ -11,17 +11,24 @@ function DatasetDetails() {
             <div className="container px-5">
                 <h4 className='bold mt-5'>Logistik Trandportaufträge Details</h4>
 
-                <div className='d-flex justify-content-between mt-4' style={{ maxWidth: 630 }}>
-                    <span className='small text-decoration-underline'>Dataroom MDS</span>
-                    <span className='small text-decoration-underline'>serie-a-logistic solutions</span>
-                    <span className='small'>License other-commercial</span>
-                    <span className='small'>Version 1.0</span>
-                    <span className='small'>two years ago</span>
+                <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
+                    <span className='small text-decoration-underline me-2'>Dataroom MDS</span>
+                    <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
+                    <span className='small me-2'>License other-commercial</span>
+                    <span className='small me-2'>Version 1.0</span>
+                    <span className='small me-2'>two years ago</span>
+                </div>
+
+                <div className='d-flex align-items-center mt-4'>
+                    <span className='text-muted small me-3'>Tags</span>
+                    <button className='btn btn-basic small rounded-lg me-3'>Logistic</button>
+                    <button className='btn btn-basic small rounded-lg me-3'>Transport</button>
+                    <button className='btn btn-basic small rounded-lg me-3'>Price</button>
                 </div>
 
                 <div className="row mt-4">
                     <div className="col-md-4">
-                        <div className="rounded-lg border bg-white p-3">
+                        <div className="rounded-lg border bg-white p-3 mt-2">
                             <p className='small bold'>
                                 DATA SCIENCE INFO
                             </p>
@@ -81,176 +88,132 @@ function DatasetDetails() {
                             className="mb-3"
                         >
                             <Tab eventKey="list" title="ATTRIBUTE LIST" className={styles.tab}>
-                                <table className='table table-bordered'>
-                                    <tr className='hover'>
-                                        <th className='bg-primary-darker text-white small py-2'>type</th>
-                                        <th className='bg-primary-darker text-white small py-2'>specification</th>
-                                        <th className='bg-primary-darker text-white small py-2'>attribute</th>
-                                        <th className='bg-primary-darker text-white small py-2'>type</th>
-                                        <th className='bg-primary-darker text-white small py-2'>specification</th>
-                                        <th className='bg-primary-darker text-white small py-2'>attribute</th>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>int64</td>
-                                        <td className='small py-2'>key</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>cost_toll</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>external_reference</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>unit_revenue</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>datetime</td>
-                                        <td className='small py-2'>date/time</td>
-                                        <td className='small py-2'>orderDate</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>int64</td>
-                                        <td className='small py-2'>total_cost</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>loading_meters</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>int64</td>
-                                        <td className='small py-2'>get_unit_cost</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>int64</td>
-                                        <td className='small py-2'>weightKg</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>int64</td>
-                                        <td className='small py-2'>ankunt</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>price</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>Pickup_Cluster-Lat</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>pickupCountry</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>Pickup_Cluster-Lon</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>datetime</td>
-                                        <td className='small py-2'>date/time</td>
-                                        <td className='small py-2'>pickupDateTime</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>int64</td>
-                                        <td className='small py-2'>Delivery_Cluster-Lat</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>pickupStreet</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>int64</td>
-                                        <td className='small py-2'>Delivery_Cluster-Lon</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>pickupZipCode</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>Delivery_Cluster-Name</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>int64</td>
-                                        <td className='small py-2'>pickupZip</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>Pickup_NUTS-1-ID</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>pickupLat</td>
-                                        <td className='small py-2'>datetime</td>
-                                        <td className='small py-2'>date/time</td>
-                                        <td className='small py-2'>Pickup_NUTS-1-1D</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>pickupLon</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>Pickup_NUTS-1-Lat</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>key_1</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>Pickup_NUTS-1-Lon</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>deliveryCountry</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>Delivery_NUTS-1-ID</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>datetime</td>
-                                        <td className='small py-2'>date/time</td>
-                                        <td className='small py-2'>deliveryDateTime</td>
-                                        <td className='small py-2'>datetime</td>
-                                        <td className='small py-2'>date/time</td>
-                                        <td className='small py-2'>Delivery_NUTS-1-1D</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>deliveryStreet</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>Delivery_NUTS-1-Lat</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>deliveryZipCode</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>Delivery_NUTS-1-Lon</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>int64</td>
-                                        <td className='small py-2'>deliveryZip</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>string</td>
-                                        <td className='small py-2'>Pickup_NUTS-2-ID</td>
-                                    </tr>
-                                    <tr className='hover'>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>deliveryLat</td>
-                                        <td className='small py-2'>numeric</td>
-                                        <td className='small py-2'>float64</td>
-                                        <td className='small py-2'>Pickup_NUTS-2-Lat</td>
-                                    </tr>
-                                </table>
+                                <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
+                                    <div className="table-responsive">
+                                        <table className='table table-bordered'>
+                                            <tr className='hover'>
+                                                <th className='bg-primary-darker text-white small py-2'>type</th>
+                                                <th className='bg-primary-darker text-white small py-2'>specification</th>
+                                                <th className='bg-primary-darker text-white small py-2'>attribute</th>
+                                                <th className='bg-primary-darker text-white small py-2'>type</th>
+                                                <th className='bg-primary-darker text-white small py-2'>specification</th>
+                                                <th className='bg-primary-darker text-white small py-2'>attribute</th>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>numeric</td>
+                                                <td>int64</td>
+                                                <td>key</td>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>cost_toll</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>string</td>
+                                                <td>string</td>
+                                                <td>external_reference</td>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>unit_revenue</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>datetime</td>
+                                                <td>date/time</td>
+                                                <td>orderDate</td>
+                                                <td>numeric</td>
+                                                <td>int64</td>
+                                                <td>total_cost</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>loading_meters</td>
+                                                <td>numeric</td>
+                                                <td>int64</td>
+                                                <td>get_unit_cost</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>numeric</td>
+                                                <td>int64</td>
+                                                <td>weightKg</td>
+                                                <td>numeric</td>
+                                                <td>int64</td>
+                                                <td>ankunt</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>string</td>
+                                                <td>string</td>
+                                                <td>price</td>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>Pickup_Cluster-Lat</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>string</td>
+                                                <td>string</td>
+                                                <td>pickupCountry</td>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>Pickup_Cluster-Lon</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>datetime</td>
+                                                <td>date/time</td>
+                                                <td>pickupDateTime</td>
+                                                <td>numeric</td>
+                                                <td>int64</td>
+                                                <td>Delivery_Cluster-Lat</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>string</td>
+                                                <td>string</td>
+                                                <td>pickupStreet</td>
+                                                <td>numeric</td>
+                                                <td>int64</td>
+                                                <td>Delivery_Cluster-Lon</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>string</td>
+                                                <td>string</td>
+                                                <td>pickupZipCode</td>
+                                                <td>string</td>
+                                                <td>string</td>
+                                                <td>Delivery_Cluster-Name</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>numeric</td>
+                                                <td>int64</td>
+                                                <td>pickupZip</td>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>Pickup_NUTS-1-ID</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>pickupLat</td>
+                                                <td>datetime</td>
+                                                <td>date/time</td>
+                                                <td>Pickup_NUTS-1-1D</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>pickupLon</td>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>Pickup_NUTS-1-Lat</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>string</td>
+                                                <td>string</td>
+                                                <td>key_1</td>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>Pickup_NUTS-1-Lon</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
                             </Tab>
                             <Tab eventKey="profile" title="ATTRIBUTE CONSISTENCY" className={styles.tab}>
                                 ATTRIBUTE CONSISTENCY

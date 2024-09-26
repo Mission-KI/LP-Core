@@ -8,14 +8,14 @@ import { Link } from 'react-router-dom'
 function Header() {
     return (
         <div id={styles.header}>
-            <div className='d-flex align-items-center pe-4'>
+            <div className='d-flex flex-wrap align-items-center pe-4'>
                 <Link to="/">
                     <img src={icon} alt="" id={styles.logo} />
                 </Link>
             </div>
             <div>
                 <SearchBar />
-                <div className='d-flex w-100 align-items-center pt-3'>
+                <div className='d-sm-flex d-none w-100 align-items-center pt-3 flex-wrap'>
                     <div className='pe-2'>
                         <button className='btn btn-primary rounded-lg py-1 small'>Find similar EDP</button>
                     </div>

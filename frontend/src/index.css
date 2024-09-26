@@ -163,3 +163,12 @@ p {
   background-color: #c6c6c6;
   border-radius: 2rem;
 }
+
+.table td, .table th{
+  padding: .3rem .3rem !important;
+  font-size: 10.2pt !important;
+}
+
+.btn-basic{
+  background-color: var(--color-light-gray) !important;
+}
