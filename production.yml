@@ -29,17 +29,16 @@ services:
       - "./frontend:/app"
       - "/app/node_modules"
     ports:
-      - "3000:3000"
-    command: npm run start
-
-  nginx:
-    image: nginx:latest
-    volumes:
-      - frontend-build:/usr/share/nginx/html
-    ports:
       - "80:80"
-    depends_on:
-      - frontend
+
+  # nginx:
+  #   image: nginx:latest
+  #   volumes:
+  #     - frontend-build:/usr/share/nginx/html
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - frontend
   
 volumes:
   postgres_data:
