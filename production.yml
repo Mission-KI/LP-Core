@@ -30,15 +30,6 @@ services:
       - "/app/node_modules"
     ports:
       - "80:80"
-
-  # nginx:
-  #   image: nginx:latest
-  #   volumes:
-  #     - frontend-build:/usr/share/nginx/html
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - frontend
   
 volumes:
   postgres_data:
