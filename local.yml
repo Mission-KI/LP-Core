@@ -1,0 +1,44 @@
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - "./backend:/backend"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1 
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true 
+
+  postgres:
+    image: postgres
+    container_name: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - /var/run/postgresql:/var/run/postgresql
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+
+  frontend:
+    build:
+       context: ./frontend
+       dockerfile: Dockerfile.local
+    volumes:
+      - "./frontend:/app"
+      - "/app/node_modules"
+    ports:
+      - "3000:3000"
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1 
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true 
+    command: npm run start
+
+volumes:
+  postgres_data:

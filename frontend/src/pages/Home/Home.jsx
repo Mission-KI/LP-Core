@@ -13,8 +13,6 @@ function Home() {
                 <span className='text-muted ps-1 pt-1'>Dataset Search Engine</span>
             </div>
 
-            {/* <h3 className='mb-5'>Dataset Search Engine</h3> */}
-
             <SearchBar />
             <Results />
 

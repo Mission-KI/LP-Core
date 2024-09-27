@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Filter, Search } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import styles from './SearchBar.module.css'
 import { Question } from 'react-bootstrap-icons'
+import Dropdown from 'react-bootstrap/Dropdown';
 
 function SearchBar() {
 
-    const [searchTerm, setSearchTerm] = React.useState('');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filtersDropdopwnVisible, setFiltersDropdopwnVisible] = useState(false);
+
+    const toggleFiltersDropdown = () => {
+        setFiltersDropdopwnVisible(!filtersDropdopwnVisible);
+    }
 
     const handleChange = e => {
         setSearchTerm(e.target.value);
@@ -25,8 +31,18 @@ function SearchBar() {
                     value={searchTerm}
                 />
                 <InputGroup.Text>
-                    <Filter className='me-2' /> <span className='medium'>Filters</span>
+                    <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
+                        <Filter className='me-2' /> <span className='medium'>Filters</span>
+                    </div>
                 </InputGroup.Text>
+
+                <Dropdown show={filtersDropdopwnVisible} align="end">
+                    <Dropdown.Menu align="end">
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
 
             </InputGroup>
             <div className='ps-3'>

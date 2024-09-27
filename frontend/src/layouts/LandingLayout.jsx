@@ -10,8 +10,6 @@ function LandingLayout() {
             </div>
             <Footer />
         </>
-
-
     )
 }
 

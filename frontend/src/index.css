@@ -172,3 +172,7 @@ p {
 .btn-basic{
   background-color: var(--color-light-gray) !important;
 }
+
+.pointer{
+  cursor: pointer;
+}
