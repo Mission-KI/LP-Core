@@ -4,7 +4,7 @@
     position: relative;
 }
 
-.searchBarWrapper input, .searchBarWrapper span{
+.searchBarWrapper #searchBar, .searchBarWrapper span{
     border: none !important;
     background-color: transparent !important;
 }
