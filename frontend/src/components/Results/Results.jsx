@@ -2,11 +2,12 @@ import React from 'react'
 import { Star } from 'react-bootstrap-icons'
 import ResultItem from './ResultItem'
 
-function Results() {
+function Results({ datasets }) {
+
     return (
         <div className='mt-5'>
             <div className="d-flex align-items-center justify-content-between w-100 mb-2">
-                <span className='bold'>233.102 Datasets</span>
+                <span className='bold'>{datasets?.hits?.hits?.length} Datasets</span>
                 <div>
                     <span className='d-flex align-items-center fw-500'>
                         Bookmarks
@@ -15,10 +16,10 @@ function Results() {
                 </div>
             </div>
 
-           <ResultItem />
-           <ResultItem />
-           <ResultItem />
-           <ResultItem />
+            {datasets?.hits?.hits?.map((dataset) =>
+                <ResultItem dataset={dataset} key={dataset._id} />
+            )}
+
 
         </div>
     )

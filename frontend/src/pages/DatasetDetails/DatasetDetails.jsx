@@ -3,8 +3,12 @@ import Header from '../../components/Header/Header'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import styles from './DatasetDetails.module.css'
+import { useParams } from 'react-router';
 
 function DatasetDetails() {
+
+    const { id } = useParams();
+
     return (
         <>
             <Header />

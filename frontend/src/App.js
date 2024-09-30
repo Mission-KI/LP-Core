@@ -12,7 +12,7 @@ function App() {
           <Route index element={<Home />} />
         </Route>
         <Route path='/' element={<AppLayout />}>
-          <Route path="/details/:slug" element={<DatasetDetails />} />
+          <Route path="/details/:id" element={<DatasetDetails />} />
         </Route>
       </Routes>
     </Router>
