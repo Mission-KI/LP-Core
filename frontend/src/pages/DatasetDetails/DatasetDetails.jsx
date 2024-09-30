@@ -93,17 +93,21 @@ function DatasetDetails() {
                                 </div>
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>
-                                    <p className='small mb-1'>78,2 MB</p>
-                                    <p className='small mb-1'>non-compressed</p>
-                                    <p className='small mb-1'>singular</p>
-                                    <p className='small mb-1'>frequent</p>
-                                    <p className='small mb-1'>inflated</p>
+                                    <p className='small mb-1'>{(datasetBody.volume / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className='small mb-1'>{datasetBody.compression ?? 'None'}</p>
+                                    <p className='small mb-1'>{datasetBody.transferTypeFlag ?? 'None'}</p>
+                                    <p className='small mb-1'>{datasetBody.immutabilityFlag ?? 'None'}</p>
+                                    <p className='small mb-1'>{datasetBody.growthFlag ?? 'None'}</p>
                                     <p className='small mb-1'>unkown</p>
                                     <p className='small mb-1'>4 months</p>
                                     <p className='small mb-1'>inconsistant</p>
                                     <br />
-                                    <p className='small mb-1'>86</p>
-                                    <p className='small mb-1'>8429</p>
+                                    <p className='small mb-1'>
+                                        {datasetBody?.datasets && datasetBody.datasets.length > 0 ? datasetBody.datasets[0].columns.length : 'No row count available'}
+                                    </p>
+                                    <p className='small mb-1'>
+                                        {datasetBody?.datasets && datasetBody.datasets.length > 0 ? datasetBody.datasets[0].rowCount : 'No row count available'}
+                                    </p>
                                     <p className='small mb-1'>time, string, numeric</p>
                                     <p className='small mb-1'>partially inconsistant</p>
                                     <p className='small mb-1'>german, english</p>
