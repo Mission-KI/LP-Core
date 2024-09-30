@@ -6,6 +6,7 @@ import styles from './DatasetDetails.module.css'
 import { useParams } from 'react-router';
 import { getDataset } from '../../api/elastic';
 import Spinner from 'react-bootstrap/Spinner';
+import moment from 'moment';
 
 function DatasetDetails() {
 
@@ -48,8 +49,10 @@ function DatasetDetails() {
                     <span className='small text-decoration-underline me-2'>{datasetBody?.dataSpace?.name}</span>
                     <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
                     <span className='small me-2'>License other-commercial</span>
-                    <span className='small me-2'>Version 1.0</span>
-                    <span className='small me-2'>two years ago</span>
+                    <span className='small me-2'>Version {(datasetDetails._version).toFixed(1)}</span>
+                    <span className='small me-2'>
+                        {moment(datasetDetails._source._timestamp).fromNow()}
+                    </span>
                 </div>
 
                 <div className='d-flex align-items-center mt-4'>
@@ -131,12 +134,12 @@ function DatasetDetails() {
                                     <div className="table-responsive">
                                         <table className='table table-bordered'>
                                             <tr className='hover'>
-                                                <th className='bg-primary-darker text-white small py-2'>type</th>
-                                                <th className='bg-primary-darker text-white small py-2'>specification</th>
-                                                <th className='bg-primary-darker text-white small py-2'>attribute</th>
-                                                <th className='bg-primary-darker text-white small py-2'>type</th>
-                                                <th className='bg-primary-darker text-white small py-2'>specification</th>
-                                                <th className='bg-primary-darker text-white small py-2'>attribute</th>
+                                                <th className='small py-2'>type</th>
+                                                <th className='small py-2'>specification</th>
+                                                <th className='small py-2'>attribute</th>
+                                                <th className='small py-2'>type</th>
+                                                <th className='small py-2'>specification</th>
+                                                <th className='small py-2'>attribute</th>
                                             </tr>
                                             <tr className='hover'>
                                                 <td>numeric</td>

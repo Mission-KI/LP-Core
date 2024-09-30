@@ -5,11 +5,13 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import styles from './SearchBar.module.css'
 import { Question } from 'react-bootstrap-icons'
 import Dropdown from 'react-bootstrap/Dropdown';
+import { useNavigate } from 'react-router';
 
 function SearchBar() {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [filtersDropdopwnVisible, setFiltersDropdopwnVisible] = useState(false);
+    const navigate = useNavigate();
 
     const toggleFiltersDropdown = () => {
         setFiltersDropdopwnVisible(!filtersDropdopwnVisible);
@@ -18,8 +20,13 @@ function SearchBar() {
     const handleChange = e => {
         setSearchTerm(e.target.value);
     };
+
+    const handleOnSubmit = () => {
+        navigate('/?q='+searchTerm)
+    }
+
     return (
-        <div className="d-flex w-100">
+        <form className="d-flex w-100" onSubmit={handleOnSubmit}>
             <InputGroup className={styles.searchBarWrapper}>
                 <InputGroup.Text>
                     <Search />
@@ -77,7 +84,7 @@ function SearchBar() {
                     <Question className='h5 m-0' />
                 </div>
             </div>
-        </div>
+        </form>
 
     );
 }
