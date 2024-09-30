@@ -1,11 +1,10 @@
 import React from 'react'
 import { Star } from 'react-bootstrap-icons'
 import ResultItem from './ResultItem'
+import Paginator from '../widgets/Paginator'
 
 function Results({ datasets }) {
 
-    console.log(datasets);
-    
     return (
         <div className='mt-5'>
             <div className="d-flex align-items-center justify-content-between w-100 mb-2">
@@ -22,6 +21,8 @@ function Results({ datasets }) {
                 <ResultItem dataset={dataset} key={dataset._id} />
             )}
 
+
+            <Paginator />
 
         </div>
     )

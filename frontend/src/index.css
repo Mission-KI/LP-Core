@@ -4,7 +4,7 @@
   --color-primary-hover: #4879e0;
   --color-text: #1e1f21;
   --color-text-lighter: #4C4D4E;
-  --color-body-background: #fafafa;
+  --color-body-background: #fff;
   --color-main-background: #fff;
   --color-light-gray: #eaeaea;
   --color-darker-gray: #d5d5d5;
@@ -18,7 +18,7 @@
 }
 
 
-a{
+a {
   text-decoration: none !important;
   color: var(--color-primary-darker) !important;
 }
@@ -71,15 +71,19 @@ body {
   color: var(--color-primary) !important;
 }
 
-.txt-primary-darker{
+.txt-primary-darker {
   color: var(--color-primary-darker);
 }
 
-.bg-primary{
+.bg-teal {
+  background-color: var(--bs-teal) !important;
+}
+
+.bg-primary {
   background-color: var(--color-primary);
 }
 
-.bg-primary-darker{
+.bg-primary-darker {
   background-color: var(--color-primary-darker);
 }
 
@@ -126,7 +130,7 @@ p {
   white-space: nowrap !important;
   flex-wrap: nowrap !important;
   overflow: auto;
-  overflow-y: hidden;  
+  overflow-y: hidden;
   -ms-overflow-y: hidden;
 }
 
@@ -137,14 +141,16 @@ p.two-words::after {
 
 .nav-tabs .nav-link {
   font-size: 9.5pt !important;
+  text-align: left !important;
+  padding-left: .5rem !important;
+  border: 0 !important;
+  background-color: transparent !important;
 }
 
 .nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
-  border: none !important;
-  background-color: transparent !important;
-  color: var(--color-text) !important;
-  font-weight: 500 !important;
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link:hover {
+  color: var(--color-primary) !important;
 }
 
 .hover:hover {
@@ -156,8 +162,10 @@ p.two-words::after {
 }
 
 ::-webkit-scrollbar {
-  height: 6px;              /* height of horizontal scrollbar */
-  width: 10px;               /* width of vertical scrollbar */
+  height: 6px;
+  /* height of horizontal scrollbar */
+  width: 10px;
+  /* width of vertical scrollbar */
 }
 
 ::-webkit-scrollbar-track {
@@ -169,15 +177,16 @@ p.two-words::after {
   border-radius: 2rem;
 }
 
-.table td, .table th{
+.table td,
+.table th {
   padding: .3rem .3rem !important;
   font-size: 10.2pt !important;
 }
 
-.btn-basic{
+.btn-basic {
   background-color: var(--color-light-gray) !important;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }

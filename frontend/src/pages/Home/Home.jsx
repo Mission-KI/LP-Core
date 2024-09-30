@@ -42,8 +42,7 @@ function Home() {
 
       const filteredHits = datasets.hits?.hits?.filter(dataset => {
         try {
-          const datasetBody = JSON.parse(dataset._source.body);
-          return datasetBody.name.toLowerCase().includes(lowercasedSearchTerm);
+          return dataset?._source?.name?.toLowerCase().includes(lowercasedSearchTerm);
         } catch (error) {
           console.error('Error parsing dataset body:', error);
           return false;

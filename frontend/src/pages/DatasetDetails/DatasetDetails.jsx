@@ -29,8 +29,6 @@ function DatasetDetails() {
         fetchDatasets();
     }, [id]);
 
-    const datasetBody = datasetDetails ? JSON.parse(datasetDetails?._source?.body) : null;
-
     if (loading) {
         return (
             <div className='d-flex justify-content-center align-items-center' style={{ height: '70vh' }}>
@@ -43,10 +41,10 @@ function DatasetDetails() {
         <>
             <Header />
             <div className="container px-5">
-                <h4 className='bold mt-5'>{datasetBody.name}</h4>
+                <h4 className='bold mt-5'>{datasetDetails?._source?.body?.name}</h4>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
-                    <span className='small text-decoration-underline me-2'>{datasetBody?.dataSpace?.name}</span>
+                    <span className='small text-decoration-underline me-2'>{datasetDetails?._source?.body?.dataSpace?.name}</span>
                     <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
                     <span className='small me-2'>License other-commercial</span>
                     <span className='small me-2'>Version {(datasetDetails._version).toFixed(1)}</span>
@@ -56,71 +54,71 @@ function DatasetDetails() {
                 </div>
 
                 <div className='d-flex align-items-center mt-4'>
-                    <span className='text-muted small me-3'>Tags</span>
-                    {datasetBody?.tags.map((tag) =>
-                        <button className='btn btn-basic small rounded-lg me-3' key={tag}>{tag}</button>
+                    {datasetDetails?._source?.body?.tags?.map((tag) =>
+                        <button className='btn bg-teal small rounded-lg me-3' key={tag}>{tag}</button>
                     )}
-                    <button className='btn btn-basic small rounded-lg me-3'>Transport</button>
-                    <button className='btn btn-basic small rounded-lg me-3'>Price</button>
+                    <button className='btn bg-teal small rounded-lg me-3'>Transport</button>
+                    <button className='btn bg-teal small rounded-lg me-3'>Price</button>
                 </div>
 
                 <div className="row mt-4">
                     <div className="col-md-4">
                         <div className="rounded-lg border bg-white p-3 mt-2">
-                            <p className='small bold'>
+                            <p className='medium bold'>
                                 DATA SCIENCE INFO
                             </p>
                             <hr />
                             <div className='d-flex w-100 justify-content-between'>
                                 <div>
-                                    <p className='small mb-1'>STRUCTURE</p>
-                                    <p className='small mb-1'>VOLUME</p>
-                                    <p className='small mb-1'>COMPRESSION</p>
-                                    <p className='small mb-1'>TRANSFER TYPE</p>
-                                    <p className='small mb-1'>IMMUTABILITY</p>
-                                    <p className='small mb-1'>GROWTH</p>
-                                    <p className='small mb-1'>GROWTH RATE</p>
-                                    <p className='small mb-1'>TEMPORAL COVER</p>
-                                    <p className='small mb-1'>TEMPORAL CONSISTENCY</p>
+                                    <p className='medium mb-1'>Structure</p>
+                                    <p className='medium mb-1'>Volume</p>
+                                    <p className='medium mb-1'>Compression</p>
+                                    <p className='medium mb-1'>Transfer type</p>
+                                    <p className='medium mb-1'>Immutability</p>
+                                    <p className='medium mb-1'>Growth</p>
+                                    <p className='medium mb-1'>Growth rate</p>
+                                    <p className='medium mb-1'>Temporal cover</p>
+                                    <p className='medium mb-1'>Temporal consistency</p>
                                     <br />
-                                    <p className='small mb-1'>NUMBER OF COLUMNS</p>
-                                    <p className='small mb-1'>NUMBER OF LINES</p>
-                                    <p className='small mb-1'>DATA TYPES</p>
-                                    <p className='small mb-1'>ATTRIBUTE CONSISTENCY</p>
-                                    <p className='small mb-1'>LANGUAGES</p>
-                                    <p className='small mb-1'>NUMERIC VALUE DISTRIBUTION</p>
-                                    <p className='small mb-1'>STRING VALUE DISTRIBUTION</p>
-                                    <p className='small mb-1'>NUMERIC CORRELATION ANALYSIS</p>
-                                    <p className='small mb-1'>NUMERIC ANOMALY ANALYSIS</p>
-                                    <p className='small mb-1'>DATA SEASONALITY</p>
+                                    <p className='medium mb-1'>Number of columns</p>
+                                    <p className='medium mb-1'>Number of lines</p>
+                                    <p className='medium mb-1'>Data types</p>
+                                    <p className='medium mb-1'>Attribute consistency</p>
+                                    <p className='medium mb-1'>Languages</p>
+                                    <p className='medium mb-1'>Numeric value distribution</p>
+                                    <p className='medium mb-1'>String value distribution</p>
+                                    <p className='medium mb-1'>Numeric correlation analysis</p>
+                                    <p className='medium mb-1'>Numeric anomaly analysis</p>
+                                    <p className='medium mb-1'>Data seasonality</p>
                                 </div>
                                 <div>
-                                    <p className='small mb-1'>Text (CSV)</p>
-                                    <p className='small mb-1'>{(datasetBody.volume / 1024 / 1024).toFixed(2)} MB</p>
-                                    <p className='small mb-1'>{datasetBody.compression ?? 'None'}</p>
-                                    <p className='small mb-1'>{datasetBody.transferTypeFlag ?? 'None'}</p>
-                                    <p className='small mb-1'>{datasetBody.immutabilityFlag ?? 'None'}</p>
-                                    <p className='small mb-1'>{datasetBody.growthFlag ?? 'None'}</p>
-                                    <p className='small mb-1'>unkown</p>
-                                    <p className='small mb-1'>4 months</p>
-                                    <p className='small mb-1'>inconsistant</p>
+                                    <p className='medium mb-1'>Text (CSV)</p>
+                                    <p className='medium mb-1'>{(datasetDetails?._source?.body?.volume / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className='medium mb-1'>{datasetDetails?._source?.body?.compression ?? 'None'}</p>
+                                    <p className='medium mb-1'>{datasetDetails?._source?.body?.transferTypeFlag ?? 'None'}</p>
+                                    <p className='medium mb-1'>{datasetDetails?._source?.body?.immutabilityFlag ?? 'None'}</p>
+                                    <p className='medium mb-1'>{datasetDetails?._source?.body?.growthFlag ?? 'None'}</p>
+                                    <p className='medium mb-1'>Unknown</p>
+                                    <p className='medium mb-1'>4 months</p>
+                                    <p className='medium mb-1'>Inconsistent</p>
                                     <br />
-                                    <p className='small mb-1'>
-                                        {datasetBody?.datasets && datasetBody.datasets.length > 0 ? datasetBody.datasets[0].columns.length : 'No row count available'}
+                                    <p className='medium mb-1'>
+                                        {datasetDetails?._source?.body?.datasets && datasetDetails?._source?.body.datasets.length > 0 ? datasetDetails?._source?.body.datasets[0].columns.length : 'No row count available'}
                                     </p>
-                                    <p className='small mb-1'>
-                                        {datasetBody?.datasets && datasetBody.datasets.length > 0 ? datasetBody.datasets[0].rowCount : 'No row count available'}
+                                    <p className='medium mb-1'>
+                                        {datasetDetails?._source?.body?.datasets && datasetDetails?._source?.body.datasets.length > 0 ? datasetDetails?._source?.body.datasets[0].rowCount : 'No row count available'}
                                     </p>
-                                    <p className='small mb-1'>time, string, numeric</p>
-                                    <p className='small mb-1'>partially inconsistant</p>
-                                    <p className='small mb-1'>german, english</p>
-                                    <p className='small mb-1'>heterogen</p>
-                                    <p className='small mb-1'>heterogen</p>
-                                    <p className='small mb-1'>partial correlation</p>
-                                    <p className='small mb-1'>anomaly exists</p>
-                                    <p className='small mb-1'>seasonal, no trend</p>
+                                    <p className='medium mb-1'>Time, string, numeric</p>
+                                    <p className='medium mb-1'>Partially inconsistent</p>
+                                    <p className='medium mb-1'>German, English</p>
+                                    <p className='medium mb-1'>Heterogen</p>
+                                    <p className='medium mb-1'>Heterogen</p>
+                                    <p className='medium mb-1'>Partial correlation</p>
+                                    <p className='medium mb-1'>Anomaly exists</p>
+                                    <p className='medium mb-1'>Seasonal, no trend</p>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div className="col-md-8">
@@ -244,6 +242,22 @@ function DatasetDetails() {
                                                 <td>numeric</td>
                                                 <td>float64</td>
                                                 <td>Pickup_NUTS-1-Lat</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>string</td>
+                                                <td>string</td>
+                                                <td>key_1</td>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>Pickup_NUTS-1-Lon</td>
+                                            </tr>
+                                            <tr className='hover'>
+                                                <td>string</td>
+                                                <td>string</td>
+                                                <td>key_1</td>
+                                                <td>numeric</td>
+                                                <td>float64</td>
+                                                <td>Pickup_NUTS-1-Lon</td>
                                             </tr>
                                             <tr className='hover'>
                                                 <td>string</td>
