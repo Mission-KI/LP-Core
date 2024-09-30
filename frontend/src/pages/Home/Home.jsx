@@ -3,13 +3,24 @@ import MainSearchBar from '../../components/Search/MainSearchBar';
 import Results from '../../components/Results/Results';
 import logo from '../../assets/img/brand/logo.webp';
 import { getDatasets } from '../../api/elastic';
+import { useLocation } from 'react-router-dom';
 
 function Home() {
   const [datasets, setDatasets] = useState({});
   const [filteredDatasets, setFilteredDatasets] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
 
+  const location = useLocation();
+
   useEffect(() => {
+
+    const searchParams = new URLSearchParams(location.search);
+    const q = searchParams.get('q');
+
+    if (q) {
+      setSearchTerm(q);
+    }
+
     const fetchDatasets = async () => {
       try {
         const fetchedDatasets = await getDatasets();
