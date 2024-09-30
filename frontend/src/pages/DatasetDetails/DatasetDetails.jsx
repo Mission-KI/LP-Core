@@ -1,22 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header/Header'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import styles from './DatasetDetails.module.css'
 import { useParams } from 'react-router';
+import { getDataset } from '../../api/elastic';
+import Spinner from 'react-bootstrap/Spinner';
 
 function DatasetDetails() {
 
     const { id } = useParams();
+    const [datasetDetails, setDatasetDetails] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchDatasets = async () => {
+            try {
+                const fetchedDataset = await getDataset(id);
+                setDatasetDetails(fetchedDataset);
+            } catch (error) {
+                console.error('Error fetching :', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchDatasets();
+    }, [id]);
+
+    const datasetBody = datasetDetails ? JSON.parse(datasetDetails?._source?.body) : null;
+
+    if (loading) {
+        return (
+            <div className='d-flex justify-content-center align-items-center' style={{ height: '70vh' }}>
+                <Spinner variant='primary' />
+            </div>
+        );
+    }
 
     return (
         <>
             <Header />
             <div className="container px-5">
-                <h4 className='bold mt-5'>Logistik Trandportaufträge Details</h4>
+                <h4 className='bold mt-5'>{datasetBody.name}</h4>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
-                    <span className='small text-decoration-underline me-2'>Dataroom MDS</span>
+                    <span className='small text-decoration-underline me-2'>{datasetBody?.dataSpace?.name}</span>
                     <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
                     <span className='small me-2'>License other-commercial</span>
                     <span className='small me-2'>Version 1.0</span>
@@ -25,7 +54,9 @@ function DatasetDetails() {
 
                 <div className='d-flex align-items-center mt-4'>
                     <span className='text-muted small me-3'>Tags</span>
-                    <button className='btn btn-basic small rounded-lg me-3'>Logistic</button>
+                    {datasetBody?.tags.map((tag) =>
+                        <button className='btn btn-basic small rounded-lg me-3' key={tag}>{tag}</button>
+                    )}
                     <button className='btn btn-basic small rounded-lg me-3'>Transport</button>
                     <button className='btn btn-basic small rounded-lg me-3'>Price</button>
                 </div>
@@ -91,7 +122,7 @@ function DatasetDetails() {
                             id={styles.datasetAttributeTabs}
                             className="mb-3"
                         >
-                            <Tab eventKey="list" title="ATTRIBUTE LIST" className={styles.tab}>
+                            <Tab eventKey="list" title={<span>ATTRIBUTE<br />LIST</span>} className={styles.tab}>
                                 <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
                                     <div className="table-responsive">
                                         <table className='table table-bordered'>
@@ -219,27 +250,28 @@ function DatasetDetails() {
                                     </div>
                                 </div>
                             </Tab>
-                            <Tab eventKey="profile" title="ATTRIBUTE CONSISTENCY" className={styles.tab}>
+                            <Tab eventKey="profile" title={<span>ATTRIBUTE<br />CONSISTENCY</span>} className={styles.tab}>
                                 ATTRIBUTE CONSISTENCY
                             </Tab>
-                            <Tab eventKey="contact" title="TEMPORAL CONSISTENCY" className={styles.tab}>
+                            <Tab eventKey="contact" title={<span>TEMPORAL<br />CONSISTENCY</span>} className={styles.tab}>
                                 TEMPORAL CONSISTENCY
                             </Tab>
-                            <Tab eventKey="home" title="NUMERIC VALUE DISTRIBUTION" className={styles.tab}>
+                            <Tab eventKey="home1" title={<span>NUMERIC VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
                                 NUMERIC VALUE DISTRIBUTION
                             </Tab>
-                            <Tab eventKey="home" title="STRING VALUE DISTRIBUTION" className={styles.tab}>
+                            <Tab eventKey="home2" title={<span>STRING VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
                                 STRING VALUE DISTRIBUTION
                             </Tab>
-                            <Tab eventKey="home" title="NUMERIC CORRELATION ANALYSIS" className={styles.tab}>
+                            <Tab eventKey="home3" title={<span>NUMERIC CORRELATION<br />ANALYSIS</span>} className={styles.tab}>
                                 NUMERIC CORRELATION ANALYSIS
                             </Tab>
-                            <Tab eventKey="home" title="NUMERIC ANOMALY ANALYSIS" className={styles.tab}>
+                            <Tab eventKey="home4" title={<span>NUMERIC ANOMALY<br />ANALYSIS</span>} className={styles.tab}>
                                 NUMERIC ANOMALY ANALYSIS
                             </Tab>
-                            <Tab eventKey="home" title="DATA SEASONALITY" className={styles.tab}>
+                            <Tab eventKey="home5" title={<span>DATA<br />SEASONALITY</span>} className={styles.tab}>
                                 DATA SEASONALITY
                             </Tab>
+
                         </Tabs>
                     </div>
                 </div>

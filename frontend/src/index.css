@@ -130,6 +130,11 @@ p {
   -ms-overflow-y: hidden;
 }
 
+p.two-words::after {
+  content: "\A";
+  white-space: pre;
+}
+
 .nav-tabs .nav-link {
   font-size: 9.5pt !important;
 }

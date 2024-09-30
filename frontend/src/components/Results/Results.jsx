@@ -4,6 +4,8 @@ import ResultItem from './ResultItem'
 
 function Results({ datasets }) {
 
+    console.log(datasets);
+    
     return (
         <div className='mt-5'>
             <div className="d-flex align-items-center justify-content-between w-100 mb-2">
