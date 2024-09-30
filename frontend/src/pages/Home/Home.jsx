@@ -72,7 +72,6 @@ function Home() {
       <MainSearchBar setSearchTerm={setSearchTerm} />
       <Results datasets={filteredDatasets} />
 
-      {/* <Paginator /> */}
     </div>
   );
 }

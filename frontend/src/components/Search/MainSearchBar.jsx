@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Filter, Search, Question } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import styles from './SearchBar.module.css';
+import SearchSuggestions from './SearchSuggestions';
 
 function MainSearchBar({ setSearchTerm }) {
     const [localSearchTerm, setLocalSearchTerm] = useState('');
     const [filtersDropdopwnVisible, setFiltersDropdopwnVisible] = useState(false);
+    const [showSuggestions, setShowSuggestions] = useState(false);
+
+    const inputRef = useRef(null);
 
     const toggleFiltersDropdown = () => {
         setFiltersDropdopwnVisible(!filtersDropdopwnVisible);
@@ -17,21 +21,54 @@ function MainSearchBar({ setSearchTerm }) {
         const newSearchTerm = e.target.value;
         setLocalSearchTerm(newSearchTerm);
         setSearchTerm(newSearchTerm);
+        if (newSearchTerm !== '') {
+            setShowSuggestions(true);
+        } else {
+            setShowSuggestions(false);
+        }
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (inputRef.current && !inputRef.current.contains(event.target)) {
+                setShowSuggestions(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [inputRef]);
+
+    const handleFocus = () => {
+        if (localSearchTerm !== '') {
+            setShowSuggestions(true);
+        }
     };
 
     return (
-        <div className="d-flex w-100">
+        <div className="d-flex w-100" ref={inputRef}>
             <InputGroup className={styles.searchBarWrapper}>
                 <InputGroup.Text>
                     <Search />
                 </InputGroup.Text>
                 <Form.Control
                     onChange={handleChange}
+                    onFocus={handleFocus}
                     type="search"
+                    autoComplete="off"
                     id={styles.searchBar}
                     placeholder="Search datasets..."
                     value={localSearchTerm}
                 />
+                <SearchSuggestions
+                    searchTerm={localSearchTerm}
+                    setSearchTerm={setSearchTerm}
+                    setLocalSearchTerm={setLocalSearchTerm}
+                    showSuggestions={showSuggestions}
+                    setShowSuggestions={setShowSuggestions}
+                />
+
                 <InputGroup.Text>
                     <Dropdown show={filtersDropdopwnVisible}>
                         <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
