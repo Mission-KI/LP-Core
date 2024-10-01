@@ -6,7 +6,7 @@ import Paginator from '../widgets/Paginator'
 function Results({ datasets }) {
 
     return (
-        <div className='mt-5'>
+        <div className='mt-5 pt-3'>
             <div className="d-flex align-items-center justify-content-between w-100 mb-2">
                 <span className='bold'>{datasets?.hits?.hits?.length} Datasets</span>
                 <div>
