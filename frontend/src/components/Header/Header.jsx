@@ -36,7 +36,7 @@ function Header() {
                     </div>
                     <div className='pe-2'>
                         <button className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
-                            <StarFill className='me-1' />
+                            <Star className='me-1' />
                             Remove Bookmark
                         </button>
                     </div>
