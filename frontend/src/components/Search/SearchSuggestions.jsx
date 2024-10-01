@@ -21,7 +21,7 @@ function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestion
             {filteredSuggestions.length > 0 ? (
                 filteredSuggestions.map((suggestion, index) => (
                     <Dropdown.Item key={index} onClick={() => handleSelectSuggestion(suggestion)}>
-                        {suggestion}
+                        <span className='txt-lighter'>{suggestion}</span>
                     </Dropdown.Item>
                 ))
             ) : (

@@ -12,14 +12,6 @@
   --color-success: #20c996aa !important;
 }
 
-.dark-mode {
-  --color-text: white;
-  --color-text-lighter: #a5b0b9;
-  --color-body-background: #13151c;
-  --color-main-background: #1c1f28;
-}
-
-
 a {
   text-decoration: none !important;
   color: var(--color-primary-darker) !important;
@@ -73,6 +65,10 @@ body {
   color: var(--color-primary) !important;
 }
 
+.txt-lighter{
+  color: var(--color-text-lighter) !important;
+}
+
 .txt-primary-darker {
   color: var(--color-primary-darker);
 }
@@ -90,7 +86,7 @@ body {
 }
 
 .rounded-lg {
-  border-radius: 1.5rem !important;
+  border-radius: 1.4rem !important;
 }
 
 .form-control {
