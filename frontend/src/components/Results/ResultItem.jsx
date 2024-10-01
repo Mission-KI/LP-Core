@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 import styles from './Results.module.css'
+import moment from 'moment';
 
 function ResultItem({ dataset }) {
     return (
@@ -15,7 +16,7 @@ function ResultItem({ dataset }) {
                 <span className='medium text-muted me-2'>2,5 MB</span>
                 <span className='medium text-muted me-2'>License other-commercial</span>
                 <span className='medium text-muted me-2'>Version 1.0</span>
-                <span className='medium text-muted me-2'>two years ago</span>
+                <span className='medium text-muted me-2'>{moment(dataset?._source?._timestamp).fromNow()}</span>
             </div>
         </div>
     )

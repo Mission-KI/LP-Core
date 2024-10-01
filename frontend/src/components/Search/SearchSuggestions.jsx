@@ -3,7 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 
 function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestions, setShowSuggestions }) {
-    const suggestions = ['BeebucketCsv', 'Another wonderful test'];
+    const suggestions = ['BeebucketCsv', 'Another wonderful test', 'Another test to have more variety', 'Test'];
     const navigate = useNavigate();
 
     const filteredSuggestions = suggestions.filter(suggestion =>
