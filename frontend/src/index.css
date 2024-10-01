@@ -8,6 +8,8 @@
   --color-main-background: #fff;
   --color-light-gray: #eaeaea;
   --color-darker-gray: #d5d5d5;
+  --color-danger: #cf004c;
+  --color-success: #20c997 !important;
 }
 
 .dark-mode {
@@ -75,8 +77,8 @@ body {
   color: var(--color-primary-darker);
 }
 
-.bg-teal {
-  background-color: var(--bs-teal) !important;
+.bgc-success {
+  background-color: var(--color-success) !important;
 }
 
 .bg-primary {

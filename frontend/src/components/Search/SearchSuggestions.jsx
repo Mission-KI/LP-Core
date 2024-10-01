@@ -2,7 +2,7 @@ import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 
 function SearchSuggestions({ searchTerm, setSearchTerm, setLocalSearchTerm, showSuggestions, setShowSuggestions }) {
-    const suggestions = ['BeebucketCsv', 'Another test'];
+    const suggestions = ['BeebucketCsv', 'Another wonderful test'];
 
     const filteredSuggestions = suggestions.filter(suggestion =>
         suggestion.toLowerCase().includes(searchTerm.toLowerCase())

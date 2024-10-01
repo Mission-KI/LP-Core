@@ -7,6 +7,7 @@ import { useParams } from 'react-router';
 import { getDataset } from '../../api/elastic';
 import Spinner from 'react-bootstrap/Spinner';
 import moment from 'moment';
+import { LineChart } from '../../components/Charts/LineChart';
 
 function DatasetDetails() {
 
@@ -41,24 +42,24 @@ function DatasetDetails() {
         <>
             <Header />
             <div className="container px-5">
-                <h4 className='bold mt-5'>{datasetDetails?._source?.body?.name}</h4>
+                <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
-                    <span className='small text-decoration-underline me-2'>{datasetDetails?._source?.body?.dataSpace?.name}</span>
+                    <span className='small text-decoration-underline me-2'>{datasetDetails?._source?.dataSpace?.name}</span>
                     <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
                     <span className='small me-2'>License other-commercial</span>
                     <span className='small me-2'>Version {(datasetDetails._version).toFixed(1)}</span>
                     <span className='small me-2'>
-                        {moment(datasetDetails._source._timestamp).fromNow()}
+                        {moment(datasetDetails?._source?._timestamp).fromNow()}
                     </span>
                 </div>
 
                 <div className='d-flex align-items-center mt-4'>
-                    {datasetDetails?._source?.body?.tags?.map((tag) =>
-                        <button className='btn bg-teal small rounded-lg me-3' key={tag}>{tag}</button>
+                    {datasetDetails?._source?.tags?.map((tag) =>
+                        <button className='btn bgc-success small rounded-lg me-3' key={tag}>{tag}</button>
                     )}
-                    <button className='btn bg-teal small rounded-lg me-3'>Transport</button>
-                    <button className='btn bg-teal small rounded-lg me-3'>Price</button>
+                    <button className='btn bgc-success small rounded-lg me-3'>Transport</button>
+                    <button className='btn bgc-success small rounded-lg me-3'>Price</button>
                 </div>
 
                 <div className="row mt-4">
@@ -93,20 +94,20 @@ function DatasetDetails() {
                                 </div>
                                 <div>
                                     <p className='medium mb-1'>Text (CSV)</p>
-                                    <p className='medium mb-1'>{(datasetDetails?._source?.body?.volume / 1024 / 1024).toFixed(2)} MB</p>
-                                    <p className='medium mb-1'>{datasetDetails?._source?.body?.compression ?? 'None'}</p>
-                                    <p className='medium mb-1'>{datasetDetails?._source?.body?.transferTypeFlag ?? 'None'}</p>
-                                    <p className='medium mb-1'>{datasetDetails?._source?.body?.immutabilityFlag ?? 'None'}</p>
-                                    <p className='medium mb-1'>{datasetDetails?._source?.body?.growthFlag ?? 'None'}</p>
+                                    <p className='medium mb-1'>{(datasetDetails?._source?.volume / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className='medium mb-1'>{datasetDetails?._source?.compression ?? 'None'}</p>
+                                    <p className='medium mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'None'}</p>
+                                    <p className='medium mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'None'}</p>
+                                    <p className='medium mb-1'>{datasetDetails?._source?.growthFlag ?? 'None'}</p>
                                     <p className='medium mb-1'>Unknown</p>
                                     <p className='medium mb-1'>4 months</p>
                                     <p className='medium mb-1'>Inconsistent</p>
                                     <br />
                                     <p className='medium mb-1'>
-                                        {datasetDetails?._source?.body?.datasets && datasetDetails?._source?.body.datasets.length > 0 ? datasetDetails?._source?.body.datasets[0].columns.length : 'No row count available'}
+                                        {datasetDetails?._source?.datasets && datasetDetails?._source?.datasets?.length > 0 ? datasetDetails?._source.datasets[0].columns.length : 'No row count available'}
                                     </p>
                                     <p className='medium mb-1'>
-                                        {datasetDetails?._source?.body?.datasets && datasetDetails?._source?.body.datasets.length > 0 ? datasetDetails?._source?.body.datasets[0].rowCount : 'No row count available'}
+                                        {datasetDetails?._source?.datasets && datasetDetails?._source?.datasets?.length > 0 ? datasetDetails?._source.datasets[0].rowCount : 'No row count available'}
                                     </p>
                                     <p className='medium mb-1'>Time, string, numeric</p>
                                     <p className='medium mb-1'>Partially inconsistent</p>
@@ -272,10 +273,42 @@ function DatasetDetails() {
                                 </div>
                             </Tab>
                             <Tab eventKey="profile" title={<span>ATTRIBUTE<br />CONSISTENCY</span>} className={styles.tab}>
-                                ATTRIBUTE CONSISTENCY
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                </div>
                             </Tab>
                             <Tab eventKey="contact" title={<span>TEMPORAL<br />CONSISTENCY</span>} className={styles.tab}>
-                                TEMPORAL CONSISTENCY
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                    <div className="col-md-6">
+                                        <LineChart className="w-100" />
+                                    </div>
+                                </div>
                             </Tab>
                             <Tab eventKey="home1" title={<span>NUMERIC VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
                                 NUMERIC VALUE DISTRIBUTION
@@ -290,7 +323,7 @@ function DatasetDetails() {
                                 NUMERIC ANOMALY ANALYSIS
                             </Tab>
                             <Tab eventKey="home5" title={<span>DATA<br />SEASONALITY</span>} className={styles.tab}>
-                                DATA SEASONALITY
+                                <LineChart />
                             </Tab>
 
                         </Tabs>
