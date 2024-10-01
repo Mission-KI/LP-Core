@@ -3,7 +3,7 @@ import MainSearchBar from '../../components/Search/MainSearchBar';
 import Results from '../../components/Results/Results';
 import logo from '../../assets/img/brand/logo.webp';
 import { getDatasets } from '../../api/elastic';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Home() {
   const [datasets, setDatasets] = useState({});
@@ -11,14 +11,16 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState('');
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-
     const searchParams = new URLSearchParams(location.search);
     const q = searchParams.get('q');
 
-    if (q) {
+    if (q !== null) {
       setSearchTerm(q);
+    } else {
+      setSearchTerm('');
     }
 
     const fetchDatasets = async () => {
@@ -30,12 +32,17 @@ function Home() {
         console.error('Error fetching datasets:', error);
       }
     };
+
     fetchDatasets();
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
     if (searchTerm.trim() === '') {
       setFilteredDatasets(datasets);
+      // const searchParams = new URLSearchParams(location.search);
+      // searchParams.delete('q');
+      // const newSearch = searchParams.toString();
+      // window.history.replaceState(null, '', `${location.pathname}?${newSearch}`);
     } else {
       const lowercasedSearchTerm = searchTerm.toLowerCase();
       console.log("Search term is: " + lowercasedSearchTerm);
@@ -57,8 +64,8 @@ function Home() {
         },
       });
 
-      console.log(filteredHits);
     }
+
   }, [searchTerm, datasets]);
 
   return (

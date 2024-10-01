@@ -9,7 +9,7 @@
   --color-light-gray: #eaeaea;
   --color-darker-gray: #d5d5d5;
   --color-danger: #cf004c;
-  --color-success: #20c997 !important;
+  --color-success: #20c996aa !important;
 }
 
 .dark-mode {
@@ -187,6 +187,10 @@ p.two-words::after {
 
 .btn-basic {
   background-color: var(--color-light-gray) !important;
+}
+
+.btn-basic:hover {
+  background-color: var(--color-darker-gray) !important;
 }
 
 .pointer {

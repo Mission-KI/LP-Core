@@ -7,7 +7,7 @@ function Paginator() {
             <div className='btn btn-primary rounded-circle d-flex justify-content-center align-items-center' style={{ height: 38, width: 38 }}>
                 <span className='medium text-white'>1</span>
             </div>
-            <div className='btn btn-basic border rounded-circle d-flex justify-content-center align-items-center' style={{ height: 38, width: 38 }}>
+            {/* <div className='btn btn-basic border rounded-circle d-flex justify-content-center align-items-center' style={{ height: 38, width: 38 }}>
                 <span className='medium'>2</span>
             </div>
             <div className='btn btn-basic border rounded-circle d-flex justify-content-center align-items-center' style={{ height: 38, width: 38 }}>
@@ -24,7 +24,7 @@ function Paginator() {
             </div>
             <div className='btn btn-basic border rounded-circle d-flex justify-content-center align-items-center' style={{ height: 38, width: 38 }}>
                 <span className='medium'>15</span>
-            </div>
+            </div> */}
         </div>
     )
 }

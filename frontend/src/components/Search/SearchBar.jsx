@@ -6,6 +6,7 @@ import styles from './SearchBar.module.css'
 import { Question } from 'react-bootstrap-icons'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from 'react-router';
+import SearchSuggestions from './SearchSuggestions';
 
 function SearchBar() {
 
@@ -22,7 +23,7 @@ function SearchBar() {
     };
 
     const handleOnSubmit = () => {
-        navigate('/?q='+searchTerm)
+        navigate('/?q=' + searchTerm)
     }
 
     return (
@@ -34,10 +35,12 @@ function SearchBar() {
                 <Form.Control
                     onChange={handleChange}
                     type="search"
+                    autoComplete="off"
                     id={styles.searchBar}
                     placeholder="Search datasets..."
                     value={searchTerm}
                 />
+
                 <InputGroup.Text>
                     <Dropdown show={filtersDropdopwnVisible}>
                         <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>

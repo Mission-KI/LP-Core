@@ -1,17 +1,19 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import { useNavigate } from 'react-router';
 
-function SearchSuggestions({ searchTerm, setSearchTerm, setLocalSearchTerm, showSuggestions, setShowSuggestions }) {
+function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestions, setShowSuggestions }) {
     const suggestions = ['BeebucketCsv', 'Another wonderful test'];
+    const navigate = useNavigate();
 
     const filteredSuggestions = suggestions.filter(suggestion =>
-        suggestion.toLowerCase().includes(searchTerm.toLowerCase())
+        suggestion.toLowerCase().includes(localSearchTerm.toLowerCase())
     );
 
     const handleSelectSuggestion = (suggestion) => {
         setLocalSearchTerm(suggestion);
         setShowSuggestions(false);
-        setSearchTerm(suggestion);
+        navigate('/?q='+suggestion);
     }
 
     return showSuggestions ? (

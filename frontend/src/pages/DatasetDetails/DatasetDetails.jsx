@@ -45,7 +45,7 @@ function DatasetDetails() {
                 <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
-                    <span className='small text-decoration-underline me-2'>{datasetDetails?._source?.dataSpace?.name}</span>
+                    <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
                     <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
                     <span className='small me-2'>License other-commercial</span>
                     <span className='small me-2'>Version {(datasetDetails._version).toFixed(1)}</span>

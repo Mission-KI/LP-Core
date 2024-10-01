@@ -5,6 +5,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
 import styles from './SearchBar.module.css';
 import SearchSuggestions from './SearchSuggestions';
+import { useNavigate } from 'react-router';
 
 function MainSearchBar({ setSearchTerm }) {
     const [localSearchTerm, setLocalSearchTerm] = useState('');
@@ -12,6 +13,7 @@ function MainSearchBar({ setSearchTerm }) {
     const [showSuggestions, setShowSuggestions] = useState(false);
 
     const inputRef = useRef(null);
+    const navigate = useNavigate();
 
     const toggleFiltersDropdown = () => {
         setFiltersDropdopwnVisible(!filtersDropdopwnVisible);
@@ -26,6 +28,7 @@ function MainSearchBar({ setSearchTerm }) {
         } else {
             setShowSuggestions(false);
         }
+        navigate('/?q='+newSearchTerm);
     };
 
     useEffect(() => {
@@ -62,8 +65,7 @@ function MainSearchBar({ setSearchTerm }) {
                     value={localSearchTerm}
                 />
                 <SearchSuggestions
-                    searchTerm={localSearchTerm}
-                    setSearchTerm={setSearchTerm}
+                    localSearchTerm={localSearchTerm}
                     setLocalSearchTerm={setLocalSearchTerm}
                     showSuggestions={showSuggestions}
                     setShowSuggestions={setShowSuggestions}
