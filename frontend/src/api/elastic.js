@@ -1,13 +1,17 @@
 import { elasticURL, elasticUsername, elasticPassword } from "./config";
 
-export const getDatasets = async (from = 0, size = 10) => {
+export const getDatasets = async (from = 0, size = 10, searchTerm = '') => {
     try {
         const base64Credentials = btoa(`${elasticUsername}:${elasticPassword}`);
 
         const query = {
             "from": from,
             "size": size,
-            "query": {
+            "query": searchTerm ? {
+                "match": {
+                    "name": searchTerm
+                }
+            } : {
                 "match_all": {}
             }
         };

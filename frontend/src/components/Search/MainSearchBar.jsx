@@ -7,7 +7,7 @@ import styles from './SearchBar.module.css';
 import SearchSuggestions from './SearchSuggestions';
 import { useNavigate } from 'react-router';
 
-function MainSearchBar({ setSearchTerm }) {
+function MainSearchBar() {
     const [localSearchTerm, setLocalSearchTerm] = useState('');
     const [filtersDropdopwnVisible, setFiltersDropdopwnVisible] = useState(false);
     const [showSuggestions, setShowSuggestions] = useState(false);
