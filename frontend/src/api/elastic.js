@@ -1,18 +1,25 @@
 import { elasticURL, elasticUsername, elasticPassword } from "./config";
 
-export const getDatasets = async () => {
-
+export const getDatasets = async (from = 0, size = 10) => {
     try {
-
         const base64Credentials = btoa(`${elasticUsername}:${elasticPassword}`);
 
+        const query = {
+            "from": from,
+            "size": size,
+            "query": {
+                "match_all": {}
+            }
+        };
+
         const response = await fetch(elasticURL + '/_search', {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': `Basic ${base64Credentials}`,
             },
+            body: JSON.stringify(query)
         });
 
         const responseData = await response.json();
@@ -25,8 +32,7 @@ export const getDatasets = async () => {
     } catch (error) {
         throw new Error(error);
     }
-
-}
+};
 
 export const getDataset = async (id) => {
     try {

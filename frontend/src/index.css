@@ -65,7 +65,7 @@ body {
   color: var(--color-primary) !important;
 }
 
-.txt-lighter{
+.txt-lighter {
   color: var(--color-text-lighter) !important;
 }
 
@@ -191,4 +191,25 @@ p.two-words::after {
 
 .pointer {
   cursor: pointer;
+}
+
+li.disabled,
+*::marker {
+  display: none !important;
+}
+
+.next::marker, .previous::marker {
+  list-style: none !important;
+}
+
+.pagination-btn{
+  background-color: var(--color-light-gray) !important;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination-btn:hover{
+  background-color: var(--color-darker-gray) !important;
 }
