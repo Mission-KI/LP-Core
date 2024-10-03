@@ -22,14 +22,18 @@ function MainSearchBar({ setSearchTerm }) {
     const handleChange = e => {
         const newSearchTerm = e.target.value;
         setLocalSearchTerm(newSearchTerm);
-        setSearchTerm(newSearchTerm);
         if (newSearchTerm !== '') {
             setShowSuggestions(true);
         } else {
             setShowSuggestions(false);
         }
-        navigate('/?q='+newSearchTerm);
     };
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        const newSearchTerm = e.target.elements.query.value;
+        navigate('/?q='+newSearchTerm);
+    }
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -50,7 +54,7 @@ function MainSearchBar({ setSearchTerm }) {
     };
 
     return (
-        <div className="d-flex w-100" ref={inputRef}>
+        <form onSubmit={handleSubmit} className="d-flex w-100" ref={inputRef}>
             <InputGroup className={styles.searchBarWrapper}>
                 <InputGroup.Text>
                     <Search />
@@ -59,6 +63,7 @@ function MainSearchBar({ setSearchTerm }) {
                     onChange={handleChange}
                     onFocus={handleFocus}
                     type="search"
+                    name='query'
                     autoComplete="off"
                     id={styles.searchBar}
                     placeholder="Search datasets..."
@@ -114,7 +119,7 @@ function MainSearchBar({ setSearchTerm }) {
                     <Question className='h5 m-0' />
                 </div>
             </div>
-        </div>
+        </form>
     );
 }
 
