@@ -21,7 +21,7 @@ function Home() {
     const page = parseInt(queryParams.get('page')) || 1;
     const q = queryParams.get('q') || '';
 
-    setCurrentPage(page);
+    setCurrentPage(p => page);
     setSearchTerm(q);
   }, [location]);
 
@@ -44,7 +44,7 @@ function Home() {
 
   const handlePageChange = (selectedItem) => {
     const newPage = selectedItem.selected + 1;
-    setCurrentPage(newPage);
+    setCurrentPage(p => newPage);
     navigate(`?page=${newPage}&q=${searchTerm}`);
   };
 

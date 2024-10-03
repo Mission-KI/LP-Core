@@ -17,10 +17,10 @@ function Paginator({ pageCount, handlePageChange, currentPage }) {
                 pageRangeDisplayed={10}
                 onPageChange={handlePageChange}
                 containerClassName="d-flex justify-content-around align-items-center m-auto mt-5 py-3"
-                pageClassName="btn pagination-btn"
-                pageLinkClassName="medium"
-                activeLinkClassName=""
-                activeClassName="btn btn-primary text-white"
+                pageClassName="list-unstyled"
+                pageLinkClassName="btn pagination-btn"
+                activeLinkClassName="btn btn-primary medium"
+                // activeClassName="btn btn-primary text-white"
                 forcePage={currentPage - 1}
             />
         </div>
