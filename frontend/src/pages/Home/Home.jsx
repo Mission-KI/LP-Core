@@ -5,6 +5,8 @@ import { getDatasets } from '../../api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Paginator from '../../components/widgets/Paginator';
 import { Spinner } from 'react-bootstrap';
+import logo from '../../assets/img/brand/logo.webp';
+import Filters from '../../components/Filters/Filters';
 
 function Home() {
   const [datasets, setDatasets] = useState({});
@@ -48,25 +50,30 @@ function Home() {
     navigate(`?page=${newPage}&q=${searchTerm}`);
   };
 
-  if (loading) {
-    return (
-      <div className='d-flex justify-content-center align-items-center' style={{ height: 450 }}>
-        <Spinner variant='primary' />
-      </div>
-    );
-  }
-
   return (
-    <>
-      <MainSearchBar />
-      <Results datasets={datasets} />
+    <div className="pb-4 px-5" style={{ maxWidth: 1300 }}>
+      <div className="row">
+        <div className="col-md-2">
+          <Filters />
+        </div>
+        <div className="col-md-10">
+          <div className='d-flex flex-column mb-5'>
+            <img src={logo} alt="" style={{ maxWidth: 150 }} />
+            <span className='text-muted ps-1 pt-1'>Dataset Search Engine</span>
+          </div>
+          <MainSearchBar />
+          <Results datasets={datasets} loading={loading} />
 
-      <Paginator
-        pageCount={pageCount}
-        handlePageChange={handlePageChange}
-        currentPage={currentPage}
-      />
-    </>
+          <Paginator
+            pageCount={pageCount}
+            handlePageChange={handlePageChange}
+            currentPage={currentPage}
+          />
+        </div>
+      </div>
+
+    </div>
+
   );
 }
 

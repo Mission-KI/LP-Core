@@ -2,10 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { Star } from 'react-bootstrap-icons'
 import ResultItem from './ResultItem'
 import Paginator from '../widgets/Paginator'
+import { Spinner } from 'react-bootstrap';
 
-function Results({ datasets }) {
+function Results({ datasets, loading }) {
 
     const totalDatasetCount = datasets.hits?.total?.value;
+
+    if (loading) {
+        return (
+            <div className='d-flex justify-content-center align-items-center' style={{ height: 450 }}>
+                <Spinner variant='primary' />
+            </div>
+        );
+    }
 
 
     return (
