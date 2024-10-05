@@ -13,8 +13,12 @@ function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestion
     const handleSelectSuggestion = (suggestion) => {
         setLocalSearchTerm(suggestion);
         setShowSuggestions(false);
-        navigate('/?q='+suggestion);
-    }
+
+        const params = new URLSearchParams(window.location.search);
+        params.set('q', suggestion);
+        navigate(`/?${params.toString()}`);
+    };
+
 
     return showSuggestions ? (
         <Dropdown.Menu show className="border-0 shadow-sm rounded-lg w-100" style={{ position: 'absolute', top: '100%', left: 0, zIndex: 10, transform: 'translateY(10px)' }}>
