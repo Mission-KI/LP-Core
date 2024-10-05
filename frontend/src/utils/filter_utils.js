@@ -61,7 +61,7 @@ export const filterSections = [
         title: "File size",
         filters: [
             {
-                label: "Min size",
+                label: "Min size (MB)",
                 name: "min_size",
                 type: "range",
                 minValue: 1,
@@ -69,13 +69,30 @@ export const filterSections = [
                 defaultValue: 1,
             },
             {
-                label: "Max size",
+                label: "Max size (MB)",
                 name: "max_size",
                 type: "range",
                 minValue: 1,
                 maxValue: 5,
                 defaultvalue: 5,
             }
+        ]
+    },
+    {
+        title: "Viewed by you",
+        filters: [
+            {
+                label: "Viewed",
+                name: "viewed",
+                value: "true",
+                type: "radio",
+            },
+            {
+                label: "Not viewed",
+                name: "viewed",
+                value: "false",
+                type: "radio",
+            },
         ]
     },
 ]

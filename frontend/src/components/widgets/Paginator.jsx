@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, ThreeDots } from 'react-bootstrap-icons';
 
 function Paginator({ pageCount, handlePageChange, currentPage }) {
     return (
-        <div className='container' style={{ maxWidth: 700 }}>
+        <div className='container overflow-auto' style={{ maxWidth: 700 }}>
             <ReactPaginate
                 previousLabel={<div className='btn hover-lg'><ChevronLeft /></div>}
                 nextLabel={<div className='btn hover-lg'><ChevronRight /></div>}
@@ -16,11 +16,10 @@ function Paginator({ pageCount, handlePageChange, currentPage }) {
                 marginPagesDisplayed={1}
                 pageRangeDisplayed={10}
                 onPageChange={handlePageChange}
-                containerClassName="d-flex justify-content-around align-items-center m-auto mt-5 py-3"
+                containerClassName="d-flex justify-content-around align-items-center m-auto mt-5 py-3 px-0"
                 pageClassName="list-unstyled"
                 pageLinkClassName="btn pagination-btn"
                 activeLinkClassName="btn btn-primary medium"
-                // activeClassName="btn btn-primary text-white"
                 forcePage={currentPage - 1}
             />
         </div>

@@ -13,4 +13,5 @@
 .searchBarWrapper span {
     border: none !important;
     background-color: transparent !important;
+    text-wrap: wrap;
 }

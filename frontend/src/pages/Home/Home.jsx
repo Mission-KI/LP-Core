@@ -42,7 +42,7 @@ function Home() {
     };
 
     fetchDatasets();
-  }, [currentPage, searchTerm]);
+  }, [location]);
 
   const handlePageChange = (selectedItem) => {
     const newPage = selectedItem.selected + 1;
@@ -53,10 +53,10 @@ function Home() {
   return (
     <div className="pb-4 px-5" style={{ maxWidth: 1300 }}>
       <div className="row">
-        <div className="col-md-2">
+        <div className="col-md-2 order-md-1 order-2">
           <Filters />
         </div>
-        <div className="col-md-10">
+        <div className="col-md-10 order-md-2 order-1">
           <div className='d-flex flex-column mb-5'>
             <img src={logo} alt="" style={{ maxWidth: 150 }} />
             <span className='text-muted ps-1 pt-1'>Dataset Search Engine</span>

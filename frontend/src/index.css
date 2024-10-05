@@ -103,7 +103,7 @@ body {
 
 .main-content-wrapper {
   min-height: 90vh;
-  padding-top: 122px;
+  padding-top: 80px;
 }
 
 input[type="search"]::-webkit-search-decoration,
