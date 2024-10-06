@@ -4,13 +4,12 @@ import Results from '../../components/Results/Results';
 import { getDatasets } from '../../api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Paginator from '../../components/widgets/Paginator';
-import { Spinner } from 'react-bootstrap';
 import logo from '../../assets/img/brand/logo.webp';
 import Filters from '../../components/Filters/Filters';
 
 function Home() {
   const [datasets, setDatasets] = useState({});
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchParams, setSearchParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
   const [loading, setLoading] = useState(true);
@@ -21,10 +20,13 @@ function Home() {
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
     const page = parseInt(queryParams.get('page')) || 1;
-    const q = queryParams.get('q') || '';
+    const params = {};
+    queryParams.forEach((value, key) => {
+      params[key] = value;
+    });
 
-    setCurrentPage(p => page);
-    setSearchTerm(q);
+    setCurrentPage(page);
+    setSearchParams(params);
   }, [location]);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ function Home() {
       setLoading(true);
       try {
         const from = (currentPage - 1) * resultsPerPage;
-        const fetchedDatasets = await getDatasets(from, resultsPerPage, searchTerm);
+        const fetchedDatasets = await getDatasets(from, resultsPerPage, searchParams);
         setDatasets(fetchedDatasets);
       } catch (error) {
         console.error('Error fetching datasets:', error);
@@ -42,12 +44,12 @@ function Home() {
     };
 
     fetchDatasets();
-  }, [location]);
+  }, [searchParams, currentPage]);
 
   const handlePageChange = (selectedItem) => {
     const newPage = selectedItem.selected + 1;
-    setCurrentPage(p => newPage);
-    navigate(`?page=${newPage}&q=${searchTerm}`);
+    setCurrentPage(newPage);
+    navigate(`?page=${newPage}&${new URLSearchParams(searchParams)}`);
   };
 
   return (
@@ -71,9 +73,7 @@ function Home() {
           />
         </div>
       </div>
-
     </div>
-
   );
 }
 

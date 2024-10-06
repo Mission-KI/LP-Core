@@ -107,10 +107,10 @@ function Filters() {
     return (
         <div className='d-flex flex-column'>
             {filterSections.map((filterSection) => (
-                <FormGroup key={filterSection.title}>
-                    <label className='mt-4 mb-2 small fw-500 text-uppercase'>{filterSection.title}</label>
+                <FormGroup key={filterSection.title} className='mb-4'>
+                    <label className='mb-2 small fw-500 text-uppercase'>{filterSection.title}</label>
                     {filterSection.filters.map((filter) => (
-                        <div className='d-flex align-items-center' key={filter.label}>
+                        <div className='d-flex align-items-center py-1' key={filter.label}>
                             {filter.type === 'checkbox' && (
                                 <CustomCheckbox
                                     checked={checkedOptions[filter.label] || false}

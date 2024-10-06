@@ -1,15 +1,29 @@
 import { elasticURL, elasticUsername, elasticPassword } from "./config";
 
-export const getDatasets = async (from = 0, size = 10, searchTerm = '') => {
+export const getDatasets = async (from = 0, size = 10, params = {}) => {
     try {
         const base64Credentials = btoa(`${elasticUsername}:${elasticPassword}`);
+
+        const mustClauses = [];
+
+        for (const [key, value] of Object.entries(params)) {
+            if (key === 'page') continue;
+
+            if (key === 'q') {
+                mustClauses.push({ match: { name: value } });
+            } else if (key === 'dataspace') {
+                mustClauses.push({ match: { 'dataSpace.name': value } });
+            } else {
+                mustClauses.push({ match: { [key]: value } });
+            }
+        }
 
         const query = {
             "from": from,
             "size": size,
-            "query": searchTerm ? {
-                "match": {
-                    "name": searchTerm
+            "query": mustClauses.length > 0 ? {
+                "bool": {
+                    "must": mustClauses
                 }
             } : {
                 "match_all": {}
@@ -37,6 +51,7 @@ export const getDatasets = async (from = 0, size = 10, searchTerm = '') => {
         throw new Error(error);
     }
 };
+
 
 export const getDataset = async (id) => {
     try {
