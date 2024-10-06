@@ -41,7 +41,7 @@ function DatasetDetails() {
     return (
         <>
             <Header />
-            <div className="container px-5">
+            <div className="container px-5 pt-5">
                 <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
