@@ -56,10 +56,10 @@ function DatasetDetails() {
 
                 <div className='d-flex align-items-center mt-4'>
                     {datasetDetails?._source?.tags?.map((tag) =>
-                        <button className='btn bgc-success small rounded-lg me-3' key={tag}>{tag}</button>
+                        <button className='btn bgc-primary-lighter small rounded-lg me-3' key={tag}>{tag}</button>
                     )}
-                    <button className='btn bgc-success small rounded-lg me-3'>Transport</button>
-                    <button className='btn bgc-success small rounded-lg me-3'>Price</button>
+                    <button className='btn bgc-primary-lighter small rounded-lg me-3'>Transport</button>
+                    <button className='btn bgc-primary-lighter small rounded-lg me-3'>Price</button>
                 </div>
 
                 <div className="row mt-4">

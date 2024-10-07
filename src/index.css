@@ -1,14 +1,15 @@
 :root {
-  --color-primary-darker: #181a30;
-  --color-primary: #4D81F1;
+  --color-primary: #43ACFF;
+  --color-primary-lighter: #8DD5FB;
+  --color-primary-darker: #253761;
   --color-primary-hover: #4879e0;
   --color-text: #1e1f21;
   --color-text-lighter: #4C4D4E;
   --color-body-background: #fff;
   --color-main-background: #fff;
-  --color-light-gray: #eaeaea;
-  --color-darker-gray: #d5d5d5;
-  --color-danger: #cf004c;
+  --color-light-gray: #F2F2F2;
+  --color-darker-gray: #D9D9D9;
+  --color-danger: #FF3FFF;
   --color-success: #20c996aa !important;
 }
 
@@ -34,7 +35,7 @@ body {
   margin: 0;
   padding: 0;
   color: var(--color-text) !important;
-  font-family: 'Inter', sans-serif !important;
+  font-family: Helvetica, Arial, sans-serif !important;
   font-weight: 400;
   font-style: normal;
 }
@@ -73,8 +74,16 @@ body {
   color: var(--color-primary-darker);
 }
 
+.bgc-primary-lighter {
+  background-color: var(--color-primary-lighter) !important;
+}
+
 .bgc-success {
   background-color: var(--color-success) !important;
+}
+
+.bgc-danger {
+  background-color: var(--color-danger) !important;
 }
 
 .bg-primary {
@@ -198,11 +207,12 @@ li.disabled,
   display: none !important;
 }
 
-.next::marker, .previous::marker {
+.next::marker,
+.previous::marker {
   list-style: none !important;
 }
 
-.pagination-btn{
+.pagination-btn {
   background-color: var(--color-light-gray) !important;
   border-radius: 50%;
   display: flex;
@@ -210,6 +220,6 @@ li.disabled,
   align-items: center;
 }
 
-.pagination-btn:hover{
+.pagination-btn:hover {
   background-color: var(--color-darker-gray) !important;
 }
