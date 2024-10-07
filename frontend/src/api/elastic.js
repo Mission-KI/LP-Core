@@ -4,32 +4,40 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
     try {
         const base64Credentials = btoa(`${elasticUsername}:${elasticPassword}`);
 
+        const urlParams = new URLSearchParams(window.location.search);
         const mustClauses = [];
+        const shouldClauses = [];
 
-        for (const [key, value] of Object.entries(params)) {
+        for (const key of urlParams.keys()) {
+            const values = urlParams.getAll(key);
+
             if (key === 'page') continue;
 
             if (key === 'q') {
-                if(value == ''){
-                    continue
+                if (values[0] === '') {
+                    continue;
                 }
-                mustClauses.push({ match: { name: value } });
+                mustClauses.push({ match: { name: values[0] } });
             } else if (key === 'dataspace') {
-                mustClauses.push({ match: { 'dataSpace.name': value } });
+                for (const value of values) {
+                    shouldClauses.push({ match: { 'dataSpace.name': value } });
+                }
             } else {
-                mustClauses.push({ match: { [key]: value } });
+                for (const value of values) {
+                    shouldClauses.push({ match: { [key]: value } });
+                }
             }
         }
 
         const query = {
             "from": from,
             "size": size,
-            "query": mustClauses.length > 0 ? {
+            "query": {
                 "bool": {
-                    "must": mustClauses
+                    "must": mustClauses,
+                    "should": shouldClauses.length > 0 ? shouldClauses : undefined,
+                    "minimum_should_match": 1
                 }
-            } : {
-                "match_all": {}
             },
             "aggs": {
                 "variety_ds_count": {

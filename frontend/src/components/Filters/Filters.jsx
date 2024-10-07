@@ -153,7 +153,6 @@ function Filters({ datasets }) {
                             {(filter.type === 'checkbox' || filter.type === 'radio') ? (() => {
                                 let formattedFilterName = filter.value.toLowerCase().replace(" ", "_") + "_count";
                                 const count = datasets?.aggregations?.[formattedFilterName]?.doc_count || 0;
-                                console.log(formattedFilterName);
                                 return (
                                     <span className={styles.filterCountBadge}>{count}</span>
                                 );
