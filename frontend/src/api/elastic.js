@@ -36,7 +36,6 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 "bool": {
                     "must": mustClauses,
                     "should": shouldClauses.length > 0 ? shouldClauses : undefined,
-                    "minimum_should_match": 1
                 }
             },
             "aggs": {
