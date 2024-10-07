@@ -53,28 +53,21 @@ function Home() {
   };
 
   return (
-    <div className="pb-4 px-5" style={{ maxWidth: 1350 }}>
-      <div className="row">
-        <div className="col-md-3 order-md-1 order-2 pe-5">
-          <Filters datasets={datasets} />
-        </div>
-        <div className="col-md-9 order-md-2 order-1 px-3">
-          <div className='d-flex flex-column mb-5'>
-            <a href="/" style={{ width: 'fit-content' }}>
-              <img src={logo} alt="" style={{ maxWidth: 150 }} />
-            </a>
-            <span className='text-muted ps-1 pt-1'>Dataset Search Engine</span>
-          </div>
-          <MainSearchBar />
-          <Results datasets={datasets} loading={loading} />
-
-          <Paginator
-            pageCount={pageCount}
-            handlePageChange={handlePageChange}
-            currentPage={currentPage}
-          />
-        </div>
+    <div className="container pb-4" style={{ maxWidth: 1050 }}>
+      <div className='d-flex flex-column mb-5'>
+        <a href="/" style={{ width: 'fit-content' }}>
+          <img src={logo} alt="" style={{ maxWidth: 150 }} />
+        </a>
+        <span className='text-muted ps-1 pt-1'>Dataset Search Engine</span>
       </div>
+      <MainSearchBar datasets={datasets} />
+      <Results datasets={datasets} loading={loading} />
+
+      <Paginator
+        pageCount={pageCount}
+        handlePageChange={handlePageChange}
+        currentPage={currentPage}
+      />
     </div>
   );
 }

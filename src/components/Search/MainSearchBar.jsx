@@ -6,8 +6,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import styles from './SearchBar.module.css';
 import SearchSuggestions from './SearchSuggestions';
 import { useNavigate } from 'react-router';
+import Filters from '../Filters/Filters';
 
-function MainSearchBar() {
+function MainSearchBar({ datasets }) {
     const [localSearchTerm, setLocalSearchTerm] = useState('');
     const [filtersDropdopwnVisible, setFiltersDropdopwnVisible] = useState(false);
     const [showSuggestions, setShowSuggestions] = useState(false);
@@ -31,13 +32,13 @@ function MainSearchBar() {
 
     const handleSubmit = e => {
         e.preventDefault();
-    
-        const newSearchTerm = e.target.elements.query.value;        
-        const params = new URLSearchParams(window.location.search);        
-        params.set('q', newSearchTerm);        
+
+        const newSearchTerm = e.target.elements.query.value;
+        const params = new URLSearchParams(window.location.search);
+        params.set('q', newSearchTerm);
         navigate(`/?${params.toString()}`);
     };
-    
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -85,35 +86,8 @@ function MainSearchBar() {
                         <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
                             <Filter className='me-2' /> <span className='medium'>Filters</span>
                         </div>
-                        <Dropdown.Menu className='border-0 shadow-sm' style={{ top: 0, transform: 'translate(-65%, 50px)' }}>
-                            <div className='py-3 px-3'>
-                                <div className='mb-3'>
-                                    <label className='mb-1'>Tags</label>
-                                    <input type="text" className='form-control' placeholder='keywords' />
-                                </div>
-                                <div className='mb-3'>
-                                    <label className='mb-1'>Dataroom</label>
-                                    <div className='d-flex'>
-                                        <button className='btn btn-basic rounded-lg me-2'>MDS</button>
-                                        <button className='btn btn-basic rounded-lg me-2'>Medien</button>
-                                        <button className='btn btn-basic rounded-lg me-2'>NAP</button>
-                                        <button className='btn btn-basic rounded-lg me-2'>Other</button>
-                                    </div>
-                                </div>
-                                <div className='mb-3'>
-                                    <label className='mb-1'>File Size</label> <br />
-                                    <input type="range" min={0} max={5} className='w-100' />
-                                </div>
-                                <div className='mb-3'>
-                                    <label className='mb-1'>Data Structure</label>
-                                    <div className='d-flex'>
-                                        <button className='btn btn-basic rounded-lg me-2'>Video & Image</button>
-                                        <button className='btn btn-basic rounded-lg me-2'>Audio</button>
-                                        <button className='btn btn-basic rounded-lg me-2'>Documents</button>
-                                        <button className='btn btn-basic rounded-lg me-2'>Graphs</button>
-                                    </div>
-                                </div>
-                            </div>
+                        <Dropdown.Menu className='border-0 shadow-sm' style={{ width: 300, top: 0, transform: 'translate(-65%, 50px)' }}>
+                            <Filters datasets={datasets} />
                         </Dropdown.Menu>
                     </Dropdown>
                 </InputGroup.Text>
