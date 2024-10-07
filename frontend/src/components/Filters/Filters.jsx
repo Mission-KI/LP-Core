@@ -4,8 +4,9 @@ import { FormGroup } from 'react-bootstrap';
 import CustomCheckbox from 'react-custom-checkbox';
 import { Check } from 'react-bootstrap-icons';
 import { useNavigate, useLocation } from 'react-router-dom';
+import styles from './Filters.module.css'
 
-function Filters() {
+function Filters({ datasets }) {
     const [checkedOptions, setCheckedOptions] = useState({});
     const [rangeValues, setRangeValues] = useState({});
     const [checkedRadios, setCheckedRadios] = useState({});
@@ -105,12 +106,12 @@ function Filters() {
     };
 
     return (
-        <div className='d-flex flex-column'>
+        <div className={styles.filtersWrapper}>
             {filterSections.map((filterSection) => (
                 <FormGroup key={filterSection.title} className='mb-4'>
                     <label className='mb-2 small fw-500 text-uppercase'>{filterSection.title}</label>
                     {filterSection.filters.map((filter) => (
-                        <div className='d-flex align-items-center py-1' key={filter.label}>
+                        <div className='d-flex justify-content-between align-items-center py-1' key={filter.label}>
                             {filter.type === 'checkbox' && (
                                 <CustomCheckbox
                                     checked={checkedOptions[filter.label] || false}
@@ -148,6 +149,16 @@ function Filters() {
                                     />
                                 </div>
                             )}
+
+                            {(filter.type === 'checkbox' || filter.type === 'radio') ? (() => {
+                                let formattedFilterName = filter.value.toLowerCase().replace(" ", "_") + "_count";
+                                const count = datasets?.aggregations?.[formattedFilterName]?.doc_count || 0;
+                                console.log(formattedFilterName);
+                                return (
+                                    <span className={styles.filterCountBadge}>{count}</span>
+                                );
+                            })() : null}
+
                         </div>
                     ))}
                 </FormGroup>

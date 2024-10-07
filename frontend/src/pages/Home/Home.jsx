@@ -53,12 +53,12 @@ function Home() {
   };
 
   return (
-    <div className="pb-4 px-5" style={{ maxWidth: 1300 }}>
+    <div className="pb-4 px-5" style={{ maxWidth: 1350 }}>
       <div className="row">
-        <div className="col-md-2 order-md-1 order-2">
-          <Filters />
+        <div className="col-md-3 order-md-1 order-2 pe-5">
+          <Filters datasets={datasets} />
         </div>
-        <div className="col-md-10 order-md-2 order-1">
+        <div className="col-md-9 order-md-2 order-1 px-3">
           <div className='d-flex flex-column mb-5'>
             <a href="/" style={{ width: 'fit-content' }}>
               <img src={logo} alt="" style={{ maxWidth: 150 }} />

@@ -10,6 +10,9 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
             if (key === 'page') continue;
 
             if (key === 'q') {
+                if(value == ''){
+                    continue
+                }
                 mustClauses.push({ match: { name: value } });
             } else if (key === 'dataspace') {
                 mustClauses.push({ match: { 'dataSpace.name': value } });
@@ -27,6 +30,15 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 }
             } : {
                 "match_all": {}
+            },
+            "aggs": {
+                "variety_ds_count": {
+                    "filter": {
+                        "term": {
+                            "dataSpace.name.enum": "variety DS"
+                        }
+                    }
+                }
             }
         };
 
