@@ -42,7 +42,7 @@ function DatasetDetails() {
         <>
             <Header />
             <div className="container px-5 pt-5">
-                <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
+                <h3 className='bold mt-5'>{datasetDetails?._source?.name}</h3>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
