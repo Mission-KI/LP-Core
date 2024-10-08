@@ -228,3 +228,7 @@ li.disabled,
 .pagination-btn:hover {
   background-color: var(--color-darker-gray) !important;
 }
+
+.dropdown-toggle::after{
+  display: none !important;
+}
