@@ -5,7 +5,6 @@ import { getDatasets } from '../../api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Paginator from '../../components/widgets/Paginator';
 import logo from '../../assets/img/brand/logo.webp';
-import Filters from '../../components/Filters/Filters';
 
 function Home() {
   const [datasets, setDatasets] = useState({});
