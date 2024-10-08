@@ -32,3 +32,14 @@ export const removeBookmark = (bookmarkId) => {
     localStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks));
     toast.success("Bookmark removed!");
 };
+
+
+/**
+ * Check if a bookmark ID is already in the list of bookmarks.
+ * @param {string} bookmarkId The ID of the bookmark to check.
+ * @returns {boolean} True if the bookmark exists, false otherwise.
+ */
+export const isBookmarked = (bookmarkId) => {
+    const bookmarks = getBookmarks();
+    return bookmarks.includes(bookmarkId);
+};
