@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
+import { getAutocompleteSuggestions } from '../../api/elastic';
 
 function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestions, setShowSuggestions }) {
-    const suggestions = ['BeebucketCsv', 'Another wonderful test', 'Another test to have more variety', 'Test'];
+    const [suggestions, setSuggestions] = useState([]);
     const navigate = useNavigate();
-
-    const filteredSuggestions = suggestions.filter(suggestion =>
-        suggestion.toLowerCase().includes(localSearchTerm.toLowerCase())
-    );
 
     const handleSelectSuggestion = (suggestion) => {
         setLocalSearchTerm(suggestion);
@@ -19,11 +16,28 @@ function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestion
         navigate(`/?${params.toString()}`);
     };
 
+    useEffect(() => {
+        const fetchSuggestions = async () => {
+            if (localSearchTerm) {
+                try {
+                    const fetchedSuggestions = await getAutocompleteSuggestions(localSearchTerm);
+                    setSuggestions(fetchedSuggestions);
+                } catch (error) {
+                    console.error("Error fetching suggestions:", error);
+                    setSuggestions([]);
+                }
+            } else {
+                setSuggestions([]);
+            }
+        };
 
-    return showSuggestions ? (
+        fetchSuggestions();
+    }, [localSearchTerm]);
+
+    return showSuggestions && (
         <Dropdown.Menu show className="border-0 shadow-sm rounded-lg w-100" style={{ position: 'absolute', top: '100%', left: 0, zIndex: 10, transform: 'translateY(10px)' }}>
-            {filteredSuggestions.length > 0 ? (
-                filteredSuggestions.map((suggestion, index) => (
+            {suggestions.length > 0 ? (
+                suggestions.map((suggestion, index) => (
                     <Dropdown.Item key={index} onClick={() => handleSelectSuggestion(suggestion)}>
                         <span className='txt-lighter'>{suggestion}</span>
                     </Dropdown.Item>
@@ -32,7 +46,7 @@ function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestion
                 <Dropdown.Item disabled>No suggestions found</Dropdown.Item>
             )}
         </Dropdown.Menu>
-    ) : null;
+    );
 }
 
 export default SearchSuggestions;

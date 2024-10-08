@@ -17,7 +17,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 if (values[0] === '') {
                     continue;
                 }
-                mustClauses.push({ match: { name: values[0] } });
+                mustClauses.push({ match_phrase: { name: values[0] } });
             } else if (key === 'dataspace') {
                 for (const value of values) {
                     shouldClauses.push({ match: { 'dataSpace.name': value } });
@@ -97,23 +97,45 @@ export const getDataset = async (id) => {
     }
 };
 
-export const searchSuggestions = async (id) => {
+export const getAutocompleteSuggestions = async (searchTerm) => {
     try {
         const base64Credentials = btoa(`${elasticUsername}:${elasticPassword}`);
 
-        const response = await fetch(`${elasticURL}/_doc/${id}`, {
-            method: 'GET',
+        const words = searchTerm.split(/\s+/);
+        const wildcardQueries = words.map(word => `*${word.split('').join('*')}*`);
+
+        const query = {
+            query: {
+                bool: {
+                    must: wildcardQueries.map(wildcard => ({
+                        wildcard: {
+                            name: {
+                                value: wildcard,
+                                case_insensitive: true
+                            }
+                        }
+                    }))
+                }
+            },
+            _source: ["name"],
+            size: 8
+        };
+
+        const response = await fetch(`${elasticURL}/_search`, {
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 'Authorization': `Basic ${base64Credentials}`,
             },
+            body: JSON.stringify(query),
         });
 
         const responseData = await response.json();
 
         if (response.ok) {
-            return responseData;
+            // Map the response to extract the name attributes
+            return responseData.hits.hits.map(hit => hit._source.name);
         } else {
             throw new Error(responseData.errors);
         }
