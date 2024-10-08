@@ -17,8 +17,8 @@ function AttributeConsistency({ datasetDetails }) {
                         {datasetDetails?._source?.datasets?.[0].columns?.map((attribute) => (
                             <tr className='hover'>
                                 <td>{attribute.name}</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <td>?</td>
+                                <td>?</td>
                             </tr>
                         ))}
 

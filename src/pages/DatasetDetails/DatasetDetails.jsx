@@ -11,6 +11,7 @@ import { LineChart } from '../../components/Charts/LineChart';
 import { calculateTemporalConsistency, calculateTemporalCover } from '../../utils/dataset_utils';
 import AttributeList from './AttributeList';
 import AttributeConsistency from './AttributeConsistency';
+import TemporalConsistency from './TemporalConsistency';
 
 function DatasetDetails() {
 
@@ -138,21 +139,8 @@ function DatasetDetails() {
                             <Tab eventKey="attribute_consistency" title={<span>ATTRIBUTE<br />CONSISTENCY</span>} className={styles.tab}>
                                 <AttributeConsistency datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="contact" title={<span>TEMPORAL<br />CONSISTENCY</span>} className={styles.tab}>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                </div>
+                            <Tab eventKey="temporal_consistency" title={<span>TEMPORAL<br />CONSISTENCY</span>} className={styles.tab}>
+                                <TemporalConsistency datasetDetails={datasetDetails} />
                             </Tab>
                             <Tab eventKey="home1" title={<span>NUMERIC VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
                                 NUMERIC VALUE DISTRIBUTION
