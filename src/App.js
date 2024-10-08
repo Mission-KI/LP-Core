@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import LandingLayout from "./modules/common/layouts/LandingLayout";
 import AppLayout from "./modules/common/layouts/AppLayout";
-import homeRoutes from "./modules/home";
+import searchEngineRoutes from "./modules/search_engine";
 import datasetRoutes from "./modules/dataset";
 
 const routes = [
@@ -9,7 +9,7 @@ const routes = [
     path: '/',
     element: <LandingLayout />,
     children: [
-      ...homeRoutes
+      ...searchEngineRoutes
     ],
   },
   {

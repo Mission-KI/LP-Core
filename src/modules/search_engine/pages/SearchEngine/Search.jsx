@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Paginator from '../../../common/components/widgets/Paginator';
 import logo from '../../../common/assets/img/brand/logo.webp';
 
-function Home() {
+function Search() {
   const [datasets, setDatasets] = useState({});
   const [searchParams, setSearchParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
@@ -71,4 +71,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Search;
