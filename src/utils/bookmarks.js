@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 /**
  * Get the list of bookmarks from localStorage.
  * @returns {Array} The list of bookmark IDs.
@@ -16,6 +18,7 @@ export const addBookmark = (bookmarkId) => {
     if (!bookmarks.includes(bookmarkId)) { // Prevent duplicates
         bookmarks.push(bookmarkId);
         localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+        toast.success("Bookmark saved!");
     }
 };
 
@@ -27,4 +30,5 @@ export const removeBookmark = (bookmarkId) => {
     const bookmarks = getBookmarks();
     const updatedBookmarks = bookmarks.filter(id => id !== bookmarkId);
     localStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks));
+    toast.success("Bookmark removed!");
 };

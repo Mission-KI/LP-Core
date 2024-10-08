@@ -43,7 +43,7 @@ function Header({ datasetDetails }) {
                     </div>
                     <div className='pe-2'>
                         <button onClick={() => addBookmark(datasetDetails?._id)} className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
-                            Bookmark <StarFill className='text-warning ms-2' />
+                            Bookmark <StarFill className='txt-danger ms-2' />
                         </button>
                     </div>
                 </div>

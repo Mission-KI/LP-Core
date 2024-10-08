@@ -1,7 +1,7 @@
 :root {
   --color-primary: #43ACFF;
   --color-primary-lighter: #8DD5FB;
-  --color-primary-darker: #253761;
+  --color-primary-darker: #307eba;
   --color-primary-hover: #4879e0;
   --color-text: #1e1f21;
   --color-text-lighter: #4C4D4E;
@@ -11,6 +11,7 @@
   --color-darker-gray: #D9D9D9;
   --color-danger: #FF3FFF;
   --color-success: #20c996aa !important;
+  --toastify-color-success: #43ACFF !important;
 }
 
 a {
@@ -72,6 +73,10 @@ body {
 
 .txt-primary-darker {
   color: var(--color-primary-darker);
+}
+
+.txt-danger {
+  color: var(--color-danger) !important;
 }
 
 .bgc-primary-lighter {

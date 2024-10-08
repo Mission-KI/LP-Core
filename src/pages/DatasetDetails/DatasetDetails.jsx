@@ -134,142 +134,25 @@ function DatasetDetails() {
                                 <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
                                     <div className="table-responsive">
                                         <table className='table table-bordered'>
-                                            <tr className='hover'>
-                                                <th className='small py-2'>type</th>
-                                                <th className='small py-2'>specification</th>
-                                                <th className='small py-2'>attribute</th>
-                                                <th className='small py-2'>type</th>
-                                                <th className='small py-2'>specification</th>
-                                                <th className='small py-2'>attribute</th>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>numeric</td>
-                                                <td>int64</td>
-                                                <td>key</td>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>cost_toll</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>string</td>
-                                                <td>string</td>
-                                                <td>external_reference</td>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>unit_revenue</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>datetime</td>
-                                                <td>date/time</td>
-                                                <td>orderDate</td>
-                                                <td>numeric</td>
-                                                <td>int64</td>
-                                                <td>total_cost</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>loading_meters</td>
-                                                <td>numeric</td>
-                                                <td>int64</td>
-                                                <td>get_unit_cost</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>numeric</td>
-                                                <td>int64</td>
-                                                <td>weightKg</td>
-                                                <td>numeric</td>
-                                                <td>int64</td>
-                                                <td>ankunt</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>string</td>
-                                                <td>string</td>
-                                                <td>price</td>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>Pickup_Cluster-Lat</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>string</td>
-                                                <td>string</td>
-                                                <td>pickupCountry</td>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>Pickup_Cluster-Lon</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>datetime</td>
-                                                <td>date/time</td>
-                                                <td>pickupDateTime</td>
-                                                <td>numeric</td>
-                                                <td>int64</td>
-                                                <td>Delivery_Cluster-Lat</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>string</td>
-                                                <td>string</td>
-                                                <td>pickupStreet</td>
-                                                <td>numeric</td>
-                                                <td>int64</td>
-                                                <td>Delivery_Cluster-Lon</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>string</td>
-                                                <td>string</td>
-                                                <td>pickupZipCode</td>
-                                                <td>string</td>
-                                                <td>string</td>
-                                                <td>Delivery_Cluster-Name</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>numeric</td>
-                                                <td>int64</td>
-                                                <td>pickupZip</td>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>Pickup_NUTS-1-ID</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>pickupLat</td>
-                                                <td>datetime</td>
-                                                <td>date/time</td>
-                                                <td>Pickup_NUTS-1-1D</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>pickupLon</td>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>Pickup_NUTS-1-Lat</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>string</td>
-                                                <td>string</td>
-                                                <td>key_1</td>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>Pickup_NUTS-1-Lon</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>string</td>
-                                                <td>string</td>
-                                                <td>key_1</td>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>Pickup_NUTS-1-Lon</td>
-                                            </tr>
-                                            <tr className='hover'>
-                                                <td>string</td>
-                                                <td>string</td>
-                                                <td>key_1</td>
-                                                <td>numeric</td>
-                                                <td>float64</td>
-                                                <td>Pickup_NUTS-1-Lon</td>
-                                            </tr>
+                                            <thead>
+                                                <tr>
+                                                    <th className='small py-2'>type</th>
+                                                    <th className='small py-2'>specification</th>
+                                                    <th className='small py-2'>attribute</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {datasetDetails?._source?.datasets?.[0].columns?.map((attribute) => (
+                                                    <tr className='hover'>
+                                                        <td>{attribute.dataType == "int64" ? 'numeric' : 'string'}</td>
+                                                        <td>{attribute.dataType ?? "string"}</td>
+                                                        <td>{attribute.name}</td>
+                                                    </tr>
+                                                ))}
+
+                                            </tbody>
+
                                         </table>
                                     </div>
                                 </div>
