@@ -17,7 +17,15 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 if (values[0] === '') {
                     continue;
                 }
-                mustClauses.push({ match_phrase: { name: values[0] } });
+                mustClauses.push({
+                    bool: {
+                        should: [
+                            { match_phrase: { name: values[0] } },
+                            { match_phrase: { 'description': values[0] } },
+                            { match_phrase: { 'dataSpace.name': values[0] } }
+                        ]
+                    }
+                });
             } else if (key === 'dataspace') {
                 for (const value of values) {
                     shouldClauses.push({ match: { 'dataSpace.name': value } });
@@ -134,7 +142,6 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
         const responseData = await response.json();
 
         if (response.ok) {
-            // Map the response to extract the name attributes
             return responseData.hits.hits.map(hit => hit._source.name);
         } else {
             throw new Error(responseData.errors);

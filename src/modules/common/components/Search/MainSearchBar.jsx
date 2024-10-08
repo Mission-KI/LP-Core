@@ -36,7 +36,9 @@ function MainSearchBar({ datasets }) {
         const newSearchTerm = e.target.elements.query.value;
         const params = new URLSearchParams(window.location.search);
         params.set('q', newSearchTerm);
+        params.delete('page');
         navigate(`/?${params.toString()}`);
+        setShowSuggestions(false);
     };
 
 
