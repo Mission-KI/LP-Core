@@ -9,6 +9,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import moment from 'moment';
 import { LineChart } from '../../components/Charts/LineChart';
 import { calculateTemporalConsistency, calculateTemporalCover } from '../../utils/dataset_utils';
+import AttributeList from './AttributeList';
+import AttributeConsistency from './AttributeConsistency';
 
 function DatasetDetails() {
 
@@ -126,58 +128,15 @@ function DatasetDetails() {
                     </div>
                     <div className="col-md-8">
                         <Tabs
-                            defaultActiveKey="list"
+                            defaultActiveKey="attributes"
                             id={styles.datasetAttributeTabs}
                             className="mb-3"
                         >
-                            <Tab eventKey="list" title={<span>ATTRIBUTE<br />LIST</span>} className={styles.tab}>
-                                <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
-                                    <div className="table-responsive">
-                                        <table className='table table-bordered'>
-                                            <thead>
-                                                <tr>
-                                                    <th className='small py-2'>type</th>
-                                                    <th className='small py-2'>specification</th>
-                                                    <th className='small py-2'>attribute</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-
-                                                {datasetDetails?._source?.datasets?.[0].columns?.map((attribute) => (
-                                                    <tr className='hover'>
-                                                        <td>{attribute.dataType == "int64" ? 'numeric' : 'string'}</td>
-                                                        <td>{attribute.dataType ?? "string"}</td>
-                                                        <td>{attribute.name}</td>
-                                                    </tr>
-                                                ))}
-
-                                            </tbody>
-
-                                        </table>
-                                    </div>
-                                </div>
+                            <Tab eventKey="attributes" title={<span>ATTRIBUTE<br />LIST</span>} className={styles.tab}>
+                                <AttributeList datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="profile" title={<span>ATTRIBUTE<br />CONSISTENCY</span>} className={styles.tab}>
-                                <div className="row">
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <LineChart className="w-100" />
-                                    </div>
-                                </div>
+                            <Tab eventKey="attribute_consistency" title={<span>ATTRIBUTE<br />CONSISTENCY</span>} className={styles.tab}>
+                                <AttributeConsistency datasetDetails={datasetDetails} />
                             </Tab>
                             <Tab eventKey="contact" title={<span>TEMPORAL<br />CONSISTENCY</span>} className={styles.tab}>
                                 <div className="row">
