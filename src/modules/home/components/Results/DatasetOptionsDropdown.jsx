@@ -4,8 +4,7 @@ import { ThreeDots } from 'react-bootstrap-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { addBookmark, removeBookmark, isBookmarked } from '../../../common/utils/bookmarks';
 
-function DatasetOptionsDropdown({ dataset }) {
-    const [isBookmarkedState, setIsBookmarkedState] = useState(false);
+function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedState }) {
 
     useEffect(() => {
         if (dataset?._id) {

@@ -43,7 +43,11 @@ function ResultItem({ dataset }) {
                 {isBookmarkedState && (
                     <span className='px-2 py-1'><StarFill /></span>
                 )}
-                <DatasetOptionsDropdown dataset={dataset} />
+                <DatasetOptionsDropdown
+                    dataset={dataset}
+                    isBookmarkedState={isBookmarkedState}
+                    setIsBookmarkedState={setIsBookmarkedState}
+                />
 
             </div>
 
