@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import MainSearchBar from '../../components/Search/MainSearchBar';
+import MainSearchBar from '../../../common/components/Search/MainSearchBar';
 import Results from '../../components/Results/Results';
-import { getDatasets } from '../../api/elastic';
+import { getDatasets } from '../../../common/api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Paginator from '../../components/widgets/Paginator';
-import logo from '../../assets/img/brand/logo.webp';
+import Paginator from '../../../common/components/widgets/Paginator';
+import logo from '../../../common/assets/img/brand/logo.webp';
 
 function Home() {
   const [datasets, setDatasets] = useState({});

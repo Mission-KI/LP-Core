@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
-import Header from '../../components/Header/Header'
+import Header from '../../../common/components/Header/Header'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
-import styles from './DatasetDetails.module.css'
+import styles from './Details.module.css'
 import { useParams } from 'react-router';
-import { getDataset } from '../../api/elastic';
+import { getDataset } from '../../../common/api/elastic';
 import Spinner from 'react-bootstrap/Spinner';
 import moment from 'moment';
 import { LineChart } from '../../components/Charts/LineChart';
-import { calculateTemporalConsistency, calculateTemporalCover } from '../../utils/dataset_utils';
-import AttributeList from './AttributeList';
-import AttributeConsistency from './AttributeConsistency';
-import TemporalConsistency from './TemporalConsistency';
+import { calculateTemporalConsistency, calculateTemporalCover } from '../../../common/utils/dataset_utils';
+import AttributeList from '../../components/AttributeList';
+import AttributeConsistency from '../../components/AttributeConsistency';
+import TemporalConsistency from '../../components/TemporalConsistency';
 
-function DatasetDetails() {
+function Details() {
 
     const { id } = useParams();
     const [datasetDetails, setDatasetDetails] = useState(null);
@@ -167,4 +167,4 @@ function DatasetDetails() {
     )
 }
 
-export default DatasetDetails
+export default Details

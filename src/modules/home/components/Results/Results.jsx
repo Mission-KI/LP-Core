@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Star } from 'react-bootstrap-icons'
 import ResultItem from './ResultItem'
-import Paginator from '../widgets/Paginator'
+import Paginator from '../../../common/components/widgets/Paginator'
 import { Spinner } from 'react-bootstrap';
 
 function Results({ datasets, loading }) {
