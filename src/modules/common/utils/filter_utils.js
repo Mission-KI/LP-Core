@@ -5,31 +5,31 @@ export const filterSections = [
             {
                 label: "variety DS",
                 value: "variety DS",
-                name: "dataspace",
+                name: "dataSpace.name",
                 type: "checkbox",
             },
             {
                 label: "MDS",
                 value: "MDS",
-                name: "dataspace",
+                name: "dataSpace.name",
                 type: "checkbox",
             },
             {
                 label: "Medien",
                 value: "Medien",
-                name: "dataspace",
+                name: "dataSpace.name",
                 type: "checkbox",
             },
             {
                 label: "NAP",
                 value: "NAP",
-                name: "dataspace",
+                name: "dataSpace.name",
                 type: "checkbox",
             },
             {
                 label: "Other",
                 value: "Other",
-                name: "dataspace",
+                name: "dataSpace.name",
                 type: "checkbox",
             }
         ]

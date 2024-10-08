@@ -26,10 +26,6 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                         ]
                     }
                 });
-            } else if (key === 'dataspace') {
-                for (const value of values) {
-                    shouldClauses.push({ match: { 'dataSpace.name': value } });
-                }
             } else {
                 for (const value of values) {
                     shouldClauses.push({ match: { [key]: value } });
