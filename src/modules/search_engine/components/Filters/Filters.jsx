@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { filterSections } from '../../utils/filter_utils';
+import { filterSections } from '../../../common/utils/filter_utils';
 import { FormGroup } from 'react-bootstrap';
 import CustomCheckbox from 'react-custom-checkbox';
 import { Check } from 'react-bootstrap-icons';

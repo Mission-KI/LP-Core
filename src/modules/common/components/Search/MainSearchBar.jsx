@@ -6,7 +6,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import styles from './SearchBar.module.css';
 import SearchSuggestions from './SearchSuggestions';
 import { useNavigate } from 'react-router';
-import Filters from '../Filters/Filters';
+import Filters from '../../../search_engine/components/Filters/Filters';
 
 function MainSearchBar({ datasets }) {
     const [localSearchTerm, setLocalSearchTerm] = useState('');

@@ -7,7 +7,6 @@ import { Question } from 'react-bootstrap-icons'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from 'react-router';
 import SearchSuggestions from './SearchSuggestions';
-import Filters from '../Filters/Filters';
 
 function SearchBar() {
 
