@@ -1,0 +1,18 @@
+.filtersWrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    padding: 1rem;
+}
+
+.filterCountBadge {
+    border-radius: 50%;
+    min-width: 25px;
+    padding: 0 .4rem;
+    height: 25px;
+    background-color: var(--color-light-gray);
+    font-size: 9.5pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

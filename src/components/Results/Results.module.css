@@ -1,0 +1,14 @@
+.resultItem {
+    border-bottom: 1.3px solid var(--color-light-gray) !important;
+    padding: 1.5rem 0;
+}
+
+.title {
+    font-weight: 500 !important;
+    font-size: 14pt;
+    color: var(--color-primary-darker) !important;
+}
+
+.title:hover {
+    text-decoration: underline !important;
+}
