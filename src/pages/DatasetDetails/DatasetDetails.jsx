@@ -8,6 +8,7 @@ import { getDataset } from '../../api/elastic';
 import Spinner from 'react-bootstrap/Spinner';
 import moment from 'moment';
 import { LineChart } from '../../components/Charts/LineChart';
+import { calculateTemporalConsistency, calculateTemporalCover } from '../../utils/dataset_utils';
 
 function DatasetDetails() {
 
@@ -40,9 +41,9 @@ function DatasetDetails() {
 
     return (
         <>
-            <Header />
+            <Header datasetDetails={datasetDetails} />
             <div className="container px-5 pt-5">
-                <h3 className='bold mt-5'>{datasetDetails?._source?.name}</h3>
+                <h3 className='bold mt-5 pt-3'>{datasetDetails?._source?.name}</h3>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
@@ -100,8 +101,9 @@ function DatasetDetails() {
                                     <p className='medium mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'None'}</p>
                                     <p className='medium mb-1'>{datasetDetails?._source?.growthFlag ?? 'None'}</p>
                                     <p className='medium mb-1'>Unknown</p>
-                                    <p className='medium mb-1'>4 months</p>
-                                    <p className='medium mb-1'>Inconsistent</p>
+                                    <p className='medium mb-1'>{calculateTemporalCover(datasetDetails?.datasets)}</p>
+                                    <p className='medium mb-1'>{calculateTemporalConsistency(datasetDetails?.datasets)}</p>
+
                                     <br />
                                     <p className='medium mb-1'>
                                         {datasetDetails?._source?.datasets && datasetDetails?._source?.datasets?.length > 0 ? datasetDetails?._source.datasets[0].columns.length : 'No row count available'}

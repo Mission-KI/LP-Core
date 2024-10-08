@@ -4,8 +4,9 @@ import { BookmarkStarFill, Download, Star, StarFill } from 'react-bootstrap-icon
 import icon from '../../assets/img/brand/icon.webp'
 import styles from './Header.module.css'
 import { Link } from 'react-router-dom'
+import { addBookmark, removeBookmark } from '../../utils/bookmarks'
 
-function Header() {
+function Header({ datasetDetails }) {
     return (
         <div id={styles.header}>
             <div className='d-flex flex-wrap align-items-center pe-4'>
@@ -35,13 +36,15 @@ function Header() {
                         </button>
                     </div>
                     <div className='pe-2'>
-                        <button className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
+                        <button onClick={() => removeBookmark(datasetDetails?._id)} className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
                             <Star className='me-1' />
                             Remove Bookmark
                         </button>
                     </div>
                     <div className='pe-2'>
-                        <button className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>Bookmarks <StarFill className='text-warning ms-2' /> </button>
+                        <button onClick={() => addBookmark(datasetDetails?._id)} className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
+                            Bookmark <StarFill className='text-warning ms-2' />
+                        </button>
                     </div>
                 </div>
             </div>
