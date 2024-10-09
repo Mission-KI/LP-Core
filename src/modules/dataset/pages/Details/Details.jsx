@@ -46,7 +46,7 @@ function Details() {
         <>
             <Header datasetDetails={datasetDetails} />
             <div className="container px-5 pt-5">
-                <h3 className='bold mt-5 pt-3'>{datasetDetails?._source?.name}</h3>
+                <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
@@ -58,14 +58,6 @@ function Details() {
                     </span>
                 </div>
 
-                <div className='d-flex align-items-center mt-4'>
-                    {datasetDetails?._source?.tags?.map((tag) =>
-                        <button className='btn bgc-primary-lighter small rounded-lg me-3' key={tag}>{tag}</button>
-                    )}
-                    <button className='btn bgc-primary-lighter small rounded-lg me-3'>Transport</button>
-                    <button className='btn bgc-primary-lighter small rounded-lg me-3'>Price</button>
-                </div>
-
                 <div className="row mt-4">
                     <div className="col-md-4">
                         <div className="rounded-lg border bg-white p-3 mt-2">
@@ -75,58 +67,68 @@ function Details() {
                             <hr />
                             <div className='d-flex w-100 justify-content-between'>
                                 <div>
-                                    <p className='medium mb-1'>Structure</p>
-                                    <p className='medium mb-1'>Volume</p>
-                                    <p className='medium mb-1'>Compression</p>
-                                    <p className='medium mb-1'>Transfer type</p>
-                                    <p className='medium mb-1'>Immutability</p>
-                                    <p className='medium mb-1'>Growth</p>
-                                    <p className='medium mb-1'>Growth rate</p>
-                                    <p className='medium mb-1'>Temporal cover</p>
-                                    <p className='medium mb-1'>Temporal consistency</p>
+                                    <p className='small mb-1 text-uppercase'>Structure</p>
+                                    <p className='small mb-1 text-uppercase'>Volume</p>
+                                    <p className='small mb-1 text-uppercase'>Compression</p>
+                                    <p className='small mb-1 text-uppercase'>Transfer type</p>
+                                    <p className='small mb-1 text-uppercase'>Immutability</p>
+                                    <p className='small mb-1 text-uppercase'>Growth</p>
+                                    <p className='small mb-1 text-uppercase'>Growth rate</p>
+                                    <p className='small mb-1 text-uppercase'>Temporal cover</p>
+                                    <p className='small mb-1 text-uppercase'>Temporal consistency</p>
                                     <br />
-                                    <p className='medium mb-1'>Number of columns</p>
-                                    <p className='medium mb-1'>Number of lines</p>
-                                    <p className='medium mb-1'>Data types</p>
-                                    <p className='medium mb-1'>Attribute consistency</p>
-                                    <p className='medium mb-1'>Languages</p>
-                                    <p className='medium mb-1'>Numeric value distribution</p>
-                                    <p className='medium mb-1'>String value distribution</p>
-                                    <p className='medium mb-1'>Numeric correlation analysis</p>
-                                    <p className='medium mb-1'>Numeric anomaly analysis</p>
-                                    <p className='medium mb-1'>Data seasonality</p>
+                                    <p className='small mb-1 text-uppercase'>Number of columns</p>
+                                    <p className='small mb-1 text-uppercase'>Number of lines</p>
+                                    <p className='small mb-1 text-uppercase'>Data types</p>
+                                    <p className='small mb-1 text-uppercase'>Attribute consistency</p>
+                                    <p className='small mb-1 text-uppercase'>Languages</p>
+                                    <p className='small mb-1 text-uppercase'>Numeric value distribution</p>
+                                    <p className='small mb-1 text-uppercase'>String value distribution</p>
+                                    <p className='small mb-1 text-uppercase'>Numeric correlation analysis</p>
+                                    <p className='small mb-1 text-uppercase'>Numeric anomaly analysis</p>
+                                    <p className='small mb-1 text-uppercase'>Data seasonality</p>
                                 </div>
                                 <div>
-                                    <p className='medium mb-1'>Text (CSV)</p>
-                                    <p className='medium mb-1'>{(datasetDetails?._source?.volume / 1024 / 1024).toFixed(2)} MB</p>
-                                    <p className='medium mb-1'>{datasetDetails?._source?.compression ?? 'None'}</p>
-                                    <p className='medium mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'None'}</p>
-                                    <p className='medium mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'None'}</p>
-                                    <p className='medium mb-1'>{datasetDetails?._source?.growthFlag ?? 'None'}</p>
-                                    <p className='medium mb-1'>Unknown</p>
-                                    <p className='medium mb-1'>{calculateTemporalCover(datasetDetails?.datasets)}</p>
-                                    <p className='medium mb-1'>{calculateTemporalConsistency(datasetDetails?.datasets)}</p>
+                                    <p className='small mb-1 text-uppercase'>Text (CSV)</p>
+                                    <p className='small mb-1 text-uppercase'>{(datasetDetails?._source?.volume / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className='small mb-1 text-uppercase'>{datasetDetails?._source?.compression ?? 'None'}</p>
+                                    <p className='small mb-1 text-uppercase'>{datasetDetails?._source?.transferTypeFlag ?? 'None'}</p>
+                                    <p className='small mb-1 text-uppercase'>{datasetDetails?._source?.immutabilityFlag ?? 'None'}</p>
+                                    <p className='small mb-1 text-uppercase'>{datasetDetails?._source?.growthFlag ?? 'None'}</p>
+                                    <p className='small mb-1 text-uppercase'>Unknown</p>
+                                    <p className='small mb-1 text-uppercase'>{calculateTemporalCover(datasetDetails?.datasets)}</p>
+                                    <p className='small mb-1 text-uppercase'>{calculateTemporalConsistency(datasetDetails?.datasets)}</p>
 
                                     <br />
-                                    <p className='medium mb-1'>
+                                    <p className='small mb-1 text-uppercase'>
                                         {datasetDetails?._source?.datasets && datasetDetails?._source?.datasets?.length > 0 ? datasetDetails?._source.datasets[0].columns.length : 'No row count available'}
                                     </p>
-                                    <p className='medium mb-1'>
+                                    <p className='small mb-1 text-uppercase'>
                                         {datasetDetails?._source?.datasets && datasetDetails?._source?.datasets?.length > 0 ? datasetDetails?._source.datasets[0].rowCount : 'No row count available'}
                                     </p>
-                                    <p className='medium mb-1'>Time, string, numeric</p>
-                                    <p className='medium mb-1'>Partially inconsistent</p>
-                                    <p className='medium mb-1'>German, English</p>
-                                    <p className='medium mb-1'>Heterogen</p>
-                                    <p className='medium mb-1'>Heterogen</p>
-                                    <p className='medium mb-1'>Partial correlation</p>
-                                    <p className='medium mb-1'>Anomaly exists</p>
-                                    <p className='medium mb-1'>Seasonal, no trend</p>
+                                    <p className='small mb-1 text-uppercase'>Time, string, numeric</p>
+                                    <p className='small mb-1 text-uppercase'>Partially inconsistent</p>
+                                    <p className='small mb-1 text-uppercase'>German, English</p>
+                                    <p className='small mb-1 text-uppercase'>Heterogen</p>
+                                    <p className='small mb-1 text-uppercase'>Heterogen</p>
+                                    <p className='small mb-1 text-uppercase'>Partial correlation</p>
+                                    <p className='small mb-1 text-uppercase'>Anomaly exists</p>
+                                    <p className='small mb-1 text-uppercase'>Seasonal, no trend</p>
                                 </div>
                             </div>
 
                         </div>
+
+                        <div className='d-flex align-items-center mt-4'>
+                            <span className='small pe-3'>TAGS</span>
+                            {datasetDetails?._source?.tags?.map((tag) =>
+                                <button className='btn bgc-primary-lighter small rounded-lg me-3' key={tag}>{tag}</button>
+                            )}
+                        </div>
+
                     </div>
+
+
                     <div className="col-md-8">
                         <Tabs
                             defaultActiveKey="attributes"
