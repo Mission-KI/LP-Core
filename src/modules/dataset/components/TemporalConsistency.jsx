@@ -7,9 +7,9 @@ function TemporalConsistency({ datasetDetails }) {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th className='small py-2'>freq</th>
-                            <th className='small py-2'>attribute</th>
-                            <th className='small py-2'>gaps</th>
+                            <th className='small py-2 bgc-primary text-white'>freq</th>
+                            <th className='small py-2 bgc-primary text-white'>attribute</th>
+                            <th className='small py-2 bgc-primary text-white'>gaps</th>
                         </tr>
                     </thead>
                     <tbody>

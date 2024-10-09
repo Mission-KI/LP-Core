@@ -122,7 +122,7 @@ function Details() {
                         <div className='d-flex align-items-center mt-4'>
                             <span className='small pe-3'>TAGS</span>
                             {datasetDetails?._source?.tags?.map((tag) =>
-                                <button className='btn bgc-primary-lighter small rounded-lg me-3' key={tag}>{tag}</button>
+                                <button className='btn btn-basic border small rounded-lg me-3' key={tag}>{tag}</button>
                             )}
                         </div>
 

@@ -25,7 +25,7 @@ function Header({ datasetDetails }) {
                     <div className='d-sm-flex d-none align-items-center pt-3 flex-wrap'>
                         <div className='pe-2 pt-1'>
                             <button
-                                className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'
+                                className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'
                                 onClick={() => navigate(-1)}
                             >
                                 <ChevronLeft />
@@ -35,32 +35,32 @@ function Header({ datasetDetails }) {
                     </div>
                     <div className="d-sm-flex d-none w-100 align-items-center pt-3 flex-wrap justify-content-end">
                         <div className='pe-2 pt-1'>
-                            <button className='btn btn-basic rounded-lg py-1 small'>Find similar EDP</button>
+                            <button className='btn btn-primary rounded-lg py-1 small'>Find similar EDP</button>
                         </div>
                         <div className='pe-2 pt-1'>
-                            <button className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
+                            <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
                                 <Download className='me-1' /> Schema (JSON)
                             </button>
                         </div>
                         <div className='pe-2 pt-1'>
-                            <button className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
+                            <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
                                 <Download className='me-1' /> Report (pdf)
                             </button>
                         </div>
                         <div className='pe-2 pt-1'>
-                            <button className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
+                            <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
                                 <Download className='me-1' /> Get Dataset
                             </button>
                         </div>
                         <div className='pe-2 pt-1'>
-                            <button onClick={() => removeBookmark(datasetDetails?._id)} className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
+                            <button onClick={() => removeBookmark(datasetDetails?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
                                 <Star className='me-1' />
                                 Remove Bookmark
                             </button>
                         </div>
                         <div className='pe-2 pt-1'>
-                            <button onClick={() => addBookmark(datasetDetails?._id)} className='btn btn-basic rounded-lg py-1 small d-flex align-items-center'>
-                                Bookmark <StarFill className='txt-danger ms-2' />
+                            <button onClick={() => addBookmark(datasetDetails?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                                Bookmark <StarFill className='txt-white ms-2' />
                             </button>
                         </div>
                     </div>

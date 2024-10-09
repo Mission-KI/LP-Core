@@ -91,8 +91,8 @@ body {
   background-color: var(--color-danger) !important;
 }
 
-.bg-primary {
-  background-color: var(--color-primary);
+.bgc-primary {
+  background-color: var(--color-primary) !important;
 }
 
 .bg-primary-darker {

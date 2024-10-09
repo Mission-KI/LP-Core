@@ -7,9 +7,9 @@ function AttributeList({ datasetDetails }) {
                 <table className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th className='small py-2'>type</th>
-                            <th className='small py-2'>specification</th>
-                            <th className='small py-2'>attribute</th>
+                            <th className='small py-2 bgc-primary text-white'>type</th>
+                            <th className='small py-2 bgc-primary text-white'>specification</th>
+                            <th className='small py-2 bgc-primary text-white'>attribute</th>
                         </tr>
                     </thead>
                     <tbody>
