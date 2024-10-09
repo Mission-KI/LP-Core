@@ -1,0 +1,45 @@
+services:
+  # backend:
+  #   build: ./backend
+  #   volumes:
+  #     - "./backend:/backend"
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - postgres
+  #   env_file:
+  #     - .env
+
+  # postgres:
+  #   image: postgres
+  #   container_name: postgres
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #     - /var/run/postgresql:/var/run/postgresql
+  #   ports:
+  #     - "5432:5432"
+  #   env_file:
+  #     - .env
+
+  frontend:
+    build:
+       context: ./frontend
+       dockerfile: Dockerfile.prod
+    volumes:
+      - "./frontend:/app"
+      - "/app/node_modules"
+    ports:
+      - "80:80"
+
+  # nginx:
+  #   image: nginx:latest
+  #   volumes:
+  #     - frontend-build:/usr/share/nginx/html
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     - frontend
+  
+volumes:
+  # postgres_data:
+  frontend-build:
