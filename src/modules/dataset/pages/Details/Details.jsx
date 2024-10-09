@@ -18,6 +18,7 @@ function Details() {
     const { id } = useParams();
     const [datasetDetails, setDatasetDetails] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [activeKey, setActiveKey] = useState('attributes');
 
     useEffect(() => {
         const fetchDatasets = async () => {
@@ -33,6 +34,10 @@ function Details() {
 
         fetchDatasets();
     }, [id]);
+
+    const handleItemClick = (item) => {
+        setActiveKey(item);
+    };
 
     if (loading) {
         return (
@@ -75,18 +80,18 @@ function Details() {
                                     <p className='small mb-1'>Growth</p>
                                     <p className='small mb-1'>Growth rate</p>
                                     <p className='small mb-1'>Temporal cover</p>
-                                    <p className='small mb-1'>Temporal consistency</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('temporal_consistency')}>Temporal consistency</p>
                                     <br />
                                     <p className='small mb-1'>Number of columns</p>
                                     <p className='small mb-1'>Number of lines</p>
                                     <p className='small mb-1'>Data types</p>
-                                    <p className='small mb-1'>Attribute consistency</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('attribute_consistency')}>Attribute consistency</p>
                                     <p className='small mb-1'>Languages</p>
-                                    <p className='small mb-1'>Numeric value distribution</p>
-                                    <p className='small mb-1'>String value distribution</p>
-                                    <p className='small mb-1'>Numeric correlation analysis</p>
-                                    <p className='small mb-1'>Numeric anomaly analysis</p>
-                                    <p className='small mb-1'>Data seasonality</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home1')}>Numeric value distribution</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home2')}>String value distribution</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home3')}>Numeric correlation analysis</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home4')}>Numeric anomaly analysis</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home5')}>Data seasonality</p>
                                 </div>
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>
@@ -131,7 +136,7 @@ function Details() {
 
                     <div className="col-md-8">
                         <Tabs
-                            defaultActiveKey="attributes"
+                            activeKey={activeKey}
                             id={styles.datasetAttributeTabs}
                             className="mb-3"
                         >
