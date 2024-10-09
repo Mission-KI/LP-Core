@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Star } from 'react-bootstrap-icons'
 import ResultItem from './ResultItem'
-import Paginator from '../../../common/components/widgets/Paginator'
 import { Spinner } from 'react-bootstrap';
 
 function Results({ datasets, loading }) {
@@ -18,7 +17,7 @@ function Results({ datasets, loading }) {
 
 
     return (
-        <div className='mt-5 pt-3'>
+        <div className='mt-5 pt-5'>
             <div className="d-flex align-items-center justify-content-between w-100 mb-2">
                 <span className='bold'>{totalDatasetCount} Datasets</span>
                 <div>

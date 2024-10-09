@@ -54,10 +54,7 @@ function Search() {
   return (
     <div className="container pb-4" style={{ maxWidth: 1050 }}>
       <div className='d-flex flex-column mb-5'>
-        <a href="/" style={{ width: 'fit-content' }}>
-          <img src={logo} alt="" style={{ maxWidth: 150 }} />
-        </a>
-        <span className='text-muted ps-1 pt-1'>Dataset Search Engine</span>
+        <a href="/" className='text-decoration-none h2 bold'>Dataset Search Engine</a>
       </div>
       <MainSearchBar datasets={datasets} />
       <Results datasets={datasets} loading={loading} />
