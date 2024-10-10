@@ -3,6 +3,9 @@ import LandingLayout from "./modules/common/layouts/LandingLayout";
 import AppLayout from "./modules/common/layouts/AppLayout";
 import searchEngineRoutes from "./modules/search_engine";
 import datasetRoutes from "./modules/dataset";
+import legalRoutes from './modules/legal';
+import LegalLayout from './modules/common/layouts/LegalLayout';
+import HealthCheck from './modules/search_engine/pages/HealthCheck';
 
 const routes = [
   {
@@ -18,6 +21,17 @@ const routes = [
     children: [
       ...datasetRoutes
     ],
+  },
+  {
+    path: '/',
+    element: <LegalLayout />,
+    children: [
+      ...legalRoutes
+    ],
+  },
+  {
+    path: '/health_check', // Add the health check route
+    element: <HealthCheck />,
   },
   {
     path: '*',
