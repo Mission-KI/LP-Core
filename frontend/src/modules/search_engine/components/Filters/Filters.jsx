@@ -110,46 +110,62 @@ function Filters({ datasets }) {
             {filterSections.map((filterSection) => (
                 <FormGroup key={filterSection.title} className='mb-4'>
                     <label className='mb-2 small fw-500 text-uppercase'>{filterSection.title}</label>
-                    {filterSection.filters.map((filter) => (
-                        <div className='d-flex justify-content-between align-items-center py-1' key={filter.label}>
-                            {filter.type === 'checkbox' && (
-                                <CustomCheckbox
-                                    checked={checkedOptions[filter.label] || false}
-                                    label={<span className='text-muted'>{filter.label}</span>}
-                                    name={filter.name}
-                                    value={filter.value}
-                                    onChange={() => handleCheckboxChange(filter)}
-                                    borderColor="var(--bs-secondary-color)"
-                                    borderWidth="1px"
-                                    icon={<Check className='txt-primary' />}
-                                />
-                            )}
-                            {filter.type === 'radio' && (
-                                <div className='d-flex py-1'>
-                                    <input
-                                        type='radio'
-                                        name={filter.name}
-                                        value={filter.value}
-                                        checked={checkedRadios[filter.name] === filter.value}
-                                        onChange={() => handleRadioChange(filter, filter.value)}
-                                    />
-                                    <label className='medium ps-2 text-muted'>{filter.label}</label>
-                                </div>
-                            )}
-                            {filter.type === 'range' && (
-                                <div className='d-flex flex-column'>
-                                    <label className='small text-muted'>{filter.label}</label>
-                                    <input
-                                        name={filter.name}
-                                        type='range'
-                                        min={filter.minValue}
-                                        max={filter.maxValue}
-                                        value={rangeValues[filter.name] || filter.minValue}
-                                        onChange={(e) => handleRangeChange(filter, e.target.value)}
-                                    />
-                                </div>
-                            )}
-{/* 
+                    <div className='d-flex flex-wrap w-100 align-items-center py-1'>
+                        {filterSection.filters.map((filter) => (
+                            <div key={filter.name}>
+                                {
+                                    filter.type === 'checkbox' && (
+                                        <div className="form-check ps-1 pt-1">
+                                            <input
+                                                type="checkbox"
+                                                className="btn-check"
+                                                id={`checkbox-${filter.value}`}
+                                                name={filter.name}
+                                                value={filter.value}
+                                                checked={checkedOptions[filter.label] || false}
+                                                onChange={() => handleCheckboxChange(filter)}
+                                                autoComplete="off"
+                                            />
+                                            <label
+                                                className={`btn small ${checkedOptions[filter.label] ? 'btn-primary' : 'btn-outline-secondary'}`}
+                                                htmlFor={`checkbox-${filter.value}`}
+                                            >
+                                                {filter.label}
+                                            </label>
+                                        </div>
+                                    )
+                                }
+
+                                {
+                                    filter.type === 'radio' && (
+                                        <div className='d-flex py-1'>
+                                            <input
+                                                type='radio'
+                                                name={filter.name}
+                                                value={filter.value}
+                                                checked={checkedRadios[filter.name] === filter.value}
+                                                onChange={() => handleRadioChange(filter, filter.value)}
+                                            />
+                                            <label className='medium ps-2 text-muted'>{filter.label}</label>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    filter.type === 'range' && (
+                                        <div className='d-flex flex-column'>
+                                            <label className='small text-muted'>{filter.label}</label>
+                                            <input
+                                                name={filter.name}
+                                                type='range'
+                                                min={filter.minValue}
+                                                max={filter.maxValue}
+                                                value={rangeValues[filter.name] || filter.minValue}
+                                                onChange={(e) => handleRangeChange(filter, e.target.value)}
+                                            />
+                                        </div>
+                                    )
+                                }
+                                {/* 
                             {(filter.type === 'checkbox' || filter.type === 'radio') ? (() => {
                                 let formattedFilterName = filter.value.toLowerCase().replace(" ", "_") + "_count";
                                 const count = datasets?.aggregations?.[formattedFilterName]?.doc_count || 0;
@@ -157,9 +173,9 @@ function Filters({ datasets }) {
                                     <span className={styles.filterCountBadge}>{count}</span>
                                 );
                             })() : null} */}
-
-                        </div>
-                    ))}
+                            </div>
+                        ))}
+                    </div>
                 </FormGroup>
             ))}
         </div>
