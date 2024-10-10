@@ -14,7 +14,6 @@ function Filters({ datasets }) {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Get query params from URL
     const getQueryParams = () => {
         const params = new URLSearchParams(location.search);
         const queryObj = {};
@@ -27,7 +26,6 @@ function Filters({ datasets }) {
         return queryObj;
     };
 
-    // Update state based on URL params
     useEffect(() => {
         const queryParams = getQueryParams();
         const newCheckedOptions = {};
@@ -55,7 +53,7 @@ function Filters({ datasets }) {
         });
 
         setCheckedOptions(newCheckedOptions);
-        setRangeValues(newRangeValues); // Initialize the range values based on URL params
+        setRangeValues(newRangeValues);
         setCheckedRadios(newCheckedRadios);
     }, [location]);
 
@@ -89,9 +87,9 @@ function Filters({ datasets }) {
     const handleDoubleRangeChange = (filter, values) => {
         setRangeValues((prev) => ({
             ...prev,
-            [filter.name_1]: values, // Update only the relevant filter's values
+            [filter.name_1]: values,
         }));
-        updateDoubleRangeParams(filter.name_1, filter.name_2, values); // Update the query params with unique names
+        updateDoubleRangeParams(filter.name_1, filter.name_2, values);
     };
 
     const handleRadioChange = (filter, value) => {
@@ -109,7 +107,7 @@ function Filters({ datasets }) {
                     <label className='mb-2 small fw-500 text-uppercase'>{filterSection.title}</label>
                     <div className='d-flex flex-wrap w-100 align-items-center py-1'>
                         {filterSection.filters.map((filter) => (
-                            <div key={filter.name_1}> {/* Use name_1 as a unique key */}
+                            <div key={filter.name_1}>
                                 {filter.type === 'checkbox' && (
                                     <div className="form-check ps-1 pt-1">
                                         <input
@@ -153,10 +151,9 @@ function Filters({ datasets }) {
                                                 className='w-100'
                                                 min={filter.minValue}
                                                 max={filter.maxValue}
-                                                value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]} // Ensure controlled component
+                                                value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
                                                 onChange={(values) => handleDoubleRangeChange(filter, values)}
                                             />
-                                            {/* Display the selected values below the slider */}
                                             <div className='d-flex justify-content-between mt-2'>
                                                 <span className='small text-muted'>{rangeValues[filter.name_1]?.[0] || filter.minValue}</span>
                                                 <span className='small text-muted'>{rangeValues[filter.name_1]?.[1] || filter.maxValue}</span>

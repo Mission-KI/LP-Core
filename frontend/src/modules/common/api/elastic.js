@@ -26,7 +26,30 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                         ]
                     }
                 });
-            } else {
+            } else if (key === 'min_size') {
+                const min_mb = parseFloat(values[0]);
+                const min_bytes = min_mb * 1024 * 1024;
+                mustClauses.push({
+                    range: {
+                        volume: {
+                            gt: min_bytes
+                        }
+                    }
+                });
+            }
+            else if (key === 'max_size') {
+                const max_mb = parseFloat(values[0]);
+                const max_bytes = max_mb * 1024 * 1024;
+                mustClauses.push({
+                    range: {
+                        volume: {
+                            lt: max_bytes
+                        }
+                    }
+                });
+            }
+
+            else {
                 for (const value of values) {
                     shouldClauses.push({ match: { [key]: value } });
                 }
