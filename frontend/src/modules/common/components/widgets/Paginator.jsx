@@ -14,7 +14,7 @@ function Paginator({ pageCount, handlePageChange, currentPage }) {
                 breakClassName="d-flex align-items-center"
                 pageCount={pageCount}
                 marginPagesDisplayed={1}
-                pageRangeDisplayed={10}
+                pageRangeDisplayed={8}
                 onPageChange={handlePageChange}
                 containerClassName="d-flex justify-content-around align-items-center m-auto mt-5 py-3 px-0"
                 pageClassName="list-unstyled"
