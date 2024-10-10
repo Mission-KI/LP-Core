@@ -4,7 +4,7 @@ import { ThreeDots } from 'react-bootstrap-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { addBookmark, removeBookmark, isBookmarked } from '../../../common/utils/bookmarks';
 
-function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedState }) {
+function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedState, bookmarks, setBookmarks }) {
 
     useEffect(() => {
         if (dataset?._id) {
@@ -13,13 +13,24 @@ function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedSta
     }, [dataset]);
 
     const handleAddBookmark = () => {
-        addBookmark(dataset._id);
+        const updatedBookmarks = { ...bookmarks };
+        updatedBookmarks.hits = updatedBookmarks.hits || { hits: [] };
+        updatedBookmarks.hits.hits.push(dataset);
+
+        setBookmarks(updatedBookmarks);
         setIsBookmarkedState(true);
+        addBookmark(dataset._id);
     };
 
     const handleRemoveBookmark = () => {
-        removeBookmark(dataset._id);
+        const updatedBookmarks = { ...bookmarks };
+        updatedBookmarks.hits.hits = updatedBookmarks.hits.hits.filter(
+            (item) => item._id !== dataset._id
+        );
+
+        setBookmarks(updatedBookmarks);
         setIsBookmarkedState(false);
+        removeBookmark(dataset._id);
     };
 
     return (

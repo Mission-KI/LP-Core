@@ -8,7 +8,7 @@ import { isBookmarked } from '../../../common/utils/bookmarks';
 import { Dropdown } from 'react-bootstrap';
 import { StarFill } from 'react-bootstrap-icons';
 
-function ResultItem({ dataset }) {
+function ResultItem({ dataset, bookmarks, setBookmarks }) {
 
     const [isBookmarkedState, setIsBookmarkedState] = useState(false);
 
@@ -47,6 +47,8 @@ function ResultItem({ dataset }) {
                     dataset={dataset}
                     isBookmarkedState={isBookmarkedState}
                     setIsBookmarkedState={setIsBookmarkedState}
+                    bookmarks={bookmarks}
+                    setBookmarks={setBookmarks}
                 />
 
             </div>
