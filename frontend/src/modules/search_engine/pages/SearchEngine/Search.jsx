@@ -60,7 +60,7 @@ function Search() {
   return (
     <div className="container pb-4" style={{ maxWidth: 1050 }}>
       <div className='d-flex flex-column mb-5'>
-        <a href="/" className='text-decoration-none h2 bold'>Dataset Search Engine</a>
+        <a href="/" className='text-decoration-none h2 bold' style={{ width: 'fit-content' }}>Dataset Search Engine</a>
       </div>
       <MainSearchBar datasets={datasets} />
       <Results datasets={datasets} loading={loading} bookmarks={bookmarks} setBookmarks={setBookmarks} />
