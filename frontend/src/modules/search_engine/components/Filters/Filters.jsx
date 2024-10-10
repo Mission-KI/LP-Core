@@ -5,11 +5,14 @@ import CustomCheckbox from 'react-custom-checkbox';
 import { Check } from 'react-bootstrap-icons';
 import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Filters.module.css'
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 function Filters({ datasets }) {
     const [checkedOptions, setCheckedOptions] = useState({});
-    const [rangeValues, setRangeValues] = useState({});
     const [checkedRadios, setCheckedRadios] = useState({});
+    const [rangeValues, setRangeValues] = useState([1, 999]);
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -38,6 +41,12 @@ function Filters({ datasets }) {
                 }
                 if (filter.type === 'range') {
                     newRangeValues[filter.name] = queryParams[filter.name]?.[0] || filter.minValue;
+                }
+                if (filter.type === 'doublerange') {
+                    newRangeValues[0] = Number(queryParams[filter.name_1]?.[0]) || filter.minValue; // Min value
+                    newRangeValues[1] = Number(queryParams[filter.name_2]?.[0]) || filter.maxValue; // Max value
+                    console.log(newRangeValues);
+                    setRangeValues([newRangeValues[0], newRangeValues[1]])
                 }
                 if (filter.type === 'radio') {
                     newCheckedRadios[filter.name] = queryParams[filter.name]?.[0] || '';
@@ -70,9 +79,10 @@ function Filters({ datasets }) {
         navigate(`?${params.toString()}`, { replace: true });
     };
 
-    const updateRadioParams = (name, value) => {
+    const updateDoubleRangeParams = (name_1, name_2, values) => {
         const params = new URLSearchParams(location.search);
-        params.set(name, value);
+        params.set(name_1, values[0]); // Update min value
+        params.set(name_2, values[1]); // Update max value
         navigate(`?${params.toString()}`, { replace: true });
     };
 
@@ -87,22 +97,18 @@ function Filters({ datasets }) {
         updateQueryParams(filter.name, filter.value, isChecked);
     };
 
-    const handleRangeChange = (filter, value) => {
-        setRangeValues((prev) => ({
-            ...prev,
-            [filter.name]: value,
-        }));
+    const handleDoubleRangeChange = (values) => {
+        setRangeValues(values); // Update the local state with both values
+        // updateDoubleRangeParams('min_size', 'max_size', values); // Update the query params
+    }
 
-        updateRangeParams(filter.name, value);
-    };
 
     const handleRadioChange = (filter, value) => {
         setCheckedRadios((prev) => ({
             ...prev,
             [filter.name]: value,
         }));
-
-        updateRadioParams(filter.name, value);
+        updateQueryParams(filter.name, value, true);
     };
 
     return (
@@ -151,16 +157,14 @@ function Filters({ datasets }) {
                                     )
                                 }
                                 {
-                                    filter.type === 'range' && (
+                                    filter.type === 'doublerange' && (
                                         <div className='d-flex flex-column'>
                                             <label className='small text-muted'>{filter.label}</label>
-                                            <input
-                                                name={filter.name}
-                                                type='range'
+                                            <Slider range
                                                 min={filter.minValue}
                                                 max={filter.maxValue}
-                                                value={rangeValues[filter.name] || filter.minValue}
-                                                onChange={(e) => handleRangeChange(filter, e.target.value)}
+                                                value={rangeValues.length ? rangeValues : [filter.minValue, filter.maxValue]}
+                                                onChange={handleDoubleRangeChange}
                                             />
                                         </div>
                                     )
