@@ -127,7 +127,7 @@ function Filters({ datasets }) {
                                                 autoComplete="off"
                                             />
                                             <label
-                                                className={`btn rounded-lg small ${checkedOptions[filter.label] ? 'btn-primary' : 'btn-outline-secondary'}`}
+                                                className={`btn rounded-lg small ${checkedOptions[filter.label] ? 'btn-dark' : 'btn-outline-secondary'}`}
                                                 htmlFor={`checkbox-${filter.value}`}
                                             >
                                                 {filter.label}
