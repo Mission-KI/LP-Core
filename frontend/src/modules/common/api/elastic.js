@@ -1,8 +1,7 @@
-import { elasticURL, elasticUsername, elasticPassword } from "./config";
+import { elasticURL, elasticApiKey, elasticUsername, elasticPassword } from "./config";
 
 export const getDatasets = async (from = 0, size = 10, params = {}) => {
     try {
-        const base64Credentials = btoa(`${elasticUsername}:${elasticPassword}`);
 
         const urlParams = new URLSearchParams(window.location.search);
         const mustClauses = [];
@@ -103,7 +102,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Basic ${base64Credentials}`,
+                'Authorization': `ApiKey ${elasticApiKey}`,
             },
             body: JSON.stringify(query)
         });
@@ -123,14 +122,13 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
 
 export const getDataset = async (id) => {
     try {
-        const base64Credentials = btoa(`${elasticUsername}:${elasticPassword}`);
 
         const response = await fetch(`${elasticURL}/_doc/${id}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Basic ${base64Credentials}`,
+                'Authorization': `ApiKey ${elasticApiKey}`,
             },
         });
 
@@ -148,7 +146,6 @@ export const getDataset = async (id) => {
 
 export const getAutocompleteSuggestions = async (searchTerm) => {
     try {
-        const base64Credentials = btoa(`${elasticUsername}:${elasticPassword}`);
 
         const words = searchTerm.split(/\s+/);
         const wildcardQueries = words.map(word => `*${word.split('').join('*')}*`);
@@ -175,7 +172,7 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `Basic ${base64Credentials}`,
+                'Authorization': `ApiKey ${elasticApiKey}`,
             },
             body: JSON.stringify(query),
         });
