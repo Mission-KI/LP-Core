@@ -84,21 +84,4 @@ export const filterSections = [
             }
         ]
     },
-    {
-        title: "Viewed by you",
-        filters: [
-            {
-                label: "Viewed",
-                name: "viewed",
-                value: "true",
-                type: "radio",
-            },
-            {
-                label: "Not viewed",
-                name: "viewed",
-                value: "false",
-                type: "radio",
-            },
-        ]
-    },
 ]
