@@ -156,6 +156,11 @@ function Filters({ datasets }) {
                                                 value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]} // Ensure controlled component
                                                 onChange={(values) => handleDoubleRangeChange(filter, values)}
                                             />
+                                            {/* Display the selected values below the slider */}
+                                            <div className='d-flex justify-content-between mt-2'>
+                                                <span className='small text-muted'>{rangeValues[filter.name_1]?.[0] || filter.minValue}</span>
+                                                <span className='small text-muted'>{rangeValues[filter.name_1]?.[1] || filter.maxValue}</span>
+                                            </div>
                                         </div>
                                     </div>
                                 )}
