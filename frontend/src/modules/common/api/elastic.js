@@ -138,7 +138,8 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
         const responseData = await response.json();
 
         if (response.ok) {
-            return responseData.hits.hits.map(hit => hit._source.name);
+            const uniqueSuggestions = [...new Set(responseData.hits.hits.map(hit => hit._source.name))];
+            return uniqueSuggestions;
         } else {
             throw new Error(responseData.errors);
         }
