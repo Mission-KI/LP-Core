@@ -48,6 +48,28 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     }
                 });
             }
+            // else if (key === 'min_lines') {
+            //     const min_lines = parseInt(values[0]); // Convert the first URL parameter value to an integer
+            //     mustClauses.push({
+            //         script: {
+            //             script: {
+            //                 source: `
+            //                     if (doc.containsKey('datasets') && doc['datasets'].size() > 0) {
+            //                         // Access the 'datasets' object directly
+            //                         def datasetsObj = doc['datasets'];
+            //                         if (datasetsObj.containsKey('rowCount')) {
+            //                             return datasetsObj['rowCount'] > params.minLines; // Compare rowCount to minLines
+            //                         }
+            //                     } 
+            //                     return false; // Return false if conditions are not met
+            //                 `,
+            //                 params: {
+            //                     minLines: min_lines // Pass the min_lines value as a parameter
+            //                 }
+            //             }
+            //         }
+            //     });
+            // }
 
             else {
                 for (const value of values) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Star } from 'react-bootstrap-icons'
+import { Star, StarFill } from 'react-bootstrap-icons'
 import ResultItem from './ResultItem'
 import { Spinner } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
@@ -40,7 +40,10 @@ function Results({ datasets, loading, bookmarks, setBookmarks }) {
                             <div>
                                 <span className='d-flex align-items-center fw-500'>
                                     Bookmarks
-                                    <Star className='ms-2' />
+                                    {bookmarks?.hits?.hits?.length != 0 ? (
+                                        <StarFill className='ms-2' />)
+                                        : <Star className='ms-2' />
+                                    }
                                 </span>
                             </div>
                         }>
