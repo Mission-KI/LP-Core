@@ -148,23 +148,14 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
     try {
 
         const words = searchTerm.split(/\s+/);
-        const wildcardQueries = words.map(word => `*${word.split('').join('*')}*`);
 
         const query = {
-            query: {
-                bool: {
-                    must: wildcardQueries.map(wildcard => ({
-                        wildcard: {
-                            name: {
-                                value: wildcard,
-                                case_insensitive: true
-                            }
-                        }
-                    }))
+            "query": {
+                "query_string": {
+                    "query": searchTerm,
+                    "default_field": "name"
                 }
-            },
-            _source: ["name"],
-            size: 8
+            }
         };
 
         const response = await fetch(`${elasticURL}/_search`, {
