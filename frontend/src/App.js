@@ -4,6 +4,7 @@ import AppLayout from "./modules/common/layouts/AppLayout";
 import searchEngineRoutes from "./modules/search_engine";
 import datasetRoutes from "./modules/dataset";
 import legalRoutes from './modules/legal';
+import LegalLayout from './modules/common/layouts/LegalLayout';
 
 const routes = [
   {
@@ -22,7 +23,7 @@ const routes = [
   },
   {
     path: '/',
-    element: <LandingLayout />,
+    element: <LegalLayout />,
     children: [
       ...legalRoutes
     ],
