@@ -14,15 +14,19 @@ function TemporalConsistency({ datasetDetails }) {
                     </thead>
                     <tbody>
 
-                        {datasetDetails?._source?.datasets?.[0].columns
-                            ?.filter((attribute) => attribute.temporalConsistencies)
-                            ?.map((attribute) => (
-                                <tr className='hover'>
-                                    <td>?</td>
-                                    <td>{attribute.name}</td>
-                                    <td>?</td>
-                                </tr>
-                            ))}
+                        {datasetDetails?._source?.datasets &&
+                            Object.values(datasetDetails._source.datasets)?.[0]?.columns &&
+                            Object.values(Object.values(datasetDetails._source.datasets)[0].columns)
+                                .filter((attribute) => attribute.temporalConsistencies)
+                                .map((attribute) => (
+                                    <tr className='hover' key={attribute.name}>
+                                        <td>?</td>
+                                        <td>{attribute.name}</td>
+                                        <td>?</td>
+                                    </tr>
+                                ))
+                        }
+
 
                     </tbody>
 

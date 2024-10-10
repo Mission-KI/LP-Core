@@ -9,8 +9,8 @@ export const filterSections = [
                 type: "checkbox",
             },
             {
-                label: "MDS",
-                value: "MDS",
+                label: "TestDataSpace",
+                value: "TestDataSpace",
                 name: "dataSpace.name",
                 type: "checkbox",
             },
