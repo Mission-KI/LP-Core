@@ -27,9 +27,9 @@ function ResultItem({ dataset }) {
                         <DatasetOverviewPopup dataset={dataset} />
                     </div>
                 </Link>
-                <p className='medium pt-2'>{dataset._source.description}</p>
+                <p className='medium pt-1'>{dataset._source.description}</p>
 
-                <div className='d-flex justify-content-between mt-4 flex-wrap'>
+                <div className='d-flex justify-content-between mt-3 flex-wrap'>
                     <a href={dataset._source?.dataSpace?.url} target='_blank' className='medium text-muted text-decoration-underline me-2'>{dataset._source?.dataSpace?.name}</a>
                     <span className='medium text-muted text-decoration-underline pe-2'>serie-a-logistic solutions</span>
                     <span className='medium text-muted pe-2'>Files (CSV)</span>
