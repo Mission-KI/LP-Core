@@ -9,8 +9,8 @@ export const filterSections = [
                 type: "checkbox",
             },
             {
-                label: "MDS",
-                value: "MDS",
+                label: "TestDataSpace",
+                value: "TestDataSpace",
                 name: "dataSpace.name",
                 type: "checkbox",
             },
@@ -67,37 +67,33 @@ export const filterSections = [
         title: "File size",
         filters: [
             {
-                label: "Min size (MB)",
-                name: "min_size",
-                type: "range",
-                minValue: 1,
-                maxValue: 5,
-                defaultValue: 1,
+                label: "Size range (MB)",
+                name_1: "min_size",
+                name_2: "max_size",
+                type: "doublerange",
+                minValue: 0,
+                maxValue: 1000,
             },
-            {
-                label: "Max size (MB)",
-                name: "max_size",
-                type: "range",
-                minValue: 1,
-                maxValue: 5,
-                defaultvalue: 5,
-            }
         ]
     },
     {
-        title: "Viewed by you",
+        title: "Attributes",
         filters: [
             {
-                label: "Viewed",
-                name: "viewed",
-                value: "true",
-                type: "radio",
+                label: "Lines",
+                name_1: "min_lines",
+                name_2: "max_lines",
+                type: "doublerange",
+                minValue: 0,
+                maxValue: 1000,
             },
             {
-                label: "Not viewed",
-                name: "viewed",
-                value: "false",
-                type: "radio",
+                label: "Columns",
+                name_1: "min_columns",
+                name_2: "max_columns",
+                type: "doublerange",
+                minValue: 0,
+                maxValue: 1000,
             },
         ]
     },

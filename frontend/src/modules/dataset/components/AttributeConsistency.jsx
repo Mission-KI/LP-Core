@@ -14,13 +14,16 @@ function AttributeConsistency({ datasetDetails }) {
                     </thead>
                     <tbody>
 
-                        {datasetDetails?._source?.datasets?.[0].columns?.map((attribute) => (
-                            <tr className='hover'>
-                                <td>{attribute.name}</td>
-                                <td>?</td>
-                                <td>?</td>
-                            </tr>
-                        ))}
+                        {datasetDetails?._source?.datasets &&
+                            Object.keys(datasetDetails._source.datasets).map((datasetKey) => (
+                                Object.keys(datasetDetails._source.datasets[datasetKey].columns).map((columnKey) => (
+                                    <tr className='hover' key={columnKey}>
+                                        <td>{columnKey}</td>
+                                    </tr>
+                                ))
+                            ))
+                        }
+
 
                     </tbody>
 

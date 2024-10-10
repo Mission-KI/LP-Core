@@ -26,7 +26,52 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                         ]
                     }
                 });
-            } else {
+            } else if (key === 'min_size') {
+                const min_mb = parseFloat(values[0]);
+                const min_bytes = min_mb * 1024 * 1024;
+                mustClauses.push({
+                    range: {
+                        volume: {
+                            gt: min_bytes
+                        }
+                    }
+                });
+            }
+            else if (key === 'max_size') {
+                const max_mb = parseFloat(values[0]);
+                const max_bytes = max_mb * 1024 * 1024;
+                mustClauses.push({
+                    range: {
+                        volume: {
+                            lt: max_bytes
+                        }
+                    }
+                });
+            }
+            // else if (key === 'min_lines') {
+            //     const min_lines = parseInt(values[0]); // Convert the first URL parameter value to an integer
+            //     mustClauses.push({
+            //         script: {
+            //             script: {
+            //                 source: `
+            //                     if (doc.containsKey('datasets') && doc['datasets'].size() > 0) {
+            //                         // Access the 'datasets' object directly
+            //                         def datasetsObj = doc['datasets'];
+            //                         if (datasetsObj.containsKey('rowCount')) {
+            //                             return datasetsObj['rowCount'] > params.minLines; // Compare rowCount to minLines
+            //                         }
+            //                     } 
+            //                     return false; // Return false if conditions are not met
+            //                 `,
+            //                 params: {
+            //                     minLines: min_lines // Pass the min_lines value as a parameter
+            //                 }
+            //             }
+            //         }
+            //     });
+            // }
+
+            else {
                 for (const value of values) {
                     shouldClauses.push({ match: { [key]: value } });
                 }
@@ -138,7 +183,8 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
         const responseData = await response.json();
 
         if (response.ok) {
-            return responseData.hits.hits.map(hit => hit._source.name);
+            const uniqueSuggestions = [...new Set(responseData.hits.hits.map(hit => hit._source.name))];
+            return uniqueSuggestions;
         } else {
             throw new Error(responseData.errors);
         }

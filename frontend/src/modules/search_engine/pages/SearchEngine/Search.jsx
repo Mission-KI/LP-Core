@@ -5,9 +5,11 @@ import { getDatasets } from '../../../common/api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Paginator from '../../../common/components/widgets/Paginator';
 import logo from '../../../common/assets/img/brand/logo.webp';
+import { isBookmarked } from '../../../common/utils/bookmarks';
 
 function Search() {
   const [datasets, setDatasets] = useState({});
+  const [bookmarks, setBookmarks] = useState({});
   const [searchParams, setSearchParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
@@ -35,6 +37,10 @@ function Search() {
         const from = (currentPage - 1) * resultsPerPage;
         const fetchedDatasets = await getDatasets(from, resultsPerPage, searchParams);
         setDatasets(fetchedDatasets);
+
+        const bookmarkedDatasets = fetchedDatasets?.hits?.hits?.filter(dataset => isBookmarked(dataset._id));
+        setBookmarks({ hits: { hits: bookmarkedDatasets } });
+
       } catch (error) {
         console.error('Error fetching datasets:', error);
       } finally {
@@ -54,10 +60,10 @@ function Search() {
   return (
     <div className="container pb-4" style={{ maxWidth: 1050 }}>
       <div className='d-flex flex-column mb-5'>
-        <a href="/" className='text-decoration-none h2 bold'>Dataset Search Engine</a>
+        <a href="/" className='text-decoration-none h2 bold' style={{ width: 'fit-content' }}>Dataset Search Engine</a>
       </div>
       <MainSearchBar datasets={datasets} />
-      <Results datasets={datasets} loading={loading} />
+      <Results datasets={datasets} loading={loading} bookmarks={bookmarks} setBookmarks={setBookmarks} />
 
       <Paginator
         pageCount={pageCount}

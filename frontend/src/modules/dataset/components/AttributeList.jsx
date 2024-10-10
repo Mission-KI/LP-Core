@@ -14,13 +14,17 @@ function AttributeList({ datasetDetails }) {
                     </thead>
                     <tbody>
 
-                        {datasetDetails?._source?.datasets?.[0].columns?.map((attribute) => (
-                            <tr className='hover'>
-                                <td>{attribute.name}</td>
-                                <td>{attribute.dataType == "int64" ? 'numeric' : 'string'}</td>
-                                <td>{attribute.dataType ?? "string"}</td>
-                            </tr>
-                        ))}
+                        {datasetDetails?._source?.datasets &&
+                            Object.values(datasetDetails._source.datasets)?.[0]?.columns &&
+                            Object.entries(Object.values(datasetDetails._source.datasets)[0].columns).map(([columnKey, attribute]) => (
+                                <tr className='hover' key={columnKey}>
+                                    <td>{columnKey}</td>
+                                    <td>{attribute.dataType === "int64" ? 'numeric' : 'string'}</td>
+                                    <td>{attribute.dataType ?? "string"}</td>
+                                </tr>
+                            ))
+                        }
+
 
                     </tbody>
 

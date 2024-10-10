@@ -138,6 +138,7 @@ function Details() {
                         <Tabs
                             activeKey={activeKey}
                             id={styles.datasetAttributeTabs}
+                            onSelect={(k) => setActiveKey(k)}
                             className="mb-3"
                         >
                             <Tab eventKey="attributes" title={<span>ATTRIBUTE<br />LIST</span>} className={styles.tab}>
