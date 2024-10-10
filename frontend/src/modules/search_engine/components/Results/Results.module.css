@@ -1,4 +1,5 @@
 .resultItem {
+    border-top: 1.3px solid var(--color-light-gray) !important;
     border-bottom: 1.3px solid var(--color-light-gray) !important;
     padding: 1.5rem 0;
     display: flex;
