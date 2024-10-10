@@ -3,6 +3,7 @@ import LandingLayout from "./modules/common/layouts/LandingLayout";
 import AppLayout from "./modules/common/layouts/AppLayout";
 import searchEngineRoutes from "./modules/search_engine";
 import datasetRoutes from "./modules/dataset";
+import legalRoutes from './modules/legal';
 
 const routes = [
   {
@@ -17,6 +18,13 @@ const routes = [
     element: <AppLayout />,
     children: [
       ...datasetRoutes
+    ],
+  },
+  {
+    path: '/',
+    element: <LandingLayout />,
+    children: [
+      ...legalRoutes
     ],
   },
   {
