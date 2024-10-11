@@ -127,37 +127,54 @@ function DatasetOverviewPopup(dataset) {
                   style={{
                     paddingLeft: "13px",
                     paddingRight: "13px",
-                    marginBottom: "20px",
+                    marginBottom: "10px",
                   }}
                 >
                   <div
-                    className={`col-6 ${styles["data-info"]} d-flex flex-row justify-content-between w-100`}
+                    className={`col-4 ${styles["data-info"]} d-flex flex-row justify-content-between`}
+                    style={{maxWidth: '35% !important'}}
                   >
-                    <div>
-                      <p className={styles.attribute}>STRUCTURE</p>
-                      <p className={styles.attribute}>VOLUME</p>
-                      <p className={styles.attribute}>COMPRESSION</p>
-                      <p className={styles.attribute}>TRANSFER TYPE</p>
-                      <p className={styles.attribute}>IMMUTABILITY</p>
-                      <p className={styles.attribute}>GROWTH</p>
-                      <p className={styles.attribute}>GROWTH RATE</p>
-                      <p className={styles.attribute}>TEMPORAL COVER</p>
-                      <p className={styles.attribute}>TEMPORAL CONSISTENCY</p>
-                    </div>
-                    <div>
-                      <p className={styles.attribute}>{structure}</p>
-                      <p className={styles.attribute}>{volume} MB</p>
-                      <p className={styles.attribute}>{compression}</p>
-                      <p className={styles.attribute}>{transferType}</p>
-                      <p className={styles.attribute}>{immutability}</p>
-                      <p className={styles.attribute}>{growth}</p>
-                      <p className={styles.attribute}>Unknown</p>
-                      <p className={styles.attribute}>TEST HERE</p>
-                      <p className={styles.attribute}>TEST HERE</p>
+                    <div className="w-100">
+                      <div className="d-flex justify-content-between w-100">
+                        <p className={styles.attribute}>STRUCTURE</p>
+                        <p className={styles.attribute}>{structure}</p>
+                      </div>
+                      <div className="d-flex justify-content-between w-100">
+                        <p className={styles.attribute}>VOLUME</p>
+                        <p className={styles.attribute}>{volume}</p>
+                      </div>
+                      <div className="d-flex justify-content-between w-100">
+                        <p className={styles.attribute}>COMPRESSION</p>
+                        <p className={styles.attribute}>{compression}</p>
+                      </div>
+                      <div className="d-flex justify-content-between w-100">
+                        <p className={styles.attribute}>TRANSFER TYPE</p>
+                        <p className={styles.attribute}>{transferType}</p>
+                      </div>
+                      <div className="d-flex justify-content-between w-100">
+                        <p className={styles.attribute}>IMMUTABILITY</p>
+                        <p className={styles.attribute}>{immutability}</p>
+                      </div>
+                      <div className="d-flex justify-content-between w-100">
+                        <p className={styles.attribute}>GROWTH</p>
+                        <p className={styles.attribute}>{growth}</p>
+                      </div>
+                      <div className="d-flex justify-content-between w-100">
+                        <p className={styles.attribute}>GROWTH RATE</p>
+                        <p className={styles.attribute}>Unknown</p>
+                      </div>
+                      <div className="d-flex justify-content-between w-100">
+                        <p className={styles.attribute}>TEMPORAL COVER</p>
+                        <p className={styles.attribute}>Unknown</p>
+                      </div>
+                      <div className="d-flex justify-content-between w-100">
+                        <p className={styles.attribute}>TEMPORAL CONSISTENCY</p>
+                        <p className={styles.attribute}>Unknown</p>
+                      </div>
                     </div>
                   </div>
                   <div
-                    className={`col-6 ${styles["data-info"]} d-flex flex-row justify-content-between w-100`}
+                    className={`col-8 ${styles["data-info"]} d-flex flex-row justify-content-between w-100`}
                   >
                     <div>
                       <p className={styles.attribute}>NUMBER OF COLUMNS</p>
