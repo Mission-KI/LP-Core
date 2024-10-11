@@ -5,8 +5,9 @@ import { Spinner } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { useTranslation } from 'react-i18next';
+import Paginator from '../../../common/components/widgets/Paginator';
 
-function Results({ datasets, loading, bookmarks, setBookmarks }) {
+function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handlePageChange, currentPage }) {
 
     const { t } = useTranslation();
 
@@ -37,6 +38,14 @@ function Results({ datasets, loading, bookmarks, setBookmarks }) {
                                 {datasets?.hits?.hits?.map((dataset) =>
                                     <ResultItem dataset={dataset} key={dataset._id} bookmarks={bookmarks} setBookmarks={setBookmarks} />
                                 )}
+
+
+                                <Paginator
+                                    pageCount={pageCount}
+                                    handlePageChange={handlePageChange}
+                                    currentPage={currentPage}
+                                />
+
                             </div>
                         </Tab>
                         <Tab eventKey="bookmarks" title={
@@ -61,7 +70,6 @@ function Results({ datasets, loading, bookmarks, setBookmarks }) {
                 </div>
 
             </div>
-
 
         </div >
     )
