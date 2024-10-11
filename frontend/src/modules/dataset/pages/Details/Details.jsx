@@ -60,7 +60,7 @@ function Details() {
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
                     <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
                     <span className='small me-2'>License other-commercial</span>
-                    <span className='small me-2'>Version {(datasetDetails._version).toFixed(1)}</span>
+                    <span className='small me-2'>{t('dataset.version')} {(datasetDetails._version).toFixed(1)}</span>
                     <span className='small me-2'>
                         {moment(datasetDetails?._source?._timestamp).fromNow()}
                     </span>

@@ -18,8 +18,17 @@ i18n
             title: "Dataset Search Engine"
           },
           header: {
+            title: "Data Search Engine",
             search_placeholder: "Search datasets...",
-            filters: "Filters"
+            filters: "Filters",
+            findSimilar: "Find similar EDP",
+            back: "Back",
+            schemaJson: "Schema (JSON)",
+            reportPdf: "Report (pdf)",
+            getDataset: "Get Dataset",
+            bookmarks: "Bookmarks",
+            bookmark: "Bookmark",
+            removeBookmark: "Remove Bookmark"
           },
           dataset: {
             datasets: "Datasets",
@@ -43,7 +52,8 @@ i18n
             numericAnomalyAnalysis: "Numeric anomaly analysis",
             dataSeasonality: "Data seasonality",
             languages: "Languages",
-            tags: "TAGS"
+            tags: "TAGS",
+            version: "Version"
           },
           bookmarks: {
             bookmarks: "Bookmarks"
