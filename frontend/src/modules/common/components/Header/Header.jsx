@@ -18,7 +18,7 @@ function Header({ datasetDetails }) {
                 </Link>
             </div>
             <div className='w-100'>
-                <div style={{ maxWidth: 700 }}>
+                <div>
                     <SearchBar />
                 </div>
                 <div className='d-flex justify-content-between w-100'>

@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Paginator from '../../../common/components/widgets/Paginator';
 import { useTranslation } from 'react-i18next';
 import { isBookmarked } from '../../../common/utils/bookmarks';
+import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
 
 function Search() {
 
@@ -62,8 +63,9 @@ function Search() {
 
   return (
     <div className="container pb-4" style={{ maxWidth: 1050 }}>
-      <div className='d-flex flex-column mb-5'>
+      <div className='d-flex justify-content-between mb-5'>
         <a href="/" className='text-decoration-none h2 bold' style={{ width: 'fit-content' }}>{t('page.title')}</a>
+        <LanguageSelector />
       </div>
       <MainSearchBar datasets={datasets} />
       <Results datasets={datasets} loading={loading} bookmarks={bookmarks} setBookmarks={setBookmarks} />
