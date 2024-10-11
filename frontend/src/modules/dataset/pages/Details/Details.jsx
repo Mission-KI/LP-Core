@@ -83,18 +83,18 @@ function Details() {
                                     <p className='small mb-1'>{t('dataset.growth')}</p>
                                     <p className='small mb-1'>{t('dataset.growthRate')}</p>
                                     <p className='small mb-1'>{t('dataset.temporalCover')}</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('temporal_consistency')}>Temporal consistency</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('temporal_consistency')}>{t('dataset.temporalConsistency')}</p>
                                     <br />
-                                    <p className='small mb-1'>Number of columns</p>
-                                    <p className='small mb-1'>Number of lines</p>
-                                    <p className='small mb-1'>Data types</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('attribute_consistency')}>Attribute consistency</p>
-                                    <p className='small mb-1'>Languages</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home1')}>Numeric value distribution</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home2')}>String value distribution</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home3')}>Numeric correlation analysis</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home4')}>Numeric anomaly analysis</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home5')}>Data seasonality</p>
+                                    <p className='small mb-1'>{t('dataset.noOfColumns')}</p>
+                                    <p className='small mb-1'>{t('dataset.noOfLines')}</p>
+                                    <p className='small mb-1'>{t('dataset.dataTypes')}</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('attribute_consistency')}>{t('dataset.attributeConsistency')}</p>
+                                    <p className='small mb-1'>{t('dataset.languages')}</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home1')}>{t('dataset.numericValueDistribution')}</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home2')}>{t('dataset.stringValueDistribution')}</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home3')}>{t('dataset.numericCorrelationAnalysis')}</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home4')}>{t('dataset.numericAnomalyAnalysis')}</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home5')}>{t('dataset.dataSeasonality')}</p>
                                 </div>
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>
@@ -128,7 +128,7 @@ function Details() {
                         </div>
 
                         <div className='d-flex align-items-center mt-4'>
-                            <span className='small pe-3'>TAGS</span>
+                            <span className='small pe-3'>{t('dataset.tags')}</span>
                             {datasetDetails?._source?.tags?.map((tag) =>
                                 <button className='btn btn-basic border small rounded-lg me-3' key={tag}>{tag}</button>
                             )}

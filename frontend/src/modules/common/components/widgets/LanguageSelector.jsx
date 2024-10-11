@@ -10,7 +10,6 @@ function LanguageSelector() {
     const lngs = {
         en: { nativeName: 'English' },
         de: { nativeName: 'German' },
-        fr: { nativeName: 'French' }
     };
 
     return (

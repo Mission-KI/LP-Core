@@ -32,6 +32,18 @@ i18n
             growth: "Growth",
             growthRate: "Growth rate",
             temporalCover: "Temporal cover",
+            temporalConsistency: "Temporal consistency",
+            noOfColumns: "Number of columns",
+            noOfLines: "Number of lines",
+            dataTypes: "Data types",
+            attributeConsistency: "Attribute consistency",
+            numericValueDistribution: "Numeric value distribution",
+            stringValueDistribution: "String value distribution",
+            numericCorrelationAnalysis: "Numeric correlation analysis",
+            numericAnomalyAnalysis: "Numeric anomaly analysis",
+            dataSeasonality: "Data seasonality",
+            languages: "Languages",
+            tags: "TAGS"
           },
           bookmarks: {
             bookmarks: "Bookmarks"
@@ -72,30 +84,6 @@ i18n
           }
         }
       },
-      fr: {
-        translation: {
-          page: {
-            title: "Moteur de recherche de jeux de données"
-          },
-          header: {
-            search_placeholder: "Rechercher des jeux de données...",
-            filters: "Filtres"
-          },
-          dataset: {
-            datasets: "Jeux de données"
-          },
-          common: {
-            all: "Tous",
-            bookmarks: "Signets"
-          },
-          footer: {
-            c: "beebucket confidentiel - (c) beebucket 2024",
-            imprint: "Mentions légales",
-            privacyPolicy: "Politique de confidentialité",
-            usePolicy: "Politique d'utilisation acceptable"
-          }
-        }
-      }
     }
   }
 );
