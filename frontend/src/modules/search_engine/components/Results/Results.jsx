@@ -26,15 +26,17 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
         <div className='mt-5 pt-5'>
 
             <div className="w-100 mb-2">
-                <span className='bold d-flex' style={{ whiteSpace: 'nowrap' }}>{totalDatasetCount} {t('dataset.datasets')}</span>
                 <div>
                     <Tabs
                         defaultActiveKey="all"
                         id="uncontrolled-tab-example"
-                        className="d-flex justify-content-end border-0 w-100 mb-3"
+                        className="d-flex justify-content-end border-0 w-100"
                     >
                         <Tab eventKey="all" title={t('common.all')}>
                             <div className='d-block'>
+
+                                <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap' }}>{totalDatasetCount} {t('dataset.datasets')}</span>
+
                                 {datasets?.hits?.hits?.map((dataset) =>
                                     <ResultItem dataset={dataset} key={dataset._id} bookmarks={bookmarks} setBookmarks={setBookmarks} />
                                 )}
@@ -60,6 +62,7 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
                             </div>
                         }>
                             <div className='d-block'>
+                                <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap' }}>{bookmarks?.hits?.hits?.length} {t('bookmarks.bookmarks')}</span>
                                 {bookmarks?.hits?.hits?.map((dataset) =>
                                     <ResultItem dataset={dataset} key={dataset._id} bookmarks={bookmarks} setBookmarks={setBookmarks} />
                                 )}

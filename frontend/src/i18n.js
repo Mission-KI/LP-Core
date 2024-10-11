@@ -24,6 +24,9 @@ i18n
           dataset: {
             datasets: "Datasets"
           },
+          bookmarks: {
+            bookmarks: "Bookmarks"
+          },
           common: {
             all: "All",
             bookmarks: "Bookmarks"
