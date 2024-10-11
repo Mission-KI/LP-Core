@@ -7,6 +7,7 @@ import {
   calculateTemporalCover,
 } from "../../../common/utils/dataset_utils";
 import {filesize} from "filesize";
+import { Link } from "react-router-dom";
 
 function DatasetOverviewPopup(dataset) {
   const [show, setShow] = useState(false);
