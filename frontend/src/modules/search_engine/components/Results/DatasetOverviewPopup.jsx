@@ -16,6 +16,7 @@ import {
   removeBookmark,
   isBookmarked,
 } from "../../../common/utils/bookmarks";
+import { Link } from "react-router-dom";
 
 function DatasetOverviewPopup(dataset) {
   const [show, setShow] = useState(false);
@@ -214,9 +215,9 @@ function DatasetOverviewPopup(dataset) {
                   </div>
                 </div>
                 <div className={styles.actions}>
-                  <div className={styles.action}>
+                  <Link to={`/details/${dataset.dataset._id}`} className={styles.action}>
                     <span className={styles.actionText}>Details</span>
-                  </div>
+                  </Link>
                   <div className={styles.action}>
                     <Download style={{ color: "white" }} />
                     <span className={styles.actionText}>Schema (JSON)</span>
