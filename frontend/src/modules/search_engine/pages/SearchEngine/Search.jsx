@@ -4,10 +4,13 @@ import Results from '../../components/Results/Results';
 import { getDatasets } from '../../../common/api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Paginator from '../../../common/components/widgets/Paginator';
-import logo from '../../../common/assets/img/brand/logo.webp';
+import { useTranslation } from 'react-i18next';
 import { isBookmarked } from '../../../common/utils/bookmarks';
 
 function Search() {
+
+  const { t } = useTranslation();
+
   const [datasets, setDatasets] = useState({});
   const [bookmarks, setBookmarks] = useState({});
   const [searchParams, setSearchParams] = useState({});
@@ -60,7 +63,7 @@ function Search() {
   return (
     <div className="container pb-4" style={{ maxWidth: 1050 }}>
       <div className='d-flex flex-column mb-5'>
-        <a href="/" className='text-decoration-none h2 bold' style={{ width: 'fit-content' }}>Dataset Search Engine</a>
+        <a href="/" className='text-decoration-none h2 bold' style={{ width: 'fit-content' }}>{t('page.title')}</a>
       </div>
       <MainSearchBar datasets={datasets} />
       <Results datasets={datasets} loading={loading} bookmarks={bookmarks} setBookmarks={setBookmarks} />

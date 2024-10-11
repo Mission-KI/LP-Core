@@ -7,8 +7,11 @@ import { Question } from 'react-bootstrap-icons'
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from 'react-router';
 import SearchSuggestions from './SearchSuggestions';
+import { useTranslation } from 'react-i18next';
 
 function SearchBar() {
+
+    const { t } = useTranslation();
 
     const [localSearchTerm, setLocalSearchTerm] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
@@ -66,7 +69,7 @@ function SearchBar() {
                     type="search"
                     autoComplete="off"
                     id={styles.searchBar}
-                    placeholder="Search datasets..."
+                    placeholder={t('header.search_placeholder')}
                     value={localSearchTerm}
                 />
                 <SearchSuggestions
