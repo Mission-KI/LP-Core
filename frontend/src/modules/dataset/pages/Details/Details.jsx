@@ -13,6 +13,7 @@ import AttributeList from '../../components/AttributeList';
 import AttributeConsistency from '../../components/AttributeConsistency';
 import TemporalConsistency from '../../components/TemporalConsistency';
 import { useTranslation } from 'react-i18next';
+import {filesize} from "filesize";
 
 function Details() {
 
@@ -98,7 +99,7 @@ function Details() {
                                 </div>
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>
-                                    <p className='small mb-1'>{(datasetDetails?._source?.volume / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className='small mb-1'>{filesize(datasetDetails?._source?.volume)}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.compression ?? 'None'}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'None'}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'None'}</p>
