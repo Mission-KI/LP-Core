@@ -12,6 +12,7 @@ import { calculateTemporalConsistency, calculateTemporalCover } from '../../../c
 import AttributeList from '../../components/AttributeList';
 import AttributeConsistency from '../../components/AttributeConsistency';
 import TemporalConsistency from '../../components/TemporalConsistency';
+import { useTranslation } from 'react-i18next';
 
 function Details() {
 
@@ -19,6 +20,8 @@ function Details() {
     const [datasetDetails, setDatasetDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeKey, setActiveKey] = useState('attributes');
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchDatasets = async () => {
@@ -35,7 +38,7 @@ function Details() {
         fetchDatasets();
     }, [id]);
 
-    const handleItemClick = (item) => {
+    const handleToggleTab = (item) => {
         setActiveKey(item);
     };
 
@@ -67,31 +70,31 @@ function Details() {
                     <div className="col-md-4">
                         <div className="rounded-lg border bg-white p-3 mt-2">
                             <p className='medium bold'>
-                                DATA SCIENCE INFO
+                                {t('dataset.dataScienceInfo')}
                             </p>
                             <hr />
                             <div className='d-flex w-100 justify-content-between'>
                                 <div>
-                                    <p className='small mb-1'>Structure</p>
-                                    <p className='small mb-1'>Volume</p>
-                                    <p className='small mb-1'>Compression</p>
-                                    <p className='small mb-1'>Transfer type</p>
-                                    <p className='small mb-1'>Immutability</p>
-                                    <p className='small mb-1'>Growth</p>
-                                    <p className='small mb-1'>Growth rate</p>
-                                    <p className='small mb-1'>Temporal cover</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('temporal_consistency')}>Temporal consistency</p>
+                                    <p className='small mb-1'>{t('dataset.structure')}</p>
+                                    <p className='small mb-1'>{t('dataset.volume')}</p>
+                                    <p className='small mb-1'>{t('dataset.compression')}</p>
+                                    <p className='small mb-1'>{t('dataset.transferType')}</p>
+                                    <p className='small mb-1'>{t('dataset.immutability')}</p>
+                                    <p className='small mb-1'>{t('dataset.growth')}</p>
+                                    <p className='small mb-1'>{t('dataset.growthRate')}</p>
+                                    <p className='small mb-1'>{t('dataset.temporalCover')}</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('temporal_consistency')}>Temporal consistency</p>
                                     <br />
                                     <p className='small mb-1'>Number of columns</p>
                                     <p className='small mb-1'>Number of lines</p>
                                     <p className='small mb-1'>Data types</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('attribute_consistency')}>Attribute consistency</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('attribute_consistency')}>Attribute consistency</p>
                                     <p className='small mb-1'>Languages</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home1')}>Numeric value distribution</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home2')}>String value distribution</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home3')}>Numeric correlation analysis</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home4')}>Numeric anomaly analysis</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home5')}>Data seasonality</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home1')}>Numeric value distribution</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home2')}>String value distribution</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home3')}>Numeric correlation analysis</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home4')}>Numeric anomaly analysis</p>
+                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home5')}>Data seasonality</p>
                                 </div>
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>

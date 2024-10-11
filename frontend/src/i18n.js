@@ -22,7 +22,16 @@ i18n
             filters: "Filters"
           },
           dataset: {
-            datasets: "Datasets"
+            datasets: "Datasets",
+            dataScienceInfo: "DATA SCIENCE INFO",
+            structure: "Structure",
+            volume: "Volume",
+            compression: "Compression",
+            transferType: "Transfer type",
+            immutability: "Immutability",
+            growth: "Growth",
+            growthRate: "Growth rate",
+            temporalCover: "Temporal cover",
           },
           bookmarks: {
             bookmarks: "Bookmarks"
