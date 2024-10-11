@@ -75,26 +75,26 @@ function Details() {
                             <hr />
                             <div className='d-flex w-100 justify-content-between'>
                                 <div>
-                                    <p className='small mb-1'>{t('dataset.structure')}</p>
-                                    <p className='small mb-1'>{t('dataset.volume')}</p>
-                                    <p className='small mb-1'>{t('dataset.compression')}</p>
-                                    <p className='small mb-1'>{t('dataset.transferType')}</p>
-                                    <p className='small mb-1'>{t('dataset.immutability')}</p>
-                                    <p className='small mb-1'>{t('dataset.growth')}</p>
-                                    <p className='small mb-1'>{t('dataset.growthRate')}</p>
-                                    <p className='small mb-1'>{t('dataset.temporalCover')}</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('temporal_consistency')}>{t('dataset.temporalConsistency')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.structure')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.volume')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.compression')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.transferType')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.immutability')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.growth')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.growthRate')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.temporalCover')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('temporal_consistency')}>{t('dataset.temporalConsistency')}</p>
                                     <br />
-                                    <p className='small mb-1'>{t('dataset.noOfColumns')}</p>
-                                    <p className='small mb-1'>{t('dataset.noOfLines')}</p>
-                                    <p className='small mb-1'>{t('dataset.dataTypes')}</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('attribute_consistency')}>{t('dataset.attributeConsistency')}</p>
-                                    <p className='small mb-1'>{t('dataset.languages')}</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home1')}>{t('dataset.numericValueDistribution')}</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home2')}>{t('dataset.stringValueDistribution')}</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home3')}>{t('dataset.numericCorrelationAnalysis')}</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home4')}>{t('dataset.numericAnomalyAnalysis')}</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleToggleTab('home5')}>{t('dataset.dataSeasonality')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.noOfColumns')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.noOfLines')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.dataTypes')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('attribute_consistency')}>{t('dataset.attributeConsistency')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.languages')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home1')}>{t('dataset.numericValueDistribution')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home2')}>{t('dataset.stringValueDistribution')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home3')}>{t('dataset.numericCorrelationAnalysis')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home4')}>{t('dataset.numericAnomalyAnalysis')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home5')}>{t('dataset.dataSeasonality')}</p>
                                 </div>
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>

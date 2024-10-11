@@ -185,14 +185,14 @@ function DatasetOverviewPopup(dataset) {
                     <div>
                       <p className={styles.attribute}>{columnNumber}</p>
                       <p className={styles.attribute}>{lineNumber}</p>
-                      <p className={styles.attribute}>Time, string, numeric</p>
-                      <p className={styles.attribute}>Partially inconsistent</p>
-                      <p className={styles.attribute}>German, English</p>
-                      <p className={styles.attribute}>Heterogen</p>
-                      <p className={styles.attribute}>Heterogen</p>
-                      <p className={styles.attribute}>Partial correlation</p>
-                      <p className={styles.attribute}>Anomaly exists</p>
-                      <p className={styles.attribute}>Seasonal, no trend</p>
+                      <p className={styles.attribute}>time, string, numeric</p>
+                      <p className={styles.attribute}>partially inconsistent</p>
+                      <p className={styles.attribute}>german, english</p>
+                      <p className={styles.attribute}>heterogen</p>
+                      <p className={styles.attribute}>heterogen</p>
+                      <p className={styles.attribute}>partial correlation</p>
+                      <p className={styles.attribute}>anomaly exists</p>
+                      <p className={styles.attribute}>seasonal, no trend</p>
                     </div>
                   </div>
                 </div>
