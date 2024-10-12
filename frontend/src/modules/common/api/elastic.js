@@ -1,4 +1,4 @@
-import { elasticURL, elasticApiKey, elasticUsername, elasticPassword } from "./config";
+import { elasticURL, elasticApiKey } from "./config";
 
 export const getDatasets = async (from = 0, size = 10, params = {}) => {
     try {
@@ -85,15 +85,6 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     "should": shouldClauses.length > 0 ? shouldClauses : undefined,
                 }
             },
-            "aggs": {
-                "variety_ds_count": {
-                    "filter": {
-                        "term": {
-                            "dataSpace.name.enum": "variety DS"
-                        }
-                    }
-                }
-            }
         };
 
         const response = await fetch(elasticURL + '/_search', {
