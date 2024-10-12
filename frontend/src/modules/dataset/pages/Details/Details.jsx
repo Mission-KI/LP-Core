@@ -117,7 +117,7 @@ function Details() {
                                     <p className='small mb-1'>
                                         ??
                                     </p>
-                                    <p className='small mb-1'>??</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? 'None'}</p>
                                     <p className='small mb-1'>
                                         {datasetDetails?._source?.dataTypes.map((dataType, index, arr) => (
                                             <span key={index}>
