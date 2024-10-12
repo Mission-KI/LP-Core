@@ -145,9 +145,6 @@ export const getDataset = async (id) => {
 
 export const getAutocompleteSuggestions = async (searchTerm) => {
     try {
-
-        const words = searchTerm.split(/\s+/);
-
         const query = {
             "query": {
                 "query_string": {
