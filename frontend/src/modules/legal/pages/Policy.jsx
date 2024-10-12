@@ -2,16 +2,7 @@ import React from "react";
 
 function Policy() {
   return (
-     <>
-      <div className="d-flex flex-column mb-5">
-        <a
-          href="/"
-          className="text-decoration-none h2 bold"
-          style={{ width: "fit-content" }}
-        >
-          Dataset Search Engine
-        </a>
-      </div>
+    <>
       <div className="d-flex flex-column mb-5">
         <h2 className="d-flex justify-content-center">Data Privacy Policy</h2>
         <p style={{ marginTop: "40px" }}>
