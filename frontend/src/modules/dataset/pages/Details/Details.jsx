@@ -7,7 +7,6 @@ import { useParams } from 'react-router';
 import { getDataset } from '../../../common/api/elastic';
 import Spinner from 'react-bootstrap/Spinner';
 import moment from 'moment';
-import { LineChart } from '../../components/Charts/LineChart';
 import { calculateTemporalConsistency, calculateTemporalCover } from '../../../common/utils/dataset_utils';
 import AttributeList from '../../components/AttributeList';
 import AttributeConsistency from '../../components/AttributeConsistency';

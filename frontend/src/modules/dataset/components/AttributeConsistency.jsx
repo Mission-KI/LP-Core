@@ -14,7 +14,21 @@ function AttributeConsistency({ datasetDetails }) {
                     </thead>
                     <tbody>
 
-                        {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
+                        {datasetDetails?._source?.structuredDatasets[0]?.numericColumns?.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>{column.nullCount ? 'Yes' : 'No'}</td>
+                                <td>{column.nullCount}</td>
+                            </tr>
+                        ))}
+                        {datasetDetails?._source?.structuredDatasets[0]?.stringColumns?.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>{column.nullCount ? 'Yes' : 'No'}</td>
+                                <td>{column.nullCount}</td>
+                            </tr>
+                        ))}
+                        {datasetDetails?._source?.structuredDatasets[0]?.dateColumns?.map((column, index) => (
                             <tr key={index} className='hover'>
                                 <td>{column.name}</td>
                                 <td>{column.nullCount ? 'Yes' : 'No'}</td>
