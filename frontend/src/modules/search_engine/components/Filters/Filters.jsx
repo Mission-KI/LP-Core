@@ -63,8 +63,12 @@ function Filters({ datasets }) {
             params.append(name, value);
         } else {
             const allValues = params.getAll(name);
-            allValues.filter(v => v !== value).forEach(v => params.delete(name));
+            params.delete(name);
+            allValues
+                .filter(v => v !== value)
+                .forEach(v => params.append(name, v));
         }
+    
         navigate(`?${params.toString()}`, { replace: true });
     };
 

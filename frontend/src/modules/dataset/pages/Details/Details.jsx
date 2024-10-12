@@ -7,11 +7,17 @@ import { useParams } from 'react-router';
 import { getDataset } from '../../../common/api/elastic';
 import Spinner from 'react-bootstrap/Spinner';
 import moment from 'moment';
-import { LineChart } from '../../components/Charts/LineChart';
 import { calculateTemporalConsistency, calculateTemporalCover } from '../../../common/utils/dataset_utils';
 import AttributeList from '../../components/AttributeList';
 import AttributeConsistency from '../../components/AttributeConsistency';
 import TemporalConsistency from '../../components/TemporalConsistency';
+import { useTranslation } from 'react-i18next';
+import { filesize } from "filesize";
+import NumericValueDistribution from '../../components/NumericValueDistribution';
+import StringValueDistribution from '../../components/StringValueDistribution';
+import NumericCorrelationAnalysis from '../../components/NumericCorrelationAnalysis';
+import NumericAnomalyAnalysis from '../../components/NumericAnomalyAnalysis';
+import DataSeasonality from '../../components/DataSeasonality';
 
 function Details() {
 
@@ -19,6 +25,8 @@ function Details() {
     const [datasetDetails, setDatasetDetails] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeKey, setActiveKey] = useState('attributes');
+
+    const { t } = useTranslation();
 
     useEffect(() => {
         const fetchDatasets = async () => {
@@ -35,9 +43,15 @@ function Details() {
         fetchDatasets();
     }, [id]);
 
-    const handleItemClick = (item) => {
+    const handleToggleTab = (item) => {
         setActiveKey(item);
     };
+
+    const numericColumnCount = datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns?.length ?? 0;
+    const stringColumnCount = datasetDetails?._source?.structuredDatasets?.[0]?.stringColumns?.length ?? 0;
+    const dateColumnCount = datasetDetails?._source?.structuredDatasets?.[0]?.dateColumns?.length ?? 0;
+    const columnCount = numericColumnCount + stringColumnCount + dateColumnCount;
+    
 
     if (loading) {
         return (
@@ -53,13 +67,13 @@ function Details() {
             <div className="container px-5 pt-5">
                 <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
 
-                <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
+                <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 570 }}>
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
                     <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
-                    <span className='small me-2'>License other-commercial</span>
-                    <span className='small me-2'>Version {(datasetDetails._version).toFixed(1)}</span>
+                    <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>{t('dataset.license')}</a>
+                    <span className='small me-2'>{t('dataset.version')} {datasetDetails?._source?.edps_version}</span>
                     <span className='small me-2'>
-                        {moment(datasetDetails?._source?._timestamp).fromNow()}
+                        {moment(datasetDetails?._source?.publishDate).fromNow()}
                     </span>
                 </div>
 
@@ -67,35 +81,35 @@ function Details() {
                     <div className="col-md-4">
                         <div className="rounded-lg border bg-white p-3 mt-2">
                             <p className='medium bold'>
-                                DATA SCIENCE INFO
+                                {t('dataset.dataScienceInfo')}
                             </p>
                             <hr />
                             <div className='d-flex w-100 justify-content-between'>
                                 <div>
-                                    <p className='small mb-1'>Structure</p>
-                                    <p className='small mb-1'>Volume</p>
-                                    <p className='small mb-1'>Compression</p>
-                                    <p className='small mb-1'>Transfer type</p>
-                                    <p className='small mb-1'>Immutability</p>
-                                    <p className='small mb-1'>Growth</p>
-                                    <p className='small mb-1'>Growth rate</p>
-                                    <p className='small mb-1'>Temporal cover</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('temporal_consistency')}>Temporal consistency</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.structure')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.volume')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.compression')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.transferType')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.immutability')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.growth')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.growthRate')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.temporalCover')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('temporal_consistency')}>{t('dataset.temporalConsistency')}</p>
                                     <br />
-                                    <p className='small mb-1'>Number of columns</p>
-                                    <p className='small mb-1'>Number of lines</p>
-                                    <p className='small mb-1'>Data types</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('attribute_consistency')}>Attribute consistency</p>
-                                    <p className='small mb-1'>Languages</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home1')}>Numeric value distribution</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home2')}>String value distribution</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home3')}>Numeric correlation analysis</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home4')}>Numeric anomaly analysis</p>
-                                    <p className='small mb-1' role={'button'} onClick={() => handleItemClick('home5')}>Data seasonality</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.noOfColumns')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.noOfLines')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.dataTypes')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('attribute_consistency')}>{t('dataset.attributeConsistency')}</p>
+                                    <p className='small mb-1 text-uppercase'>{t('dataset.languages')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('numeric_value_distribution')}>{t('dataset.numericValueDistribution')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('string_value_distribution')}>{t('dataset.stringValueDistribution')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('correlation_analysis')}>{t('dataset.numericCorrelationAnalysis')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('anomaly_analysis')}>{t('dataset.numericAnomalyAnalysis')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('data_seasonality')}>{t('dataset.dataSeasonality')}</p>
                                 </div>
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>
-                                    <p className='small mb-1'>{(datasetDetails?._source?.volume / 1024 / 1024).toFixed(2)} MB</p>
+                                    <p className='small mb-1'>{filesize(datasetDetails?._source?.volume)}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.compression ?? 'None'}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'None'}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'None'}</p>
@@ -106,14 +120,18 @@ function Details() {
 
                                     <br />
                                     <p className='small mb-1'>
-                                        {datasetDetails?._source?.datasets && datasetDetails?._source?.datasets?.length > 0 ? datasetDetails?._source.datasets[0].columns.length : 'No row count available'}
+                                        {columnCount}
                                     </p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? 'None'}</p>
                                     <p className='small mb-1'>
-                                        {datasetDetails?._source?.datasets && datasetDetails?._source?.datasets?.length > 0 ? datasetDetails?._source.datasets[0].rowCount : 'No row count available'}
+                                        {datasetDetails?._source?.dataTypes.map((dataType, index, arr) => (
+                                            <span key={index}>
+                                                {dataType}{index < arr.length - 1 && ', '}
+                                            </span>
+                                        ))}
                                     </p>
-                                    <p className='small mb-1'>Time, string, numeric</p>
                                     <p className='small mb-1'>Partially inconsistent</p>
-                                    <p className='small mb-1'>German, English</p>
+                                    <p className='small mb-1'>??</p>
                                     <p className='small mb-1'>Heterogen</p>
                                     <p className='small mb-1'>Heterogen</p>
                                     <p className='small mb-1'>Partial correlation</p>
@@ -125,7 +143,7 @@ function Details() {
                         </div>
 
                         <div className='d-flex align-items-center mt-4'>
-                            <span className='small pe-3'>TAGS</span>
+                            <span className='small pe-3'>{t('dataset.tags')}</span>
                             {datasetDetails?._source?.tags?.map((tag) =>
                                 <button className='btn btn-basic border small rounded-lg me-3' key={tag}>{tag}</button>
                             )}
@@ -150,20 +168,20 @@ function Details() {
                             <Tab eventKey="temporal_consistency" title={<span>TEMPORAL<br />CONSISTENCY</span>} className={styles.tab}>
                                 <TemporalConsistency datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home1" title={<span>NUMERIC VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
-                                NUMERIC VALUE DISTRIBUTION
+                            <Tab eventKey="numeric_value_distribution" title={<span>NUMERIC VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
+                                <NumericValueDistribution datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home2" title={<span>STRING VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
-                                STRING VALUE DISTRIBUTION
+                            <Tab eventKey="string_value_distribution" title={<span>STRING VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
+                                <StringValueDistribution datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home3" title={<span>NUMERIC CORRELATION<br />ANALYSIS</span>} className={styles.tab}>
-                                NUMERIC CORRELATION ANALYSIS
+                            <Tab eventKey="correlation_analysis" title={<span>NUMERIC CORRELATION<br />ANALYSIS</span>} className={styles.tab}>
+                                <NumericCorrelationAnalysis datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home4" title={<span>NUMERIC ANOMALY<br />ANALYSIS</span>} className={styles.tab}>
-                                NUMERIC ANOMALY ANALYSIS
+                            <Tab eventKey="anomaly_analysis" title={<span>NUMERIC ANOMALY<br />ANALYSIS</span>} className={styles.tab}>
+                                <NumericAnomalyAnalysis datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home5" title={<span>DATA<br />SEASONALITY</span>} className={styles.tab}>
-                                <LineChart />
+                            <Tab eventKey="data_seasonality" title={<span>DATA<br />SEASONALITY</span>} className={styles.tab}>
+                                <DataSeasonality datasetDetails={datasetDetails} />
                             </Tab>
 
                         </Tabs>

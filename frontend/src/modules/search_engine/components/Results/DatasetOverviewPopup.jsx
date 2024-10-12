@@ -1,230 +1,239 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Dropdown } from "react-bootstrap";
-import {
-  InfoCircleFill,
-  StarFill,
-  Download,
-  Star,
-} from "react-bootstrap-icons";
+import { InfoCircleFill, Download, StarFill } from "react-bootstrap-icons";
 import styles from "./Dropdown.module.css";
 import {
   calculateTemporalConsistency,
   calculateTemporalCover,
 } from "../../../common/utils/dataset_utils";
-import {
-  addBookmark,
-  removeBookmark,
-  isBookmarked,
-} from "../../../common/utils/bookmarks";
+import { filesize } from "filesize";
+import { t } from "i18next";
 
-function DatasetOverviewPopup(dataset) {
+function DatasetOverviewPopup({ dataset }) {
   const [show, setShow] = useState(false);
-  const [name, setName] = useState("");
-  const [tags, setTags] = useState([]);
-  const [structure, setStructure] = useState("Text (CSV)");
-  const [volume, setVolume] = useState(null);
-  const [compression, setCompression] = useState("None");
-  const [transferType, settransferType] = useState("None");
-  const [immutability, setimmutability] = useState("None");
-  const [growth, setGrowth] = useState("None");
-  const [temporalCover, setTemporalCover] = useState();
-  const [temporalConsistency, setTemporalConsistency] = useState();
-  const [columnNumber, setcolumnNumber] = useState();
-  const [lineNumber, setlineNumber] = useState();
-  const [isBookmarkedState, setIsBookmarkedState] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => {
+    setShow((prevShow) => !prevShow);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShow(false);
+    }
+  };
 
   useEffect(() => {
-    if (dataset?.dataset._id) {
-      setIsBookmarkedState(isBookmarked(dataset?.dataset._id));
-    }
-    if (dataset.dataset) {
-      const { _source } = dataset.dataset;
-      setName(_source.name);
-      setTags(_source.tags || []);
-      const volumeValue = _source.volume;
-      if (volumeValue) {
-        setVolume((volumeValue / 1024 / 1024).toFixed(2)); // Convert to MB and fix to 2 decimal places
-      } else {
-        setVolume(null); // Set to null if no volume is available
-      }
-      setCompression(_source.compression ?? "None"); // Use nullish coalescing for compression
-      settransferType(_source.transferTypeFlag ?? "None"); // Use nullish coalescing for compression
-      setimmutability(_source.immutabilityFlag ?? "None"); // Use nullish coalescing for compression
-      setGrowth(_source.growthFlag ?? "None"); // Use nullish coalescing for compression
-      //setTemporalCover(calculateTemporalCover(_source.datasets));
-      setcolumnNumber(
-        _source?.datasets && _source?.datasets?.length > 0
-          ? _source.datasets[0].columns.length
-          : "No row count available"
-      );
-      setlineNumber(
-        _source?.datasets && _source?.datasets?.length > 0
-          ? _source.datasets[0].rowCount
-          : "No row count available"
-      );
-    }
-  }, [dataset]);
+    document.addEventListener("mousedown", handleClickOutside);
 
-  const toggleDropdown = (isShown) => {
-    setShow(isShown);
-  };
-
-  const handleAddBookmark = () => {
-    addBookmark(dataset._id);
-    setIsBookmarkedState(true);
-  };
-
-  const handleRemoveBookmark = () => {
-    removeBookmark(dataset._id);
-    setIsBookmarkedState(false);
-  };
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
-    <Dropdown
-      onMouseEnter={() => toggleDropdown(true)}
-      onMouseLeave={() => toggleDropdown(false)}
-      show={show}
-    >
+    <Dropdown ref={dropdownRef} show={show}>
       <Dropdown.Toggle
         as="div"
         id="dropdown-basic"
-        className="p-0 m-0 border-0 d-flex align-items-center"
+        className="p-0 m-0 pointer border-0 d-flex align-items-center"
+        onClick={toggleDropdown}
       >
         <InfoCircleFill size={20} className="text-secondary" />
       </Dropdown.Toggle>
 
-      <Dropdown.Menu
-        className={`fade ${show ? "show" : ""} ${styles["tag-container"]}`}
-      >
+      <Dropdown.Menu className={`fade border-0 shadow rounded-lg ${show ? "show" : ""}`} style={{ width: 650 }}>
         <div className="container">
-          <div className="row">
-            <div className="mw-100">
-              <div>
-                <p className={styles.dataTitle}>{name}</p>
-                <div className={styles.tags}>
-                  <div className="tag">
-                    <span style={{ fontSize: "14px", color: "#253861" }}>
-                      TAGS
-                    </span>
-                  </div>
-                  <div className={styles.tagList}>
-                    {tags.length > 0 ? (
-                      tags.map((tag, index) => (
-                        <div key={index} className={styles.singleTag}>
-                          <span className={styles.singleTagtext}>{tag}</span>
-                        </div>
-                      ))
-                    ) : (
-                      <p>No tags available</p>
-                    )}
-                  </div>
-                </div>
-                <p style={{ color: "#253761", fontWeight: "bold" }}>
-                  DATA SCIENCE INFO
-                </p>
-                <div
-                  className="row justify-content-between"
-                  style={{
-                    paddingLeft: "13px",
-                    paddingRight: "13px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  <div
-                    className={`col-6 ${styles["data-info"]} d-flex flex-row justify-content-between w-100`}
+          <div>
+            <p className={styles.dataTitle}>
+              {dataset?._source?.name}
+            </p>
+            <div className={styles.tags}>
+              <span className="text-muted medium">
+                TAGS
+              </span>
+              <div className={styles.tagList}>
+                {dataset?.dataset?._source?.tags?.map((tag) => (
+                  <button
+                    className="btn btn-basic border small rounded-lg me-3"
+                    key={tag}
                   >
-                    <div>
-                      <p className={styles.attribute}>STRUCTURE</p>
-                      <p className={styles.attribute}>VOLUME</p>
-                      <p className={styles.attribute}>COMPRESSION</p>
-                      <p className={styles.attribute}>TRANSFER TYPE</p>
-                      <p className={styles.attribute}>IMMUTABILITY</p>
-                      <p className={styles.attribute}>GROWTH</p>
-                      <p className={styles.attribute}>GROWTH RATE</p>
-                      <p className={styles.attribute}>TEMPORAL COVER</p>
-                      <p className={styles.attribute}>TEMPORAL CONSISTENCY</p>
-                    </div>
-                    <div>
-                      <p className={styles.attribute}>{structure}</p>
-                      <p className={styles.attribute}>{volume} MB</p>
-                      <p className={styles.attribute}>{compression}</p>
-                      <p className={styles.attribute}>{transferType}</p>
-                      <p className={styles.attribute}>{immutability}</p>
-                      <p className={styles.attribute}>{growth}</p>
-                      <p className={styles.attribute}>Unknown</p>
-                      <p className={styles.attribute}>TEST HERE</p>
-                      <p className={styles.attribute}>TEST HERE</p>
-                    </div>
-                  </div>
-                  <div
-                    className={`col-6 ${styles["data-info"]} d-flex flex-row justify-content-between w-100`}
-                  >
-                    <div>
-                      <p className={styles.attribute}>NUMBER OF COLUMNS</p>
-                      <p className={styles.attribute}>NUMBER OF LINES</p>
-                      <p className={styles.attribute}>DATA TYPES</p>
-                      <p className={styles.attribute}>ATTRIBUTE CONSISTENCY</p>
-                      <p className={styles.attribute}>LANGUAGES</p>
-                      <p className={styles.attribute}>
-                        NUMERIC VALUE DISTRIBUTION
-                      </p>
-                      <p className={styles.attribute}>
-                        STRING VALUE DISTRIBUTION
-                      </p>
-                      <p className={styles.attribute}>
-                        NUMERIC CORRELATION ANALYSIS
-                      </p>
-                      <p className={styles.attribute}>
-                        NUMERIC ANOMALY ANALYSIS
-                      </p>
-                      <p className={styles.attribute}>
-                        NUMERIC ANOMALY ANALYSIS
-                      </p>
-                      <p className={styles.attribute}>DATA SEASONALITY</p>
-                    </div>
-                    <div>
-                      <p className={styles.attribute}>{columnNumber}</p>
-                      <p className={styles.attribute}>{lineNumber}</p>
-                      <p className={styles.attribute}>Time, string, numeric</p>
-                      <p className={styles.attribute}>Partially inconsistent</p>
-                      <p className={styles.attribute}>German, English</p>
-                      <p className={styles.attribute}>Heterogen</p>
-                      <p className={styles.attribute}>Heterogen</p>
-                      <p className={styles.attribute}>Partial correlation</p>
-                      <p className={styles.attribute}>Anomaly exists</p>
-                      <p className={styles.attribute}>Seasonal, no trend</p>
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.actions}>
-                  <div className={styles.action}>
-                    <span className={styles.actionText}>Details</span>
-                  </div>
-                  <div className={styles.action}>
-                    <Download style={{ color: "white" }} />
-                    <span className={styles.actionText}>Schema (JSON)</span>
-                  </div>
-                  <div className={styles.action}>
-                    <Download style={{ color: "white" }} />
-                    <span className={styles.actionText}>Report (PDF)</span>
-                  </div>
-                  <div className={styles.action}>
-                    <Download style={{ color: "white" }} />
-                    <span className={styles.actionText}>Get Dataset</span>
-                  </div>
-                </div>
-                <p
-                  style={{
-                    textAlign: "right",
-                    fontSize: "11px",
-                    marginTop: "5px",
-                    marginRight: "5px",
-                  }}
-                >
-                  via Dataroom
-                </p>
+                    {tag}
+                  </button>
+                ))}
               </div>
             </div>
+            <p className="medium bold mt-3 txt-primary">
+              {t('dataset.dataScienceInfo')}
+            </p>
+            <hr />
+            <div
+              className="row"
+            >
+              <div
+                className="col-md-5"
+              >
+                <div className="w-100">
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">STRUCTURE</p>
+                    <p className="small">Text (CSV)</p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">VOLUME</p>
+                    <p className="small">{filesize(dataset?._source?.volume)}</p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">COMPRESSION</p>
+                    <p className="small">
+                      {dataset?.dataset?._source?.compression ?? "None"}
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">TRANSFER TYPE</p>
+                    <p className="small">
+                      {dataset?.dataset?._source?.transferTypeFlag ?? "None"}
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">IMMUTABILITY</p>
+                    <p className="small">
+                      {dataset?.dataset_source?.immutabilityFlag ?? "None"}
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">GROWTH</p>
+                    <p className="small">
+                      {dataset?.dataset?._source?.growthFlag ?? "None"}
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">GROWTH RATE</p>
+                    <p className="small">Unknown</p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">TEMPORAL COVER</p>
+                    <p className="small">
+                      {calculateTemporalCover(dataset?.dataset?.datasets)}
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">TEMPORAL CONSISTENCY</p>
+                    <p className="small">
+                      {calculateTemporalConsistency(
+                        dataset?.dataset?.datasets
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                className="col-md-7"
+              >
+                <div className="w-100">
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">{t('dataset.noOfColumns')}</p>
+                    <p className="small">
+                      {dataset?.dataset?._source?.datasets &&
+                        dataset?.dataset?._source?.datasets?.length > 0
+                        ? dataset?.dataset?._source.datasets[0].columns
+                          .length
+                        : "No row count available"}
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">NUMBER OF LINES</p>
+                    <p className="small">
+                      {dataset?.dataset?._source?.datasets &&
+                        dataset?.dataset?._source?.datasets?.length > 0
+                        ? dataset?.dataset?._source.datasets[0].rowCount
+                        : "No row count available"}
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">DATA TYPES</p>
+                    <p className="small">
+                      time, string, numeric
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">
+                      ATTRIBUTE CONSISTENCY
+                    </p>
+                    <p className="small">
+                      partially inconsistent
+                    </p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">LANGUAGES</p>
+                    <p className="small">german, english</p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">
+                      NUMERIC VALUE DISTRIBUTION
+                    </p>
+                    <p className="small">heterogen</p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">
+                      STRING VALUE DISTRIBUTION
+                    </p>
+                    <p className="small">heterogen</p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">
+                      NUMERIC CORRELATION ANALYSIS
+                    </p>
+                    <p className="small">partial correlation</p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">
+                      NUMERIC ANOMALY ANALYSIS
+                    </p>
+                    <p className="small">anomaly exists</p>
+                  </div>
+                  <div className="d-flex justify-content-between w-100 align-items-center">
+                    <p className="small text-uppercase">
+                      NUMERIC ANOMALY ANALYSIS
+                    </p>
+                    <p className="small">seasonal, no trend</p>
+                  </div>
+                </div>
+                <div>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div className="d-flex w-100 align-items-center pt-3 flex-wrap justify-content-end">
+              <div className='pe-2 pt-1'>
+                <button className='btn btn-primary rounded-lg py-1 small'>{t('header.findSimilar')}</button>
+              </div>
+              <div className='pe-2 pt-1'>
+                <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                  <Download className='me-1' /> {t('header.schemaJson')}
+                </button>
+              </div>
+              <div className='pe-2 pt-1'>
+                <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                  <Download className='me-1' /> {t('header.reportPdf')}
+                </button>
+              </div>
+              <div className='pe-2 pt-1'>
+                <a href={dataset?._source?.url} target='_blank' className='btn text-white btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                  <Download className='me-1' /> {t('header.getDataset')}
+                </a>
+              </div>
+
+            </div>
+            <p
+              style={{
+                textAlign: "right",
+                fontSize: "11px",
+                marginTop: "5px",
+                marginRight: "5px",
+              }}
+            >
+              via Dataroom
+            </p>
           </div>
         </div>
       </Dropdown.Menu>

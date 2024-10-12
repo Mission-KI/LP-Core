@@ -1,14 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Filter, Search } from 'react-bootstrap-icons';
+import { Search } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import styles from './SearchBar.module.css'
 import { Question } from 'react-bootstrap-icons'
-import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from 'react-router';
 import SearchSuggestions from './SearchSuggestions';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from '../widgets/LanguageSelector';
 
 function SearchBar() {
+
+    const { t } = useTranslation();
 
     const [localSearchTerm, setLocalSearchTerm] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
@@ -55,27 +58,28 @@ function SearchBar() {
     };
 
     return (
-        <form className="d-flex w-100" onSubmit={handleOnSubmit} ref={inputRef}>
-            <InputGroup className={styles.searchBarWrapper}>
-                <InputGroup.Text>
-                    <Search />
-                </InputGroup.Text>
-                <Form.Control
-                    onChange={handleChange}
-                    onFocus={handleFocus}
-                    type="search"
-                    autoComplete="off"
-                    id={styles.searchBar}
-                    placeholder="Search datasets..."
-                    value={localSearchTerm}
-                />
-                <SearchSuggestions
-                    localSearchTerm={localSearchTerm}
-                    setLocalSearchTerm={setLocalSearchTerm}
-                    showSuggestions={showSuggestions}
-                    setShowSuggestions={setShowSuggestions}
-                />
-                {/* <InputGroup.Text>
+        <div className='d-flex align-items-center justify-content-between w-100'>
+            <form className="d-flex align-items-center w-100" style={{ maxWidth: 700 }} onSubmit={handleOnSubmit} ref={inputRef}>
+                <InputGroup className={styles.searchBarWrapper}>
+                    <InputGroup.Text>
+                        <Search />
+                    </InputGroup.Text>
+                    <Form.Control
+                        onChange={handleChange}
+                        onFocus={handleFocus}
+                        type="search"
+                        autoComplete="off"
+                        id={styles.searchBar}
+                        placeholder={t('header.search_placeholder')}
+                        value={localSearchTerm}
+                    />
+                    <SearchSuggestions
+                        localSearchTerm={localSearchTerm}
+                        setLocalSearchTerm={setLocalSearchTerm}
+                        showSuggestions={showSuggestions}
+                        setShowSuggestions={setShowSuggestions}
+                    />
+                    {/* <InputGroup.Text>
                     <Dropdown show={filtersDropdopwnVisible}>
                         <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
                             <Filter className='me-2' /> <span className='medium'>Filters</span>
@@ -87,14 +91,17 @@ function SearchBar() {
 
                 </InputGroup.Text> */}
 
+                </InputGroup>
 
-            </InputGroup>
-            <div className='ps-3'>
-                <div className='rounded-circle border bg-white d-flex justify-content-center align-items-center' style={{ width: 42, height: 42 }}>
-                    <Question className='h5 m-0' />
+                <div className='ps-3'>
+                    <div className='rounded-circle border bg-white d-flex justify-content-center align-items-center' style={{ width: 42, height: 42 }}>
+                        <Question className='h5 m-0' />
+                    </div>
                 </div>
-            </div>
-        </form>
+
+            </form >
+            <LanguageSelector />
+        </div >
 
     );
 }

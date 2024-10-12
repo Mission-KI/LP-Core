@@ -14,23 +14,34 @@ function AttributeList({ datasetDetails }) {
                     </thead>
                     <tbody>
 
-                        {datasetDetails?._source?.datasets &&
-                            Object.values(datasetDetails._source.datasets)?.[0]?.columns &&
-                            Object.entries(Object.values(datasetDetails._source.datasets)[0].columns).map(([columnKey, attribute]) => (
-                                <tr className='hover' key={columnKey}>
-                                    <td>{columnKey}</td>
-                                    <td>{attribute.dataType === "int64" ? 'numeric' : 'string'}</td>
-                                    <td>{attribute.dataType ?? "string"}</td>
-                                </tr>
-                            ))
-                        }
+                        {datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>numeric</td>
+                                <td>{column.dataType}</td>
+                            </tr>
+                        ))}
+                        {datasetDetails?._source?.structuredDatasets?.[0]?.stringColumns.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>string</td>
+                                <td>string</td>
+                            </tr>
+                        ))}
+                        {datasetDetails?._source?.datetimeColumns?.[0]?.stringColumns.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>date/time</td>
+                                <td>date/time</td>
+                            </tr>
+                        ))}
 
 
                     </tbody>
 
                 </table>
             </div>
-        </div>
+        </div >
     )
 }
 

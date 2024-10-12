@@ -2,16 +2,8 @@ import React from "react";
 
 function AcceptablePolicy() {
   return (
-    <div className="container pb-4" style={{ maxWidth: 1050 }}>
-      <div className="d-flex flex-column mb-5">
-        <a
-          href="/"
-          className="text-decoration-none h2 bold"
-          style={{ width: "fit-content" }}
-        >
-          Dataset Search Engine
-        </a>
-      </div>
+    <>
+
       <div className="d-flex flex-column mb-5">
         <h2 className="d-flex justify-content-center">Acceptable Use Policy</h2>
         <p style={{ marginTop: '20px'}}>
@@ -125,7 +117,7 @@ function AcceptablePolicy() {
           remaining provisions shall remain unaffected.
         </p>
       </div>
-    </div>
+    </>
   );
 }
 

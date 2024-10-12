@@ -5,11 +5,14 @@ import moment from "moment";
 import DatasetOverviewPopup from "./DatasetOverviewPopup";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
 import { isBookmarked } from "../../../common/utils/bookmarks";
-import { Dropdown } from "react-bootstrap";
 import { StarFill } from "react-bootstrap-icons";
+import { filesize } from "filesize";
+import { useTranslation } from "react-i18next";
 
 function ResultItem({ dataset, bookmarks, setBookmarks }) {
   const [isBookmarkedState, setIsBookmarkedState] = useState(false);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (dataset?._id) {
@@ -31,7 +34,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
 
         <p className="medium pt-1">{dataset._source.description}</p>
 
-        <div className="d-flex justify-content-between mt-3 flex-wrap">
+        <div className="d-flex justify-content-between mt-3 flex-wrap" style={{ maxWidth: 850 }}>
           <a
             href={dataset._source?.dataSpace?.url}
             target="_blank"
@@ -44,14 +47,15 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           </span>
           <span className="medium text-muted pe-2">Files (CSV)</span>
           <span className="medium text-muted pe-2">
-            {(dataset?._source?.volume / 1024 / 1024).toFixed(2)} MB
+            {filesize(dataset?._source?.volume)}
           </span>
+          <a href={dataset?._source?.licenseId} target='_blank'
+            className='medium text-decoration-underline text-muted pe-2'>
+            {t('dataset.license')}
+          </a>
+          <span className="medium text-muted pe-2">{t('dataset.version')} {dataset?._source?.edps_version}</span>
           <span className="medium text-muted pe-2">
-            License other-commercial
-          </span>
-          <span className="medium text-muted pe-2">Version 1.0</span>
-          <span className="medium text-muted pe-2">
-            {moment(dataset?._source?._timestamp).fromNow()}
+            {moment(dataset?._source?.publishDate).fromNow()}
           </span>
         </div>
       </div>

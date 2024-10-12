@@ -27,7 +27,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 });
             } else if (key === 'min_size') {
                 const min_mb = parseFloat(values[0]);
-                const min_bytes = min_mb * 1024 * 1024;
+                const min_bytes = min_mb * 1024;
                 mustClauses.push({
                     range: {
                         volume: {
@@ -38,7 +38,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
             }
             else if (key === 'max_size') {
                 const max_mb = parseFloat(values[0]);
-                const max_bytes = max_mb * 1024 * 1024;
+                const max_bytes = max_mb * 1024;
                 mustClauses.push({
                     range: {
                         volume: {
@@ -47,28 +47,27 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     }
                 });
             }
-            // else if (key === 'min_lines') {
-            //     const min_lines = parseInt(values[0]); // Convert the first URL parameter value to an integer
-            //     mustClauses.push({
-            //         script: {
-            //             script: {
-            //                 source: `
-            //                     if (doc.containsKey('datasets') && doc['datasets'].size() > 0) {
-            //                         // Access the 'datasets' object directly
-            //                         def datasetsObj = doc['datasets'];
-            //                         if (datasetsObj.containsKey('rowCount')) {
-            //                             return datasetsObj['rowCount'] > params.minLines; // Compare rowCount to minLines
-            //                         }
-            //                     } 
-            //                     return false; // Return false if conditions are not met
-            //                 `,
-            //                 params: {
-            //                     minLines: min_lines // Pass the min_lines value as a parameter
-            //                 }
-            //             }
-            //         }
-            //     });
-            // }
+            else if (key === 'min_lines') {
+                const min_lines = parseInt(values[0]);
+                mustClauses.push({
+                    range: {
+                        'structuredDatasets.rowCount': {
+                            gte: min_lines
+                        }
+                    }
+                });
+            }
+
+            else if (key === 'max_lines') {
+                const max_lines = parseInt(values[0]);
+                mustClauses.push({
+                    range: {
+                        'structuredDatasets.rowCount': {
+                            lte: max_lines
+                        }
+                    }
+                });
+            }
 
             else {
                 for (const value of values) {
@@ -148,23 +147,14 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
     try {
 
         const words = searchTerm.split(/\s+/);
-        const wildcardQueries = words.map(word => `*${word.split('').join('*')}*`);
 
         const query = {
-            query: {
-                bool: {
-                    must: wildcardQueries.map(wildcard => ({
-                        wildcard: {
-                            name: {
-                                value: wildcard,
-                                case_insensitive: true
-                            }
-                        }
-                    }))
+            "query": {
+                "query_string": {
+                    "query": searchTerm,
+                    "default_field": "name"
                 }
-            },
-            _source: ["name"],
-            size: 8
+            }
         };
 
         const response = await fetch(`${elasticURL}/_search`, {

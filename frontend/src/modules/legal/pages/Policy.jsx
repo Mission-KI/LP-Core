@@ -2,7 +2,7 @@ import React from "react";
 
 function Policy() {
   return (
-    <div className="container pb-4" style={{ maxWidth: 1050 }}>
+     <>
       <div className="d-flex flex-column mb-5">
         <a
           href="/"
@@ -1223,7 +1223,7 @@ function Policy() {
           content of the privacy policy.
         </p>
       </div>
-    </div>
+    </>
   );
 }
 

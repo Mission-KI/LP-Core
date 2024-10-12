@@ -14,15 +14,27 @@ function AttributeConsistency({ datasetDetails }) {
                     </thead>
                     <tbody>
 
-                        {datasetDetails?._source?.datasets &&
-                            Object.keys(datasetDetails._source.datasets).map((datasetKey) => (
-                                Object.keys(datasetDetails._source.datasets[datasetKey].columns).map((columnKey) => (
-                                    <tr className='hover' key={columnKey}>
-                                        <td>{columnKey}</td>
-                                    </tr>
-                                ))
-                            ))
-                        }
+                        {datasetDetails?._source?.structuredDatasets[0]?.numericColumns?.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>{column.nullCount ? 'Yes' : 'No'}</td>
+                                <td>{column.nullCount}</td>
+                            </tr>
+                        ))}
+                        {datasetDetails?._source?.structuredDatasets[0]?.stringColumns?.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>{column.nullCount ? 'Yes' : 'No'}</td>
+                                <td>{column.nullCount}</td>
+                            </tr>
+                        ))}
+                        {datasetDetails?._source?.structuredDatasets[0]?.dateColumns?.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>{column.nullCount ? 'Yes' : 'No'}</td>
+                                <td>{column.nullCount}</td>
+                            </tr>
+                        ))}
 
 
                     </tbody>

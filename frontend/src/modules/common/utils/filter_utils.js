@@ -67,12 +67,12 @@ export const filterSections = [
         title: "File size",
         filters: [
             {
-                label: "Size range (MB)",
+                label: "Size range (kB)",
                 name_1: "min_size",
                 name_2: "max_size",
                 type: "doublerange",
                 minValue: 0,
-                maxValue: 1000,
+                maxValue: 100,
             },
         ]
     },
