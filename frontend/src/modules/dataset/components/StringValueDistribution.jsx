@@ -14,7 +14,7 @@ function StringValueDistribution({ datasetDetails }) {
 
                 <div className='container'>
                     <div className="row">
-                        {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column) => (
+                        {datasetDetails?._source?.structuredDatasets[0]?.stringColumns.map((column) => (
                             column.distributionGraph && (
                                 <div className='col-md-3'>
                                     <ImageView url={column.distributionGraph} />
@@ -30,34 +30,18 @@ function StringValueDistribution({ datasetDetails }) {
                         <table className='table table-bordered'>
                             <thead>
                                 <tr>
-                                    <th className='small py-2 bgc-primary text-white'>attribute</th>
-                                    <th className='small py-2 bgc-primary text-white'>upper quantile</th>
-                                    <th className='small py-2 bgc-primary text-white'>lower quantile</th>
-                                    <th className='small py-2 bgc-primary text-white'>count q</th>
-                                    <th className='small py-2 bgc-primary text-white'>upper zscore</th>
-                                    <th className='small py-2 bgc-primary text-white'>lower zscore</th>
-                                    <th className='small py-2 bgc-primary text-white'>count zscore</th>
-                                    <th className='small py-2 bgc-primary text-white'>upper iqr</th>
-                                    <th className='small py-2 bgc-primary text-white'>lower iqr</th>
-                                    <th className='small py-2 bgc-primary text-white'>iqr</th>
-                                    <th className='small py-2 bgc-primary text-white'>count iqr</th>
+                                    <th className='small py-2 bgc-primary text-white'>column</th>
+                                    <th className='small py-2 bgc-primary text-white'>distribution</th>
+                                    <th className='small py-2 bgc-primary text-white'>n_unique</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
+                                {datasetDetails?._source?.structuredDatasets[0]?.stringColumns.map((column, index) => (
                                     <tr key={index} className='hover'>
                                         <td>{column.name}</td>
-                                        <td>{column.upperQuantile}</td>
-                                        <td>{column.lowerQuantile}</td>
                                         <td>??</td>
-                                        <td>{column.upperZScore}</td>
-                                        <td>{column.lowerZScore}</td>
-                                        <td>{column.zScoreOutlierCount}</td>
-                                        <td>{column.upperIQR}</td>
-                                        <td>{column.lowerIQR}</td>
-                                        <td>{column.iqr}</td>
-                                        <td>{column.iqrOutlierCount}</td>
+                                        <td>{column.numberUnique}</td>
                                     </tr>
                                 ))
                                 }

@@ -1,34 +1,58 @@
 import React from 'react'
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import ImageView from '../../common/components/Header/ImageView/ImageView';
 
 function NumericValueDistribution({ datasetDetails }) {
     return (
-        <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
-            <div className="table-responsive">
-                <table className='table table-bordered'>
-                    <thead>
-                        <tr>
-                            <th className='small py-2 bgc-primary text-white'>attribute</th>
-                            <th className='small py-2 bgc-primary text-white'>type</th>
-                            <th className='small py-2 bgc-primary text-white'>specification</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+        <Tabs
+            defaultActiveKey="graphics"
+            id="uncontrolled-tab-example"
+            className="mb-3"
+        >
+            <Tab eventKey="graphics" title="Graphics">
 
-                        {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
-                            <tr key={index} className='hover'>
-                                <td>{column.name}</td>
-                                <td>{column.dataType}</td>
-                                <td>??</td>
-                            </tr>
-                        ))
-                        }
+                <div className='container'>
+                    <div className="row">
+                        {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column) => (
+                            column.distributionGraph && (
+                                <div className='col-md-3'>
+                                    <ImageView url={column.distributionGraph} />
+                                </div>
+                            )))}
+                    </div>
+                </div>
 
+            </Tab>
+            <Tab eventKey="table" title="Table">
+                <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
+                    <div className="table-responsive">
+                        <table className='table table-bordered'>
+                            <thead>
+                                <tr>
+                                    <th className='small py-2 bgc-primary text-white'>column</th>
+                                    <th className='small py-2 bgc-primary text-white'>distribution</th>
+                                    <th className='small py-2 bgc-primary text-white'>n_unique</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                    </tbody>
+                                {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
+                                    <tr key={index} className='hover'>
+                                        <td>{column.name}</td>
+                                        <td>{column.distribution}</td>
+                                        <td>{column.numberUnique}</td>
+                                    </tr>
+                                ))
+                                }
 
-                </table>
-            </div>
-        </div >
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div >
+            </Tab>
+        </Tabs>
     )
 }
 
