@@ -231,3 +231,7 @@ li.disabled,
 .dropdown-toggle::after{
   display: none !important;
 }
+
+.modal-content{
+  border: none !important
+}
