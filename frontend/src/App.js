@@ -6,6 +6,7 @@ import datasetRoutes from "./modules/dataset";
 import legalRoutes from './modules/legal';
 import LegalLayout from './modules/common/layouts/LegalLayout';
 import HealthCheck from './modules/search_engine/pages/HealthCheck';
+import ScrollToTop from './modules/common/components/ScrollToTop';
 
 const routes = [
   {
@@ -30,7 +31,7 @@ const routes = [
     ],
   },
   {
-    path: '/health_check', // Add the health check route
+    path: '/health_check',
     element: <HealthCheck />,
   },
   {
@@ -57,6 +58,7 @@ const renderRoutes = (routes) => {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>{renderRoutes(routes)}</Routes>
     </Router>
   );
