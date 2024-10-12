@@ -14,6 +14,11 @@ import AttributeConsistency from '../../components/AttributeConsistency';
 import TemporalConsistency from '../../components/TemporalConsistency';
 import { useTranslation } from 'react-i18next';
 import { filesize } from "filesize";
+import NumericValueDistribution from '../../components/NumericValueDistribution';
+import StringValueDistribution from '../../components/StringValueDistribution';
+import NumericCorrelationAnalysis from '../../components/NumericCorrelationAnalysis';
+import NumericAnomalyAnalysis from '../../components/NumericAnomalyAnalysis';
+import DataSeasonality from '../../components/DataSeasonality';
 
 function Details() {
 
@@ -91,11 +96,11 @@ function Details() {
                                     <p className='small mb-1 text-uppercase'>{t('dataset.dataTypes')}</p>
                                     <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('attribute_consistency')}>{t('dataset.attributeConsistency')}</p>
                                     <p className='small mb-1 text-uppercase'>{t('dataset.languages')}</p>
-                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home1')}>{t('dataset.numericValueDistribution')}</p>
-                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home2')}>{t('dataset.stringValueDistribution')}</p>
-                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home3')}>{t('dataset.numericCorrelationAnalysis')}</p>
-                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home4')}>{t('dataset.numericAnomalyAnalysis')}</p>
-                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('home5')}>{t('dataset.dataSeasonality')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('numeric_value_distribution')}>{t('dataset.numericValueDistribution')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('string_value_distribution')}>{t('dataset.stringValueDistribution')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('correlation_analysis')}>{t('dataset.numericCorrelationAnalysis')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('anomaly_analysis')}>{t('dataset.numericAnomalyAnalysis')}</p>
+                                    <p className='small mb-1 text-uppercase' role={'button'} onClick={() => handleToggleTab('data_seasonality')}>{t('dataset.dataSeasonality')}</p>
                                 </div>
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>
@@ -158,20 +163,20 @@ function Details() {
                             <Tab eventKey="temporal_consistency" title={<span>TEMPORAL<br />CONSISTENCY</span>} className={styles.tab}>
                                 <TemporalConsistency datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home1" title={<span>NUMERIC VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
-                                NUMERIC VALUE DISTRIBUTION
+                            <Tab eventKey="numeric_value_distribution" title={<span>NUMERIC VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
+                                <NumericValueDistribution datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home2" title={<span>STRING VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
-                                STRING VALUE DISTRIBUTION
+                            <Tab eventKey="string_value_distribution" title={<span>STRING VALUE<br />DISTRIBUTION</span>} className={styles.tab}>
+                                <StringValueDistribution datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home3" title={<span>NUMERIC CORRELATION<br />ANALYSIS</span>} className={styles.tab}>
-                                NUMERIC CORRELATION ANALYSIS
+                            <Tab eventKey="correlation_analysis" title={<span>NUMERIC CORRELATION<br />ANALYSIS</span>} className={styles.tab}>
+                                <NumericCorrelationAnalysis datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home4" title={<span>NUMERIC ANOMALY<br />ANALYSIS</span>} className={styles.tab}>
-                                NUMERIC ANOMALY ANALYSIS
+                            <Tab eventKey="anomaly_analysis" title={<span>NUMERIC ANOMALY<br />ANALYSIS</span>} className={styles.tab}>
+                                <NumericAnomalyAnalysis datasetDetails={datasetDetails} />
                             </Tab>
-                            <Tab eventKey="home5" title={<span>DATA<br />SEASONALITY</span>} className={styles.tab}>
-                                <LineChart />
+                            <Tab eventKey="data_seasonality" title={<span>DATA<br />SEASONALITY</span>} className={styles.tab}>
+                                <DataSeasonality datasetDetails={datasetDetails} />
                             </Tab>
 
                         </Tabs>
