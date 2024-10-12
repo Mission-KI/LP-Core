@@ -34,7 +34,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
 
         <p className="medium pt-1">{dataset._source.description}</p>
 
-        <div className="d-flex justify-content-between mt-3 flex-wrap">
+        <div className="d-flex justify-content-between mt-3 flex-wrap" style={{ maxWidth: 850 }}>
           <a
             href={dataset._source?.dataSpace?.url}
             target="_blank"

@@ -1,75 +1,61 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Dropdown } from "react-bootstrap";
-import { InfoCircleFill, Download } from "react-bootstrap-icons";
+import { InfoCircleFill, Download, StarFill } from "react-bootstrap-icons";
 import styles from "./Dropdown.module.css";
 import {
   calculateTemporalConsistency,
   calculateTemporalCover,
 } from "../../../common/utils/dataset_utils";
-import {filesize} from "filesize";
-import { Link } from "react-router-dom";
+import { filesize } from "filesize";
 import { t } from "i18next";
 
-function DatasetOverviewPopup(dataset) {
+function DatasetOverviewPopup({ dataset }) {
   const [show, setShow] = useState(false);
-  const [timeoutId, setTimeoutId] = useState(null);
+  const dropdownRef = useRef(null);
 
-  const toggleDropdown = (isShown) => {
-    if (isShown) {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-        setTimeoutId(null);
-      }
-      setShow(true);
-    } else {
-      const newTimeoutId = setTimeout(() => {
-        setShow(false);
-      }, 100);
+  const toggleDropdown = () => {
+    setShow((prevShow) => !prevShow);
+  };
 
-      setTimeoutId(newTimeoutId);
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShow(false);
     }
   };
 
   useEffect(() => {
- 
+    document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [timeoutId]);
+  }, []);
+
   return (
-    <Dropdown
-      onMouseEnter={() => toggleDropdown(true)}
-      onMouseLeave={() => toggleDropdown(false)}
-      show={show}
-    >
+    <Dropdown ref={dropdownRef} show={show}>
       <Dropdown.Toggle
         as="div"
         id="dropdown-basic"
-        className="p-0 m-0 border-0 d-flex align-items-center"
+        className="p-0 m-0 pointer border-0 d-flex align-items-center"
+        onClick={toggleDropdown}
       >
         <InfoCircleFill size={20} className="text-secondary" />
       </Dropdown.Toggle>
 
-      <Dropdown.Menu
-        className={`fade ${show ? "show" : ""} ${styles["tag-container"]}`}
-      >
+      <Dropdown.Menu className={`fade border-0 shadow rounded-lg ${show ? "show" : ""}`} style={{ width: 550 }}>
         <div className="container">
           <div className="row">
             <div className="mw-100">
               <div>
                 <p className={styles.dataTitle}>
-                  {dataset?.dataset._source?.name}
+                  {dataset?._source?.name}
                 </p>
                 <div className={styles.tags}>
-                  <div className="tag">
-                    <span style={{ fontSize: "14px", color: "#253861" }}>
-                      TAGS
-                    </span>
-                  </div>
+                  <span className="text-muted medium">
+                    TAGS
+                  </span>
                   <div className={styles.tagList}>
-                    {dataset?.dataset._source?.tags?.map((tag) => (
+                    {dataset?.dataset?._source?.tags?.map((tag) => (
                       <button
                         className="btn btn-basic border small rounded-lg me-3"
                         key={tag}
@@ -79,7 +65,7 @@ function DatasetOverviewPopup(dataset) {
                     ))}
                   </div>
                 </div>
-                <p style={{ color: "#253761", fontWeight: "bold" }}>
+                <p className="bold medium mt-3 txt-primary">
                   {t('dataset.dataScienceInfo')}
                 </p>
                 <div
@@ -101,18 +87,18 @@ function DatasetOverviewPopup(dataset) {
                       </div>
                       <div className="d-flex justify-content-between w-100 align-items-center">
                         <p className={styles.attribute}>VOLUME</p>
-                        <p className={styles.attribute}>{filesize(dataset?.dataset?._source?.volume)}</p>
+                        <p className={styles.attribute}>{filesize(dataset?._source?.volume)}</p>
                       </div>
                       <div className="d-flex justify-content-between w-100 align-items-center">
                         <p className={styles.attribute}>COMPRESSION</p>
                         <p className={styles.attribute}>
-                          {dataset?.dataset._source?.compression ?? "None"}
+                          {dataset?.dataset?._source?.compression ?? "None"}
                         </p>
                       </div>
                       <div className="d-flex justify-content-between w-100 align-items-center">
                         <p className={styles.attribute}>TRANSFER TYPE</p>
                         <p className={styles.attribute}>
-                          {dataset?.dataset._source?.transferTypeFlag ?? "None"}
+                          {dataset?.dataset?._source?.transferTypeFlag ?? "None"}
                         </p>
                       </div>
                       <div className="d-flex justify-content-between w-100 align-items-center">
@@ -124,7 +110,7 @@ function DatasetOverviewPopup(dataset) {
                       <div className="d-flex justify-content-between w-100 align-items-center">
                         <p className={styles.attribute}>GROWTH</p>
                         <p className={styles.attribute}>
-                          {dataset?.dataset._source?.growthFlag ?? "None"}
+                          {dataset?.dataset?._source?.growthFlag ?? "None"}
                         </p>
                       </div>
                       <div className="d-flex justify-content-between w-100 align-items-center">
@@ -134,14 +120,14 @@ function DatasetOverviewPopup(dataset) {
                       <div className="d-flex justify-content-between w-100 align-items-center">
                         <p className={styles.attribute}>TEMPORAL COVER</p>
                         <p className={styles.attribute}>
-                          {calculateTemporalCover(dataset?.dataset.datasets)}
+                          {calculateTemporalCover(dataset?.dataset?.datasets)}
                         </p>
                       </div>
                       <div className="d-flex justify-content-between w-100 align-items-center">
                         <p className={styles.attribute}>TEMPORAL CONSISTENCY</p>
                         <p className={styles.attribute}>
                           {calculateTemporalConsistency(
-                            dataset?.dataset.datasets
+                            dataset?.dataset?.datasets
                           )}
                         </p>
                       </div>
@@ -154,19 +140,19 @@ function DatasetOverviewPopup(dataset) {
                       <div className="d-flex justify-content-between w-100 align-items-center">
                         <p className={styles.attribute}>NUMBER OF COLUMNS</p>
                         <p className={styles.attribute}>
-                          {dataset?.dataset._source?.datasets &&
-                          dataset?.dataset._source?.datasets?.length > 0
-                            ? dataset?.dataset._source.datasets[0].columns
-                                .length
+                          {dataset?.dataset?._source?.datasets &&
+                            dataset?.dataset?._source?.datasets?.length > 0
+                            ? dataset?.dataset?._source.datasets[0].columns
+                              .length
                             : "No row count available"}
                         </p>
                       </div>
                       <div className="d-flex justify-content-between w-100 align-items-center">
                         <p className={styles.attribute}>NUMBER OF LINES</p>
                         <p className={styles.attribute}>
-                          {dataset?.dataset._source?.datasets &&
-                          dataset?.dataset._source?.datasets?.length > 0
-                            ? dataset?.dataset._source.datasets[0].rowCount
+                          {dataset?.dataset?._source?.datasets &&
+                            dataset?.dataset?._source?.datasets?.length > 0
+                            ? dataset?.dataset?._source.datasets[0].rowCount
                             : "No row count available"}
                         </p>
                       </div>
@@ -223,22 +209,26 @@ function DatasetOverviewPopup(dataset) {
                     </div>
                   </div>
                 </div>
-                <div className={styles.actions}>
-                  <Link to={`/details/${dataset.dataset._id}`} className={styles.action}>
-                    <span className={styles.actionText}>Details</span>
-                  </Link>
-                  <div className={styles.action}>
-                    <Download style={{ color: "white" }} />
-                    <span className={styles.actionText}>Schema (JSON)</span>
+                <div className="d-flex w-100 align-items-center pt-3 flex-wrap justify-content-end">
+                  <div className='pe-2 pt-1'>
+                    <button className='btn btn-primary rounded-lg py-1 small'>{t('header.findSimilar')}</button>
                   </div>
-                  <div className={styles.action}>
-                    <Download style={{ color: "white" }} />
-                    <span className={styles.actionText}>Report (PDF)</span>
+                  <div className='pe-2 pt-1'>
+                    <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                      <Download className='me-1' /> {t('header.schemaJson')}
+                    </button>
                   </div>
-                  <a className={styles.action} href={dataset?._source?.url} target='_blank'>
-                    <Download style={{ color: "white" }} />
-                    <span className={styles.actionText}>Get Dataset</span>
-                  </a>
+                  <div className='pe-2 pt-1'>
+                    <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                      <Download className='me-1' /> {t('header.reportPdf')}
+                    </button>
+                  </div>
+                  <div className='pe-2 pt-1'>
+                    <a href={dataset?._source?.url} target='_blank' className='btn text-white btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                      <Download className='me-1' /> {t('header.getDataset')}
+                    </a>
+                  </div>
+
                 </div>
                 <p
                   style={{

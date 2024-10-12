@@ -9,28 +9,12 @@
     padding: 5px 0px;
     max-width: 64% !important;
 }
-.actions {
-    display: flex;
-    max-width: 100%;
-    justify-content: end;
-}
-.action {
-    display: flex;
-    align-items: center;
-    background: #253861;
-    padding: 5px 10px;
-    border-radius: 15px;
-    margin-right: 5px;
-}
-.actionText {
-    margin-left: 5px !important;
-    color: #fff;
-    font-size: 14px;
-}
 .dataTitle {
     color: #253761;
     font-size: 16px;
     font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 .tags {
     margin: 10px 0px;
@@ -57,12 +41,10 @@
 }
 .attribute {
     font-size: 12px;
-    color: #253761;
     margin: 5px;
 }
 .attributeValue {
     font-size: 12px;
-    color: #253761;
     margin: 5px;
     text-transform: lowercase;
 }
