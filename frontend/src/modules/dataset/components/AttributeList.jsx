@@ -14,14 +14,27 @@ function AttributeList({ datasetDetails }) {
                     </thead>
                     <tbody>
 
-                        {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
+                        {datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns.map((column, index) => (
                             <tr key={index} className='hover'>
                                 <td>{column.name}</td>
+                                <td>numeric</td>
                                 <td>{column.dataType}</td>
-                                <td>??</td>
                             </tr>
-                        ))
-                        }
+                        ))}
+                        {datasetDetails?._source?.structuredDatasets?.[0]?.stringColumns.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>string</td>
+                                <td>string</td>
+                            </tr>
+                        ))}
+                        {datasetDetails?._source?.datetimeColumns?.[0]?.stringColumns.map((column, index) => (
+                            <tr key={index} className='hover'>
+                                <td>{column.name}</td>
+                                <td>date/time</td>
+                                <td>date/time</td>
+                            </tr>
+                        ))}
 
 
                     </tbody>
