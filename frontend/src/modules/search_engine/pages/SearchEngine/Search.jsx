@@ -64,7 +64,7 @@ function Search() {
   return (
     <div className="container pb-4" style={{ maxWidth: 1050 }}>
       <div className='d-flex justify-content-between mb-5'>
-        <a href="/" className='text-decoration-none h2 bold' style={{ width: 'fit-content' }}>{t('page.title')}</a>
+        <a href="/" className='text-decoration-none h2' style={{ width: 'fit-content' }}>{t('page.title')}</a>
         <LanguageSelector />
       </div>
 

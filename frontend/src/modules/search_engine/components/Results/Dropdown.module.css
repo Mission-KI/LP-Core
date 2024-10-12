@@ -11,7 +11,7 @@
 }
 .dataTitle {
     color: #253761;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -38,13 +38,4 @@
 .singleTagText {
     font-size: 14px;
     color: #253761;
-}
-.attribute {
-    font-size: 12px;
-    margin: 5px;
-}
-.attributeValue {
-    font-size: 12px;
-    margin: 5px;
-    text-transform: lowercase;
 }
