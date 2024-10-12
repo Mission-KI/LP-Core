@@ -39,7 +39,7 @@ function DatasetOverviewPopup({ dataset }) {
         className="p-0 m-0 pointer border-0 d-flex align-items-center"
         onClick={toggleDropdown}
       >
-        <InfoCircleFill size={20} className="text-secondary" />
+        <InfoCircleFill size={18} className="txt-primary" />
       </Dropdown.Toggle>
 
       <Dropdown.Menu className={`fade border-0 shadow rounded-lg ${show ? "show" : ""}`} style={{ width: 650 }}>
