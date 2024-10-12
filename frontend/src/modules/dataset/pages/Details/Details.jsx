@@ -13,7 +13,7 @@ import AttributeList from '../../components/AttributeList';
 import AttributeConsistency from '../../components/AttributeConsistency';
 import TemporalConsistency from '../../components/TemporalConsistency';
 import { useTranslation } from 'react-i18next';
-import {filesize} from "filesize";
+import { filesize } from "filesize";
 
 function Details() {
 
@@ -57,13 +57,13 @@ function Details() {
             <div className="container px-5 pt-5">
                 <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
 
-                <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 630 }}>
+                <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 570 }}>
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
                     <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
-                    <span className='small me-2'>License other-commercial</span>
-                    <span className='small me-2'>{t('dataset.version')} {(datasetDetails._version).toFixed(1)}</span>
+                    <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>License</a>
+                    <span className='small me-2'>{t('dataset.version')} {datasetDetails?._source?.edps_version}</span>
                     <span className='small me-2'>
-                        {moment(datasetDetails?._source?._timestamp).fromNow()}
+                        {moment(datasetDetails?._source?.publishDate).fromNow()}
                     </span>
                 </div>
 
@@ -110,14 +110,18 @@ function Details() {
 
                                     <br />
                                     <p className='small mb-1'>
-                                        {datasetDetails?._source?.datasets && datasetDetails?._source?.datasets?.length > 0 ? datasetDetails?._source.datasets[0].columns.length : 'No row count available'}
+                                        ??
                                     </p>
+                                    <p className='small mb-1'>??</p>
                                     <p className='small mb-1'>
-                                        {datasetDetails?._source?.datasets && datasetDetails?._source?.datasets?.length > 0 ? datasetDetails?._source.datasets[0].rowCount : 'No row count available'}
+                                        {datasetDetails?._source?.dataTypes.map((dataType, index, arr) => (
+                                            <span key={index}>
+                                                {dataType}{index < arr.length - 1 && ', '}
+                                            </span>
+                                        ))}
                                     </p>
-                                    <p className='small mb-1'>Time, string, numeric</p>
                                     <p className='small mb-1'>Partially inconsistent</p>
-                                    <p className='small mb-1'>German, English</p>
+                                    <p className='small mb-1'>??</p>
                                     <p className='small mb-1'>Heterogen</p>
                                     <p className='small mb-1'>Heterogen</p>
                                     <p className='small mb-1'>Partial correlation</p>
