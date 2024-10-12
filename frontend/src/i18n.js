@@ -53,7 +53,8 @@ i18n
             dataSeasonality: "Data seasonality",
             languages: "Languages",
             tags: "TAGS",
-            version: "Version"
+            version: "Version",
+            getDataset: "Get Dataset"
           },
           bookmarks: {
             bookmarks: "Bookmarks"

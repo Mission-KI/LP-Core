@@ -50,7 +50,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
             {filesize(dataset?._source?.volume)}
           </span>
           <a href={dataset?._source?.licenseId} target='_blank'
-            className='medium text-muted pe-2'>
+            className='medium text-decoration-underline text-muted pe-2'>
             License
           </a>
           <span className="medium text-muted pe-2">{t('dataset.version')} {dataset?._source?.edps_version}</span>

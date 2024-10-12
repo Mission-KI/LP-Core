@@ -8,6 +8,7 @@ import {
 } from "../../../common/utils/dataset_utils";
 import {filesize} from "filesize";
 import { Link } from "react-router-dom";
+import { t } from "i18next";
 
 function DatasetOverviewPopup(dataset) {
   const [show, setShow] = useState(false);
@@ -17,14 +18,13 @@ function DatasetOverviewPopup(dataset) {
     if (isShown) {
       if (timeoutId) {
         clearTimeout(timeoutId);
-        setTimeoutId(null); // Reset timeoutId since we are showing immediately
+        setTimeoutId(null);
       }
-      setShow(true); // Show immediately on mouse enter
+      setShow(true);
     } else {
-      // Set a timeout for hiding the dropdown
       const newTimeoutId = setTimeout(() => {
         setShow(false);
-      }, 500); // 1000 milliseconds = 1 second
+      }, 100);
 
       setTimeoutId(newTimeoutId);
     }
@@ -80,7 +80,7 @@ function DatasetOverviewPopup(dataset) {
                   </div>
                 </div>
                 <p style={{ color: "#253761", fontWeight: "bold" }}>
-                  DATA SCIENCE INFO
+                  {t('dataset.dataScienceInfo')}
                 </p>
                 <div
                   className="row justify-content-between"
@@ -235,10 +235,10 @@ function DatasetOverviewPopup(dataset) {
                     <Download style={{ color: "white" }} />
                     <span className={styles.actionText}>Report (PDF)</span>
                   </div>
-                  <div className={styles.action}>
+                  <a className={styles.action} href={dataset?._source?.url} target='_blank'>
                     <Download style={{ color: "white" }} />
                     <span className={styles.actionText}>Get Dataset</span>
-                  </div>
+                  </a>
                 </div>
                 <p
                   style={{

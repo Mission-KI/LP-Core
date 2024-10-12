@@ -3,6 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 import { ThreeDots } from 'react-bootstrap-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { addBookmark, removeBookmark, isBookmarked } from '../../../common/utils/bookmarks';
+import { t } from 'i18next';
 
 function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedState, bookmarks, setBookmarks }) {
 
@@ -40,8 +41,8 @@ function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedSta
             </Dropdown.Toggle>
 
             <Dropdown.Menu className='border-0 shadow'>
-                <Dropdown.Item>
-                    Get Dataset
+                <Dropdown.Item href={dataset?._source?.url} target='_blank'>
+                    {t('dataset.getDataset')}
                     <span className='small text-muted w-100 d-flex'>via dataroom</span>
                 </Dropdown.Item>
                 {isBookmarkedState ? (

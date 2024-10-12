@@ -65,9 +65,9 @@ function Header({ datasetDetails }) {
                             </button>
                         </div>
                         <div className='pe-2 pt-1'>
-                            <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                            <a href={datasetDetails?._source?.url} target='_blank' className='btn text-white btn-primary rounded-lg py-1 small d-flex align-items-center'>
                                 <Download className='me-1' /> {t('header.getDataset')}
-                            </button>
+                            </a>
                         </div>
                         {!bookmarked ? (
 
