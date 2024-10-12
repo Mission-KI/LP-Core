@@ -42,16 +42,17 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           >
             {dataset._source?.dataSpace?.name}
           </a>
-          <span className="medium text-muted text-decoration-underline pe-2">
-            serie-a-logistic solutions
-          </span>
+          <a href={dataset._source?.publisher?.name} target='_blank' className='medium text-decoration-underline pe-2'>
+            {dataset._source?.publisher?.name}
+          </a>
+
           <span className="medium text-muted pe-2">Files (CSV)</span>
           <span className="medium text-muted pe-2">
             {filesize(dataset?._source?.volume)}
           </span>
           <a href={dataset?._source?.licenseId} target='_blank'
             className='medium text-decoration-underline text-muted pe-2'>
-            {t('dataset.license')}
+            cc-by
           </a>
           <span className="medium text-muted pe-2">{t('dataset.version')} {dataset?._source?.edps_version}</span>
           <span className="medium text-muted pe-2">
