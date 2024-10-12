@@ -65,7 +65,7 @@ function Details() {
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 570 }}>
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
                     <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
-                    <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>License</a>
+                    <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>{t('dataset.license')}</a>
                     <span className='small me-2'>{t('dataset.version')} {datasetDetails?._source?.edps_version}</span>
                     <span className='small me-2'>
                         {moment(datasetDetails?._source?.publishDate).fromNow()}

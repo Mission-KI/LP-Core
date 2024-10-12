@@ -54,10 +54,13 @@ i18n
             languages: "Languages",
             tags: "TAGS",
             version: "Version",
-            getDataset: "Get Dataset"
+            getDataset: "Get Dataset",
+            license: "License"
           },
           bookmarks: {
-            bookmarks: "Bookmarks"
+            bookmarks: "Bookmarks",
+            bookmark: "Bookmark",
+            removeBookmark: "Remove Bookmark"
           },
           common: {
             all: "All",
@@ -91,7 +94,7 @@ i18n
           },
           dataset: {
             datasets: "Datensätze",
-            dataScienceInfo: "DATA SCIENCE INFO",
+            dataScienceInfo: "DATENWISSENSCHAFTSINFORMATIONEN",
             structure: "Struktur",
             volume: "Volumen",
             compression: "Komprimierung",
@@ -113,10 +116,13 @@ i18n
             languages: "Sprachen",
             tags: "STICHWORTE",
             version: "Version",
-            getDataset: "Datensatz abrufen"
+            getDataset: "Datensatz abrufen",
+            license: "Lizenz"
           },
           bookmarks: {
-            bookmarks: "Lesezeichen"
+            bookmarks: "Lesezeichen",
+            bookmark: "Lesezeichen",
+            removeBookmark: "Lesezeichen entfernen"
           },
           common: {
             all: "Alle",
@@ -131,7 +137,6 @@ i18n
         }
       },
     }
-  }
-);
+  });
 
 export default i18n;

@@ -46,9 +46,9 @@ function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedSta
                     <span className='small text-muted w-100 d-flex'>via dataroom</span>
                 </Dropdown.Item>
                 {isBookmarkedState ? (
-                    <Dropdown.Item onClick={handleRemoveBookmark}>Remove Bookmark</Dropdown.Item>
+                    <Dropdown.Item onClick={handleRemoveBookmark}>{t('bookmarks.removeBookmark')}</Dropdown.Item>
                 ) : (
-                    <Dropdown.Item onClick={handleAddBookmark}>Bookmark</Dropdown.Item>
+                    <Dropdown.Item onClick={handleAddBookmark}>{t('bookmarks.bookmark')}</Dropdown.Item>
                 )}
             </Dropdown.Menu>
         </Dropdown>

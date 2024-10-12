@@ -51,7 +51,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           </span>
           <a href={dataset?._source?.licenseId} target='_blank'
             className='medium text-decoration-underline text-muted pe-2'>
-            License
+            {t('dataset.license')}
           </a>
           <span className="medium text-muted pe-2">{t('dataset.version')} {dataset?._source?.edps_version}</span>
           <span className="medium text-muted pe-2">
