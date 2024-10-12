@@ -1,34 +1,19 @@
 import React from 'react'
+import ImageView from '../../common/components/Header/ImageView/ImageView'
 
 function DataSeasonality({ datasetDetails }) {
     return (
-        <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
-            <div className="table-responsive">
-                <table className='table table-bordered'>
-                    <thead>
-                        <tr>
-                            <th className='small py-2 bgc-primary text-white'>attribute</th>
-                            <th className='small py-2 bgc-primary text-white'>type</th>
-                            <th className='small py-2 bgc-primary text-white'>specification</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
-                            <tr key={index} className='hover'>
-                                <td>{column.name}</td>
-                                <td>{column.dataType}</td>
-                                <td>??</td>
-                            </tr>
-                        ))
-                        }
-
-
-                    </tbody>
-
-                </table>
+        <div className='container'>
+            <div className="row">
+                {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column) => {
+                    column.seasonalityGraph && (
+                        <div className='col-md-3'>
+                            <ImageView url={column.seasonalityGraph} />
+                        </div>
+                    )
+                })}
             </div>
-        </div >
+        </div>
     )
 }
 

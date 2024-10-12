@@ -15,10 +15,11 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
                 <div className='container'>
                     <div className="row">
                         {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column) => (
-                            <div className='col-md-3'>
-                                <ImageView url={column.boxPlot} />
-                            </div>
-                        ))}
+                            column.boxPlot && (
+                                <div className='col-md-3'>
+                                    <ImageView url={column.boxPlot} />
+                                </div>
+                            )))}
                     </div>
                 </div>
 
