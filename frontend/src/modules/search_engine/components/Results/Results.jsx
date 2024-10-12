@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
-import { Star, StarFill } from 'react-bootstrap-icons'
-import ResultItem from './ResultItem'
+import React, { useEffect, useState } from 'react';
+import { Star, StarFill } from 'react-bootstrap-icons';
+import ResultItem from './ResultItem';
 import { Spinner } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -10,8 +10,27 @@ import Paginator from '../../../common/components/widgets/Paginator';
 function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handlePageChange, currentPage }) {
 
     const { t } = useTranslation();
+    const [activeTab, setActiveTab] = useState('all');
 
     const totalDatasetCount = datasets.hits?.total?.value;
+
+    useEffect(() => {
+        const hash = window.location.hash;
+        if (hash === '#bookmarks') {
+            setActiveTab('bookmarks');
+        } else {
+            setActiveTab('all');
+        }
+    }, []);
+
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+        if (tab === 'bookmarks') {
+            window.history.pushState(null, '', '#bookmarks');
+        } else {
+            window.history.pushState(null, '', '#all');
+        }
+    };
 
     if (loading) {
         return (
@@ -21,43 +40,36 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
         );
     }
 
-
     return (
         <div className='mt-5 pt-5'>
-
             <div className="w-100 mb-2">
                 <div>
                     <Tabs
-                        defaultActiveKey="all"
-                        id="uncontrolled-tab-example"
+                        activeKey={activeTab}
+                        onSelect={handleTabChange}
+                        id="controlled-tab-example"
                         className="d-flex justify-content-end border-0 w-100"
                     >
                         <Tab eventKey="all" title={t('common.all')}>
                             <div className='d-block'>
-
                                 <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>{totalDatasetCount} {t('dataset.datasets')}</span>
-
                                 {datasets?.hits?.hits?.map((dataset) =>
                                     <ResultItem dataset={dataset} key={dataset._id} bookmarks={bookmarks} setBookmarks={setBookmarks} />
                                 )}
-
-
                                 <Paginator
                                     pageCount={pageCount}
                                     handlePageChange={handlePageChange}
                                     currentPage={currentPage}
                                 />
-
                             </div>
                         </Tab>
                         <Tab eventKey="bookmarks" title={
                             <div>
                                 <span className='d-flex align-items-center fw-500'>
                                     {t('common.bookmarks')}
-                                    {bookmarks?.hits?.hits?.length != 0 ? (
-                                        <StarFill className='ms-2' />)
-                                        : <Star className='ms-2' />
-                                    }
+                                    {bookmarks?.hits?.hits?.length !== 0 ? (
+                                        <StarFill className='ms-2' />
+                                    ) : <Star className='ms-2' />}
                                 </span>
                             </div>
                         }>
@@ -68,14 +80,11 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
                                 )}
                             </div>
                         </Tab>
-
-                    </Tabs >
+                    </Tabs>
                 </div>
-
             </div>
-
-        </div >
-    )
+        </div>
+    );
 }
 
-export default Results
+export default Results;

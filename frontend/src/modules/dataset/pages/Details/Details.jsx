@@ -114,7 +114,7 @@ function Details() {
                                     <p className='small mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'None'}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'None'}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.growthFlag ?? 'None'}</p>
-                                    <p className='small mb-1'>Unknown</p>
+                                    <p className='small mb-1'>unknown</p>
                                     <p className='small mb-1'>{calculateTemporalCover(datasetDetails?.datasets)}</p>
                                     <p className='small mb-1'>{calculateTemporalConsistency(datasetDetails?.datasets)}</p>
 
@@ -130,13 +130,13 @@ function Details() {
                                             </span>
                                         ))}
                                     </p>
-                                    <p className='small mb-1'>Partially inconsistent</p>
-                                    <p className='small mb-1'>??</p>
-                                    <p className='small mb-1'>Heterogen</p>
-                                    <p className='small mb-1'>Heterogen</p>
-                                    <p className='small mb-1'>Partial correlation</p>
-                                    <p className='small mb-1'>Anomaly exists</p>
-                                    <p className='small mb-1'>Seasonal, no trend</p>
+                                    <p className='small mb-1'>partially inconsistent</p>
+                                    <p className='small mb-1'>german, english</p>
+                                    <p className='small mb-1'>heterogen</p>
+                                    <p className='small mb-1'>heterogen</p>
+                                    <p className='small mb-1'>partial correlation</p>
+                                    <p className='small mb-1'>anomaly exists</p>
+                                    <p className='small mb-1'>seasonal, no trend</p>
                                 </div>
                             </div>
 
