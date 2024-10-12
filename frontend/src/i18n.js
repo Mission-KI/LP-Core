@@ -77,11 +77,46 @@ i18n
             title: "Datensatz-Suchmaschine"
           },
           header: {
-            search_placeholder: "Datensätze suchen...",
-            filters: "Filter"
+            title: "Daten Such Engine",
+            search_placeholder: "Datensätze durchsuchen...",
+            filters: "Filter",
+            findSimilar: "Ähnliche EDP finden",
+            back: "Zurück",
+            schemaJson: "Schema (JSON)",
+            reportPdf: "Bericht (pdf)",
+            getDataset: "Datensatz abrufen",
+            bookmarks: "Lesezeichen",
+            bookmark: "Lesezeichen",
+            removeBookmark: "Lesezeichen entfernen"
           },
           dataset: {
-            datasets: "Datensätze"
+            datasets: "Datensätze",
+            dataScienceInfo: "DATA SCIENCE INFO",
+            structure: "Struktur",
+            volume: "Volumen",
+            compression: "Komprimierung",
+            transferType: "Übertragungsart",
+            immutability: "Unveränderlichkeit",
+            growth: "Wachstum",
+            growthRate: "Wachstumsrate",
+            temporalCover: "Zeitliche Abdeckung",
+            temporalConsistency: "Zeitliche Konsistenz",
+            noOfColumns: "Anzahl der Spalten",
+            noOfLines: "Anzahl der Zeilen",
+            dataTypes: "Datentypen",
+            attributeConsistency: "Attributkonsistenz",
+            numericValueDistribution: "Numerische Werteverteilung",
+            stringValueDistribution: "String-Werteverteilung",
+            numericCorrelationAnalysis: "Numerische Korrelationsanalyse",
+            numericAnomalyAnalysis: "Numerische Anomalieanalyse",
+            dataSeasonality: "Daten-Saisonalität",
+            languages: "Sprachen",
+            tags: "STICHWORTE",
+            version: "Version",
+            getDataset: "Datensatz abrufen"
+          },
+          bookmarks: {
+            bookmarks: "Lesezeichen"
           },
           common: {
             all: "Alle",
@@ -91,7 +126,7 @@ i18n
             c: "beebucket vertraulich - (c) beebucket 2024",
             imprint: "Impressum",
             privacyPolicy: "Datenschutzerklärung",
-            usePolicy: "Nutzungsbedingungen"
+            usePolicy: "Nutzungsrichtlinien"
           }
         }
       },
