@@ -75,49 +75,49 @@ function DatasetOverviewPopup({ dataset }) {
               >
                 <div className="w-100">
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">STRUCTURE</p>
+                    <p className="small text-uppercase">{t('dataset.structure')}</p>
                     <p className="small">Text (CSV)</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">VOLUME</p>
+                    <p className="small text-uppercase">{t('dataset.volume')}</p>
                     <p className="small">{filesize(dataset?._source?.volume)}</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">COMPRESSION</p>
+                    <p className="small text-uppercase">{t('dataset.compression')}</p>
                     <p className="small">
                       {dataset?.dataset?._source?.compression ?? "None"}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">TRANSFER TYPE</p>
+                    <p className="small text-uppercase">{t('dataset.transferType')}</p>
                     <p className="small">
                       {dataset?.dataset?._source?.transferTypeFlag ?? "None"}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">IMMUTABILITY</p>
+                    <p className="small text-uppercase">{t('dataset.immutability')}</p>
                     <p className="small">
                       {dataset?.dataset_source?.immutabilityFlag ?? "None"}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">GROWTH</p>
+                    <p className="small text-uppercase">{t('dataset.growth')}</p>
                     <p className="small">
                       {dataset?.dataset?._source?.growthFlag ?? "None"}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">GROWTH RATE</p>
+                    <p className="small text-uppercase">{t('dataset.growthRate')}</p>
                     <p className="small">unknown</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">TEMPORAL COVER</p>
+                    <p className="small text-uppercase">{t('dataset.temporalCover')}</p>
                     <p className="small">
                       {calculateTemporalCover(dataset?.dataset?.datasets)}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">TEMPORAL CONSISTENCY</p>
+                    <p className="small text-uppercase">{t('dataset.temporalConsistency')}</p>
                     <p className="small">
                       {calculateTemporalConsistency(
                         dataset?.dataset?.datasets
@@ -141,7 +141,7 @@ function DatasetOverviewPopup({ dataset }) {
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">NUMBER OF LINES</p>
+                    <p className="small text-uppercase">{t('dataset.noOfLines')}</p>
                     <p className="small">
                       {dataset?.dataset?._source?.datasets &&
                         dataset?.dataset?._source?.datasets?.length > 0
@@ -150,50 +150,50 @@ function DatasetOverviewPopup({ dataset }) {
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">DATA TYPES</p>
+                    <p className="small text-uppercase">{t('dataset.dataTypes')}</p>
                     <p className="small">
                       time, string, numeric
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      ATTRIBUTE CONSISTENCY
+                      {t('dataset.attributeConsistency')}
                     </p>
                     <p className="small">
                       partially inconsistent
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">LANGUAGES</p>
+                    <p className="small text-uppercase">{t('dataset.languages')}</p>
                     <p className="small">german, english</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      NUMERIC VALUE DISTRIBUTION
+                      {t('dataset.numericValueDistribution')}
                     </p>
                     <p className="small">heterogen</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      STRING VALUE DISTRIBUTION
+                      {t('dataset.stringValueDistribution')}
                     </p>
                     <p className="small">heterogen</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      NUMERIC CORRELATION ANALYSIS
+                      {t('dataset.numericCorrelationAnalysis')}
                     </p>
                     <p className="small">partial correlation</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      NUMERIC ANOMALY ANALYSIS
+                      {t('dataset.numericAnomalyAnalysis')}
                     </p>
                     <p className="small">anomaly exists</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      NUMERIC ANOMALY ANALYSIS
+                      {t('dataset.dataSeasonality')}
                     </p>
                     <p className="small">seasonal, no trend</p>
                   </div>
