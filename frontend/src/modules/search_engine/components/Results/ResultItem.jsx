@@ -54,7 +54,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
             className='medium text-decoration-underline text-muted pe-2'>
             cc-by
           </a>
-          <span className="medium text-muted pe-2">{t('dataset.version')} {dataset?._source?.edps_version}</span>
+          <span className="medium text-muted pe-2">{t('dataset.version')} {(dataset?._source?.version ?? 1).toFixed(1)}</span>
           <span className="medium text-muted pe-2">
             {moment(dataset?._source?.publishDate).fromNow()}
           </span>

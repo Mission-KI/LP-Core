@@ -71,7 +71,7 @@ function Details() {
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
                     <a href={datasetDetails._source?.publisher?.name} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.publisher?.name}</a>
                     <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>cc-by</a>
-                    <span className='small me-2'>{t('dataset.version')} {datasetDetails?._source?.edps_version}</span>
+                    <span className='small me-2'>{t('dataset.version')} {(datasetDetails?._source?.version ?? 1).toFixed(1)}</span>
                     <span className='small me-2'>
                         {moment(datasetDetails?._source?.publishDate).fromNow()}
                     </span>
