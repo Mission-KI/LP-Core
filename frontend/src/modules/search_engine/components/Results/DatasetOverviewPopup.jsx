@@ -108,7 +108,7 @@ function DatasetOverviewPopup({ dataset }) {
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">GROWTH RATE</p>
-                    <p className="small">Unknown</p>
+                    <p className="small">unknown</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">TEMPORAL COVER</p>

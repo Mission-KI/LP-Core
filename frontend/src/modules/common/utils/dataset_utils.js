@@ -24,7 +24,7 @@ export const calculateTemporalCover = (datasets) => {
         return `${differenceInMonths} months`;
     }
 
-    return "Unknown";
+    return "unknown";
 };
 
 export const calculateTemporalConsistency = (datasets) => {
@@ -42,5 +42,5 @@ export const calculateTemporalConsistency = (datasets) => {
         });
     });
 
-    return isConsistent ? "Consistent" : "Inconsistent";
+    return isConsistent ? "consistent" : "inconsistent";
 };
