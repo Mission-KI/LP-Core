@@ -161,7 +161,7 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
         const query = {
             "query": {
                 "query_string": {
-                    "query": searchTerm,
+                    "query": `${searchTerm}*`,
                     "default_field": "name"
                 }
             }
