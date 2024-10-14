@@ -14,6 +14,10 @@ function Filters({ datasets }) {
     const navigate = useNavigate();
     const location = useLocation();
 
+    const handleClearFilters = () => {
+        navigate(location.pathname, { replace: true });
+    };
+
     const getQueryParams = () => {
         const params = new URLSearchParams(location.search);
         const queryObj = {};
@@ -68,7 +72,7 @@ function Filters({ datasets }) {
                 .filter(v => v !== value)
                 .forEach(v => params.append(name, v));
         }
-    
+
         navigate(`?${params.toString()}`, { replace: true });
     };
 
@@ -170,6 +174,14 @@ function Filters({ datasets }) {
                     </div>
                 </FormGroup>
             ))}
+            <div className="d-flex justify-content-end mt-3">
+                <button
+                    className="btn btn-primary medium rounded-lg"
+                    onClick={handleClearFilters}
+                >
+                    Clear
+                </button>
+            </div>
         </div>
     );
 }
