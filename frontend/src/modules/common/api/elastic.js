@@ -21,7 +21,9 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                         should: [
                             { match_phrase: { name: values[0] } },
                             { match_phrase: { 'description': values[0] } },
-                            { match_phrase: { 'dataSpace.name': values[0] } }
+                            { match_phrase: { 'dataSpace.name': values[0] } },
+                            { match_phrase: { 'publisher.name': values[0] } },
+                            { match_phrase: { 'licenseId': values[0] } }
                         ]
                     }
                 });
