@@ -72,7 +72,7 @@ export const filterSections = [
                 name_2: "max_size",
                 type: "doublerange",
                 minValue: 0,
-                maxValue: 100,
+                maxValue: 10000,
             },
         ]
     },
