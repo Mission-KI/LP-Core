@@ -1,6 +1,9 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import acceptableUsePolicy from './modules/legal/translation/acceptableUsePolicy'
+import privacyPolicy from './modules/legal/translation/privacyPolicy';
+import imprintPolicy from './modules/legal/translation/imprint';
 
 i18n
   .use(LanguageDetector)
@@ -68,11 +71,14 @@ i18n
             bookmarks: "Bookmarks"
           },
           footer: {
-            c: "beebucket confidential - (c) beebucket 2024",
+            c: "(c) beebucket 2024",
             imprint: "Imprint",
             privacyPolicy: "Data Privacy Policy",
             usePolicy: "Acceptable Use Policy"
-          }
+          },
+          imprint: imprintPolicy.en,
+          acceptableUsePolicy: acceptableUsePolicy.en,
+          privacyPolicy: privacyPolicy.en,
         }
       },
       de: {
@@ -130,11 +136,14 @@ i18n
             bookmarks: "Lesezeichen"
           },
           footer: {
-            c: "beebucket vertraulich - (c) beebucket 2024",
+            c: "(c) beebucket 2024",
             imprint: "Impressum",
             privacyPolicy: "Datenschutzerklärung",
             usePolicy: "Nutzungsrichtlinien"
-          }
+          },
+          imprint: imprintPolicy.de,
+          acceptableUsePolicy: acceptableUsePolicy.de,
+          privacyPolicy: privacyPolicy.de,
         }
       },
     }
