@@ -47,12 +47,6 @@ function Details() {
         setActiveKey(item);
     };
 
-    const numericColumnCount = datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns?.length ?? 0;
-    const stringColumnCount = datasetDetails?._source?.structuredDatasets?.[0]?.stringColumns?.length ?? 0;
-    const dateColumnCount = datasetDetails?._source?.structuredDatasets?.[0]?.dateColumns?.length ?? 0;
-    const columnCount = numericColumnCount + stringColumnCount + dateColumnCount;
-    
-
     if (loading) {
         return (
             <div className='d-flex justify-content-center align-items-center' style={{ height: '70vh' }}>
@@ -120,7 +114,7 @@ function Details() {
 
                                     <br />
                                     <p className='small mb-1'>
-                                        {columnCount}
+                                        {datasetDetails?._source?.structuredDatasets?.[0]?.columnCount ?? 'None'}
                                     </p>
                                     <p className='small mb-1'>{datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? 'None'}</p>
                                     <p className='small mb-1'>

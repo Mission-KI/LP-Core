@@ -69,6 +69,28 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 });
             }
 
+            else if (key === 'min_columns') {
+                const min_columns = parseInt(values[0]);
+                mustClauses.push({
+                    range: {
+                        'structuredDatasets.columnCount': {
+                            gte: min_columns
+                        }
+                    }
+                });
+            }
+
+            else if (key === 'max_columns') {
+                const max_columns = parseInt(values[0]);
+                mustClauses.push({
+                    range: {
+                        'structuredDatasets.columnCount': {
+                            lte: max_columns
+                        }
+                    }
+                });
+            }
+
             else {
                 for (const value of values) {
                     shouldClauses.push({ match: { [key]: value } });
