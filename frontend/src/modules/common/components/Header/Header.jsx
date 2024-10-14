@@ -74,14 +74,14 @@ function Header({ datasetDetails }) {
 
                                 <div className='pe-2 pt-1'>
                                     <button onClick={() => handleAddBookmark(datasetDetails?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
-                                        {t('header.bookmark')} <StarFill className='txt-white ms-2' />
+                                        {t('header.bookmark')} <Star className='txt-white ms-2' />
                                     </button>
                                 </div>
 
                             ) : (
                                 <div className='pe-2 pt-1'>
                                     <button onClick={() => handleRemoveBookmark(datasetDetails?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
-                                        <Star className='me-1' />
+                                        <StarFill className='me-1' />
                                         {t('header.removeBookmark')}
                                     </button>
                                 </div>
@@ -90,7 +90,7 @@ function Header({ datasetDetails }) {
 
                             <div className='pe-2 pt-1'>
                                 <Link to="/#bookmarks" className='btn rounded-lg py-1 small d-flex align-items-center'>
-                                    {t('header.bookmarks')} <StarFill className='ms-2' />
+                                    {t('header.bookmarks')} <Star className='ms-2' />
                                 </Link>
                             </div>
                         </div>

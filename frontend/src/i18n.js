@@ -101,7 +101,6 @@ i18n
           },
           dataset: {
             datasets: "Datensätze",
-            dataScienceInfo: "DATENWISSENSCHAFTSINFORMATIONEN",
             structure: "Struktur",
             volume: "Volumen",
             compression: "Komprimierung",

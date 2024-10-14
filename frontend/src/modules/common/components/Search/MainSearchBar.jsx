@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Filter, Search, Question } from 'react-bootstrap-icons';
+import { Filter, Search, Question, X } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -32,6 +32,12 @@ function MainSearchBar({ datasets }) {
         } else {
             setShowSuggestions(false);
         }
+    };
+
+    const clearSearch = () => {
+        setLocalSearchTerm('');
+        setShowSuggestions(false);
+        inputRef.current.querySelector('input').focus();
     };
 
     const handleSubmit = e => {
@@ -80,6 +86,11 @@ function MainSearchBar({ datasets }) {
                     placeholder={t('header.search_placeholder')}
                     value={localSearchTerm}
                 />
+                {localSearchTerm && (
+                    <InputGroup.Text onClick={clearSearch} style={{ cursor: 'pointer' }}>
+                        <X />
+                    </InputGroup.Text>
+                )}
                 <SearchSuggestions
                     localSearchTerm={localSearchTerm}
                     setLocalSearchTerm={setLocalSearchTerm}
