@@ -1,62 +1,62 @@
 export const filterSections = [
-    {
-        title: "Dataspace",
-        filters: [
-            {
-                label: "GovData",
-                value: "GovData",
-                name: "dataSpace.name",
-                type: "checkbox",
-            },
-            {
-                label: "Medien",
-                value: "Medien",
-                name: "dataSpace.name",
-                type: "checkbox",
-            },
-            {
-                label: "NAP",
-                value: "NAP",
-                name: "dataSpace.name",
-                type: "checkbox",
-            },
-            {
-                label: "Other",
-                value: "Other",
-                name: "dataSpace.name",
-                type: "checkbox",
-            }
-        ]
-    },
-    {
-        title: "Data Format",
-        filters: [
-            {
-                label: "Video & Image",
-                value: "Video & Image",
-                name: "data_format",
-                type: "checkbox",
-            },
-            {
-                label: "Audio",
-                value: "Audio",
-                name: "data_format",
-                type: "checkbox",
-            },
-            {
-                label: "Documents",
-                value: "Documents",
-                name: "data_format",
-                type: "checkbox",
-            },
-            {
-                label: "Graphs",
-                value: "Graphs",
-                name: "data_format",
-                type: "checkbox",
-            }
-        ]
-    },
+    // {
+    //     title: "Dataspace",
+    //     filters: [
+    //         {
+    //             label: "GovData",
+    //             value: "GovData",
+    //             name: "dataSpace.name",
+    //             type: "checkbox",
+    //         },
+    //         {
+    //             label: "Medien",
+    //             value: "Medien",
+    //             name: "dataSpace.name",
+    //             type: "checkbox",
+    //         },
+    //         {
+    //             label: "NAP",
+    //             value: "NAP",
+    //             name: "dataSpace.name",
+    //             type: "checkbox",
+    //         },
+    //         {
+    //             label: "Other",
+    //             value: "Other",
+    //             name: "dataSpace.name",
+    //             type: "checkbox",
+    //         }
+    //     ]
+    // },
+    // {
+    //     title: "Data Format",
+    //     filters: [
+    //         {
+    //             label: "Video & Image",
+    //             value: "Video & Image",
+    //             name: "data_format",
+    //             type: "checkbox",
+    //         },
+    //         {
+    //             label: "Audio",
+    //             value: "Audio",
+    //             name: "data_format",
+    //             type: "checkbox",
+    //         },
+    //         {
+    //             label: "Documents",
+    //             value: "Documents",
+    //             name: "data_format",
+    //             type: "checkbox",
+    //         },
+    //         {
+    //             label: "Graphs",
+    //             value: "Graphs",
+    //             name: "data_format",
+    //             type: "checkbox",
+    //         }
+    //     ]
+    // },
     {
         title: "File size",
         filters: [
