@@ -52,7 +52,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           </span>
           <a href={dataset?._source?.licenseId} target='_blank'
             className='medium text-decoration-underline text-muted pe-2'>
-            cc-by
+            {dataset?._source?.licenseId?.replace('http://dcat-ap.de/def/licenses/', '')}
           </a>
           <span className="medium text-muted pe-2">{t('dataset.version')} {(dataset?._source?.version ?? 1).toFixed(1)}</span>
           <span className="medium text-muted pe-2">

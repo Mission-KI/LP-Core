@@ -66,8 +66,14 @@ function Details() {
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 570 }}>
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
-                    <a href={datasetDetails._source?.publisher?.name} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.publisher?.name}</a>
-                    <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>cc-by</a>
+                    <a
+                        href={datasetDetails._source?.publisher?.name}
+                        target='_blank'
+                        className='small text-decoration-underline me-2'
+                    >
+                        {datasetDetails?._source?.licenseId?.replace('http://dcat-ap.de/def/licenses/', '')}
+                    </a>
+                    <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.publisher?.name}</a>
                     <span className='small me-2'>{t('dataset.version')} {(datasetDetails?._source?.version ?? 1).toFixed(1)}</span>
                     <span className='small me-2'>
                         {moment(datasetDetails?._source?.publishDate).fromNow()}
