@@ -6,13 +6,21 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { useTranslation } from 'react-i18next';
 import Paginator from '../../../common/components/widgets/Paginator';
+import { getTotalCount } from '../../../common/api/elastic';
 
 function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handlePageChange, currentPage }) {
 
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('all');
+    const [totalDatasetCount, setTotalDatasetCount] = useState(0);
 
-    const totalDatasetCount = datasets.hits?.total?.value;
+    useEffect(() => {
+        const getTotalDatasetCount = async () => {
+            const totalCount = await getTotalCount();
+            setTotalDatasetCount(totalCount);
+        }
+        getTotalDatasetCount();
+    }, []);
 
     useEffect(() => {
         const hash = window.location.hash;
@@ -52,7 +60,11 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
                     >
                         <Tab eventKey="all" title={t('common.all')}>
                             <div className='d-block'>
-                                <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>{totalDatasetCount} {t('dataset.datasets')}</span>
+
+                                <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>
+                                    {(datasets.hits?.total?.value === 10000 ? totalDatasetCount : datasets.hits?.total?.value)?.toLocaleString()} {t('dataset.datasets')}
+                                </span>
+
                                 {datasets?.hits?.hits?.map((dataset) =>
                                     <ResultItem dataset={dataset} key={dataset._id} bookmarks={bookmarks} setBookmarks={setBookmarks} />
                                 )}
