@@ -14,15 +14,10 @@ function MainSearchBar({ datasets }) {
     const { t } = useTranslation();
 
     const [localSearchTerm, setLocalSearchTerm] = useState('');
-    const [filtersDropdopwnVisible, setFiltersDropdopwnVisible] = useState(false);
     const [showSuggestions, setShowSuggestions] = useState(false);
 
     const inputRef = useRef(null);
     const navigate = useNavigate();
-
-    const toggleFiltersDropdown = () => {
-        setFiltersDropdopwnVisible(!filtersDropdopwnVisible);
-    };
 
     const handleChange = e => {
         const newSearchTerm = e.target.value;
@@ -99,14 +94,7 @@ function MainSearchBar({ datasets }) {
                 />
 
                 <InputGroup.Text>
-                    <Dropdown show={filtersDropdopwnVisible}>
-                        <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
-                            <Filter className='me-2' /> <span className='medium'>{t('header.filters')}</span>
-                        </div>
-                        <Dropdown.Menu className='border-0 shadow-sm' style={{ width: 300, top: 0, transform: 'translate(-65%, 50px)' }}>
-                            <Filters datasets={datasets} />
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <Filters datasets={datasets} />
                 </InputGroup.Text>
             </InputGroup>
             <div className='ps-3'>

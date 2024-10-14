@@ -1,21 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { filterSections } from '../../../common/utils/filter_utils';
 import { FormGroup } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import styles from './Filters.module.css';
+import { Dropdown } from 'react-bootstrap';
+import { Filter } from 'react-bootstrap-icons';
+import { useTranslation } from 'react-i18next';
 
 function Filters({ datasets }) {
+
+    const [filtersDropdownVisible, setFiltersDropdownVisible] = useState(false);
     const [checkedOptions, setCheckedOptions] = useState({});
     const [checkedRadios, setCheckedRadios] = useState({});
     const [rangeValues, setRangeValues] = useState({});
 
     const navigate = useNavigate();
     const location = useLocation();
+    const { t } = useTranslation();
+    const dropdownRef = useRef(null); // Ref for the dropdown
 
     const handleClearFilters = () => {
         navigate(location.pathname, { replace: true });
+    };
+
+    const toggleFiltersDropdown = () => {
+        setFiltersDropdownVisible(!filtersDropdownVisible);
     };
 
     const getQueryParams = () => {
@@ -108,81 +119,104 @@ function Filters({ datasets }) {
         updateQueryParams(filter.name, value, true);
     };
 
+    const handleClickOutside = (event) => {
+        console.log("clicked outside");
+        if (filtersDropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setFiltersDropdownVisible(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [filtersDropdownVisible]);
+
     return (
-        <div className={styles.filtersWrapper}>
-            {filterSections.map((filterSection) => (
-                <FormGroup key={filterSection.title} className='mb-4'>
-                    <label className='mb-2 small fw-500 text-uppercase'>{filterSection.title}</label>
-                    <div className='d-flex flex-wrap w-100 align-items-center py-1'>
-                        {filterSection.filters.map((filter) => (
-                            <div key={filter.name_1}>
-                                {filter.type === 'checkbox' && (
-                                    <div className="form-check ps-1 pt-1">
-                                        <input
-                                            type="checkbox"
-                                            className="btn-check"
-                                            id={`checkbox-${filter.value}`}
-                                            name={filter.name}
-                                            value={filter.value}
-                                            checked={checkedOptions[filter.label] || false}
-                                            onChange={() => handleCheckboxChange(filter)}
-                                            autoComplete="off"
-                                        />
-                                        <label
-                                            className={`btn rounded-lg small ${checkedOptions[filter.label] ? 'btn-dark' : 'btn-outline-secondary'}`}
-                                            htmlFor={`checkbox-${filter.value}`}
-                                        >
-                                            {filter.label}
-                                        </label>
-                                    </div>
-                                )}
-
-                                {filter.type === 'radio' && (
-                                    <div className='d-flex py-1'>
-                                        <input
-                                            type='radio'
-                                            name={filter.name}
-                                            value={filter.value}
-                                            checked={checkedRadios[filter.name] === filter.value}
-                                            onChange={() => handleRadioChange(filter, filter.value)}
-                                        />
-                                        <label className='medium ps-2 text-muted'>{filter.label}</label>
-                                    </div>
-                                )}
-
-                                {filter.type === 'doublerange' && (
-                                    <div style={{ width: 270 }}>
-                                        <div className='d-flex flex-column w-100'>
-                                            <label className='small text-muted'>{filter.label}</label>
-                                            <Slider
-                                                range
-                                                className='w-100'
-                                                min={filter.minValue}
-                                                max={filter.maxValue}
-                                                value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
-                                                onChange={(values) => handleDoubleRangeChange(filter, values)}
-                                            />
-                                            <div className='d-flex justify-content-between mt-2'>
-                                                <span className='small text-muted'>{rangeValues[filter.name_1]?.[0] || filter.minValue}</span>
-                                                <span className='small text-muted'>{rangeValues[filter.name_1]?.[1] || filter.maxValue}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </FormGroup>
-            ))}
-            <div className="d-flex justify-content-end mt-3">
-                <button
-                    className="btn btn-primary medium rounded-lg"
-                    onClick={handleClearFilters}
-                >
-                    Clear
-                </button>
+        <Dropdown show={filtersDropdownVisible}>
+            <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
+                <Filter className='me-2' /> <span className='medium'>{t('header.filters')}</span>
             </div>
-        </div>
+            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow-sm' style={{ width: 300, top: 0, transform: 'translate(-65%, 50px)' }}>
+
+                <div className={styles.filtersWrapper}>
+                    {filterSections.map((filterSection) => (
+                        <FormGroup key={filterSection.title} className='mb-4'>
+                            <label className='mb-2 small fw-500 text-uppercase'>{filterSection.title}</label>
+                            <div className='d-flex flex-wrap w-100 align-items-center py-1'>
+                                {filterSection.filters.map((filter) => (
+                                    <div key={filter.name_1}>
+                                        {filter.type === 'checkbox' && (
+                                            <div className="form-check ps-1 pt-1">
+                                                <input
+                                                    type="checkbox"
+                                                    className="btn-check"
+                                                    id={`checkbox-${filter.value}`}
+                                                    name={filter.name}
+                                                    value={filter.value}
+                                                    checked={checkedOptions[filter.label] || false}
+                                                    onChange={() => handleCheckboxChange(filter)}
+                                                    autoComplete="off"
+                                                />
+                                                <label
+                                                    className={`btn rounded-lg small ${checkedOptions[filter.label] ? 'btn-dark' : 'btn-outline-secondary'}`}
+                                                    htmlFor={`checkbox-${filter.value}`}
+                                                >
+                                                    {filter.label}
+                                                </label>
+                                            </div>
+                                        )}
+
+                                        {filter.type === 'radio' && (
+                                            <div className='d-flex py-1'>
+                                                <input
+                                                    type='radio'
+                                                    name={filter.name}
+                                                    value={filter.value}
+                                                    checked={checkedRadios[filter.name] === filter.value}
+                                                    onChange={() => handleRadioChange(filter, filter.value)}
+                                                />
+                                                <label className='medium ps-2 text-muted'>{filter.label}</label>
+                                            </div>
+                                        )}
+
+                                        {filter.type === 'doublerange' && (
+                                            <div style={{ width: 270 }}>
+                                                <div className='d-flex flex-column w-100'>
+                                                    <label className='small text-muted'>{filter.label}</label>
+                                                    <Slider
+                                                        range
+                                                        className='w-100'
+                                                        min={filter.minValue}
+                                                        max={filter.maxValue}
+                                                        value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
+                                                        onChange={(values) => handleDoubleRangeChange(filter, values)}
+                                                    />
+                                                    <div className='d-flex justify-content-between mt-2'>
+                                                        <span className='small text-muted'>{rangeValues[filter.name_1]?.[0] || filter.minValue}</span>
+                                                        <span className='small text-muted'>{rangeValues[filter.name_1]?.[1] || filter.maxValue}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </FormGroup>
+                    ))}
+                    <div className="d-flex justify-content-end mt-3">
+                        <button
+                            className="btn btn-primary medium rounded-lg"
+                            onClick={handleClearFilters}
+                        >
+                            Clear
+                        </button>
+                    </div>
+                </div>
+            </Dropdown.Menu>
+        </Dropdown>
     );
 }
 

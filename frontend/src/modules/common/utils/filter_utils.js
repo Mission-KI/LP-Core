@@ -3,14 +3,8 @@ export const filterSections = [
         title: "Dataspace",
         filters: [
             {
-                label: "variety DS",
-                value: "variety DS",
-                name: "dataSpace.name",
-                type: "checkbox",
-            },
-            {
-                label: "TestDataSpace",
-                value: "TestDataSpace",
+                label: "GovData",
+                value: "GovData",
                 name: "dataSpace.name",
                 type: "checkbox",
             },
