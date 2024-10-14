@@ -13,6 +13,8 @@ function Header({ datasetDetails }) {
     const { t } = useTranslation();
     const [bookmarked, setBookmarked] = useState(false);
 
+    const bookmarks = localStorage.getItem('bookmarks');
+
     useEffect(() => {
         setBookmarked(isBookmarked(datasetDetails?._id))
     }, [datasetDetails]);
@@ -40,7 +42,7 @@ function Header({ datasetDetails }) {
                         <SearchBar />
                     </div>
                     <div className='d-flex justify-content-between w-100'>
-                        <div className='d-sm-flex d-none align-items-center pt-3 flex-wrap'>
+                        <div className='d-sm-flex d-none pt-3 flex-wrap'>
                             <div className='pe-2 pt-1'>
                                 <button
                                     className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'
@@ -90,7 +92,12 @@ function Header({ datasetDetails }) {
 
                             <div className='pe-2 pt-1'>
                                 <Link to="/#bookmarks" className='btn rounded-lg py-1 small d-flex align-items-center'>
-                                    {t('header.bookmarks')} <Star className='ms-2' />
+                                    {t('header.bookmarks')}
+                                    {bookmarks?.length > 0 ? (
+                                        <StarFill className='ms-2' />
+                                    ) : (
+                                        <Star className='ms-2' />
+                                    )}
                                 </Link>
                             </div>
                         </div>
