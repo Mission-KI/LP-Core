@@ -8,8 +8,9 @@ import {
 } from "../../../common/utils/dataset_utils";
 import { filesize } from "filesize";
 import { t } from "i18next";
+import { Link } from "react-router-dom";
 
-function DatasetOverviewPopup({ dataset }) {
+function QuickView({ dataset }) {
   const [show, setShow] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -85,25 +86,25 @@ function DatasetOverviewPopup({ dataset }) {
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.compression')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.compression ?? "None"}
+                      {dataset?.dataset?._source?.compression ?? "unknown"}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.transferType')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.transferTypeFlag ?? "None"}
+                      {dataset?.dataset?._source?.transferTypeFlag ?? "unknown"}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.immutability')}</p>
                     <p className="small">
-                      {dataset?.dataset_source?.immutabilityFlag ?? "None"}
+                      {dataset?.dataset_source?.immutabilityFlag ?? "unknown"}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.growth')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.growthFlag ?? "None"}
+                      {dataset?.dataset?._source?.growthFlag ?? "unknown"}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
@@ -205,6 +206,9 @@ function DatasetOverviewPopup({ dataset }) {
             <hr />
             <div className="d-flex w-100 align-items-center pt-3 flex-wrap justify-content-end">
               <div className='pe-2 pt-1'>
+                <Link to={`/details/${dataset._id}`} className='btn text-white btn-primary rounded-lg py-1 small'>{t('dataset.details')}</Link>
+              </div>
+              <div className='pe-2 pt-1'>
                 <button className='btn btn-primary rounded-lg py-1 small'>{t('header.findSimilar')}</button>
               </div>
               <div className='pe-2 pt-1'>
@@ -232,7 +236,7 @@ function DatasetOverviewPopup({ dataset }) {
                 marginRight: "5px",
               }}
             >
-              via Dataroom
+              via dataspace
             </p>
           </div>
         </div>
@@ -241,4 +245,4 @@ function DatasetOverviewPopup({ dataset }) {
   );
 }
 
-export default DatasetOverviewPopup;
+export default QuickView;

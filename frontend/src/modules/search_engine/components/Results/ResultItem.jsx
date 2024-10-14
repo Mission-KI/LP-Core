@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Results.module.css";
 import moment from "moment";
-import DatasetOverviewPopup from "./DatasetOverviewPopup";
+import QuickView from "./QuickView";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
 import { isBookmarked } from "../../../common/utils/bookmarks";
 import { StarFill } from "react-bootstrap-icons";
@@ -28,7 +28,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
             {dataset._source.name}
           </Link>
           <div className="ps-2">
-            <DatasetOverviewPopup dataset={dataset} />
+            <QuickView dataset={dataset} />
           </div>
         </div>
 

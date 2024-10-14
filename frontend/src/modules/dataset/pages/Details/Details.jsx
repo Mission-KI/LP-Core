@@ -60,6 +60,9 @@ function Details() {
             <Header datasetDetails={datasetDetails} />
             <div className="container px-5 pt-5">
                 <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
+                <p className='text-muted mt-3 mb-5'>
+                    {datasetDetails?._source?.description}
+                </p>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 570 }}>
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
@@ -104,19 +107,19 @@ function Details() {
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>
                                     <p className='small mb-1'>{filesize(datasetDetails?._source?.volume)}</p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.compression ?? 'None'}</p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'None'}</p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'None'}</p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.growthFlag ?? 'None'}</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.compression ?? 'unknown'}</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'unknown'}</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'unknown'}</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.growthFlag ?? 'unknown'}</p>
                                     <p className='small mb-1'>unknown</p>
                                     <p className='small mb-1'>{calculateTemporalCover(datasetDetails?.datasets)}</p>
                                     <p className='small mb-1'>{calculateTemporalConsistency(datasetDetails?.datasets)}</p>
 
                                     <br />
                                     <p className='small mb-1'>
-                                        {datasetDetails?._source?.structuredDatasets?.[0]?.columnCount ?? 'None'}
+                                        {datasetDetails?._source?.structuredDatasets?.[0]?.columnCount ?? 'unknown'}
                                     </p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? 'None'}</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? 'unknown'}</p>
                                     <p className='small mb-1'>
                                         {datasetDetails?._source?.dataTypes.map((dataType, index, arr) => (
                                             <span key={index}>

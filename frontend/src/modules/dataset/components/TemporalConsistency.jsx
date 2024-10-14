@@ -18,8 +18,8 @@ function TemporalConsistency({ datasetDetails }) {
                         {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
                             <tr key={index} className='hover'>
                                 <td>{column.name}</td>
-                                <td>?</td>
-                                <td>?</td>
+                                <td>N/A</td>
+                                <td>N/A</td>
                             </tr>
                         ))}
 

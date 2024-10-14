@@ -32,6 +32,7 @@ i18n
           },
           dataset: {
             datasets: "Datasets",
+            details: "Details",
             dataScienceInfo: "DATA SCIENCE INFO",
             structure: "Structure",
             volume: "Volume",
