@@ -86,25 +86,25 @@ function QuickView({ dataset }) {
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.compression')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.compression ?? "unknown"}
+                      zip
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.transferType')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.transferTypeFlag ?? "unknown"}
+                      {dataset?._source?.transferTypeFlag ?? 'unknown'}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.immutability')}</p>
                     <p className="small">
-                      {dataset?.dataset_source?.immutabilityFlag ?? "unknown"}
+                      {dataset?._source?.immutabilityFlag ?? 'unknown'}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.growth')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.growthFlag ?? "unknown"}
+                      {dataset?._source?.growthFlag ?? 'unknown'}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
@@ -114,15 +114,13 @@ function QuickView({ dataset }) {
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.temporalCover')}</p>
                     <p className="small">
-                      {calculateTemporalCover(dataset?.dataset?.datasets)}
+                      unknown
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.temporalConsistency')}</p>
                     <p className="small">
-                      {calculateTemporalConsistency(
-                        dataset?.dataset?.datasets
-                      )}
+                      unknown
                     </p>
                   </div>
                 </div>
@@ -134,26 +132,23 @@ function QuickView({ dataset }) {
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.noOfColumns')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.datasets &&
-                        dataset?.dataset?._source?.datasets?.length > 0
-                        ? dataset?.dataset?._source.datasets[0].columns
-                          .length
-                        : "No row count available"}
+                      {dataset?._source?.structuredDatasets[0]?.columnCount}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.noOfLines')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.datasets &&
-                        dataset?.dataset?._source?.datasets?.length > 0
-                        ? dataset?.dataset?._source.datasets[0].rowCount
-                        : "No row count available"}
+                      {dataset?._source?.structuredDatasets[0]?.rowCount}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.dataTypes')}</p>
                     <p className="small">
-                      time, string, numeric
+                      {dataset?._source?.dataTypes.map((dataType, index, arr) => (
+                        <span key={index}>
+                          {dataType}{index < arr.length - 1 && ', '}
+                        </span>
+                      ))}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">

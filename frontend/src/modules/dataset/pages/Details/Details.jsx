@@ -107,13 +107,13 @@ function Details() {
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>
                                     <p className='small mb-1'>{filesize(datasetDetails?._source?.volume)}</p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.compression ?? 'unknown'}</p>
+                                    <p className='small mb-1'>zip</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'unknown'}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'unknown'}</p>
                                     <p className='small mb-1'>{datasetDetails?._source?.growthFlag ?? 'unknown'}</p>
                                     <p className='small mb-1'>unknown</p>
-                                    <p className='small mb-1'>{calculateTemporalCover(datasetDetails?.datasets)}</p>
-                                    <p className='small mb-1'>{calculateTemporalConsistency(datasetDetails?.datasets)}</p>
+                                    <p className='small mb-1'>unknown</p>
+                                    <p className='small mb-1'>unknown</p>
 
                                     <br />
                                     <p className='small mb-1'>
