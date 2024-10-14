@@ -1,17 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Dropdown } from "react-bootstrap";
-import { InfoCircleFill, Download, StarFill } from "react-bootstrap-icons";
+import { InfoCircleFill, Download, StarFill, Star } from "react-bootstrap-icons";
 import styles from "./Dropdown.module.css";
-import {
-  calculateTemporalConsistency,
-  calculateTemporalCover,
-} from "../../../common/utils/dataset_utils";
 import { filesize } from "filesize";
 import { t } from "i18next";
 import { Link } from "react-router-dom";
+import { addBookmark, isBookmarked, removeBookmark } from "../../../common/utils/bookmarks";
 
-function QuickView({ dataset }) {
+function QuickView({ dataset, bookmarks, setBookmarks }) {
   const [show, setShow] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -31,6 +30,43 @@ function QuickView({ dataset }) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+
+  useEffect(() => {
+    setBookmarked(isBookmarked(dataset?._id))
+  }, [dataset]);
+
+  const handleAddBookmark = (id) => {
+    addBookmark(id);
+    setBookmarked(true);
+
+    setBookmarks((prevBookmarks) => {
+      const currentHits = prevBookmarks.hits?.hits || []; // Accessing hits.hits array
+      return {
+        ...prevBookmarks,
+        hits: {
+          ...prevBookmarks.hits,
+          hits: [...currentHits, dataset], // Add the new bookmark dataset
+        },
+      };
+    });
+  };
+
+  const handleRemoveBookmark = (id) => {
+    removeBookmark(id);
+    setBookmarked(false);
+
+    setBookmarks((prevBookmarks) => {
+      const currentHits = prevBookmarks.hits?.hits || []; // Accessing hits.hits array
+      return {
+        ...prevBookmarks,
+        hits: {
+          ...prevBookmarks.hits,
+          hits: currentHits.filter((item) => item._id !== id), // Filter out the removed bookmark
+        },
+      };
+    });
+  };
 
   return (
     <Dropdown ref={dropdownRef} show={show}>
@@ -203,9 +239,22 @@ function QuickView({ dataset }) {
               <div className='pe-2 pt-1'>
                 <Link to={`/details/${dataset._id}`} className='btn text-white btn-primary rounded-lg py-1 small'>{t('dataset.details')}</Link>
               </div>
-              <div className='pe-2 pt-1'>
-                <button className='btn btn-primary rounded-lg py-1 small'>{t('header.findSimilar')}</button>
-              </div>
+              {!bookmarked ? (
+
+                <div className='pe-2 pt-1'>
+                  <button onClick={() => handleAddBookmark(dataset?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                    {t('header.bookmark')} <Star className='txt-white ms-2' />
+                  </button>
+                </div>
+
+              ) : (
+                <div className='pe-2 pt-1'>
+                  <button onClick={() => handleRemoveBookmark(dataset?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                    <StarFill className='me-1' />
+                    {t('header.removeBookmark')}
+                  </button>
+                </div>
+              )}
               <div className='pe-2 pt-1'>
                 <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
                   <Download className='me-1' /> {t('header.schemaJson')}

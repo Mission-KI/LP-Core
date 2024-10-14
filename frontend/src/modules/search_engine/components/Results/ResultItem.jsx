@@ -28,7 +28,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
             {dataset._source.name}
           </Link>
           <div className="ps-2">
-            <QuickView dataset={dataset} />
+            <QuickView dataset={dataset} bookmarks={bookmarks} setBookmarks={setBookmarks} />
           </div>
         </div>
 
