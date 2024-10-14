@@ -81,7 +81,7 @@ i18n
             title: "Datensatz-Suchmaschine"
           },
           header: {
-            title: "Daten Such Engine",
+            title: "Datensatz-Suchmaschine",
             search_placeholder: "Datensätze durchsuchen...",
             filters: "Filter",
             findSimilar: "Ähnliche EDP finden",

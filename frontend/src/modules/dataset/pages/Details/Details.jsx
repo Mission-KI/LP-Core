@@ -58,7 +58,7 @@ function Details() {
     return (
         <>
             <Header datasetDetails={datasetDetails} />
-            <div className="container px-5 pt-5">
+            <div className="container px-3 pt-5">
                 <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
                 <p className='text-muted mt-3 mb-5'>
                     {datasetDetails?._source?.description}

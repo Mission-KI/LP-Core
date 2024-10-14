@@ -29,72 +29,74 @@ function Header({ datasetDetails }) {
 
     return (
         <div id={styles.header}>
-            <div className='d-flex flex-wrap align-items-center pe-4'>
-                <Link to="/">
-                    <h4 style={{ fontWeight: 400, width: 67 }}>{t('header.title')}</h4>
-                </Link>
-            </div>
-            <div className='w-100'>
-                <div>
-                    <SearchBar />
+            <div className="container d-flex px-3">
+                <div className='d-flex flex-wrap align-items-center'>
+                    <Link to="/">
+                        <h4 style={{ fontWeight: 400 }}>{t('header.title')}</h4>
+                    </Link>
                 </div>
-                <div className='d-flex justify-content-between w-100'>
-                    <div className='d-sm-flex d-none align-items-center pt-3 flex-wrap'>
-                        <div className='pe-2 pt-1'>
-                            <button
-                                className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'
-                                onClick={() => navigate(-1)}
-                            >
-                                <ChevronLeft />
-                                <span className='ps-2'>{t('header.back')}</span>
-                            </button>
-                        </div>
+                <div className='w-100'>
+                    <div>
+                        <SearchBar />
                     </div>
-                    <div className="d-sm-flex d-none w-100 align-items-center pt-3 flex-wrap justify-content-end">
-                        <div className='pe-2 pt-1'>
-                            <button className='btn btn-primary rounded-lg py-1 small'>{t('header.findSimilar')}</button>
-                        </div>
-                        <div className='pe-2 pt-1'>
-                            <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
-                                <Download className='me-1' /> {t('header.schemaJson')}
-                            </button>
-                        </div>
-                        <div className='pe-2 pt-1'>
-                            <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
-                                <Download className='me-1' /> {t('header.reportPdf')}
-                            </button>
-                        </div>
-                        <div className='pe-2 pt-1'>
-                            <a href={datasetDetails?._source?.url} target='_blank' className='btn text-white btn-primary rounded-lg py-1 small d-flex align-items-center'>
-                                <Download className='me-1' /> {t('header.getDataset')}
-                            </a>
-                        </div>
-                        {!bookmarked ? (
-
+                    <div className='d-flex justify-content-between w-100'>
+                        <div className='d-sm-flex d-none align-items-center pt-3 flex-wrap'>
                             <div className='pe-2 pt-1'>
-                                <button onClick={() => handleAddBookmark(datasetDetails?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
-                                    {t('header.bookmark')} <StarFill className='txt-white ms-2' />
+                                <button
+                                    className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'
+                                    onClick={() => navigate(-1)}
+                                >
+                                    <ChevronLeft />
+                                    <span className='ps-2'>{t('header.back')}</span>
                                 </button>
                             </div>
-
-                        ) : (
+                        </div>
+                        <div className="d-sm-flex d-none w-100 align-items-center pt-3 flex-wrap justify-content-end">
                             <div className='pe-2 pt-1'>
-                                <button onClick={() => handleRemoveBookmark(datasetDetails?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
-                                    <Star className='me-1' />
-                                    {t('header.removeBookmark')}
+                                <button className='btn btn-primary rounded-lg py-1 small'>{t('header.findSimilar')}</button>
+                            </div>
+                            <div className='pe-2 pt-1'>
+                                <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                                    <Download className='me-1' /> {t('header.schemaJson')}
                                 </button>
                             </div>
-                        )}
+                            <div className='pe-2 pt-1'>
+                                <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                                    <Download className='me-1' /> {t('header.reportPdf')}
+                                </button>
+                            </div>
+                            <div className='pe-2 pt-1'>
+                                <a href={datasetDetails?._source?.url} target='_blank' className='btn text-white btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                                    <Download className='me-1' /> {t('header.getDataset')}
+                                </a>
+                            </div>
+                            {!bookmarked ? (
+
+                                <div className='pe-2 pt-1'>
+                                    <button onClick={() => handleAddBookmark(datasetDetails?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                                        {t('header.bookmark')} <StarFill className='txt-white ms-2' />
+                                    </button>
+                                </div>
+
+                            ) : (
+                                <div className='pe-2 pt-1'>
+                                    <button onClick={() => handleRemoveBookmark(datasetDetails?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                                        <Star className='me-1' />
+                                        {t('header.removeBookmark')}
+                                    </button>
+                                </div>
+                            )}
 
 
-                        <div className='pe-2 pt-1'>
-                            <Link to="/#bookmarks" className='btn rounded-lg py-1 small d-flex align-items-center'>
-                                {t('header.bookmarks')} <StarFill className='ms-2' />
-                            </Link>
+                            <div className='pe-2 pt-1'>
+                                <Link to="/#bookmarks" className='btn rounded-lg py-1 small d-flex align-items-center'>
+                                    {t('header.bookmarks')} <StarFill className='ms-2' />
+                                </Link>
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
     )
