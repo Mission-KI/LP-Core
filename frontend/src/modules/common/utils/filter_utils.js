@@ -66,7 +66,7 @@ export const filterSections = [
                 name_2: "max_size",
                 type: "doublerange",
                 minValue: 0,
-                maxValue: 10000,
+                maxValue: 1965,
             },
         ]
     },
@@ -79,7 +79,7 @@ export const filterSections = [
                 name_2: "max_lines",
                 type: "doublerange",
                 minValue: 0,
-                maxValue: 1000,
+                maxValue: 8785,
             },
             {
                 label: "Columns",
@@ -87,7 +87,7 @@ export const filterSections = [
                 name_2: "max_columns",
                 type: "doublerange",
                 minValue: 0,
-                maxValue: 1000,
+                maxValue: 57,
             },
         ]
     },

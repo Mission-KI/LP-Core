@@ -28,8 +28,8 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     }
                 });
             } else if (key === 'min_size') {
-                const min_mb = parseFloat(values[0]);
-                const min_bytes = min_mb * 1024;
+                const min_kb = parseFloat(values[0]);
+                const min_bytes = min_kb * 1024;
                 mustClauses.push({
                     range: {
                         volume: {
@@ -39,8 +39,8 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 });
             }
             else if (key === 'max_size') {
-                const max_mb = parseFloat(values[0]);
-                const max_bytes = max_mb * 1024;
+                const max_kb = parseFloat(values[0]);
+                const max_bytes = max_kb * 1024;
                 mustClauses.push({
                     range: {
                         volume: {
