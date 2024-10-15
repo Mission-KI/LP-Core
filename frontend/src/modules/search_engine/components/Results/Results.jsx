@@ -12,7 +12,6 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('all');
     const [totalDatasetCount, setTotalDatasetCount] = useState(0);
-    const [showSpinner, setShowSpinner] = useState(false);
 
     useEffect(() => {
         const getTotalDatasetCount = async () => {
@@ -31,19 +30,6 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
         }
     }, []);
 
-    useEffect(() => {
-        let timer;
-        if (loading) {
-            timer = setTimeout(() => {
-                setShowSpinner(true);
-            }, 1500); // 1.5 seconds
-        } else {
-            setShowSpinner(false);
-        }
-
-        return () => clearTimeout(timer); // Cleanup timer on component unmount or loading change
-    }, [loading]);
-
     const handleTabChange = (tab) => {
         setActiveTab(tab);
         if (tab === 'bookmarks') {
@@ -53,7 +39,7 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
         }
     };
 
-    if (showSpinner) {
+    if (loading) {
         return (
             <div className='d-flex justify-content-center align-items-center' style={{ height: '100vh' }}>
                 <Spinner variant='primary' />

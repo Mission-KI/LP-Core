@@ -98,12 +98,10 @@ function Details() {
             {datasetDetails._source?.publisher?.name}
           </a>
           <span className="small me-2">
-            {t("dataset.version")}{" "}
-            {(datasetDetails?._source?.version ?? 1).toFixed(1)}
+            {t("dataset.version")} {(datasetDetails?._source?.version ?? 1).toFixed(1)}
           </span>
           <span className="small me-2">
-            {t("dataset.assetUploaded")}:{" "}
-            {moment(datasetDetails?._source?.publishDate).fromNow()}
+            {t("dataset.assetUploaded")}: {moment(datasetDetails?._source?.publishDate).fromNow()}
           </span>
         </div>
 
