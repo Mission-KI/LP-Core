@@ -28,7 +28,7 @@ function AttributeList({ datasetDetails }) {
                                 <td>string</td>
                             </tr>
                         ))}
-                        {datasetDetails?._source?.datetimeColumns?.[0]?.stringColumns.map((column, index) => (
+                        {datasetDetails?._source?.structuredDatasets?.[0]?.datetimeColumns.map((column, index) => (
                             <tr key={index} className='hover'>
                                 <td>{column.name}</td>
                                 <td>date/time</td>
