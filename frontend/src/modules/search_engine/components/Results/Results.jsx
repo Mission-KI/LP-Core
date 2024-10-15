@@ -9,10 +9,10 @@ import Paginator from '../../../common/components/widgets/Paginator';
 import { getTotalCount } from '../../../common/api/elastic';
 
 function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handlePageChange, currentPage }) {
-
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('all');
     const [totalDatasetCount, setTotalDatasetCount] = useState(0);
+    const [showSpinner, setShowSpinner] = useState(false);
 
     useEffect(() => {
         const getTotalDatasetCount = async () => {
@@ -31,6 +31,19 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
         }
     }, []);
 
+    useEffect(() => {
+        let timer;
+        if (loading) {
+            timer = setTimeout(() => {
+                setShowSpinner(true);
+            }, 1500); // 1.5 seconds
+        } else {
+            setShowSpinner(false);
+        }
+
+        return () => clearTimeout(timer); // Cleanup timer on component unmount or loading change
+    }, [loading]);
+
     const handleTabChange = (tab) => {
         setActiveTab(tab);
         if (tab === 'bookmarks') {
@@ -40,9 +53,9 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
         }
     };
 
-    if (loading) {
+    if (showSpinner) {
         return (
-            <div className='d-flex justify-content-center align-items-center' style={{ height: 450 }}>
+            <div className='d-flex justify-content-center align-items-center' style={{ height: '100vh' }}>
                 <Spinner variant='primary' />
             </div>
         );
@@ -60,7 +73,6 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
                     >
                         <Tab eventKey="all" title={t('common.all')}>
                             <div className='d-block'>
-
                                 <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>
                                     {(datasets.hits?.total?.value === 10000 ? totalDatasetCount : datasets.hits?.total?.value)?.toLocaleString()} {t('dataset.datasets')}
                                 </span>
