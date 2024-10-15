@@ -76,7 +76,7 @@ function Details() {
                     <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.publisher?.name}</a>
                     <span className='small me-2'>{t('dataset.version')} {(datasetDetails?._source?.version ?? 1).toFixed(1)}</span>
                     <span className='small me-2'>
-                        {moment(datasetDetails?._source?.publishDate).fromNow()}
+                        {t('dataset.assetUploaded')}: {moment(datasetDetails?._source?.publishDate).fromNow()}
                     </span>
                 </div>
 

@@ -59,7 +59,8 @@ i18n
             tags: "TAGS",
             version: "Version",
             getDataset: "Get Dataset",
-            license: "License"
+            license: "License",
+            assetUploaded: "Asset uploaded"
           },
           bookmarks: {
             bookmarks: "Bookmarks",
@@ -123,7 +124,8 @@ i18n
             tags: "STICHWORTE",
             version: "Version",
             getDataset: "Datensatz abrufen",
-            license: "Lizenz"
+            license: "Lizenz",
+            assetUploaded: "Hochgeladenes Asset"
           },
           bookmarks: {
             bookmarks: "Lesezeichen",
