@@ -27,7 +27,20 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                         ]
                     }
                 });
-            } else if (key === 'min_size') {
+            }
+            
+            else if (key === 'dataTypes') {
+                mustClauses.push({
+                    bool: {
+                        must: [
+                            { terms: { 'dataTypes': values } }
+                        ]
+                    }
+                });
+            }
+            
+
+            else if (key === 'min_size') {
                 const min_kb = parseFloat(values[0]);
                 const min_bytes = min_kb * 1024;
                 mustClauses.push({

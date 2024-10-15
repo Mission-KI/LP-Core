@@ -28,35 +28,17 @@ export const filterSections = [
     //         }
     //     ]
     // },
-    // {
-    //     title: "Data Format",
-    //     filters: [
-    //         {
-    //             label: "Video & Image",
-    //             value: "Video & Image",
-    //             name: "data_format",
-    //             type: "checkbox",
-    //         },
-    //         {
-    //             label: "Audio",
-    //             value: "Audio",
-    //             name: "data_format",
-    //             type: "checkbox",
-    //         },
-    //         {
-    //             label: "Documents",
-    //             value: "Documents",
-    //             name: "data_format",
-    //             type: "checkbox",
-    //         },
-    //         {
-    //             label: "Graphs",
-    //             value: "Graphs",
-    //             name: "data_format",
-    //             type: "checkbox",
-    //         }
-    //     ]
-    // },
+    {
+        title: "Data Format",
+        filters: [
+            {
+                label: "Structured",
+                value: "structured",
+                name: "dataTypes",
+                type: "checkbox",
+            },
+        ]
+    },
     {
         title: "File size",
         filters: [
