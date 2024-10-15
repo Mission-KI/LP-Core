@@ -1,4 +1,10 @@
-.image{
+.image {
     width: 100%;
+    height: auto;
     cursor: pointer !important;
+    transition: transform 0.3s ease;
+}
+
+.image:hover {
+    transform: scale(1.04);
 }
