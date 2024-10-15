@@ -52,11 +52,11 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           </span>
           <a href={dataset?._source?.licenseId} target='_blank'
             className='medium text-decoration-underline text-muted pe-2'>
-            {dataset?._source?.licenseId?.replace('http://dcat-ap.de/def/licenses/', '')}
+            {t('dataset.license')} {dataset?._source?.licenseId?.replace('http://dcat-ap.de/def/licenses/', '')}
           </a>
-          <span className="medium text-muted pe-2">{t('dataset.version')} {(dataset?._source?.version ?? 1).toFixed(1)}</span>
+          {/* <span className="medium text-muted pe-2">{t('dataset.version')} {(dataset?._source?.version ?? 1).toFixed(1)}</span> */}
           <span className="medium text-muted pe-2">
-            {moment(dataset?._source?.publishDate).fromNow()}
+            {t('dataset.assetUploaded')}: {t('dataset.assetUploaded')}: {moment(dataset?._source?.publishDate).fromNow()}
           </span>
         </div>
       </div>

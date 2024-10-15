@@ -27,9 +27,22 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                         ]
                     }
                 });
-            } else if (key === 'min_size') {
-                const min_mb = parseFloat(values[0]);
-                const min_bytes = min_mb * 1024;
+            }
+            
+            else if (key === 'dataTypes') {
+                mustClauses.push({
+                    bool: {
+                        must: [
+                            { terms: { 'dataTypes': values } }
+                        ]
+                    }
+                });
+            }
+            
+
+            else if (key === 'min_size') {
+                const min_kb = parseFloat(values[0]);
+                const min_bytes = min_kb * 1024;
                 mustClauses.push({
                     range: {
                         volume: {
@@ -39,8 +52,8 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 });
             }
             else if (key === 'max_size') {
-                const max_mb = parseFloat(values[0]);
-                const max_bytes = max_mb * 1024;
+                const max_kb = parseFloat(values[0]);
+                const max_bytes = max_kb * 1024;
                 mustClauses.push({
                     range: {
                         volume: {
@@ -208,6 +221,46 @@ export const getTotalCount = async () => {
 
         if (response.ok) {
             return responseData.count;
+        } else {
+            throw new Error(responseData.errors);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+export const getBookmarkedDatasets = async (from = 0, size = 10) => {
+    try {
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+
+        if (bookmarks.length === 0) {
+            return { hits: { hits: [] } };
+        }
+
+        const query = {
+            "from": from,
+            "size": size,
+            "query": {
+                "terms": {
+                    "_id": bookmarks
+                }
+            }
+        };
+
+        const response = await fetch(elasticURL + '/_search', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `ApiKey ${elasticApiKey}`,
+            },
+            body: JSON.stringify(query)
+        });
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+            return responseData;
         } else {
             throw new Error(responseData.errors);
         }

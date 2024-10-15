@@ -13,8 +13,8 @@ function Header({ datasetDetails }) {
     const { t } = useTranslation();
     const [bookmarked, setBookmarked] = useState(false);
 
-    const bookmarks = localStorage.getItem('bookmarks');
-
+    const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+    
     useEffect(() => {
         setBookmarked(isBookmarked(datasetDetails?._id))
     }, [datasetDetails]);
@@ -93,7 +93,7 @@ function Header({ datasetDetails }) {
                             <div className='pe-2 pt-1'>
                                 <Link to="/#bookmarks" className='btn rounded-lg py-1 small d-flex align-items-center'>
                                     {t('header.bookmarks')}
-                                    {bookmarks?.length > 0 ? (
+                                    {bookmarks?.length ? (
                                         <StarFill className='ms-2' />
                                     ) : (
                                         <Star className='ms-2' />
