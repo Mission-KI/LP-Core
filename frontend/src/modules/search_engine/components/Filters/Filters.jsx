@@ -19,7 +19,7 @@ function Filters({ datasets }) {
     const navigate = useNavigate();
     const location = useLocation();
     const { t } = useTranslation();
-    const dropdownRef = useRef(null); // Ref for the dropdown
+    const dropdownRef = useRef(null);
 
     const handleClearFilters = () => {
         navigate(location.pathname, { replace: true });
@@ -139,7 +139,7 @@ function Filters({ datasets }) {
             <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
                 <Filter className='me-2' /> <span className='medium'>{t('header.filters')}</span>
             </div>
-            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow-sm' style={{ width: 300, top: 0, transform: 'translate(-65%, 50px)' }}>
+            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow rounded-lg' style={{ width: 300, top: 0, transform: 'translate(-65%, 50px)' }}>
 
                 <div className={styles.filtersWrapper}>
                     {filterSections.map((filterSection) => (

@@ -41,12 +41,12 @@ function QuickView({ dataset, bookmarks, setBookmarks }) {
     setBookmarked(true);
 
     setBookmarks((prevBookmarks) => {
-      const currentHits = prevBookmarks.hits?.hits || []; // Accessing hits.hits array
+      const currentHits = prevBookmarks.hits?.hits || [];
       return {
         ...prevBookmarks,
         hits: {
           ...prevBookmarks.hits,
-          hits: [...currentHits, dataset], // Add the new bookmark dataset
+          hits: [...currentHits, dataset],
         },
       };
     });
@@ -57,12 +57,12 @@ function QuickView({ dataset, bookmarks, setBookmarks }) {
     setBookmarked(false);
 
     setBookmarks((prevBookmarks) => {
-      const currentHits = prevBookmarks.hits?.hits || []; // Accessing hits.hits array
+      const currentHits = prevBookmarks.hits?.hits || [];
       return {
         ...prevBookmarks,
         hits: {
           ...prevBookmarks.hits,
-          hits: currentHits.filter((item) => item._id !== id), // Filter out the removed bookmark
+          hits: currentHits.filter((item) => item._id !== id),
         },
       };
     });
