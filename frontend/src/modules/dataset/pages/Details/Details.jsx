@@ -47,12 +47,6 @@ function Details() {
         setActiveKey(item);
     };
 
-    const numericColumnCount = datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns?.length ?? 0;
-    const stringColumnCount = datasetDetails?._source?.structuredDatasets?.[0]?.stringColumns?.length ?? 0;
-    const dateColumnCount = datasetDetails?._source?.structuredDatasets?.[0]?.dateColumns?.length ?? 0;
-    const columnCount = numericColumnCount + stringColumnCount + dateColumnCount;
-    
-
     if (loading) {
         return (
             <div className='d-flex justify-content-center align-items-center' style={{ height: '70vh' }}>
@@ -64,14 +58,23 @@ function Details() {
     return (
         <>
             <Header datasetDetails={datasetDetails} />
-            <div className="container px-5 pt-5">
+            <div className="container px-3 pt-5">
                 <h4 className='bold mt-5'>{datasetDetails?._source?.name}</h4>
+                <p className='text-muted mt-3 mb-5'>
+                    {datasetDetails?._source?.description}
+                </p>
 
                 <div className='d-flex justify-content-between mt-4 flex-wrap' style={{ maxWidth: 570 }}>
                     <a href={datasetDetails._source?.dataSpace?.url} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.dataSpace?.name}</a>
-                    <span className='small text-decoration-underline me-2'>serie-a-logistic solutions</span>
-                    <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>{t('dataset.license')}</a>
-                    <span className='small me-2'>{t('dataset.version')} {datasetDetails?._source?.edps_version}</span>
+                    <a
+                        href={datasetDetails._source?.publisher?.name}
+                        target='_blank'
+                        className='small text-decoration-underline me-2'
+                    >
+                        {datasetDetails?._source?.licenseId?.replace('http://dcat-ap.de/def/licenses/', '')}
+                    </a>
+                    <a href={datasetDetails?._source?.licenseId} target='_blank' className='small text-decoration-underline me-2'>{datasetDetails._source?.publisher?.name}</a>
+                    <span className='small me-2'>{t('dataset.version')} {(datasetDetails?._source?.version ?? 1).toFixed(1)}</span>
                     <span className='small me-2'>
                         {moment(datasetDetails?._source?.publishDate).fromNow()}
                     </span>
@@ -110,19 +113,19 @@ function Details() {
                                 <div>
                                     <p className='small mb-1'>Text (CSV)</p>
                                     <p className='small mb-1'>{filesize(datasetDetails?._source?.volume)}</p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.compression ?? 'None'}</p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'None'}</p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'None'}</p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.growthFlag ?? 'None'}</p>
-                                    <p className='small mb-1'>Unknown</p>
-                                    <p className='small mb-1'>{calculateTemporalCover(datasetDetails?.datasets)}</p>
-                                    <p className='small mb-1'>{calculateTemporalConsistency(datasetDetails?.datasets)}</p>
+                                    <p className='small mb-1'>zip</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.transferTypeFlag ?? 'unknown'}</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.immutabilityFlag ?? 'unknown'}</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.growthFlag ?? 'unknown'}</p>
+                                    <p className='small mb-1'>unknown</p>
+                                    <p className='small mb-1'>unknown</p>
+                                    <p className='small mb-1'>unknown</p>
 
                                     <br />
                                     <p className='small mb-1'>
-                                        {columnCount}
+                                        {datasetDetails?._source?.structuredDatasets?.[0]?.columnCount ?? 'unknown'}
                                     </p>
-                                    <p className='small mb-1'>{datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? 'None'}</p>
+                                    <p className='small mb-1'>{datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? 'unknown'}</p>
                                     <p className='small mb-1'>
                                         {datasetDetails?._source?.dataTypes.map((dataType, index, arr) => (
                                             <span key={index}>
@@ -130,13 +133,13 @@ function Details() {
                                             </span>
                                         ))}
                                     </p>
-                                    <p className='small mb-1'>Partially inconsistent</p>
-                                    <p className='small mb-1'>??</p>
-                                    <p className='small mb-1'>Heterogen</p>
-                                    <p className='small mb-1'>Heterogen</p>
-                                    <p className='small mb-1'>Partial correlation</p>
-                                    <p className='small mb-1'>Anomaly exists</p>
-                                    <p className='small mb-1'>Seasonal, no trend</p>
+                                    <p className='small mb-1'>partially inconsistent</p>
+                                    <p className='small mb-1'>german, english</p>
+                                    <p className='small mb-1'>heterogen</p>
+                                    <p className='small mb-1'>heterogen</p>
+                                    <p className='small mb-1'>partial correlation</p>
+                                    <p className='small mb-1'>anomaly exists</p>
+                                    <p className='small mb-1'>seasonal, no trend</p>
                                 </div>
                             </div>
 

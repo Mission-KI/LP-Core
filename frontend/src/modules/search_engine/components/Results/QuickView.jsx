@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Dropdown } from "react-bootstrap";
-import { InfoCircleFill, Download, StarFill } from "react-bootstrap-icons";
+import { InfoCircleFill, Download, StarFill, Star } from "react-bootstrap-icons";
 import styles from "./Dropdown.module.css";
-import {
-  calculateTemporalConsistency,
-  calculateTemporalCover,
-} from "../../../common/utils/dataset_utils";
 import { filesize } from "filesize";
 import { t } from "i18next";
+import { Link } from "react-router-dom";
+import { addBookmark, isBookmarked, removeBookmark } from "../../../common/utils/bookmarks";
 
-function DatasetOverviewPopup({ dataset }) {
+function QuickView({ dataset, bookmarks, setBookmarks }) {
   const [show, setShow] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -31,6 +31,43 @@ function DatasetOverviewPopup({ dataset }) {
     };
   }, []);
 
+
+  useEffect(() => {
+    setBookmarked(isBookmarked(dataset?._id))
+  }, [dataset]);
+
+  const handleAddBookmark = (id) => {
+    addBookmark(id);
+    setBookmarked(true);
+
+    setBookmarks((prevBookmarks) => {
+      const currentHits = prevBookmarks.hits?.hits || []; // Accessing hits.hits array
+      return {
+        ...prevBookmarks,
+        hits: {
+          ...prevBookmarks.hits,
+          hits: [...currentHits, dataset], // Add the new bookmark dataset
+        },
+      };
+    });
+  };
+
+  const handleRemoveBookmark = (id) => {
+    removeBookmark(id);
+    setBookmarked(false);
+
+    setBookmarks((prevBookmarks) => {
+      const currentHits = prevBookmarks.hits?.hits || []; // Accessing hits.hits array
+      return {
+        ...prevBookmarks,
+        hits: {
+          ...prevBookmarks.hits,
+          hits: currentHits.filter((item) => item._id !== id), // Filter out the removed bookmark
+        },
+      };
+    });
+  };
+
   return (
     <Dropdown ref={dropdownRef} show={show}>
       <Dropdown.Toggle
@@ -39,7 +76,7 @@ function DatasetOverviewPopup({ dataset }) {
         className="p-0 m-0 pointer border-0 d-flex align-items-center"
         onClick={toggleDropdown}
       >
-        <InfoCircleFill size={20} className="text-secondary" />
+        <InfoCircleFill size={18} className="txt-primary" />
       </Dropdown.Toggle>
 
       <Dropdown.Menu className={`fade border-0 shadow rounded-lg ${show ? "show" : ""}`} style={{ width: 650 }}>
@@ -75,53 +112,51 @@ function DatasetOverviewPopup({ dataset }) {
               >
                 <div className="w-100">
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">STRUCTURE</p>
+                    <p className="small text-uppercase">{t('dataset.structure')}</p>
                     <p className="small">Text (CSV)</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">VOLUME</p>
+                    <p className="small text-uppercase">{t('dataset.volume')}</p>
                     <p className="small">{filesize(dataset?._source?.volume)}</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">COMPRESSION</p>
+                    <p className="small text-uppercase">{t('dataset.compression')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.compression ?? "None"}
+                      zip
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">TRANSFER TYPE</p>
+                    <p className="small text-uppercase">{t('dataset.transferType')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.transferTypeFlag ?? "None"}
+                      {dataset?._source?.transferTypeFlag ?? 'unknown'}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">IMMUTABILITY</p>
+                    <p className="small text-uppercase">{t('dataset.immutability')}</p>
                     <p className="small">
-                      {dataset?.dataset_source?.immutabilityFlag ?? "None"}
+                      {dataset?._source?.immutabilityFlag ?? 'unknown'}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">GROWTH</p>
+                    <p className="small text-uppercase">{t('dataset.growth')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.growthFlag ?? "None"}
+                      {dataset?._source?.growthFlag ?? 'unknown'}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">GROWTH RATE</p>
-                    <p className="small">Unknown</p>
+                    <p className="small text-uppercase">{t('dataset.growthRate')}</p>
+                    <p className="small">unknown</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">TEMPORAL COVER</p>
+                    <p className="small text-uppercase">{t('dataset.temporalCover')}</p>
                     <p className="small">
-                      {calculateTemporalCover(dataset?.dataset?.datasets)}
+                      unknown
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">TEMPORAL CONSISTENCY</p>
+                    <p className="small text-uppercase">{t('dataset.temporalConsistency')}</p>
                     <p className="small">
-                      {calculateTemporalConsistency(
-                        dataset?.dataset?.datasets
-                      )}
+                      unknown
                     </p>
                   </div>
                 </div>
@@ -133,67 +168,64 @@ function DatasetOverviewPopup({ dataset }) {
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">{t('dataset.noOfColumns')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.datasets &&
-                        dataset?.dataset?._source?.datasets?.length > 0
-                        ? dataset?.dataset?._source.datasets[0].columns
-                          .length
-                        : "No row count available"}
+                      {dataset?._source?.structuredDatasets[0]?.columnCount}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">NUMBER OF LINES</p>
+                    <p className="small text-uppercase">{t('dataset.noOfLines')}</p>
                     <p className="small">
-                      {dataset?.dataset?._source?.datasets &&
-                        dataset?.dataset?._source?.datasets?.length > 0
-                        ? dataset?.dataset?._source.datasets[0].rowCount
-                        : "No row count available"}
+                      {dataset?._source?.structuredDatasets[0]?.rowCount}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">DATA TYPES</p>
+                    <p className="small text-uppercase">{t('dataset.dataTypes')}</p>
                     <p className="small">
-                      time, string, numeric
+                      {dataset?._source?.dataTypes.map((dataType, index, arr) => (
+                        <span key={index}>
+                          {dataType}{index < arr.length - 1 && ', '}
+                        </span>
+                      ))}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      ATTRIBUTE CONSISTENCY
+                      {t('dataset.attributeConsistency')}
                     </p>
                     <p className="small">
                       partially inconsistent
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
-                    <p className="small text-uppercase">LANGUAGES</p>
+                    <p className="small text-uppercase">{t('dataset.languages')}</p>
                     <p className="small">german, english</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      NUMERIC VALUE DISTRIBUTION
+                      {t('dataset.numericValueDistribution')}
                     </p>
                     <p className="small">heterogen</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      STRING VALUE DISTRIBUTION
+                      {t('dataset.stringValueDistribution')}
                     </p>
                     <p className="small">heterogen</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      NUMERIC CORRELATION ANALYSIS
+                      {t('dataset.numericCorrelationAnalysis')}
                     </p>
                     <p className="small">partial correlation</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      NUMERIC ANOMALY ANALYSIS
+                      {t('dataset.numericAnomalyAnalysis')}
                     </p>
                     <p className="small">anomaly exists</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
-                      NUMERIC ANOMALY ANALYSIS
+                      {t('dataset.dataSeasonality')}
                     </p>
                     <p className="small">seasonal, no trend</p>
                   </div>
@@ -205,8 +237,24 @@ function DatasetOverviewPopup({ dataset }) {
             <hr />
             <div className="d-flex w-100 align-items-center pt-3 flex-wrap justify-content-end">
               <div className='pe-2 pt-1'>
-                <button className='btn btn-primary rounded-lg py-1 small'>{t('header.findSimilar')}</button>
+                <Link to={`/details/${dataset._id}`} className='btn text-white btn-primary rounded-lg py-1 small'>{t('dataset.details')}</Link>
               </div>
+              {!bookmarked ? (
+
+                <div className='pe-2 pt-1'>
+                  <button onClick={() => handleAddBookmark(dataset?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                    {t('header.bookmark')} <Star className='txt-white ms-2' />
+                  </button>
+                </div>
+
+              ) : (
+                <div className='pe-2 pt-1'>
+                  <button onClick={() => handleRemoveBookmark(dataset?._id)} className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
+                    <StarFill className='me-1' />
+                    {t('header.removeBookmark')}
+                  </button>
+                </div>
+              )}
               <div className='pe-2 pt-1'>
                 <button className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'>
                   <Download className='me-1' /> {t('header.schemaJson')}
@@ -232,7 +280,7 @@ function DatasetOverviewPopup({ dataset }) {
                 marginRight: "5px",
               }}
             >
-              via Dataroom
+              via dataspace
             </p>
           </div>
         </div>
@@ -241,4 +289,4 @@ function DatasetOverviewPopup({ dataset }) {
   );
 }
 
-export default DatasetOverviewPopup;
+export default QuickView;

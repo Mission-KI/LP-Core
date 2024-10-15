@@ -3,7 +3,6 @@ import MainSearchBar from '../../../common/components/Search/MainSearchBar';
 import Results from '../../components/Results/Results';
 import { getDatasets } from '../../../common/api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Paginator from '../../../common/components/widgets/Paginator';
 import { useTranslation } from 'react-i18next';
 import { isBookmarked } from '../../../common/utils/bookmarks';
 import LanguageSelector from '../../../common/components/widgets/LanguageSelector';

@@ -43,7 +43,7 @@ function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedSta
             <Dropdown.Menu className='border-0 shadow'>
                 <Dropdown.Item href={dataset?._source?.url} target='_blank'>
                     {t('dataset.getDataset')}
-                    <span className='small text-muted w-100 d-flex'>via dataroom</span>
+                    <span className='small text-muted w-100 d-flex'>via dataspace</span>
                 </Dropdown.Item>
                 {isBookmarkedState ? (
                     <Dropdown.Item onClick={handleRemoveBookmark}>{t('bookmarks.removeBookmark')}</Dropdown.Item>

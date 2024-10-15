@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { Search } from 'react-bootstrap-icons';
+import React, { useEffect, useRef, useState } from 'react';
+import { Search, X, Question } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import styles from './SearchBar.module.css'
-import { Question } from 'react-bootstrap-icons'
+import styles from './SearchBar.module.css';
 import { useNavigate } from 'react-router';
 import SearchSuggestions from './SearchSuggestions';
 import { useTranslation } from 'react-i18next';
@@ -16,23 +15,19 @@ function SearchBar() {
     const [localSearchTerm, setLocalSearchTerm] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
 
-    const [filtersDropdopwnVisible, setFiltersDropdopwnVisible] = useState(false);
-
     const inputRef = useRef(null);
     const navigate = useNavigate();
-
-    const toggleFiltersDropdown = () => {
-        setFiltersDropdopwnVisible(!filtersDropdopwnVisible);
-    }
 
     const handleChange = e => {
         const newSearchTerm = e.target.value;
         setLocalSearchTerm(newSearchTerm);
-        if (newSearchTerm !== '') {
-            setShowSuggestions(true);
-        } else {
-            setShowSuggestions(false);
-        }
+        setShowSuggestions(newSearchTerm !== '');
+    };
+
+    const clearSearch = () => {
+        setLocalSearchTerm('');
+        setShowSuggestions(false);
+        inputRef.current.querySelector('input').focus();
     };
 
     useEffect(() => {
@@ -47,9 +42,10 @@ function SearchBar() {
         };
     }, [inputRef]);
 
-    const handleOnSubmit = () => {
-        navigate('/?q=' + localSearchTerm)
-    }
+    const handleOnSubmit = e => {
+        e.preventDefault();
+        navigate('/?q=' + localSearchTerm);
+    };
 
     const handleFocus = () => {
         if (localSearchTerm !== '') {
@@ -73,24 +69,17 @@ function SearchBar() {
                         placeholder={t('header.search_placeholder')}
                         value={localSearchTerm}
                     />
+                    {localSearchTerm && (
+                        <InputGroup.Text onClick={clearSearch} style={{ cursor: 'pointer' }}>
+                            <X />
+                        </InputGroup.Text>
+                    )}
                     <SearchSuggestions
                         localSearchTerm={localSearchTerm}
                         setLocalSearchTerm={setLocalSearchTerm}
                         showSuggestions={showSuggestions}
                         setShowSuggestions={setShowSuggestions}
                     />
-                    {/* <InputGroup.Text>
-                    <Dropdown show={filtersDropdopwnVisible}>
-                        <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
-                            <Filter className='me-2' /> <span className='medium'>Filters</span>
-                        </div>
-                        <Dropdown.Menu className='border-0 shadow-sm' style={{ width: 300, top: 0, transform: 'translate(-65%, 50px)' }}>
-                            <Filters />
-                        </Dropdown.Menu>
-                    </Dropdown>
-
-                </InputGroup.Text> */}
-
                 </InputGroup>
 
                 <div className='ps-3'>
@@ -98,12 +87,10 @@ function SearchBar() {
                         <Question className='h5 m-0' />
                     </div>
                 </div>
-
-            </form >
+            </form>
             <LanguageSelector />
-        </div >
-
+        </div>
     );
 }
 
-export default SearchBar
+export default SearchBar;

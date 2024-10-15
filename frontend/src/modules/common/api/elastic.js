@@ -1,4 +1,4 @@
-import { elasticURL, elasticApiKey, elasticUsername, elasticPassword } from "./config";
+import { elasticURL, elasticApiKey } from "./config";
 
 export const getDatasets = async (from = 0, size = 10, params = {}) => {
     try {
@@ -21,7 +21,9 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                         should: [
                             { match_phrase: { name: values[0] } },
                             { match_phrase: { 'description': values[0] } },
-                            { match_phrase: { 'dataSpace.name': values[0] } }
+                            { match_phrase: { 'dataSpace.name': values[0] } },
+                            { match_phrase: { 'publisher.name': values[0] } },
+                            { match_phrase: { 'licenseId': values[0] } }
                         ]
                     }
                 });
@@ -69,6 +71,28 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 });
             }
 
+            else if (key === 'min_columns') {
+                const min_columns = parseInt(values[0]);
+                mustClauses.push({
+                    range: {
+                        'structuredDatasets.columnCount': {
+                            gte: min_columns
+                        }
+                    }
+                });
+            }
+
+            else if (key === 'max_columns') {
+                const max_columns = parseInt(values[0]);
+                mustClauses.push({
+                    range: {
+                        'structuredDatasets.columnCount': {
+                            lte: max_columns
+                        }
+                    }
+                });
+            }
+
             else {
                 for (const value of values) {
                     shouldClauses.push({ match: { [key]: value } });
@@ -85,15 +109,6 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     "should": shouldClauses.length > 0 ? shouldClauses : undefined,
                 }
             },
-            "aggs": {
-                "variety_ds_count": {
-                    "filter": {
-                        "term": {
-                            "dataSpace.name.enum": "variety DS"
-                        }
-                    }
-                }
-            }
         };
 
         const response = await fetch(elasticURL + '/_search', {
@@ -148,7 +163,7 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
         const query = {
             "query": {
                 "query_string": {
-                    "query": searchTerm,
+                    "query": `${searchTerm}*`,
                     "default_field": "name"
                 }
             }
@@ -169,6 +184,30 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
         if (response.ok) {
             const uniqueSuggestions = [...new Set(responseData.hits.hits.map(hit => hit._source.name))];
             return uniqueSuggestions;
+        } else {
+            throw new Error(responseData.errors);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
+
+
+export const getTotalCount = async () => {
+    try {
+        const response = await fetch(`${elasticURL}/_count`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `ApiKey ${elasticApiKey}`,
+            }
+        });
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+            return responseData.count;
         } else {
             throw new Error(responseData.errors);
         }

@@ -33,14 +33,14 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
                                     <th className='small py-2 bgc-primary text-white'>attribute</th>
                                     <th className='small py-2 bgc-primary text-white'>upper quantile</th>
                                     <th className='small py-2 bgc-primary text-white'>lower quantile</th>
-                                    <th className='small py-2 bgc-primary text-white'>count q</th>
+                                    <th className='small py-2 bgc-primary text-white'>outlier count quantile</th>
                                     <th className='small py-2 bgc-primary text-white'>upper zscore</th>
                                     <th className='small py-2 bgc-primary text-white'>lower zscore</th>
-                                    <th className='small py-2 bgc-primary text-white'>count zscore</th>
+                                    <th className='small py-2 bgc-primary text-white'>outlier count zscore</th>
                                     <th className='small py-2 bgc-primary text-white'>upper iqr</th>
                                     <th className='small py-2 bgc-primary text-white'>lower iqr</th>
                                     <th className='small py-2 bgc-primary text-white'>iqr</th>
-                                    <th className='small py-2 bgc-primary text-white'>count iqr</th>
+                                    <th className='small py-2 bgc-primary text-white'>outlier count iqr</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,7 +50,7 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
                                         <td>{column.name}</td>
                                         <td>{column.upperQuantile}</td>
                                         <td>{column.lowerQuantile}</td>
-                                        <td>??</td>
+                                        <td>{column.percentileOutlierCount}</td>
                                         <td>{column.upperZScore}</td>
                                         <td>{column.lowerZScore}</td>
                                         <td>{column.zScoreOutlierCount}</td>

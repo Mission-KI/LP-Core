@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Results.module.css";
 import moment from "moment";
-import DatasetOverviewPopup from "./DatasetOverviewPopup";
+import QuickView from "./QuickView";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
 import { isBookmarked } from "../../../common/utils/bookmarks";
 import { StarFill } from "react-bootstrap-icons";
@@ -28,7 +28,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
             {dataset._source.name}
           </Link>
           <div className="ps-2">
-            <DatasetOverviewPopup dataset={dataset} />
+            <QuickView dataset={dataset} bookmarks={bookmarks} setBookmarks={setBookmarks} />
           </div>
         </div>
 
@@ -42,18 +42,19 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           >
             {dataset._source?.dataSpace?.name}
           </a>
-          <span className="medium text-muted text-decoration-underline pe-2">
-            serie-a-logistic solutions
-          </span>
+          <a href={dataset._source?.publisher?.name} target='_blank' className='medium text-decoration-underline pe-2'>
+            {dataset._source?.publisher?.name}
+          </a>
+
           <span className="medium text-muted pe-2">Files (CSV)</span>
           <span className="medium text-muted pe-2">
             {filesize(dataset?._source?.volume)}
           </span>
           <a href={dataset?._source?.licenseId} target='_blank'
             className='medium text-decoration-underline text-muted pe-2'>
-            {t('dataset.license')}
+            {dataset?._source?.licenseId?.replace('http://dcat-ap.de/def/licenses/', '')}
           </a>
-          <span className="medium text-muted pe-2">{t('dataset.version')} {dataset?._source?.edps_version}</span>
+          <span className="medium text-muted pe-2">{t('dataset.version')} {(dataset?._source?.version ?? 1).toFixed(1)}</span>
           <span className="medium text-muted pe-2">
             {moment(dataset?._source?.publishDate).fromNow()}
           </span>
