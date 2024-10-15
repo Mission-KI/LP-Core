@@ -120,7 +120,6 @@ function Filters({ datasets }) {
     };
 
     const handleClickOutside = (event) => {
-        console.log("clicked outside");
         if (filtersDropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
             setFiltersDropdownVisible(false);
         }

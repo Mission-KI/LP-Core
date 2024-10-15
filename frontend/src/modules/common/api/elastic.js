@@ -228,3 +228,43 @@ export const getTotalCount = async () => {
         throw new Error(error);
     }
 };
+
+export const getBookmarkedDatasets = async (from = 0, size = 10) => {
+    try {
+        const bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+
+        if (bookmarks.length === 0) {
+            return { hits: { hits: [] } };
+        }
+
+        const query = {
+            "from": from,
+            "size": size,
+            "query": {
+                "terms": {
+                    "_id": bookmarks
+                }
+            }
+        };
+
+        const response = await fetch(elasticURL + '/_search', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `ApiKey ${elasticApiKey}`,
+            },
+            body: JSON.stringify(query)
+        });
+
+        const responseData = await response.json();
+
+        if (response.ok) {
+            return responseData;
+        } else {
+            throw new Error(responseData.errors);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
