@@ -7,7 +7,7 @@ function DataSeasonality({ datasetDetails }) {
             {datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns?.map((column) => (
                 <>
                     <span className='text-muted small'>{column.name}</span>
-                    <div className="row">
+                    <div className="row mb-3">
                         {column?.seasonalityGraphs?.map((imageUrl, index) => (
                             <div className='col-md-3' key={index}>
                                 <ImageView url={imageUrl} />
