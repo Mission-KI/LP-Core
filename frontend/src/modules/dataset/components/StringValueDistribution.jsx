@@ -47,6 +47,7 @@ function StringValueDistribution({ datasetDetails }) {
                                 </tr>
                             </thead>
                             <tbody>
+                                
                                 {datasetDetails?._source?.structuredDatasets[0]?.stringColumns.map((column, index) => (
                                     <tr key={index} className='hover'>
                                         <td>{column.name}</td>
