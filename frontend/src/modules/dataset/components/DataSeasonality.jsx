@@ -3,18 +3,20 @@ import ImageView from '../../common/components/Header/ImageView/ImageView'
 
 function DataSeasonality({ datasetDetails }) {
     return (
-        <div className='container'>
-            <div className="row">
-                {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column) => {
-                    column.seasonalityGraph && (
-                        <div className='col-md-3'>
-                            <ImageView url={column.seasonalityGraph} />
-                        </div>
-                    )
-                })}
-            </div>
+        <div>
+            {datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns?.map((column) => (
+                <>
+                    <span className='text-muted small'>{column.name}</span>
+                    <div className="row mb-3">
+                        {column?.seasonalityGraphs?.map((imageUrl, index) => (
+                            <div className='col-md-3' key={index}>
+                                <ImageView url={imageUrl} />
+                            </div>
+                        ))}
+                    </div>
+                </>
+            ))}
         </div>
     )
 }
-
 export default DataSeasonality

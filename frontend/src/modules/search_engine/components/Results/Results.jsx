@@ -9,7 +9,6 @@ import Paginator from '../../../common/components/widgets/Paginator';
 import { getTotalCount } from '../../../common/api/elastic';
 
 function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handlePageChange, currentPage }) {
-
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('all');
     const [totalDatasetCount, setTotalDatasetCount] = useState(0);
@@ -42,7 +41,7 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
 
     if (loading) {
         return (
-            <div className='d-flex justify-content-center align-items-center' style={{ height: 450 }}>
+            <div className='d-flex justify-content-center align-items-center' style={{ height: '100vh' }}>
                 <Spinner variant='primary' />
             </div>
         );
@@ -60,7 +59,6 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
                     >
                         <Tab eventKey="all" title={t('common.all')}>
                             <div className='d-block'>
-
                                 <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>
                                     {(datasets.hits?.total?.value === 10000 ? totalDatasetCount : datasets.hits?.total?.value)?.toLocaleString()} {t('dataset.datasets')}
                                 </span>

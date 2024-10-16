@@ -28,7 +28,7 @@ function AttributeConsistency({ datasetDetails }) {
                                 <td>{column.nullCount}</td>
                             </tr>
                         ))}
-                        {datasetDetails?._source?.structuredDatasets[0]?.dateColumns?.map((column, index) => (
+                        {datasetDetails?._source?.structuredDatasets?.[0]?.datetimeColumns.map((column, index) => (
                             <tr key={index} className='hover'>
                                 <td>{column.name}</td>
                                 <td>{column.nullCount ? 'Yes' : 'No'}</td>
