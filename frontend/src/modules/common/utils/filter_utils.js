@@ -1,35 +1,37 @@
 export const filterSections = [
-    // {
-    //     title: "Dataspace",
-    //     filters: [
-    //         {
-    //             label: "GovData",
-    //             value: "GovData",
-    //             name: "dataSpace.name",
-    //             type: "checkbox",
-    //         },
-    //         {
-    //             label: "Medien",
-    //             value: "Medien",
-    //             name: "dataSpace.name",
-    //             type: "checkbox",
-    //         },
-    //         {
-    //             label: "NAP",
-    //             value: "NAP",
-    //             name: "dataSpace.name",
-    //             type: "checkbox",
-    //         },
-    //         {
-    //             label: "Other",
-    //             value: "Other",
-    //             name: "dataSpace.name",
-    //             type: "checkbox",
-    //         }
-    //     ]
-    // },
+    {
+        title: "Dataspace",
+        type: "checkboxes",
+        filters: [
+            {
+                label: "GovData",
+                value: "GovData",
+                name: "dataSpace.name",
+                type: "checkbox",
+            },
+            {
+                label: "Medien",
+                value: "Medien",
+                name: "dataSpace.name",
+                type: "checkbox",
+            },
+            {
+                label: "NAP",
+                value: "NAP",
+                name: "dataSpace.name",
+                type: "checkbox",
+            },
+            {
+                label: "Other",
+                value: "Other",
+                name: "dataSpace.name",
+                type: "checkbox",
+            }
+        ]
+    },
     {
         title: "Data Format",
+        type: "checkboxes",
         filters: [
             {
                 label: "Structured",
@@ -41,6 +43,7 @@ export const filterSections = [
     },
     {
         title: "File size",
+        type: "doublerange",
         filters: [
             {
                 label: "Size range (kB)",
@@ -54,6 +57,7 @@ export const filterSections = [
     },
     {
         title: "Attributes",
+        type: "doublerange",
         filters: [
             {
                 label: "Lines",
