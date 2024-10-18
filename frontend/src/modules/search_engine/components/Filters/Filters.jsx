@@ -108,6 +108,9 @@ function Filters({ datasets }) {
             ...prev,
             [filter.name_1]: values,
         }));
+    };
+
+    const handleDoubleRangeComplete = (filter, values) => {
         updateDoubleRangeParams(filter.name_1, filter.name_2, values);
     };
 
@@ -190,6 +193,7 @@ function Filters({ datasets }) {
                                                             max={filter.maxValue}
                                                             value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
                                                             onChange={(values) => handleDoubleRangeChange(filter, values)}
+                                                            onChangeComplete={(values) => handleDoubleRangeComplete(filter, values)}
                                                         />
                                                         <div className='d-flex justify-content-between mt-2'>
                                                             <span className='small text-muted'>{rangeValues[filter.name_1]?.[0] || filter.minValue}</span>
@@ -215,6 +219,7 @@ function Filters({ datasets }) {
                                                                 max={filter.maxValue}
                                                                 value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
                                                                 onChange={(values) => handleDoubleRangeChange(filter, values)}
+                                                                onChangeComplete={(values) => handleDoubleRangeComplete(filter, values)}
                                                             />
                                                             <div className={styles.sizeGroupSeparators}>
                                                                 <div className={styles.sizeGroupSeparator}></div>

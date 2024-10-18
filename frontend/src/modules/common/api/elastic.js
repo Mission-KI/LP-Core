@@ -28,7 +28,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     }
                 });
             }
-            
+
             else if (key === 'dataTypes') {
                 mustClauses.push({
                     bool: {
@@ -38,11 +38,10 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     }
                 });
             }
-            
 
             else if (key === 'min_size') {
-                const min_kb = parseFloat(values[0]);
-                const min_bytes = min_kb * 1024;
+                const min_percentage = parseFloat(values[0]);
+                const min_bytes = percentageToBytes(min_percentage);
                 mustClauses.push({
                     range: {
                         volume: {
@@ -51,9 +50,10 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     }
                 });
             }
+
             else if (key === 'max_size') {
-                const max_kb = parseFloat(values[0]);
-                const max_bytes = max_kb * 1024;
+                const max_percentage = parseFloat(values[0]);
+                const max_bytes = percentageToBytes(max_percentage);
                 mustClauses.push({
                     range: {
                         volume: {
@@ -62,6 +62,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     }
                 });
             }
+
             else if (key === 'min_lines') {
                 const min_lines = parseInt(values[0]);
                 mustClauses.push({
@@ -267,4 +268,25 @@ export const getBookmarkedDatasets = async (from = 0, size = 10) => {
     } catch (error) {
         throw new Error(error);
     }
+};
+
+
+
+const percentageToBytes = (percentage) => {
+    const ONE_MB = 1024 * 1024;
+    const ONE_GB = 1024 * 1024 * 1024;
+    const ONE_TB = 1024 * 1024 * 1024 * 1024;
+    const MAX_TB = 1000 * ONE_TB;
+
+    if (percentage <= 25) {
+        return (percentage / 25) * ONE_MB;
+    } else if (percentage <= 50) {
+        return ONE_MB + ((percentage - 25) / 25) * (ONE_GB - ONE_MB);
+    } else if (percentage <= 75) {
+        return ONE_GB + ((percentage - 50) / 25) * (ONE_TB - ONE_GB);
+    } else if (percentage <= 100) {
+        return ONE_TB + ((percentage - 75) / 25) * (MAX_TB - ONE_TB);
+    }
+
+    return MAX_TB;
 };
