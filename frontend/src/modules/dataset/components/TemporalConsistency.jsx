@@ -37,7 +37,7 @@ function TemporalConsistency({ datasetDetails }) {
                             column?.gaps.map((gap, index) => (
                                 <tr key={index} className='hover'>
                                     <td className='w-33'>{column.name}</td>
-                                    <td className='w-33'>N/A</td>
+                                    <td className='w-33'>{gap.timeScale}</td>
                                     <td className='w-33'>{gap.numberOfGaps}</td>
                                 </tr>
                             ))
