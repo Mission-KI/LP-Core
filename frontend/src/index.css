@@ -240,3 +240,7 @@ li.disabled,
   background-color: var(--color-primary) !important;
   border-color: var(--color-primary) !important;
 }
+
+.w-33{
+  width: 33.33%;
+}

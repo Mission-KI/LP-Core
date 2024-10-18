@@ -49,17 +49,17 @@ function NumericValueDistribution({ datasetDetails }) {
                         <table id="distributionTable" className='table table-bordered'>
                             <thead>
                                 <tr>
-                                    <th className='small py-2 bgc-primary text-white'>column</th>
-                                    <th className='small py-2 bgc-primary text-white'>distribution</th>
-                                    <th className='small py-2 bgc-primary text-white' style={{ textAlign: 'left' }}>n_unique</th>
+                                    <th className='small py-2 bgc-primary text-white w-33'>column</th>
+                                    <th className='small py-2 bgc-primary text-white w-33'>distribution</th>
+                                    <th className='small py-2 bgc-primary text-white w-33' style={{ textAlign: 'left' }}>n_unique</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
                                     <tr key={index} className='hover'>
-                                        <td>{column.name}</td>
-                                        <td>{column.distribution}</td>
-                                        <td>{column.numberUnique}</td>
+                                        <td className='w-33'>{column.name}</td>
+                                        <td className='w-33'>{column.distribution}</td>
+                                        <td className='w-33'>{column.numberUnique}</td>
                                     </tr>
                                 ))}
                             </tbody>

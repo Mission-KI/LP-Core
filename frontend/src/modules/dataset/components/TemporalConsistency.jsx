@@ -27,17 +27,17 @@ function TemporalConsistency({ datasetDetails }) {
                 <table id="temporalConsistencyTable" className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.attribute')}</th>
-                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.freq')}</th>
-                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.gaps')}</th>
+                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.attribute')}</th>
+                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.freq')}</th>
+                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.gaps')}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
                             <tr key={index} className='hover'>
-                                <td>{column.name}</td>
-                                <td>N/A</td>
-                                <td>N/A</td>
+                                <td className='w-33'>{column.name}</td>
+                                <td className='w-33'>N/A</td>
+                                <td className='w-33'>N/A</td>
                             </tr>
                         ))}
                     </tbody>

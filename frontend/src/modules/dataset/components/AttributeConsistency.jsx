@@ -27,31 +27,31 @@ function AttributeConsistency({ datasetDetails }) {
                 <table id="consistencyTable" className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.attribute')}</th>
-                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.hasMissingValues')}</th>
-                            <th className='small py-2 bgc-primary text-white' style={{ textAlign: 'left' }}>{t('table.attributes.countMissingValues')}</th>
+                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.attribute')}</th>
+                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.hasMissingValues')}</th>
+                            <th className='small py-2 bgc-primary text-white w-33' style={{ textAlign: 'left' }}>{t('table.attributes.countMissingValues')}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {datasetDetails?._source?.structuredDatasets[0]?.numericColumns?.map((column, index) => (
                             <tr key={index}>
-                                <td>{column.name}</td>
-                                <td>{column.nullCount ? 'Yes' : 'No'}</td>
-                                <td>{column.nullCount}</td>
+                                <td className='w-33'>{column.name}</td>
+                                <td className='w-33'>{column.nullCount ? 'Yes' : 'No'}</td>
+                                <td className='w-33'>{column.nullCount}</td>
                             </tr>
                         ))}
                         {datasetDetails?._source?.structuredDatasets[0]?.stringColumns?.map((column, index) => (
                             <tr key={index}>
-                                <td>{column.name}</td>
-                                <td>{column.nullCount ? 'Yes' : 'No'}</td>
-                                <td>{column.nullCount}</td>
+                                <td className='w-33'>{column.name}</td>
+                                <td className='w-33'>{column.nullCount ? 'Yes' : 'No'}</td>
+                                <td className='w-33'>{column.nullCount}</td>
                             </tr>
                         ))}
                         {datasetDetails?._source?.structuredDatasets?.[0]?.datetimeColumns?.map((column, index) => (
                             <tr key={index}>
-                                <td>{column.name}</td>
-                                <td>{column.nullCount ? 'Yes' : 'No'}</td>
-                                <td>{column.nullCount}</td>
+                                <td className='w-33'>{column.name}</td>
+                                <td className='w-33'>{column.nullCount ? 'Yes' : 'No'}</td>
+                                <td className='w-33'>{column.nullCount}</td>
                             </tr>
                         ))}
                     </tbody>
