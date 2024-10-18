@@ -48,7 +48,7 @@ function NumericValueDistribution({ datasetDetails }) {
                                 <tr>
                                     <th className='small py-2 bgc-primary text-white'>column</th>
                                     <th className='small py-2 bgc-primary text-white'>distribution</th>
-                                    <th className='small py-2 bgc-primary text-white'>n_unique</th>
+                                    <th className='small py-2 bgc-primary text-white' style={{ textAlign: 'left' }}>n_unique</th>
                                 </tr>
                             </thead>
                             <tbody>

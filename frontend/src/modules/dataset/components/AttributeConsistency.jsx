@@ -25,8 +25,8 @@ function AttributeConsistency({ datasetDetails }) {
                     <thead>
                         <tr>
                             <th className='small py-2 bgc-primary text-white'>attribute</th>
-                            <th className='small py-2 bgc-primary text-white'>hasMissingValues</th>
-                            <th className='small py-2 bgc-primary text-white'>countMissingValues</th>
+                            <th className='small py-2 bgc-primary text-white'>has missing values</th>
+                            <th className='small py-2 bgc-primary text-white' style={{ textAlign: 'left' }}>count missing values</th>
                         </tr>
                     </thead>
                     <tbody>
