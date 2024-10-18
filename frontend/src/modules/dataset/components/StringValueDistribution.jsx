@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ImageView from '../../common/components/Header/ImageView/ImageView';
+import $ from 'jquery';
 
 function StringValueDistribution({ datasetDetails }) {
     const [defaultTab, setDefaultTab] = useState('graphics');
@@ -14,6 +15,22 @@ function StringValueDistribution({ datasetDetails }) {
         if (!hasDistributionGraph) {
             setDefaultTab('table');
         }
+    }, [datasetDetails]);
+
+    useEffect(() => {
+        const table = $('#stringValueDistributionTable').DataTable({
+            paging: false,
+            searching: true,
+            info: true,
+            lengthChange: false,
+            pageLength: 20,
+            order: [[0, 'asc']],
+            responsive: true,
+        });
+
+        return () => {
+            table.destroy();
+        };
     }, [datasetDetails]);
 
     return (
@@ -38,7 +55,7 @@ function StringValueDistribution({ datasetDetails }) {
             <Tab eventKey="table" title="Table">
                 <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
                     <div className="table-responsive">
-                        <table className='table table-bordered'>
+                        <table id="stringValueDistributionTable" className='table table-bordered'>
                             <thead>
                                 <tr>
                                     <th className='small py-2 bgc-primary text-white'>column</th>
@@ -47,7 +64,6 @@ function StringValueDistribution({ datasetDetails }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                
                                 {datasetDetails?._source?.structuredDatasets[0]?.stringColumns.map((column, index) => (
                                     <tr key={index} className='hover'>
                                         <td>{column.name}</td>

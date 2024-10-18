@@ -60,7 +60,7 @@ i18n
             version: "Version",
             getDataset: "Get Dataset",
             license: "License",
-            assetUploaded: "Asset uploaded"
+            assetUploaded: "Published"
           },
           bookmarks: {
             bookmarks: "Bookmarks",
@@ -125,7 +125,7 @@ i18n
             version: "Version",
             getDataset: "Datensatz abrufen",
             license: "Lizenz",
-            assetUploaded: "Hochgeladenes Asset"
+            assetUploaded: "Veröffentlicht"
           },
           bookmarks: {
             bookmarks: "Lesezeichen",

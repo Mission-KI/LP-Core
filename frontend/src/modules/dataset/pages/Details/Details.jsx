@@ -7,10 +7,8 @@ import { useParams } from "react-router";
 import { getDataset } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
-import {
-  calculateTemporalConsistency,
-  calculateTemporalCover,
-} from "../../../common/utils/dataset_utils";
+import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
+import 'datatables.net-bs5';
 import AttributeList from "../../components/AttributeList";
 import AttributeConsistency from "../../components/AttributeConsistency";
 import TemporalConsistency from "../../components/TemporalConsistency";
@@ -101,7 +99,7 @@ function Details() {
             {t("dataset.version")} {(datasetDetails?._source?.version ?? 1).toFixed(1)}
           </span>
           <span className="small me-2">
-            {moment(datasetDetails?._source?.publishDate).fromNow()}
+            {t('dataset.assetUploaded')} {moment(datasetDetails?._source?.publishDate).fromNow()}
           </span>
         </div>
 
@@ -275,7 +273,7 @@ function Details() {
               <Tab
                 eventKey="attributes"
                 title={
-                  <span>
+                  <span className="small">
                     ATTRIBUTE
                     <br />
                     LIST
@@ -288,7 +286,7 @@ function Details() {
               <Tab
                 eventKey="attribute_consistency"
                 title={
-                  <span>
+                  <span className="small">
                     ATTRIBUTE
                     <br />
                     CONSISTENCY
@@ -301,7 +299,7 @@ function Details() {
               <Tab
                 eventKey="temporal_consistency"
                 title={
-                  <span>
+                  <span className="small">
                     TEMPORAL
                     <br />
                     CONSISTENCY
@@ -314,7 +312,7 @@ function Details() {
               <Tab
                 eventKey="numeric_value_distribution"
                 title={
-                  <span>
+                  <span className="small">
                     NUMERIC VALUE
                     <br />
                     DISTRIBUTION
@@ -327,8 +325,10 @@ function Details() {
               <Tab
                 eventKey="string_value_distribution"
                 title={
-                  <span>
-                    STRING VALUE
+                  <span className="small">
+                    STRING 
+                    <br />
+                    VALUE
                     <br />
                     DISTRIBUTION
                   </span>
@@ -340,8 +340,10 @@ function Details() {
               <Tab
                 eventKey="correlation_analysis"
                 title={
-                  <span>
-                    NUMERIC CORRELATION
+                  <span className="small">
+                    NUMERIC 
+                    <br />
+                    CORRELATION
                     <br />
                     ANALYSIS
                   </span>
@@ -353,8 +355,10 @@ function Details() {
               <Tab
                 eventKey="anomaly_analysis"
                 title={
-                  <span>
-                    NUMERIC ANOMALY
+                  <span className="small">
+                    NUMERIC 
+                    <br />
+                    ANOMALY
                     <br />
                     ANALYSIS
                   </span>
@@ -366,7 +370,7 @@ function Details() {
               <Tab
                 eventKey="data_seasonality"
                 title={
-                  <span>
+                  <span className="small">
                     DATA
                     <br />
                     SEASONALITY

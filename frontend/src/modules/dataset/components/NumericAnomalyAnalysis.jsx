@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ImageView from '../../common/components/Header/ImageView/ImageView';
+import $ from 'jquery';
 
 function NumericAnomalyAnalysis({ datasetDetails }) {
+    useEffect(() => {
+        const table = $('#anomalyTable').DataTable({
+            paging: false,
+            searching: true,
+            info: true,
+            lengthChange: false,
+            pageLength: 20,
+            order: [[0, 'asc']],
+            responsive: true,
+        });
+
+        return () => {
+            table.destroy();
+        };
+    }, []);
+
     return (
         <Tabs
             defaultActiveKey="graphics"
@@ -11,23 +28,21 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
             className="mb-3"
         >
             <Tab eventKey="graphics" title="Graphics">
-
                 <div className='container'>
                     <div className="row">
                         {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column) => (
                             column.boxPlot && (
-                                <div className='col-md-3'>
+                                <div className='col-md-3' key={column.name}>
                                     <ImageView url={column.boxPlot} />
                                 </div>
                             )))}
                     </div>
                 </div>
-
             </Tab>
             <Tab eventKey="table" title="Table">
                 <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
                     <div className="table-responsive">
-                        <table className='table table-bordered'>
+                        <table id="anomalyTable" className='table table-bordered'>
                             <thead>
                                 <tr>
                                     <th className='small py-2 bgc-primary text-white'>attribute</th>
@@ -44,7 +59,6 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
                                 </tr>
                             </thead>
                             <tbody>
-
                                 {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
                                     <tr key={index} className='hover'>
                                         <td>{column.name}</td>
@@ -59,18 +73,14 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
                                         <td>{column.iqr}</td>
                                         <td>{column.iqrOutlierCount}</td>
                                     </tr>
-                                ))
-                                }
-
-
+                                ))}
                             </tbody>
-
                         </table>
                     </div>
-                </div >
+                </div>
             </Tab>
         </Tabs>
-    )
+    );
 }
 
-export default NumericAnomalyAnalysis
+export default NumericAnomalyAnalysis;

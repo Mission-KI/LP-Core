@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react';
+import $ from 'jquery';
 
 function TemporalConsistency({ datasetDetails }) {
+    useEffect(() => {
+        const table = $('#temporalConsistencyTable').DataTable({
+            paging: false,
+            searching: true,
+            info: true,
+            lengthChange: false,
+            pageLength: 20,
+            order: [[0, 'asc']],
+            responsive: true,
+        });
+
+        return () => {
+            table.destroy();
+        };
+    }, []);
+
     return (
         <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
             <div className="table-responsive">
-                <table className='table table-bordered'>
+                <table id="temporalConsistencyTable" className='table table-bordered'>
                     <thead>
                         <tr>
                             <th className='small py-2 bgc-primary text-white'>attribute</th>
@@ -13,8 +30,6 @@ function TemporalConsistency({ datasetDetails }) {
                         </tr>
                     </thead>
                     <tbody>
-
-
                         {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
                             <tr key={index} className='hover'>
                                 <td>{column.name}</td>
@@ -22,14 +37,11 @@ function TemporalConsistency({ datasetDetails }) {
                                 <td>N/A</td>
                             </tr>
                         ))}
-
-
                     </tbody>
-
                 </table>
             </div>
         </div>
-    )
+    );
 }
 
-export default TemporalConsistency
+export default TemporalConsistency;
