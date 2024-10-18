@@ -10,7 +10,7 @@ function TemporalConsistency({ datasetDetails }) {
             info: true,
             lengthChange: false,
             pageLength: 20,
-            order: [[0, 'asc']],
+            order: [],
             responsive: true,
         });
 
@@ -33,12 +33,14 @@ function TemporalConsistency({ datasetDetails }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
-                            <tr key={index} className='hover'>
-                                <td className='w-33'>{column.name}</td>
-                                <td className='w-33'>N/A</td>
-                                <td className='w-33'>N/A</td>
-                            </tr>
+                        {datasetDetails?._source?.structuredDatasets[0]?.datetimeColumns.map((column) => (
+                            column?.gaps.map((gap, index) => (
+                                <tr key={index} className='hover'>
+                                    <td className='w-33'>{column.name}</td>
+                                    <td className='w-33'>N/A</td>
+                                    <td className='w-33'>{gap.numberOfGaps}</td>
+                                </tr>
+                            ))
                         ))}
                     </tbody>
                 </table>

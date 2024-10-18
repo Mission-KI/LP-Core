@@ -9,24 +9,6 @@ export const filterSections = [
                 name: "dataSpace.name",
                 type: "checkbox",
             },
-            {
-                label: "Medien",
-                value: "Medien",
-                name: "dataSpace.name",
-                type: "checkbox",
-            },
-            {
-                label: "NAP",
-                value: "NAP",
-                name: "dataSpace.name",
-                type: "checkbox",
-            },
-            {
-                label: "Other",
-                value: "Other",
-                name: "dataSpace.name",
-                type: "checkbox",
-            }
         ]
     },
     {

@@ -13,7 +13,7 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
             info: true,
             lengthChange: false,
             pageLength: 20,
-            order: [[0, 'asc']],
+            order: [],
             responsive: true,
         });
 
