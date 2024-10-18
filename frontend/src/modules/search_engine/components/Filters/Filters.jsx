@@ -151,7 +151,7 @@ function Filters({ datasets }) {
                                             Select {filterSection.title} <ChevronDown className='small ms-2' />
                                         </Dropdown.Toggle>
 
-                                        <Dropdown.Menu>
+                                        <Dropdown.Menu className='border-0 shadow rounded'>
                                             {
                                                 filterSection.filters.map((filter) => (
                                                     <Dropdown.Item key={filter.value} as="div" className="d-flex align-items-center">

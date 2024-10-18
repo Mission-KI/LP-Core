@@ -30,6 +30,18 @@ export const filterSections = [
         ]
     },
     {
+        title: "Licenses",
+        type: "checkboxes",
+        filters: [
+            {
+                label: "https://www.dcat-ap.de/def/licenses/20210721.html#dl-by-de/2.0",
+                value: "https://www.dcat-ap.de/def/licenses/20210721.html#dl-by-de/2.0",
+                name: "licenseId",
+                type: "checkbox",
+            },
+        ]
+    },
+    {
         title: "Data Format",
         type: "checkboxes",
         filters: [
