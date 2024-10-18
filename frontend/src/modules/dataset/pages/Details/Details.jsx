@@ -51,7 +51,7 @@ function Details() {
     return (
       <div
         className="d-flex justify-content-center align-items-center"
-        style={{ height: "70vh" }}
+        style={{ height: "90vh" }}
       >
         <Spinner variant="primary" />
       </div>
@@ -78,8 +78,18 @@ function Details() {
           >
             {datasetDetails._source?.dataSpace?.name}
           </a>
+
           <a
-            href={datasetDetails._source?.publisher?.name}
+            href={`https://${datasetDetails._source?.publisher?.name}`}
+            target="_blank"
+            rel='noopener noreferrer'
+            className="small text-decoration-underline me-2"
+          >
+            {datasetDetails._source?.publisher?.name}
+          </a>
+          
+          <a
+            href={datasetDetails._source?.licenseId}
             target="_blank"
             className="small text-decoration-underline me-2"
           >
@@ -88,13 +98,7 @@ function Details() {
               ""
             )}
           </a>
-          <a
-            href={datasetDetails?._source?.licenseId}
-            target="_blank"
-            className="small text-decoration-underline me-2"
-          >
-            {datasetDetails._source?.publisher?.name}
-          </a>
+
           <span className="small me-2">
             {t("dataset.version")} {(datasetDetails?._source?.version ?? 1).toFixed(1)}
           </span>
@@ -326,7 +330,7 @@ function Details() {
                 eventKey="string_value_distribution"
                 title={
                   <span className="small">
-                    STRING 
+                    STRING
                     <br />
                     VALUE
                     <br />
@@ -341,7 +345,7 @@ function Details() {
                 eventKey="correlation_analysis"
                 title={
                   <span className="small">
-                    NUMERIC 
+                    NUMERIC
                     <br />
                     CORRELATION
                     <br />
@@ -356,7 +360,7 @@ function Details() {
                 eventKey="anomaly_analysis"
                 title={
                   <span className="small">
-                    NUMERIC 
+                    NUMERIC
                     <br />
                     ANOMALY
                     <br />

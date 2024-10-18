@@ -42,9 +42,15 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           >
             {dataset._source?.dataSpace?.name}
           </a>
-          <a href={dataset._source?.publisher?.name} target='_blank' className='medium text-decoration-underline pe-2'>
+          <a
+            href={`https://${dataset._source?.publisher?.name}`}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='medium text-decoration-underline pe-2'
+          >
             {dataset._source?.publisher?.name}
           </a>
+
 
           <span className="medium text-muted pe-2">Files (CSV)</span>
           <span className="medium text-muted pe-2">
