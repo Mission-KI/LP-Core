@@ -138,7 +138,7 @@ function Filters({ datasets }) {
             <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
                 <Filter className='me-2' /> <span className='medium'>{t('header.filters')}</span>
             </div>
-            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow rounded-lg' style={{ width: 350, top: 0, transform: 'translate(-65%, 50px)' }}>
+            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow rounded-lg px-2' style={{ width: 350, top: 0, transform: 'translate(-65%, 50px)' }}>
 
                 <div className={styles.filtersWrapper}>
                     {filterSections.map((filterSection) => (
@@ -147,8 +147,8 @@ function Filters({ datasets }) {
                             <div className='d-flex flex-wrap w-100 align-items-center py-1'>
                                 {filterSection.type == 'checkboxes' ? (
                                     <Dropdown>
-                                        <Dropdown.Toggle variant="basic" id="dropdown-basic" className='medium w-50'>
-                                            Select {filterSection.title} <ChevronDown className='small' />
+                                        <Dropdown.Toggle variant="basic" id="dropdown-basic" className='medium' style={{ width: 200 }}>
+                                            Select {filterSection.title} <ChevronDown className='small ms-2' />
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
