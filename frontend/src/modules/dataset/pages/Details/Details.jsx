@@ -19,6 +19,7 @@ import StringValueDistribution from "../../components/StringValueDistribution";
 import NumericCorrelationAnalysis from "../../components/NumericCorrelationAnalysis";
 import NumericAnomalyAnalysis from "../../components/NumericAnomalyAnalysis";
 import DataSeasonality from "../../components/DataSeasonality";
+import PageNotFound from "../../../common/pages/PageNotFound";
 
 function Details() {
   const { id } = useParams();
@@ -56,6 +57,10 @@ function Details() {
         <Spinner variant="primary" />
       </div>
     );
+  }
+
+  if (!datasetDetails) {
+    return <PageNotFound />;
   }
 
   return (
