@@ -3,6 +3,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ImageView from '../../common/components/Header/ImageView/ImageView';
 import $ from 'jquery';
+import { useTranslation } from 'react-i18next';
 
 function NumericAnomalyAnalysis({ datasetDetails }) {
     useEffect(() => {
@@ -20,6 +21,8 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
             table.destroy();
         };
     }, []);
+
+    const { t } = useTranslation();
 
     return (
         <Tabs
@@ -45,17 +48,17 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
                         <table id="anomalyTable" className='table table-bordered'>
                             <thead>
                                 <tr>
-                                    <th className='small py-2 bgc-primary text-white'>attribute</th>
-                                    <th className='small py-2 bgc-primary text-white'>upper quantile</th>
-                                    <th className='small py-2 bgc-primary text-white'>lower quantile</th>
-                                    <th className='small py-2 bgc-primary text-white'>outlier count quantile</th>
-                                    <th className='small py-2 bgc-primary text-white'>upper zscore</th>
-                                    <th className='small py-2 bgc-primary text-white'>lower zscore</th>
-                                    <th className='small py-2 bgc-primary text-white'>outlier count zscore</th>
-                                    <th className='small py-2 bgc-primary text-white'>upper iqr</th>
-                                    <th className='small py-2 bgc-primary text-white'>lower iqr</th>
-                                    <th className='small py-2 bgc-primary text-white'>iqr</th>
-                                    <th className='small py-2 bgc-primary text-white'>outlier count iqr</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.attribute')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.upperQuantile')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.lowerQuantile')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.outlierCountQuantile')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.upperZscore')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.lowerZscore')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.outlierCountZscore')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.upperIqr')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.lowerIqr')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.iqr')}</th>
+                                    <th className='small py-2 bgc-primary text-white'>{t('table.attributes.outlierCountIqr')}</th>
                                 </tr>
                             </thead>
                             <tbody>

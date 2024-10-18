@@ -3,6 +3,7 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ImageView from '../../common/components/Header/ImageView/ImageView';
 import $ from 'jquery';
+import { useTranslation } from 'react-i18next';
 
 function StringValueDistribution({ datasetDetails }) {
     const [defaultTab, setDefaultTab] = useState('graphics');
@@ -32,6 +33,8 @@ function StringValueDistribution({ datasetDetails }) {
             table.destroy();
         };
     }, [datasetDetails]);
+
+    const { t } = useTranslation();
 
     return (
         <Tabs

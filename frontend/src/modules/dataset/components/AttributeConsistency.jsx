@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import $ from 'jquery';
+import { useTranslation } from 'react-i18next';
 
 function AttributeConsistency({ datasetDetails }) {
     useEffect(() => {
@@ -18,15 +19,17 @@ function AttributeConsistency({ datasetDetails }) {
         };
     }, []);
 
+    const { t } = useTranslation();
+
     return (
         <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
             <div className="table-responsive">
                 <table id="consistencyTable" className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th className='small py-2 bgc-primary text-white'>attribute</th>
-                            <th className='small py-2 bgc-primary text-white'>has missing values</th>
-                            <th className='small py-2 bgc-primary text-white' style={{ textAlign: 'left' }}>count missing values</th>
+                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.attribute')}</th>
+                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.hasMissingValues')}</th>
+                            <th className='small py-2 bgc-primary text-white' style={{ textAlign: 'left' }}>{t('table.attributes.countMissingValues')}</th>
                         </tr>
                     </thead>
                     <tbody>

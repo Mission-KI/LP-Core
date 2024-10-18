@@ -62,6 +62,27 @@ i18n
             license: "License",
             assetUploaded: "Published"
           },
+          table: {
+            attributes: {
+              attribute: "attribute",
+              hasMissingValues: "has missing values",
+              countMissingValues: "count missing values",
+              type: "type",
+              specification: "specification",
+              freq: "freq",
+              gaps: "gaps",
+              upperQuantile: "upper quantile",
+              lowerQuantile: "lower quantile",
+              outlierCountQuantile: "outlier count quantile",
+              outlierCountZscore: "outlier count zscore",
+              outlierCountIqr: "outlier count iqr",
+              upperZscore: "upper zscore",
+              lowerZscore: "lower zscore",
+              upperIqr: "upper iqr",
+              lowerIqr: "lower iqr",
+              iqr: "iqr",
+            }
+          },
           bookmarks: {
             bookmarks: "Bookmarks",
             bookmark: "Bookmark",
@@ -127,6 +148,27 @@ i18n
             license: "Lizenz",
             assetUploaded: "Veröffentlicht"
           },
+          table: {
+            attributes: {
+              attribute: "Attribut",
+              hasMissingValues: "fehlende Werte vorhanden",
+              countMissingValues: "Anzahl fehlender Werte",
+              type: "Typ",
+              specification: "Spezifikation",
+              freq: "Häufigkeit",
+              gaps: "Lücken",
+              upperQuantile: "oberes Quantil",
+              lowerQuantile: "unteres Quantil",
+              outlierCountQuantile: "Anzahl Ausreißer Quantil",
+              outlierCountZscore: "Anzahl Ausreißer Z-Score",
+              outlierCountIqr: "Anzahl Ausreißer IQR",
+              upperZscore: "oberer Z-Score",
+              lowerZscore: "unterer Z-Score",
+              upperIqr: "oberes IQR",
+              lowerIqr: "unteres IQR",
+              iqr: "IQR",
+            }
+          },          
           bookmarks: {
             bookmarks: "Lesezeichen",
             bookmark: "Lesezeichen",

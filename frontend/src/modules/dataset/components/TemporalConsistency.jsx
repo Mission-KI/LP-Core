@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import $ from 'jquery';
+import { useTranslation } from 'react-i18next';
 
 function TemporalConsistency({ datasetDetails }) {
     useEffect(() => {
@@ -18,15 +19,17 @@ function TemporalConsistency({ datasetDetails }) {
         };
     }, []);
 
+    const { t } = useTranslation();
+
     return (
         <div className='m-auto d-block w-100' style={{ maxWidth: 1500, overflowX: 'auto' }}>
             <div className="table-responsive">
                 <table id="temporalConsistencyTable" className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th className='small py-2 bgc-primary text-white'>attribute</th>
-                            <th className='small py-2 bgc-primary text-white'>freq</th>
-                            <th className='small py-2 bgc-primary text-white'>gaps</th>
+                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.attribute')}</th>
+                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.freq')}</th>
+                            <th className='small py-2 bgc-primary text-white'>{t('table.attributes.gaps')}</th>
                         </tr>
                     </thead>
                     <tbody>
