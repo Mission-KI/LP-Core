@@ -16,7 +16,7 @@ export const filterSections = [
         type: "checkboxes",
         filters: [
             {
-                label: "https://www.dcat-ap.de/def/licenses/20210721.html#dl-by-de/2.0",
+                label: "dl-by-de/2.0",
                 value: "https://www.dcat-ap.de/def/licenses/20210721.html#dl-by-de/2.0",
                 name: "licenseId",
                 type: "checkbox",
@@ -37,15 +37,15 @@ export const filterSections = [
     },
     {
         title: "File size",
-        type: "doublerange",
+        type: "filesize",
         filters: [
             {
-                label: "Size range (kB)",
+                label: "Size range",
                 name_1: "min_size",
                 name_2: "max_size",
                 type: "doublerange",
                 minValue: 0,
-                maxValue: 1965,
+                maxValue: 100,
             },
         ]
     },

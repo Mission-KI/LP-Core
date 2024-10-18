@@ -200,24 +200,61 @@ function Filters({ datasets }) {
                                             ))
                                         }
                                     </>
-                                ) : filterSection.type === 'radio' ? (
+                                ) : filterSection.type == 'filesize' ? (
                                     <>
                                         {
                                             filterSection.filters.map((filter) => (
-                                                <div className='d-flex py-1'>
-                                                    <input
-                                                        type='radio'
-                                                        name={filter.name}
-                                                        value={filter.value}
-                                                        checked={checkedRadios[filter.name] === filter.value}
-                                                        onChange={() => handleRadioChange(filter, filter.value)}
-                                                    />
-                                                    <label className='medium ps-2 text-muted'>{filter.label}</label>
+                                                <div style={{ width: 300 }}>
+                                                    <div className='d-flex flex-column w-100'>
+                                                        <label className='small text-muted'>{filter.label}</label>
+                                                        <div className='position-relative'>
+                                                            <Slider
+                                                                range
+                                                                className='w-100'
+                                                                min={filter.minValue}
+                                                                max={filter.maxValue}
+                                                                value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
+                                                                onChange={(values) => handleDoubleRangeChange(filter, values)}
+                                                            />
+                                                            <div className={styles.sizeGroupSeparators}>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className='d-flex justify-content-around mt-2'>
+                                                            <span className='small text-muted'>kB</span>
+                                                            <span className='small text-muted'>MB</span>
+                                                            <span className='small text-muted'>GB</span>
+                                                            <span className='small text-muted'>TB</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             ))
                                         }
                                     </>
-                                ) : ''}
+                                )
+                                    : filterSection.type === 'radio' ? (
+                                        <>
+                                            {
+                                                filterSection.filters.map((filter) => (
+                                                    <div className='d-flex py-1'>
+                                                        <input
+                                                            type='radio'
+                                                            name={filter.name}
+                                                            value={filter.value}
+                                                            checked={checkedRadios[filter.name] === filter.value}
+                                                            onChange={() => handleRadioChange(filter, filter.value)}
+                                                        />
+                                                        <label className='medium ps-2 text-muted'>{filter.label}</label>
+                                                    </div>
+                                                ))
+                                            }
+                                        </>
+                                    ) : ''}
 
                             </div>
                         </FormGroup>
