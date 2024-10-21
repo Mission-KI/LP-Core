@@ -150,7 +150,7 @@ function Filters({ datasets }) {
                             <div className='d-flex flex-wrap w-100 align-items-center py-1'>
                                 {filterSection.type == 'checkboxes' ? (
                                     <Dropdown>
-                                        <Dropdown.Toggle variant="basic" id="dropdown-basic" className='medium' style={{ width: 200 }}>
+                                        <Dropdown.Toggle variant="basic" id="dropdown-basic" className='medium rounded-lg' style={{ width: 200 }}>
                                             Select {filterSection.title} <ChevronDown className='small ms-2' />
                                         </Dropdown.Toggle>
 
