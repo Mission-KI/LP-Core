@@ -8,6 +8,7 @@ import SearchSuggestions from './SearchSuggestions';
 import { useNavigate } from 'react-router';
 import Filters from '../../../search_engine/components/Filters/Filters';
 import { useTranslation } from 'react-i18next';
+import HelpModal from '../../../search_engine/components/HelpModal/HelpModal';
 
 function MainSearchBar({ datasets }) {
 
@@ -98,9 +99,7 @@ function MainSearchBar({ datasets }) {
                 </InputGroup.Text>
             </InputGroup>
             <div className='ps-3'>
-                <div className='rounded-circle border bg-white d-flex justify-content-center align-items-center' style={{ width: 42, height: 42 }}>
-                    <Question className='h5 m-0' />
-                </div>
+                <HelpModal />
             </div>
         </form>
     );
