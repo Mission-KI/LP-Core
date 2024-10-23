@@ -260,3 +260,7 @@ li.disabled,
   background-color: var(--color-primary) !important;
   color: white !important;
 }
+
+div.dt-container div.dt-search input{
+  border-radius: 1.2rem !important;
+}

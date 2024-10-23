@@ -88,6 +88,18 @@ i18n
             bookmark: "Bookmark",
             removeBookmark: "Remove Bookmark"
           },
+          filters: {
+            dataspace: 'Dataspace',
+            licenses: "Licenses",
+            dataFormat: "Data Format",
+            fileSize: "File size",
+            attributes: "Attributes",
+            sizeRange: "Size range",
+            select: "select",
+            lines: "Lines",
+            columns: "Columns",
+            clear: "Clear"
+          },
           common: {
             all: "All",
             bookmarks: "Bookmarks"
@@ -168,11 +180,23 @@ i18n
               lowerIqr: "unteres IQR",
               iqr: "IQR",
             }
-          },          
+          },
           bookmarks: {
             bookmarks: "Lesezeichen",
             bookmark: "Lesezeichen",
             removeBookmark: "Lesezeichen entfernen"
+          },
+          filters: {
+            dataspace: 'Datenraum',
+            licenses: "Lizenzen",
+            dataFormat: "Datenformat",
+            fileSize: "Größenbereich",
+            attributes: "Attribute",
+            sizeRange: "Größenbereich",
+            select: "wählen",
+            lines: "Zeilen",
+            columns: "Spalten",
+            clear: "Zurücksetzen"
           },
           common: {
             all: "Alle",

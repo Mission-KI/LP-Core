@@ -146,12 +146,12 @@ function Filters({ datasets }) {
                 <div className={styles.filtersWrapper}>
                     {filterSections.map((filterSection) => (
                         <FormGroup key={filterSection.title} className='mb-4'>
-                            <label className='mb-2 small fw-500 text-uppercase'>{filterSection.title}</label>
+                            <label className='mb-2 small fw-500 text-uppercase'>{t(`filters.${filterSection.title}`)}</label>
                             <div className='d-flex flex-wrap w-100 align-items-center py-1'>
                                 {filterSection.type == 'checkboxes' ? (
                                     <Dropdown>
                                         <Dropdown.Toggle variant="basic" id="dropdown-basic" className='medium rounded-lg' style={{ width: 200 }}>
-                                            Select {filterSection.title} <ChevronDown className='small ms-2' />
+                                            {t('filters.select')} <ChevronDown className='small ms-2' />
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu className='border-0 shadow rounded'>
@@ -185,7 +185,7 @@ function Filters({ datasets }) {
                                             filterSection.filters.map((filter) => (
                                                 <div style={{ width: 300 }}>
                                                     <div className='d-flex flex-column w-100'>
-                                                        <label className='small text-muted'>{filter.label}</label>
+                                                        <label className='small text-muted'>{t(`filters.${filter.label}`)}</label>
                                                         <Slider
                                                             range
                                                             className='w-100'
@@ -210,7 +210,7 @@ function Filters({ datasets }) {
                                             filterSection.filters.map((filter) => (
                                                 <div style={{ width: 300 }}>
                                                     <div className='d-flex flex-column w-100'>
-                                                        <label className='small text-muted'>{filter.label}</label>
+                                                        <label className='small text-muted'>{t('filters.sizeRange')}</label>
                                                         <div className='position-relative'>
                                                             <Slider
                                                                 range
@@ -269,7 +269,7 @@ function Filters({ datasets }) {
                             className="btn btn-primary medium rounded-lg"
                             onClick={handleClearFilters}
                         >
-                            Clear
+                            {t('filters.clear')}
                         </button>
                     </div>
                 </div>
