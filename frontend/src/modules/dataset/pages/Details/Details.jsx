@@ -299,6 +299,7 @@ function Details() {
                     ATTRIBUTE
                     <br />
                     CONSISTENCY
+                    
                   </span>
                 }
                 className={styles.tab}
