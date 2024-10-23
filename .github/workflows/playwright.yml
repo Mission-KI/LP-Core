@@ -9,6 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      REACT_APP_URL: https://daseen.netlify.app/
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
