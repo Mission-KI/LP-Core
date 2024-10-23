@@ -52,6 +52,7 @@ body {
 
 .btn-primary:hover {
   background-color: var(--color-primary-hover) !important;
+  border-color: var(--color-primary-hover) !important;
 }
 
 
@@ -228,10 +229,34 @@ li.disabled,
   background-color: var(--color-darker-gray) !important;
 }
 
-.dropdown-toggle::after{
+.dropdown-toggle::after {
   display: none !important;
 }
 
-.modal-content{
+.modal-content {
   border: none !important
+}
+
+.active>.page-link,
+.page-link.active {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.form-check-input:checked {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.rc-slider-track, .rc-slider-tracks{
+  background-color: var(--color-primary) !important;
+}
+
+.w-33 {
+  width: 33.33%;
+}
+
+.dropdown-item:active {
+  background-color: var(--color-primary) !important;
+  color: white !important;
 }

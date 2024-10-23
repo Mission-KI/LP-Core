@@ -1,7 +1,7 @@
 .filtersWrapper {
     display: flex;
     flex-direction: column;
-    max-width: 300px;
+    max-width: 350px;
     padding: 1rem;
 }
 
@@ -16,3 +16,18 @@
     justify-content: center;
     align-items: center;
 }
+
+.sizeGroupSeparators{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.sizeGroupSeparator {
+    width: 1px;
+    height: 10px;
+    background: black;
+  }

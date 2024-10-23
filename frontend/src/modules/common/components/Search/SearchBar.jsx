@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router';
 import SearchSuggestions from './SearchSuggestions';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../widgets/LanguageSelector';
+import HelpModal from '../../../search_engine/components/HelpModal/HelpModal';
 
 function SearchBar() {
 
@@ -83,9 +84,7 @@ function SearchBar() {
                 </InputGroup>
 
                 <div className='ps-3'>
-                    <div className='rounded-circle border bg-white d-flex justify-content-center align-items-center' style={{ width: 42, height: 42 }}>
-                        <Question className='h5 m-0' />
-                    </div>
+                    <HelpModal />
                 </div>
             </form>
             <LanguageSelector />

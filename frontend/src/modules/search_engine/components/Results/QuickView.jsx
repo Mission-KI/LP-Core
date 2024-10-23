@@ -88,8 +88,8 @@ function QuickView({ dataset, bookmarks, setBookmarks }) {
       </Dropdown.Toggle>
 
       <Dropdown.Menu
+        id={styles.QuickView}
         className={`fade border-0 shadow rounded-lg w-100 ${show ? "show" : ""}`}
-        style={{ maxWidth: 650, minWidth: 350 }}
       >
         <div className="container">
           <div>

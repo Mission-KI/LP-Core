@@ -1,35 +1,31 @@
 export const filterSections = [
-    // {
-    //     title: "Dataspace",
-    //     filters: [
-    //         {
-    //             label: "GovData",
-    //             value: "GovData",
-    //             name: "dataSpace.name",
-    //             type: "checkbox",
-    //         },
-    //         {
-    //             label: "Medien",
-    //             value: "Medien",
-    //             name: "dataSpace.name",
-    //             type: "checkbox",
-    //         },
-    //         {
-    //             label: "NAP",
-    //             value: "NAP",
-    //             name: "dataSpace.name",
-    //             type: "checkbox",
-    //         },
-    //         {
-    //             label: "Other",
-    //             value: "Other",
-    //             name: "dataSpace.name",
-    //             type: "checkbox",
-    //         }
-    //     ]
-    // },
+    {
+        title: "Dataspace",
+        type: "checkboxes",
+        filters: [
+            {
+                label: "GovData",
+                value: "GovData",
+                name: "dataSpace.name",
+                type: "checkbox",
+            },
+        ]
+    },
+    {
+        title: "Licenses",
+        type: "checkboxes",
+        filters: [
+            {
+                label: "dl-by-de/2.0",
+                value: "https://www.dcat-ap.de/def/licenses/20210721.html#dl-by-de/2.0",
+                name: "licenseId",
+                type: "checkbox",
+            },
+        ]
+    },
     {
         title: "Data Format",
+        type: "checkboxes",
         filters: [
             {
                 label: "Structured",
@@ -41,19 +37,21 @@ export const filterSections = [
     },
     {
         title: "File size",
+        type: "filesize",
         filters: [
             {
-                label: "Size range (kB)",
+                label: "Size range",
                 name_1: "min_size",
                 name_2: "max_size",
                 type: "doublerange",
                 minValue: 0,
-                maxValue: 1965,
+                maxValue: 100,
             },
         ]
     },
     {
         title: "Attributes",
+        type: "doublerange",
         filters: [
             {
                 label: "Lines",

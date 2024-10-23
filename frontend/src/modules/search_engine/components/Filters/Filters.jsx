@@ -6,7 +6,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import styles from './Filters.module.css';
 import { Dropdown } from 'react-bootstrap';
-import { Filter } from 'react-bootstrap-icons';
+import { ChevronDown, Filter } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 
 function Filters({ datasets }) {
@@ -108,6 +108,9 @@ function Filters({ datasets }) {
             ...prev,
             [filter.name_1]: values,
         }));
+    };
+
+    const handleDoubleRangeComplete = (filter, values) => {
         updateDoubleRangeParams(filter.name_1, filter.name_2, values);
     };
 
@@ -138,70 +141,126 @@ function Filters({ datasets }) {
             <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
                 <Filter className='me-2' /> <span className='medium'>{t('header.filters')}</span>
             </div>
-            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow rounded-lg' style={{ width: 300, top: 0, transform: 'translate(-65%, 50px)' }}>
+            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow rounded-lg px-2' style={{ width: 350, top: 0, transform: 'translate(-65%, 50px)' }}>
 
                 <div className={styles.filtersWrapper}>
                     {filterSections.map((filterSection) => (
                         <FormGroup key={filterSection.title} className='mb-4'>
                             <label className='mb-2 small fw-500 text-uppercase'>{filterSection.title}</label>
                             <div className='d-flex flex-wrap w-100 align-items-center py-1'>
-                                {filterSection.filters.map((filter) => (
-                                    <div key={filter.name_1}>
-                                        {filter.type === 'checkbox' && (
-                                            <div className="form-check ps-1 pt-1">
-                                                <input
-                                                    type="checkbox"
-                                                    className="btn-check"
-                                                    id={`checkbox-${filter.value}`}
-                                                    name={filter.name}
-                                                    value={filter.value}
-                                                    checked={checkedOptions[filter.label] || false}
-                                                    onChange={() => handleCheckboxChange(filter)}
-                                                    autoComplete="off"
-                                                />
-                                                <label
-                                                    className={`btn rounded-lg small ${checkedOptions[filter.label] ? 'btn-dark' : 'btn-outline-secondary'}`}
-                                                    htmlFor={`checkbox-${filter.value}`}
-                                                >
-                                                    {filter.label}
-                                                </label>
-                                            </div>
-                                        )}
+                                {filterSection.type == 'checkboxes' ? (
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="basic" id="dropdown-basic" className='medium rounded-lg' style={{ width: 200 }}>
+                                            Select {filterSection.title} <ChevronDown className='small ms-2' />
+                                        </Dropdown.Toggle>
 
-                                        {filter.type === 'radio' && (
-                                            <div className='d-flex py-1'>
-                                                <input
-                                                    type='radio'
-                                                    name={filter.name}
-                                                    value={filter.value}
-                                                    checked={checkedRadios[filter.name] === filter.value}
-                                                    onChange={() => handleRadioChange(filter, filter.value)}
-                                                />
-                                                <label className='medium ps-2 text-muted'>{filter.label}</label>
-                                            </div>
-                                        )}
-
-                                        {filter.type === 'doublerange' && (
-                                            <div style={{ width: 270 }}>
-                                                <div className='d-flex flex-column w-100'>
-                                                    <label className='small text-muted'>{filter.label}</label>
-                                                    <Slider
-                                                        range
-                                                        className='w-100'
-                                                        min={filter.minValue}
-                                                        max={filter.maxValue}
-                                                        value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
-                                                        onChange={(values) => handleDoubleRangeChange(filter, values)}
-                                                    />
-                                                    <div className='d-flex justify-content-between mt-2'>
-                                                        <span className='small text-muted'>{rangeValues[filter.name_1]?.[0] || filter.minValue}</span>
-                                                        <span className='small text-muted'>{rangeValues[filter.name_1]?.[1] || filter.maxValue}</span>
+                                        <Dropdown.Menu className='border-0 shadow rounded'>
+                                            {
+                                                filterSection.filters.map((filter) => (
+                                                    <Dropdown.Item key={filter.value} as="div" className="d-flex align-items-center">
+                                                        <input
+                                                            type="checkbox"
+                                                            className="form-check-input"
+                                                            id={`checkbox-${filter.value}`}
+                                                            name={filter.name}
+                                                            value={filter.value}
+                                                            checked={checkedOptions[filter.label] || false}
+                                                            onChange={() => handleCheckboxChange(filter)}
+                                                            autoComplete="off"
+                                                        />
+                                                        <label
+                                                            htmlFor={`checkbox-${filter.value}`}
+                                                            className="ms-2 mb-0"
+                                                        >
+                                                            {filter.label}
+                                                        </label>
+                                                    </Dropdown.Item>
+                                                ))
+                                            }
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                ) : filterSection.type == 'doublerange' ? (
+                                    <>
+                                        {
+                                            filterSection.filters.map((filter) => (
+                                                <div style={{ width: 300 }}>
+                                                    <div className='d-flex flex-column w-100'>
+                                                        <label className='small text-muted'>{filter.label}</label>
+                                                        <Slider
+                                                            range
+                                                            className='w-100'
+                                                            min={filter.minValue}
+                                                            max={filter.maxValue}
+                                                            value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
+                                                            onChange={(values) => handleDoubleRangeChange(filter, values)}
+                                                            onChangeComplete={(values) => handleDoubleRangeComplete(filter, values)}
+                                                        />
+                                                        <div className='d-flex justify-content-between mt-2'>
+                                                            <span className='small text-muted'>{rangeValues[filter.name_1]?.[0] || filter.minValue}</span>
+                                                            <span className='small text-muted'>{rangeValues[filter.name_1]?.[1] || filter.maxValue}</span>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                ))}
+                                            ))
+                                        }
+                                    </>
+                                ) : filterSection.type == 'filesize' ? (
+                                    <>
+                                        {
+                                            filterSection.filters.map((filter) => (
+                                                <div style={{ width: 300 }}>
+                                                    <div className='d-flex flex-column w-100'>
+                                                        <label className='small text-muted'>{filter.label}</label>
+                                                        <div className='position-relative'>
+                                                            <Slider
+                                                                range
+                                                                className='w-100'
+                                                                min={filter.minValue}
+                                                                max={filter.maxValue}
+                                                                value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
+                                                                onChange={(values) => handleDoubleRangeChange(filter, values)}
+                                                                onChangeComplete={(values) => handleDoubleRangeComplete(filter, values)}
+                                                            />
+                                                            <div className={styles.sizeGroupSeparators}>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div className='d-flex justify-content-around mt-2'>
+                                                            <span className='small text-muted'>KB</span>
+                                                            <span className='small text-muted'>MB</span>
+                                                            <span className='small text-muted'>GB</span>
+                                                            <span className='small text-muted'>TB</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))
+                                        }
+                                    </>
+                                )
+                                    : filterSection.type === 'radio' ? (
+                                        <>
+                                            {
+                                                filterSection.filters.map((filter) => (
+                                                    <div className='d-flex py-1'>
+                                                        <input
+                                                            type='radio'
+                                                            name={filter.name}
+                                                            value={filter.value}
+                                                            checked={checkedRadios[filter.name] === filter.value}
+                                                            onChange={() => handleRadioChange(filter, filter.value)}
+                                                        />
+                                                        <label className='medium ps-2 text-muted'>{filter.label}</label>
+                                                    </div>
+                                                ))
+                                            }
+                                        </>
+                                    ) : ''}
+
                             </div>
                         </FormGroup>
                     ))}

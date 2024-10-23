@@ -7,10 +7,8 @@ import { useParams } from "react-router";
 import { getDataset } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
-import {
-  calculateTemporalConsistency,
-  calculateTemporalCover,
-} from "../../../common/utils/dataset_utils";
+import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
+import 'datatables.net-bs5';
 import AttributeList from "../../components/AttributeList";
 import AttributeConsistency from "../../components/AttributeConsistency";
 import TemporalConsistency from "../../components/TemporalConsistency";
@@ -21,6 +19,7 @@ import StringValueDistribution from "../../components/StringValueDistribution";
 import NumericCorrelationAnalysis from "../../components/NumericCorrelationAnalysis";
 import NumericAnomalyAnalysis from "../../components/NumericAnomalyAnalysis";
 import DataSeasonality from "../../components/DataSeasonality";
+import PageNotFound from "../../../common/pages/PageNotFound";
 
 function Details() {
   const { id } = useParams();
@@ -53,11 +52,15 @@ function Details() {
     return (
       <div
         className="d-flex justify-content-center align-items-center"
-        style={{ height: "70vh" }}
+        style={{ height: "90vh" }}
       >
         <Spinner variant="primary" />
       </div>
     );
+  }
+
+  if (!datasetDetails) {
+    return <PageNotFound />;
   }
 
   return (
@@ -80,8 +83,18 @@ function Details() {
           >
             {datasetDetails._source?.dataSpace?.name}
           </a>
+
           <a
-            href={datasetDetails._source?.publisher?.name}
+            href={`https://${datasetDetails._source?.publisher?.name}`}
+            target="_blank"
+            rel='noopener noreferrer'
+            className="small text-decoration-underline me-2"
+          >
+            {datasetDetails._source?.publisher?.name}
+          </a>
+          
+          <a
+            href={datasetDetails._source?.licenseId}
             target="_blank"
             className="small text-decoration-underline me-2"
           >
@@ -90,18 +103,12 @@ function Details() {
               ""
             )}
           </a>
-          <a
-            href={datasetDetails?._source?.licenseId}
-            target="_blank"
-            className="small text-decoration-underline me-2"
-          >
-            {datasetDetails._source?.publisher?.name}
-          </a>
+
           <span className="small me-2">
             {t("dataset.version")} {(datasetDetails?._source?.version ?? 1).toFixed(1)}
           </span>
           <span className="small me-2">
-            {moment(datasetDetails?._source?.publishDate).fromNow()}
+            {t('dataset.assetUploaded')} {moment(datasetDetails?._source?.publishDate).fromNow()}
           </span>
         </div>
 
@@ -275,7 +282,7 @@ function Details() {
               <Tab
                 eventKey="attributes"
                 title={
-                  <span>
+                  <span className="small">
                     ATTRIBUTE
                     <br />
                     LIST
@@ -288,7 +295,7 @@ function Details() {
               <Tab
                 eventKey="attribute_consistency"
                 title={
-                  <span>
+                  <span className="small">
                     ATTRIBUTE
                     <br />
                     CONSISTENCY
@@ -301,7 +308,7 @@ function Details() {
               <Tab
                 eventKey="temporal_consistency"
                 title={
-                  <span>
+                  <span className="small">
                     TEMPORAL
                     <br />
                     CONSISTENCY
@@ -314,7 +321,7 @@ function Details() {
               <Tab
                 eventKey="numeric_value_distribution"
                 title={
-                  <span>
+                  <span className="small">
                     NUMERIC VALUE
                     <br />
                     DISTRIBUTION
@@ -327,8 +334,10 @@ function Details() {
               <Tab
                 eventKey="string_value_distribution"
                 title={
-                  <span>
-                    STRING VALUE
+                  <span className="small">
+                    STRING
+                    <br />
+                    VALUE
                     <br />
                     DISTRIBUTION
                   </span>
@@ -340,8 +349,10 @@ function Details() {
               <Tab
                 eventKey="correlation_analysis"
                 title={
-                  <span>
-                    NUMERIC CORRELATION
+                  <span className="small">
+                    NUMERIC
+                    <br />
+                    CORRELATION
                     <br />
                     ANALYSIS
                   </span>
@@ -353,8 +364,10 @@ function Details() {
               <Tab
                 eventKey="anomaly_analysis"
                 title={
-                  <span>
-                    NUMERIC ANOMALY
+                  <span className="small">
+                    NUMERIC
+                    <br />
+                    ANOMALY
                     <br />
                     ANALYSIS
                   </span>
@@ -366,7 +379,7 @@ function Details() {
               <Tab
                 eventKey="data_seasonality"
                 title={
-                  <span>
+                  <span className="small">
                     DATA
                     <br />
                     SEASONALITY
