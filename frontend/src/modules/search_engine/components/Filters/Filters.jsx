@@ -231,7 +231,7 @@ function Filters({ datasets }) {
                                                         </div>
 
                                                         <div className='d-flex justify-content-around mt-2'>
-                                                            <span className='small text-muted'>kB</span>
+                                                            <span className='small text-muted'>KB</span>
                                                             <span className='small text-muted'>MB</span>
                                                             <span className='small text-muted'>GB</span>
                                                             <span className='small text-muted'>TB</span>
