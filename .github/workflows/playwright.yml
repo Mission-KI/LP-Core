@@ -9,6 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env:
+      REACT_APP_URL: http://localhost:3000
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
