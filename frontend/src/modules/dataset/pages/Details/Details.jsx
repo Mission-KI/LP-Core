@@ -92,7 +92,7 @@ function Details() {
           >
             {datasetDetails._source?.publisher?.name}
           </a>
-          
+
           <a
             href={datasetDetails._source?.licenseId}
             target="_blank"
@@ -277,15 +277,13 @@ function Details() {
               activeKey={activeKey}
               id={styles.datasetAttributeTabs}
               onSelect={(k) => setActiveKey(k)}
-              className="mb-3"
+              className="dataset-attribute-tabs mb-3"
             >
               <Tab
                 eventKey="attributes"
                 title={
                   <span className="small">
-                    ATTRIBUTE
-                    <br />
-                    LIST
+                    {t('dataset.tabs.attributeList')}
                   </span>
                 }
                 className={styles.tab}
@@ -296,10 +294,7 @@ function Details() {
                 eventKey="attribute_consistency"
                 title={
                   <span className="small">
-                    ATTRIBUTE
-                    <br />
-                    CONSISTENCY
-                    
+                    {t('dataset.tabs.attributeConsistency')}
                   </span>
                 }
                 className={styles.tab}
@@ -310,9 +305,7 @@ function Details() {
                 eventKey="temporal_consistency"
                 title={
                   <span className="small">
-                    TEMPORAL
-                    <br />
-                    CONSISTENCY
+                    {t('dataset.tabs.temporalConsistency')}
                   </span>
                 }
                 className={styles.tab}
@@ -323,9 +316,7 @@ function Details() {
                 eventKey="numeric_value_distribution"
                 title={
                   <span className="small">
-                    NUMERIC VALUE
-                    <br />
-                    DISTRIBUTION
+                    {t('dataset.tabs.numericValueDistribution')}
                   </span>
                 }
                 className={styles.tab}
@@ -336,11 +327,7 @@ function Details() {
                 eventKey="string_value_distribution"
                 title={
                   <span className="small">
-                    STRING
-                    <br />
-                    VALUE
-                    <br />
-                    DISTRIBUTION
+                    {t('dataset.tabs.stringValueDistribution')}
                   </span>
                 }
                 className={styles.tab}
@@ -351,11 +338,7 @@ function Details() {
                 eventKey="correlation_analysis"
                 title={
                   <span className="small">
-                    NUMERIC
-                    <br />
-                    CORRELATION
-                    <br />
-                    ANALYSIS
+                    {t('dataset.tabs.numericCorrelationAnalysis')}
                   </span>
                 }
                 className={styles.tab}
@@ -366,11 +349,7 @@ function Details() {
                 eventKey="anomaly_analysis"
                 title={
                   <span className="small">
-                    NUMERIC
-                    <br />
-                    ANOMALY
-                    <br />
-                    ANALYSIS
+                    {t('dataset.tabs.numericAnomalyAnalysis')}
                   </span>
                 }
                 className={styles.tab}
@@ -381,9 +360,7 @@ function Details() {
                 eventKey="data_seasonality"
                 title={
                   <span className="small">
-                    DATA
-                    <br />
-                    SEASONALITY
+                    {t('dataset.tabs.dataSeasonality')}
                   </span>
                 }
                 className={styles.tab}
