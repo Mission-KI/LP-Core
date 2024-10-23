@@ -1,6 +1,6 @@
 export const filterSections = [
     {
-        title: "Dataspace",
+        title: "dataspace",
         type: "checkboxes",
         filters: [
             {
@@ -12,7 +12,7 @@ export const filterSections = [
         ]
     },
     {
-        title: "Licenses",
+        title: "licenses",
         type: "checkboxes",
         filters: [
             {
@@ -24,7 +24,7 @@ export const filterSections = [
         ]
     },
     {
-        title: "Data Format",
+        title: "dataFormat",
         type: "checkboxes",
         filters: [
             {
@@ -36,7 +36,7 @@ export const filterSections = [
         ]
     },
     {
-        title: "File size",
+        title: "fileSize",
         type: "filesize",
         filters: [
             {
@@ -50,11 +50,11 @@ export const filterSections = [
         ]
     },
     {
-        title: "Attributes",
+        title: "attributes",
         type: "doublerange",
         filters: [
             {
-                label: "Lines",
+                label: "lines",
                 name_1: "min_lines",
                 name_2: "max_lines",
                 type: "doublerange",
@@ -62,7 +62,7 @@ export const filterSections = [
                 maxValue: 8785,
             },
             {
-                label: "Columns",
+                label: "columns",
                 name_1: "min_columns",
                 name_2: "max_columns",
                 type: "doublerange",
