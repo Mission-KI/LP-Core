@@ -60,7 +60,17 @@ i18n
             version: "Version",
             getDataset: "Get Dataset",
             license: "License",
-            assetUploaded: "Published"
+            assetUploaded: "Published",
+            tabs: {
+              attributeList: "ATTRIBUTE LIST",
+              attributeConsistency: "ATTRIBUTE CONSISTENCY",
+              temporalConsistency: "TEMPORAL CONSISTENCY",
+              numericValueDistribution: "NUMERIC VALUE DISTRIBUTION",
+              stringValueDistribution: "STRING VALUE DISTRIBUTION",
+              numericCorrelationAnalysis: "NUMERIC CORRELATION ANALYSIS",
+              numericAnomalyAnalysis: "NUMERIC ANOMALY ANALYSIS",
+              dataSeasonality: "DATA SEASONALITY"
+            }
           },
           table: {
             attributes: {
@@ -158,7 +168,17 @@ i18n
             version: "Version",
             getDataset: "Datensatz abrufen",
             license: "Lizenz",
-            assetUploaded: "Veröffentlicht"
+            assetUploaded: "Veröffentlicht",
+            tabs: {
+              attributeList: "ATTRIBUTLISTE",
+              attributeConsistency: "ATTRIBUTKONSISTENZ",
+              temporalConsistency: "ZEITLICHE KONSISTENZ",
+              numericValueDistribution: "NUMERISCHE WERTEVERTEILUNG",
+              stringValueDistribution: "STRING-WERTEVERTEILUNG",
+              numericCorrelationAnalysis: "NUMERISCHE KORRELATIONSANALYSE",
+              numericAnomalyAnalysis: "NUMERISCHE ANOMALIEANALYSE",
+              dataSeasonality: "DATEN-SAISONALITÄT"
+            }
           },
           table: {
             attributes: {

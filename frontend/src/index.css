@@ -248,7 +248,8 @@ li.disabled,
   border-color: var(--color-primary) !important;
 }
 
-.rc-slider-track, .rc-slider-tracks{
+.rc-slider-track,
+.rc-slider-tracks {
   background-color: var(--color-primary) !important;
 }
 
@@ -261,6 +262,10 @@ li.disabled,
   color: white !important;
 }
 
-div.dt-container div.dt-search input{
+div.dt-container div.dt-search input {
   border-radius: 1.2rem !important;
+}
+
+.dataset-attribute-tabs .nav-item {
+  white-space: break-spaces !important;
 }
