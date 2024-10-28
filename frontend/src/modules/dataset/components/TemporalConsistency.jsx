@@ -29,7 +29,7 @@ function TemporalConsistency({ datasetDetails }) {
                         <tr>
                             <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.attribute')}</th>
                             <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.freq')}</th>
-                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.gaps')}</th>
+                            <th className='small py-2 bgc-primary text-white w-33' style={{ textAlign: 'left' }}>{t('table.attributes.gaps')}</th>
                         </tr>
                     </thead>
                     <tbody>

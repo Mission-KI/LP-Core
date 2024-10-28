@@ -170,14 +170,14 @@ i18n
             license: "Lizenz",
             assetUploaded: "Veröffentlicht",
             tabs: {
-              attributeList: "ATTRIBUTLISTE",
-              attributeConsistency: "ATTRIBUTKONSISTENZ",
+              attributeList: "ATTRIBUT- LISTE",
+              attributeConsistency: "ATTRIBUT- KONSISTENZ",
               temporalConsistency: "ZEITLICHE KONSISTENZ",
-              numericValueDistribution: "NUMERISCHE WERTEVERTEILUNG",
-              stringValueDistribution: "STRING-WERTEVERTEILUNG",
-              numericCorrelationAnalysis: "NUMERISCHE KORRELATIONSANALYSE",
-              numericAnomalyAnalysis: "NUMERISCHE ANOMALIEANALYSE",
-              dataSeasonality: "DATEN-SAISONALITÄT"
+              numericValueDistribution: "NUMERISCHE WERTEVER- TEILUNG",
+              stringValueDistribution: "STRING-WERTEVER- TEILUNG",
+              numericCorrelationAnalysis: "NUMERISCHE KORRELATIONS- ANALYSE",
+              numericAnomalyAnalysis: "NUMERISCHE ANOMALIE- ANALYSE",
+              dataSeasonality: "DATEN- SAISONALITÄT"
             }
           },
           table: {
