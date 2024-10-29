@@ -34,6 +34,10 @@ function MainSearchBar({ datasets }) {
         setLocalSearchTerm('');
         setShowSuggestions(false);
         inputRef.current.querySelector('input').focus();
+        const params = new URLSearchParams(window.location.search);
+        params.set('q', '');
+        params.delete('page');
+        navigate(`/?${params.toString()}`);
     };
 
     const handleSubmit = e => {
