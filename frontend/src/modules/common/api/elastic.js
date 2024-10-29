@@ -16,14 +16,17 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 if (values[0] === '') {
                     continue;
                 }
+
+                const wildcardValue = `*${values[0]}*`;
+                
                 mustClauses.push({
                     bool: {
                         should: [
-                            { match_phrase: { name: values[0] } },
-                            { match_phrase: { 'description': values[0] } },
-                            { match_phrase: { 'dataSpace.name': values[0] } },
-                            { match_phrase: { 'publisher.name': values[0] } },
-                            { match_phrase: { 'licenseId': values[0] } }
+                            { wildcard: { name: { value: wildcardValue } } },
+                            { match_phrase: { 'description': wildcardValue } },
+                            { match_phrase: { 'dataSpace.name': wildcardValue } },
+                            { match_phrase: { 'publisher.name': wildcardValue } },
+                            { match_phrase: { 'licenseId': wildcardValue } }
                         ]
                     }
                 });
