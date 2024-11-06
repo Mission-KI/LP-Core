@@ -18,7 +18,7 @@ export const filterSections = [
             {
                 label: "dl-by-de/2.0",
                 value: "https://www.dcat-ap.de/def/licenses/20210721.html#dl-by-de/2.0",
-                name: "licenseId",
+                name: "license.name",
                 type: "checkbox",
             },
         ]

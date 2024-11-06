@@ -94,14 +94,11 @@ function Details() {
           </a>
 
           <a
-            href={datasetDetails._source?.licenseId}
+            href={datasetDetails._source?.license?.url}
             target="_blank"
             className="small text-decoration-underline me-2"
           >
-            {datasetDetails?._source?.licenseId?.replace(
-              "http://dcat-ap.de/def/licenses/",
-              ""
-            )}
+            {datasetDetails?._source?.license?.name}
           </a>
 
           <span className="small me-2">

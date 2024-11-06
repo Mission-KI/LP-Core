@@ -20,7 +20,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                 mustClauses.push({
                     query_string: {
                         query: values[0]+'*',
-                        fields: ["name", "description", "dataSpace.name", "publisher.name", "licenseId"]
+                        fields: ["name", "description", "dataSpace.name", "publisher.name", "license.name"]
                     }
                 });
             }

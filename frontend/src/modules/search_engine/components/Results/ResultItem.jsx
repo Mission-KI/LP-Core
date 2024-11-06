@@ -56,9 +56,9 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           <span className="medium text-muted pe-2">
             {filesize(dataset?._source?.volume)}
           </span>
-          <a href={dataset?._source?.licenseId} target='_blank'
+          <a href={dataset?._source?.license?.url} target='_blank'
             className='medium text-decoration-underline text-muted pe-2'>
-            {t('dataset.license')} {dataset?._source?.licenseId?.replace('http://dcat-ap.de/def/licenses/', '')}
+            {t('dataset.license')} {dataset?._source?.license?.name}
           </a>
           {/* <span className="medium text-muted pe-2">{t('dataset.version')} {(dataset?._source?.version ?? 1).toFixed(1)}</span> */}
           <span className="medium text-muted pe-2">
