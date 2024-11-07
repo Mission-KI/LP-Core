@@ -42,7 +42,7 @@ export const calculateDataTypesAttribute = (dataset) => {
     const datetimeColumnCount = dataset?._source?.structuredDatasets?.[0]?.datetimeColumns?.length
     const stringColumnCount = dataset?._source?.structuredDatasets?.[0]?.stringColumns?.length
 
-    return `date (${datetimeColumnCount}), string (${stringColumnCount}), int (${numericColumnCount})`
+    return `date (${datetimeColumnCount}), string (${stringColumnCount}), numeric (${numericColumnCount})`
 
 }
 
@@ -62,6 +62,6 @@ export const calculateTemporalCover = (dataset) => {
 
 export const calculateTemporalConsistency = (dataset) => {
 
-    return `no frequency detected`
+    return `freq (gaps)`
 
 }

@@ -62,7 +62,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           </a>
           {/* <span className="medium text-muted pe-2">{t('dataset.version')} {(dataset?._source?.version ?? 1).toFixed(1)}</span> */}
           <span className="medium text-muted pe-2">
-            {t('dataset.assetUploaded')} {moment(dataset?._source?.publishDate).fromNow()}
+            {t('dataset.assetUploaded')} {new Date(dataset?._source?.publishDate).toLocaleDateString()} ({moment(dataset?._source?.publishDate).fromNow()})
           </span>
         </div>
       </div>
