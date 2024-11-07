@@ -20,6 +20,7 @@ import NumericCorrelationAnalysis from "../../components/NumericCorrelationAnaly
 import NumericAnomalyAnalysis from "../../components/NumericAnomalyAnalysis";
 import DataSeasonality from "../../components/DataSeasonality";
 import PageNotFound from "../../../common/pages/PageNotFound";
+import { calculateAttributeConsistency, calculateDataTypesAttribute } from "../../utils/calculations";
 
 function Details() {
   const { id } = useParams();
@@ -221,8 +222,8 @@ function Details() {
                     {datasetDetails?._source?.growthFlag ?? "unknown"}
                   </p>
                   <p className="small mb-1">unknown</p>
-                  <p className="small mb-1">unknown</p>
-                  <p className="small mb-1">unknown</p>
+                  <p className="small mb-1">to do</p>
+                  <p className="small mb-1">to do</p>
 
                   <br />
                   <p className="small mb-1">
@@ -234,16 +235,9 @@ function Details() {
                       "unknown"}
                   </p>
                   <p className="small mb-1">
-                    {datasetDetails?._source?.dataTypes.map(
-                      (dataType, index, arr) => (
-                        <span key={index}>
-                          {dataType}
-                          {index < arr.length - 1 && ", "}
-                        </span>
-                      )
-                    )}
+                    {calculateDataTypesAttribute(datasetDetails)}
                   </p>
-                  <p className="small mb-1">partially inconsistent</p>
+                  <p className="small mb-1">{calculateAttributeConsistency(datasetDetails)}</p>
                   <p className="small mb-1">german, english</p>
                   <p className="small mb-1">heterogen</p>
                   <p className="small mb-1">heterogen</p>
