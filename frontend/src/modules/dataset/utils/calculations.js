@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const calculateAttributeConsistency = (dataset) => {
 
     var sumOfMissingValueCounts = 0;
@@ -41,5 +43,25 @@ export const calculateDataTypesAttribute = (dataset) => {
     const stringColumnCount = dataset?._source?.structuredDatasets?.[0]?.stringColumns?.length
 
     return `date (${datetimeColumnCount}), string (${stringColumnCount}), int (${numericColumnCount})`
+
+}
+
+export const calculateTemporalCover = (dataset) => {
+    const earliest = dataset?._source?.structuredDatasets?.[0]?.datetimeColumns?.[0]?.earliest;
+    const latest = dataset?._source?.structuredDatasets?.[0]?.datetimeColumns?.[0]?.latest;
+
+    if (!earliest || !latest) return 'N/A';
+
+    const earliestFormatted = moment(earliest).format('MM/DD/YYYY');
+    const latestFormatted = moment(latest).format('MM/DD/YYYY');
+
+    const durationText = moment(earliest).from(moment(latest), true);
+
+    return `${earliestFormatted} - ${latestFormatted} (${durationText})`;
+};
+
+export const calculateTemporalConsistency = (dataset) => {
+
+    return `no frequency detected`
 
 }

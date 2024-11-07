@@ -15,6 +15,7 @@ import {
   isBookmarked,
   removeBookmark,
 } from "../../../common/utils/bookmarks";
+import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalConsistency, calculateTemporalCover } from "../../../dataset/utils/calculations";
 
 function QuickView({ dataset, bookmarks, setBookmarks }) {
   const [show, setShow] = useState(false);
@@ -115,7 +116,7 @@ function QuickView({ dataset, bookmarks, setBookmarks }) {
             </p>
             <hr />
             <div className="row">
-              <div className="col-md-5">
+              <div className="col-md-6">
                 <div className="w-100">
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
@@ -171,17 +172,17 @@ function QuickView({ dataset, bookmarks, setBookmarks }) {
                     <p className="small text-uppercase">
                       {t("dataset.temporalCover")}
                     </p>
-                    <p className="small">unknown</p>
+                    <p className="small">{calculateTemporalCover(dataset)}</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
                       {t("dataset.temporalConsistency")}
                     </p>
-                    <p className="small">unknown</p>
+                    <p className="small">{calculateTemporalConsistency(dataset)}</p>
                   </div>
                 </div>
               </div>
-              <div className="col-md-7">
+              <div className="col-md-6">
                 <div className="w-100">
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
@@ -204,21 +205,14 @@ function QuickView({ dataset, bookmarks, setBookmarks }) {
                       {t("dataset.dataTypes")}
                     </p>
                     <p className="small">
-                      {dataset?._source?.dataTypes.map(
-                        (dataType, index, arr) => (
-                          <span key={index}>
-                            {dataType}
-                            {index < arr.length - 1 && ", "}
-                          </span>
-                        )
-                      )}
+                      {calculateDataTypesAttribute(dataset)}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
                       {t("dataset.attributeConsistency")}
                     </p>
-                    <p className="small">partially inconsistent</p>
+                    <p className="small">{calculateAttributeConsistency(dataset)}</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
