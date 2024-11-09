@@ -43,7 +43,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
             {dataset._source?.dataSpace?.name}
           </a>
           <a
-            href={`https://${dataset._source?.publisher?.name}`}
+            href={`https://${dataset._source?.publisher?.url}`}
             target='_blank'
             rel='noopener noreferrer'
             className='medium text-decoration-underline pe-2'
@@ -60,7 +60,6 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
             className='medium text-decoration-underline text-muted pe-2'>
             {t('dataset.license')} {dataset?._source?.license?.name}
           </a>
-          {/* <span className="medium text-muted pe-2">{t('dataset.version')} {(dataset?._source?.version ?? 1).toFixed(1)}</span> */}
           <span className="medium text-muted pe-2">
             {t('dataset.assetUploaded')} {new Date(dataset?._source?.publishDate).toLocaleDateString()} ({moment(dataset?._source?.publishDate).fromNow()})
           </span>

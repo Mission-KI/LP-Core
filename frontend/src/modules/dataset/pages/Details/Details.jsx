@@ -20,7 +20,7 @@ import NumericCorrelationAnalysis from "../../components/NumericCorrelationAnaly
 import NumericAnomalyAnalysis from "../../components/NumericAnomalyAnalysis";
 import DataSeasonality from "../../components/DataSeasonality";
 import PageNotFound from "../../../common/pages/PageNotFound";
-import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalConsistency, calculateTemporalCover } from "../../utils/calculations";
+import { calculateAttributeConsistency, calculateDataTypesAttribute } from "../../utils/calculations";
 
 function Details() {
   const { id } = useParams();
@@ -86,7 +86,7 @@ function Details() {
           </a>
 
           <a
-            href={`https://${datasetDetails._source?.publisher?.name}`}
+            href={`https://${datasetDetails._source?.publisher?.url}`}
             target="_blank"
             rel='noopener noreferrer'
             className="small text-decoration-underline me-2"
@@ -222,8 +222,8 @@ function Details() {
                     {datasetDetails?._source?.growthFlag ?? "unknown"}
                   </p>
                   <p className="small mb-1">unknown</p>
-                  <p className="small mb-1">{calculateTemporalCover(datasetDetails)}</p>
-                  <p className="small mb-1">{calculateTemporalConsistency(datasetDetails)}</p>
+                  <p className="small mb-1">{datasetDetails?._source?.temporalCover ?? "unknown"}</p>
+                  <p className="small mb-1">{datasetDetails?._source?.periodicity ?? "unknown"}</p>
 
                   <br />
                   <p className="small mb-1">

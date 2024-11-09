@@ -39,7 +39,7 @@ function DataSeasonality({ datasetDetails }) {
                     <span className='text-muted small'>{column.name} Original Timeseries</span>
                     <div className="row mb-3">
                         <div className='col-md-12'>
-                            <ImageView url={column?.seasonalityGraphs[0]} />
+                            <ImageView url={column?.seasonalities?.[0]?.file} />
                         </div>
                     </div>
                 </>
