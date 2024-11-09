@@ -45,3 +45,17 @@ export const calculateDataTypesAttribute = (dataset) => {
     return `date (${datetimeColumnCount}), string (${stringColumnCount}), numeric (${numericColumnCount})`
 
 }
+
+export const calculateTemporalCover = (dataset) => {
+    const earliest = dataset?._source?.temporalCover?.earliest;
+    const latest = dataset?._source?.temporalCover?.latest;
+
+    if (!earliest || !latest) return 'N/A';
+
+    const earliestFormatted = moment(earliest).format('MM/DD/YYYY');
+    const latestFormatted = moment(latest).format('MM/DD/YYYY');
+
+    const durationText = moment(earliest).from(moment(latest), true);
+
+    return `${earliestFormatted} - ${latestFormatted} (${durationText})`;
+};

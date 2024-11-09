@@ -20,7 +20,7 @@ import NumericCorrelationAnalysis from "../../components/NumericCorrelationAnaly
 import NumericAnomalyAnalysis from "../../components/NumericAnomalyAnalysis";
 import DataSeasonality from "../../components/DataSeasonality";
 import PageNotFound from "../../../common/pages/PageNotFound";
-import { calculateAttributeConsistency, calculateDataTypesAttribute } from "../../utils/calculations";
+import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalCover } from "../../utils/calculations";
 
 function Details() {
   const { id } = useParams();
@@ -222,8 +222,8 @@ function Details() {
                     {datasetDetails?._source?.growthFlag ?? "unknown"}
                   </p>
                   <p className="small mb-1">unknown</p>
-                  <p className="small mb-1">{datasetDetails?._source?.temporalCover ?? "unknown"}</p>
-                  <p className="small mb-1">{datasetDetails?._source?.periodicity ?? "unknown"}</p>
+                  <p className="small mb-1">{calculateTemporalCover(datasetDetails)}</p>
+                  <p className="small mb-1">{datasetDetails?._source?.periodicity ?? "N/A"}</p>
 
                   <br />
                   <p className="small mb-1">
