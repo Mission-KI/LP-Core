@@ -9,7 +9,7 @@ import { StarFill } from "react-bootstrap-icons";
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 
-function ResultItem({ dataset, bookmarks, setBookmarks }) {
+function ResultItem({ dataset }) {
   const [isBookmarkedState, setIsBookmarkedState] = useState(false);
 
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
             {dataset._source.name}
           </Link>
           <div className="ps-2">
-            <QuickView dataset={dataset} bookmarks={bookmarks} setBookmarks={setBookmarks} />
+            <QuickView dataset={dataset} />
           </div>
         </div>
 
@@ -75,7 +75,6 @@ function ResultItem({ dataset, bookmarks, setBookmarks }) {
           dataset={dataset}
           isBookmarkedState={isBookmarkedState}
           setIsBookmarkedState={setIsBookmarkedState}
-          bookmarks={bookmarks} setBookmarks={setBookmarks}
         />
       </div>
     </div>

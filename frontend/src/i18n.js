@@ -115,7 +115,7 @@ i18n
             bookmarks: "Bookmarks"
           },
           footer: {
-            c: "(c) beebucket 2024",
+            c: "© beebucket 2024",
             imprint: "Imprint",
             privacyPolicy: "Data Privacy Policy",
             usePolicy: "Acceptable Use Policy"
@@ -223,7 +223,7 @@ i18n
             bookmarks: "Lesezeichen"
           },
           footer: {
-            c: "(c) beebucket 2024",
+            c: "© beebucket 2024",
             imprint: "Impressum",
             privacyPolicy: "Datenschutzerklärung",
             usePolicy: "Nutzungsrichtlinien"

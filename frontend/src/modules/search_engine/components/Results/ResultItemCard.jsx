@@ -11,7 +11,7 @@ import { useTranslation } from "react-i18next";
 import { Card } from "react-bootstrap";
 import { truncateString } from '../../../common/utils/format_utils'
 
-function ResultItemCard({ dataset, bookmarks, setBookmarks }) {
+function ResultItemCard({ dataset }) {
     const [isBookmarkedState, setIsBookmarkedState] = useState(false);
 
     const { t } = useTranslation();
@@ -31,7 +31,7 @@ function ResultItemCard({ dataset, bookmarks, setBookmarks }) {
                             {truncateString(dataset._source.name, 25)}
                         </Link>
                         <div className="ps-2">
-                            <QuickView dataset={dataset} bookmarks={bookmarks} setBookmarks={setBookmarks} />
+                            <QuickView dataset={dataset} />
                         </div>
                         <div className="ms-auto">
                             {isBookmarkedState && (
@@ -43,7 +43,6 @@ function ResultItemCard({ dataset, bookmarks, setBookmarks }) {
                                 dataset={dataset}
                                 isBookmarkedState={isBookmarkedState}
                                 setIsBookmarkedState={setIsBookmarkedState}
-                                bookmarks={bookmarks} setBookmarks={setBookmarks}
                             />
                         </div>
                     </div>

@@ -17,7 +17,7 @@ import {
 } from "../../../common/utils/bookmarks";
 import { calculateAttributeConsistency, calculateDataTypesAttribute } from "../../../dataset/utils/calculations";
 
-function QuickView({ dataset, bookmarks, setBookmarks }) {
+function QuickView({ dataset }) {
   const [show, setShow] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
 
@@ -48,33 +48,11 @@ function QuickView({ dataset, bookmarks, setBookmarks }) {
   const handleAddBookmark = (id) => {
     addBookmark(id);
     setBookmarked(true);
-
-    setBookmarks((prevBookmarks) => {
-      const currentHits = prevBookmarks.hits?.hits || [];
-      return {
-        ...prevBookmarks,
-        hits: {
-          ...prevBookmarks.hits,
-          hits: [...currentHits, dataset],
-        },
-      };
-    });
   };
 
   const handleRemoveBookmark = (id) => {
     removeBookmark(id);
     setBookmarked(false);
-
-    setBookmarks((prevBookmarks) => {
-      const currentHits = prevBookmarks.hits?.hits || [];
-      return {
-        ...prevBookmarks,
-        hits: {
-          ...prevBookmarks.hits,
-          hits: currentHits.filter((item) => item._id !== id),
-        },
-      };
-    });
   };
 
   return (

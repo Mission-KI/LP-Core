@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getBookmarkedDatasets, getDatasets } from '../../../common/api/elastic';
-import { useLocation, useNavigate } from 'react-router-dom';
 import ResultItem from '../../components/Results/ResultItem';
-import { useTranslation } from 'react-i18next';
+import { getBookmarkedDatasets } from '../../../common/api/elastic';
 
 const Bookmarks = () => {
 
     const [bookmarks, setBookmarks] = useState({});
     const [loading, setLoading] = useState(true);
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -31,11 +26,20 @@ const Bookmarks = () => {
 
     }, []);
 
+    console.log(bookmarks);
+
+    if (loading) {
+        return "loading"
+    }
+
 
     return (
         <div>
+
+            <h1>Bookmarks</h1>
+
             {bookmarks?.hits?.hits?.map((dataset) =>
-                <ResultItem dataset={dataset} key={dataset._id} bookmarks={bookmarks} setBookmarks={setBookmarks} />
+                <ResultItem dataset={dataset} key={dataset._id} />
             )}
         </div>
     );
