@@ -2,7 +2,7 @@ import Search from "./pages/SearchEngine/Search";
 
 const searchEngineRoutes = [
   {
-    path: '/',
+    path: '/search',
     element: <Search />,
   },
 ];

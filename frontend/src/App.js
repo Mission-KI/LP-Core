@@ -8,12 +8,14 @@ import LegalLayout from './modules/common/layouts/LegalLayout';
 import HealthCheck from './modules/search_engine/pages/HealthCheck';
 import ScrollToTop from './modules/common/components/ScrollToTop';
 import PageNotFound from './modules/common/pages/PageNotFound';
+import homeRoutes from './modules/home';
 
 const routes = [
   {
     path: '/',
     element: <LandingLayout />,
     children: [
+      ...homeRoutes,
       ...searchEngineRoutes
     ],
   },
