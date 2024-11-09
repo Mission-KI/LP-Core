@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Filter, Search, Question, X } from 'react-bootstrap-icons';
+import { Filter, Search, Question, X, Star } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 import Filters from '../../../search_engine/components/Filters/Filters';
 import { useTranslation } from 'react-i18next';
 import HelpModal from '../../../search_engine/components/HelpModal/HelpModal';
+import { Link } from 'react-router-dom';
 
 function MainSearchBar({ datasets }) {
 
@@ -104,6 +105,14 @@ function MainSearchBar({ datasets }) {
             </InputGroup>
             <div className='ps-3'>
                 <HelpModal />
+            </div>
+            <div className='ps-3'>
+                <button
+                    onClick={() => navigate('/bookmarks')}
+                    className="navIconModalToggleWrapper"
+                >
+                    <Star className='h5 m-0' />
+                </button>
             </div>
         </form>
     );

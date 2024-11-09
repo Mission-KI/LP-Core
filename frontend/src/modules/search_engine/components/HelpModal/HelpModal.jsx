@@ -12,7 +12,7 @@ function HelpModal() {
     return (
         <>
             <button
-                className={styles.questionModalToggleWrapper}
+                className="navIconModalToggleWrapper"
                 onClick={handleShow}
             >
                 <Question className='h5 m-0' />

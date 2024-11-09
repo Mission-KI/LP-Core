@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Search, X, Question } from 'react-bootstrap-icons';
+import { Search, X, Question, Star } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import styles from './SearchBar.module.css';
@@ -8,6 +8,7 @@ import SearchSuggestions from './SearchSuggestions';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../widgets/LanguageSelector';
 import HelpModal from '../../../search_engine/components/HelpModal/HelpModal';
+import { Link } from 'react-router-dom';
 
 function SearchBar() {
 
@@ -86,9 +87,17 @@ function SearchBar() {
                 <div className='ps-3'>
                     <HelpModal />
                 </div>
-            </form>
+                <div className='ps-3'>
+                    <button
+                        to="/bookmarks"
+                        className="navIconModalToggleWrapper"
+                    >
+                        <Star className='h5 m-0' />
+                    </button>
+                </div>
+            </form >
             <LanguageSelector />
-        </div>
+        </div >
     );
 }
 

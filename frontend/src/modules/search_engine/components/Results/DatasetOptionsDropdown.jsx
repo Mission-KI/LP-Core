@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
-import { ThreeDots } from 'react-bootstrap-icons';
+import { ThreeDots, ThreeDotsVertical } from 'react-bootstrap-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { addBookmark, removeBookmark, isBookmarked } from '../../../common/utils/bookmarks';
 import { t } from 'i18next';
@@ -37,7 +37,7 @@ function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedSta
     return (
         <Dropdown>
             <Dropdown.Toggle as="div" className="btn hover-lg rounded-circle px-2 py-1 m-0 pointer">
-                <ThreeDots />
+                <ThreeDotsVertical />
             </Dropdown.Toggle>
 
             <Dropdown.Menu className='border-0 shadow'>

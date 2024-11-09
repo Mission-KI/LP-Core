@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Star, StarFill } from 'react-bootstrap-icons';
+import { CardText, List, Star, StarFill } from 'react-bootstrap-icons';
 import ResultItem from './ResultItem';
 import { Spinner } from 'react-bootstrap';
 import Tab from 'react-bootstrap/Tab';
@@ -7,10 +7,11 @@ import Tabs from 'react-bootstrap/Tabs';
 import { useTranslation } from 'react-i18next';
 import Paginator from '../../../common/components/widgets/Paginator';
 import { getTotalCount } from '../../../common/api/elastic';
+import ResultItemCard from './ResultItemCard';
 
-function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handlePageChange, currentPage }) {
+function Results({ datasets, loading, pageCount, handlePageChange, currentPage }) {
     const { t } = useTranslation();
-    const [activeTab, setActiveTab] = useState('all');
+    const [activeTab, setActiveTab] = useState('list');
     const [totalDatasetCount, setTotalDatasetCount] = useState(0);
 
     useEffect(() => {
@@ -21,22 +22,8 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
         getTotalDatasetCount();
     }, []);
 
-    useEffect(() => {
-        const hash = window.location.hash;
-        if (hash === '#bookmarks') {
-            setActiveTab('bookmarks');
-        } else {
-            setActiveTab('all');
-        }
-    }, []);
-
     const handleTabChange = (tab) => {
         setActiveTab(tab);
-        if (tab === 'bookmarks') {
-            window.history.pushState(null, '', '#bookmarks');
-        } else {
-            window.history.pushState(null, '', '#all');
-        }
     };
 
     if (loading) {
@@ -57,40 +44,42 @@ function Results({ datasets, loading, bookmarks, setBookmarks, pageCount, handle
                         id="controlled-tab-example"
                         className="d-flex justify-content-end border-0 w-100"
                     >
-                        <Tab eventKey="all" title={t('common.all')}>
+                        <Tab eventKey="list" title={
+                            <>
+                                <List className='me-1' /> List view
+                            </>
+                        }>
                             <div className='d-block'>
                                 <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>
                                     {(datasets.hits?.total?.value === 10000 ? totalDatasetCount : datasets.hits?.total?.value)?.toLocaleString()} {t('dataset.datasets')}
                                 </span>
 
                                 {datasets?.hits?.hits?.map((dataset) =>
-                                    <ResultItem dataset={dataset} key={dataset._id} bookmarks={bookmarks} setBookmarks={setBookmarks} />
+                                    <ResultItem dataset={dataset} key={dataset._id} />
                                 )}
-                                <Paginator
-                                    pageCount={pageCount}
-                                    handlePageChange={handlePageChange}
-                                    currentPage={currentPage}
-                                />
+
                             </div>
                         </Tab>
-                        <Tab eventKey="bookmarks" title={
-                            <div>
-                                <span className='d-flex align-items-center fw-500'>
-                                    {t('common.bookmarks')}
-                                    {bookmarks?.hits?.hits?.length !== 0 ? (
-                                        <StarFill className='ms-2' />
-                                    ) : <Star className='ms-2' />}
-                                </span>
-                            </div>
+                        <Tab eventKey="tile" title={
+                            <><CardText className='me-1' /> Tile view</>
                         }>
                             <div className='d-block'>
-                                <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>{bookmarks?.hits?.hits?.length} {t('bookmarks.bookmarks')}</span>
-                                {bookmarks?.hits?.hits?.map((dataset) =>
-                                    <ResultItem dataset={dataset} key={dataset._id} bookmarks={bookmarks} setBookmarks={setBookmarks} />
-                                )}
+                                <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>
+                                    {(datasets.hits?.total?.value === 10000 ? totalDatasetCount : datasets.hits?.total?.value)?.toLocaleString()} {t('dataset.datasets')}
+                                </span>
+                                <div className="row">
+                                    {datasets?.hits?.hits?.map((dataset) =>
+                                        <ResultItemCard dataset={dataset} key={dataset._id} />
+                                    )}
+                                </div>
                             </div>
                         </Tab>
                     </Tabs>
+                    <Paginator
+                        pageCount={pageCount}
+                        handlePageChange={handlePageChange}
+                        currentPage={currentPage}
+                    />
                 </div>
             </div>
         </div>

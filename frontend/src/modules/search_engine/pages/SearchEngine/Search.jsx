@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import MainSearchBar from '../../../common/components/Search/MainSearchBar';
 import Results from '../../components/Results/Results';
-import { getBookmarkedDatasets, getDatasets } from '../../../common/api/elastic';
+import { getDatasets } from '../../../common/api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { isBookmarked } from '../../../common/utils/bookmarks';
 import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
 
 function Search() {
@@ -12,7 +11,6 @@ function Search() {
   const { t } = useTranslation();
 
   const [datasets, setDatasets] = useState({});
-  const [bookmarks, setBookmarks] = useState({});
   const [searchParams, setSearchParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
@@ -42,25 +40,12 @@ function Search() {
         setDatasets(fetchedDatasets);
       } catch (error) {
         console.error('Error fetching datasets:', error);
-      }
-    };
-
-    fetchDatasets();
-
-    const fetchBookmarks = async () => {
-      try {
-        const fetchedBookmarks = await getBookmarkedDatasets();
-        setBookmarks(fetchedBookmarks);
-
-      } catch (error) {
-        console.error('Error fetching bookmarks:', error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchDatasets();
-    fetchBookmarks();
 
   }, [searchParams, currentPage]);
 
@@ -81,8 +66,6 @@ function Search() {
 
       <Results datasets={datasets}
         loading={loading}
-        bookmarks={bookmarks}
-        setBookmarks={setBookmarks}
         pageCount={pageCount}
         handlePageChange={handlePageChange}
         currentPage={currentPage}
