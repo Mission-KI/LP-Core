@@ -33,9 +33,9 @@ function ResultItemCard({ dataset }) {
                         <div className="ps-2">
                             <QuickView dataset={dataset} />
                         </div>
-                        <div className="ms-auto">
+                        <div className="d-flex align-items-center ms-auto">
                             {isBookmarkedState && (
-                                <span className="px-2 py-1">
+                                <span className="py-1">
                                     <StarFill />
                                 </span>
                             )}
@@ -61,24 +61,12 @@ function ResultItemCard({ dataset }) {
                         >
                             {dataset._source?.dataSpace?.name}
                         </a>
-                        <a
-                            href={`https://${dataset._source?.publisher?.url}`}
-                            target='_blank'
-                            rel='noopener noreferrer'
-                            className='medium text-decoration-underline pe-2'
-                        >
-                            {dataset._source?.publisher?.name}
-                        </a>
-
 
                         <span className="medium text-muted pe-2">Files (CSV)</span>
                         <span className="medium text-muted pe-2">
                             {filesize(dataset?._source?.volume)}
                         </span>
-                        <a href={dataset?._source?.license?.url} target='_blank'
-                            className='medium text-decoration-underline text-muted pe-2'>
-                            {t('dataset.license')} {dataset?._source?.license?.name}
-                        </a>
+                       
                     </div>
 
                 </Card.Body>
