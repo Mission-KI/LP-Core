@@ -1,13 +1,16 @@
 import React from 'react';
 import { Database, Files } from 'react-bootstrap-icons';
 import Card from 'react-bootstrap/Card';
-import { Navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import styles from './CategoryCard.module.css'
 
 const CategoryCard = ({ category }) => {
+
+    const navigate = useNavigate();
+
     return (
         <div className="col-md-4 mb-4">
-            <Card className={`h-100 pointer ${styles.card} `} onClick={() => {Navigate('/categories/mobility-and-transport')}}>
+            <Card className={`h-100 pointer ${styles.card} `} onClick={() => {navigate('/categories/mobility-and-transport')}}>
                 <Card.Img variant="top" src={category.image} />
                 <Card.Body>
                     <Card.Title>{category.name}</Card.Title>
