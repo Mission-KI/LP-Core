@@ -48,11 +48,13 @@ function QuickView({ dataset }) {
   const handleAddBookmark = (id) => {
     addBookmark(id);
     setBookmarked(true);
+    window.location.reload();
   };
 
   const handleRemoveBookmark = (id) => {
     removeBookmark(id);
     setBookmarked(false);
+    window.location.reload();
   };
 
   return (

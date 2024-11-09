@@ -91,7 +91,7 @@ function Header({ datasetDetails }) {
 
 
                             <div className='pe-2 pt-1'>
-                                <Link to="/#bookmarks" className='btn rounded-lg py-1 small d-flex align-items-center'>
+                                <Link to="/bookmarks" className='btn rounded-lg py-1 small d-flex align-items-center'>
                                     {t('header.bookmarks')}
                                     {bookmarks?.length ? (
                                         <StarFill className='ms-2' />

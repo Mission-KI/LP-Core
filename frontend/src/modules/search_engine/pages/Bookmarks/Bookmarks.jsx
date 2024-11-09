@@ -3,6 +3,9 @@ import ResultItem from '../../components/Results/ResultItem';
 import { getBookmarkedDatasets } from '../../../common/api/elastic';
 import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
 import { useTranslation } from 'react-i18next';
+import { Spinner } from 'react-bootstrap';
+import { ArrowLeft } from 'react-bootstrap-icons';
+import { Link } from 'react-router-dom';
 
 const Bookmarks = () => {
 
@@ -29,18 +32,25 @@ const Bookmarks = () => {
 
     }, []);
 
-    console.log(bookmarks);
 
     if (loading) {
-        return "loading"
+        return (
+            <div
+                className="d-flex justify-content-center align-items-center"
+                style={{ height: "90vh" }}
+            >
+                <Spinner variant="primary" />
+            </div>
+        );
     }
 
 
     return (
 
         <div className="container pb-4" style={{ maxWidth: 1050 }}>
-            <div className='d-flex justify-content-between mb-5'>
-                <a href="/" className='text-decoration-none h2' style={{ width: 'fit-content' }}>{t('common.bookmarks')}</a>
+            <Link to="/"><ArrowLeft className='me-1' /> return home</Link>
+            <div className='d-flex justify-content-between mb-5 mt-2'>
+                <a className='text-decoration-none h2' style={{ width: 'fit-content' }}>{t('common.bookmarks')}</a>
                 <LanguageSelector />
             </div>
 
