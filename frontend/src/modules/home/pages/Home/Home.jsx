@@ -35,7 +35,9 @@ const Home = () => {
                 <LanguageSelector />
             </div>
 
-            <div className="row">
+            <MainSearchBar />
+
+            <div className="row mt-5">
                 {categories.map((category) => (
                     <CategoryCard category={category} key={category.id} />
                 ))}

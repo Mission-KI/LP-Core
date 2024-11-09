@@ -13,7 +13,7 @@ function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestion
 
         const params = new URLSearchParams(window.location.search);
         params.set('q', suggestion);
-        navigate(`/?${params.toString()}`);
+        navigate(`/search?${params.toString()}`);
     };
 
     useEffect(() => {
