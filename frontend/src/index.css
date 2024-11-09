@@ -315,3 +315,8 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
 .navIconModalToggleWrapper:hover {
   border: 1px solid var(--color-text);
 }
+
+.card-img-top{
+  width: auto !important;
+  object-fit: cover;
+}

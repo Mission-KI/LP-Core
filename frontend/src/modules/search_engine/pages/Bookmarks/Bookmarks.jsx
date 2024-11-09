@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ResultItem from '../../components/Results/ResultItem';
 import { getBookmarkedDatasets } from '../../../common/api/elastic';
+import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
+import { useTranslation } from 'react-i18next';
 
 const Bookmarks = () => {
 
     const [bookmarks, setBookmarks] = useState({});
     const [loading, setLoading] = useState(true);
+    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -34,14 +37,19 @@ const Bookmarks = () => {
 
 
     return (
-        <div>
 
-            <h1>Bookmarks</h1>
+        <div className="container pb-4" style={{ maxWidth: 1050 }}>
+            <div className='d-flex justify-content-between mb-5'>
+                <a href="/" className='text-decoration-none h2' style={{ width: 'fit-content' }}>{t('common.bookmarks')}</a>
+                <LanguageSelector />
+            </div>
+
 
             {bookmarks?.hits?.hits?.map((dataset) =>
                 <ResultItem dataset={dataset} key={dataset._id} />
             )}
         </div>
+
     );
 }
 

@@ -2,18 +2,15 @@ import React from 'react';
 import { Database, Files } from 'react-bootstrap-icons';
 import Card from 'react-bootstrap/Card';
 import { Navigate } from 'react-router';
-import styles from './CategoryCard.module.css'
+import styles from './DataspaceCard.module.css'
 
-const CategoryCard = ({ category }) => {
+const DataspaceCard = ({ dataSpace }) => {
     return (
         <div className="col-md-4 mb-4">
-            <Card className={`h-100 pointer ${styles.card} `} onClick={() => {Navigate('/categories/mobility-and-transport')}}>
-                <Card.Img variant="top" src={category.image} />
+            <Card className={`h-100 pointer ${styles.card} `} onClick={() => { Navigate('/categories/mobility-and-transport') }}>
                 <Card.Body>
-                    <Card.Title>{category.name}</Card.Title>
-                    <Card.Text className='medium txt-lighter'>
-                        Some quick example text to build on the card.
-                    </Card.Text>
+                    <Card.Img variant="top" style={{ height: 55 }} src={dataSpace.image} />
+                    <Card.Title className='mt-3'>{dataSpace.name}</Card.Title>
                     <Card.Text>
                         <div className="row mt-3">
                             <div className="col-6">
@@ -34,4 +31,4 @@ const CategoryCard = ({ category }) => {
     );
 }
 
-export default CategoryCard;
+export default DataspaceCard;
