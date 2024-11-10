@@ -61,16 +61,16 @@ function ResultItem({ dataset }) {
             </div>
           )}
           {dataset?._source?.structuredDatasets[0]?.periodicity && (
-          <div className="ps-2">
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Temporal frequency</Tooltip>}
-            >
-              <div>
-                <TemporalFrequencyMetricIcon />
-              </div>
-            </OverlayTrigger>
-          </div>
+            <div className="ps-2">
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Temporal frequency</Tooltip>}
+              >
+                <div>
+                  <TemporalFrequencyMetricIcon />
+                </div>
+              </OverlayTrigger>
+            </div>
           )}
 
           <div className="ps-2">
@@ -85,16 +85,16 @@ function ResultItem({ dataset }) {
           </div>
 
           {calculateAttributeConsistency(dataset) == 'consistent' && (
-          <div className="ps-2">
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Attribute consistency</Tooltip>}
-            >
-              <div>
-                <AttributeConsestencyMetricIcon />
-              </div>
-            </OverlayTrigger>
-          </div>
+            <div className="ps-2">
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Attribute consistency</Tooltip>}
+              >
+                <div>
+                  <AttributeConsestencyMetricIcon />
+                </div>
+              </OverlayTrigger>
+            </div>
           )}
 
           <div className="ps-2">
@@ -108,7 +108,13 @@ function ResultItem({ dataset }) {
             </OverlayTrigger>
           </div>
           <div className="ps-2">
-            <span className={styles.assetProcessingStatus}>{dataset._source.assetProcessingStatus}</span>
+            <span
+              className={`asset-processing-status ${dataset._source.assetProcessingStatus === 'Original Data' ? 'danger' :
+                dataset._source.assetProcessingStatus === 'Processed Data' ? 'warning' :
+                  dataset._source.assetProcessingStatus === 'Refined Data' ? 'success' : 'primary'}`}
+            >
+              {dataset._source.assetProcessingStatus}
+            </span>
           </div>
         </div>
 

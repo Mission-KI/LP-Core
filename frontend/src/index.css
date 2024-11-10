@@ -336,3 +336,30 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+.asset-processing-status{
+  border-radius: 1.2rem;
+  border: 1px solid;
+  padding: .3rem .3rem;
+  font-size: 9.5pt;
+}
+
+.asset-processing-status.warning{
+  background-color: rgba(243, 255, 112, 0.408);
+  border-color: var(--bs-warning)
+}
+
+.asset-processing-status.danger{
+  background-color: rgba(255, 112, 112, 0.408);
+  border-color: var(--bs-danger)
+}
+
+.asset-processing-status.success{
+  background-color: rgba(112, 255, 148, 0.408);
+  border-color: var(--bs-success)
+}
+
+.asset-processing-status.primary{
+  background-color: rgba(112, 203, 255, 0.408);
+  border-color: var(--color-primary)
+}
