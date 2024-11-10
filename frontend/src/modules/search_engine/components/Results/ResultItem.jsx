@@ -12,7 +12,7 @@ import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { ReactComponent as LockOpenMetricIcon } from '../../../common/assets/img/metric_icons/lock-open.svg';
 import { ReactComponent as DatetimeMetricIcon } from '../../../common/assets/img/metric_icons/datetime-attribute.svg';
 import { ReactComponent as TemporalFrequencyMetricIcon } from '../../../common/assets/img/metric_icons/temporal-frequency.svg';
-import { ReactComponent as DataTypeConsestencyMetricIcon } from '../../../common/assets/img/metric_icons/data-type-consistant.svg';
+import DataTypeConsestencyMetricIcon from '../../../common/assets/img/metric_icons/data-type-consistant.png';
 import { ReactComponent as AttributeConsestencyMetricIcon } from '../../../common/assets/img/metric_icons/attribute-consistant.svg';
 import { ReactComponent as SignificantVarianceMetricIcon } from '../../../common/assets/img/metric_icons/significant-variance.svg';
 
@@ -73,7 +73,7 @@ function ResultItem({ dataset }) {
               overlay={<Tooltip>Data type consistency</Tooltip>}
             >
               <div>
-                <DataTypeConsestencyMetricIcon />
+                <img src={DataTypeConsestencyMetricIcon} style={{ height: 18 }} />
               </div>
             </OverlayTrigger>
           </div>
