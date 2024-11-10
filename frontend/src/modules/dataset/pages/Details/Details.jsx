@@ -115,19 +115,19 @@ function Details() {
             <div className="rounded-lg border bg-white p-3 mt-2">
               <p className="medium bold">{t("dataset.dataScienceInfo")}</p>
               <hr />
-              <div className="d-flex w-100 justify-content-between">
+              <div>
                 <div className="row w-100">
                   <div className="col-6">
                     <p className="small mb-1 text-uppercase">{t("dataset.structure")}</p>
                   </div>
                   <div className="col-6">
-                    <p className="small mb-1">{filesize(datasetDetails?._source?.volume)}</p>
+                    <p className="small mb-1">Text (CSV)</p>
                   </div>
                   <div className="col-6">
                     <p className="small mb-1 text-uppercase">{t("dataset.volume")}</p>
                   </div>
                   <div className="col-6">
-                    <p className="small mb-1">{datasetDetails?._source?.transferTypeFlag ?? "unknown"}</p>
+                    <p className="small mb-1">{filesize(datasetDetails?._source?.volume)}</p>
                   </div>
                   <div className="col-6">
                     <p className="small mb-1 text-uppercase">{t("dataset.compression")}</p>
@@ -139,28 +139,34 @@ function Details() {
                     <p className="small mb-1 text-uppercase">{t("dataset.transferType")}</p>
                   </div>
                   <div className="col-6">
-                    <p className="small mb-1">{datasetDetails?._source?.immutabilityFlag ?? "unknown"}</p>
+                    <p className="small mb-1">{datasetDetails?._source?.transferTypeFlag ?? "unknown"}</p>
                   </div>
                   <div className="col-6">
                     <p className="small mb-1 text-uppercase">{t("dataset.immutability")}</p>
                   </div>
                   <div className="col-6">
-                    <p className="small mb-1">{datasetDetails?._source?.growthFlag ?? "unknown"}</p>
+                    <p className="small mb-1">{datasetDetails?._source?.immutabilityFlag ?? "unknown"}</p>
                   </div>
                   <div className="col-6">
                     <p className="small mb-1 text-uppercase">{t("dataset.growth")}</p>
                   </div>
                   <div className="col-6">
-                    <p className="small mb-1">unknown</p>
+                    <p className="small mb-1">{datasetDetails?._source?.growthFlag ?? "unknown"}</p>
                   </div>
                   <div className="col-6">
                     <p className="small mb-1 text-uppercase">{t("dataset.growthRate")}</p>
                   </div>
                   <div className="col-6">
-                    <p className="small mb-1">{calculateTemporalCover(datasetDetails)}</p>
+                    <p className="small mb-1">unknown</p>
                   </div>
                   <div className="col-6">
                     <p className="small mb-1 text-uppercase">{t("dataset.temporalCover")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">{calculateTemporalCover(datasetDetails)}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.temporalConsistency")}</p>
                   </div>
                   <div className="col-6">
                     <p className="small mb-1">{datasetDetails?._source?.periodicity ?? "N/A"}</p>
@@ -231,6 +237,7 @@ function Details() {
                   </div>
                 </div>
               </div>
+
             </div>
 
             {datasetDetails?._source?.tags?.length > 0 && (

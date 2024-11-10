@@ -15,7 +15,7 @@ import {
   isBookmarked,
   removeBookmark,
 } from "../../../common/utils/bookmarks";
-import { calculateAttributeConsistency, calculateDataTypesAttribute } from "../../../dataset/utils/calculations";
+import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalCover } from "../../../dataset/utils/calculations";
 
 function QuickView({ dataset }) {
   const [show, setShow] = useState(false);
@@ -152,7 +152,7 @@ function QuickView({ dataset }) {
                     <p className="small text-uppercase">
                       {t("dataset.temporalCover")}
                     </p>
-                    <p className="small">{dataset?._source?.temporalCover ?? "unknown"}</p>
+                    <p className="small">{calculateTemporalCover(dataset)}</p>
                   </div>
                   <div className="d-flex justify-content-between w-100 align-items-center">
                     <p className="small text-uppercase">
