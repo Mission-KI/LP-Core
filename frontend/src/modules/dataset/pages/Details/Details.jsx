@@ -116,134 +116,119 @@ function Details() {
               <p className="medium bold">{t("dataset.dataScienceInfo")}</p>
               <hr />
               <div className="d-flex w-100 justify-content-between">
-                <div>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.structure")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.volume")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.compression")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.transferType")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.immutability")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.growth")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.growthRate")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.temporalCover")}
-                  </p>
-                  <p
-                    className="small mb-1 text-uppercase"
-                    role={"button"}
-                    onClick={() => handleToggleTab("temporal_consistency")}
-                  >
-                    {t("dataset.temporalConsistency")}
-                  </p>
-                  <br />
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.noOfColumns")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.noOfLines")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.dataTypes")}
-                  </p>
-                  <p
-                    className="small mb-1 text-uppercase"
-                    role={"button"}
-                    onClick={() => handleToggleTab("attribute_consistency")}
-                  >
-                    {t("dataset.attributeConsistency")}
-                  </p>
-                  <p className="small mb-1 text-uppercase">
-                    {t("dataset.languages")}
-                  </p>
-                  <p
-                    className="small mb-1 text-uppercase"
-                    role={"button"}
-                    onClick={() =>
-                      handleToggleTab("numeric_value_distribution")
-                    }
-                  >
-                    {t("dataset.numericValueDistribution")}
-                  </p>
-                  <p
-                    className="small mb-1 text-uppercase"
-                    role={"button"}
-                    onClick={() => handleToggleTab("string_value_distribution")}
-                  >
-                    {t("dataset.stringValueDistribution")}
-                  </p>
-                  <p
-                    className="small mb-1 text-uppercase"
-                    role={"button"}
-                    onClick={() => handleToggleTab("correlation_analysis")}
-                  >
-                    {t("dataset.numericCorrelationAnalysis")}
-                  </p>
-                  <p
-                    className="small mb-1 text-uppercase"
-                    role={"button"}
-                    onClick={() => handleToggleTab("anomaly_analysis")}
-                  >
-                    {t("dataset.numericAnomalyAnalysis")}
-                  </p>
-                  <p
-                    className="small mb-1 text-uppercase"
-                    role={"button"}
-                    onClick={() => handleToggleTab("data_seasonality")}
-                  >
-                    {t("dataset.dataSeasonality")}
-                  </p>
-                </div>
-                <div>
-                  <p className="small mb-1">Text (CSV)</p>
-                  <p className="small mb-1">
-                    {filesize(datasetDetails?._source?.volume)}
-                  </p>
-                  <p className="small mb-1">zip</p>
-                  <p className="small mb-1">
-                    {datasetDetails?._source?.transferTypeFlag ?? "unknown"}
-                  </p>
-                  <p className="small mb-1">
-                    {datasetDetails?._source?.immutabilityFlag ?? "unknown"}
-                  </p>
-                  <p className="small mb-1">
-                    {datasetDetails?._source?.growthFlag ?? "unknown"}
-                  </p>
-                  <p className="small mb-1">unknown</p>
-                  <p className="small mb-1">{calculateTemporalCover(datasetDetails)}</p>
-                  <p className="small mb-1">{datasetDetails?._source?.periodicity ?? "N/A"}</p>
-
-                  <br />
-                  <p className="small mb-1">
-                    {datasetDetails?._source?.structuredDatasets?.[0]
-                      ?.columnCount ?? "unknown"}
-                  </p>
-                  <p className="small mb-1">
-                    {datasetDetails?._source?.structuredDatasets[0]?.rowCount ??
-                      "unknown"}
-                  </p>
-                  <p className="small mb-1">
-                    {calculateDataTypesAttribute(datasetDetails)}
-                  </p>
-                  <p className="small mb-1">{calculateAttributeConsistency(datasetDetails)}</p>
-                  <p className="small mb-1">german, english</p>
-                  <p className="small mb-1">heterogen</p>
-                  <p className="small mb-1">heterogen</p>
-                  <p className="small mb-1">partial correlation</p>
-                  <p className="small mb-1">anomaly exists</p>
-                  <p className="small mb-1">seasonal, no trend</p>
+                <div className="row w-100">
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.structure")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">{filesize(datasetDetails?._source?.volume)}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.volume")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">{datasetDetails?._source?.transferTypeFlag ?? "unknown"}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.compression")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">zip</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.transferType")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">{datasetDetails?._source?.immutabilityFlag ?? "unknown"}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.immutability")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">{datasetDetails?._source?.growthFlag ?? "unknown"}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.growth")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">unknown</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.growthRate")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">{calculateTemporalCover(datasetDetails)}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.temporalCover")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">{datasetDetails?._source?.periodicity ?? "N/A"}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.noOfColumns")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">
+                      {datasetDetails?._source?.structuredDatasets?.[0]?.columnCount ?? "unknown"}
+                    </p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.noOfLines")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">
+                      {datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? "unknown"}
+                    </p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.dataTypes")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">{calculateDataTypesAttribute(datasetDetails)}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.attributeConsistency")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">{calculateAttributeConsistency(datasetDetails)}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.languages")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">german, english</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.numericValueDistribution")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">heterogen</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.stringValueDistribution")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">heterogen</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.numericCorrelationAnalysis")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">partial correlation</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.numericAnomalyAnalysis")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">anomaly exists</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1 text-uppercase">{t("dataset.dataSeasonality")}</p>
+                  </div>
+                  <div className="col-6">
+                    <p className="small mb-1">seasonal, no trend</p>
+                  </div>
                 </div>
               </div>
             </div>
