@@ -55,6 +55,16 @@ body {
   border-color: var(--color-primary-hover) !important;
 }
 
+.btn-outline-primary {
+  border-color: var(--color-primary) !important;
+  color: var(--color-primary) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary.active {
+  background-color: var(--color-primary) !important;
+  color: #fff !important;
+}
 
 .medium {
   font-size: 11pt !important;
@@ -316,7 +326,14 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
   border: 1px solid var(--color-text);
 }
 
-.card-img-top{
+.card-img-top {
   width: auto !important;
   object-fit: cover;
+}
+
+.attribute-item-wrapper{
+  max-height: 400px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
