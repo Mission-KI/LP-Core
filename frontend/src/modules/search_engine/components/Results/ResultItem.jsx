@@ -15,6 +15,7 @@ import { ReactComponent as TemporalFrequencyMetricIcon } from '../../../common/a
 import DataTypeConsestencyMetricIcon from '../../../common/assets/img/metric_icons/data-type-consistant.png';
 import { ReactComponent as AttributeConsestencyMetricIcon } from '../../../common/assets/img/metric_icons/attribute-consistant.svg';
 import { ReactComponent as SignificantVarianceMetricIcon } from '../../../common/assets/img/metric_icons/significant-variance.svg';
+import { calculateAttributeConsistency } from "../../../dataset/utils/calculations";
 
 function ResultItem({ dataset }) {
   const [isBookmarkedState, setIsBookmarkedState] = useState(false);
@@ -47,16 +48,19 @@ function ResultItem({ dataset }) {
               </div>
             </OverlayTrigger>
           </div>
-          <div className="ps-2">
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Date time attribute</Tooltip>}
-            >
-              <div>
-                <DatetimeMetricIcon />
-              </div>
-            </OverlayTrigger>
-          </div>
+          {dataset?._source?.structuredDatasets[0]?.datetimeColumnCount > 0 && (
+            <div className="ps-2">
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>Date time attribute</Tooltip>}
+              >
+                <div>
+                  <DatetimeMetricIcon />
+                </div>
+              </OverlayTrigger>
+            </div>
+          )}
+          {dataset?._source?.structuredDatasets[0]?.periodicity && (
           <div className="ps-2">
             <OverlayTrigger
               placement="top"
@@ -67,6 +71,8 @@ function ResultItem({ dataset }) {
               </div>
             </OverlayTrigger>
           </div>
+          )}
+
           <div className="ps-2">
             <OverlayTrigger
               placement="top"
@@ -77,6 +83,8 @@ function ResultItem({ dataset }) {
               </div>
             </OverlayTrigger>
           </div>
+
+          {calculateAttributeConsistency(dataset) == 'consistent' && (
           <div className="ps-2">
             <OverlayTrigger
               placement="top"
@@ -87,6 +95,8 @@ function ResultItem({ dataset }) {
               </div>
             </OverlayTrigger>
           </div>
+          )}
+
           <div className="ps-2">
             <OverlayTrigger
               placement="top"
