@@ -14,9 +14,6 @@ const CategoryCard = ({ category }) => {
                 <Card.Img variant="top" src={category.image} />
                 <Card.Body>
                     <Card.Title>{category.name}</Card.Title>
-                    <Card.Text className='medium txt-lighter'>
-                        Some quick example text to build on the card.
-                    </Card.Text>
                     <Card.Text>
                         <div className="row mt-3">
                             <div className="col-6">

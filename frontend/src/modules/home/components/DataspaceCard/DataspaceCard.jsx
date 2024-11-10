@@ -13,7 +13,7 @@ const DataspaceCard = ({ dataSpace }) => {
             <Card className={`h-100 pointer ${styles.card} `} onClick={() => navigate('/search?q=' + dataSpace.shortName)}>
                 <Card.Body>
                     <Card.Img variant="top" style={{ height: 55 }} src={dataSpace.image} />
-                    <Card.Title className='mt-3'>{dataSpace.name}</Card.Title>
+                    <Card.Title className='mt-3' style={{ height: 45 }}>{dataSpace.name}</Card.Title>
                     <Card.Text>
                         <div className="row mt-3">
                             <div className="col-6">

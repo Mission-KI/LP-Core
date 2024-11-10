@@ -5,9 +5,16 @@ import moment from "moment";
 import QuickView from "./QuickView";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
 import { isBookmarked } from "../../../common/utils/bookmarks";
-import { StarFill } from "react-bootstrap-icons";
+import { Lock, StarFill } from "react-bootstrap-icons";
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
+import { Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { ReactComponent as LockOpenMetricIcon } from '../../../common/assets/img/metric_icons/lock-open.svg';
+import { ReactComponent as DatetimeMetricIcon } from '../../../common/assets/img/metric_icons/datetime-attribute.svg';
+import { ReactComponent as TemporalFrequencyMetricIcon } from '../../../common/assets/img/metric_icons/temporal-frequency.svg';
+import { ReactComponent as DataTypeConsestencyMetricIcon } from '../../../common/assets/img/metric_icons/data-type-consistant.svg';
+import { ReactComponent as AttributeConsestencyMetricIcon } from '../../../common/assets/img/metric_icons/attribute-consistant.svg';
+import { ReactComponent as SignificantVarianceMetricIcon } from '../../../common/assets/img/metric_icons/significant-variance.svg';
 
 function ResultItem({ dataset }) {
   const [isBookmarkedState, setIsBookmarkedState] = useState(false);
@@ -29,6 +36,69 @@ function ResultItem({ dataset }) {
           </Link>
           <div className="ps-2">
             <QuickView dataset={dataset} />
+          </div>
+          <div className="ps-4">
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Open access</Tooltip>}
+            >
+              <div>
+                <LockOpenMetricIcon />
+              </div>
+            </OverlayTrigger>
+          </div>
+          <div className="ps-2">
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Date time attribute</Tooltip>}
+            >
+              <div>
+                <DatetimeMetricIcon />
+              </div>
+            </OverlayTrigger>
+          </div>
+          <div className="ps-2">
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Temporal frequency</Tooltip>}
+            >
+              <div>
+                <TemporalFrequencyMetricIcon />
+              </div>
+            </OverlayTrigger>
+          </div>
+          <div className="ps-2">
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Data type consistency</Tooltip>}
+            >
+              <div>
+                <DataTypeConsestencyMetricIcon />
+              </div>
+            </OverlayTrigger>
+          </div>
+          <div className="ps-2">
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Attribute consistency</Tooltip>}
+            >
+              <div>
+                <AttributeConsestencyMetricIcon />
+              </div>
+            </OverlayTrigger>
+          </div>
+          <div className="ps-2">
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip>Significant variance</Tooltip>}
+            >
+              <div>
+                <SignificantVarianceMetricIcon />
+              </div>
+            </OverlayTrigger>
+          </div>
+          <div className="ps-2">
+            <span className={styles.assetProcessingStatus}>{dataset._source.assetProcessingStatus}</span>
           </div>
         </div>
 
