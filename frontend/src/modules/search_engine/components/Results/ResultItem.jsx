@@ -5,17 +5,10 @@ import moment from "moment";
 import QuickView from "./QuickView";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
 import { isBookmarked } from "../../../common/utils/bookmarks";
-import { Lock, StarFill } from "react-bootstrap-icons";
+import { StarFill } from "react-bootstrap-icons";
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-import { ReactComponent as LockOpenMetricIcon } from '../../../common/assets/img/metric_icons/lock-open.svg';
-import { ReactComponent as DatetimeMetricIcon } from '../../../common/assets/img/metric_icons/datetime-attribute.svg';
-import { ReactComponent as TemporalFrequencyMetricIcon } from '../../../common/assets/img/metric_icons/temporal-frequency.svg';
-import DataTypeConsestencyMetricIcon from '../../../common/assets/img/metric_icons/data-type-consistant.png';
-import { ReactComponent as AttributeConsestencyMetricIcon } from '../../../common/assets/img/metric_icons/attribute-consistant.svg';
-import { ReactComponent as SignificantVarianceMetricIcon } from '../../../common/assets/img/metric_icons/significant-variance.svg';
-import { calculateAttributeConsistency } from "../../../dataset/utils/calculations";
+import QualityMetrics from "./QualityMetrics";
 
 function ResultItem({ dataset }) {
   const [isBookmarkedState, setIsBookmarkedState] = useState(false);
@@ -35,87 +28,10 @@ function ResultItem({ dataset }) {
           <Link to={`/details/${dataset._id}`} className={styles.title}>
             {dataset._source.name}
           </Link>
-          <div className="ps-2">
+          <div className="ps-2 pe-4">
             <QuickView dataset={dataset} />
           </div>
-          <div className="ps-4">
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Open access</Tooltip>}
-            >
-              <div>
-                <LockOpenMetricIcon />
-              </div>
-            </OverlayTrigger>
-          </div>
-          {dataset?._source?.structuredDatasets[0]?.datetimeColumnCount > 0 && (
-            <div className="ps-2">
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Date time attribute</Tooltip>}
-              >
-                <div>
-                  <DatetimeMetricIcon />
-                </div>
-              </OverlayTrigger>
-            </div>
-          )}
-          {dataset?._source?.periodicity && (
-            <div className="ps-2">
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Temporal frequency</Tooltip>}
-              >
-                <div>
-                  <TemporalFrequencyMetricIcon />
-                </div>
-              </OverlayTrigger>
-            </div>
-          )}
-
-          <div className="ps-2">
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Data type consistency</Tooltip>}
-            >
-              <div>
-                <img src={DataTypeConsestencyMetricIcon} style={{ height: 18 }} />
-              </div>
-            </OverlayTrigger>
-          </div>
-
-          {calculateAttributeConsistency(dataset) == 'consistent' && (
-            <div className="ps-2">
-              <OverlayTrigger
-                placement="top"
-                overlay={<Tooltip>Attribute consistency</Tooltip>}
-              >
-                <div>
-                  <AttributeConsestencyMetricIcon />
-                </div>
-              </OverlayTrigger>
-            </div>
-          )}
-
-          <div className="ps-2">
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Significant variance</Tooltip>}
-            >
-              <div>
-                <SignificantVarianceMetricIcon />
-              </div>
-            </OverlayTrigger>
-          </div>
-          <div className="ps-2">
-            <span
-              className={`asset-processing-status ${dataset._source.assetProcessingStatus === 'Original Data' ? 'danger' :
-                dataset._source.assetProcessingStatus === 'Processed Data' ? 'warning' :
-                  dataset._source.assetProcessingStatus === 'Refined Data' ? 'success' : 'primary'}`}
-            >
-              {dataset._source.assetProcessingStatus}
-            </span>
-          </div>
+         <QualityMetrics dataset={dataset} />
         </div>
 
         <p className="medium pt-1">{dataset._source.description}</p>

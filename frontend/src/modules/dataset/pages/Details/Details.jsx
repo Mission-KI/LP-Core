@@ -21,6 +21,7 @@ import NumericAnomalyAnalysis from "../../components/NumericAnomalyAnalysis";
 import DataSeasonality from "../../components/DataSeasonality";
 import PageNotFound from "../../../common/pages/PageNotFound";
 import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalCover } from "../../utils/calculations";
+import QualityMetrics from "../../../search_engine/components/Results/QualityMetrics";
 
 function Details() {
   const { id } = useParams();
@@ -68,7 +69,10 @@ function Details() {
     <>
       <Header datasetDetails={datasetDetails} />
       <div className="container px-3 pt-5">
-        <h4 className="bold mt-5">{datasetDetails?._source?.name}</h4>
+        <div className="d-flex align-items-center pt-5 mb-2">
+          <h4 className="bold d-block pe-3 mb-0">{datasetDetails?._source?.name}</h4>
+          <QualityMetrics dataset={datasetDetails} />
+        </div>
         <p className="text-muted mt-3 mb-5">
           {datasetDetails?._source?.description}
         </p>

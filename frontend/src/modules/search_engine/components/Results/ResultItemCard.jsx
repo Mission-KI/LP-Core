@@ -10,6 +10,7 @@ import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 import { Card } from "react-bootstrap";
 import { truncateString } from '../../../common/utils/format_utils'
+import QualityMetrics from "./QualityMetrics";
 
 function ResultItemCard({ dataset }) {
     const [isBookmarkedState, setIsBookmarkedState] = useState(false);
@@ -66,7 +67,11 @@ function ResultItemCard({ dataset }) {
                         <span className="medium text-muted pe-2">
                             {filesize(dataset?._source?.volume)}
                         </span>
-                       
+
+                    </div>
+
+                    <div className="pt-2">
+                        <QualityMetrics dataset={dataset} />
                     </div>
 
                 </Card.Body>
