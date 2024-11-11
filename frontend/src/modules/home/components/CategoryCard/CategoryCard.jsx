@@ -12,8 +12,8 @@ const CategoryCard = ({ category }) => {
         <div className="col-md-4 mb-4">
             <Card className={`h-100 pointer ${styles.card} `} onClick={() => {navigate('/categories/mobility-and-transport')}}>
                 <Card.Img variant="top" src={category.image} />
-                <Card.Body>
-                    <Card.Title>{category.name}</Card.Title>
+                <Card.Body className='pb-2'>
+                    <Card.Title style={{ height: 45 }}>{category.name}</Card.Title>
                     <Card.Text>
                         <div className="row mt-3">
                             <div className="col-6">
