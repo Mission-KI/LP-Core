@@ -18,7 +18,7 @@ const CategoryCard = ({ category }) => {
                         <div className="row mt-3">
                             <div className="col-6">
                                 <span className='small d-flex align-items-center'>
-                                    <Database className='me-1' /> 25 Data sources
+                                    <Database className='me-1' /> {category.noOfDataSources} Data sources
                                 </span>
                             </div>
                             <div className="col-6">

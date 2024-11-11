@@ -60,7 +60,7 @@ function ResultItem({ dataset }) {
               </OverlayTrigger>
             </div>
           )}
-          {dataset?._source?.structuredDatasets[0]?.periodicity && (
+          {dataset?._source?.periodicity && (
             <div className="ps-2">
               <OverlayTrigger
                 placement="top"

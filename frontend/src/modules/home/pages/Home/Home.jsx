@@ -17,15 +17,15 @@ const Home = () => {
     const { t } = useTranslation();
 
     const [categories, setCategories] = useState([
-        { id: 1, name: "Mobilität und Verkehr", image: MobilityImg },
-        { id: 2, name: "Industrie und Produktion", image: ManufacturingImg },
-        { id: 3, name: "Gesundheit, Pharma und Medizin", image: MedicineImg },
-        { id: 4, name: "Umwelt, Ernährung und Landwirtschaft", image: EnvironmentImg },
-        { id: 5, name: "Verwaltung und öffentliche Hand", image: GovernmentImg },
-        { id: 6, name: "Geodaten und Wetter", image: GeomapsImg },
-        { id: 7, name: "Energie", image: EnergyImg },
-        { id: 8, name: "Kultur und Medien", image: CultureImg },
-        { id: 9, name: "Bildung, Forschung und Wissenschaft", image: ScienceImg },
+        { id: 1, name: "Mobilität und Verkehr", image: MobilityImg, noOfDataSources: 25 },
+        { id: 2, name: "Industrie und Produktion", image: ManufacturingImg, noOfDataSources: 17 },
+        { id: 3, name: "Gesundheit, Pharma und Medizin", image: MedicineImg, noOfDataSources: 33 },
+        { id: 4, name: "Umwelt, Ernährung und Landwirtschaft", image: EnvironmentImg, noOfDataSources: 25 },
+        { id: 5, name: "Verwaltung und öffentliche Hand", image: GovernmentImg, noOfDataSources: 17 },
+        { id: 6, name: "Geodaten und Wetter", image: GeomapsImg, noOfDataSources: 33 },
+        { id: 7, name: "Energie", image: EnergyImg, noOfDataSources: 25 },
+        { id: 8, name: "Kultur und Medien", image: CultureImg, noOfDataSources: 17 },
+        { id: 9, name: "Bildung, Forschung und Wissenschaft", image: ScienceImg, noOfDataSources: 33 },
     ]);
 
     return (
