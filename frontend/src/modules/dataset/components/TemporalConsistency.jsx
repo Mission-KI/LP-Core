@@ -27,18 +27,20 @@ function TemporalConsistency({ datasetDetails }) {
                 <table id="temporalConsistencyTable" className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.attribute')}</th>
-                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.freq')}</th>
-                            <th className='small py-2 bgc-primary text-white w-33' style={{ textAlign: 'left' }}>{t('table.attributes.gaps')}</th>
+                            <th className='small py-2 bgc-primary text-white w-25'>{t('table.attributes.attribute')}</th>
+                            <th className='small py-2 bgc-primary text-white w-25'>{t('table.attributes.freq')}</th>
+                            <th className='small py-2 bgc-primary text-white w-25' style={{ textAlign: 'left' }}>{t('table.attributes.gaps')}</th>
+                            <th className='small py-2 bgc-primary text-white w-25'>{t('table.attributes.periodicity')}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {datasetDetails?._source?.structuredDatasets[0]?.datetimeColumns.map((column) => (
                             column?.gaps.map((gap, index) => (
                                 <tr key={index} className='hover'>
-                                    <td className='w-33'>{column.name}</td>
-                                    <td className='w-33'>{gap.timeScale}</td>
-                                    <td className='w-33'>{gap.numberOfGaps}</td>
+                                    <td className='w-25'>{column.name}</td>
+                                    <td className='w-25'>{gap.timeScale}</td>
+                                    <td className='w-25'>{gap.numberOfGaps}</td>
+                                    <td className='w-25'>{column.periodicity}</td>
                                 </tr>
                             ))
                         ))}
