@@ -25,7 +25,7 @@ function ResultItem({ dataset }) {
     <div className={styles.resultItem}>
       <div className="w-100 pe-3">
         <div className="d-flex align-items-center">
-          <Link to={`/details/${dataset._id}`} className={styles.title}>
+          <Link to={`/details/${dataset._id}`} className={styles.title} data-test-id="result-link">
             {dataset._source.name}
           </Link>
           <div className="ps-2 pe-4">

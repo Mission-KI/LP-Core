@@ -18,3 +18,19 @@ test('search query updates URL exactly to baseURL/search?q=<query>', async ({ pa
     // Assert the URL is exactly as expected
     await expect(page).toHaveURL(expectedUrl);
 });
+
+test('clicks first result link and checks the URL', async ({ page, baseURL }) => {
+
+    await page.goto(baseURL+'/search');
+
+    const firstResultSelector = '[data-test-id="result-link"]';
+
+    // Use locator to get the href attribute and click
+    const firstResultLink = await page.locator(firstResultSelector).first().getAttribute('href');
+    await page.locator(firstResultSelector).first().click();
+
+    // Wait for navigation to complete and check the URL
+    const expectedUrl = `${baseURL}${firstResultLink}`;
+    await page.waitForURL(expectedUrl);
+    await expect(page).toHaveURL(expectedUrl);
+});
