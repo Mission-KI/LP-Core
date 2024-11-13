@@ -63,6 +63,7 @@ function QuickView({ dataset }) {
         as="div"
         id="dropdown-basic"
         className="p-0 m-0 pointer border-0 d-flex align-items-center"
+        data-test-id="quick-view-toggle-button"
         onClick={toggleDropdown}
       >
         <InfoCircleFill size={18} className="txt-primary" />
@@ -246,7 +247,7 @@ function QuickView({ dataset }) {
               </div>
               {!bookmarked ? (
                 <div className="pe-2 pt-1">
-                  <button
+                  <button data-test-id="bookmark-button"
                     onClick={() => handleAddBookmark(dataset?._id)}
                     className="btn btn-primary rounded-lg py-1 small d-flex align-items-center"
                   >
