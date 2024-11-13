@@ -129,6 +129,8 @@ body {
 .main-content-wrapper {
   min-height: 90vh;
   padding-top: 80px;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 input[type="search"]::-webkit-search-decoration,
