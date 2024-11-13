@@ -27,31 +27,35 @@ function AttributeList({ datasetDetails }) {
                 <table id="attributeTable" className='table table-bordered'>
                     <thead>
                         <tr>
-                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.attribute')}</th>
-                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.type')}</th>
-                            <th className='small py-2 bgc-primary text-white w-33'>{t('table.attributes.specification')}</th>
+                            <th className='small py-2 bgc-primary text-white w-25'>{t('table.attributes.attribute')}</th>
+                            <th className='small py-2 bgc-primary text-white w-25'>{t('table.attributes.type')}</th>
+                            <th className='small py-2 bgc-primary text-white w-25'>{t('table.attributes.specification')}</th>
+                            <th className='small py-2 bgc-primary text-white w-25'>{t('table.attributes.periodicity')}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns.map((column, index) => (
                             <tr key={index}>
-                                <td className='w-33'>{column.name}</td>
-                                <td className='w-33'>numeric</td>
-                                <td className='w-33'>{column.dataType}</td>
+                                <td className='w-25'>{column.name}</td>
+                                <td className='w-25'>numeric</td>
+                                <td className='w-25'>{column.dataType}</td>
+                                <td className='w-25'>N/A</td>
                             </tr>
                         ))}
                         {datasetDetails?._source?.structuredDatasets?.[0]?.stringColumns.map((column, index) => (
                             <tr key={index}>
-                                <td className='w-33'>{column.name}</td>
-                                <td className='w-33'>string</td>
-                                <td className='w-33'>string</td>
+                                <td className='w-25'>{column.name}</td>
+                                <td className='w-25'>string</td>
+                                <td className='w-25'>string</td>
+                                <td className='w-25'>N/A</td>
                             </tr>
                         ))}
                         {datasetDetails?._source?.structuredDatasets?.[0]?.datetimeColumns.map((column, index) => (
                             <tr key={index}>
-                                <td className='w-33'>{column.name}</td>
-                                <td className='w-33'>date/time</td>
-                                <td className='w-33'>date/time</td>
+                                <td className='w-25'>{column.name}</td>
+                                <td className='w-25'>date/time</td>
+                                <td className='w-25'>date/time</td>
+                                <td className='w-25'>{column.periodicity}</td>
                             </tr>
                         ))}
                     </tbody>
