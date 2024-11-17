@@ -13,7 +13,7 @@ function Search() {
   const [datasets, setDatasets] = useState({});
   const [searchParams, setSearchParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const resultsPerPage = 10;
+  const resultsPerPage = 12;
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
