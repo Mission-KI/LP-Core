@@ -1,20 +1,25 @@
-import React from 'react'
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { ChevronDown } from 'react-bootstrap-icons';
 
 function LanguageSelector() {
-
-    const { t, i18n } = useTranslation();
+    const { i18n } = useTranslation();
 
     const lngs = {
         en: { nativeName: 'English' },
         de: { nativeName: 'German' },
     };
 
+    const handleChangeLanguage = (lng) => {
+        i18n.changeLanguage(lng).then(() => {
+            window.location.reload();
+        });
+    };
+
     return (
         <Dropdown className="ps-3">
-            <Dropdown.Toggle variant="basic" className='bg-transparent' id="language-dropdown">
+            <Dropdown.Toggle variant="basic" className="bg-transparent" id="language-dropdown">
                 {i18n.language} <ChevronDown />
             </Dropdown.Toggle>
 
@@ -22,14 +27,14 @@ function LanguageSelector() {
                 {Object.keys(lngs).map((lng) => (
                     <Dropdown.Item
                         key={lng}
-                        onClick={() => i18n.changeLanguage(lng)}
+                        onClick={() => handleChangeLanguage(lng)}
                     >
-                        {lng}
+                        {lngs[lng].nativeName}
                     </Dropdown.Item>
                 ))}
             </Dropdown.Menu>
         </Dropdown>
-    )
+    );
 }
 
-export default LanguageSelector
+export default LanguageSelector;

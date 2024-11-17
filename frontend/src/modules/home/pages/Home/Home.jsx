@@ -17,15 +17,16 @@ const Home = () => {
     const { t } = useTranslation();
 
     const [categories, setCategories] = useState([
-        { id: 1, name: "Mobilität und Verkehr", image: MobilityImg, noOfDataSources: 25 },
-        { id: 2, name: "Industrie und Produktion", image: ManufacturingImg, noOfDataSources: 17 },
-        { id: 3, name: "Gesundheit, Pharma und Medizin", image: MedicineImg, noOfDataSources: 33 },
-        { id: 4, name: "Umwelt, Ernährung und Landwirtschaft", image: EnvironmentImg, noOfDataSources: 25 },
-        { id: 5, name: "Verwaltung und öffentliche Hand", image: GovernmentImg, noOfDataSources: 17 },
-        { id: 6, name: "Geodaten und Wetter", image: GeomapsImg, noOfDataSources: 33 },
-        { id: 7, name: "Energie", image: EnergyImg, noOfDataSources: 25 },
-        { id: 8, name: "Kultur und Medien", image: CultureImg, noOfDataSources: 17 },
-        { id: 9, name: "Bildung, Forschung und Wissenschaft", image: ScienceImg, noOfDataSources: 33 },
+        { id: 1, name: t('categories.mobilityAndTransportation'), image: MobilityImg, noOfDataSources: 25 },
+        { id: 2, name: t('categories.industryAndProduction'), image: ManufacturingImg, noOfDataSources: 17 },
+        { id: 3, name: t('categories.health'), image: MedicineImg, noOfDataSources: 33 },
+        { id: 4, name: t('categories.environment'), image: EnvironmentImg, noOfDataSources: 25 },
+        { id: 5, name: t('categories.administration'), image: GovernmentImg, noOfDataSources: 17 },
+        { id: 6, name: t('categories.geodata'), image: GeomapsImg, noOfDataSources: 33 },
+        { id: 7, name: t('categories.energy'), image: EnergyImg, noOfDataSources: 25 },
+        { id: 8, name: t('categories.culture'), image: CultureImg, noOfDataSources: 17 },
+        { id: 9, name: t('categories.education'), image: ScienceImg, noOfDataSources: 33 },
+        // { id: 10, name: t('categories.realestate'), image: ScienceImg, noOfDataSources: 33 },
     ]);
 
     return (

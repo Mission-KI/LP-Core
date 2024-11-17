@@ -20,6 +20,22 @@ i18n
           page: {
             title: "Dataset Search Engine"
           },
+          home: {
+            dataSources: 'Data sources',
+            dataAssets: 'Data Assets'
+          },
+          categories: {
+            mobilityAndTransportation: "Mobility and transportation",
+            industryAndProduction: "Industry and production",
+            health: "Health, pharmaceuticals and medicine",
+            environment: "Environment, food and agriculture",
+            administration: "Administration and public sector",
+            geodata: "Geodata and weather",
+            energy: "Energy",
+            culture: "Culture and media",
+            education: "Education, research and science",
+            realestate: "Real estate and finance"
+          },
           header: {
             title: "Data Search Engine",
             search_placeholder: "Search datasets...",
@@ -130,6 +146,22 @@ i18n
         translation: {
           page: {
             title: "Datensatz-Suchmaschine"
+          },
+          home: {
+            dataSources: 'Datenquellen',
+            dataAssets: 'Datensatz'
+          },
+          categories: {
+            mobilityAndTransportation: "Mobilität und Verkehr",
+            industryAndProduction: "Industrie und Produktion",
+            health: "Gesundheit, Pharma und Medizin",
+            environment: "Umwelt, Ernährung und Landwirtschaft",
+            administration: "Verwaltung und öffentliche Hand",
+            geodata: "Geodaten und Wetter",
+            energy: "Energie",
+            culture: "Kultur und Medien",
+            education: "Bildung, Forschung und Wissenschaft",
+            realestate: "Immobilien und Finanzen"
           },
           header: {
             title: "Datensatz-Suchmaschine",
