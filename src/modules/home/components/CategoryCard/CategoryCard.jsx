@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import styles from './CategoryCard.module.css'
 import { useTranslation } from 'react-i18next';
 
-const CategoryCard = ({ category, isDragging = false }) => {
+const CategoryCard = ({ category, isDragging }) => {
 
     const navigate = useNavigate();
     const { t } = useTranslation();

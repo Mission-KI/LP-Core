@@ -10,6 +10,8 @@ import mobilithek from '../../../common/assets/img/dataspace_logos/logo_mobilith
 import mobility from '../../../common/assets/img/dataspace_logos/logo_mobility-data-space.png';
 import collect from '../../../common/assets/img/dataspace_logos/logo_toll-collect.png';
 import DataspaceCard from '../../components/DataspaceCard/DataspaceCard';
+import "../../../../../node_modules/react-tiles-dnd/esm/index.css";
+import { TilesContainer } from "react-tiles-dnd";
 
 const Category = () => {
     const { t } = useTranslation();
@@ -24,6 +26,16 @@ const Category = () => {
         { id: 7, name: "Bundesanstalt für Straßenwesen", image: bast, shortName: "Bundesanstalt für Straßenwesen" },
     ]);
 
+    const renderTileFunction = ({ data, isDragging }) => (
+        <DataspaceCard dataSpace={data} isDragging={isDragging} />
+    );
+
+    const tileSize = (dataSpace) => ({
+        colSpan: 1,
+        rowSpan: 1
+    });
+
+
     return (
         <div className="container pb-4" style={{ maxWidth: 1050 }}>
             <div className='d-flex justify-content-between mb-5'>
@@ -33,10 +45,15 @@ const Category = () => {
 
             <MainSearchBar />
 
-            <div className="row mt-5">
-                {dataSpaces.map((dataSpace) => (
-                    <DataspaceCard dataSpace={dataSpace} key={dataSpace.id} />
-                ))}
+            <div className="mt-5">
+                <TilesContainer
+                    data={dataSpaces}
+                    renderTile={renderTileFunction}
+                    tileSize={tileSize}
+                    forceTileWidth={340}
+                    forceTileHeight={230}
+                    className="w-100"
+                ></TilesContainer>
             </div>
         </div>
     );

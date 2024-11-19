@@ -4,15 +4,15 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router';
 import styles from './DataspaceCard.module.css'
 
-const DataspaceCard = ({ dataSpace }) => {
+const DataspaceCard = ({ dataSpace, isDragging }) => {
 
     const navigate = useNavigate();
 
     return (
-        <div className="col-md-4 mb-4">
-            <Card className={`h-100 pointer ${styles.card} `} onClick={() => navigate('/search?q=' + dataSpace.shortName)}>
-                <Card.Body>
-                    <Card.Img variant="top" style={{ height: 55 }} src={dataSpace.image} />
+        <div className="mb-4 w-100 px-2">
+            <Card className={`pointer tile w-100 h-100 ${isDragging ? "dragging" : ''} ${styles.card} `} onClick={() => navigate('/search?q=' + dataSpace.shortName)}>
+                <Card.Body className='pb-2 w-100'>
+                    <Card.Img variant="top" style={{ height: 90 }} src={dataSpace.image} draggable={false} />
                     <Card.Title className='mt-3' style={{ height: 45 }}>{dataSpace.name}</Card.Title>
                     <Card.Text>
                         <div className="row mt-3">
