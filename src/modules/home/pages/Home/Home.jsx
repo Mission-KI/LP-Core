@@ -12,6 +12,8 @@ import GeomapsImg from '../../../common/assets/img/categories/tile-06_geomaps_me
 import EnergyImg from '../../../common/assets/img/categories/tile-07_energy.jpg';
 import CultureImg from '../../../common/assets/img/categories/tile-08_culture_media.jpg';
 import ScienceImg from '../../../common/assets/img/categories/tile-09_education_science.jpg';
+import "../../../../../node_modules/react-tiles-dnd/esm/index.css";
+import { TilesContainer } from "react-tiles-dnd";
 
 const Home = () => {
     const { t } = useTranslation();
@@ -29,6 +31,15 @@ const Home = () => {
         // { id: 10, name: t('categories.realestate'), image: ScienceImg, noOfDataSources: 33 },
     ]);
 
+    const renderTileFunction = ({ data, isDragging }) => (
+        <CategoryCard category={data} isDragging={isDragging} />
+    );
+
+    const tileSize = (category) => ({
+        colSpan: 1,
+        rowSpan: 1
+    });
+
     return (
         <div className="container pb-4" style={{ maxWidth: 1050 }}>
             <div className='d-flex justify-content-between mb-5'>
@@ -38,11 +49,17 @@ const Home = () => {
 
             <MainSearchBar />
 
-            <div className="row mt-5">
-                {categories.map((category) => (
-                    <CategoryCard category={category} key={category.id} />
-                ))}
+            <div className="mt-5">
+                <TilesContainer
+                    data={categories}
+                    renderTile={renderTileFunction}
+                    tileSize={tileSize}
+                    forceTileWidth={340}
+                    forceTileHeight={230}
+                    className="w-100"
+                ></TilesContainer>
             </div>
+
         </div>
     );
 }

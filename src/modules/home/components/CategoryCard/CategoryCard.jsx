@@ -5,17 +5,22 @@ import { useNavigate } from 'react-router';
 import styles from './CategoryCard.module.css'
 import { useTranslation } from 'react-i18next';
 
-const CategoryCard = ({ category }) => {
+const CategoryCard = ({ category, isDragging = false }) => {
 
     const navigate = useNavigate();
     const { t } = useTranslation();
 
     return (
-        <div className="col-md-4 mb-4">
-            <Card className={`h-100 pointer ${styles.card} `} onClick={() => { navigate('/categories/mobility-and-transport') }}>
-                <Card.Img variant="top" src={category.image} />
-                <Card.Body className='pb-2'>
-                    <Card.Title style={{ height: 45 }}>{category.name}</Card.Title>
+        <div className="mb-4 w-100 px-2">
+            <Card className={`pointer tile w-100 h-100 ${isDragging ? "dragging" : ''} ${styles.card} `} onClick={() => { navigate('/categories/mobility-and-transport') }}>
+                <Card.Img
+                    variant="top"
+                    src={category.image}
+                    style={{ height: 86 }}
+                    draggable={false}
+                />
+                <Card.Body className='pb-2 w-100'>
+                    <Card.Title draggable={false} style={{ height: 45 }}>{category.name}</Card.Title>
                     <Card.Text>
                         <div className="row mt-3">
                             <div className="col-6">
