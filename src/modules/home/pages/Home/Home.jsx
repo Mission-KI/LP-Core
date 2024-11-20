@@ -1,35 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
 import MainSearchBar from '../../../common/components/Search/MainSearchBar';
 import { useTranslation } from 'react-i18next';
 import CategoryCard from '../../components/CategoryCard/CategoryCard';
-import MobilityImg from '../../../common/assets/img/categories/tile-01_mobility.jpg';
-import ManufacturingImg from '../../../common/assets/img/categories/tile-02_manufacturing.jpg';
-import MedicineImg from '../../../common/assets/img/categories/tile-03_pharma_medicine.jpg';
-import EnvironmentImg from '../../../common/assets/img/categories/tile-04_environment_agriculture_food.jpg';
-import GovernmentImg from '../../../common/assets/img/categories/tile-05_government.jpg';
-import GeomapsImg from '../../../common/assets/img/categories/tile-06_geomaps_meteo.jpg';
-import EnergyImg from '../../../common/assets/img/categories/tile-07_energy.jpg';
-import CultureImg from '../../../common/assets/img/categories/tile-08_culture_media.jpg';
-import ScienceImg from '../../../common/assets/img/categories/tile-09_education_science.jpg';
 import "../../../../../node_modules/react-tiles-dnd/esm/index.css";
 import { TilesContainer } from "react-tiles-dnd";
+import { useCategories } from '../../utils/categories';
+import { useLocation } from 'react-router';
+
+const LOCAL_STORAGE_KEY = "userCategoriesOrder";
 
 const Home = () => {
     const { t } = useTranslation();
+    const location = useLocation();
+    const initialCategories = useCategories();
+    const [categories, setCategories] = useState([]);
 
-    const [categories, setCategories] = useState([
-        { id: 1, name: t('categories.mobilityAndTransportation'), image: MobilityImg, noOfDataSources: 25 },
-        { id: 2, name: t('categories.industryAndProduction'), image: ManufacturingImg, noOfDataSources: 17 },
-        { id: 3, name: t('categories.health'), image: MedicineImg, noOfDataSources: 33 },
-        { id: 4, name: t('categories.environment'), image: EnvironmentImg, noOfDataSources: 25 },
-        { id: 5, name: t('categories.administration'), image: GovernmentImg, noOfDataSources: 17 },
-        { id: 6, name: t('categories.geodata'), image: GeomapsImg, noOfDataSources: 33 },
-        { id: 7, name: t('categories.energy'), image: EnergyImg, noOfDataSources: 25 },
-        { id: 8, name: t('categories.culture'), image: CultureImg, noOfDataSources: 17 },
-        { id: 9, name: t('categories.education'), image: ScienceImg, noOfDataSources: 33 },
-        // { id: 10, name: t('categories.realestate'), image: ScienceImg, noOfDataSources: 33 },
-    ]);
+    useEffect(() => {
+        const savedOrder = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (savedOrder) {
+            const parsedOrder = JSON.parse(savedOrder);
+
+            const orderedCategories = parsedOrder
+                .map(id => initialCategories.find(category => category.id === id))
+                .filter(Boolean);
+
+            setCategories(orderedCategories.length > 0 ? orderedCategories : initialCategories);
+        } else {
+            setCategories(initialCategories);
+        }
+    }, [location]);
+
+    const saveOrderToLocalStorage = (newOrder) => {
+        const categoryOrder = newOrder.map(category => category.id);
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(categoryOrder));
+    };
+
+    const onReorderTiles = (newOrder) => {
+        setCategories(newOrder);
+        saveOrderToLocalStorage(newOrder);
+    };
 
     const renderTileFunction = ({ data, isDragging }) => (
         <CategoryCard category={data} isDragging={isDragging} />
@@ -57,11 +67,11 @@ const Home = () => {
                     forceTileWidth={340}
                     forceTileHeight={230}
                     className="w-100"
-                ></TilesContainer>
+                    onReorderTiles={onReorderTiles}
+                />
             </div>
-
         </div>
     );
-}
+};
 
 export default Home;
