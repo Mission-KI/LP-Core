@@ -62,14 +62,14 @@ function DataSeasonality({ datasetDetails }) {
             <div>
                 {selectedTab === 'Original Timeseries' && (
                     <div className='attribute-item-wrapper'>
-                        {filteredColumns.some(column => column?.weights?.length > 0) ? (
+                        {filteredColumns.some(column => column?.original_series?.length > 0) ? (
                             filteredColumns.map((column) => (
-                                column?.weights?.length > 0 && (
+                                column?.original_series?.length > 0 && (
                                     <div key={column.name}>
                                         <span className='text-muted small'>{column.name} Original Timeseries</span>
                                         <div className="row mb-3">
                                             <div className='col-md-12'>
-                                                <img src={column?.weights?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
+                                                <img src={column?.original_series?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
                                             </div>
                                         </div>
                                     </div>

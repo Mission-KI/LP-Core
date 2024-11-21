@@ -14,7 +14,7 @@ const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, se
                 </Modal.Header>
                 <Modal.Body>
                     <span className='text-muted small bold'>{selectedAttribute.name} Original time series</span>
-                    {selectedAttribute?.weights?.map((graph) => (
+                    {selectedAttribute?.original_series?.map((graph) => (
                         <div>
                             <div className="row mb-3">
                                 <div className='col-md-12'>
