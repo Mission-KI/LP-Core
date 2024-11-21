@@ -9,6 +9,7 @@ import { StarFill } from "react-bootstrap-icons";
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 import QualityMetrics from "./QualityMetrics";
+import { truncateString } from "../../../common/utils/format_utils";
 
 function ResultItem({ dataset }) {
   const [isBookmarkedState, setIsBookmarkedState] = useState(false);
@@ -34,7 +35,7 @@ function ResultItem({ dataset }) {
          <QualityMetrics dataset={dataset} />
         </div>
 
-        <p className="medium pt-1">{dataset._source.description}</p>
+        <p className="medium pt-1">{truncateString(dataset._source.description, 265)}</p>
 
         <div className="d-flex justify-content-between mt-3 flex-wrap" style={{ maxWidth: 850 }}>
           <a

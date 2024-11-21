@@ -22,6 +22,7 @@ import DataSeasonality from "../../components/DataSeasonality";
 import PageNotFound from "../../../common/pages/PageNotFound";
 import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalCover } from "../../utils/calculations";
 import QualityMetrics from "../../../search_engine/components/Results/QualityMetrics";
+import { truncateString } from "../../../common/utils/format_utils";
 
 function Details() {
   const { id } = useParams();
@@ -74,7 +75,7 @@ function Details() {
           <QualityMetrics dataset={datasetDetails} />
         </div>
         <p className="text-muted mt-3 mb-5">
-          {datasetDetails?._source?.description}
+          {truncateString(datasetDetails?._source?.description, 455)}
         </p>
 
         <div
