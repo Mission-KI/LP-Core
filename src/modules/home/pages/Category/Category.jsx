@@ -6,7 +6,7 @@ import DataspaceCard from '../../components/DataspaceCard/DataspaceCard';
 import "../../../../../node_modules/react-tiles-dnd/esm/index.css";
 import { TilesContainer } from "react-tiles-dnd";
 import { useDataSpaces } from '../../utils/dataspaces';
-import { useLocation } from 'react-router';
+import { useLocation, useParams } from 'react-router';
 import TitleSection from '../../../common/components/TitleSection';
 
 const LOCAL_STORAGE_KEY = "userDataSpaceOrder";
@@ -16,6 +16,7 @@ const Category = () => {
     const location = useLocation();
     const initialDataSpaces = useDataSpaces();
     const [dataSpaces, setDataSpaces] = useState([]);
+    const { category_name } = useParams();
 
     useEffect(() => {
         const savedOrder = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -57,7 +58,9 @@ const Category = () => {
 
             <MainSearchBar />
 
-            <div className="mt-5">
+            <h3 className='bold mt-5 ps-2 text-capitalize'>{category_name.replace("-", " ").replace("-", " ")}</h3>
+
+            <div className="mt-4">
                 <TilesContainer
                     data={dataSpaces}
                     renderTile={renderTileFunction}

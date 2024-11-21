@@ -7,7 +7,7 @@ const homeRoutes = [
     element: <Home />,
   },
   {
-    path: '/categories/mobility-and-transport',
+    path: '/categories/:category_name',
     element: <Category />,
   },
 ];
