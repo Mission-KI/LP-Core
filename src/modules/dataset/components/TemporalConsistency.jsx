@@ -34,11 +34,11 @@ function TemporalConsistency({ datasetDetails }) {
                     </thead>
                     <tbody>
                         {datasetDetails?._source?.structuredDatasets[0]?.datetimeColumns.map((column) => (
-                            column?.gaps.map((gap, index) => (
+                            column?.temporalConsistencies.map((temporalConsistency, index) => (
                                 <tr key={index} className='hover'>
                                     <td className='w-33'>{column.name}</td>
-                                    <td className='w-33'>{gap.timeScale}</td>
-                                    <td className='w-33'>{gap.numberOfGaps}</td>
+                                    <td className='w-33'>{temporalConsistency.timeScale}</td>
+                                    <td className='w-33'>{temporalConsistency.numberOfGaps}</td>
                                 </tr>
                             ))
                         ))}
