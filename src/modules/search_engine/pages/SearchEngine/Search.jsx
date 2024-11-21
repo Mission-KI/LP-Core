@@ -5,6 +5,7 @@ import { getDatasets } from '../../../common/api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
+import TitleSection from '../../../common/components/TitleSection';
 
 function Search() {
 
@@ -57,13 +58,7 @@ function Search() {
 
   return (
     <div className="container pb-4" style={{ maxWidth: 1050 }}>
-      <div className='d-flex justify-content-between mb-5'>
-        <div className='d-flex align-items-center'>
-          <a href="/" className='text-decoration-none h2 mb-0' style={{ width: 'fit-content' }}>{t('page.title')}</a>
-          <span className='badge badge-primary bg-danger ms-2'>Alpha</span>
-        </div>
-        <LanguageSelector />
-      </div>
+      <TitleSection />
 
       <MainSearchBar datasets={datasets} />
 

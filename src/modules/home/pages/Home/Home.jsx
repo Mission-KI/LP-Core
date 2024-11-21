@@ -7,6 +7,7 @@ import "../../../../../node_modules/react-tiles-dnd/esm/index.css";
 import { TilesContainer } from "react-tiles-dnd";
 import { useCategories } from '../../utils/categories';
 import { useLocation } from 'react-router';
+import TitleSection from '../../../common/components/TitleSection';
 
 const LOCAL_STORAGE_KEY = "userCategoriesOrder";
 
@@ -52,13 +53,7 @@ const Home = () => {
 
     return (
         <div className="container pb-4" style={{ maxWidth: 1050 }}>
-            <div className='d-flex justify-content-between mb-5'>
-                <div className='d-flex align-items-center'>
-                    <a href="/" className='text-decoration-none h2 mb-0' style={{ width: 'fit-content' }}>{t('page.title')}</a>
-                    <span className='badge badge-primary bg-danger ms-2'>Alpha</span>
-                </div>
-                <LanguageSelector />
-            </div>
+            <TitleSection />
 
             <MainSearchBar />
 

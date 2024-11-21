@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { Spinner } from 'react-bootstrap';
 import { ArrowLeft } from 'react-bootstrap-icons';
 import { Link } from 'react-router-dom';
+import TitleSection from '../../../common/components/TitleSection';
+import MainSearchBar from '../../../common/components/Search/MainSearchBar';
 
 const Bookmarks = () => {
 
@@ -48,10 +50,13 @@ const Bookmarks = () => {
     return (
 
         <div className="container pb-4" style={{ maxWidth: 1050 }}>
+            <TitleSection />
+            <MainSearchBar />
+            <br />
+            <br />
             <Link to="/"><ArrowLeft className='me-1' /> return home</Link>
             <div className='d-flex justify-content-between mb-5 mt-2'>
-                <a className='text-decoration-none h2' style={{ width: 'fit-content' }}>{t('common.bookmarks')}</a>
-                <LanguageSelector />
+                <a className='text-decoration-none h2 bold' style={{ width: 'fit-content' }}>{t('common.bookmarks')}</a>
             </div>
 
 
