@@ -10,7 +10,10 @@ function LegalLayout() {
       <div className="main-content-wrapper">
         <div className="container pb-4" style={{ maxWidth: 1050 }}>
           <div className='d-flex justify-content-between mb-5'>
-            <a href="/" className='text-decoration-none h2' style={{ width: 'fit-content' }}>{t('page.title')}</a>
+            <div className='d-flex align-items-center'>
+              <a href="/" className='text-decoration-none h2 mb-0' style={{ width: 'fit-content' }}>{t('page.title')}</a>
+              <span className='badge badge-primary bg-danger ms-2'>Alpha</span>
+            </div>            
             <LanguageSelector />
           </div>
           <Outlet />

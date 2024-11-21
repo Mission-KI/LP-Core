@@ -34,7 +34,7 @@ function Header({ datasetDetails }) {
             <div className="container d-flex px-3">
                 <div className='d-flex flex-wrap align-items-center'>
                     <Link to="/">
-                        <h4 style={{ fontWeight: 400 }}>{t('header.title')}</h4>
+                        <h4 style={{ fontWeight: 400 }}>{t('header.title')} <span className='badge badge-primary bg-danger'>Alpha</span></h4>
                     </Link>
                 </div>
                 <div className='w-100'>

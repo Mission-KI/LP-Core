@@ -21,7 +21,7 @@ i18n
             title: "Dataset Search Engine"
           },
           home: {
-            dataSources: 'Data sources',
+            publishers: 'Publishers',
             dataAssets: 'Data Assets'
           },
           categories: {
@@ -140,6 +140,7 @@ i18n
           imprint: imprintPolicy.en,
           acceptableUsePolicy: acceptableUsePolicy.en,
           privacyPolicy: privacyPolicy.en,
+          maintenance: "Daseen is under maintenance and will be back at 5 pm"
         }
       },
       de: {
@@ -148,8 +149,8 @@ i18n
             title: "Datensatz-Suchmaschine"
           },
           home: {
-            dataSources: 'Datenquellen',
-            dataAssets: 'Datensatz'
+            publishers: 'Datenanbieter',
+            dataAssets: 'Datensätze'
           },
           categories: {
             mobilityAndTransportation: "Mobilität und Verkehr",
@@ -265,6 +266,7 @@ i18n
           imprint: imprintPolicy.de,
           acceptableUsePolicy: acceptableUsePolicy.de,
           privacyPolicy: privacyPolicy.de,
+          maintenance: "Daseen is under maintainance and will be back at 5 pm"
         }
       },
     }

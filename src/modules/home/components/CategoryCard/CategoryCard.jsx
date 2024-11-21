@@ -25,7 +25,7 @@ const CategoryCard = ({ category, isDragging }) => {
                         <div className="row mt-3">
                             <div className="col-6">
                                 <span className='small d-flex align-items-center'>
-                                    <Database className='me-1' /> {category.noOfDataSources} {t('home.dataSources')}
+                                    <Database className='me-1' /> {category.noOfDataSources} {t('home.publishers')}
                                 </span>
                             </div>
                             <div className="col-6">
