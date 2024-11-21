@@ -4,8 +4,8 @@ import { getBookmarkedDatasets } from '../../../common/api/elastic';
 import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { Spinner } from 'react-bootstrap';
-import { ArrowLeft } from 'react-bootstrap-icons';
-import { Link } from 'react-router-dom';
+import { ArrowLeft, ChevronLeft } from 'react-bootstrap-icons';
+import { Link, useNavigate } from 'react-router-dom';
 import TitleSection from '../../../common/components/TitleSection';
 import MainSearchBar from '../../../common/components/Search/MainSearchBar';
 
@@ -14,6 +14,7 @@ const Bookmarks = () => {
     const [bookmarks, setBookmarks] = useState({});
     const [loading, setLoading] = useState(true);
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -54,8 +55,13 @@ const Bookmarks = () => {
             <MainSearchBar />
             <br />
             <br />
-            <Link to="/"><ArrowLeft className='me-1' /> return home</Link>
-            <div className='d-flex justify-content-between mb-5 mt-2'>
+            <button
+                className='btn btn-primary rounded-lg py-1 small d-flex align-items-center'
+                onClick={() => navigate(-1)}
+            >
+                <ChevronLeft />
+                <span className='ps-2'>{t('header.back')}</span>
+            </button>            <div className='d-flex justify-content-between mb-5 mt-2'>
                 <a className='text-decoration-none h2 bold' style={{ width: 'fit-content' }}>{t('common.bookmarks')}</a>
             </div>
 
