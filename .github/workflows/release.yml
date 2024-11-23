@@ -45,7 +45,7 @@ jobs:
                 secrets: |
                     REPO_TOKEN=${{ secrets.GIT_HUB_API_KEY }}
                 context: .
-                file: docker/frontend/Dockerfile.prod
+                file: frontend/Dockerfile.prod
                 push: True
                 tags: ${{ steps.meta.outputs.tags }}
                 labels: ${{ steps.meta.outputs.labels }}
