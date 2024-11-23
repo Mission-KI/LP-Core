@@ -27,6 +27,17 @@ jobs:
                 submodules: recursive
         -   uses: docker/setup-qemu-action@v3.0.0
         -   uses: docker/setup-buildx-action@v3.3.0
+        -   name: Extract Docker metadata
+            id: meta
+            uses: docker/metadata-action@v5.5.1
+            with:
+                images: ${{ env.REGISTRY }}/${{ env.IMAGE_PATH }}
+                flavor: latest=false
+                tags: |
+                    type=ref,event=branch
+                    type=ref,event=tag
+                    type=ref,event=pr
+                    type=semver,pattern={{version}}
         -   name: Build and push Docker image
             id: build-and-push
             uses: docker/build-push-action@v5.3.0
