@@ -5,14 +5,19 @@ import { useParams } from "react-router";
 import { TilesContainer } from "react-tiles-dnd";
 import "../../../node_modules/react-tiles-dnd/esm/index.css";
 import { useLocation } from 'react-router';
+import { useCategories } from '../../utils/categories';
+import { useTranslation } from 'react-i18next';
 
 const LOCAL_STORAGE_KEY = "userDataSpacesOrder?v=2";
 
 const Category = () => {
-
+    const { slug } = useParams();
     const [dataSpaces, setDataSpaces] = useState([]);
-    const initialDataSpaces = useDataSpaces();
-    const { category_name } = useParams();
+    const { getCategoryBySlug } = useCategories();
+    const category = getCategoryBySlug(slug);
+    const { t } = useTranslation();
+
+    const initialDataSpaces = category.dataspaces;
     const location = useLocation();
 
     useEffect(() => {
@@ -34,7 +39,6 @@ const Category = () => {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataspaceOrder));
     };
 
-    // Handle reordering
     const onReorderTiles = (newOrder) => {
         setDataSpaces(newOrder);
         saveOrderToLocalStorage(newOrder);
@@ -44,23 +48,28 @@ const Category = () => {
         <DataspaceCard dataSpace={data} isDragging={isDragging} />
     );
 
-
     return (
         <div className="container pt-3 pb-4">
-            <h3 className='mt-5 mb-4 bold text-capitalize'>{category_name.replace("-", " ").replace("-", " ").replace("-", " ")}</h3>
+            <h3 className='mt-5 mb-4 bold text-capitalize'>{category.name}</h3>
 
             <div className="mt-4">
-                <TilesContainer
-                    data={dataSpaces}
-                    renderTile={renderTileFunction}
-                    forceTileWidth={250}
-                    forceTileHeight={230}
-                    className="w-100 row"
-                    onReorderTiles={onReorderTiles}
-                />
+                {dataSpaces.length > 0 ? (
+                    <TilesContainer
+                        data={dataSpaces}
+                        renderTile={renderTileFunction}
+                        forceTileWidth={250}
+                        forceTileHeight={230}
+                        className="w-100 row"
+                        onReorderTiles={onReorderTiles}
+                    />
+                ) : (
+                    <div className="">
+                        <p className="text-muted">{t('categories.noDataSpaces')}</p>
+                    </div>
+                )}
             </div>
         </div>
     );
-}
+};
 
 export default Category;

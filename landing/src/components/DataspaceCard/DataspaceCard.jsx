@@ -12,7 +12,7 @@ const DataspaceCard = ({ dataSpace }) => {
 
     return (
         <div className={`mb-5 px-2`}>
-            <Card className={`h-100 rounded shadow-sm py-3 ${styles.card} `} onClick={() => navigate('/?q=' + dataSpace.shortName)}>
+            <Card className={`h-100 rounded pointer shadow-sm py-3 ${styles.card} `} onClick={() => navigate('/?q=' + dataSpace.shortName)}>
                 <Card.Img
                     variant='top'
                     src={dataSpace.image}
@@ -25,10 +25,10 @@ const DataspaceCard = ({ dataSpace }) => {
                     <Card.Text>
                         <div className="d-flex justify-content-center mt-2">
                             <span className='small d-flex align-items-center'>
-                                <Database className='me-1' /> {dataSpace.noOfDataSources} {t('home.dataSources')}
+                                <span className='bold pe-1'>{dataSpace.amount_of_publishers}</span> {t('home.dataSources')}
                             </span>
                             <span className='small d-flex align-items-center ps-3'>
-                                <Files className='me-1' /> 5.275.180 {t('home.dataAssets')}
+                                <span className='bold pe-1'>{dataSpace.amount_of_assets}</span> {t('home.dataAssets')}
                             </span>
                         </div>
                     </Card.Text>

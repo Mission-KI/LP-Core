@@ -9,11 +9,18 @@ import CultureImg from '../assets/img/categories/tile-08_culture_media.jpg';
 import ScienceImg from '../assets/img/categories/tile-09_education_science.jpg';
 import RealestateImg from '../assets/img/categories/tile-10_finance_and_realestate.jpg';
 import { useTranslation } from 'react-i18next';
+import autobahn from '../assets/img/dataspace_logos/logo_autobahn-gmbh.png';
+import bast from '../assets/img/dataspace_logos/logo_bast.png';
+import flugsicherung from '../assets/img/dataspace_logos/logo_deutsche_flugsicherung.png';
+import govdata from '../assets/img/dataspace_logos/logo_govdata.png';
+import mobilithek from '../assets/img/dataspace_logos/logo_mobilithek.png';
+import mobility from '../assets/img/dataspace_logos/logo_mobility-data-space.png';
+import collect from '../assets/img/dataspace_logos/logo_toll-collect.png';
 
 export const useCategories = () => {
     const { t } = useTranslation();
 
-    return [
+    const categories = [
         {
             "id": 1,
             "name": t('categories.mobilityAndTransportation'),
@@ -25,6 +32,7 @@ export const useCategories = () => {
                 {
                     "id": 1,
                     "name": "GovData",
+                    "image": govdata,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 14211,
                     "publishers": [
@@ -38,6 +46,7 @@ export const useCategories = () => {
                 {
                     "id": 2,
                     "name": "mobilithek",
+                    "image": mobilithek,
                     "amount_of_publishers": 2,
                     "amount_of_assets": 2,
                     "publishers": [
@@ -84,6 +93,7 @@ export const useCategories = () => {
                 {
                     "id": 1,
                     "name": "GovData",
+                    "image": govdata,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 4953,
                     "publishers": [
@@ -107,6 +117,7 @@ export const useCategories = () => {
                 {
                     "id": 1,
                     "name": "GovData",
+                    "image": govdata,
                     "amount_of_publishers": 7,
                     "amount_of_assets": 30082,
                     "publishers": [
@@ -195,4 +206,10 @@ export const useCategories = () => {
             "dataspaces": []
         }
     ];
+
+    const getCategoryBySlug = (slug) => {
+        return categories.find(category => category.slug === slug);
+    };
+
+    return { categories, getCategoryBySlug };
 };

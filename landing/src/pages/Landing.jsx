@@ -12,9 +12,10 @@ const LOCAL_STORAGE_KEY = "userCategoriesOrder?v=2";
 
 const Landing = () => {
 
+    const { categories } = useCategories();
+
     const location = useLocation();
-    const initialCategories = useCategories();
-    const [categories, setCategories] = useState([]);
+    const [categoriesState, setCategoriesState] = useState([]);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -23,12 +24,12 @@ const Landing = () => {
             const parsedOrder = JSON.parse(savedOrder);
 
             const orderedCategories = parsedOrder
-                .map(id => initialCategories.find(category => category.id === id))
+                .map(id => categories.find(category => category.id === id))
                 .filter(Boolean);
 
-            setCategories(orderedCategories.length > 0 ? orderedCategories : initialCategories);
+            setCategoriesState(orderedCategories.length > 0 ? orderedCategories : categories);
         } else {
-            setCategories(initialCategories);
+            setCategoriesState(categories);
         }
     }, [location]);
 
@@ -38,7 +39,7 @@ const Landing = () => {
     };
 
     const onReorderTiles = (newOrder) => {
-        setCategories(newOrder);
+        setCategoriesState(newOrder);
         saveOrderToLocalStorage(newOrder);
     };
 
@@ -55,7 +56,7 @@ const Landing = () => {
                 <div className="container">
                     <h2 className='mt-5 mb-4'>{t('home.categories')}</h2>
                     <TilesContainer
-                        data={categories}
+                        data={categoriesState}
                         renderTile={renderTileFunction}
                         forceTileWidth={250}
                         forceTileHeight={230}

@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path='/' element={<AppLayout />}>
-          <Route path="/categories/:category_name" element={<Category />} />
+          <Route path="/categories/:slug" element={<Category />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/about" element={<About />} />
         </Route>

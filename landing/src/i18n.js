@@ -51,7 +51,8 @@ i18n
             energy: "Energy",
             culture: "Culture and media",
             education: "Education, research and science",
-            realestate: "Real estate and finance"
+            realestate: "Real estate and finance",
+            noDataSpaces: "No dataspaces available for this category."
           },
           imprint: imprintPolicy.en,
           acceptableUsePolicy: acceptableUsePolicy.en,
@@ -91,7 +92,8 @@ i18n
             energy: "Energie",
             culture: "Kultur und Medien",
             education: "Bildung, Forschung und Wissenschaft",
-            realestate: "Immobilien und Finanzen"
+            realestate: "Immobilien und Finanzen",
+            noDataSpaces: "Keine Datenräume für diese Kategorie verfügbar."
           },
           imprint: imprintPolicy.en,
           acceptableUsePolicy: acceptableUsePolicy.en,
