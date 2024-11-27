@@ -19,6 +19,9 @@
 .title {
     font-weight: 500 !important;
     color: var(--color-primary) !important;
+    margin-bottom: 0;
+    height: 46.5px !important;
+    display: block;
 }
 
 .title:hover {

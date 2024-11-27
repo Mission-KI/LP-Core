@@ -22,14 +22,14 @@ const CategoryCard = ({ category }) => {
                     draggable={false}
                 />
                 <Card.Body className='pb-2 w-100 p-0 pt-3'>
-                    <Link to={`/categories/${category.slug}`} style={{ height: 27 }} className={`${styles.title} h5`}>{category.name}</Link>
+                    <Link to={`/categories/${category.slug}`} className={`${styles.title} h5`}>{category.name}</Link>
                     <Card.Text>
                         <div className="d-flex flex-wrap mt-2">
-                            <span className='small fw-500 d-flex align-items-center pe-3'>
-                                <Database className='me-1' /> {category.noOfDataSources} {t('home.dataSources')}
+                            <span className='small d-flex align-items-center pe-3'>
+                                <span className='bold pe-1'>{category.amount_of_publishers}</span> {t('home.dataSources')}
                             </span>
-                            <span className='small fw-500 d-flex align-items-center'>
-                                <Files className='me-1' /> 5.275.180 {t('home.dataAssets')}
+                            <span className='small d-flex align-items-center'>
+                            <span className='bold pe-1'>{category.amount_of_assets}</span> {t('home.dataAssets')}
                             </span>
                         </div>
                     </Card.Text>

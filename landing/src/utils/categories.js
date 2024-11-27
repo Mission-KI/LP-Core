@@ -15,74 +15,184 @@ export const useCategories = () => {
 
     return [
         {
-            id: 1,
-            name: t('categories.mobilityAndTransportation'),
-            slug: "mobility-and-transportation",
-            image: MobilityImg,
-            noOfDataSources: 25,
+            "id": 1,
+            "name": t('categories.mobilityAndTransportation'),
+            "slug": "mobility-and-transportation",
+            "amount_of_publishers": 3,
+            "amount_of_assets": 14211,
+            "image": MobilityImg,
+            "dataspaces": [
+                {
+                    "id": 1,
+                    "name": "GovData",
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 14211,
+                    "publishers": [
+                        {
+                            "name": "BASt",
+                            "highlighted": true,
+                            "amount_of_assets": 14211
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "name": "mobilithek",
+                    "amount_of_publishers": 2,
+                    "amount_of_assets": 2,
+                    "publishers": [
+                        {
+                            "name": "Toll Collect",
+                            "highlighted": true,
+                            "amount_of_assets": 0
+                        },
+                        {
+                            "name": "Autobahn GmbH",
+                            "highlighted": true,
+                            "amount_of_assets": 2
+                        }
+                    ]
+                }
+            ]
         },
         {
-            id: 2,
-            name: t('categories.industryAndProduction'),
-            slug: "industry-and-production",
-            image: ManufacturingImg,
-            noOfDataSources: 17
+            "id": 2,
+            "name": t('categories.industryAndProduction'),
+            "slug": "industry-and-production",
+            "amount_of_publishers": 0,
+            "amount_of_assets": 0,
+            "image": ManufacturingImg,
+            "dataspaces": []
         },
         {
-            id: 3,
-            name: t('categories.health'),
-            slug: "health-pharmaceuticals-and-medicine",
-            image: MedicineImg,
-            noOfDataSources: 33
+            "id": 3,
+            "name": t('categories.health'),
+            "slug": "health-pharmaceuticals-and-medicine",
+            "amount_of_publishers": 0,
+            "amount_of_assets": 0,
+            "image": MedicineImg,
+            "dataspaces": []
         },
         {
-            id: 4,
-            name: t('categories.environment'),
-            slug: "environment-food-and-agriculture",
-            image: EnvironmentImg,
-            noOfDataSources: 25
+            "id": 4,
+            "name": t('categories.environment'),
+            "slug": "environment-food-and-agriculture",
+            "amount_of_publishers": 1,
+            "amount_of_assets": 4953,
+            "image": EnvironmentImg,
+            "dataspaces": [
+                {
+                    "id": 1,
+                    "name": "GovData",
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 4953,
+                    "publishers": [
+                        {
+                            "name": "Transparenzportal Hamburg",
+                            "highlighted": false,
+                            "amount_of_assets": 4953
+                        }
+                    ]
+                }
+            ]
         },
         {
-            id: 5,
-            name: t('categories.administration'),
-            slug: "administration-and-public-sector",
-            image: GovernmentImg,
-            noOfDataSources: 17
+            "id": 5,
+            "name": t('categories.administration'),
+            "slug": "administration-and-public-sector",
+            "image": GovernmentImg,
+            "amount_of_publishers": 7,
+            "amount_of_assets": 30082,
+            "dataspaces": [
+                {
+                    "id": 1,
+                    "name": "GovData",
+                    "amount_of_publishers": 7,
+                    "amount_of_assets": 30082,
+                    "publishers": [
+                        {
+                            "name": "BASt",
+                            "highlighted": true,
+                            "amount_of_assets": 14211
+                        },
+                        {
+                            "name": "Transparenzportal Hamburg",
+                            "highlighted": false,
+                            "amount_of_assets": 4953
+                        },
+                        {
+                            "name": "Open-Data Schleswig-Holstein",
+                            "highlighted": false,
+                            "amount_of_assets": 7816
+                        },
+                        {
+                            "name": "Bayrisches Landesamt für Statistik",
+                            "highlighted": false,
+                            "amount_of_assets": 0
+                        },
+                        {
+                            "name": "Landesdatenbank NRW",
+                            "highlighted": false,
+                            "amount_of_assets": 0
+                        },
+                        {
+                            "name": "Freistaat Bayern",
+                            "highlighted": false,
+                            "amount_of_assets": 0
+                        },
+                        {
+                            "name": "Offene Daten KDVZ Rhein-Erft-Rur",
+                            "highlighted": false,
+                            "amount_of_assets": 3102
+                        }
+                    ]
+                }
+            ]
         },
         {
-            id: 6,
-            name: t('categories.geodata'),
-            slug: "geodata-and-weather",
-            image: GeomapsImg,
-            noOfDataSources: 33
+            "id": 6,
+            "name": t('categories.geodata'),
+            "slug": "geodata-and-weather",
+            "amount_of_publishers": 0,
+            "image": GeomapsImg,
+            "amount_of_assets": 0,
+            "dataspaces": []
         },
         {
-            id: 7,
-            name: t('categories.energy'),
-            slug: "energy",
-            image: EnergyImg,
-            noOfDataSources: 25
+            "id": 7,
+            "name": t('categories.energy'),
+            "slug": "energy",
+            "image": EnergyImg,
+            "amount_of_publishers": 0,
+            "amount_of_assets": 0,
+            "dataspaces": []
         },
         {
-            id: 8,
-            name: t('categories.culture'),
-            slug: "culture-and-media",
-            image: CultureImg,
-            noOfDataSources: 17
+            "id": 8,
+            "name": t('categories.culture'),
+            "slug": "culture-and-media",
+            "image": CultureImg,
+            "amount_of_publishers": 0,
+            "amount_of_assets": 0,
+            "dataspaces": []
         },
         {
-            id: 9,
-            name: t('categories.education'),
-            slug: "education-research-and-science",
-            image: ScienceImg,
-            noOfDataSources: 33
+            "id": 9,
+            "name": t('categories.education'),
+            "slug": "education-research-and-science",
+            "image": ScienceImg,
+            "amount_of_publishers": 0,
+            "amount_of_assets": 0,
+            "dataspaces": []
         },
         {
-            id: 10,
-            name: t('categories.realestate'),
-            slug: "real-estate-and-finance",
-            image: RealestateImg,
-            noOfDataSources: 33
-        },
+            "id": 10,
+            "name": t('categories.realestate'),
+            "slug": "real-estate-and-finance",
+            "image": RealestateImg,
+            "amount_of_publishers": 0,
+            "amount_of_assets": 0,
+            "dataspaces": []
+        }
     ];
 };
