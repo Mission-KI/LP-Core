@@ -1,13 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowUpCircle, Database, FileEarmarkZip, FileEarmarkZipFill, Grid, Person, PersonCheck } from 'react-bootstrap-icons';
 import ExampleGraph1 from '../../assets/img/graphs/exampleGraph1.webp'
 import styles from './HeroSection.module.css'
 import AnimatedNumber from '../AnimatedNumber';
 import { useTranslation } from 'react-i18next';
+import { getTotalDatasetCount } from '../../api/elastic';
 
 const HeroSection = () => {
 
     const { t } = useTranslation();
+    const [totalDatasetCount, setTotalDatasetCount] = useState(0);
+
+    useEffect(() => {
+        const getDatasetCount = async () => {
+            const totalCount = await getTotalDatasetCount();
+            setTotalDatasetCount(totalCount);
+        }
+        getDatasetCount();
+    }, []);
+
 
     return (
         <div className='bg-white w-100'>
@@ -33,7 +44,7 @@ const HeroSection = () => {
                                             <div className="">
                                                 <span className='text-muted medium d-flex align-items-center'><FileEarmarkZip className='me-2' /> {t('home.dataAssets')}</span>
                                                 <div className='d-flex align-items-center'>
-                                                    <h2 className='bold mb-0'><AnimatedNumber value={63435} duration={1000} /></h2>
+                                                    <h2 className='bold mb-0'><AnimatedNumber value={totalDatasetCount} duration={1000} /></h2>
                                                     <span className='text-success fw-500 ps-2'><ArrowUpCircle /> 13%</span>
                                                 </div>
                                             </div>
@@ -75,7 +86,7 @@ const HeroSection = () => {
                                 <div className={`card border ${styles.statsCard}`}>
                                     <div className="card-body py-3">
                                         <span className='text-muted medium d-flex align-items-center'><Grid className='me-2' /> {t('home.dataCategories')}</span>
-                                        <h2 className='bold mb-0'><AnimatedNumber value={5} duration={1000} /></h2>
+                                        <h2 className='bold mb-0'><AnimatedNumber value={10} duration={1000} /></h2>
                                     </div>
                                 </div>
                             </div>

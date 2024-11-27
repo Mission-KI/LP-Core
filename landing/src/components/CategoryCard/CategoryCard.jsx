@@ -12,13 +12,14 @@ const CategoryCard = ({ category }) => {
     const { t } = useTranslation();
 
     return (
-        <div className={`${styles.cardWrapper} mb-5 px-2`}>
-            <Card className={`h-100 rounded ${styles.card} `}>
+        <div className={`mb-5 px-2`}>
+            <Card className={`h-100 rounded`}>
                 <Card.Img
-                    variant="top"
+                    variant='top'
                     src={category.image}
-                    className='rounded'
-                    style={{ height: 155 }}
+                    className='rounded pointer'
+                    style={{ minHeight: 115 }}
+                    draggable={false}
                 />
                 <Card.Body className='pb-2 w-100 p-0 pt-3'>
                     <Link to={`/categories/${category.slug}`} style={{ height: 27 }} className={`${styles.title} h5`}>{category.name}</Link>
