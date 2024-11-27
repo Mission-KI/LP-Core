@@ -11,14 +11,14 @@ const DataspaceCard = ({ dataSpace }) => {
     const { t } = useTranslation();
 
     return (
-        <div className="col-md-4 mb-5 px-2">
+        <div className={`${styles.cardWrapper} mb-5 px-2`}>
             <Card className={`h-100 rounded shadow-sm py-3 ${styles.card} `} onClick={() => navigate('/?q=' + dataSpace.shortName)}>
                 <img
                     src={dataSpace.image}
                     className='rounded m-auto p-2'
-                    style={{ height: 110, width: 'auto', objectFit: 'cover' }}
+                    style={{ height: 80, width: 'auto', objectFit: 'cover' }}
                 />
-                <Card.Body className='pb-2 w-100 pt-5'>
+                <Card.Body className='pb-2 w-100 pt-3'>
                     <a href={`https://app-daseen-redesign.netlify.app/?q=${dataSpace.name}`} className={`${styles.title} h5 mb-0`}>{dataSpace.name}</a>
                     <Card.Text>
                         <div className="d-flex justify-content-center mt-2">

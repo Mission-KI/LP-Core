@@ -7,6 +7,7 @@ import GeomapsImg from '../assets/img/categories/tile-06_geomaps_meteo.jpg';
 import EnergyImg from '../assets/img/categories/tile-07_energy.jpg';
 import CultureImg from '../assets/img/categories/tile-08_culture_media.jpg';
 import ScienceImg from '../assets/img/categories/tile-09_education_science.jpg';
+import RealestateImg from '../assets/img/categories/tile-10_finance_and_realestate.jpg';
 import { useTranslation } from 'react-i18next';
 
 export const useCategories = () => {
@@ -17,7 +18,6 @@ export const useCategories = () => {
             id: 1,
             name: t('categories.mobilityAndTransportation'),
             slug: "mobility-and-transportation",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
             image: MobilityImg,
             noOfDataSources: 25,
         },
@@ -25,7 +25,6 @@ export const useCategories = () => {
             id: 2,
             name: t('categories.industryAndProduction'),
             slug: "industry-and-production",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
             image: ManufacturingImg,
             noOfDataSources: 17
         },
@@ -33,7 +32,6 @@ export const useCategories = () => {
             id: 3,
             name: t('categories.health'),
             slug: "health-pharmaceuticals-and-medicine",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
             image: MedicineImg,
             noOfDataSources: 33
         },
@@ -41,7 +39,6 @@ export const useCategories = () => {
             id: 4,
             name: t('categories.environment'),
             slug: "environment-food-and-agriculture",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
             image: EnvironmentImg,
             noOfDataSources: 25
         },
@@ -49,7 +46,6 @@ export const useCategories = () => {
             id: 5,
             name: t('categories.administration'),
             slug: "administration-and-public-sector",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
             image: GovernmentImg,
             noOfDataSources: 17
         },
@@ -57,7 +53,6 @@ export const useCategories = () => {
             id: 6,
             name: t('categories.geodata'),
             slug: "geodata-and-weather",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
             image: GeomapsImg,
             noOfDataSources: 33
         },
@@ -65,7 +60,6 @@ export const useCategories = () => {
             id: 7,
             name: t('categories.energy'),
             slug: "energy",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
             image: EnergyImg,
             noOfDataSources: 25
         },
@@ -73,7 +67,6 @@ export const useCategories = () => {
             id: 8,
             name: t('categories.culture'),
             slug: "culture-and-media",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
             image: CultureImg,
             noOfDataSources: 17
         },
@@ -81,8 +74,14 @@ export const useCategories = () => {
             id: 9,
             name: t('categories.education'),
             slug: "education-research-and-science",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna a",
             image: ScienceImg,
+            noOfDataSources: 33
+        },
+        {
+            id: 10,
+            name: t('categories.realestate'),
+            slug: "real-estate-and-finance",
+            image: RealestateImg,
             noOfDataSources: 33
         },
     ];

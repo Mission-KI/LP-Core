@@ -11,7 +11,7 @@ export const useDataSpaces = () => {
     const { t } = useTranslation();
 
     return [
-        { id: 1, name: "GovData - Das Datenportal für Deutschland", image: govdata, shortName: "GovData" },
+        { id: 1, name: "GovData", image: govdata, shortName: "GovData" },
         { id: 2, name: "Autobahn GmbH", image: autobahn, shortName: "Autobahn" },
         { id: 3, name: "Toll Collect GmbH", image: collect, shortName: "Toll Collect" },
         { id: 4, name: "Mobility Data Space", image: mobility, shortName: "Mobility" },

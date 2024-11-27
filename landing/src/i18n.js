@@ -24,7 +24,6 @@ i18n
             home: "Home",
             about: "About",
             privacyPolicy: "Privacy Policy",
-            visit: "Visit"
           },
           home: {
             heroSection: {
@@ -68,7 +67,6 @@ i18n
             home: "Startseite",
             about: "Über uns",
             privacyPolicy: "Datenschutzrichtlinie",
-            visit: "Besuchen"
           },
           home: {
             heroSection: {

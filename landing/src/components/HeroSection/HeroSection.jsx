@@ -18,10 +18,7 @@ const HeroSection = () => {
                         <p style={{ textAlign: 'justify' }}>{t('home.heroSection.description')}</p>
                         <div className='d-flex pt-4'>
                             <div className="pe-2">
-                                <a href="https://app-daseen-redesign.netlify.app/register" className="btn btn-primary fw-500 px-4 py-2">{t('auth.signUp')}</a>
-                            </div>
-                            <div className="pe-2">
-                                <a href="https://app-daseen-redesign.netlify.app/" className="btn btn-outline-primary fw-500 px-4 py-2">
+                                <a href="https://app-daseen-redesign.netlify.app/" className="btn btn-primary fw-500 px-4 py-2">
                                     {t('home.openDaseen')}
                                 </a>
                             </div>

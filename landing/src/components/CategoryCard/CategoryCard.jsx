@@ -12,7 +12,7 @@ const CategoryCard = ({ category }) => {
     const { t } = useTranslation();
 
     return (
-        <div className="col-md-4 mb-5 px-2">
+        <div className={`${styles.cardWrapper} mb-5 px-2`}>
             <Card className={`h-100 rounded ${styles.card} `}>
                 <Card.Img
                     variant="top"
@@ -22,13 +22,12 @@ const CategoryCard = ({ category }) => {
                 />
                 <Card.Body className='pb-2 w-100 p-0 pt-3'>
                     <Link to={`/categories/${category.slug}`} style={{ height: 27 }} className={`${styles.title} h5`}>{category.name}</Link>
-                    <Card.Text className='text-muted medium mt-2'>{category.description}</Card.Text>
                     <Card.Text>
-                        <div className="d-flex mt-3 pt-2">
-                            <span className='small fw-500 d-flex align-items-center'>
+                        <div className="d-flex flex-wrap mt-2">
+                            <span className='small fw-500 d-flex align-items-center pe-3'>
                                 <Database className='me-1' /> {category.noOfDataSources} {t('home.dataSources')}
                             </span>
-                            <span className='small fw-500 d-flex align-items-center ps-3'>
+                            <span className='small fw-500 d-flex align-items-center'>
                                 <Files className='me-1' /> 5.275.180 {t('home.dataAssets')}
                             </span>
                         </div>
