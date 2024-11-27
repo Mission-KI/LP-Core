@@ -1,0 +1,11 @@
+.title{
+    font-weight: 500 !important;
+    color: var(--color-primary) !important;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+}
+.title:hover{
+    text-decoration: underline !important;
+}

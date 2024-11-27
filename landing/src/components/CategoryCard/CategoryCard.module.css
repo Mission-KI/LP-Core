@@ -1,0 +1,7 @@
+.title{
+    font-weight: 500 !important;
+    color: var(--color-primary) !important;
+}
+.title:hover{
+    text-decoration: underline !important;
+}
