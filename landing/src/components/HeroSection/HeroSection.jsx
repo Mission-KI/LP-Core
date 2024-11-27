@@ -40,7 +40,7 @@ const HeroSection = () => {
                             <div className="col-md-6 pb-4">
                                 <div className={`card border ${styles.statsCard}`}>
                                     <div className="card-body py-3">
-                                        <div className="d-flex justify-content-between">
+                                        <div className="d-flex justify-content-between flex-wrap">
                                             <div className="">
                                                 <span className='text-muted medium d-flex align-items-center'><FileEarmarkZip className='me-2' /> {t('home.dataAssets')}</span>
                                                 <div className='d-flex align-items-center'>
@@ -59,11 +59,11 @@ const HeroSection = () => {
                             <div className="col-md-6 pb-4">
                                 <div className={`card border ${styles.statsCard}`}>
                                     <div className="card-body py-3">
-                                        <div className="d-flex justify-content-between">
+                                        <div className="d-flex justify-content-between flex-wrap">
                                             <div className="">
                                                 <span className='text-muted medium d-flex align-items-center'><Database className='me-2' /> {t('home.dataSpaces')}</span>
                                                 <div className='d-flex align-items-center'>
-                                                    <h2 className='bold mb-0'><AnimatedNumber value={45} duration={1000} /></h2>
+                                                    <h2 className='bold mb-0'><AnimatedNumber value={3} duration={1000} /></h2>
                                                     <span className='text-success fw-500 ps-2'><ArrowUpCircle /> 15%</span>
                                                 </div>
                                             </div>
