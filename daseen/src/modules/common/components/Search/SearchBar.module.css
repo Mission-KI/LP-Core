@@ -18,7 +18,3 @@
 .searchBarWrapper #searchBar{
     padding: .75rem 0rem !important;
 }
-
-.searchBarWrapper span:first-child {
-    padding-left: 1.3rem;
-}

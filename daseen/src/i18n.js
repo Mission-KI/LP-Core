@@ -110,6 +110,7 @@ i18n
             licenses: "Licenses",
             accessibility: "Accessibility",
             dataFormat: "Data Format",
+            hasDatetimeAttribute: "Has Datetime Attribute",
             fileSize: "File size",
             attributes: "Attributes",
             sizeRange: "Size range",

@@ -148,13 +148,24 @@ function Filters() {
             <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
                 <Filter className='me-2' /> <span className='medium fw-500'>{t('header.filters')}</span>
             </div>
-            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow px-2' style={{ width: 350, top: 0, left: 'unset', right: 0, transform: 'translate(0%, 50px)', zIndex: 1 }}>
+            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow px-2' style={{ top: 0, left: 'unset', right: 0, transform: 'translate(0%, 50px)', zIndex: 1 }}>
 
                 <div className={`${styles.filtersWrapper} row`}>
                     {filterSections.map((filterSection) => (
                         <FormGroup key={filterSection.title}
-                            className={`mb-4 ${filterSection.type === 'checkboxes' || filterSection.type === 'radio' ? 'col-md-6' : ''}`}>
-                            <label className='mb-2 small fw-500 text-uppercase'>{t(`filters.${filterSection.title}`)}</label>
+                            className={`mb-4 ${filterSection.type === 'checkboxes' || filterSection.type === 'radio'
+                                    ? 'col-md-6'
+                                    : filterSection.type === 'single_icon'
+                                        ? 'col-md-2'
+                                        : ''
+                                }`}>
+
+                            {filterSection.title && (
+                                <label className="mb-2 small fw-500 text-uppercase">
+                                    {t(`filters.${filterSection.title}`)}
+                                </label>
+                            )}
+
                             <div className='d-flex flex-wrap w-100 align-items-center py-1 position-relative'>
                                 {filterSection.type == 'checkboxes' ? (
                                     <Dropdown>
@@ -187,6 +198,25 @@ function Filters() {
                                             }
                                         </Dropdown.Menu>
                                     </Dropdown>
+                                ) : filterSection.type == 'single_icon' ? (
+                                    <div>
+                                        {
+                                            filterSection.filters.map((filter) => (
+                                                <button key={filter.value}
+                                                    type="button"
+                                                    className={`btn mb-2 ${checkedOptions[filter.label] ? 'text-black bold' : 'text-secondary'}`}
+                                                    id={`checkbox-${filter.value}`}
+                                                    name={filter.name}
+                                                    value={filter.value}
+                                                    checked={checkedOptions[filter.label] || false}
+                                                    onClick={() => handleCheckboxChange(filter)}
+                                                    autoComplete="off"
+                                                >
+                                                    {filter.icon}
+                                                </button>
+                                            ))
+                                        }
+                                    </div>
                                 ) : filterSection.type == 'doublerange' ? (
                                     <>
                                         {

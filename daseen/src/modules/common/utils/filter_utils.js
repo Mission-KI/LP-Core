@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getDataSpacesList } from "../api/elastic";
-import { LockFill, UnlockFill } from 'react-bootstrap-icons';
+import { LockFill, UnlockFill, Calendar, Activity, Sliders2, Clipboard, GraphUpArrow } from 'react-bootstrap-icons';
 
 export const useFilterSections = () => {
     // const [dataSpaces, setDataSpaces] = useState([]);
@@ -137,6 +137,71 @@ export const useFilterSections = () => {
                     name: "accessibility",
                     type: "radio",
                 }
+            ],
+        },
+        {
+            title: "",
+            type: "single_icon",
+            filters: [
+                {
+                    label: "hasDatetimeAttribute",
+                    icon: <><Calendar /></>,
+                    value: "true",
+                    name: "hasDatetimeAttribute",
+                    type: "checkbox",
+                },
+            ],
+        },
+        {
+            title: "",
+            type: "single_icon",
+            filters: [
+                {
+                    label: "hasTemporalFrequency",
+                    icon: <><Activity /></>,
+                    value: "true",
+                    name: "hasTemporalFrequency",
+                    type: "checkbox",
+                },
+            ],
+        },
+        {
+            title: "",
+            type: "single_icon",
+            filters: [
+                {
+                    label: "dataTypeConsistency",
+                    icon: <><Sliders2 /></>,
+                    value: "true",
+                    name: "dataTypeConsistency",
+                    type: "checkbox",
+                },
+            ],
+        },
+        {
+            title: "",
+            type: "single_icon",
+            filters: [
+                {
+                    label: "attributeConsistency",
+                    icon: <><Clipboard /></>,
+                    value: "true",
+                    name: "attributeConsistency",
+                    type: "checkbox",
+                },
+            ],
+        },
+        {
+            title: "",
+            type: "single_icon",
+            filters: [
+                {
+                    label: "significantVariance",
+                    icon: <><GraphUpArrow /></>,
+                    value: "true",
+                    name: "significantVariance",
+                    type: "checkbox",
+                },
             ],
         },
         {
