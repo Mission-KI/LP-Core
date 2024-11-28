@@ -142,7 +142,7 @@ function Filters() {
             <div onClick={toggleFiltersDropdown} className='rounded-lg hover pointer p-1'>
                 <Filter className='me-2' /> <span className='medium fw-500'>{t('header.filters')}</span>
             </div>
-            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow px-2' style={{ width: 350, top: 0, left: 'unset', right: 0, transform: 'translate(0%, 50px)' }}>
+            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow px-2' style={{ width: 350, top: 0, left: 'unset', right: 0, transform: 'translate(0%, 50px)', zIndex: 1 }}>
 
                 <div className={styles.filtersWrapper}>
                     {filterSections.map((filterSection) => (

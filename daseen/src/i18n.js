@@ -105,6 +105,7 @@ i18n
           },
           filters: {
             dataspace: 'Dataspace',
+            publisher: 'Publisher',
             licenses: "Licenses",
             dataFormat: "Data Format",
             fileSize: "File size",

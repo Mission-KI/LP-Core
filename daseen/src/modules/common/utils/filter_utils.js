@@ -28,6 +28,42 @@ export const useFilterSections = () => {
                     name: "dataSpace.name",
                     type: "checkbox",
                 },
+                {
+                    label: "Mobility Data Space",
+                    value: "Mobility Data Space",
+                    name: "dataSpace.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "mobilithek",
+                    value: "mobilithek",
+                    name: "dataSpace.name",
+                    type: "checkbox",
+                },
+            ]
+        },
+        {
+            title: "publisher",
+            type: "checkboxes",
+            filters: [
+                {
+                    label: "BASt",
+                    value: "BASt",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "Toll Collect",
+                    value: "Toll Collect",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "Autobahn GmbH",
+                    value: "Autobahn GmbH",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
             ]
         },
         {

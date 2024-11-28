@@ -1,7 +1,7 @@
 const imprintPolicy = {
     en: {
         fullContent: `
-            <h2 class='d-flex justify-content-center'>Imprint</h2>
+            <h2 class='bold'>Imprint</h2><br><br>
             <p><strong>Name and legal form:</strong> beebucket GmbH</p>
             <p><strong>Address:</strong> Neunkirchenweg 22, 89077 Ulm, Germany</p>
             <p><strong>Phone number:</strong> +49-731-7903 8050</p>
@@ -22,7 +22,7 @@ const imprintPolicy = {
     },
     de: {
         fullContent: `
-            <h2 class='d-flex justify-content-center'>Impressum</h2>
+            <h2 class='bold'>Impressum</h2><br><br>
             <p><strong>Name und Rechtsform:</strong> beebucket GmbH</p>
             <p><strong>Anschrift:</strong> Neunkirchenweg 22, 89077 Ulm, Germany</p>
             <p><strong>Telefonnummer:</strong> +49-731-7903 8050</p>

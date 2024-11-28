@@ -19,6 +19,12 @@ const Header = () => {
                     <Nav.Link as={NavLink} to="/privacy-policy" className="me-3">
                         {t('header.privacyPolicy')}
                     </Nav.Link>
+                    <Nav.Link as={NavLink} to="/imprint" className="me-3">
+                        {t('header.imprint')}
+                    </Nav.Link>
+                    <Nav.Link as={NavLink} to="/use-policy" className="me-3">
+                        {t('header.usePolicy')}
+                    </Nav.Link>
                     <LanguageSelector />
 
                 </Nav>

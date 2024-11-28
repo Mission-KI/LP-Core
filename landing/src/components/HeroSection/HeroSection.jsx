@@ -78,7 +78,7 @@ const HeroSection = () => {
                                 <div className={`card border ${styles.statsCard}`}>
                                     <div className="card-body py-3">
                                         <span className='text-muted medium d-flex align-items-center'><PersonCheck className='me-2' /> {t('home.dataPublishers')}</span>
-                                        <h2 className='bold mb-0'><AnimatedNumber value={25} duration={1000} /></h2>
+                                        <h2 className='bold mb-0'><AnimatedNumber value={5} duration={1000} /></h2>
                                     </div>
                                 </div>
                             </div>
