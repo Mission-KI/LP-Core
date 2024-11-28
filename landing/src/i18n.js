@@ -56,6 +56,12 @@ i18n
             realestate: "Real estate and finance",
             noItems: "Unfortunately there is no data available for this category yet."
           },
+          footer: {
+            c: "© beebucket 2024",
+            imprint: "Imprint",
+            privacyPolicy: "Data Privacy Policy",
+            usePolicy: "Acceptable Use Policy"
+          },
           imprint: imprintPolicy.en,
           acceptableUsePolicy: acceptableUsePolicy.en,
           privacyPolicy: privacyPolicy.en,
@@ -98,6 +104,12 @@ i18n
             education: "Bildung, Forschung und Wissenschaft",
             realestate: "Immobilien und Finanzen",
             noItems: "Es sind leider noch keine Daten für diese Kategorie vorhanden."
+          },
+          footer: {
+            c: "© beebucket 2024",
+            imprint: "Impressum",
+            privacyPolicy: "Datenschutzerklärung",
+            usePolicy: "Nutzungsrichtlinien"
           },
           imprint: imprintPolicy.en,
           acceptableUsePolicy: acceptableUsePolicy.en,

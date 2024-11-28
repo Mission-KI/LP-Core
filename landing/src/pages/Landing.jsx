@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { TilesContainer } from "react-tiles-dnd";
 import "../../node_modules/react-tiles-dnd/esm/index.css";
 import { useLocation } from 'react-router';
+import Footer from '../components/Footer/Footer';
 
 const LOCAL_STORAGE_KEY = "userCategoriesOrder?v=2";
 
@@ -64,8 +65,10 @@ const Landing = () => {
                         onReorderTiles={onReorderTiles}
                     />
                 </div>
-            </div>
 
+                <Footer />
+
+            </div>
 
         </>
 

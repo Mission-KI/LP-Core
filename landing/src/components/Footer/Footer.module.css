@@ -1,0 +1,4 @@
+.footer {
+    border-top: 1px solid var(--color-light-gray) !important;
+    margin-top: 3rem;
+}
