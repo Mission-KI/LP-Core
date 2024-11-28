@@ -79,13 +79,36 @@ const QualityMetrics = ({ dataset }) => {
                 </OverlayTrigger>
             </div>
             <div className="ps-2">
-                <span
-                    className={`asset-processing-status ${dataset._source.assetProcessingStatus === 'Original Data' ? 'danger' :
-                        dataset._source.assetProcessingStatus === 'Processed Data' ? 'warning' :
-                            dataset._source.assetProcessingStatus === 'Refined Data' ? 'success' : 'primary'}`}
+                <OverlayTrigger
+                    placement="top"
+                    overlay={
+                        <Tooltip>
+                            {dataset._source.assetProcessingStatus === 'Original Data'
+                                ? 'Unverarbeitete, direkt aus den Quellen stammende Daten'
+                                : dataset._source.assetProcessingStatus === 'Processed Data'
+                                    ? 'Redefinierte, konvertierte und semantisch bereinigte sowie transformierte Daten, die eine verbesserte Struktur und höhere Konsistenz aufweisen'
+                                    : dataset._source.assetProcessingStatus === 'Refined Data'
+                                        ? 'Feature Engineered und aggregierte Daten. Optimierte und zusammengefasste Datensätze für KI-Training'
+                                        : dataset._source.assetProcessingStatus === 'KI/ML Data'
+                                            ? 'KI/ML generierte Ergebnisdatensätze'
+                                            : 'Unbekannter Datenstatus'}
+                        </Tooltip>
+                    }
                 >
-                    {dataset._source.assetProcessingStatus}
-                </span>
+                    <span
+                        className={`asset-processing-status ${dataset._source.assetProcessingStatus === 'Original Data'
+                                ? 'danger'
+                                : dataset._source.assetProcessingStatus === 'Processed Data'
+                                    ? 'warning'
+                                    : dataset._source.assetProcessingStatus === 'Refined Data'
+                                        ? 'success'
+                                        : 'primary'
+                            }`}
+                    >
+                        {dataset._source.assetProcessingStatus}
+                    </span>
+                </OverlayTrigger>
+
             </div>
         </div>
     );
