@@ -52,7 +52,7 @@ i18n
             culture: "Culture and media",
             education: "Education, research and science",
             realestate: "Real estate and finance",
-            noDataSpaces: "No dataspaces available for this category."
+            noItems: "Unfortunately there is no data available for this category yet."
           },
           imprint: imprintPolicy.en,
           acceptableUsePolicy: acceptableUsePolicy.en,
@@ -93,7 +93,7 @@ i18n
             culture: "Kultur und Medien",
             education: "Bildung, Forschung und Wissenschaft",
             realestate: "Immobilien und Finanzen",
-            noDataSpaces: "Keine Datenräume für diese Kategorie verfügbar."
+            noItems: "Es sind leider noch keine Daten für diese Kategorie vorhanden."
           },
           imprint: imprintPolicy.en,
           acceptableUsePolicy: acceptableUsePolicy.en,

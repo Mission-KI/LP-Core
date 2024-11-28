@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import DataspaceCard from '../../components/DataspaceCard/DataspaceCard';
-import { useDataSpaces } from '../../utils/dataspaces';
 import { useParams } from "react-router";
 import { TilesContainer } from "react-tiles-dnd";
 import "../../../node_modules/react-tiles-dnd/esm/index.css";
@@ -8,13 +7,13 @@ import { useLocation } from 'react-router';
 import { useCategories } from '../../utils/categories';
 import { useTranslation } from 'react-i18next';
 
-const LOCAL_STORAGE_KEY = "userDataSpacesOrder?v=2";
 
 const Category = () => {
-    const { slug } = useParams();
+    const { category_slug } = useParams();
+    const LOCAL_STORAGE_KEY = category_slug+"dataspaces-order?v=2";
     const [dataSpaces, setDataSpaces] = useState([]);
     const { getCategoryBySlug } = useCategories();
-    const category = getCategoryBySlug(slug);
+    const category = getCategoryBySlug(category_slug);
     const { t } = useTranslation();
 
     const initialDataSpaces = category.dataspaces;
@@ -45,7 +44,7 @@ const Category = () => {
     };
 
     const renderTileFunction = ({ data, isDragging }) => (
-        <DataspaceCard dataSpace={data} isDragging={isDragging} />
+        <DataspaceCard dataSpace={data} category={category} isDragging={isDragging} />
     );
 
     return (
@@ -64,7 +63,7 @@ const Category = () => {
                     />
                 ) : (
                     <div className="">
-                        <p className="text-muted">{t('categories.noDataSpaces')}</p>
+                        <p className="text-muted">{t('categories.noItems')}</p>
                     </div>
                 )}
             </div>

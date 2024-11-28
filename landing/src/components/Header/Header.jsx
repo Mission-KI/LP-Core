@@ -24,7 +24,7 @@ const Header = () => {
                 </Nav>
                 <Nav className="ms-auto">
                     <div className="ps-2">
-                        <a href="https://app-daseen-redesign.netlify.app/register" className="btn btn-primary">{t('auth.signUp')}</a>
+                        <a href="https://app-daseen-redesign.netlify.app/register" className="btn btn-primary fw-500">{t('auth.signUp')}</a>
                     </div>
                 </Nav>
             </Container>

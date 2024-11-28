@@ -4,15 +4,16 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router';
 import styles from './DataspaceCard.module.css'
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
-const DataspaceCard = ({ dataSpace }) => {
+const DataspaceCard = ({ dataSpace, category }) => {
 
     const navigate = useNavigate();
     const { t } = useTranslation();
 
     return (
         <div className={`mb-5 px-2`}>
-            <Card className={`h-100 rounded pointer shadow-sm py-3 ${styles.card} `} onClick={() => navigate('/?q=' + dataSpace.shortName)}>
+            <Card className={`h-100 rounded pointer shadow-sm pt-4 px-2 ${styles.card}`}>
                 <Card.Img
                     variant='top'
                     src={dataSpace.image}
@@ -20,8 +21,8 @@ const DataspaceCard = ({ dataSpace }) => {
                     style={{ height: 58, objectFit: 'contain' }}
                     draggable={false}
                 />
-                <Card.Body className='pb-2 w-100 pt-3'>
-                    <a href={`https://app-daseen-redesign.netlify.app/?q=${dataSpace.name}`} className={`${styles.title} h5 mb-0`}>{dataSpace.name}</a>
+                <Card.Body className='pb-2 w-100 pt-3 px-4'>
+                    <Link to={`/categories/${category.slug}/${dataSpace.slug}`} className={`${styles.title} h5 mb-0`}>{dataSpace.name}</Link>
                     <Card.Text>
                         <div className="d-flex justify-content-center mt-2">
                             <span className='small d-flex align-items-center'>

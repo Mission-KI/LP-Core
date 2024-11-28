@@ -32,12 +32,14 @@ export const useCategories = () => {
                 {
                     "id": 1,
                     "name": "GovData",
+                    "slug": 'govdata',
                     "image": govdata,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 14211,
                     "publishers": [
                         {
                             "name": "BASt",
+                            "image": bast,
                             "highlighted": true,
                             "amount_of_assets": 14211
                         }
@@ -46,17 +48,20 @@ export const useCategories = () => {
                 {
                     "id": 2,
                     "name": "mobilithek",
+                    "slug": 'mobilithek',
                     "image": mobilithek,
                     "amount_of_publishers": 2,
                     "amount_of_assets": 2,
                     "publishers": [
                         {
                             "name": "Toll Collect",
+                            "image": collect,
                             "highlighted": true,
                             "amount_of_assets": 0
                         },
                         {
                             "name": "Autobahn GmbH",
+                            "image": autobahn,
                             "highlighted": true,
                             "amount_of_assets": 2
                         }
@@ -93,6 +98,7 @@ export const useCategories = () => {
                 {
                     "id": 1,
                     "name": "GovData",
+                    "slug": 'govdata',
                     "image": govdata,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 4953,
@@ -117,6 +123,7 @@ export const useCategories = () => {
                 {
                     "id": 1,
                     "name": "GovData",
+                    "slug": 'govdata',
                     "image": govdata,
                     "amount_of_publishers": 7,
                     "amount_of_assets": 30082,
@@ -211,5 +218,13 @@ export const useCategories = () => {
         return categories.find(category => category.slug === slug);
     };
 
-    return { categories, getCategoryBySlug };
+    const getDataspaceByCategoryAndSlug = (categorySlug, dataspaceSlug) => {
+        const category = categories.find(category => category.slug === categorySlug);
+        if (!category) return null;
+
+        const dataspace = category.dataspaces.find(dataspace => dataspace.slug === dataspaceSlug);
+        return dataspace || null;
+    };
+
+    return { categories, getCategoryBySlug, getDataspaceByCategoryAndSlug };
 };
