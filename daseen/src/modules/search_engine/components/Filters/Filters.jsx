@@ -63,7 +63,9 @@ function Filters() {
                 }
 
                 if (filter.type === 'radio') {
-                    newCheckedRadios[filter.name] = queryParams[filter.name]?.[0] || '';
+                    if (queryParams[filter.name]?.[0] === filter.value) {
+                        newCheckedRadios[filter.name] = filter.value;
+                    }
                 }
             });
         });
@@ -115,13 +117,17 @@ function Filters() {
         updateDoubleRangeParams(filter.name_1, filter.name_2, values);
     };
 
-    const handleRadioChange = (filter, value) => {
+    const handleRadioChange = (filter) => {
+        const params = new URLSearchParams(location.search);
+        params.delete(filter.name);
+        params.set(filter.name, filter.value);
         setCheckedRadios((prev) => ({
             ...prev,
-            [filter.name]: value,
+            [filter.name]: filter.value,
         }));
-        updateQueryParams(filter.name, value, true);
+        navigate(`/?${params.toString()}`, { replace: true });
     };
+
 
     const handleClickOutside = (event) => {
         if (filtersDropdownVisible && dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -147,7 +153,7 @@ function Filters() {
                 <div className={`${styles.filtersWrapper} row`}>
                     {filterSections.map((filterSection) => (
                         <FormGroup key={filterSection.title}
-                            className={`mb-4 ${filterSection.type === 'checkboxes' ? 'col-md-6' : ''}`}>
+                            className={`mb-4 ${filterSection.type === 'checkboxes' || filterSection.type === 'radio' ? 'col-md-6' : ''}`}>
                             <label className='mb-2 small fw-500 text-uppercase'>{t(`filters.${filterSection.title}`)}</label>
                             <div className='d-flex flex-wrap w-100 align-items-center py-1 position-relative'>
                                 {filterSection.type == 'checkboxes' ? (
@@ -247,18 +253,18 @@ function Filters() {
                                     : filterSection.type === 'radio' ? (
                                         <>
                                             {
-                                                filterSection.filters.map((filter) => (
-                                                    <div className='d-flex py-1'>
-                                                        <input
-                                                            type='radio'
-                                                            name={filter.name}
-                                                            value={filter.value}
-                                                            checked={checkedRadios[filter.name] === filter.value}
-                                                            onChange={() => handleRadioChange(filter, filter.value)}
-                                                        />
-                                                        <label className='medium ps-2 text-muted'>{filter.label}</label>
-                                                    </div>
-                                                ))
+                                                <div className="d-flex flex-wrap">
+                                                    {filterSection.filters.map((filter) => (
+                                                        <button
+                                                            key={filter.value}
+                                                            type="button"
+                                                            className={`btn mb-2 ${checkedRadios[filter.name] === filter.value ? 'text-black bold' : 'text-secondary'}`}
+                                                            onClick={() => handleRadioChange(filter)}
+                                                        >
+                                                            {filter.label}
+                                                        </button>
+                                                    ))}
+                                                </div>
                                             }
                                         </>
                                     ) : ''}

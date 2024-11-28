@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getDataSpacesList } from "../api/elastic";
+import { LockFill, UnlockFill } from 'react-bootstrap-icons';
 
 export const useFilterSections = () => {
     // const [dataSpaces, setDataSpaces] = useState([]);
@@ -118,6 +119,24 @@ export const useFilterSections = () => {
                     name: "dataTypes",
                     type: "checkbox",
                 },
+            ],
+        },
+        {
+            title: "accessibility",
+            type: "radio",
+            filters: [
+                {
+                    label: <><UnlockFill /></>,
+                    value: "unlocked",
+                    name: "accessibility",
+                    type: "radio",
+                },
+                {
+                    label: <><LockFill /></>,
+                    value: "locked",
+                    name: "accessibility",
+                    type: "radio",
+                }
             ],
         },
         {

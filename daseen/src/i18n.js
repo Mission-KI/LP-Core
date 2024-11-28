@@ -108,6 +108,7 @@ i18n
             publisher: 'Publisher',
             assetProcessingStatus: "Asset processing",
             licenses: "Licenses",
+            accessibility: "Accessibility",
             dataFormat: "Data Format",
             fileSize: "File size",
             attributes: "Attributes",
