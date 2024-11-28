@@ -81,7 +81,7 @@ body {
 }
 
 .medium {
-  font-size: 9.5pt !important;
+  font-size: 11pt !important;
 }
 
 .small {
@@ -230,11 +230,6 @@ li.disabled,
 .form-check-input:checked {
   background-color: var(--color-primary) !important;
   border-color: var(--color-primary) !important;
-}
-
-.rc-slider-track,
-.rc-slider-tracks {
-  background-color: var(--color-primary) !important;
 }
 
 .w-33 {

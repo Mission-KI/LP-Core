@@ -77,7 +77,7 @@ body {
 }
 
 .medium {
-  font-size: 9.5pt !important;
+  font-size: 11pt !important;
 }
 
 .small {
@@ -263,6 +263,10 @@ p.two-words::after {
 .rc-slider-track,
 .rc-slider-tracks {
   background-color: var(--color-primary) !important;
+}
+
+.rc-slider-handle{
+  border-color: var(--color-primary) !important;
 }
 
 .w-33 {

@@ -144,9 +144,10 @@ function Filters() {
             </div>
             <Dropdown.Menu ref={dropdownRef} className='border-0 shadow px-2' style={{ width: 350, top: 0, left: 'unset', right: 0, transform: 'translate(0%, 50px)', zIndex: 1 }}>
 
-                <div className={styles.filtersWrapper}>
+                <div className={`${styles.filtersWrapper} row`}>
                     {filterSections.map((filterSection) => (
-                        <FormGroup key={filterSection.title} className='mb-4'>
+                        <FormGroup key={filterSection.title}
+                            className={`mb-4 ${filterSection.type === 'checkboxes' ? 'col-md-6' : ''}`}>
                             <label className='mb-2 small fw-500 text-uppercase'>{t(`filters.${filterSection.title}`)}</label>
                             <div className='d-flex flex-wrap w-100 align-items-center py-1 position-relative'>
                                 {filterSection.type == 'checkboxes' ? (
@@ -232,7 +233,7 @@ function Filters() {
                                                         </div>
 
                                                         <div className='d-flex justify-content-around mt-2'>
-                                                            <span className='small text-muted'>KB</span>
+                                                            <span className='small text-muted p-0'>KB</span>
                                                             <span className='small text-muted'>MB</span>
                                                             <span className='small text-muted'>GB</span>
                                                             <span className='small text-muted'>TB</span>
@@ -275,7 +276,7 @@ function Filters() {
                     </div>
                 </div>
             </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown >
     );
 }
 

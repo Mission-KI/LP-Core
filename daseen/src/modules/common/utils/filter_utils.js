@@ -67,6 +67,36 @@ export const useFilterSections = () => {
             ]
         },
         {
+            title: "assetProcessingStatus",
+            type: "checkboxes",
+            filters: [
+                {
+                    label: "Original Data",
+                    value: "Original Data",
+                    name: "assetProcessingStatus",
+                    type: "checkbox",
+                },
+                {
+                    label: "Processed Data",
+                    value: "Processed Data",
+                    name: "assetProcessingStatus",
+                    type: "checkbox",
+                },
+                {
+                    label: "Refined Data",
+                    value: "Refined Data",
+                    name: "assetProcessingStatus",
+                    type: "checkbox",
+                },
+                {
+                    label: "AI/ML Result Data",
+                    value: "AI/ML Result Data",
+                    name: "assetProcessingStatus",
+                    type: "checkbox",
+                },
+            ]
+        },
+        {
             title: "licenses",
             type: "checkboxes",
             filters: [

@@ -106,6 +106,7 @@ i18n
           filters: {
             dataspace: 'Dataspace',
             publisher: 'Publisher',
+            assetProcessingStatus: "Asset processing",
             licenses: "Licenses",
             dataFormat: "Data Format",
             fileSize: "File size",
