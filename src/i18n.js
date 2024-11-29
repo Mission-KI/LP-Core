@@ -266,7 +266,7 @@ i18n
           imprint: imprintPolicy.de,
           acceptableUsePolicy: acceptableUsePolicy.de,
           privacyPolicy: privacyPolicy.de,
-          maintenance: "Daseen is under maintainance and will be back at 5 pm"
+          maintenance: "Daseen befindet sich in Wartung und wird ab 17 Uhr wieder verfügbar sein."
         }
       },
     }

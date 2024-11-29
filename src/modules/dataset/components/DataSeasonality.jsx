@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import ImageView from '../../common/components/Header/ImageView/ImageView';
 import SeasonalityDetailView from './SeasonalityDetailView';
+import { imageBasePath } from '../../common/api/config';
 
 function DataSeasonality({ datasetDetails }) {
     const [selectedTab, setSelectedTab] = useState('Original Timeseries');
@@ -69,7 +70,7 @@ function DataSeasonality({ datasetDetails }) {
                                         <span className='text-muted small'>{column.name} Original Timeseries</span>
                                         <div className="row mb-3">
                                             <div className='col-md-12'>
-                                                <img src={column?.original_series?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
+                                                <img src={imageBasePath + column?.original_series?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
                                             </div>
                                         </div>
                                     </div>
@@ -92,7 +93,7 @@ function DataSeasonality({ datasetDetails }) {
                                         <span className='text-muted small'>{column.name} Trend</span>
                                         <div className="row mb-3">
                                             <div className='col-md-12'>
-                                                <img src={column?.trends?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
+                                                <img src={imageBasePath + column?.trends?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
                                             </div>
                                         </div>
                                     </div>
@@ -115,7 +116,7 @@ function DataSeasonality({ datasetDetails }) {
                                         <span className='text-muted small'>{column.name} Seasonality</span>
                                         <div className="row mb-3">
                                             <div className='col-md-12'>
-                                                <img src={column?.seasonalities?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
+                                                <img src={imageBasePath + column?.seasonalities?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
                                             </div>
                                         </div>
                                     </div>
@@ -138,7 +139,7 @@ function DataSeasonality({ datasetDetails }) {
                                         <span className='text-muted small'>{column.name} Residuals / Outliers</span>
                                         <div className="row mb-3">
                                             <div className='col-md-12'>
-                                                <img src={column?.residuals?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
+                                                <img src={imageBasePath + column?.residuals?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
                                             </div>
                                         </div>
                                     </div>
