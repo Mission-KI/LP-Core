@@ -49,7 +49,7 @@ function ResultItem({ dataset }) {
             href={`https://${dataset._source?.publisher?.url}`}
             target='_blank'
             rel='noopener noreferrer'
-            className='small text-decoration-underline pe-3'
+            className='small text-muted text-decoration-underline pe-3'
           >
             {dataset._source?.publisher?.name}
           </a>
@@ -68,7 +68,7 @@ function ResultItem({ dataset }) {
           </span>
         </div>
       </div>
-      <div>
+      <div className={styles.optionsDropdownWrapper}>
         <DatasetOptionsDropdown
           dataset={dataset}
           isBookmarkedState={isBookmarkedState}

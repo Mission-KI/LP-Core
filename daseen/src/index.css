@@ -370,23 +370,23 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
 }
 
 .asset-processing-status.warning {
-  background-color: rgba(243, 255, 112, 0.408);
-  border-color: var(--bs-warning)
+  background-color: rgba(248, 255, 173, 0.408);
+  border-color: rgba(248, 255, 173, 0.627);
 }
 
 .asset-processing-status.danger {
-  background-color: rgba(255, 112, 112, 0.408);
-  border-color: var(--bs-danger)
+  background-color: rgba(255, 175, 175, 0.408);
+  border-color: rgba(255, 175, 175, 0.627)
 }
 
 .asset-processing-status.success {
-  background-color: rgba(112, 255, 148, 0.408);
-  border-color: var(--bs-success)
+  background-color: rgba(167, 255, 189, 0.408);
+  border-color: rgba(167, 255, 189, 0.568);
 }
 
 .asset-processing-status.primary {
-  background-color: rgba(112, 203, 255, 0.408);
-  border-color: var(--color-primary)
+  background-color: rgba(159, 220, 255, 0.408);
+  border-color: rgba(159, 220, 255, 0.599);
 }
 
 .header-container {

@@ -27,8 +27,8 @@ function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedSta
 
     return (
         <Dropdown>
-            <Dropdown.Toggle as="div" className="btn hover-lg rounded-circle px-2 py-1 m-0 pointer">
-                <ThreeDotsVertical className='text-muted' />
+            <Dropdown.Toggle as="div" className="btn hover-lg bg-light rounded-circle px-2 py-1 m-0 pointer">
+                <ThreeDotsVertical />
             </Dropdown.Toggle>
 
             <Dropdown.Menu className='border-0 shadow'>

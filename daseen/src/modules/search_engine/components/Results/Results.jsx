@@ -6,21 +6,11 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { useTranslation } from 'react-i18next';
 import Paginator from '../../../common/components/widgets/Paginator';
-import { getTotalCount } from '../../../common/api/elastic';
 import ResultItemCard from './ResultItemCard';
 
 function Results({ datasets, loading, pageCount, handlePageChange, currentPage }) {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('list');
-    const [totalDatasetCount, setTotalDatasetCount] = useState(0);
-
-    useEffect(() => {
-        const getTotalDatasetCount = async () => {
-            const totalCount = await getTotalCount();
-            setTotalDatasetCount(totalCount);
-        }
-        getTotalDatasetCount();
-    }, []);
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
@@ -40,7 +30,7 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
                 <div>
 
                     <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>
-                        {(datasets.hits?.total?.value === 10000 ? totalDatasetCount : datasets.hits?.total?.value)?.toLocaleString()} {t('dataset.datasets')}
+                        {datasets.hits?.total?.value >= 10000 ? `> ${datasets.hits.total.value.toLocaleString()}` : datasets.hits?.total?.value?.toLocaleString()} {t('dataset.datasets')}
                     </span>
 
                     {datasets?.hits?.hits?.map((dataset) =>

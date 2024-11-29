@@ -5,6 +5,14 @@
     width: 100%;
 }
 
+.resultItem .optionsDropdownWrapper{
+    display: none;
+}
+
+.resultItem:hover .optionsDropdownWrapper{
+    display: block;
+}
+
 .title {
     font-weight: 500 !important;
     font-size: 13.5pt;
