@@ -1,6 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingLayout from "./modules/common/layouts/LandingLayout";
 import AppLayout from "./modules/common/layouts/AppLayout";
+import bcrypt from 'bcryptjs';
 import searchEngineRoutes from "./modules/search_engine";
 import datasetRoutes from "./modules/dataset";
 import legalRoutes from './modules/legal';
@@ -12,6 +14,11 @@ import authRoutes from './modules/authentication';
 import bookmarkRoutes from './modules/bookmarks';
 import { AuthProvider } from './modules/common/contexts/AuthContext';
 import supportRoutes from './modules/support';
+import Maintenance from './modules/common/pages/Maintenance';
+
+// Predefined hashed password
+const salt = bcrypt.genSaltSync(10);
+const HASHED_PASSWORD = "$2a$10$K/Vl.BTkkYAcVdnwp4UyJ.i5mbHnZSlZygI9Zymwp15pfBRDHT68.";
 
 const routes = [
   {
@@ -64,6 +71,23 @@ const renderRoutes = (routes) => {
 };
 
 function App() {
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const handleEnter = () => {
+    if (bcrypt.compareSync(password, HASHED_PASSWORD)) {
+      setIsAuthenticated(true);
+    } else {
+      setError('Incorrect password. Please try again.');
+    }
+  };
+  if (!isAuthenticated) {
+    return (
+      <Maintenance handleEnter={handleEnter} password={password} setPassword={setPassword} error={error} />
+    );
+  }
+
   return (
     <Router>
       <AuthProvider>

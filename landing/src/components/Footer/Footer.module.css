@@ -5,4 +5,5 @@
 
 .footerLink{
     font-size: 10pt !important;
+    color: var(--color-text-lighter) !important;
 }

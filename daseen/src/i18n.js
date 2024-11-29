@@ -137,7 +137,8 @@ i18n
             emailPlaceholder: "Enter your email",
             password: "Password",
             dev: "Authentication feature is currently in development."
-          }
+          },
+          maintenance: "Daseen is under maintenance and will be back at 5 pm"
         }
       },
       de: {
@@ -259,7 +260,8 @@ i18n
             emailPlaceholder: "Geben Sie Ihre E-Mail-Adresse ein",
             password: "Passwort",
             dev: "Die Authentifizierungsfunktion befindet sich derzeit in Entwicklung."
-          }
+          },
+          maintenance: "Daseen befindet sich in Wartung und wird ab 17 Uhr wieder verfügbar sein."
         }
       },
     }
