@@ -127,14 +127,14 @@ export const useFilterSections = () => {
             filters: [
                 {
                     label: <><UnlockFill /></>,
-                    value: "unlocked",
-                    name: "accessibility",
+                    value: true,
+                    name: "freely_available",
                     type: "radio",
                 },
                 {
                     label: <><LockFill /></>,
-                    value: "locked",
-                    name: "accessibility",
+                    value: false,
+                    name: "freely_available",
                     type: "radio",
                 }
             ],
