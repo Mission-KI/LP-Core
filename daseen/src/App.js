@@ -71,23 +71,6 @@ const renderRoutes = (routes) => {
 };
 
 function App() {
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const handleEnter = () => {
-    if (bcrypt.compareSync(password, HASHED_PASSWORD)) {
-      setIsAuthenticated(true);
-    } else {
-      setError('Incorrect password. Please try again.');
-    }
-  };
-  if (!isAuthenticated) {
-    return (
-      <Maintenance handleEnter={handleEnter} password={password} setPassword={setPassword} error={error} />
-    );
-  }
-
   return (
     <Router>
       <AuthProvider>

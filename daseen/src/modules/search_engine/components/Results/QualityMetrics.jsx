@@ -7,21 +7,34 @@ import DataTypeConsestencyMetricIcon from '../../../common/assets/img/metric_ico
 import AttributeConsestencyMetricIcon from '../../../common/assets/img/metric_icons/attribute-consistant_w.png';
 import SignificantVarianceMetricIcon from '../../../common/assets/img/metric_icons/significant-variance_w.png';
 import { calculateAttributeConsistency } from "../../../dataset/utils/calculations";
-// import { Lock, Gear, ClipboardCheck, Soundwave, Calendar, Broadcast } from "react-bootstrap-icons";
+import { Unlock, Gear, ClipboardCheck, Soundwave, Calendar, Broadcast, Activity, Sliders2, Sliders2Vertical, Lock } from "react-bootstrap-icons";
 
 const QualityMetrics = ({ dataset }) => {
     return (
         <div className='d-flex'>
-            <div className="">
-                <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip>Open access</Tooltip>}
-                >
-                    <div>
-                        <LockOpenMetricIcon />
-                    </div>
-                </OverlayTrigger>
-            </div>
+            {dataset?._source?.freely_available ? (
+                <div className="">
+                    <OverlayTrigger
+                        placement="top"
+                        overlay={<Tooltip>Open access</Tooltip>}
+                    >
+                        <div>
+                            <Unlock />
+                        </div>
+                    </OverlayTrigger>
+                </div>
+            ) : (
+                <div className="">
+                    <OverlayTrigger
+                        placement="top"
+                        overlay={<Tooltip>Open access</Tooltip>}
+                    >
+                        <div>
+                            <Lock />
+                        </div>
+                    </OverlayTrigger>
+                </div>
+            )}
             {dataset?._source?.structuredDatasets[0]?.datetimeColumnCount > 0 && (
                 <div className="ps-2">
                     <OverlayTrigger
@@ -29,7 +42,7 @@ const QualityMetrics = ({ dataset }) => {
                         overlay={<Tooltip>Date time attribute</Tooltip>}
                     >
                         <div>
-                            <img src={datetimeImg} style={{ height: 22 }} />
+                            <Calendar />
                         </div>
                     </OverlayTrigger>
                 </div>
@@ -41,7 +54,7 @@ const QualityMetrics = ({ dataset }) => {
                         overlay={<Tooltip>Temporal frequency</Tooltip>}
                     >
                         <div>
-                            <TemporalFrequencyMetricIcon />
+                            <Soundwave />
                         </div>
                     </OverlayTrigger>
                 </div>
@@ -52,7 +65,7 @@ const QualityMetrics = ({ dataset }) => {
                     overlay={<Tooltip>Data type consistency</Tooltip>}
                 >
                     <div>
-                        <img src={DataTypeConsestencyMetricIcon} style={{ height: 16 }} />
+                        <Sliders2Vertical />
                     </div>
                 </OverlayTrigger>
             </div>
@@ -63,7 +76,7 @@ const QualityMetrics = ({ dataset }) => {
                         overlay={<Tooltip>Attribute consistency</Tooltip>}
                     >
                         <div>
-                            <img src={AttributeConsestencyMetricIcon} style={{ height: 16 }} />
+                            <Sliders2 />
                         </div>
                     </OverlayTrigger>
                 </div>
@@ -74,7 +87,7 @@ const QualityMetrics = ({ dataset }) => {
                     overlay={<Tooltip>Significant variance</Tooltip>}
                 >
                     <div>
-                        <img src={SignificantVarianceMetricIcon} style={{ height: 14 }} />
+                        <Activity />
                     </div>
                 </OverlayTrigger>
             </div>
@@ -97,12 +110,12 @@ const QualityMetrics = ({ dataset }) => {
                 >
                     <span
                         className={`asset-processing-status ${dataset._source.assetProcessingStatus === 'Original Data'
-                                ? 'danger'
-                                : dataset._source.assetProcessingStatus === 'Processed Data'
-                                    ? 'warning'
-                                    : dataset._source.assetProcessingStatus === 'Refined Data'
-                                        ? 'success'
-                                        : 'primary'
+                            ? 'danger'
+                            : dataset._source.assetProcessingStatus === 'Processed Data'
+                                ? 'warning'
+                                : dataset._source.assetProcessingStatus === 'Refined Data'
+                                    ? 'success'
+                                    : 'primary'
                             }`}
                     >
                         {dataset._source.assetProcessingStatus}

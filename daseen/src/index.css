@@ -267,6 +267,8 @@ p.two-words::after {
 
 .rc-slider-handle{
   border-color: var(--color-primary) !important;
+  border-radius: 0 !important;
+  width: 1px !important;
 }
 
 .w-33 {
