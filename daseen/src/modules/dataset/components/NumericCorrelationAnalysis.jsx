@@ -1,5 +1,6 @@
 import React from 'react'
 import ImageView from '../../common/components/ImageView/ImageView'
+import { imageBasePath } from '../../common/api/config';
 
 function NumericCorrelationAnalysis({ datasetDetails }) {
     const correlationGraphUrl = datasetDetails?._source?.structuredDatasets[0]?.correlationGraph;
@@ -7,7 +8,7 @@ function NumericCorrelationAnalysis({ datasetDetails }) {
     return (
         <>
             {correlationGraphUrl ? (
-                <ImageView url={correlationGraphUrl} />
+                <ImageView url={imageBasePath + correlationGraphUrl} />
             ) : ''}
         </>
     );

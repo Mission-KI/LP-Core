@@ -4,6 +4,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import ImageView from '../../common/components/ImageView/ImageView';
 import $ from 'jquery';
 import { useTranslation } from 'react-i18next';
+import { imageBasePath } from '../../common/api/config';
 
 function StringValueDistribution({ datasetDetails }) {
     const [defaultTab, setDefaultTab] = useState('graphics');
@@ -49,7 +50,7 @@ function StringValueDistribution({ datasetDetails }) {
                         {datasetDetails?._source?.structuredDatasets[0]?.stringColumns.map((column, index) => (
                             column.distributionGraph && (
                                 <div className='col-md-3' key={index}>
-                                    <ImageView url={column.distributionGraph} />
+                                    <ImageView url={imageBasePath + column.distributionGraph} />
                                 </div>
                             )))}
                     </div>

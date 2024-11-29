@@ -4,6 +4,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import $ from 'jquery';
 import ImageView from '../../common/components/ImageView/ImageView';
 import { useTranslation } from 'react-i18next';
+import { imageBasePath } from '../../common/api/config';
 
 function NumericValueDistribution({ datasetDetails }) {
     useEffect(() => {
@@ -36,7 +37,7 @@ function NumericValueDistribution({ datasetDetails }) {
                         {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column) => (
                             column.distributionGraph && (
                                 <div className='col-md-3' key={column.name}>
-                                    <ImageView url={column.distributionGraph} />
+                                    <ImageView url={imageBasePath + column.distributionGraph} />
                                 </div>
                             )
                         ))}
