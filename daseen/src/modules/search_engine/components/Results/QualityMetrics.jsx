@@ -7,7 +7,7 @@ import DataTypeConsestencyMetricIcon from '../../../common/assets/img/metric_ico
 import AttributeConsestencyMetricIcon from '../../../common/assets/img/metric_icons/attribute-consistant_w.png';
 import SignificantVarianceMetricIcon from '../../../common/assets/img/metric_icons/significant-variance_w.png';
 import { calculateAttributeConsistency } from "../../../dataset/utils/calculations";
-import { Unlock, Gear, ClipboardCheck, Soundwave, Calendar, Broadcast, Activity, Sliders2, Sliders2Vertical, Lock } from "react-bootstrap-icons";
+import { Unlock, Gear, ClipboardCheck, Soundwave, Calendar, Broadcast, Activity, Sliders2, Sliders2Vertical, Lock, Robot } from "react-bootstrap-icons";
 
 const QualityMetrics = ({ dataset }) => {
     return (
@@ -91,6 +91,18 @@ const QualityMetrics = ({ dataset }) => {
                     </div>
                 </OverlayTrigger>
             </div>
+            {dataset?._source?.allowed_for_ai_training && (
+                <div className="ps-2">
+                    <OverlayTrigger
+                        placement="top"
+                        overlay={<Tooltip>Allowed for AI training</Tooltip>}
+                    >
+                        <div>
+                            <Robot />
+                        </div>
+                    </OverlayTrigger>
+                </div>
+            )}
             <div className="ps-2">
                 <OverlayTrigger
                     placement="top"

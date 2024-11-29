@@ -169,7 +169,7 @@ function Filters() {
                             <div className='d-flex flex-wrap w-100 align-items-center py-1 position-relative'>
                                 {filterSection.type == 'checkboxes' ? (
                                     <Dropdown>
-                                        <Dropdown.Toggle variant="basic" id={`dropdown-filters-${filterSection.type}`} className='medium'>
+                                        <Dropdown.Toggle variant="link" id={`dropdown-filters-${filterSection.type}`} className='medium px-0 txt-primary text-decoration-none'>
                                             {t('filters.select')} <ChevronDown className='small ms-2' />
                                         </Dropdown.Toggle>
 

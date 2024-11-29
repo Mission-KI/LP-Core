@@ -402,3 +402,7 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
 .header-container.visible {
   top: 0 !important;
 }
+
+.border-light{
+  border: 1px solid var(--color-light-gray) !important;
+}

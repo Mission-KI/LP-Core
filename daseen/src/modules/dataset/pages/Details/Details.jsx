@@ -119,8 +119,8 @@ function Details() {
 
         <div className="row mt-4">
           <div className="col-md-4">
-            <div className="shadow-sm border rounded bg-white p-3 mt-3">
-              <p className="bold mb-3">{t("dataset.dataScienceInfo")}</p>
+            <div className="border-light shadow rounded bg-white p-3 mt-4">
+              <p className="fw-500 mb-4">{t("dataset.dataScienceInfo")}</p>
               <DataScienceInfo datasetDetails={datasetDetails} />
             </div>
             {datasetDetails?._source?.tags?.length > 0 && (

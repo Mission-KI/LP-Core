@@ -66,14 +66,10 @@ function QuickView({ dataset }) {
       >
         <div className="container">
           <div>
-            <p className={styles.title}>{dataset?._source?.name}</p>
-
-            <DataScienceInfo datasetDetails={dataset} />
-
-            <div className="d-flex justify--center mt-4">
+            <div className="pb-4">
               <DatasetActions datasetDetails={dataset} />
             </div>
-
+            <DataScienceInfo datasetDetails={dataset} />
           </div>
         </div>
       </Dropdown.Menu>
