@@ -237,8 +237,8 @@ p.two-words::after {
   align-items: center;
 }
 
-.pagination-btn:hover {
-  background-color: var(--color-darker-gray) !important;
+li.selected .pagination-btn, .pagination-btn:hover {
+  color: var(--color-primary-lighter) !important;
 }
 
 .dropdown-toggle::after {
