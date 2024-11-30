@@ -1,4 +1,4 @@
-import { elasticURL, elasticApiKey } from "./config";
+import { elasticURL } from "./config";
 
 export const getDatasets = async (from = 0, size = 10, params = {}) => {
     try {
@@ -126,7 +126,6 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `ApiKey ${elasticApiKey}`,
             },
             body: JSON.stringify(query)
         });
@@ -162,8 +161,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
 //             headers: {
 //                 'Accept': 'application/json',
 //                 'Content-Type': 'application/json',
-//                 'Authorization': `ApiKey ${elasticApiKey}`,
-//             },
+// //             },
 //             body: JSON.stringify(query),
 //         });
 
@@ -189,7 +187,6 @@ export const getDataset = async (id) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `ApiKey ${elasticApiKey}`,
             },
         });
 
@@ -221,7 +218,6 @@ export const getAutocompleteSuggestions = async (searchTerm) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `ApiKey ${elasticApiKey}`,
             },
             body: JSON.stringify(query),
         });
@@ -247,7 +243,6 @@ export const getTotalCount = async () => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `ApiKey ${elasticApiKey}`,
             }
         });
 
@@ -286,7 +281,6 @@ export const getBookmarkedDatasets = async (from = 0, size = 10) => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `ApiKey ${elasticApiKey}`,
             },
             body: JSON.stringify(query)
         });

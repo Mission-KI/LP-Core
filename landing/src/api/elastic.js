@@ -1,4 +1,4 @@
-import { elasticURL, elasticApiKey } from "./config";
+import { elasticURL } from "./config";
 
 export const getTotalDatasetCount = async () => {
     try {
@@ -7,7 +7,6 @@ export const getTotalDatasetCount = async () => {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': `ApiKey ${elasticApiKey}`,
             }
         });
 

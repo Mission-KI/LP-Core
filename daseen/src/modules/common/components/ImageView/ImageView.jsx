@@ -32,10 +32,10 @@ function ImageView({ url }) {
                         <button className={styles.closeButton} onClick={closeImage}>×</button>
 
                         <div className={styles.zoomControls}>
-                            <button className="btn btn-primary mx-2" onClick={zoomIn}>
+                            <button className="btn btn-dark mx-2" onClick={zoomIn}>
                                 <ZoomIn />
                             </button>
-                            <button className="btn btn-primary mx-2" onClick={zoomOut}>
+                            <button className="btn btn-dark mx-2" onClick={zoomOut}>
                                 <ZoomOut />
                             </button>
                         </div>
