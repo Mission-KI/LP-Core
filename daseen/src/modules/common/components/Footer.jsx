@@ -11,7 +11,7 @@ function Footer() {
                 <span className='small txt-lighter'>{t('footer.c')}</span>
                 <a href="https://daseen-redesign.netlify.app/imprint" className='small txt-lighter'>{t('footer.imprint')}</a>
                 <a href="https://daseen-redesign.netlify.app/privacy-policy" className='small txt-lighter'>{t('footer.privacyPolicy')}</a>
-                <a href="https://daseen-redesign.netlify.app/acceptable-use-policy" className='small txt-lighter'>{t('footer.usePolicy')}</a>
+                <a href="https://daseen-redesign.netlify.app/use-policy" className='small txt-lighter'>{t('footer.usePolicy')}</a>
             </div>
         </div>
     )

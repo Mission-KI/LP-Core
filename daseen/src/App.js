@@ -5,8 +5,6 @@ import AppLayout from "./modules/common/layouts/AppLayout";
 import bcrypt from 'bcryptjs';
 import searchEngineRoutes from "./modules/search_engine";
 import datasetRoutes from "./modules/dataset";
-import legalRoutes from './modules/legal';
-import LegalLayout from './modules/common/layouts/LegalLayout';
 import HealthCheck from './modules/search_engine/pages/HealthCheck';
 import ScrollToTop from './modules/common/components/ScrollToTop';
 import PageNotFound from './modules/common/pages/PageNotFound';
@@ -36,13 +34,6 @@ const routes = [
       ...datasetRoutes,
       ...bookmarkRoutes,
       ...supportRoutes
-    ],
-  },
-  {
-    path: '/',
-    element: <LegalLayout />,
-    children: [
-      ...legalRoutes
     ],
   },
   {
