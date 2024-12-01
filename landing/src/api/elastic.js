@@ -3,7 +3,7 @@ import { elasticURL } from "./config";
 export const getTotalDatasetCount = async () => {
     try {
         const response = await fetch(`${elasticURL}/_count`, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
