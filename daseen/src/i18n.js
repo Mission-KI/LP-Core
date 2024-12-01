@@ -130,7 +130,7 @@ i18n
             usePolicy: "Acceptable Use Policy"
           },
           auth: {
-            signUp: "Sign Up",
+            register: "Register",
             logIn: "Log in",
             name: "Name",
             email: "Email",
@@ -253,7 +253,7 @@ i18n
             usePolicy: "Nutzungsrichtlinien"
           },
           auth: {
-            signUp: "Registrieren",
+            register: "Registrieren",
             logIn: "Anmelden",
             name: "Name",
             email: "E-Mail",

@@ -41,7 +41,7 @@ export default function Register() {
 
                 <p className='text-danger mb-3'>{t('auth.dev')}</p>
 
-                <h2 className='mb-4 bold'>{t('auth.signUp')}</h2>
+                <h2 className='mb-4 bold'>{t('auth.register')}</h2>
 
                 {error && <span className='text-danger small'>{error}</span>} { }
 
@@ -79,7 +79,7 @@ export default function Register() {
                     <div className="row">
                         <div className='col-md-6 py-2 mt-3'>
                             <Button variant="primary" size="lg" type="submit" loading={loading} >
-                                {t('auth.signUp')}
+                                {t('auth.register')}
                             </Button>
                         </div>
                     </div>

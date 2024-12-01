@@ -41,7 +41,7 @@ i18n
             dataCategories: "Data Categories"
           },
           auth: {
-            signUp: "Registrieren",
+            register: "Register",
           },
           categories: {
             mobilityAndTransportation: "Mobility and transportation",
@@ -91,6 +91,9 @@ i18n
             dataSpaces: 'Datenräume',
             dataPublishers: 'Datenanbieter',
             dataCategories: "Datenkategorien"
+          },
+          auth: {
+            register: "Registrieren",
           },
           categories: {
             mobilityAndTransportation: "Mobilität und Verkehr",

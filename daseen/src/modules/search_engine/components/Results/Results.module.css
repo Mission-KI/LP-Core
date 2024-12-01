@@ -6,11 +6,11 @@
 }
 
 .resultItem .optionsDropdownWrapper{
-    display: none;
+    visibility: hidden;
 }
 
 .resultItem:hover .optionsDropdownWrapper{
-    display: block;
+    visibility: initial;
 }
 
 .title {

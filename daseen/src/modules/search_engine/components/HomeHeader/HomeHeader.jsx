@@ -26,12 +26,7 @@ const HomeHeader = () => {
                 </Nav>
                 <Nav className="ms-auto">
                     <div className="ps-2">
-                        <Link to="/register" className="btn text-white btn-primary">{t('auth.signUp')}</Link>
-                    </div>
-                    <div className="ps-2">
-                        <Link to="/login" className="btn btn-outline-primary">
-                            {t('auth.logIn')}
-                        </Link>
+                        <Link to="/register" className="btn text-white btn-primary">{t('auth.register')}</Link>
                     </div>
                 </Nav>
             </Container>
