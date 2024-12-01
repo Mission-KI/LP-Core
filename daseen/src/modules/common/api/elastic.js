@@ -113,6 +113,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
         const query = {
             "from": from,
             "size": size,
+            "min_score": 1.0,
             "query": {
                 "bool": {
                     "must": mustClauses,
