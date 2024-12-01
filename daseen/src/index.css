@@ -21,7 +21,11 @@ a {
   color: var(--color-text) !important;
 }
 
-.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+.btn-check:checked+.btn,
+.btn.active,
+.btn.show,
+.btn:first-child:active,
+:not(.btn-check)+.btn:active {
   border-color: transparent !important;
 }
 
@@ -237,7 +241,8 @@ p.two-words::after {
   align-items: center;
 }
 
-li.selected .pagination-btn, .pagination-btn:hover {
+li.selected .pagination-btn,
+.pagination-btn:hover {
   color: var(--color-primary-lighter) !important;
 }
 
@@ -265,7 +270,7 @@ li.selected .pagination-btn, .pagination-btn:hover {
   background-color: var(--color-primary) !important;
 }
 
-.rc-slider-handle{
+.rc-slider-handle {
   border-color: var(--color-primary) !important;
   border-radius: 0 !important;
   width: 1px !important;
@@ -403,6 +408,6 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
   top: 0 !important;
 }
 
-.border-light{
+.border-light {
   border: 1px solid var(--color-light-gray) !important;
 }
