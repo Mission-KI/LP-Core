@@ -25,8 +25,8 @@ export const useCategories = () => {
             "id": 1,
             "name": t('categories.mobilityAndTransportation'),
             "slug": "mobility-and-transportation",
-            "amount_of_publishers": 3,
-            "amount_of_assets": 14222,
+            "amount_of_publishers": 4,
+            "amount_of_assets": 13181,
             "image": MobilityImg,
             "tiles": [
                 {
@@ -34,7 +34,7 @@ export const useCategories = () => {
                     "name": "GovData",
                     "image": govdata,
                     "amount_of_publishers": 1,
-                    "amount_of_assets": 14211,
+                    "amount_of_assets": 13162,
                     "dataspace_filters": ["GovData"],
                     "publisher_filters": ["BASt"]
                 },
@@ -52,16 +52,16 @@ export const useCategories = () => {
                     "name": "mobilithek",
                     "image": mobilithek,
                     "amount_of_publishers": 2,
-                    "amount_of_assets": 2,
-                    "dataspace_filters": ["Mobility Data Space"],
-                    "publisher_filters": ["NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH"]
+                    "amount_of_assets": 1,
+                    "dataspaces_filter": ["mobilithek"],
+                    "publishers_filter": ["Toll Collect", "Autobahn GmbH"]
                 },
                 {
                     "id": 4,
                     "name": "BASt",
                     "image": bast,
                     "amount_of_publishers": 1,
-                    "amount_of_assets": 14211,
+                    "amount_of_assets": 13171,
                     "dataspace_filters": [],
                     "publisher_filters": ["BASt"]
                 },
@@ -70,7 +70,7 @@ export const useCategories = () => {
                     "name": "Toll Collect",
                     "image": collect,
                     "amount_of_publishers": 1,
-                    "amount_of_assets": 2,
+                    "amount_of_assets": 1,
                     "dataspace_filters": [],
                     "publisher_filters": ["Toll Collect"]
                 },
@@ -108,7 +108,7 @@ export const useCategories = () => {
             "name": t('categories.environment'),
             "slug": "environment-food-and-agriculture",
             "amount_of_publishers": 1,
-            "amount_of_assets": 4953,
+            "amount_of_assets": 4896,
             "image": EnvironmentImg,
             "tiles": [
                 {
@@ -116,7 +116,7 @@ export const useCategories = () => {
                     "name": "GovData",
                     "image": govdata,
                     "amount_of_publishers": 1,
-                    "amount_of_assets": 4953,
+                    "amount_of_assets": 4896,
                     "datasources_filter": ["GovData"],
                     "publishers_filter": ["Transparenzportal Hamburg"]
                 }
@@ -127,15 +127,15 @@ export const useCategories = () => {
             "name": t('categories.administration'),
             "slug": "administration-and-public-sector",
             "image": GovernmentImg,
-            "amount_of_publishers": 7,
-            "amount_of_assets": 30082,
+            "amount_of_publishers": 9,
+            "amount_of_assets": 51327,
             "tiles": [
                 {
                     "id": 1,
                     "name": "GovData",
                     "image": govdata,
-                    "amount_of_publishers": 7,
-                    "amount_of_assets": 30082,
+                    "amount_of_publishers": 9,
+                    "amount_of_assets": 51327,
                     "datasources_filter": ["GovData"],
                     "publishers_filter": ["BASt", "Open-Data Schleswig-Holstein", "Transparenzportal Hamburg", "Offene Daten KDVZ Rhein-Erft-Rur", "Bayrisches Landesamt für Statistik", "Landesdatenbank NRW", "Freistaat Bayern"]
                 },
@@ -144,7 +144,7 @@ export const useCategories = () => {
                     "name": "BASt",
                     "image": bast,
                     "amount_of_publishers": 1,
-                    "amount_of_assets": 14211,
+                    "amount_of_assets": 13171,
                     "datasources_filter": [],
                     "publishers_filter": ["BASt"]
                 }
