@@ -38,7 +38,7 @@ function Search() {
       setLoading(true);
       try {
         const from = (currentPage - 1) * resultsPerPage;
-        const fetchedDatasets = await getDatasets(from, resultsPerPage, searchParams);
+        const fetchedDatasets = await getDatasets(from, resultsPerPage);
         setDatasets(fetchedDatasets);
       } catch (error) {
         console.error('Error fetching datasets:', error);

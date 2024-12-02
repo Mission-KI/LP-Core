@@ -1,9 +1,10 @@
 import { elasticURL } from "./config";
 
-export const getDatasets = async (from = 0, size = 10, params = {}) => {
+export const getDatasets = async (from = 0, size = 10) => {
     try {
         const urlParams = new URLSearchParams(window.location.search);
         const filters = [];
+        const groupedFilters = {};
 
         for (const key of urlParams.keys()) {
             const values = urlParams.getAll(key);
@@ -80,21 +81,32 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
                     }
                 });
             } else {
-                for (const value of values) {
-                    filters.push({
-                        "term": { [`${key}.keyword`]: value }
-                    });
+                if (!groupedFilters[key]) {
+                    groupedFilters[key] = [];
                 }
+                groupedFilters[key].push(...values);
             }
         }
 
-        // Build query without explicit bool.must
+        for (const [key, values] of Object.entries(groupedFilters)) {
+            if (key === 'freely_available') {
+                filters.push({
+                    terms: { [key]: [...new Set(values)] }
+                });
+            } else {
+                filters.push({
+                    terms: { [`${key}.keyword`]: [...new Set(values)] }
+                });
+            }
+        }
+
+
         const query = {
             "from": from,
             "size": size,
             "query": {
                 "bool": {
-                    "filter": filters // Apply filters directly
+                    "filter": filters
                 }
             },
             "sort": [
