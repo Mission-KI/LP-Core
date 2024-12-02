@@ -19,7 +19,7 @@ function LanguageSelector() {
 
     return (
         <Dropdown className="ps-3">
-            <Dropdown.Toggle variant="basic" className="bg-transparent" id="language-dropdown">
+            <Dropdown.Toggle variant="text" className="bg-transparent txt-" id="language-dropdown">
                 {i18n.language} <ChevronDown />
             </Dropdown.Toggle>
 

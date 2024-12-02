@@ -53,8 +53,8 @@ export const useCategories = () => {
                     "image": mobilithek,
                     "amount_of_publishers": 2,
                     "amount_of_assets": 1,
-                    "dataspaces_filter": ["mobilithek"],
-                    "publishers_filter": ["Toll Collect", "Autobahn GmbH"]
+                    "dataspace_filters": ["mobilithek"],
+                    "publisher_filters": ["Toll Collect", "Autobahn GmbH"]
                 },
                 {
                     "id": 4,
@@ -117,8 +117,8 @@ export const useCategories = () => {
                     "image": govdata,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 4896,
-                    "datasources_filter": ["GovData"],
-                    "publishers_filter": ["Transparenzportal Hamburg"]
+                    "dataspace_filters": ["GovData"],
+                    "publisher_filters": ["Transparenzportal Hamburg"]
                 }
             ]
         },
@@ -136,8 +136,8 @@ export const useCategories = () => {
                     "image": govdata,
                     "amount_of_publishers": 9,
                     "amount_of_assets": 51327,
-                    "datasources_filter": ["GovData"],
-                    "publishers_filter": ["BASt", "Open-Data Schleswig-Holstein", "Transparenzportal Hamburg", "Offene Daten KDVZ Rhein-Erft-Rur", "Bayrisches Landesamt für Statistik", "Landesdatenbank NRW", "Freistaat Bayern"]
+                    "dataspace_filters": ["GovData"],
+                    "publisher_filters": ["BASt", "Open-Data Schleswig-Holstein", "Transparenzportal Hamburg", "Offene Daten KDVZ Rhein-Erft-Rur", "Bayrisches Landesamt für Statistik", "Landesdatenbank NRW", "Freistaat Bayern"]
                 },
                 {
                     "id": 2,
@@ -145,8 +145,8 @@ export const useCategories = () => {
                     "image": bast,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 13171,
-                    "datasources_filter": [],
-                    "publishers_filter": ["BASt"]
+                    "dataspace_filters": [],
+                    "publisher_filters": ["BASt"]
                 }
             ]
         },
