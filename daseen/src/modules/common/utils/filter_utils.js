@@ -235,13 +235,13 @@ export const useFilterSections = () => {
             filters: [
                 {
                     label: <><UnlockFill /></>,
-                    value: true,
+                    value: "true",
                     name: "freely_available",
                     type: "radio",
                 },
                 {
                     label: <><LockFill /></>,
-                    value: false,
+                    value: "false",
                     name: "freely_available",
                     type: "radio",
                 }

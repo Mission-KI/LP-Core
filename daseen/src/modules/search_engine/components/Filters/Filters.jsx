@@ -63,9 +63,8 @@ function Filters() {
                 }
 
                 if (filter.type === 'radio') {
-                    if (queryParams[filter.name]?.[0] === filter.value) {
-                        newCheckedRadios[filter.name] = filter.value;
-                    }
+                    newCheckedRadios[filter.name] = queryParams[filter.name]?.[0];
+                    console.log(newCheckedRadios)
                 }
             });
         });
@@ -154,10 +153,10 @@ function Filters() {
                     {filterSections.map((filterSection) => (
                         <FormGroup key={filterSection.title}
                             className={`mb-4 ${filterSection.type === 'checkboxes' || filterSection.type === 'radio'
-                                    ? 'col-md-6'
-                                    : filterSection.type === 'single_icon'
-                                        ? 'col-md-2'
-                                        : ''
+                                ? 'col-md-6'
+                                : filterSection.type === 'single_icon'
+                                    ? 'col-md-2'
+                                    : ''
                                 }`}>
 
                             {filterSection.title && (
@@ -288,7 +287,7 @@ function Filters() {
                                                         <button
                                                             key={filter.value}
                                                             type="button"
-                                                            className={`btn mb-2 ${checkedRadios[filter.name] === filter.value ? 'text-black bold' : 'text-secondary'}`}
+                                                            className={`btn mb-2 ${checkedRadios[filter.name] === filter.value ? 'bold' : 'text-secondary'}`}
                                                             onClick={() => handleRadioChange(filter)}
                                                         >
                                                             {filter.label}
