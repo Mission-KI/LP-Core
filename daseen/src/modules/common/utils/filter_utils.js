@@ -162,8 +162,56 @@ export const useFilterSections = () => {
             type: "checkboxes",
             filters: [
                 {
+                    label: "cc-by/4.0",
+                    value: "cc-by/4.0",
+                    name: "license.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "cc-by-sa/4.0",
+                    value: "cc-by-sa/4.0",
+                    name: "license.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "ccpdm/1.0",
+                    value: "ccpdm/1.0",
+                    name: "license.name",
+                    type: "checkbox",
+                },
+                {
                     label: "dl-by-de/2.0",
-                    value: "https://www.dcat-ap.de/def/licenses/20210721.html#dl-by-de/2.0",
+                    value: "dl-by-de/2.0",
+                    name: "license.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "dl-de/by-2-0",
+                    value: "dl-de/by-2-0",
+                    name: "license.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "dl-zero-de/2.0",
+                    value: "dl-zero-de/2.0",
+                    name: "license.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "licenses/cc-zero",
+                    value: "licenses/cc-zero",
+                    name: "license.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "licenses/officialWork",
+                    value: "licenses/officialWork",
+                    name: "license.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "licenses/other-closed",
+                    value: "licenses/other-closed",
                     name: "license.name",
                     type: "checkbox",
                 },
