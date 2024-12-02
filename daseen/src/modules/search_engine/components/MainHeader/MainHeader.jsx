@@ -18,11 +18,11 @@ const MainHeader = () => {
             className={`py-3 shadow-sm`}>
             <Container>
                 <Nav className="me-auto">
-                    <Nav.Link as={NavLink} to="/" className="d-none d-md-block me-4">
-                        {t('header.home')}
-                    </Nav.Link>
-                    <Nav.Link as={NavLink} to="/support" className="me-1 d-none d-md-block">
-                        {t('header.support')}
+                    <a href="https://daseen-redesign.netlify.app/" className="d-none d-md-block nav-link me-4" style={{ whiteSpace: 'nowrap' }}>
+                        Landing page
+                    </a>
+                    <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block">
+                        {t('page.title')}
                     </Nav.Link>
                     <LanguageSelector />
                 </Nav>
@@ -31,7 +31,7 @@ const MainHeader = () => {
                 </div>
                 <Nav className="ms-auto">
                     <div className="">
-                        <Link to="/register" className="btn text-white btn-primary">{t('auth.register')}</Link>
+                        <a href="https://beebucket.ai/kontakt/" className="btn text-white btn-primary">{t('auth.register')}</a>
                     </div>
                 </Nav>
             </Container>

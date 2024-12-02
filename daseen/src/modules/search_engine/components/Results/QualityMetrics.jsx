@@ -27,7 +27,7 @@ const QualityMetrics = ({ dataset }) => {
                 <div className="">
                     <OverlayTrigger
                         placement="top"
-                        overlay={<Tooltip>Open access</Tooltip>}
+                        overlay={<Tooltip>Closed access</Tooltip>}
                     >
                         <div>
                             <Lock />

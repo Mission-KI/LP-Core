@@ -3,7 +3,6 @@ import { Dropdown } from "react-bootstrap";
 import { InfoCircleFill, Download, StarFill, Star, } from "react-bootstrap-icons";
 import styles from "./QuickView.module.css";
 import { t } from "i18next";
-import { Link } from "react-router-dom";
 import { addBookmark, isBookmarked, removeBookmark } from "../../../common/utils/bookmarks";
 import DataScienceInfo from "../../../dataset/components/DataScienceInfo";
 import DatasetActions from "../../../dataset/components/DatasetActions";

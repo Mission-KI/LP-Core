@@ -13,15 +13,18 @@ const Header = () => {
         <Navbar bg="white" data-bs-theme="light" fixed="top" className="py-3">
             <Container>
                 <Nav className="me-auto">
-                    <Nav.Link as={NavLink} to="/" className="me-4">
-                        {t('header.home')}
-                    </Nav.Link>
+                    <a href="/" className="nav-link me-4">
+                        Landing page
+                    </a>
+                    <a style={{ whiteSpace: 'nowrap' }} href="https://app-daseen-redesign.netlify.app/" className="nav-link d-none d-md-block me-2">
+                        {t('page.title')}
+                    </a>
                     <LanguageSelector />
 
                 </Nav>
                 <Nav className="ms-auto">
                     <div className="ps-2">
-                        <a href="https://app-daseen-redesign.netlify.app/register" className="btn btn-primary fw-500">{t('auth.register')}</a>
+                        <a href="https://beebucket.ai/kontakt/" className="btn btn-primary fw-500">{t('auth.register')}</a>
                     </div>
                 </Nav>
             </Container>

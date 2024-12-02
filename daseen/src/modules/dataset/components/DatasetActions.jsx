@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Download, Star, StarFill } from 'react-bootstrap-icons'
+import { Download, Link45deg, Star, StarFill } from 'react-bootstrap-icons'
 import { addBookmark, isBookmarked, removeBookmark } from "../../common/utils/bookmarks";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 const DatasetActions = ({ datasetDetails }) => {
 
     const [bookmarked, setBookmarked] = useState(false);
     const { t } = useTranslation();
+    const location = useLocation();
 
     useEffect(() => {
         setBookmarked(isBookmarked(datasetDetails?._id))
-      }, [datasetDetails]);
+    }, [datasetDetails]);
 
     const handleAddBookmark = (id) => {
         addBookmark(id);
@@ -22,10 +25,21 @@ const DatasetActions = ({ datasetDetails }) => {
         setBookmarked(false);
     }
 
+    const isHomePage = location.pathname === '/';
 
     return (
         <div className='d-flex'>
             <div className="d-sm-flex d-none w-100">
+                {isHomePage && (
+                    <div className='pe-2 pt-1'>
+                        <Link
+                            to={`/details/${datasetDetails._id}`}
+                            className='pe-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'
+                        >
+                            <Link45deg className='me-1' /> {t('dataset.details')}
+                        </Link>
+                    </div>
+                )}
                 <div className='pe-2 pt-1'>
                     <span className='pe-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
                         <Download className='me-1' /> {t('header.schemaJson')}
