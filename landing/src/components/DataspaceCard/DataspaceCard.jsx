@@ -5,13 +5,25 @@ import { useNavigate } from 'react-router';
 import styles from './DataspaceCard.module.css'
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { appUrl } from '../../api/config';
 
 const DataspaceCard = ({ dataSpace, category }) => {
 
     const navigate = useNavigate();
     const { t } = useTranslation();
 
-    const tileHref = ""
+    const queryString = new URLSearchParams({
+        ...dataSpace.dataspace_filters.reduce((acc, filter) => {
+            acc[`dataSpace.name`] = filter;
+            return acc;
+        }, {}),
+        ...dataSpace.publisher_filters.reduce((acc, filter) => {
+            acc[`publisher.name`] = filter;
+            return acc;
+        }, {})
+    }).toString();
+
+    const tileHref = `${appUrl}?${queryString}`;
 
     return (
         <div className={`mb-5 px-2`}>

@@ -35,8 +35,8 @@ export const useCategories = () => {
                     "image": govdata,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 14211,
-                    "dataspaces_filter": ["GovData"],
-                    "publishers_filter": ["BASt"]
+                    "dataspace_filters": ["GovData"],
+                    "publisher_filters": ["BASt"]
                 },
                 {
                     "id": 2,
@@ -44,8 +44,8 @@ export const useCategories = () => {
                     "image": MobilityImg,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 9,
-                    "dataspaces_filter": ["Mobility Data Space"],
-                    "publishers_filter": ["NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH"]
+                    "dataspace_filters": ["Mobility Data Space"],
+                    "publisher_filters": ["NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH"]
                 },
                 {
                     "id": 3,
@@ -53,8 +53,8 @@ export const useCategories = () => {
                     "image": mobilithek,
                     "amount_of_publishers": 2,
                     "amount_of_assets": 2,
-                    "dataspaces_filter": ["Mobility Data Space"],
-                    "publishers_filter": ["NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH"]
+                    "dataspace_filters": ["Mobility Data Space"],
+                    "publisher_filters": ["NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH"]
                 },
                 {
                     "id": 4,
@@ -62,8 +62,8 @@ export const useCategories = () => {
                     "image": bast,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 14211,
-                    "dataspaces_filter": [],
-                    "publishers_filter": ["BASt"]
+                    "dataspace_filters": [],
+                    "publisher_filters": ["BASt"]
                 },
                 {
                     "id": 5,
@@ -71,8 +71,8 @@ export const useCategories = () => {
                     "image": collect,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 2,
-                    "dataspaces_filter": [],
-                    "publishers_filter": ["Toll Collect"]
+                    "dataspace_filters": [],
+                    "publisher_filters": ["Toll Collect"]
                 },
                 {
                     "id": 6,
@@ -80,8 +80,8 @@ export const useCategories = () => {
                     "image": autobahn,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 0,
-                    "dataspaces_filter": [],
-                    "publishers_filter": ["Autobahn GmbH"]
+                    "dataspace_filters": [],
+                    "publisher_filters": ["Autobahn GmbH"]
                 },
             ]
         },
