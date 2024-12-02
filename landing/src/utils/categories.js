@@ -54,7 +54,7 @@ export const useCategories = () => {
                     "amount_of_publishers": 2,
                     "amount_of_assets": 1,
                     "dataspace_filters": ["mobilithek"],
-                    "publisher_filters": ["Toll Collect", "Autobahn GmbH"]
+                    "publisher_filters": ["Toll Collect GmbH", "Autobahn GmbH"]
                 },
                 {
                     "id": 4,
@@ -72,7 +72,7 @@ export const useCategories = () => {
                     "amount_of_publishers": 1,
                     "amount_of_assets": 1,
                     "dataspace_filters": [],
-                    "publisher_filters": ["Toll Collect"]
+                    "publisher_filters": ["Toll Collect GmbH"]
                 },
                 {
                     "id": 6,

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const Category = () => {
     const { category_slug } = useParams();
-    const LOCAL_STORAGE_KEY = category_slug+"dataspaces-order?v=2";
+    const LOCAL_STORAGE_KEY = category_slug+"dataspaces-order?v=3";
     const [dataSpaces, setDataSpaces] = useState([]);
     const { getCategoryBySlug } = useCategories();
     const category = getCategoryBySlug(category_slug);
@@ -46,6 +46,8 @@ const Category = () => {
     const renderTileFunction = ({ data, isDragging }) => (
         <DataspaceCard dataSpace={data} category={category} isDragging={isDragging} />
     );
+
+    console.log(initialDataSpaces);
 
     return (
         <div className="container pt-3 pb-4">

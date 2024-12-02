@@ -12,16 +12,10 @@ const DataspaceCard = ({ dataSpace, category }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
-    const queryString = new URLSearchParams({
-        ...dataSpace.dataspace_filters.reduce((acc, filter) => {
-            acc[`dataSpace.name`] = filter;
-            return acc;
-        }, {}),
-        ...dataSpace.publisher_filters.reduce((acc, filter) => {
-            acc[`publisher.name`] = filter;
-            return acc;
-        }, {})
-    }).toString();
+    const queryString = new URLSearchParams([
+        ...dataSpace.dataspace_filters.map((filter) => [`dataSpace.name`, filter]),
+        ...dataSpace.publisher_filters.map((filter) => [`publisher.name`, filter])
+    ]).toString();
 
     const tileHref = `${appUrl}?${queryString}`;
 
