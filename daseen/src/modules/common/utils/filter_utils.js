@@ -108,14 +108,8 @@ export const useFilterSections = () => {
                     type: "checkbox",
                 },
                 {
-                    label: "Statistisches Bundesamt",
-                    value: "Statistisches Bundesamt",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Toll Collect",
-                    value: "Toll Collect",
+                    label: "Toll Collect GmbH",
+                    value: "Toll Collect GmbH",
                     name: "publisher.name",
                     type: "checkbox",
                 },
