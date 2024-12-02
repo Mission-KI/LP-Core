@@ -64,7 +64,7 @@ const HeroSection = () => {
                                             <div className="">
                                                 <span className='text-muted medium d-flex align-items-center'><Database className='me-2' /> {t('home.dataSpaces')}</span>
                                                 <div className='d-flex align-items-center'>
-                                                    <h2 className='bold mb-0'><AnimatedNumber value={3} duration={1000} /></h2>
+                                                    <h2 className='bold mb-0'><AnimatedNumber value={4} duration={1000} /></h2>
                                                     <span className='text-success fw-500 ps-2'><ArrowUpCircle /> 15%</span>
                                                 </div>
                                             </div>
@@ -79,7 +79,7 @@ const HeroSection = () => {
                                 <div className={`card border ${styles.statsCard}`}>
                                     <div className="card-body py-3">
                                         <span className='text-muted medium d-flex align-items-center'><PersonCheck className='me-2' /> {t('home.dataPublishers')}</span>
-                                        <h2 className='bold mb-0'><AnimatedNumber value={5} duration={1000} /></h2>
+                                        <h2 className='bold mb-0'><AnimatedNumber value={11} duration={1000} /></h2>
                                     </div>
                                 </div>
                             </div>

@@ -45,7 +45,7 @@ export const useCategories = () => {
                     "amount_of_publishers": 1,
                     "amount_of_assets": 9,
                     "dataspace_filters": ["Mobility Data Space"],
-                    "publisher_filters": ["NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH"]
+                    "publisher_filters": ["NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH "]
                 },
                 {
                     "id": 3,
@@ -137,7 +137,7 @@ export const useCategories = () => {
                     "amount_of_publishers": 9,
                     "amount_of_assets": 51327,
                     "dataspace_filters": ["GovData"],
-                    "publisher_filters": ["BASt", "Open-Data Schleswig-Holstein", "Transparenzportal Hamburg", "Offene Daten KDVZ Rhein-Erft-Rur", "Bayrisches Landesamt für Statistik", "Landesdatenbank NRW", "Freistaat Bayern"]
+                    "publisher_filters": ["BASt", "Open-Data Schleswig-Holstein", "Transparenzportal Hamburg", "Offene Daten KDVZ Rhein-Erft-Rur", "Bayrisches Landesamt für Statistik", "Landesdatenbank NRW", "Freistaat Bayern", "Statistisches Bundesamt", "Statistik Nord"]
                 },
                 {
                     "id": 2,

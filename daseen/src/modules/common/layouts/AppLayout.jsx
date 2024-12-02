@@ -1,6 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import MainHeader from '../../search_engine/components/MainHeader/MainHeader'
+import Footer from '../components/Footer/Footer'
 
 function AppLayout() {
     return (
@@ -9,6 +10,7 @@ function AppLayout() {
             <div className='main-content-wrapper'>
                 <Outlet />
             </div>
+            <Footer />
         </>
     )
 }
