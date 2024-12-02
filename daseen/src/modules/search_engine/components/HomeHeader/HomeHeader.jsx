@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink, Link } from 'react-router-dom';
 import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
 import { useTranslation } from "react-i18next";
+import { landingUrl } from '../../../common/api/config';
 
 const HomeHeader = () => {
 
@@ -13,11 +14,11 @@ const HomeHeader = () => {
         <Navbar bg="white" data-bs-theme="light" className="py-3">
             <Container>
                 <Nav className="me-auto">
-                    <a href="https://daseen-redesign.netlify.app/" className="nav-link me-4">
+                    <a href={landingUrl} className="nav-link me-4">
                         Landing page
                     </a>
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block">
-                        {t('page.title')}
+                        {t('header.search')}
                     </Nav.Link>
                     <LanguageSelector />
                     <Nav.Link className='d-flex align-items-center ms-2'>

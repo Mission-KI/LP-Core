@@ -23,6 +23,7 @@ i18n
           },
           header: {
             home: "Home",
+            search: "Search",
             support: "Support",
             title: "Data Search Engine",
             search_placeholder: "Search datasets",
@@ -152,6 +153,7 @@ i18n
           },
           header: {
             home: "Startseite",
+            search: "Suche",
             support: "Support",
             title: "Datensatz-Suchmaschine",
             search_placeholder: "Datensätze durchsuchen...",

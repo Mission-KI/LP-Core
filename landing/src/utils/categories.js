@@ -26,47 +26,63 @@ export const useCategories = () => {
             "name": t('categories.mobilityAndTransportation'),
             "slug": "mobility-and-transportation",
             "amount_of_publishers": 3,
-            "amount_of_assets": 14211,
+            "amount_of_assets": 14222,
             "image": MobilityImg,
-            "dataspaces": [
+            "tiles": [
                 {
                     "id": 1,
                     "name": "GovData",
-                    "slug": 'govdata',
                     "image": govdata,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 14211,
-                    "publishers": [
-                        {
-                            "name": "BASt",
-                            "image": bast,
-                            "highlighted": true,
-                            "amount_of_assets": 14211
-                        }
-                    ]
+                    "dataspaces_filter": ["GovData"],
+                    "publishers_filter": ["BASt"]
                 },
                 {
                     "id": 2,
+                    "name": "Mobility Data Space",
+                    "image": MobilityImg,
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 9,
+                    "dataspaces_filter": ["Mobility Data Space"],
+                    "publishers_filter": ["NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH"]
+                },
+                {
+                    "id": 3,
                     "name": "mobilithek",
-                    "slug": 'mobilithek',
                     "image": mobilithek,
                     "amount_of_publishers": 2,
                     "amount_of_assets": 2,
-                    "publishers": [
-                        {
-                            "name": "Toll Collect",
-                            "image": collect,
-                            "highlighted": true,
-                            "amount_of_assets": 0
-                        },
-                        {
-                            "name": "Autobahn GmbH",
-                            "image": autobahn,
-                            "highlighted": true,
-                            "amount_of_assets": 2
-                        }
-                    ]
-                }
+                    "dataspaces_filter": ["Mobility Data Space"],
+                    "publishers_filter": ["NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH"]
+                },
+                {
+                    "id": 4,
+                    "name": "BASt",
+                    "image": bast,
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 14211,
+                    "dataspaces_filter": [],
+                    "publishers_filter": ["BASt"]
+                },
+                {
+                    "id": 5,
+                    "name": "Toll Collect",
+                    "image": collect,
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 2,
+                    "dataspaces_filter": [],
+                    "publishers_filter": ["Toll Collect"]
+                },
+                {
+                    "id": 6,
+                    "name": "Autobahn GmbH",
+                    "image": autobahn,
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 0,
+                    "dataspaces_filter": [],
+                    "publishers_filter": ["Autobahn GmbH"]
+                },
             ]
         },
         {
@@ -76,7 +92,7 @@ export const useCategories = () => {
             "amount_of_publishers": 0,
             "amount_of_assets": 0,
             "image": ManufacturingImg,
-            "dataspaces": []
+            "tiles": []
         },
         {
             "id": 3,
@@ -85,7 +101,7 @@ export const useCategories = () => {
             "amount_of_publishers": 0,
             "amount_of_assets": 0,
             "image": MedicineImg,
-            "dataspaces": []
+            "tiles": []
         },
         {
             "id": 4,
@@ -94,7 +110,7 @@ export const useCategories = () => {
             "amount_of_publishers": 1,
             "amount_of_assets": 4953,
             "image": EnvironmentImg,
-            "dataspaces": [
+            "tiles": [
                 {
                     "id": 1,
                     "name": "GovData",
@@ -102,13 +118,6 @@ export const useCategories = () => {
                     "image": govdata,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 4953,
-                    "publishers": [
-                        {
-                            "name": "Transparenzportal Hamburg",
-                            "highlighted": false,
-                            "amount_of_assets": 4953
-                        }
-                    ]
                 }
             ]
         },
@@ -119,7 +128,7 @@ export const useCategories = () => {
             "image": GovernmentImg,
             "amount_of_publishers": 7,
             "amount_of_assets": 30082,
-            "dataspaces": [
+            "tiles": [
                 {
                     "id": 1,
                     "name": "GovData",
@@ -127,43 +136,6 @@ export const useCategories = () => {
                     "image": govdata,
                     "amount_of_publishers": 7,
                     "amount_of_assets": 30082,
-                    "publishers": [
-                        {
-                            "name": "BASt",
-                            "highlighted": true,
-                            "amount_of_assets": 14211
-                        },
-                        {
-                            "name": "Transparenzportal Hamburg",
-                            "highlighted": false,
-                            "amount_of_assets": 4953
-                        },
-                        {
-                            "name": "Open-Data Schleswig-Holstein",
-                            "highlighted": false,
-                            "amount_of_assets": 7816
-                        },
-                        {
-                            "name": "Bayrisches Landesamt für Statistik",
-                            "highlighted": false,
-                            "amount_of_assets": 0
-                        },
-                        {
-                            "name": "Landesdatenbank NRW",
-                            "highlighted": false,
-                            "amount_of_assets": 0
-                        },
-                        {
-                            "name": "Freistaat Bayern",
-                            "highlighted": false,
-                            "amount_of_assets": 0
-                        },
-                        {
-                            "name": "Offene Daten KDVZ Rhein-Erft-Rur",
-                            "highlighted": false,
-                            "amount_of_assets": 3102
-                        }
-                    ]
                 }
             ]
         },
@@ -174,7 +146,7 @@ export const useCategories = () => {
             "amount_of_publishers": 0,
             "image": GeomapsImg,
             "amount_of_assets": 0,
-            "dataspaces": []
+            "tiles": []
         },
         {
             "id": 7,
@@ -183,7 +155,7 @@ export const useCategories = () => {
             "image": EnergyImg,
             "amount_of_publishers": 0,
             "amount_of_assets": 0,
-            "dataspaces": []
+            "tiles": []
         },
         {
             "id": 8,
@@ -192,7 +164,7 @@ export const useCategories = () => {
             "image": CultureImg,
             "amount_of_publishers": 0,
             "amount_of_assets": 0,
-            "dataspaces": []
+            "tiles": []
         },
         {
             "id": 9,
@@ -201,7 +173,7 @@ export const useCategories = () => {
             "image": ScienceImg,
             "amount_of_publishers": 0,
             "amount_of_assets": 0,
-            "dataspaces": []
+            "tiles": []
         },
         {
             "id": 10,
@@ -210,7 +182,7 @@ export const useCategories = () => {
             "image": RealestateImg,
             "amount_of_publishers": 0,
             "amount_of_assets": 0,
-            "dataspaces": []
+            "tiles": []
         }
     ];
 

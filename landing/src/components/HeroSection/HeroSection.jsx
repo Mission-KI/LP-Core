@@ -5,6 +5,7 @@ import styles from './HeroSection.module.css'
 import AnimatedNumber from '../AnimatedNumber';
 import { useTranslation } from 'react-i18next';
 import { getTotalDatasetCount } from '../../api/elastic';
+import { appUrl } from '../../api/config';
 
 const HeroSection = () => {
 
@@ -29,7 +30,7 @@ const HeroSection = () => {
                         <p style={{ textAlign: 'justify' }}>{t('home.heroSection.description')}</p>
                         <div className='d-flex pt-4'>
                             <div className="pe-2">
-                                <a href="https://app-daseen-redesign.netlify.app/" className="btn btn-primary fw-500 px-4 py-2">
+                                <a href={appUrl} className="btn btn-primary fw-500 px-4 py-2">
                                     {t('home.openDaseen')}
                                 </a>
                             </div>

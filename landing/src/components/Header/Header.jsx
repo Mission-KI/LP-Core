@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { NavLink } from 'react-router-dom';
 import LanguageSelector from '../LanguageSelector';
 import { useTranslation } from 'react-i18next';
+import { appUrl } from '../../api/config';
 
 const Header = () => {
 
@@ -16,8 +17,8 @@ const Header = () => {
                     <a href="/" className="nav-link me-4">
                         Landing page
                     </a>
-                    <a style={{ whiteSpace: 'nowrap' }} href="https://app-daseen-redesign.netlify.app/" className="nav-link d-none d-md-block me-2">
-                        {t('page.title')}
+                    <a style={{ whiteSpace: 'nowrap' }} href={appUrl} className="nav-link d-none d-md-block me-2">
+                        {t('header.search')}
                     </a>
                     <LanguageSelector />
 

@@ -7,6 +7,7 @@ import MainSearchBar from '../../../common/components/Search/MainSearchBar';
 import styles from './MainHeader.module.css'
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import { landingUrl } from '../../../common/api/config';
 
 const MainHeader = () => {
 
@@ -18,11 +19,11 @@ const MainHeader = () => {
             className={`py-3 shadow-sm`}>
             <Container>
                 <Nav className="me-auto">
-                    <a href="https://daseen-redesign.netlify.app/" className="d-none d-md-block nav-link me-4" style={{ whiteSpace: 'nowrap' }}>
+                    <a href={landingUrl} className="d-none d-md-block nav-link me-4" style={{ whiteSpace: 'nowrap' }}>
                         Landing page
                     </a>
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block">
-                        {t('page.title')}
+                        {t('header.search')}
                     </Nav.Link>
                     <LanguageSelector />
                 </Nav>

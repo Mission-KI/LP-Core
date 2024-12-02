@@ -11,6 +11,8 @@ const DataspaceCard = ({ dataSpace, category }) => {
     const navigate = useNavigate();
     const { t } = useTranslation();
 
+    const tileHref = ""
+
     return (
         <div className={`mb-5 px-2`}>
             <Card className={`h-100 rounded pointer shadow-sm pt-4 px-2 ${styles.card}`}>
@@ -22,7 +24,9 @@ const DataspaceCard = ({ dataSpace, category }) => {
                     draggable={false}
                 />
                 <Card.Body className='pb-2 w-100 pt-3 px-4'>
-                    <Link to={`/categories/${category.slug}/${dataSpace.slug}`} className={`${styles.title} h5 mb-0`}>{dataSpace.name}</Link>
+                    <a href={tileHref} className='txt-primary text-center m-auto d-block bold'>
+                        {dataSpace.name}
+                    </a>
                     <Card.Text>
                         <div className="d-flex justify-content-center mt-2">
                             <span className='small d-flex align-items-center'>

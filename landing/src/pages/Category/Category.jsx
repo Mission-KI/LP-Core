@@ -16,7 +16,7 @@ const Category = () => {
     const category = getCategoryBySlug(category_slug);
     const { t } = useTranslation();
 
-    const initialDataSpaces = category.dataspaces;
+    const initialDataSpaces = category.tiles;
     const location = useLocation();
 
     useEffect(() => {

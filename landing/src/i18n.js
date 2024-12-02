@@ -22,6 +22,7 @@ i18n
           },
           header: {
             home: "Home",
+            search: "Search",
             about: "About",
             privacyPolicy: "Privacy Policy",
             imprint: "Imprint",
@@ -74,6 +75,7 @@ i18n
           },
           header: {
             home: "Startseite",
+            search: "Suche",
             about: "Über uns",
             privacyPolicy: "Datenschutzrichtlinie",
             imprint: "Impressum",
