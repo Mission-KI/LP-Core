@@ -24,6 +24,12 @@ export const useFilterSections = () => {
             type: "checkboxes",
             filters: [
                 {
+                    label: "beebucket GmbH",
+                    value: "beebucket GmbH",
+                    name: "dataSpace.name",
+                    type: "checkbox",
+                },
+                {
                     label: "GovData",
                     value: "GovData",
                     name: "dataSpace.name",
@@ -54,14 +60,68 @@ export const useFilterSections = () => {
                     type: "checkbox",
                 },
                 {
+                    label: "Bayrisches Landesamt für Statistik",
+                    value: "Bayrisches Landesamt für Statistik",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "Freistaat Bayern",
+                    value: "Freistaat Bayern",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "Landesdatenbank NRW",
+                    value: "Landesdatenbank NRW",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "NVBW Nahverkehrsgesellschaft Baden-Württemberg mbH",
+                    value: "NVBW Nahverkehrsgesellschaft Baden-Württemberg mbH",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "Offene Daten KDVZ Rhein-Erft-Rur",
+                    value: "Offene Daten KDVZ Rhein-Erft-Rur",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "Open-Data Schleswig-Holstein",
+                    value: "Open-Data Schleswig-Holstein",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "Statistik Nord",
+                    value: "Statistik Nord",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "Statistisches Bundesamt",
+                    value: "Statistisches Bundesamt",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
+                    label: "Statistisches Bundesamt",
+                    value: "Statistisches Bundesamt",
+                    name: "publisher.name",
+                    type: "checkbox",
+                },
+                {
                     label: "Toll Collect",
                     value: "Toll Collect",
                     name: "publisher.name",
                     type: "checkbox",
                 },
                 {
-                    label: "Autobahn GmbH",
-                    value: "Autobahn GmbH",
+                    label: "Transparenzportal Hamburg",
+                    value: "Transparenzportal Hamburg",
                     name: "publisher.name",
                     type: "checkbox",
                 },
