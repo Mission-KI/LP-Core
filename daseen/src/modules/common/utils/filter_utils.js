@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getDataSpacesList } from "../api/elastic";
-import { LockFill, UnlockFill, Calendar, Activity, Sliders2, Clipboard, GraphUpArrow } from 'react-bootstrap-icons';
+import { LockFill, Soundwave, UnlockFill, Calendar, Activity, Sliders2, Clipboard, GraphUpArrow } from 'react-bootstrap-icons';
 
 export const useFilterSections = () => {
     // const [dataSpaces, setDataSpaces] = useState([]);
@@ -260,7 +260,7 @@ export const useFilterSections = () => {
             filters: [
                 {
                     label: "hasTemporalFrequency",
-                    icon: <><Activity /></>,
+                    icon: <><Soundwave /></>,
                     value: "true",
                     name: "hasTemporalFrequency",
                     type: "checkbox",
@@ -280,26 +280,26 @@ export const useFilterSections = () => {
                 },
             ],
         },
-        {
-            title: "",
-            type: "single_icon",
-            filters: [
-                {
-                    label: "attributeConsistency",
-                    icon: <><Clipboard /></>,
-                    value: "true",
-                    name: "attributeConsistency",
-                    type: "checkbox",
-                },
-            ],
-        },
+        // {
+        //     title: "",
+        //     type: "single_icon",
+        //     filters: [
+        //         {
+        //             label: "attributeConsistency",
+        //             icon: <><Clipboard /></>,
+        //             value: "true",
+        //             name: "attributeConsistency",
+        //             type: "checkbox",
+        //         },
+        //     ],
+        // },
         {
             title: "",
             type: "single_icon",
             filters: [
                 {
                     label: "significantVariance",
-                    icon: <><GraphUpArrow /></>,
+                    icon: <><Activity /></>,
                     value: "true",
                     name: "significantVariance",
                     type: "checkbox",

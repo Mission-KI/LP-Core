@@ -80,7 +80,27 @@ export const getDatasets = async (from = 0, size = 10) => {
                         }
                     }
                 });
-            } else {
+            } else if (key === 'hasDatetimeAttribute') {
+                filters.push({
+                    range: {
+                        'structuredDatasets.datetimeColumnCount': {
+                            gt: 0
+                        }
+                    }
+                });
+            } else if (key === 'hasTemporalFrequency') {
+                filters.push({
+                    exists: {
+                        field: 'periodicity'
+                    }
+                });
+            } else if (key === 'dataTypeConsistency') {
+                continue
+            }
+            else if (key === 'significantVariance') {
+                continue
+            }
+            else {
                 if (!groupedFilters[key]) {
                     groupedFilters[key] = [];
                 }
