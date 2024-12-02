@@ -2,10 +2,8 @@ import { elasticURL } from "./config";
 
 export const getDatasets = async (from = 0, size = 10, params = {}) => {
     try {
-
         const urlParams = new URLSearchParams(window.location.search);
-        const mustClauses = [];
-        const shouldClauses = [];
+        const filters = [];
 
         for (const key of urlParams.keys()) {
             const values = urlParams.getAll(key);
@@ -13,110 +11,90 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
             if (key === 'page') continue;
 
             if (key === 'q') {
-                if (values[0] === '') {
-                    continue;
-                }
+                if (values[0] === '') continue;
 
-                mustClauses.push({
+                filters.push({
                     query_string: {
                         query: values[0] + '*',
                         fields: ["name", "description", "dataSpace.name", "publisher.name", "license.name"]
                     }
                 });
-            }
-
-            else if (key === 'dataTypes') {
-                mustClauses.push({
-                    bool: {
-                        must: [
-                            { terms: { 'dataTypes': values } }
-                        ]
-                    }
+            } else if (key === 'dataTypes') {
+                filters.push({
+                    terms: { 'dataTypes': values }
                 });
-            }
-
-            else if (key === 'min_size') {
+            } else if (key === 'min_size') {
                 const min_percentage = parseFloat(values[0]);
                 const min_bytes = percentageToBytes(min_percentage);
-                mustClauses.push({
+                filters.push({
                     range: {
                         volume: {
                             gt: min_bytes
                         }
                     }
                 });
-            }
-
-            else if (key === 'max_size') {
+            } else if (key === 'max_size') {
                 const max_percentage = parseFloat(values[0]);
                 const max_bytes = percentageToBytes(max_percentage);
-                mustClauses.push({
+                filters.push({
                     range: {
                         volume: {
                             lt: max_bytes
                         }
                     }
                 });
-            }
-
-            else if (key === 'min_lines') {
+            } else if (key === 'min_lines') {
                 const min_lines = parseInt(values[0]);
-                mustClauses.push({
+                filters.push({
                     range: {
                         'structuredDatasets.rowCount': {
                             gte: min_lines
                         }
                     }
                 });
-            }
-
-            else if (key === 'max_lines') {
+            } else if (key === 'max_lines') {
                 const max_lines = parseInt(values[0]);
-                mustClauses.push({
+                filters.push({
                     range: {
                         'structuredDatasets.rowCount': {
                             lte: max_lines
                         }
                     }
                 });
-            }
-
-            else if (key === 'min_columns') {
+            } else if (key === 'min_columns') {
                 const min_columns = parseInt(values[0]);
-                mustClauses.push({
+                filters.push({
                     range: {
                         'structuredDatasets.columnCount': {
                             gte: min_columns
                         }
                     }
                 });
-            }
-
-            else if (key === 'max_columns') {
+            } else if (key === 'max_columns') {
                 const max_columns = parseInt(values[0]);
-                mustClauses.push({
+                filters.push({
                     range: {
                         'structuredDatasets.columnCount': {
                             lte: max_columns
                         }
                     }
                 });
-            }
-
-            else {
+            } else {
                 for (const value of values) {
-                    shouldClauses.push({ match: { [key]: value } });
+                    filters.push({
+                        "term": { [`${key}.keyword`]: value }
+                    });
                 }
             }
         }
 
+        // Build query without explicit bool.must
         const query = {
             "from": from,
             "size": size,
             "query": {
                 "bool": {
-                    "must": mustClauses,
-                    "should": shouldClauses.length > 0 ? shouldClauses : undefined,
+                    "filter": filters // Apply filters directly
                 }
             },
             "sort": [
@@ -155,6 +133,7 @@ export const getDatasets = async (from = 0, size = 10, params = {}) => {
         throw new Error(error);
     }
 };
+
 
 // export const getDataSpacesList = async () => {
 //     try {
