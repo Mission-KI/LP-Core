@@ -78,7 +78,7 @@ export const useFilterSections = () => {
                     type: "checkbox",
                 },
                 {
-                    label: "NVBW Nahverkehrsgesellschaft Baden-Württemberg mbH",
+                    label: "NVBW",
                     value: "NVBW Nahverkehrsgesellschaft Baden-Württemberg mbH",
                     name: "publisher.name",
                     type: "checkbox",

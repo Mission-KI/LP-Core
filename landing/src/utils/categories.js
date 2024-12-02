@@ -41,7 +41,7 @@ export const useCategories = () => {
                 {
                     "id": 2,
                     "name": "Mobility Data Space",
-                    "image": MobilityImg,
+                    "image": mobility,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 9,
                     "dataspace_filters": ["Mobility Data Space"],
@@ -114,10 +114,11 @@ export const useCategories = () => {
                 {
                     "id": 1,
                     "name": "GovData",
-                    "slug": 'govdata',
                     "image": govdata,
                     "amount_of_publishers": 1,
                     "amount_of_assets": 4953,
+                    "datasources_filter": ["GovData"],
+                    "publishers_filter": ["Transparenzportal Hamburg"]
                 }
             ]
         },
@@ -132,10 +133,20 @@ export const useCategories = () => {
                 {
                     "id": 1,
                     "name": "GovData",
-                    "slug": 'govdata',
                     "image": govdata,
                     "amount_of_publishers": 7,
                     "amount_of_assets": 30082,
+                    "datasources_filter": ["GovData"],
+                    "publishers_filter": ["BASt", "Open-Data Schleswig-Holstein", "Transparenzportal Hamburg", "Offene Daten KDVZ Rhein-Erft-Rur", "Bayrisches Landesamt für Statistik", "Landesdatenbank NRW", "Freistaat Bayern"]
+                },
+                {
+                    "id": 2,
+                    "name": "BASt",
+                    "image": bast,
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 14211,
+                    "datasources_filter": [],
+                    "publishers_filter": ["BASt"]
                 }
             ]
         },
