@@ -30,8 +30,8 @@ i18n
           },
           home: {
             heroSection: {
-              welcome: "Welcome to Daseen",
-              description: "Discover, analyze, and manage EDPs effortlessly. Explore detailed insights, bookmark your favorites, and download data from leading providers and data spaces. Your ultimate tool for navigating the world of EDPs with precision.",
+              welcome: "Welcome to the landing page",
+              description: "Search private and public data portals and data spaces based on general and analytical characteristics. Discover, analyze, compare and manage data offerings based on meta information without having to load the data set. Massively reduce the effort required for data acquisition and automate documentation and compliance obligations with the integrated data log.",
             },
             categories: "Categories",
             openDaseen: "Open Search",
@@ -83,8 +83,8 @@ i18n
           },
           home: {
             heroSection: {
-              welcome: "Willkommen bei Daseen",
-              description: "Entdecken, analysieren und verwalten Sie EDPs mühelos. Erkunden Sie detaillierte Einblicke, speichern Sie Ihre Favoriten als Lesezeichen und laden Sie Daten von führenden Anbietern und Datenräumen herunter. Ihr ultimatives Werkzeug, um die Welt der EDPs mit Präzision zu navigieren.",
+              welcome: "Willkommen auf der Landing Page",
+              description: "Durchsuchen Sie private und öffentliche Datenportale und Datenräume anhand von allgemeinen und analytischen Merkmalen. Entdecken, analysieren, vergleichen und verwalten Sie Datenangebote auf Basis von Metainformationen, ohne dass Sie den Datensatz laden müssen. Verkürzen Sie den Aufwand für die Datenakquise massiv und automatisieren Sie durch den integrierten Data Log die Dokumentations- und Compliancepflichten.",
             },
             categories: "Kategorien",
             openDaseen: "Suche öffnen",
