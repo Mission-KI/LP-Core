@@ -17,10 +17,6 @@ i18n
           page: {
             title: "Dataset Search Engine"
           },
-          home: {
-            dataSources: 'Providers',
-            dataAssets: 'Data Assets'
-          },
           header: {
             home: "Home",
             search: "Search",
@@ -146,10 +142,6 @@ i18n
         translation: {
           page: {
             title: "Datensatz-Suchmaschine"
-          },
-          home: {
-            dataSources: 'Datenquellen',
-            dataAssets: 'Datensatz'
           },
           header: {
             home: "Startseite",
