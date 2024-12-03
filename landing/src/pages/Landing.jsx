@@ -55,7 +55,7 @@ const Landing = () => {
                 <HeroSection />
                 <hr />
                 <div className="container">
-                    <h2 className='mt-5 mb-4'>{t('home.categories')}</h2>
+                    <h3 className='mt-5 mb-4 bold'>{t('home.categories')}</h3>
                     <TilesContainer
                         data={categoriesState}
                         renderTile={renderTileFunction}
