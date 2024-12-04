@@ -26,7 +26,7 @@ const DataScienceInfo = ({ datasetDetails }) => {
                     <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.compression")}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">zip</p>
+                    <p className="small mb-1 fw-500">{datasetDetails?._source?.compression ?? "None"}</p>
                 </div>
                 <div className="col-6">
                     <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.languages")}</p>

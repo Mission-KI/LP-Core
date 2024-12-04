@@ -40,10 +40,12 @@ const CategoryCard = ({ category }) => {
                     <Card.Text>
                         <div className="d-flex flex-wrap mt-2">
                             <span className='small d-flex align-items-center pe-3'>
-                                <span className='bold pe-1'>{category.amount_of_publishers}</span> {t('home.dataSources')}
+                                <span className='bold pe-1'>{category.amount_of_publishers}</span>
+                                {category.amount_of_publishers === 1 ? t('home.dataProvider') : t('home.dataProviders')}
                             </span>
                             <span className='small d-flex align-items-center'>
-                                <span className='bold pe-1'>{category.amount_of_assets}</span> {t('home.dataAssets')}
+                                <span className="bold pe-1">{category.amount_of_assets}</span>
+                                {category.amount_of_assets === 1 ? t('home.dataAsset') : t('home.dataAssets')}
                             </span>
                         </div>
                     </Card.Text>

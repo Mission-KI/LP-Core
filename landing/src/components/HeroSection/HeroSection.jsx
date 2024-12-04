@@ -25,7 +25,7 @@ const HeroSection = () => {
         <div className='bg-white w-100'>
             <div className="container pt-3">
                 <div className="row pb-5 pt-5">
-                    <div className="col-md-6 pe-4">
+                    <div className="col-md-6 pe-5">
                         <h1 className='bold mb-3' style={{ fontSize: '30pt' }}>{t('home.heroSection.welcome')}</h1>
                         <p style={{ textAlign: 'justify' }}>{t('home.heroSection.description')}</p>
                         <div className='d-flex pt-4'>
@@ -36,7 +36,7 @@ const HeroSection = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="col-md-6">
+                    <div className="col-md-6 pt-3">
                         <div className="row">
                             <div className="col-md-6 pb-4">
                                 <div className={`card border ${styles.statsCard}`}>

@@ -17,7 +17,7 @@ const HeroSection = ({ datasets }) => {
                             Explore, analyze, and share quality data. Learn more about <br /> data types, creating, and collaborating.
                         </p>
                     </div>
-                    <div className='col-md-6 d-flex justify-content-end'>
+                    <div className="col-md-6 d-none d-md-flex justify-content-end">
                         <div style={{ maxWidth: 210 }}>
                             <img src={PlaceholderHeroSectionIllustration} className="w-100" />
                         </div>

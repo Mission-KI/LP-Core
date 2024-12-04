@@ -314,3 +314,7 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
   background-color: rgba(41, 41, 42, 0.07);
   transition: all 100ms ease-in-out;
 }
+
+.TilesContainer-module_container__2hgud{
+  margin: 0 -.4rem !important;
+}

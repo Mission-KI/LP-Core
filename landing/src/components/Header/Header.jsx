@@ -14,10 +14,10 @@ const Header = () => {
         <Navbar bg="white" data-bs-theme="light" fixed="top" className="py-3">
             <Container>
                 <Nav className="me-auto">
-                    <a href="/" className="nav-link me-4">
+                    <a href="/" className="nav-link d-none d-md-block me-4">
                         Landing page
                     </a>
-                    <a style={{ whiteSpace: 'nowrap' }} href={appUrl} className="nav-link d-none d-md-block me-2">
+                    <a style={{ whiteSpace: 'nowrap' }} href={appUrl} className="nav-link me-2">
                         {t('header.search')}
                     </a>
                     <LanguageSelector />

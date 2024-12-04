@@ -47,8 +47,6 @@ const Category = () => {
         <DataspaceCard dataSpace={data} category={category} isDragging={isDragging} />
     );
 
-    console.log(initialDataSpaces);
-
     return (
         <div className="container pt-3 pb-4">
             <h3 className='mt-5 mb-4 bold text-capitalize'>{category.name}</h3>

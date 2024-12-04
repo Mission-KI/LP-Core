@@ -12,15 +12,8 @@ import QualityMetrics from "./QualityMetrics";
 import { truncateString } from "../../../common/utils/format_utils";
 
 function ResultItem({ dataset }) {
-  const [isBookmarkedState, setIsBookmarkedState] = useState(false);
 
   const { t } = useTranslation();
-
-  useEffect(() => {
-    if (dataset?._id) {
-      setIsBookmarkedState(isBookmarked(dataset._id));
-    }
-  }, [dataset]);
 
   return (
     <div className={styles.resultItem}>
@@ -32,7 +25,16 @@ function ResultItem({ dataset }) {
           <div className="ps-2 pe-4">
             <QuickView dataset={dataset} />
           </div>
-         <QualityMetrics dataset={dataset} />
+          <QualityMetrics dataset={dataset} />
+
+          <div>
+            {isBookmarked(dataset._id) && (
+              <span className="px-2 py-1">
+                <StarFill className="text-warning" />
+              </span>
+            )}
+          </div>
+
         </div>
 
         <p className="medium txt-lighter pt-1">{truncateString(dataset._source.description, 350)}</p>
@@ -71,8 +73,6 @@ function ResultItem({ dataset }) {
       <div className={styles.optionsDropdownWrapper}>
         <DatasetOptionsDropdown
           dataset={dataset}
-          isBookmarkedState={isBookmarkedState}
-          setIsBookmarkedState={setIsBookmarkedState}
         />
       </div>
     </div>
