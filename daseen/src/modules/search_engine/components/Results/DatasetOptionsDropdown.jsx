@@ -5,22 +5,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { addBookmark, removeBookmark, isBookmarked } from '../../../common/utils/bookmarks';
 import { t } from 'i18next';
 
-function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedState }) {
+function DatasetOptionsDropdown({ dataset }) {
 
-    useEffect(() => {
-        if (dataset?._id) {
-            setIsBookmarkedState(isBookmarked(dataset._id));
-        }
-    }, [dataset]);
 
     const handleAddBookmark = () => {
-        setIsBookmarkedState(true);
         addBookmark(dataset._id);
         window.location.reload();
     };
 
     const handleRemoveBookmark = () => {
-        setIsBookmarkedState(false);
         removeBookmark(dataset._id);
         window.location.reload();
     };
@@ -36,7 +29,7 @@ function DatasetOptionsDropdown({ dataset, isBookmarkedState, setIsBookmarkedSta
                     {t('dataset.getDataset')}
                     <span className='small text-muted w-100 d-flex'>via dataspace</span>
                 </Dropdown.Item>
-                {isBookmarkedState ? (
+                {isBookmarked(dataset._id) ? (
                     <Dropdown.Item onClick={handleRemoveBookmark}>{t('bookmarks.removeBookmark')}</Dropdown.Item>
                 ) : (
                     <Dropdown.Item onClick={handleAddBookmark}>{t('bookmarks.bookmark')}</Dropdown.Item>
