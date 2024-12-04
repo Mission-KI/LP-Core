@@ -3,20 +3,20 @@ import { getDataSpacesList } from "../api/elastic";
 import { LockFill, Soundwave, UnlockFill, Calendar, Activity, Sliders2, Clipboard, GraphUpArrow } from 'react-bootstrap-icons';
 
 export const useFilterSections = () => {
-    // const [dataSpaces, setDataSpaces] = useState([]);
+    const [dataSpaces, setDataSpaces] = useState([]);
 
-    // useEffect(() => {
-    //     const fetchDataSpaces = async () => {
-    //         try {
-    //             const response = await getDataSpacesList();
-    //             setDataSpaces(response);
-    //         } catch (error) {
-    //             console.error("Error fetching dataSpaces:", error);
-    //         }
-    //     };
+    useEffect(() => {
+        const fetchDataSpaces = async () => {
+            try {
+                const response = await getDataSpacesList();
+                setDataSpaces(response);
+            } catch (error) {
+                console.error("Error fetching dataSpaces:", error);
+            }
+        };
 
-    //     fetchDataSpaces();
-    // }, []);
+        fetchDataSpaces();
+    }, []);
 
     const filters = [
         {

@@ -167,41 +167,41 @@ export const getDatasets = async (from = 0, size = 10) => {
 };
 
 
-// export const getDataSpacesList = async () => {
-//     try {
-//         const query = {
-//             size: 0,
-//             aggs: {
-//                 distinct_dataSpaces: {
-//                     terms: {
-//                         field: "name.keyword",
-//                         size: 100000,
-//                     },
-//                 },
-//             },
-//         };
+export const getDataSpacesList = async () => {
+    try {
+        const query = {
+            size: 0,
+            aggs: {
+                distinct_dataSpaces: {
+                    terms: {
+                        field: "name.keyword",
+                        size: 100000,
+                    },
+                },
+            },
+        };
 
-//         const response = await fetch(elasticURL + '/_search', {
-//             method: 'POST',
-//             headers: {
-//                 'Accept': 'application/json',
-//                 'Content-Type': 'application/json',
-// //             },
-//             body: JSON.stringify(query),
-//         });
+        const response = await fetch(elasticURL + '/_search', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(query),
+        });
 
-//         const responseData = await response.json();
+        const responseData = await response.json();
 
-//         if (response.ok) {
-//             const buckets = responseData.aggregations.distinct_dataSpaces.buckets;
-//             return buckets.map(bucket => bucket.key);
-//         } else {
-//             throw new Error(responseData.errors);
-//         }
-//     } catch (error) {
-//         throw new Error(error);
-//     }
-// };
+        if (response.ok) {
+            const buckets = responseData.aggregations.distinct_dataSpaces.buckets;
+            return buckets.map(bucket => bucket.key);
+        } else {
+            throw new Error(responseData.errors);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+};
 
 
 export const getDataset = async (id) => {
