@@ -120,9 +120,9 @@ i18n
             privacyPolicy: "Datenschutzerklärung",
             usePolicy: "Nutzungsrichtlinien"
           },
-          imprint: imprintPolicy.en,
-          acceptableUsePolicy: acceptableUsePolicy.en,
-          privacyPolicy: privacyPolicy.en,
+          imprint: imprintPolicy.de,
+          acceptableUsePolicy: acceptableUsePolicy.de,
+          privacyPolicy: privacyPolicy.de,
         }
       },
     }
