@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { CardText, List, Star, StarFill } from 'react-bootstrap-icons';
+import { CardText, Grid, List, ListColumns, ListTask, Star, StarFill, TicketFill } from 'react-bootstrap-icons';
 import ResultItem from './ResultItem';
 import { Spinner } from 'react-bootstrap';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import styles from './Results.module.css'
 import { useTranslation } from 'react-i18next';
 import Paginator from '../../../common/components/widgets/Paginator';
 import ResultItemCard from './ResultItemCard';
@@ -25,24 +24,55 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
     }
 
     return (
-        <div className='col-md-8 mt-3 pt-5'>
+        <div className='mt-3 pt-3'>
             <div className="w-100 mb-2">
-                <div>
+                <div className='mb-4'>
 
-                    <span className='bold d-flex pb-3' style={{ whiteSpace: 'nowrap', marginTop: '-2rem' }}>
-                        {datasets.hits?.total?.value >= 10000 ? `> ${datasets.hits.total.value.toLocaleString()}` : datasets.hits?.total?.value?.toLocaleString()} {t('dataset.datasets')}
-                    </span>
+                    <div className='d-flex align-items-center justify-content-between pb-3'>
+                        <span className='bold d-flex' style={{ whiteSpace: 'nowrap' }}>
+                            {datasets.hits?.total?.value >= 10000 ? `> ${datasets.hits.total.value.toLocaleString()}` : datasets.hits?.total?.value?.toLocaleString()} {t('dataset.datasets')}
+                        </span>
+                        <div className={styles.resultViewTypeTabs}>
+                            <span
+                                onClick={() => setActiveTab('list')}
+                                className={`pointer medium d-flex align-items-center py-1 me-3 px-1 ${activeTab === 'list' ? styles.active : ''}`}
+                            >
+                                <ListTask className="me-1" /> List
+                            </span>
+                            <span
+                                onClick={() => setActiveTab('tiles')}
+                                className={`pointer medium d-flex align-items-center py-1 px-1 ${activeTab === 'tiles' ? styles.active : ''}`}
+                            >
+                                <Grid className="me-1" /> Tiles
+                            </span>
+                        </div>
+                    </div>
 
-                    {datasets?.hits?.hits?.map((dataset) =>
-                        <ResultItem dataset={dataset} key={dataset._id} />
-                    )}
+                    {activeTab == 'list' ? (
+                        <div className='col-md-8'>
+                            {datasets?.hits?.hits?.map((dataset) =>
+                                <ResultItem dataset={dataset} key={dataset._id} />
+                            )}
+                        </div>
+                    ) : activeTab == 'tiles' ? (
+                        <>
+                            <div className='row'>
+                                {datasets?.hits?.hits?.map((dataset) =>
+                                    <ResultItemCard dataset={dataset} key={dataset._id} />
+                                )}
+                            </div>
+                        </>
 
-                    <Paginator
-                        pageCount={pageCount}
-                        handlePageChange={handlePageChange}
-                        currentPage={currentPage}
-                    />
+                    ) : ''}
+
                 </div>
+
+                <Paginator
+                    pageCount={pageCount}
+                    handlePageChange={handlePageChange}
+                    currentPage={currentPage}
+                />
+
             </div>
         </div>
     );
