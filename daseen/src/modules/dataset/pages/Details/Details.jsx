@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import styles from "./Details.module.css";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getDataset } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
@@ -22,6 +22,7 @@ import QualityMetrics from "../../../search_engine/components/Results/QualityMet
 import DataScienceInfo from "../../components/DataScienceInfo";
 import DatasetActions from "../../components/DatasetActions";
 import { truncateString } from "../../../common/utils/format_utils";
+import { ArrowLeft } from "react-bootstrap-icons";
 
 function Details() {
   const { id } = useParams();
@@ -29,6 +30,7 @@ function Details() {
   const [loading, setLoading] = useState(true);
   const [activeKey, setActiveKey] = useState("attributes");
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDatasets = async () => {
@@ -67,6 +69,7 @@ function Details() {
   return (
     <>
       <div className="container px-3">
+        <span onClick={() => navigate(-1)} className="pointer d-flex align-items-center text-muted medium pb-2"><ArrowLeft className="me-2" /> {t('header.return')}</span>
         <div className="d-flex justify-content-between mb-4">
           <div className="d-flex">
             <h3 className="bold d-block pe-3 mb-0" style={{ maxWidth: 600 }}>{datasetDetails?._source?.name}</h3>

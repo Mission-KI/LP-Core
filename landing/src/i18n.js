@@ -24,9 +24,6 @@ i18n
             home: "Home",
             search: "Search",
             about: "About",
-            privacyPolicy: "Privacy Policy",
-            imprint: "Imprint",
-            usePolicy: "Acceptable Use Policy"
           },
           home: {
             heroSection: {
