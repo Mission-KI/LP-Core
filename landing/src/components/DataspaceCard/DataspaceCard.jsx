@@ -26,11 +26,11 @@ const DataspaceCard = ({ dataSpace, category }) => {
                     variant='top'
                     src={dataSpace.image}
                     className='rounded pointer px-3'
-                    style={{ height: 58, objectFit: 'contain' }}
+                    style={{ width: 75, objectFit: 'contain' }}
                     draggable={false}
                 />
-                <Card.Body className='pb-2 w-100 pt-3 px-4'>
-                    <a href={tileHref} className='txt-primary text-center m-auto d-block bold'>
+                <Card.Body className='d-flex flex-column justify-content-end pb-3 w-100 pt-3 px-4'>
+                    <a href={tileHref} className='h5 mb-0 txt-primary text-center m-auto d-block bold'>
                         {dataSpace.name}
                     </a>
                     <Card.Text>
