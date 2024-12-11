@@ -363,7 +363,7 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
 }
 
 .attribute-item-wrapper {
-  height: 400px;
+  height: 510px;
   overflow-y: auto;
   overflow-x: hidden;
 }
