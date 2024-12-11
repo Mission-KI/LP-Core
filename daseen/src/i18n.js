@@ -35,6 +35,7 @@ i18n
           },
           dataset: {
             datasets: "Datasets",
+            dataset: "Dataset",
             details: "Details",
             dataScienceInfo: "Data Science Info",
             structure: "Structure",
@@ -162,6 +163,7 @@ i18n
           },
           dataset: {
             datasets: "Datensätze",
+            dataset: "Datensatz",
             structure: "Struktur",
             volume: "Volumen",
             compression: "Komprimierung",

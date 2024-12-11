@@ -30,7 +30,13 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
 
                     <div className='d-flex align-items-center justify-content-between pb-3'>
                         <span className='bold d-flex' style={{ whiteSpace: 'nowrap' }}>
-                            {datasets.hits?.total?.value >= 10000 ? `> ${datasets.hits.total.value.toLocaleString()}` : datasets.hits?.total?.value?.toLocaleString()} {t('dataset.datasets')}
+                            {datasets.hits?.total?.value >= 10000
+                                ? `> ${datasets.hits.total.value.toLocaleString()}`
+                                : datasets.hits?.total?.value?.toLocaleString()}
+                                &nbsp;
+                            {datasets.hits?.total?.value === 1
+                                ? t('dataset.dataset')
+                                : t('dataset.datasets')}
                         </span>
                         <div className={styles.resultViewTypeTabs}>
                             <span
