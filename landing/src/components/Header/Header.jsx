@@ -21,9 +21,9 @@ const Header = () => {
                         {t('header.search')}
                     </a>
                     <LanguageSelector />
-                    <Nav.Link className='d-flex align-items-center ms-2'>
+                    <div className='d-flex align-items-center ms-3'>
                         <span className="badge badge-primary bg-danger" style={{ fontSize: '10pt' }}>Alpha</span>
-                    </Nav.Link>
+                    </div>
 
                 </Nav>
                 <Nav className="ms-auto">

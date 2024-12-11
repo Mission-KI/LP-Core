@@ -49,7 +49,7 @@ const Category = () => {
 
     return (
         <div className="container pt-3 pb-4">
-            <h3 className='mt-5 mb-4 bold text-capitalize'>{category.name}</h3>
+            <h3 className='mt-5 mb-4 bold text-upper'>{category.name}</h3>
 
             <div className="mt-4">
                 {dataSpaces.length > 0 ? (

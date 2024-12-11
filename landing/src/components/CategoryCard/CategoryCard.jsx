@@ -21,7 +21,7 @@ const CategoryCard = ({ category }) => {
 
     return (
         <div className={`mb-5 px-2`}>
-            <Card className={`h-100 rounded`}>
+            <Card className={`h-100 p-3 shadow rounded`}>
                 <Card.Img
                     variant='top'
                     src={category.image}

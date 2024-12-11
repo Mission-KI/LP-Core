@@ -60,7 +60,7 @@ const Landing = () => {
                         data={categoriesState}
                         renderTile={renderTileFunction}
                         forceTileWidth={250}
-                        forceTileHeight={230}
+                        forceTileHeight={280}
                         className="w-100 row"
                         onReorderTiles={onReorderTiles}
                     />
