@@ -10,15 +10,15 @@ const HeroSection = ({ datasets }) => {
     return (
         <div className='w-100' style={{ borderBottom: '1px solid var(--color-light-gray)' }}>
             <div className="container py-5">
-                <div className='row pb-5'>
+                <div className='row pb-3'>
                     <div className="col-md-6">
                         <h2 className='bold mb-3 text-decoration-none' style={{ width: 'fit-content' }}>{t('page.title')}</h2>
-                        <p className='txt-lighter' style={{ fontSize: 17 }}>
-                            Explore, analyze, and share quality data. Learn more about <br /> data types, creating, and collaborating.
+                        <p className='txt-lighter' style={{ fontSize: 17, maxWidth: 450 }}>
+                            {t('page.shortDescription')}
                         </p>
                     </div>
                     <div className="col-md-6 d-none d-md-flex justify-content-end">
-                        <div style={{ maxWidth: 210 }}>
+                        <div style={{ maxWidth: 210 }} className='mb-1'>
                             <img src={PlaceholderHeroSectionIllustration} className="w-100" />
                         </div>
                     </div>

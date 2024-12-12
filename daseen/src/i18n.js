@@ -15,7 +15,8 @@ i18n
       en: {
         translation: {
           page: {
-            title: "Dataset Search Engine"
+            title: "Dataset Search Engine",
+            shortDescription: "Discover, analyze, compare and manage data offerings based on meta information."
           },
           header: {
             home: "Home",
@@ -142,7 +143,8 @@ i18n
       de: {
         translation: {
           page: {
-            title: "Datensatz-Suchmaschine"
+            title: "Datensatz-Suchmaschine",
+            shortDescription: "Entdecken, analysieren, vergleichen und verwalten Sie Datenangebote auf Basis von Metainformationen."
           },
           header: {
             home: "Startseite",
