@@ -12,14 +12,23 @@ import { landingUrl } from '../../../common/api/config';
 const MainHeader = () => {
 
     const location = useLocation();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    var landingRedirectUrl;
+    if (i18n.language == 'en' || i18n.language == 'English') {
+        landingRedirectUrl = landingUrl + '/en'
+    } else if (i18n.language == 'de' || i18n.language == 'German') {
+        landingRedirectUrl = landingUrl + '/de'
+    } else {
+        landingRedirectUrl = landingUrl + '/en'
+    }
 
     return (
         <Navbar bg="white" data-bs-theme="light" fixed={location.pathname !== '/' ? 'top' : undefined}
             className={`py-3 shadow-sm`}>
             <Container>
                 <Nav className="me-auto">
-                    <a href={landingUrl} className="d-none d-md-block nav-link me-4" style={{ whiteSpace: 'nowrap' }}>
+                    <a href={landingRedirectUrl} className="d-none d-md-block nav-link me-4" style={{ whiteSpace: 'nowrap' }}>
                         Landing page
                     </a>
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block">

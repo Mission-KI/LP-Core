@@ -11,6 +11,7 @@ const HeroSection = () => {
 
     const { t } = useTranslation();
     const [totalDatasetCount, setTotalDatasetCount] = useState(0);
+    const { i18n } = useTranslation();
 
     useEffect(() => {
         const getDatasetCount = async () => {
@@ -19,6 +20,16 @@ const HeroSection = () => {
         }
         getDatasetCount();
     }, []);
+
+
+    var searchPageRedirectUrl;
+    if (i18n.language == 'en' || i18n.language == 'English') {
+        searchPageRedirectUrl = appUrl + '/en'
+    } else if (i18n.language == 'de' || i18n.language == 'German') {
+        searchPageRedirectUrl = appUrl + '/de'
+    } else {
+        searchPageRedirectUrl = appUrl + '/en'
+    }
 
 
     return (
@@ -30,7 +41,7 @@ const HeroSection = () => {
                         <p style={{ textAlign: 'justify' }}>{t('home.heroSection.description')}</p>
                         <div className='d-flex pt-4'>
                             <div className="pe-2">
-                                <a href={appUrl} className="btn btn-primary fw-500 px-4 py-2">
+                                <a href={searchPageRedirectUrl} className="btn btn-primary fw-500 px-4 py-2">
                                     {t('home.openDaseen')}
                                 </a>
                             </div>

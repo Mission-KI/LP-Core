@@ -7,6 +7,8 @@ import About from './pages/About';
 import ScrollToTop from './components/ScrollToTop';
 import Imprint from './pages/legal/pages/Imprint';
 import AcceptablePolicy from './pages/legal/pages/AcceptablePolicy';
+import ToggleEnglishAndRedirect from './pages/ToggleEnglishAndRedirect';
+import ToggleGermanAndRedirect from './pages/ToggleGermanAndRedirect';
 
 function App() {
   return (
@@ -23,6 +25,10 @@ function App() {
           <Route path="/use-policy" element={<AcceptablePolicy />} />
 
           <Route path="/about" element={<About />} />
+
+          <Route path="/en" element={<ToggleEnglishAndRedirect />} />
+          <Route path="/de" element={<ToggleGermanAndRedirect />} />
+
         </Route>
       </Routes>
     </Router>

@@ -8,7 +8,16 @@ import { appUrl } from '../../api/config';
 
 const Header = () => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    var searchPageRedirectUrl;
+    if (i18n.language == 'en' || i18n.language == 'English') {
+        searchPageRedirectUrl = appUrl + '/en'
+    } else if (i18n.language == 'de' || i18n.language == 'German') {
+        searchPageRedirectUrl = appUrl + '/de'
+    } else {
+        searchPageRedirectUrl = appUrl + '/en'
+    }
 
     return (
         <Navbar bg="white" data-bs-theme="light" fixed="top" className="py-3">
@@ -17,7 +26,7 @@ const Header = () => {
                     <a href="/" className="nav-link d-none d-md-block me-4">
                         Landing page
                     </a>
-                    <a style={{ whiteSpace: 'nowrap' }} href={appUrl} className="nav-link me-2">
+                    <a style={{ whiteSpace: 'nowrap' }} href={searchPageRedirectUrl} className="nav-link me-2">
                         {t('header.search')}
                     </a>
                     <LanguageSelector />

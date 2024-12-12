@@ -8,13 +8,22 @@ import { landingUrl } from '../../../common/api/config';
 
 const HomeHeader = () => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    var landingRedirectUrl;
+    if (i18n.language == 'en' || i18n.language == 'English') {
+        landingRedirectUrl = landingUrl + '/en'
+    } else if (i18n.language == 'de' || i18n.language == 'German') {
+        landingRedirectUrl = landingUrl + '/de'
+    } else {
+        landingRedirectUrl = landingUrl + '/en'
+    }
 
     return (
         <Navbar bg="white" data-bs-theme="light" className="py-3">
             <Container>
                 <Nav className="me-auto">
-                    <a href={landingUrl} className="nav-link me-4">
+                    <a href={landingRedirectUrl} className="nav-link me-4">
                         Landing page
                     </a>
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block">
