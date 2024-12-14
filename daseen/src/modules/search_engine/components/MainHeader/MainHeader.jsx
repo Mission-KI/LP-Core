@@ -8,6 +8,7 @@ import styles from './MainHeader.module.css'
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { landingUrl } from '../../../common/api/config';
+import { List } from 'react-bootstrap-icons';
 
 const MainHeader = () => {
 
@@ -24,18 +25,21 @@ const MainHeader = () => {
     }
 
     return (
-        <Navbar bg="white" data-bs-theme="light" fixed={location.pathname !== '/' ? 'top' : undefined}
-            className={`py-3 shadow-sm`}>
-            <Container>
-                <Nav className="me-auto">
-                    <a href={landingRedirectUrl} className="d-none d-md-block nav-link me-4" style={{ whiteSpace: 'nowrap' }}>
-                        Landing page
-                    </a>
-                    <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block">
-                        {t('header.search')}
-                    </Nav.Link>
-                    <LanguageSelector />
-                </Nav>
+        <Navbar bg="white" data-bs-theme="light" fixed={location.pathname !== '/' ? 'top' : undefined} expand="md" className="py-3 shadow-sm">
+            <Container className='d-flex' style={{ whiteSpace: 'nowrap', flexWrap: 'nowrap' }}>
+                <Navbar.Toggle aria-controls="main-header" className='border-0 text-dark'><List /></Navbar.Toggle>
+                <Navbar.Collapse id="main-header" className='mb-3 mb-md-0'>
+                    <Nav className="me-auto">
+                        <a href={landingRedirectUrl} className="nav-link me-4" style={{ whiteSpace: 'nowrap' }}>
+                            Landing page
+                        </a>
+                        <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="">
+                            {t('header.search')}
+                        </Nav.Link>
+                        <LanguageSelector />
+                    </Nav>
+                </Navbar.Collapse>
+
                 <div className='px-4 w-100'>
                     <MainSearchBar />
                 </div>

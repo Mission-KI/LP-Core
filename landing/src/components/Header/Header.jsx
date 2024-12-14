@@ -1,11 +1,10 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { NavLink } from 'react-router-dom';
 import LanguageSelector from '../LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { appUrl } from '../../api/config';
-import { List, MenuButton } from 'react-bootstrap-icons';
+import { List } from 'react-bootstrap-icons';
 
 const Header = () => {
     const { t, i18n } = useTranslation();
