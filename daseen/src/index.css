@@ -398,7 +398,7 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
 
 .header-container {
   position: fixed;
-  width: 100%;
+  width: 100vw;
   z-index: 999;
   top: -300px !important;
   transition: top 0.5s ease;

@@ -5,12 +5,14 @@
     width: 100%;
 }
 
-.resultItem .optionsDropdownWrapper{
-    visibility: hidden;
-}
+@media only screen and (min-width: 576px) {
+    .resultItem .optionsDropdownWrapper {
+        visibility: hidden;
+    }
 
-.resultItem:hover .optionsDropdownWrapper{
-    visibility: initial;
+    .resultItem:hover .optionsDropdownWrapper {
+        visibility: initial;
+    }
 }
 
 .title {
@@ -25,17 +27,17 @@
     text-decoration: underline !important;
 }
 
-.resultViewTypeTabs{
+.resultViewTypeTabs {
     display: flex;
 }
 
 
-.resultViewTypeTabs span{
+.resultViewTypeTabs span {
     display: flex;
     border: 1.5px solid transparent;
 }
 
-.resultViewTypeTabs .active{
+.resultViewTypeTabs .active {
     border-bottom: 1.5px solid var(--color-primary);
     transition: border-color .35s ease
 }
