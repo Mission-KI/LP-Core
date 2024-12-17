@@ -9,7 +9,7 @@ const HeroSection = ({ datasets }) => {
 
     return (
         <div className='w-100' style={{ borderBottom: '1px solid var(--color-light-gray)' }}>
-            <div className="container py-5">
+            <div className="container pb-5 pt-3 pt-md-5">
                 <div className='row pb-3'>
                     <div className="col-md-6">
                         <h2 className='bold mb-3 text-decoration-none' style={{ width: 'fit-content' }}>{t('page.title')}</h2>

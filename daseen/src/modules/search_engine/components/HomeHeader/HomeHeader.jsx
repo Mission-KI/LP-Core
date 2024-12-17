@@ -22,15 +22,22 @@ const HomeHeader = () => {
     return (
         <Navbar bg="white" data-bs-theme="light" className="py-3">
             <Container>
+                <Nav>
+                    <a className='d-flex align-items-center d-block d-md-none'>
+                        <span className="badge badge-primary bg-danger" style={{ fontSize: '10pt' }}>Alpha</span>
+                    </a>
+                </Nav>
                 <Nav className="me-auto">
-                    <a href={landingRedirectUrl} className="nav-link me-4">
+                    <a href={landingRedirectUrl} className="nav-link d-none d-md-block me-4">
                         Landing page
                     </a>
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block">
                         {t('header.search')}
                     </Nav.Link>
-                    <LanguageSelector />
-                    <Nav.Link className='d-flex align-items-center ms-2'>
+                    <div className='d-none d-md-block'>
+                        <LanguageSelector />
+                    </div>
+                    <Nav.Link className='d-flex align-items-center d-none d-md-block ms-2'>
                         <span className="badge badge-primary bg-danger" style={{ fontSize: '10pt' }}>Alpha</span>
                     </Nav.Link>
                 </Nav>

@@ -27,7 +27,7 @@ const MainHeader = () => {
     return (
         <Navbar bg="white" data-bs-theme="light" fixed={location.pathname !== '/' ? 'top' : undefined} expand="md" className="py-3 shadow-sm">
             <Container className='d-flex' style={{ whiteSpace: 'nowrap', flexWrap: 'nowrap' }}>
-                <Navbar.Toggle aria-controls="main-header" className='border-0 text-dark'><List /></Navbar.Toggle>
+                <Navbar.Toggle aria-controls="main-header" className='border-0 ps-0 text-dark'><List /></Navbar.Toggle>
                 <Navbar.Collapse id="main-header" className='mb-3 mb-md-0'>
                     <Nav className="me-auto">
                         <a href={landingRedirectUrl} className="nav-link me-4" style={{ whiteSpace: 'nowrap' }}>
@@ -40,11 +40,11 @@ const MainHeader = () => {
                     </Nav>
                 </Navbar.Collapse>
 
-                <div className='px-4 w-100'>
+                <div className='px-md-5 w-100'>
                     <MainSearchBar />
                 </div>
-                <Nav className="ms-auto">
-                    <div className="">
+                <Nav className="ms-md-auto">
+                    <div className="ps-2 ps-md-0">
                         <a href="https://beebucket.ai/kontakt/" className="btn text-white btn-primary">{t('auth.register')}</a>
                     </div>
                 </Nav>
