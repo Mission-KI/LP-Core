@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Filter, Search, Question, X, Star, StarFill } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import Dropdown from 'react-bootstrap/Dropdown';
 import styles from './SearchBar.module.css';
 import SearchSuggestions from './SearchSuggestions';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Filters from '../../../search_engine/components/Filters/Filters';
 import { useTranslation } from 'react-i18next';
 import HelpModal from '../../../search_engine/components/HelpModal/HelpModal';
@@ -21,6 +20,18 @@ function MainSearchBar() {
 
     const inputRef = useRef(null);
     const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const searchTermFromUrl = queryParams.get('q');
+    
+        if (searchTermFromUrl) {
+          setLocalSearchTerm(searchTermFromUrl);
+        }
+
+        console.log(searchTermFromUrl)
+      }, [location]);
 
     const handleChange = e => {
         const newSearchTerm = e.target.value;

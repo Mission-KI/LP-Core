@@ -17,7 +17,7 @@ function ResultItem({ dataset }) {
 
   return (
     <div className={styles.resultItem}>
-      <div className="w-100 pe-3">
+      <div className="w-md-100 pe-3">
         <div className="d-flex align-items-center flex-wrap">
           <Link to={`/details/${dataset._id}`} className={styles.title} data-test-id="result-link">
             {truncateString(dataset._source.name, 65)}
@@ -70,7 +70,7 @@ function ResultItem({ dataset }) {
           </span>
         </div>
       </div>
-      <div className={styles.optionsDropdownWrapper}>
+      <div className={`d-md-block d-none ${styles.optionsDropdownWrapper}`}>
         <DatasetOptionsDropdown
           dataset={dataset}
         />

@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router';
 import styles from './CategoryCard.module.css';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const CategoryCard = ({ category }) => {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const CategoryCard = ({ category }) => {
     const handleClick = (e) => {
         if (category.tiles.length === 0) {
             e.preventDefault();
-            alert(t('categories.noItems'));
+            toast.error(t('categories.noItems'));
         } else {
             navigate(`/categories/${category.slug}`);
         }
@@ -21,7 +21,7 @@ const CategoryCard = ({ category }) => {
 
     return (
         <div className={`mb-5 px-2`}>
-            <Card className={`h-100 rounded`}>
+            <Card className={`h-100 p-3 shadow rounded`}>
                 <Card.Img
                     variant='top'
                     src={category.image}

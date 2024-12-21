@@ -167,19 +167,25 @@ export const getDatasets = async (from = 0, size = 10) => {
 };
 
 
-export const getDataSpacesList = async () => {
+export const getDataSpacesAndLicensesList = async () => {
     try {
         const query = {
-            size: 0,
-            aggs: {
-                distinct_dataSpaces: {
-                    terms: {
-                        field: "name.keyword",
-                        size: 100000,
-                    },
+            "size": 0,
+            "aggs": {
+                "distinct_dataSpace_names": {
+                    "terms": {
+                        "field": "dataSpace.name.keyword",
+                        "size": 10000
+                    }
                 },
-            },
-        };
+                "distinct_license_names": {
+                    "terms": {
+                        "field": "license.name.keyword",
+                        "size": 10000
+                    }
+                }
+            }
+        }
 
         const response = await fetch(elasticURL + '/_search', {
             method: 'POST',
@@ -193,8 +199,7 @@ export const getDataSpacesList = async () => {
         const responseData = await response.json();
 
         if (response.ok) {
-            const buckets = responseData.aggregations.distinct_dataSpaces.buckets;
-            return buckets.map(bucket => bucket.key);
+            return responseData;
         } else {
             throw new Error(responseData.errors);
         }
@@ -202,7 +207,6 @@ export const getDataSpacesList = async () => {
         throw new Error(error);
     }
 };
-
 
 export const getDataset = async (id) => {
     try {

@@ -299,12 +299,6 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
   overflow: hidden;
 }
 
-.attribute-item-wrapper {
-  height: 400px;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
 .tile {
   display: flex;
   align-items: center;

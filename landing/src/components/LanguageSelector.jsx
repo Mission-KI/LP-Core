@@ -18,8 +18,8 @@ function LanguageSelector() {
     };
 
     return (
-        <Dropdown className="ps-3">
-            <Dropdown.Toggle variant="text" className="bg-transparent txt-" id="language-dropdown">
+        <Dropdown className="px-0 mx-0 text-left">
+            <Dropdown.Toggle variant="text" className="bg-transparent px-0" id="language-dropdown">
                 {i18n.language} <ChevronDown />
             </Dropdown.Toggle>
 

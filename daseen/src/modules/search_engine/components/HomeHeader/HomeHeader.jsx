@@ -8,20 +8,36 @@ import { landingUrl } from '../../../common/api/config';
 
 const HomeHeader = () => {
 
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+
+    var landingRedirectUrl;
+    if (i18n.language == 'en' || i18n.language == 'English') {
+        landingRedirectUrl = landingUrl + '/en'
+    } else if (i18n.language == 'de' || i18n.language == 'German') {
+        landingRedirectUrl = landingUrl + '/de'
+    } else {
+        landingRedirectUrl = landingUrl + '/en'
+    }
 
     return (
         <Navbar bg="white" data-bs-theme="light" className="py-3">
             <Container>
+                <Nav>
+                    <a className='d-flex align-items-center d-block d-md-none'>
+                        <span className="badge badge-primary bg-danger" style={{ fontSize: '10pt' }}>Alpha</span>
+                    </a>
+                </Nav>
                 <Nav className="me-auto">
-                    <a href={landingUrl} className="nav-link me-4">
+                    <a href={landingRedirectUrl} className="nav-link d-none d-md-block me-4">
                         Landing page
                     </a>
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block">
                         {t('header.search')}
                     </Nav.Link>
-                    <LanguageSelector />
-                    <Nav.Link className='d-flex align-items-center ms-2'>
+                    <div className='d-none d-md-block'>
+                        <LanguageSelector />
+                    </div>
+                    <Nav.Link className='d-flex align-items-center d-none d-md-block ms-2'>
                         <span className="badge badge-primary bg-danger" style={{ fontSize: '10pt' }}>Alpha</span>
                     </Nav.Link>
                 </Nav>

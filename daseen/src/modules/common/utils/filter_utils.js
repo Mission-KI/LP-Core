@@ -1,53 +1,35 @@
 import { useState, useEffect } from "react";
-import { getDataSpacesList } from "../api/elastic";
+import { getDataSpacesAndLicensesList } from "../api/elastic";
 import { LockFill, Soundwave, UnlockFill, Calendar, Activity, Sliders2, Clipboard, GraphUpArrow } from 'react-bootstrap-icons';
 
 export const useFilterSections = () => {
     const [dataSpaces, setDataSpaces] = useState([]);
+    const [licenses, setLicenses] = useState([]);
 
     useEffect(() => {
-        const fetchDataSpaces = async () => {
+        const fetchDataSpacesAndLicenses = async () => {
             try {
-                const response = await getDataSpacesList();
-                setDataSpaces(response);
+                const response = await getDataSpacesAndLicensesList();
+                setDataSpaces(response?.aggregations?.distinct_dataSpace_names?.buckets);
+                setLicenses(response?.aggregations?.distinct_license_names?.buckets);
             } catch (error) {
-                console.error("Error fetching dataSpaces:", error);
+                console.error("Error fetching dataSpaces and licenses:", error);
             }
         };
 
-        fetchDataSpaces();
+        fetchDataSpacesAndLicenses();
     }, []);
 
     const filters = [
         {
             title: "dataspace",
             type: "checkboxes",
-            filters: [
-                {
-                    label: "beebucket GmbH",
-                    value: "beebucket GmbH",
-                    name: "dataSpace.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "GovData",
-                    value: "GovData",
-                    name: "dataSpace.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Mobility Data Space",
-                    value: "Mobility Data Space",
-                    name: "dataSpace.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "mobilithek",
-                    value: "mobilithek",
-                    name: "dataSpace.name",
-                    type: "checkbox",
-                },
-            ]
+            filters: dataSpaces.map(dataSpace => ({
+                label: dataSpace.key,
+                value: dataSpace.key,
+                name: "dataSpace.name",
+                type: "checkbox"
+            })),
         },
         {
             title: "publisher",
@@ -154,62 +136,12 @@ export const useFilterSections = () => {
         {
             title: "licenses",
             type: "checkboxes",
-            filters: [
-                {
-                    label: "cc-by/4.0",
-                    value: "cc-by/4.0",
-                    name: "license.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "cc-by-sa/4.0",
-                    value: "cc-by-sa/4.0",
-                    name: "license.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "ccpdm/1.0",
-                    value: "ccpdm/1.0",
-                    name: "license.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "dl-by-de/2.0",
-                    value: "dl-by-de/2.0",
-                    name: "license.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "dl-de/by-2-0",
-                    value: "dl-de/by-2-0",
-                    name: "license.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "dl-zero-de/2.0",
-                    value: "dl-zero-de/2.0",
-                    name: "license.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "licenses/cc-zero",
-                    value: "licenses/cc-zero",
-                    name: "license.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "licenses/officialWork",
-                    value: "licenses/officialWork",
-                    name: "license.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "licenses/other-closed",
-                    value: "licenses/other-closed",
-                    name: "license.name",
-                    type: "checkbox",
-                },
-            ],
+            filters: licenses.map(license => ({
+                label: license.key,
+                value: license.key,
+                name: "license.name",
+                type: "checkbox"
+            })),
         },
         {
             title: "dataFormat",
