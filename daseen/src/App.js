@@ -13,6 +13,7 @@ import bookmarkRoutes from './modules/bookmarks';
 import { AuthProvider } from './modules/common/contexts/AuthContext';
 import supportRoutes from './modules/support';
 import Maintenance from './modules/common/pages/Maintenance';
+import helpRoutes from './modules/help';
 
 // Predefined hashed password
 const salt = bcrypt.genSaltSync(10);
@@ -33,7 +34,8 @@ const routes = [
     children: [
       ...datasetRoutes,
       ...bookmarkRoutes,
-      ...supportRoutes
+      ...supportRoutes,
+      ...helpRoutes,
     ],
   },
   {

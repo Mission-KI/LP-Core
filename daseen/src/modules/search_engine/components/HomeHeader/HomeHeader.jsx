@@ -20,25 +20,28 @@ const HomeHeader = () => {
     }
 
     return (
-        <Navbar bg="white" data-bs-theme="light" className="py-3">
+        <Navbar bg="white" data-bs-theme="light" className="bg-transparent py-3">
             <Container>
                 <Nav>
                     <a className='d-flex align-items-center d-block d-md-none'>
-                        <span className="badge badge-primary bg-danger" style={{ fontSize: '10pt' }}>Alpha</span>
+                        <span className="badge badge-primary bg-danger" style={{ fontSize: '9pt' }}>Alpha</span>
                     </a>
                 </Nav>
                 <Nav className="me-auto">
-                    <a href={landingRedirectUrl} className="nav-link d-none d-md-block me-4">
+                    <a href={landingRedirectUrl} className="nav-link d-none d-md-block me-4 ps-0">
                         Landing page
                     </a>
-                    <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block">
+                    <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block me-4">
                         {t('header.search')}
+                    </Nav.Link>
+                    <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/help" className="d-none d-md-block">
+                        Help
                     </Nav.Link>
                     <div className='d-none d-md-block'>
                         <LanguageSelector />
                     </div>
                     <Nav.Link className='d-flex align-items-center d-none d-md-block ms-2'>
-                        <span className="badge badge-primary bg-danger" style={{ fontSize: '10pt' }}>Alpha</span>
+                        <span className="badge badge-primary bg-danger" style={{ fontSize: '9pt' }}>Alpha</span>
                     </Nav.Link>
                 </Nav>
                 <Nav className="ms-auto">

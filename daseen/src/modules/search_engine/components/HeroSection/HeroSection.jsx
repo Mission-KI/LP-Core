@@ -19,7 +19,7 @@ const HeroSection = ({ datasets }) => {
                     </div>
                     <div className="col-md-6 d-none d-md-flex justify-content-end">
                         <div style={{ maxWidth: 210 }} className='mb-1'>
-                            <img src={PlaceholderHeroSectionIllustration} className="w-100" />
+                            <img src={PlaceholderHeroSectionIllustration} className="w-100" style={{ mixBlendMode: 'darken' }} />
                         </div>
                     </div>
                 </div>

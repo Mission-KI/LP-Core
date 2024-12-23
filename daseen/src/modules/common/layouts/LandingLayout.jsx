@@ -8,7 +8,6 @@ function LandingLayout() {
             <div>
                 <Outlet />
             </div>
-            <Footer />
         </>
     )
 }

@@ -7,7 +7,6 @@ import SearchSuggestions from './SearchSuggestions';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Filters from '../../../search_engine/components/Filters/Filters';
 import { useTranslation } from 'react-i18next';
-import HelpModal from '../../../search_engine/components/HelpModal/HelpModal';
 import { Link } from 'react-router-dom';
 import { getBookmarks } from '../../utils/bookmarks';
 
@@ -25,13 +24,12 @@ function MainSearchBar() {
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const searchTermFromUrl = queryParams.get('q');
-    
+
         if (searchTermFromUrl) {
-          setLocalSearchTerm(searchTermFromUrl);
+            setLocalSearchTerm(searchTermFromUrl);
         }
 
-        console.log(searchTermFromUrl)
-      }, [location]);
+    }, [location]);
 
     const handleChange = e => {
         const newSearchTerm = e.target.value;
@@ -116,7 +114,11 @@ function MainSearchBar() {
                 </InputGroup.Text>
             </InputGroup>
             <div className='ps-2 d-none d-md-block'>
-                <HelpModal />
+                <Link to="/help"
+                    className="btn px-1 h-100 d-flex align-items-center"
+                >
+                    <Question className='h3 m-0' />
+                </Link>
             </div>
             <div className='ps-1 d-none d-md-block'>
                 <Link to="/bookmarks"

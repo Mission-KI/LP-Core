@@ -10,7 +10,6 @@ function AppLayout() {
             <div className='main-content-wrapper'>
                 <Outlet />
             </div>
-            <Footer />
         </>
     )
 }

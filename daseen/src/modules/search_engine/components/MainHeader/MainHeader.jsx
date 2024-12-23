@@ -26,11 +26,11 @@ const MainHeader = () => {
 
     return (
         <Navbar bg="white" data-bs-theme="light" fixed={location.pathname !== '/' ? 'top' : undefined} expand="md" className="py-3 shadow-sm">
-            <Container className='d-flex' style={{ whiteSpace: 'nowrap', flexWrap: 'nowrap' }}>
+            <Container className='d-flex px-1' style={{ whiteSpace: 'nowrap', flexWrap: 'nowrap' }}>
                 <Navbar.Toggle aria-controls="main-header" className='border-0 ps-0 text-dark'><List /></Navbar.Toggle>
                 <Navbar.Collapse id="main-header" className='mb-3 mb-md-0'>
                     <Nav className="me-auto">
-                        <a href={landingRedirectUrl} className="nav-link me-4" style={{ whiteSpace: 'nowrap' }}>
+                        <a href={landingRedirectUrl} className="nav-link ps-0 me-4" style={{ whiteSpace: 'nowrap' }}>
                             Landing page
                         </a>
                         <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="">

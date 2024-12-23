@@ -1,6 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import assetPropertiesHelpText from './modules/help/translations/assetProperties';
 
 i18n
   .use(LanguageDetector)
@@ -137,7 +138,8 @@ i18n
             password: "Password",
             dev: "Authentication feature is currently in development."
           },
-          maintenance: "Daseen is under maintenance and will be back at 5 pm"
+          maintenance: "Daseen is under maintenance and will be back at 5 pm",
+          assetProperties: assetPropertiesHelpText.en.fullContent,
         }
       },
       de: {
@@ -259,7 +261,8 @@ i18n
             password: "Passwort",
             dev: "Die Authentifizierungsfunktion befindet sich derzeit in Entwicklung."
           },
-          maintenance: "Daseen befindet sich in Wartung und wird ab 17 Uhr wieder verfügbar sein."
+          maintenance: "Daseen befindet sich in Wartung und wird ab 17 Uhr wieder verfügbar sein.",
+          assetProperties: assetPropertiesHelpText.de.fullContent,
         }
       },
     }
