@@ -68,7 +68,7 @@ function Details() {
 
   return (
     <>
-      <div className="container px-3">
+      <div className="container px-1">
         <span onClick={() => navigate(-1)} className="pointer d-flex align-items-center text-muted medium pb-2"><ArrowLeft className="me-2" /> {t('header.return')}</span>
         <div className="d-flex justify-content-between mb-4">
           <div className="d-flex">
