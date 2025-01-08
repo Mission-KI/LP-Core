@@ -1,23 +1,25 @@
 import { useState, useEffect } from "react";
-import { getDataSpacesAndLicensesList } from "../api/elastic";
+import { getFilterValues } from "../api/elastic";
 import { LockFill, Soundwave, UnlockFill, Calendar, Activity, Sliders2, Clipboard, GraphUpArrow } from 'react-bootstrap-icons';
 
 export const useFilterSections = () => {
     const [dataSpaces, setDataSpaces] = useState([]);
     const [licenses, setLicenses] = useState([]);
+    const [publishers, setPublishers] = useState([]);
 
     useEffect(() => {
-        const fetchDataSpacesAndLicenses = async () => {
+        const fetchFilterValues = async () => {
             try {
-                const response = await getDataSpacesAndLicensesList();
+                const response = await getFilterValues();
                 setDataSpaces(response?.aggregations?.distinct_dataSpace_names?.buckets);
                 setLicenses(response?.aggregations?.distinct_license_names?.buckets);
+                setPublishers(response?.aggregations?.distinct_publisher_names?.buckets);
             } catch (error) {
                 console.error("Error fetching dataSpaces and licenses:", error);
             }
         };
 
-        fetchDataSpacesAndLicenses();
+        fetchFilterValues();
     }, []);
 
     const filters = [
@@ -34,74 +36,12 @@ export const useFilterSections = () => {
         {
             title: "publisher",
             type: "checkboxes",
-            filters: [
-                {
-                    label: "BASt",
-                    value: "BASt",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Bayrisches Landesamt für Statistik",
-                    value: "Bayrisches Landesamt für Statistik",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Freistaat Bayern",
-                    value: "Freistaat Bayern",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Landesdatenbank NRW",
-                    value: "Landesdatenbank NRW",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "NVBW",
-                    value: "NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH ",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Offene Daten KDVZ Rhein-Erft-Rur",
-                    value: "Offene Daten KDVZ Rhein-Erft-Rur",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Open-Data Schleswig-Holstein",
-                    value: "Open-Data Schleswig-Holstein",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Statistik Nord",
-                    value: "Statistik Nord",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Statistisches Bundesamt",
-                    value: "Statistisches Bundesamt",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Toll Collect GmbH",
-                    value: "Toll Collect GmbH",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-                {
-                    label: "Transparenzportal Hamburg",
-                    value: "Transparenzportal Hamburg",
-                    name: "publisher.name",
-                    type: "checkbox",
-                },
-            ]
+            filters: publishers.map(publisher => ({
+                label: publisher.key,
+                value: publisher.key,
+                name: "publisher.name",
+                type: "checkbox"
+            })),
         },
         {
             title: "assetProcessingStatus",

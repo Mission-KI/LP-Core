@@ -167,7 +167,7 @@ export const getDatasets = async (from = 0, size = 10) => {
 };
 
 
-export const getDataSpacesAndLicensesList = async () => {
+export const getFilterValues = async () => {
     try {
         const query = {
             "size": 0,
@@ -181,6 +181,12 @@ export const getDataSpacesAndLicensesList = async () => {
                 "distinct_license_names": {
                     "terms": {
                         "field": "license.name.keyword",
+                        "size": 10000
+                    }
+                },
+                "distinct_publisher_names": {
+                    "terms": {
+                        "field": "publisher.name.keyword",
                         "size": 10000
                     }
                 }
