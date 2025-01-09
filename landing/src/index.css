@@ -12,7 +12,7 @@
   --color-main-background: #fff;
   --color-light-gray: #F2F2F2;
   --color-darker-gray: #D9D9D9;
-  --color-danger: #FF3FFF;
+  --color-danger: #da5778;
   --color-success: #20c996aa !important;
   --toastify-color-success: #007cc4 !important;
 }
@@ -47,6 +47,11 @@ body {
   color: var(--color-text-lighter) !important;
   font-size: 14px !important;
 }
+
+.navbar .nav-link:hover {
+  color: var(--color-text) !important;
+}
+
 
 .nav-link {
   color: var(--color-text) !important;
@@ -302,6 +307,13 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
   transition: all 100ms ease-in-out;
 }
 
-.TilesContainer-module_container__2hgud{
+.TilesContainer-module_container__2hgud {
   margin: 0 -.4rem !important;
+}
+
+[data-rmiz-content="found"] img,
+[data-rmiz-content="found"] svg,
+[data-rmiz-content="found"] [role="img"],
+[data-rmiz-content="found"] [data-zoom] {
+  cursor: pointer !important;
 }

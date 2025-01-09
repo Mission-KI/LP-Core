@@ -6,6 +6,7 @@ import LanguageSelector from '../LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { appUrl } from '../../api/config';
 import { List } from 'react-bootstrap-icons';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
     const { t, i18n } = useTranslation();
@@ -63,7 +64,7 @@ const Header = () => {
                             <LanguageSelector />
                         </div>
                         <div className="d-flex align-items-center">
-                            <span className="badge badge-primary bg-danger" style={{ fontSize: '9pt' }}>
+                            <span className="badge badge-primary bgc-danger" style={{ fontSize: '9pt' }}>
                                 Alpha
                             </span>
                         </div>

@@ -25,7 +25,7 @@ function ResultItemCard({ dataset }) {
 
     return (
         <div className="col-md-4 pb-4">
-            <Card className="h-100 border shadow-sm">
+            <Card className="h-100 border">
                 <Card.Body>
                     <div className="d-flex align-items-center">
                         <Link to={`/details/${dataset._id}`} className={styles.title}>

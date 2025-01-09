@@ -24,7 +24,7 @@ const HomeHeader = () => {
             <Container>
                 <Nav>
                     <a className='d-flex align-items-center d-block d-md-none'>
-                        <span className="badge badge-primary bg-danger" style={{ fontSize: '9pt' }}>Alpha</span>
+                        <span className="badge badge-primary bgc-danger" style={{ fontSize: '9pt' }}>Alpha</span>
                     </a>
                 </Nav>
                 <Nav className="me-auto">
@@ -41,7 +41,7 @@ const HomeHeader = () => {
                         <LanguageSelector />
                     </div>
                     <Nav.Link className='d-flex align-items-center d-none d-md-block ms-2'>
-                        <span className="badge badge-primary bg-danger" style={{ fontSize: '9pt' }}>Alpha</span>
+                        <span className="badge badge-primary bgc-danger" style={{ fontSize: '9pt' }}>Alpha</span>
                     </Nav.Link>
                 </Nav>
                 <Nav className="ms-auto">

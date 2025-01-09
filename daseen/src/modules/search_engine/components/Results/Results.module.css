@@ -37,7 +37,16 @@
     border: 1.5px solid transparent;
 }
 
-.resultViewTypeTabs .active {
-    border-bottom: 1.5px solid var(--color-primary);
-    transition: border-color .35s ease
+.resultViewTypeTabs{
+    color: var(--color-text-lighter) !important;
+}
+
+.resultViewTypeTabs .active,
+.resultViewTypeTabs:hover
+{
+    color: var(--color-text) !important;
+}
+
+.spinner-border{
+    border: var(--color-text) solid !important;
 }

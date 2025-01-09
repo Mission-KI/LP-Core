@@ -7,11 +7,11 @@
   --color-primary-hover: #16213b;
   --color-text: #1e1f21;
   --color-text-lighter: #4C4D4E;
-  --color-body-background: #f9fafb;
+  --color-body-background: #fff;
   --color-main-background: #fff;
   --color-light-gray: #F2F2F2;
   --color-darker-gray: #D9D9D9;
-  --color-danger: #FF3FFF;
+  --color-danger: #da5778;
   --color-success: #20c996aa !important;
   --toastify-color-success: #004f7a !important;
 }
