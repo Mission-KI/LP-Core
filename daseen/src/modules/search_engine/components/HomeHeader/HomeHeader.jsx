@@ -46,7 +46,7 @@ const HomeHeader = () => {
                 </Nav>
                 <Nav className="ms-auto">
                     <div className="ps-2">
-                        <a href="https://beebucket.ai/kontakt/" className="btn text-white btn-primary">{t('auth.register')}</a>
+                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 text-white btn-dark">{t('auth.register')}</a>
                     </div>
                 </Nav>
             </Container>

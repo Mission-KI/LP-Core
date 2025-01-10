@@ -1,14 +1,12 @@
 .searchBarWrapper {
     border-radius: 2rem !important;
-    border: 1px solid #f4f4f4;
     position: relative;
-    background-color: #f4f4f4 !important;
+    background-color: #ecedef !important;
 }
-/* 
-.searchBarWrapper:hover,
-.searchBarWrapper:focus-within {
-    border: 1px solid #a0a0a0
-} */
+
+.searchBarWrapper:hover {
+    background-color: #dadce0 !important;
+}
 
 .searchBarWrapper #searchBar,
 .searchBarWrapper span {
