@@ -31,22 +31,6 @@ function QuickView({ dataset }) {
     };
   }, []);
 
-  useEffect(() => {
-    setBookmarked(isBookmarked(dataset?._id));
-  }, [dataset]);
-
-  const handleAddBookmark = (id) => {
-    addBookmark(id);
-    setBookmarked(true);
-    window.location.reload();
-  };
-
-  const handleRemoveBookmark = (id) => {
-    removeBookmark(id);
-    setBookmarked(false);
-    window.location.reload();
-  };
-
   return (
     <Dropdown ref={dropdownRef} show={show}>
       <Dropdown.Toggle
@@ -62,6 +46,7 @@ function QuickView({ dataset }) {
       <Dropdown.Menu
         id={styles.QuickView}
         className={`fade border-0 shadow rounded-lg w-100 ${show ? "show" : ""}`}
+        data-test-id="quick-view"
       >
         <div className="container">
           <div>

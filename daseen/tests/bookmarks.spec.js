@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('bookmarks first result and verifies it on the bookmarks page', async ({ page, baseURL }) => {
 
-    await page.goto(`${baseURL}/search`);
+    await page.goto(`${baseURL}`);
 
     // Selector for the first result and bookmark button
     const firstResultSelector = '[data-test-id="result-link"]';

@@ -56,9 +56,11 @@ const DatasetActions = ({ datasetDetails }) => {
                     </a>
                 </div>
                 {!bookmarked ? (
-
                     <div className='pe-2 pt-1'>
-                        <span onClick={() => handleAddBookmark(datasetDetails?._id)} className='px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
+                        <span 
+                            onClick={() => handleAddBookmark(datasetDetails?._id)} 
+                            data-test-id="bookmark-button"
+                            className='px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
                             {t('header.bookmark')} <Star className='txt-white ms-2' />
                         </span>
                     </div>
