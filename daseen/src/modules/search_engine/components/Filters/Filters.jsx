@@ -303,7 +303,7 @@ function Filters() {
                     ))}
                     <div className="d-flex justify-content-end mt-3">
                         <button
-                            className="btn btn-primary medium"
+                            className="btn btn-dark medium"
                             onClick={handleClearFilters}
                         >
                             {t('filters.clear')}

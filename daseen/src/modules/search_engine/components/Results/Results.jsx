@@ -18,7 +18,7 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
     if (loading) {
         return (
             <div className='d-flex justify-content-center align-items-center' style={{ height: '50vh' }}>
-                <Spinner variant='primary' />
+                <Spinner variant='dark' />
             </div>
         );
     }

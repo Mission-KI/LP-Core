@@ -57,7 +57,7 @@ function Details() {
         className="d-flex justify-content-center align-items-center"
         style={{ height: "90vh" }}
       >
-        <Spinner variant="primary" />
+        <Spinner variant="dark" />
       </div>
     );
   }
