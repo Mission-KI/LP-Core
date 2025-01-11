@@ -82,17 +82,21 @@ function Search() {
         <MainHeader />
       </div>
 
-      <HomeHeader />
-      <HeroSection datasets={datasets} />
-      <div className="container pb-4">
-        <Results datasets={datasets}
-          loading={loading}
-          pageCount={pageCount}
-          handlePageChange={handlePageChange}
-          currentPage={currentPage}
-        />
+      <div style={{ maxWidth: 1200, margin: 'auto' }}>
+        <HomeHeader />
+        <HeroSection datasets={datasets} />
+        <div className="container pb-4">
+          <Results datasets={datasets}
+            loading={loading}
+            pageCount={pageCount}
+            handlePageChange={handlePageChange}
+            currentPage={currentPage}
+          />
 
+        </div>
       </div>
+
+
 
     </>
 

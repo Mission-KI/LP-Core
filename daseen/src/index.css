@@ -374,31 +374,31 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
 }
 
 .asset-processing-status {
-  border-radius: 1.2rem;
+  border-radius: .5rem;
   border: 1px solid;
   white-space: nowrap !important;
   padding: .15rem .3rem;
-  font-size: 8pt;
+  font-size: 7.5pt;
 }
 
 .asset-processing-status.warning {
-  background-color: rgba(248, 255, 173, 0.408);
-  border-color: rgba(248, 255, 173, 0.627);
+  /* background-color: rgba(248, 255, 173, 0.408); */
+  border-color: rgb(255, 234, 0);
 }
 
 .asset-processing-status.danger {
-  background-color: rgba(255, 175, 175, 0.408);
-  border-color: rgba(255, 175, 175, 0.627)
+  /* background-color: rgba(255, 175, 175, 0.408); */
+  border-color: rgba(255, 175, 175)
 }
 
 .asset-processing-status.success {
-  background-color: rgba(167, 255, 189, 0.408);
-  border-color: rgba(167, 255, 189, 0.568);
+  /* background-color: rgba(167, 255, 189, 0.408); */
+  border-color: rgba(167, 255, 189);
 }
 
 .asset-processing-status.primary {
-  background-color: rgba(159, 220, 255, 0.408);
-  border-color: rgba(159, 220, 255, 0.599);
+  /* background-color: rgba(159, 220, 255, 0.408); */
+  border-color: rgba(159, 220, 255);
 }
 
 .header-container {
