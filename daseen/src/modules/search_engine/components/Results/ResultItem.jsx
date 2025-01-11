@@ -37,13 +37,13 @@ function ResultItem({ dataset }) {
 
         </div>
 
-        <p className="medium txt-lighter pt-1">{truncateString(dataset._source.description, 350)}</p>
+        <p className={styles.description}>{truncateString(dataset._source.description, 350)}</p>
 
         <div className="d-flex mt-3 flex-wrap">
           <a
             href={dataset._source?.dataSpace?.url}
             target="_blank"
-            className="small text-muted text-decoration-underline me-3"
+            className="small txt-primary me-3"
           >
             {dataset._source?.dataSpace?.name}
           </a>
@@ -51,7 +51,7 @@ function ResultItem({ dataset }) {
             href={`https://${dataset._source?.publisher?.url}`}
             target='_blank'
             rel='noopener noreferrer'
-            className='small text-muted text-decoration-underline pe-3'
+            className='small txt-primary pe-3'
           >
             {dataset._source?.publisher?.name}
           </a>
@@ -62,7 +62,7 @@ function ResultItem({ dataset }) {
             {filesize(dataset?._source?.volume)}
           </span>
           <a href={dataset?._source?.license?.url} target='_blank'
-            className='small text-decoration-underline text-muted pe-3'>
+            className='small txt-primary pe-3'>
             {t('dataset.license')} {dataset?._source?.license?.name}
           </a>
           <span className="small text-muted pe-3">

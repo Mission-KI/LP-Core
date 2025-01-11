@@ -15,7 +15,7 @@ test('search query updates URL exactly to baseURL/?q=<query>', async ({ page, ba
     await expect(page).toHaveURL(expectedUrl);
 });
 
-test('clicks first result link and checks the URL', async ({ page, baseURL }) => {
+test('clicking on the edp link leads to detail view', async ({ page, baseURL }) => {
 
     await page.goto(baseURL+'/');
 

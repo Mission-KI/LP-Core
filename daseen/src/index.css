@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
-  --color-primary: #005c91;
-  --color-primary-lighter: #007cbf;
-  --color-primary-darker: #253761;
-  --color-primary-hover: #16213b;
+  --color-primary: #0064a1;
+  --color-primary-lighter: #0063a1d1;
+  --color-primary-darker: #005387;
+  --color-primary-hover: #005b93;
   --color-text: #1b1b1b;
   --color-text-lighter: #4C4D4E;
   --color-body-background: #fff;
@@ -187,7 +187,7 @@ p.two-words::after {
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-link:hover {
-  color: var(--color-primary-lighter) !important;
+  color: var(--color-primary) !important;
 }
 
 .hover:hover {

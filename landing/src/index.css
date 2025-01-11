@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
-  --color-primary: #007cc4;
-  --color-primary-hover: #0066a1 !important;
-  --color-primary-lighter: #007cbf;
-  --color-primary-darker: #253761;
-  --color-primary-hover: #16213b;
+  --color-primary: #0064a1;
+  --color-primary-hover: #005b93 !important;
+  --color-primary-lighter: #0063a1d1;
+  --color-primary-darker: #005387;
   --color-text: #1e1f21;
   --color-text-lighter: #4C4D4E;
   --color-body-background: #fafafa;
