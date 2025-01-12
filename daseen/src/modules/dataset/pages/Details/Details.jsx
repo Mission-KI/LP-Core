@@ -68,8 +68,8 @@ function Details() {
 
   return (
     <>
-      <div className="container px-1">
-        <span onClick={() => navigate(-1)} className="pointer d-flex align-items-center text-muted medium pb-2"><ArrowLeft className="me-2" /> {t('header.return')}</span>
+      <div className="container px-1 pb-5">
+        <span onClick={() => navigate(-1)} className="pointer d-flex align-items-center txt-lighter medium pb-2"><ArrowLeft className="me-2" /> {t('header.return')}</span>
         <div className="d-flex justify-content-between mb-4">
           <div className="d-flex">
             <h3 className="bold d-block pe-3 mb-0" style={{ maxWidth: 600 }}>{datasetDetails?._source?.name}</h3>
@@ -80,7 +80,7 @@ function Details() {
           <DatasetActions datasetDetails={datasetDetails} />
         </div>
 
-        <p className="text-muted mt-3 mb-5">
+        <p className="txt-lighter mt-3 mb-5">
           {truncateString(datasetDetails?._source?.description, 450)}
         </p>
 
@@ -122,7 +122,7 @@ function Details() {
 
         <div className="row mt-4">
           <div className="col-md-4">
-            <div className="border-light shadow rounded bg-white p-3 mt-4">
+            <div className="border-lighter shadow rounded bgc-body p-3 mt-4">
               <p className="fw-500 mb-4">{t("dataset.dataScienceInfo")}</p>
               <DataScienceInfo datasetDetails={datasetDetails} />
             </div>

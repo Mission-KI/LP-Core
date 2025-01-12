@@ -19,12 +19,12 @@ function DatasetOptionsDropdown({ dataset }) {
     };
 
     return (
-        <Dropdown>
-            <Dropdown.Toggle as="div" className="btn hover-lg bg-light rounded-circle px-2 py-1 m-0 pointer">
+        <Dropdown className='mt-1'>
+            <Dropdown.Toggle as="div" className="hover-lg rounded px-1 py-0 m-0 pointer">
                 <ThreeDotsVertical />
             </Dropdown.Toggle>
 
-            <Dropdown.Menu className='border-0 shadow'>
+            <Dropdown.Menu className='border-0 shadow bgc-body'>
                 <Dropdown.Item className='d-flex align-items-center' href={dataset?._source?.url} target='_blank'>
                     <Download className='me-2' /> {t('dataset.getDataset')}
                 </Dropdown.Item>

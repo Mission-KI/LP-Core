@@ -31,7 +31,7 @@ function DataSeasonality({ datasetDetails }) {
             <div className='d-flex align-items-center justify-content-between pb-3 pt-3'>
                 <div className='d-flex align-items-center'>
                     <div className='pe-1'>
-                        <span className='small text-muted'>Select chart view</span>
+                        <span className='small txt-lighter'>Select chart view</span>
                     </div>
                     {tabs.map((tab) => (
                         <div className='px-1' key={tab.key}>
@@ -46,7 +46,7 @@ function DataSeasonality({ datasetDetails }) {
                 </div>
                 <div className='d-flex align-items-center'>
                     <div className='pe-1'>
-                        <span className='small text-muted'>Search attribute</span>
+                        <span className='small txt-lighter'>Search attribute</span>
                     </div>
                     <div>
                         <input
@@ -67,7 +67,7 @@ function DataSeasonality({ datasetDetails }) {
                             filteredColumns.map((column) => (
                                 column?.original_series?.length > 0 && (
                                     <div key={column.name}>
-                                        <span className='text-muted small'>{column.name} Original Timeseries</span>
+                                        <span className='txt-lighter small'>{column.name} Original Timeseries</span>
                                         <div className="row mb-3">
                                             <div className='col-md-12'>
                                                 <img src={imageBasePath + column?.original_series?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
@@ -78,7 +78,7 @@ function DataSeasonality({ datasetDetails }) {
                             ))
                         ) : (
                             <div className='d-flex justify-content-center align-items-center attribute-item-wrapper'>
-                                <span className='text-muted text-center medium m-auto d-block'>No graphs included</span>
+                                <span className='txt-lighter text-center medium m-auto d-block'>No graphs included</span>
                             </div>
                         )}
                     </div>
@@ -90,7 +90,7 @@ function DataSeasonality({ datasetDetails }) {
                             filteredColumns.map((column) => (
                                 column?.trends?.length > 0 && (
                                     <div key={column.name}>
-                                        <span className='text-muted small'>{column.name} Trend</span>
+                                        <span className='txt-lighter small'>{column.name} Trend</span>
                                         <div className="row mb-3">
                                             <div className='col-md-12'>
                                                 <img src={imageBasePath + column?.trends?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
@@ -101,7 +101,7 @@ function DataSeasonality({ datasetDetails }) {
                             ))
                         ) : (
                             <div className='d-flex justify-content-center align-items-center attribute-item-wrapper'>
-                                <span className='text-muted text-center medium m-auto d-block'>No graphs included</span>
+                                <span className='txt-lighter text-center medium m-auto d-block'>No graphs included</span>
                             </div>
                         )}
                     </div>
@@ -113,7 +113,7 @@ function DataSeasonality({ datasetDetails }) {
                             filteredColumns.map((column) => (
                                 column?.seasonalities?.length > 0 && (
                                     <div key={column.name}>
-                                        <span className='text-muted small'>{column.name} Seasonality</span>
+                                        <span className='txt-lighter small'>{column.name} Seasonality</span>
                                         <div className="row mb-3">
                                             <div className='col-md-12'>
                                                 <img src={imageBasePath + column?.seasonalities?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
@@ -124,7 +124,7 @@ function DataSeasonality({ datasetDetails }) {
                             ))
                         ) : (
                             <div className='d-flex justify-content-center align-items-center attribute-item-wrapper'>
-                                <span className='text-muted text-center medium m-auto d-block'>No graphs included</span>
+                                <span className='txt-lighter text-center medium m-auto d-block'>No graphs included</span>
                             </div>
                         )}
                     </div>
@@ -136,7 +136,7 @@ function DataSeasonality({ datasetDetails }) {
                             filteredColumns.map((column) => (
                                 column?.residuals?.length > 0 && (
                                     <div key={column.name}>
-                                        <span className='text-muted small'>{column.name} Residuals / Outliers</span>
+                                        <span className='txt-lighter small'>{column.name} Residuals / Outliers</span>
                                         <div className="row mb-3">
                                             <div className='col-md-12'>
                                                 <img src={imageBasePath + column?.residuals?.[0]?.file} className='w-100 pointer' onClick={() => handleOpenSeasonalityDetailView(column)} />
@@ -147,7 +147,7 @@ function DataSeasonality({ datasetDetails }) {
                             ))
                         ) : (
                             <div className='d-flex justify-content-center align-items-center attribute-item-wrapper'>
-                                <span className='text-muted text-center medium m-auto d-block'>No graphs included</span>
+                                <span className='txt-lighter text-center medium m-auto d-block'>No graphs included</span>
                             </div>
                         )}
                     </div>

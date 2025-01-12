@@ -53,7 +53,7 @@ const Bookmarks = () => {
                 ))
             ) : (
                 <div className='d-flex flex-column align-items-center justify-content-center mt-5 pt-5'>
-                    <StarHalf className='text-muted mt-5' style={{ fontSize: '50pt' }} />
+                    <StarHalf className='txt-lighter mt-5' style={{ fontSize: '50pt' }} />
                     <h5 className='mt-4 txt-lighter' style={{ fontWeight: '400' }}>{t('bookmarks.noBookmarks')}</h5>
                 </div>
             )}

@@ -82,7 +82,7 @@ function Search() {
         <MainHeader />
       </div>
 
-      <div style={{ maxWidth: 1200, margin: 'auto' }}>
+      <div style={{ maxWidth: 1100, margin: 'auto' }}>
         <HomeHeader />
         <HeroSection datasets={datasets} />
         <div className="container pb-4">

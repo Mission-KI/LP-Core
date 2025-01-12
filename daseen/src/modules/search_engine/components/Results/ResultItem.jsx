@@ -57,15 +57,15 @@ function ResultItem({ dataset }) {
           </a>
 
 
-          <span className="small text-muted pe-3">Files (CSV)</span>
-          <span className="small text-muted pe-3">
+          <span className="small txt-lighter pe-3">Files (CSV)</span>
+          <span className="small txt-lighter pe-3">
             {filesize(dataset?._source?.volume)}
           </span>
           <a href={dataset?._source?.license?.url} target='_blank'
             className='small txt-primary pe-3'>
             {t('dataset.license')} {dataset?._source?.license?.name}
           </a>
-          <span className="small text-muted pe-3">
+          <span className="small txt-lighter pe-3">
             {t('dataset.assetUploaded')} {new Date(dataset?._source?.publishDate).toLocaleDateString()} ({moment(dataset?._source?.publishDate).fromNow()})
           </span>
         </div>

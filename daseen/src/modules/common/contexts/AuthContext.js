@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import { login } from '../../authentication/api/auth'
+import { login } from '../../authentication/api/auth';
 
 const AuthContext = createContext();
 
@@ -14,7 +14,6 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
     const [authenticated, setAuthenticated] = useState(false);
     const [email, setEmail] = useState('');
-    const [isPasswordTemporary, setIsPasswordTemporary] = useState(false);
     const [token, setToken] = useState('');
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -23,20 +22,11 @@ export const AuthProvider = ({ children }) => {
     const handleLogin = async (user) => {
         const response = await login(user);
         if (response.access) {
-            const decodedToken = jwtDecode(response.access);
-            const isTemporary = decodedToken.is_password_temporary;
-
-            setIsPasswordTemporary(isTemporary);
             setAuthenticated(true);
             setEmail(email);
             setToken(response.access);
             localStorage.setItem('accessToken', response.access);
-
-            if (isTemporary) {
-                navigate('/reset-password');
-            } else {
-                navigate('/');
-            }
+            navigate('/my-projects');
             return { success: true };
         } else {
             return { success: false, message: response.message || 'Login failed' };
@@ -46,7 +36,6 @@ export const AuthProvider = ({ children }) => {
     const handleLogout = () => {
         setAuthenticated(false);
         setEmail('');
-        setIsPasswordTemporary(false);
         setToken('');
         localStorage.removeItem('accessToken');
         navigate('/');
@@ -66,7 +55,6 @@ export const AuthProvider = ({ children }) => {
             setAuthenticated(true);
             setToken(storedToken);
             setEmail(jwtDecode(storedToken).email);
-            setIsPasswordTemporary(jwtDecode(storedToken).is_password_temporary);
         }
         setLoading(false);
     }, []);
@@ -74,7 +62,6 @@ export const AuthProvider = ({ children }) => {
     const value = {
         authenticated,
         email,
-        isPasswordTemporary,
         token,
         login: handleLogin,
         logout: handleLogout,

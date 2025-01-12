@@ -28,8 +28,8 @@ const HomeHeader = () => {
                     </a>
                 </Nav>
                 <Nav className="me-auto">
-                    <a href={landingRedirectUrl} className="nav-link d-none d-md-block me-4 ps-0">
-                        Landing page
+                    <a href={landingRedirectUrl} className="nav-link d-none d-md-block me-4 ps-1">
+                        Landing
                     </a>
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block me-4">
                         {t('header.search')}
@@ -46,7 +46,7 @@ const HomeHeader = () => {
                 </Nav>
                 <Nav className="ms-auto">
                     <div className="ps-2">
-                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 text-white btn-dark">{t('auth.register')}</a>
+                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-contrast">{t('auth.register')}</a>
                     </div>
                 </Nav>
             </Container>

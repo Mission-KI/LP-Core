@@ -1,11 +1,11 @@
 .searchBarWrapper {
     border-radius: 2rem !important;
     position: relative;
-    background-color: #ecedef !important;
+    background-color: var(--search-bar-color) !important;
 }
 
 .searchBarWrapper:hover {
-    background-color: #dadce0 !important;
+    background-color: var(--search-bar-hover-color) !important;
 }
 
 .searchBarWrapper #searchBar,
@@ -13,7 +13,9 @@
     border: none !important;
     background-color: transparent !important;
     text-wrap: wrap;
+    color: var(--color-text) !important;
 }
-.searchBarWrapper #searchBar{
+
+.searchBarWrapper #searchBar {
     padding: .75rem 0rem !important;
 }

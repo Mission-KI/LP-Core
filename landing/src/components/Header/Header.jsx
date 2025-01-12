@@ -48,7 +48,7 @@ const Header = () => {
                 <Navbar.Collapse id="basic-navbar-nav" className="mb-3 mb-md-0">
                     <Nav className="me-auto">
                         <a href="/" className="nav-link ps-1 me-4">
-                            Landing page
+                            Landing
                         </a>
                         <a style={{ whiteSpace: 'nowrap' }} href={appUrl+"/help"} className="nav-link d-none d-md-block me-4">
                             Help
@@ -72,7 +72,7 @@ const Header = () => {
                 </Navbar.Collapse>
                 <Nav className="ms-md-auto">
                     <div>
-                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 text-white btn-dark">
+                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-contrast">
                             {t('auth.register')}
                         </a>
                     </div>

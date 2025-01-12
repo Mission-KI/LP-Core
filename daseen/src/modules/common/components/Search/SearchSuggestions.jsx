@@ -35,7 +35,7 @@ function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestion
     }, [localSearchTerm]);
 
     return showSuggestions && (
-        <Dropdown.Menu show className="border-0 shadow rounded w-100" style={{ position: 'absolute', top: '100%', left: 0, zIndex: 10, transform: 'translateY(10px)' }}>
+        <Dropdown.Menu show className="border-0 shadow rounded w-100 bgc-body" style={{ position: 'absolute', top: '100%', left: 0, zIndex: 10, transform: 'translateY(10px)' }}>
             {suggestions.length > 0 ? (
                 suggestions.map((suggestion, index) => (
                     <Dropdown.Item key={index} onClick={() => handleSelectSuggestion(suggestion)}>

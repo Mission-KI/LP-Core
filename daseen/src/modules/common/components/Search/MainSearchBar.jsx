@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Filter, Search, Question, X, Star, StarFill } from 'react-bootstrap-icons';
+import { Filter, Search, Question, X, Star, StarFill, Sliders2 } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import styles from './SearchBar.module.css';
@@ -7,8 +7,6 @@ import SearchSuggestions from './SearchSuggestions';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Filters from '../../../search_engine/components/Filters/Filters';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { getBookmarks } from '../../utils/bookmarks';
 
 function MainSearchBar() {
 
@@ -113,24 +111,6 @@ function MainSearchBar() {
                     <Filters />
                 </InputGroup.Text>
             </InputGroup>
-            <div className='ps-2 d-none d-md-block'>
-                <Link to="/help"
-                    className="btn px-1 h-100 d-flex align-items-center"
-                >
-                    <Question className='h3 m-0' />
-                </Link>
-            </div>
-            <div className='ps-1 d-none d-md-block'>
-                <Link to="/bookmarks"
-                    className="btn px-1 h-100 d-flex align-items-center"
-                >
-                    {getBookmarks().length > 0 ? (
-                        <StarFill className='h5 m-0' />
-                    ) : (
-                        <Star className='h5 m-0' />
-                    )}
-                </Link>
-            </div>
 
         </form>
     );

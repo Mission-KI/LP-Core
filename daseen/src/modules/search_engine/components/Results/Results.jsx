@@ -55,7 +55,7 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
                     </div>
 
                     {activeTab == 'list' ? (
-                        <div className='col-md-8'>
+                        <div className='col-md-10'>
                             {datasets?.hits?.hits?.map((dataset) =>
                                 <ResultItem dataset={dataset} key={dataset._id} />
                             )}

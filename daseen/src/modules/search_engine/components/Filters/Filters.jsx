@@ -222,7 +222,7 @@ function Filters() {
                                             filterSection.filters.map((filter) => (
                                                 <div style={{ width: 300 }}>
                                                     <div className='d-flex flex-column w-100'>
-                                                        <label className='small text-muted'>{t(`filters.${filter.label}`)}</label>
+                                                        <label className='small txt-lighter'>{t(`filters.${filter.label}`)}</label>
                                                         <Slider
                                                             range
                                                             className='w-100'
@@ -233,8 +233,8 @@ function Filters() {
                                                             onChangeComplete={(values) => handleDoubleRangeComplete(filter, values)}
                                                         />
                                                         <div className='d-flex justify-content-between mt-2'>
-                                                            <span className='small text-muted'>{rangeValues[filter.name_1]?.[0] || filter.minValue}</span>
-                                                            <span className='small text-muted'>{rangeValues[filter.name_1]?.[1] || filter.maxValue}</span>
+                                                            <span className='small txt-lighter'>{rangeValues[filter.name_1]?.[0] || filter.minValue}</span>
+                                                            <span className='small txt-lighter'>{rangeValues[filter.name_1]?.[1] || filter.maxValue}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -247,7 +247,7 @@ function Filters() {
                                             filterSection.filters.map((filter) => (
                                                 <div style={{ width: 300 }}>
                                                     <div className='d-flex flex-column w-100'>
-                                                        <label className='small text-muted'>{t('filters.sizeRange')}</label>
+                                                        <label className='small txt-lighter'>{t('filters.sizeRange')}</label>
                                                         <div className='position-relative'>
                                                             <Slider
                                                                 range
@@ -268,10 +268,10 @@ function Filters() {
                                                         </div>
 
                                                         <div className='d-flex justify-content-around mt-2'>
-                                                            <span className='small text-muted p-0'>KB</span>
-                                                            <span className='small text-muted'>MB</span>
-                                                            <span className='small text-muted'>GB</span>
-                                                            <span className='small text-muted'>TB</span>
+                                                            <span className='small txt-lighter p-0'>KB</span>
+                                                            <span className='small txt-lighter'>MB</span>
+                                                            <span className='small txt-lighter'>GB</span>
+                                                            <span className='small txt-lighter'>TB</span>
                                                         </div>
                                                     </div>
                                                 </div>

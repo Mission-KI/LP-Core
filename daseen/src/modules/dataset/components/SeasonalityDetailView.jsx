@@ -14,7 +14,7 @@ const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, se
                     <Modal.Title>Attribute {selectedAttribute.name}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <span className='text-muted bold'>{selectedAttribute.name} Original time series</span>
+                    <span className='txt-lighter bold'>{selectedAttribute.name} Original time series</span>
                     {selectedAttribute?.original_series?.map((graph) => (
                         <div>
                             <div className="row mb-3">
@@ -24,7 +24,7 @@ const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, se
                             </div>
                         </div>
                     ))}
-                    <span className='text-muted bold'>{selectedAttribute.name} Trend</span>
+                    <span className='txt-lighter bold'>{selectedAttribute.name} Trend</span>
                     {selectedAttribute?.trends?.map((graph) => (
                         <div>
                             <div className="row mb-3">
@@ -34,7 +34,7 @@ const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, se
                             </div>
                         </div>
                     ))}
-                    <span className='text-muted bold'>{selectedAttribute.name} Seasonality</span>
+                    <span className='txt-lighter bold'>{selectedAttribute.name} Seasonality</span>
                     {selectedAttribute?.seasonalities?.map((graph) => (
                         <div>
                             <div className="row mb-3">
@@ -44,7 +44,7 @@ const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, se
                             </div>
                         </div>
                     ))}
-                    <span className='text-muted bold'>{selectedAttribute.name} Residuals/Outlier</span>
+                    <span className='txt-lighter bold'>{selectedAttribute.name} Residuals/Outlier</span>
                     {selectedAttribute?.residuals?.map((graph) => (
                         <div>
                             <div className="row mb-3">
