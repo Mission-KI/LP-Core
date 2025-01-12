@@ -82,10 +82,10 @@ function Search() {
         <MainHeader />
       </div>
 
-      <div style={{ maxWidth: 1100, margin: 'auto' }}>
+      <div>
         <HomeHeader />
         <HeroSection datasets={datasets} />
-        <div className="container pb-4">
+        <div className="container pb-4" style={{ maxWidth: 1100 }}>
           <Results datasets={datasets}
             loading={loading}
             pageCount={pageCount}

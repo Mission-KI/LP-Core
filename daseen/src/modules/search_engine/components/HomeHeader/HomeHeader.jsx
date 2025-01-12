@@ -20,7 +20,7 @@ const HomeHeader = () => {
     }
 
     return (
-        <Navbar bg="white" data-bs-theme="light" className="bg-transparent py-3">
+        <Navbar bg="white" data-bs-theme="light" className="bg-transparent py-3 m-auto" style={{ maxWidth: 1100 }}>
             <Container>
                 <Nav>
                     <a className='d-flex align-items-center d-block d-md-none'>
