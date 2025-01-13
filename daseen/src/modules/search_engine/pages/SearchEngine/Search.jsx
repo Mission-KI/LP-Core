@@ -83,8 +83,10 @@ function Search() {
       </div>
 
       <div>
-        <HomeHeader />
-        <HeroSection datasets={datasets} />
+        <div>
+          <HomeHeader />
+          <HeroSection datasets={datasets} />
+        </div>
         <div className="container pb-4" style={{ maxWidth: 1100 }}>
           <Results datasets={datasets}
             loading={loading}

@@ -107,9 +107,9 @@ function MainSearchBar() {
                     setShowSuggestions={setShowSuggestions}
                 />
 
-                <InputGroup.Text className='position-relative'>
+                {/* <InputGroup.Text className='position-relative'>
                     <Filters />
-                </InputGroup.Text>
+                </InputGroup.Text> */}
             </InputGroup>
 
         </form>

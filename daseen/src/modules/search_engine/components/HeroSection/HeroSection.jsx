@@ -2,10 +2,13 @@ import React from 'react';
 import MainSearchBar from '../../../common/components/Search/MainSearchBar';
 import PlaceholderHeroSectionIllustration from '../../../common/assets/img/illustrations/home-page-illustration.jpg'
 import { useTranslation } from 'react-i18next';
+import Filters from '../Filters/Filters';
+import { useExpert } from '../../../common/contexts/ExpertContext';
 
-const HeroSection = ({ datasets }) => {
+const HeroSection = () => {
 
     const { t } = useTranslation();
+    const { expertMode } = useExpert();
 
     return (
         <div className='w-100' style={{ borderBottom: '1px solid var(--color-light-gray)' }}>
@@ -17,15 +20,17 @@ const HeroSection = ({ datasets }) => {
                             {t('page.shortDescription')}
                         </p>
                     </div>
-                    <div className="col-md-6 d-none d-md-flex justify-content-end">
-                        <div style={{ maxWidth: 210 }} className='mb-1'>
-                            {/* <img src={PlaceholderHeroSectionIllustration} className="w-100" style={{ mixBlendMode: 'darken' }} /> */}
-                        </div>
-                    </div>
                 </div>
 
 
                 <MainSearchBar />
+
+                {expertMode && (
+                    <div className='px-2'>
+                        <Filters />
+                    </div>
+                )}
+
 
             </div>
         </div>

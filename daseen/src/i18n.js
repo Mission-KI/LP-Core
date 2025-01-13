@@ -25,7 +25,7 @@ i18n
             support: "Support",
             title: "Data Search Engine",
             search_placeholder: "Search datasets",
-            filters: "Filters",
+            filters: "Filter",
             findSimilar: "Find similar EDP",
             return: "return to search",
             schemaJson: "Schema",
