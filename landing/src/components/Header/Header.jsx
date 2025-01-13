@@ -72,7 +72,7 @@ const Header = () => {
                 </Navbar.Collapse>
                 <Nav className="ms-md-auto">
                     <div>
-                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-contrast">
+                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-dark">
                             {t('auth.register')}
                         </a>
                     </div>

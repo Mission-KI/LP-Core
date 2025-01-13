@@ -9,10 +9,8 @@ import { useLocation } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { landingUrl } from '../../../common/api/config';
 import { List } from 'react-bootstrap-icons';
-import { getBookmarks } from '../../../common/utils/bookmarks';
-import { Question, Star, StarFill, Sliders2 } from 'react-bootstrap-icons';
 import { useState } from 'react';
-import PreferencesModal from '../../../common/components/PreferencesModal/PreferencesModal';
+import Toolbar from '../Toolbar'
 
 const MainHeader = () => {
 
@@ -51,31 +49,7 @@ const MainHeader = () => {
                     </div>
 
                     <Nav className="ms-md-auto pe-4">
-                        <div className='d-none d-md-block'>
-                            <Link to="/help"
-                                className="btn-hover px-1 h-100 d-flex align-items-center"
-                            >
-                                <Question className='h3 m-0' />
-                            </Link>
-                        </div>
-                        <div className='pe-1 d-none d-md-block'>
-                            <span onClick={() => setShowPreferencesModal(true)}
-                                className="btn-hover px-1 h-100 d-flex align-items-center pointer"
-                            >
-                                <Sliders2 className='h5 m-0' />
-                            </span>
-                        </div>
-                        <div className='ps-1 d-none d-md-block'>
-                            <Link to="/bookmarks"
-                                className="btn-hover px-1 h-100 d-flex align-items-center"
-                            >
-                                {getBookmarks().length > 0 ? (
-                                    <StarFill className='h5 m-0' />
-                                ) : (
-                                    <Star className='h5 m-0' />
-                                )}
-                            </Link>
-                        </div>
+                        <Toolbar />
                     </Nav>
 
                     <Nav className="ms-md-auto">
@@ -85,11 +59,6 @@ const MainHeader = () => {
                     </Nav>
                 </Container>
             </Navbar>
-
-            <PreferencesModal
-                showPreferencesModal={showPreferencesModal}
-                setShowPreferencesModal={setShowPreferencesModal}
-            />
 
         </>
 

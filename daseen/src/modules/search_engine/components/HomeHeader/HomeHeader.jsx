@@ -5,6 +5,7 @@ import { NavLink, Link } from 'react-router-dom';
 import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
 import { useTranslation } from "react-i18next";
 import { landingUrl } from '../../../common/api/config';
+import Toolbar from '../Toolbar'
 
 const HomeHeader = () => {
 
@@ -44,7 +45,11 @@ const HomeHeader = () => {
                         <span className="badge badge-primary bgc-danger" style={{ fontSize: '9pt' }}>Alpha</span>
                     </Nav.Link>
                 </Nav>
+
                 <Nav className="ms-auto">
+                    <div className="pe-3 d-flex">
+                        <Toolbar />
+                    </div>
                     <div className="ps-2">
                         <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-contrast">{t('auth.register')}</a>
                     </div>
