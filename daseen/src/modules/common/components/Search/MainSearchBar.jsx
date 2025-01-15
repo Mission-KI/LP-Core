@@ -82,7 +82,7 @@ function MainSearchBar() {
         <form onSubmit={handleSubmit} className="d-flex w-100" ref={inputRef}>
             <InputGroup className={styles.searchBarWrapper}>
                 <InputGroup.Text className='ps-4 pe-3'>
-                    <Search />
+                    <Search style={{ fontSize: '13pt' }} />
                 </InputGroup.Text>
                 <Form.Control
                     onChange={handleChange}
