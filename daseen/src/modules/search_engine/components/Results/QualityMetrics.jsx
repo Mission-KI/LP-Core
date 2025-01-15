@@ -7,28 +7,42 @@ import DataTypeConsestencyMetricIcon from '../../../common/assets/img/metric_ico
 import AttributeConsestencyMetricIcon from '../../../common/assets/img/metric_icons/attribute-consistant_w.png';
 import SignificantVarianceMetricIcon from '../../../common/assets/img/metric_icons/significant-variance_w.png';
 import { calculateAttributeConsistency } from "../../../dataset/utils/calculations";
-import { Unlock, Gear, ClipboardCheck, Soundwave, Calendar, Broadcast, Activity, Sliders2, Sliders2Vertical, Lock, Robot } from "react-bootstrap-icons";
+import { Unlock, Gear, ClipboardCheck, Soundwave, Calendar, Broadcast, Activity, Sliders2, Sliders2Vertical, Lock, Robot, QuestionCircle } from "react-bootstrap-icons";
 
 const QualityMetrics = ({ dataset }) => {
+    const renderTooltip = (message, helpHash = "asset-processing-status-section") => (
+        <Tooltip>
+            <div className="d-flex align-items-center h-100">
+                <span>{message}</span>
+                <QuestionCircle
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        window.location.href = `/help#${helpHash}`;
+                    }}
+                    style={{
+                        fontSize: '15px !important',
+                        marginLeft: '7px',
+                        cursor: 'pointer',
+                        color: '#007bff',
+                    }}
+                />
+            </div>
+        </Tooltip>
+    );
+
     return (
-        <div className='d-flex'>
+        <div className="d-flex">
             {dataset?._source?.freely_available ? (
-                <div className="">
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={<Tooltip>Open access</Tooltip>}
-                    >
+                <div>
+                    <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Open access', 'open-access-section')}>
                         <div>
                             <Unlock />
                         </div>
                     </OverlayTrigger>
                 </div>
             ) : (
-                <div className="">
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={<Tooltip>Closed access</Tooltip>}
-                    >
+                <div>
+                    <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Closed access', 'closed-access-section')}>
                         <div>
                             <Lock />
                         </div>
@@ -37,10 +51,7 @@ const QualityMetrics = ({ dataset }) => {
             )}
             {dataset?._source?.structuredDatasets[0]?.datetimeColumnCount > 0 && (
                 <div className="ps-2">
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={<Tooltip>Date time attribute</Tooltip>}
-                    >
+                    <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Date time attribute', 'date-time-attribute-section')}>
                         <div>
                             <Calendar />
                         </div>
@@ -49,10 +60,7 @@ const QualityMetrics = ({ dataset }) => {
             )}
             {dataset?._source?.periodicity && (
                 <div className="ps-2">
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={<Tooltip>Temporal frequency</Tooltip>}
-                    >
+                    <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Temporal frequency', 'temporal-frequency-section')}>
                         <div>
                             <Soundwave />
                         </div>
@@ -60,21 +68,15 @@ const QualityMetrics = ({ dataset }) => {
                 </div>
             )}
             <div className="ps-2">
-                <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip>Data type consistency</Tooltip>}
-                >
+                <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Data type consistency', 'data-type-consistency-section')}>
                     <div>
                         <Sliders2Vertical />
                     </div>
                 </OverlayTrigger>
             </div>
-            {calculateAttributeConsistency(dataset) == 'consistent' && (
+            {calculateAttributeConsistency(dataset) === 'consistent' && (
                 <div className="ps-2">
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={<Tooltip>Attribute consistency</Tooltip>}
-                    >
+                    <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Attribute consistency', 'attribute-consistency-section')}>
                         <div>
                             <Sliders2 />
                         </div>
@@ -82,10 +84,7 @@ const QualityMetrics = ({ dataset }) => {
                 </div>
             )}
             <div className="ps-2">
-                <OverlayTrigger
-                    placement="top"
-                    overlay={<Tooltip>Significant variance</Tooltip>}
-                >
+                <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Significant variance', 'significant-variance-section')}>
                     <div>
                         <Activity />
                     </div>
@@ -104,21 +103,21 @@ const QualityMetrics = ({ dataset }) => {
                 </div>
             )}
             <div className="ps-2">
-                <OverlayTrigger
-                    placement="top"
-                    overlay={
-                        <Tooltip>
-                            {dataset._source.assetProcessingStatus === 'Original Data'
-                                ? 'Unverarbeitete, direkt aus den Quellen stammende Daten'
-                                : dataset._source.assetProcessingStatus === 'Processed Data'
-                                    ? 'Redefinierte, konvertierte und semantisch bereinigte sowie transformierte Daten, die eine verbesserte Struktur und höhere Konsistenz aufweisen'
-                                    : dataset._source.assetProcessingStatus === 'Refined Data'
-                                        ? 'Feature Engineered und aggregierte Daten. Optimierte und zusammengefasste Datensätze für KI-Training'
-                                        : dataset._source.assetProcessingStatus === 'KI/ML Data'
-                                            ? 'KI/ML generierte Ergebnisdatensätze'
-                                            : 'Unbekannter Datenstatus'}
-                        </Tooltip>
-                    }
+                <OverlayTrigger delay={{ show: 100, hide: 900 }}
+                    placement="top" className="small"
+                    overlay={renderTooltip(<span style={{ fontSize: 10 }}>{(
+                        dataset._source.assetProcessingStatus === 'Original Data'
+                            ? 'Unverarbeitete, direkt aus den Quellen stammende Daten'
+                            : dataset._source.assetProcessingStatus === 'Processed Data'
+                                ? 'Redefinierte, konvertierte und semantisch bereinigte sowie transformierte Daten, die eine verbesserte Struktur und höhere Konsistenz aufweisen'
+                                : dataset._source.assetProcessingStatus === 'Refined Data'
+                                    ? 'Feature Engineered und aggregierte Daten. Optimierte und zusammengefasste Datensätze für KI-Training'
+                                    : dataset._source.assetProcessingStatus === 'KI/ML Data'
+                                        ? 'KI/ML generierte Ergebnisdatensätze'
+                                        : 'Unbekannter Datenstatus')}
+                    </span>
+
+                    )}
                 >
                     <span
                         className={`asset-processing-status ${dataset._source.assetProcessingStatus === 'Original Data'
@@ -133,10 +132,9 @@ const QualityMetrics = ({ dataset }) => {
                         {dataset._source.assetProcessingStatus}
                     </span>
                 </OverlayTrigger>
-
             </div>
         </div>
     );
-}
+};
 
 export default QualityMetrics;
