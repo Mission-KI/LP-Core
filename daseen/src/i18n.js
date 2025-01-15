@@ -140,7 +140,10 @@ i18n
           },
           maintenance: "Daseen is under maintenance and will be back at 5 pm",
           assetProperties: assetPropertiesHelpText.en.fullContent,
-        }
+          help: {
+            alert: "Welcome to the Help Center! This page provides detailed explanations and guides about various features, functionalities, and widgets available on our website. If you're unsure about how something works or need clarification, this is the perfect place to find answers.",
+          }
+        },
       },
       de: {
         translation: {
@@ -263,6 +266,9 @@ i18n
           },
           maintenance: "Daseen befindet sich in Wartung und wird ab 17 Uhr wieder verfügbar sein.",
           assetProperties: assetPropertiesHelpText.de.fullContent,
+          help: {
+            alert: "Willkommen im Hilfe-Center! Diese Seite bietet detaillierte Erklärungen und Anleitungen zu den verschiedenen Funktionen, Features und Widgets auf unserer Website. Wenn Sie sich nicht sicher sind, wie etwas funktioniert, oder eine Klärung benötigen, finden Sie hier die passenden Antworten.",
+          }
         }
       },
     }

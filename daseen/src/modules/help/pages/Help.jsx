@@ -12,40 +12,49 @@ const Help = () => {
                 const id = hash.replace('#', '');
                 const element = document.getElementById(id);
                 if (element) {
-                    // Get the height of a fixed header if present
                     const headerHeight = document.querySelector('.navbar')?.offsetHeight || 0;
-                    // Calculate the position to scroll to
                     const topOffset = element.offsetTop - headerHeight;
 
-                    // Scroll to the position
                     window.scrollTo({
                         top: topOffset,
-                        behavior: 'smooth', // Smooth scrolling
+                        behavior: 'smooth',
                     });
                 }
             }
         };
 
-        // Wait for the window load event to ensure all resources are loaded
         window.addEventListener('load', handleLoad);
 
-        // Cleanup the event listener on unmount
         return () => {
             window.removeEventListener('load', handleLoad);
         };
-    }, []);
+    }, [window.location]);
 
 
     return (
-        <div className='container'>
-            <h2 className='bold mb-4'>Help topics</h2>
+        <div className='container' style={{ maxWidth: 1150 }}>
+            <h2 className='bold mb-4'>Help</h2>
 
-            <img src={assetPropertiesImg} alt="" style={{ maxWidth: 450 }} className='shadow rounded mb-5' />
-            <h4 className="bold mb-3">
-                EDP asset properties
-            </h4>
+            <div class="alert alert-primary" role="alert">
+                {t('help.alert')}
+            </div>
 
-            <div dangerouslySetInnerHTML={{ __html: t('assetProperties') }} />
+            <p className='fw-500 mt-5'>
+                Topics
+            </p>
+
+            <a href="/help#asset-properties-topic" className='txt-primary ft-500' style={{ fontSize: '14pt' }}>EDP asset properties</a>
+
+            {/* <img src={assetPropertiesImg} alt="" style={{ maxWidth: 450 }} className='mb-5' /> */}
+
+            <div id='asset-properties-topic' className='pt-5'>
+                <h4 className="mb-3 pt-5">
+                    EDP asset properties
+                </h4>
+
+                <div dangerouslySetInnerHTML={{ __html: t('assetProperties') }} />
+            </div>
+
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
         </div>
     );
