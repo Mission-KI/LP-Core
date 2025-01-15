@@ -20,7 +20,7 @@ function ResultItem({ dataset }) {
       <div className="w-md-100 pe-3">
         <div className="d-flex align-items-center flex-wrap">
           <Link to={`/details/${dataset._id}`} className={styles.title} data-test-id="result-link">
-            {truncateString(dataset._source.name, 65)}
+            {truncateString(dataset._source.name, 165)}
           </Link>
           <div className="ps-2 pe-4">
             <QuickView dataset={dataset} />
