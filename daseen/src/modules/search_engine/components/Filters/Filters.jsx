@@ -145,7 +145,7 @@ function Filters() {
     return (
         <Dropdown show={filtersDropdownVisible} style={{ width: 'fit-content' }}>
             <button onClick={toggleFiltersDropdown} className='btn rounded-lg mt-2'>
-                <span className='medium txt-lighter fw-500'>{t('header.filters')} <ChevronDown className='small' /></span>
+                <span className='medium txt-lighter fw-500'>{t('header.filters')} <ChevronDown className='small ms-1' /></span>
             </button>
             <Dropdown.Menu ref={dropdownRef} className='border-0 shadow px-2' style={{ top: 0, left: 0, transform: 'translate(0%, 50px)', zIndex: 1 }}>
 

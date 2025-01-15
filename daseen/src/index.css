@@ -404,6 +404,19 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
   opacity: 1 !important;
 }
 
+
+table.dataTable thead>tr>th.dt-orderable-asc,
+table.dataTable thead>tr>th.dt-orderable-desc,
+table.dataTable thead>tr>th.dt-ordering-asc,
+table.dataTable thead>tr>th.dt-ordering-desc,
+table.dataTable thead>tr>td.dt-orderable-asc,
+table.dataTable thead>tr>td.dt-orderable-desc,
+table.dataTable thead>tr>td.dt-ordering-asc,
+table.dataTable thead>tr>td.dt-ordering-desc {
+  position: relative;
+  padding-right: 30px !important;
+}
+
 .form-control-sm {
   padding: .4rem .5rem !important;
 }
@@ -567,7 +580,7 @@ input:checked+.slider:before {
   border-right-color: transparent !important
 }
 
-.dropdown-menu{
+.dropdown-menu {
   background-color: var(--dropdown-color) !important;
   color: var(--color-text) !important;
 }

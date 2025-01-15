@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Filter, Search, Question, X, Star, StarFill, Sliders2 } from 'react-bootstrap-icons';
+import { Search, X } from 'react-bootstrap-icons';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import styles from './SearchBar.module.css';
 import SearchSuggestions from './SearchSuggestions';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Filters from '../../../search_engine/components/Filters/Filters';
 import { useTranslation } from 'react-i18next';
 
 function MainSearchBar() {
@@ -97,7 +96,7 @@ function MainSearchBar() {
                 />
                 {localSearchTerm && (
                     <InputGroup.Text onClick={clearSearch} style={{ cursor: 'pointer' }}>
-                        <X />
+                        <X className='h4 mb-0' />
                     </InputGroup.Text>
                 )}
                 <SearchSuggestions
@@ -106,10 +105,6 @@ function MainSearchBar() {
                     showSuggestions={showSuggestions}
                     setShowSuggestions={setShowSuggestions}
                 />
-
-                {/* <InputGroup.Text className='position-relative'>
-                    <Filters />
-                </InputGroup.Text> */}
             </InputGroup>
 
         </form>

@@ -49,33 +49,33 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
                         <table id="anomalyTable" className='table table-bordered table-hover'>
                             <thead>
                                 <tr>
-                                    <th className='py-2'>{t('table.attributes.attribute')}</th>
-                                    <th className='py-2'>{t('table.attributes.upperQuantile')}</th>
-                                    <th className='py-2'>{t('table.attributes.lowerQuantile')}</th>
-                                    <th className='py-2'>{t('table.attributes.outlierCountQuantile')}</th>
-                                    <th className='py-2'>{t('table.attributes.upperZscore')}</th>
-                                    <th className='py-2'>{t('table.attributes.lowerZscore')}</th>
-                                    <th className='py-2'>{t('table.attributes.outlierCountZscore')}</th>
-                                    <th className='py-2'>{t('table.attributes.upperIqr')}</th>
-                                    <th className='py-2'>{t('table.attributes.lowerIqr')}</th>
-                                    <th className='py-2'>{t('table.attributes.iqr')}</th>
-                                    <th className='py-2'>{t('table.attributes.outlierCountIqr')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.attribute')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.upperQuantile')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.lowerQuantile')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.outlierCountQuantile')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.upperZscore')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.lowerZscore')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.outlierCountZscore')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.upperIqr')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.lowerIqr')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.iqr')}</th>
+                                    <th className='py-2 small pe-4'>{t('table.attributes.outlierCountIqr')}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column, index) => (
                                     <tr key={index} className='hover'>
-                                        <td>{column.name}</td>
-                                        <td>{column.upperQuantile}</td>
-                                        <td>{column.lowerQuantile}</td>
-                                        <td>{column.percentileOutlierCount}</td>
-                                        <td>{column.upperZScore}</td>
-                                        <td>{column.lowerZScore}</td>
-                                        <td>{column.zScoreOutlierCount}</td>
-                                        <td>{column.upperIQR}</td>
-                                        <td>{column.lowerIQR}</td>
-                                        <td>{column.iqr}</td>
-                                        <td>{column.iqrOutlierCount}</td>
+                                        <td className='small'>{column.name}</td>
+                                        <td className='small'>{column.upperQuantile}</td>
+                                        <td className='small'>{column.lowerQuantile}</td>
+                                        <td className='small'>{column.percentileOutlierCount}</td>
+                                        <td className='small'>{column.upperZScore}</td>
+                                        <td className='small'>{column.lowerZScore}</td>
+                                        <td className='small'>{column.zScoreOutlierCount}</td>
+                                        <td className='small'>{column.upperIQR}</td>
+                                        <td className='small'>{column.lowerIQR}</td>
+                                        <td className='small'>{column.iqr}</td>
+                                        <td className='small'>{column.iqrOutlierCount}</td>
                                     </tr>
                                 ))}
                             </tbody>
