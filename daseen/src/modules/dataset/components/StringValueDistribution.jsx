@@ -49,7 +49,7 @@ function StringValueDistribution({ datasetDetails }) {
                     <div className="row">
                         {datasetDetails?._source?.structuredDatasets[0]?.stringColumns.map((column, index) => (
                             column.distributionGraph && (
-                                <div className='col-md-3' key={index}>
+                                <div className='col-md-3 mb-3' key={index}>
                                     <ImageView url={imageBasePath + column.distributionGraph} />
                                 </div>
                             )))}

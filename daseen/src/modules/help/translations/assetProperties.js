@@ -51,7 +51,7 @@ const assetPropertiesHelpText = {
     de: {
         fullContent:
             `
-                <div>
+                <div class="col-md-10">
 
                     Über die EDP Asset Eigenschaften werden wesentliche Asset Eigenschaften angezeigt. Dazu gehören folgende Elemente:
                     
@@ -85,15 +85,17 @@ const assetPropertiesHelpText = {
                     <li class="py-2">
                         Personal Data: Dieses Icon zeigt an, ob ein Asset Personenbezogene Daten beinhaltet. Falls ja, wird die vom Datenanbieter bereitgestellte Auftragsdatenvereinbarung verlinkt, sofern diese vorliegt. 
                     </li>
+
                     <li class="py-2">
-                        Asset Verarbeitungszustand: Der Asset Verarbeitungszustand gibt den Datenreifegrad an. Es wird zwischen folgenden Zuständen unterschieden: 
+                        <span class="fw-500">Asset Verarbeitungszustand:</span> Der Asset Verarbeitungszustand gibt den Datenreifegrad an. Es wird zwischen folgenden Zuständen unterschieden:
+                        <ul class="circles-list">
+                            <li class="py-2"><strong>Original Data:</strong> Der Inhalt des Assets wurde nach der Erzeugung nicht verändert.</li>
+                            <li class="py-2"><strong>Processed Data:</strong> Der Inhalt des Assets wurde nach der Erzeugung Ganz oder in Teilen re-definiert, konvertiert, semantisch bereinigt und/oder transformiert, um die Asset-Struktur zu verbessern und/oder die -Konsistenz zu erhöhen. Die vorgenommenen Änderungen werden im EDP Data Log protokolliert (siehe auch EDP Data Log) und der Original Data EDP zur Nachverfolgbarkeit referenziert.</li>
+                            <li class="py-2"><strong>Refined Data:</strong> Bei Assets mit dem Reifegrad Refined Data handelt es sich um optimierte KI-Trainingsdatensätze, die Daten aus einem oder mehreren Assets zusammenfassen. Im EDP Data Log werden die Feature Engineering Regeln und vorgenommenen Aggregationen dokumentiert und die Processed Data bzw. Original Data EDP zur Nachverfolgbarkeit referenziert.</li>
+                            <li class="py-2"><strong>AI/ML Result Data:</strong> Bei Assets mit dem Reifegrad AI/ML Result Data handelt es sich um Daten, die durch eine KI bzw. durch einen ML Algorithmus erzeugt wurden. Im EDP Data Log werden sowohl die KI/ML Informationen referenziert als auch die EDP der für das Training bzw. die Inferenz herangezogenen Refined Data/Processes Data und/oder Original Data Assets.</li>
+                        </ul>            
                     </li>
-                    </ul>
                     
-                    Original Data: Der Inhalt des Assets wurde nach der Erzeugung nicht verändert.
-                    Processed Data: Der Inhalt des Assets wurde nach der Erzeugung Ganz oder in Teilen re-definiert, konvertiert, semantisch bereinigt und/oder transformiert, um die Asset-Struktur zu verbessern und/oder die -Konsistenz zu erhöhen. Die vorgenommenen Änderungen werden im EDP Data Log protokolliert (siehe auch EDP Data Log) und der Original Data EDP zur Nachverfolgbarkeit referenziert.
-                    Refined Data: Bei Assets mit dem Reifegrad Refined Data handelt es sich um optimierte KI-Trainingsdatensätze, die Daten aus einem oder mehreren Assets zusammenfassen. Im EDP Data Log werden die Feature Engineering Regeln und vorgenommenen Aggregationen dokumentiert und die Processed Data bzw. Original Data EDP zur Nachverfolgbarkeit referenziert.
-                    AI/ML Result Data: Bei Assets mit dem Reifegrad AI/ML Result Data handelt es sich um Daten, die durch eine KI bzw. durch einen ML Algorithmus erzeugt wurden. Im EDP Data Log werden sowohl die KI/ML Informationen referenziert als auch die EDP der für das Training bzw. die Inferenz herangezogenen Refined Data/Processes Data und/oder Original Data Assets.
                 </div>
             `
     }

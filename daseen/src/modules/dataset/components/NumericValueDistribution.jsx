@@ -36,7 +36,7 @@ function NumericValueDistribution({ datasetDetails }) {
                     <div className="row">
                         {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column) => (
                             column.distributionGraph && (
-                                <div className='col-md-3' key={column.name}>
+                                <div className='col-md-3 mb-3' key={column.name}>
                                     <ImageView url={imageBasePath + column.distributionGraph} />
                                 </div>
                             )
