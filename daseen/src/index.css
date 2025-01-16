@@ -346,6 +346,11 @@ li.selected .pagination-btn,
   width: 33.33%;
 }
 
+.dropdown-item{
+  color: var(--color-text) !important;
+}
+
+
 .dropdown-item:hover {
   background-color: var(--color-light-gray) !important;
 }
