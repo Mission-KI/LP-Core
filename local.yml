@@ -40,6 +40,21 @@ services:
       - "./frontend:/app"
       - "/app/node_modules"
     ports:
+      - "3001:3001"
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1 
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true 
+    command: npm run start
+
+  landing:
+    build:
+       context: ./landing
+       dockerfile: Dockerfile.local
+    volumes:
+      - "./landing:/app"
+      - "/app/node_modules"
+    ports:
       - "3000:3000"
     environment:
       - WDS_SOCKET_HOST=127.0.0.1 
