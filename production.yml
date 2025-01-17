@@ -1,45 +1,57 @@
 services:
-  # backend:
-  #   build: ./backend
-  #   volumes:
-  #     - "./backend:/backend"
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     - postgres
-  #   env_file:
-  #     - .env
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 15s
+      retries: 10
 
-  # postgres:
-  #   image: postgres
-  #   container_name: postgres
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #     - /var/run/postgresql:/var/run/postgresql
-  #   ports:
-  #     - "5432:5432"
-  #   env_file:
-  #     - .env
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    volumes:
+      - "./backend:/backend"
+    ports:
+      - "8000:8000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      - WDS_SOCKET_HOST=127.0.0.1 
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true 
 
   frontend:
     build:
-       context: ./frontend
-       dockerfile: Dockerfile.prod
+      context: ./frontend
+      dockerfile: Dockerfile.prod
     volumes:
       - "./frontend:/app"
       - "/app/node_modules"
+
+
+  nginx:
+    depends_on:
+      - backend
+      - frontend
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
     ports:
       - "80:80"
 
-  # nginx:
-  #   image: nginx:latest
-  #   volumes:
-  #     - frontend-build:/usr/share/nginx/html
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - frontend
-  
 volumes:
-  # postgres_data:
+  mysql_data:
   frontend-build:

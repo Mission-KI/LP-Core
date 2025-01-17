@@ -1,29 +1,36 @@
 services:
+
+  mysql:
+    image: mysql:latest
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 15s
+      retries: 10
+
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.local
     volumes:
       - "./backend:/backend"
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
+      mysql:
+        condition: service_healthy
     env_file:
       - .env
     environment:
       - WDS_SOCKET_HOST=127.0.0.1 
       - CHOKIDAR_USEPOLLING=true
       - WATCHPACK_POLLING=true 
-
-  postgres:
-    image: postgres
-    container_name: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - /var/run/postgresql:/var/run/postgresql
-    ports:
-      - "5432:5432"
-    env_file:
-      - .env
 
   frontend:
     build:
@@ -41,4 +48,4 @@ services:
     command: npm run start
 
 volumes:
-  postgres_data:
+  mysql_data:
