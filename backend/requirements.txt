@@ -9,3 +9,4 @@ mysqlclient==2.2.5
 gunicorn==23.0.0
 openai==1.52.2
 drf-nested-routers==0.94.1
+drf-yasg==1.21.8

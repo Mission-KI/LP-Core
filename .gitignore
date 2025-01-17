@@ -30,3 +30,4 @@ yarn-error.log*
 /daseen/playwright/.cache/
 *__pycache__/
 *.pyc
+backend/staticfiles/

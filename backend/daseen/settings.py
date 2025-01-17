@@ -28,8 +28,7 @@ INSTALLED_APPS = [
     'common',
     'apps.connector',
     'rest_framework',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
     'corsheaders'
 ]
 
@@ -39,7 +38,6 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -91,7 +89,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -115,7 +112,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -125,3 +123,7 @@ CSRF_COOKIE_SECURE = True
 CORS_ALLOW_ALL_ORIGINS = True
 
 TESTS_IN_REAL_DB = True
+
+SWAGGER_SETTINGS = {
+   'USE_SESSION_AUTH': False
+}
