@@ -42,7 +42,7 @@ const Header = () => {
             className={`py-3 ${isScrolled ? 'shadow' : ''}`}
         >
             <Container>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0 text-dark">
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0 txt-regular">
                     <List />
                 </Navbar.Toggle>
                 <Navbar.Collapse id="basic-navbar-nav" className="mb-3 mb-md-0">
