@@ -129,6 +129,10 @@ body {
   color: var(--color-primary) !important;
 }
 
+.txt-regular {
+  color: var(--color-text) !important;
+}
+
 .txt-lighter {
   color: var(--color-text-lighter) !important;
 }

@@ -203,7 +203,7 @@ function Filters() {
                                             filterSection.filters.map((filter) => (
                                                 <button key={filter.value}
                                                     type="button"
-                                                    className={`btn mb-2 ${checkedOptions[filter.label] ? 'text-black bold' : 'text-secondary'}`}
+                                                    className={`btn mb-2 ${checkedOptions[filter.label] ? 'txt-regular bold' : 'txt-lighter'}`}
                                                     id={`checkbox-${filter.value}`}
                                                     name={filter.name}
                                                     value={filter.value}
