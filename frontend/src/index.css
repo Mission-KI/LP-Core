@@ -179,6 +179,7 @@ body {
   transition: border-color 0.3s ease;
   padding-top: .6rem !important;
   padding-bottom: .6rem !important;
+  color: var(--color-text) !important;
 }
 
 .form-control:focus {
