@@ -3,7 +3,7 @@ FROM node:18-alpine
 # Install additional dependencies if needed
 RUN apk add --no-cache bash
 
-WORKDIR /app
+WORKDIR /landing
 
 COPY package.json ./
 

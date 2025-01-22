@@ -10,3 +10,4 @@ gunicorn==23.0.0
 openai==1.52.2
 drf-nested-routers==0.94.1
 drf-yasg==1.21.8
+psycopg==3.2.4

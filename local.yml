@@ -1,15 +1,15 @@
 services:
 
-  mysql:
-    image: mysql:latest
+  postgres:
+    image: postgres:latest
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - "3306:3306"
+      - "5432:5432"
     env_file:
       - .env
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
       interval: 10s
       timeout: 15s
       retries: 10
@@ -23,7 +23,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      mysql:
+      postgres:
         condition: service_healthy
     env_file:
       - .env
@@ -37,8 +37,8 @@ services:
        context: ./frontend
        dockerfile: Dockerfile.local
     volumes:
-      - "./frontend:/app"
-      - "/app/node_modules"
+      - "./frontend:/frontend"
+      - "/frontend/node_modules"
     ports:
       - "3001:3001"
     environment:
@@ -52,8 +52,8 @@ services:
        context: ./landing
        dockerfile: Dockerfile.local
     volumes:
-      - "./landing:/app"
-      - "/app/node_modules"
+      - "./landing:/landing"
+      - "/landing/node_modules"
     ports:
       - "3000:3000"
     environment:
@@ -63,4 +63,4 @@ services:
     command: npm run start
 
 volumes:
-  mysql_data:
+  postgres_data:
