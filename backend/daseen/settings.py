@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'common',
     'apps.connector',
+    'apps.monitoring',
     'rest_framework',
     'drf_yasg',
     'corsheaders'
