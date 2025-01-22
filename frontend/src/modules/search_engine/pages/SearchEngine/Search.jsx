@@ -71,10 +71,13 @@ function Search() {
 
   const handlePageChange = (selectedItem) => {
     const newPage = selectedItem.selected + 1;
-    setCurrentPage(newPage);
-    navigate(`?page=${newPage}&${new URLSearchParams(searchParams)}`);
+    const updatedParams = new URLSearchParams(searchParams);
+  
+    updatedParams.set("page", newPage);
+  
+    navigate(`?${updatedParams.toString()}`);
   };
-
+  
   return (
     <>
 

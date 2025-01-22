@@ -18,7 +18,7 @@ function Paginator({ pageCount, handlePageChange, currentPage }) {
                 onPageChange={handlePageChange}
                 containerClassName="d-flex justify-content-around align-items-center m-auto mt-5 py-3 px-0"
                 pageClassName="list-unstyled"
-                pageLinkClassName="btn btn-hover pagination-btn txt-lighter rounded-circle"
+                pageLinkClassName="btn btn-hover pagination-btn txt-lighter rounded"
                 activeLinkClassName="btn txt-primary medium"
                 forcePage={currentPage - 1}
             />

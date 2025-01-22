@@ -9,14 +9,12 @@ import { useLocation } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { landingUrl } from '../../../common/api/config';
 import { List } from 'react-bootstrap-icons';
-import { useState } from 'react';
 import Toolbar from '../Toolbar'
 
 const MainHeader = () => {
 
     const location = useLocation();
     const { t, i18n } = useTranslation();
-    const [showPreferencesModal, setShowPreferencesModal] = useState(false);
 
     var landingRedirectUrl;
     if (i18n.language == 'en' || i18n.language == 'English') {
@@ -29,8 +27,8 @@ const MainHeader = () => {
 
     return (
         <>
-            <Navbar fixed={location.pathname !== '/' ? 'top' : undefined} expand="md" className="py-3" style={{ background: 'var(--header-color)', borderBottom: '1px solid var(--color-light-gray)' }}>
-                <Container className='d-flex px-1' style={{ whiteSpace: 'nowrap', flexWrap: 'nowrap' }}>
+            <Navbar fixed={location.pathname !== '/' ? 'top' : undefined} expand="md" className="py-3" style={{ background: 'var(--header-color)', borderBottom: '.5px solid var(--color-light-gray)' }}>
+                <Container className='d-flex px-3' style={{ whiteSpace: 'nowrap', flexWrap: 'nowrap' }}>
                     <Navbar.Toggle aria-controls="main-header" className='border-0 ps-0 txt-regular'><List /></Navbar.Toggle>
                     <Navbar.Collapse id="main-header" className='mb-3 mb-md-0'>
                         <Nav className="me-auto">

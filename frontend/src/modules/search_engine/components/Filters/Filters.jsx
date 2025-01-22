@@ -76,6 +76,9 @@ function Filters() {
 
     const updateQueryParams = (name, value, checked) => {
         const params = new URLSearchParams(location.search);
+
+        params.delete("page");
+
         if (checked) {
             params.append(name, value);
         } else {
@@ -91,6 +94,8 @@ function Filters() {
 
     const updateDoubleRangeParams = (name_1, name_2, values) => {
         const params = new URLSearchParams(location.search);
+        params.delete("page");
+
         params.set(name_1, values[0]);
         params.set(name_2, values[1]);
         navigate(`/?${params.toString()}`, { replace: true });
@@ -118,6 +123,7 @@ function Filters() {
 
     const handleRadioChange = (filter) => {
         const params = new URLSearchParams(location.search);
+        params.delete("page");
         params.delete(filter.name);
         params.set(filter.name, filter.value);
         setCheckedRadios((prev) => ({
@@ -287,7 +293,7 @@ function Filters() {
                                                         <button
                                                             key={filter.value}
                                                             type="button"
-                                                            className={`btn mb-2 ${checkedRadios[filter.name] === filter.value ? 'bold' : 'text-secondary'}`}
+                                                            className={`btn mb-2 ${checkedRadios[filter.name] === filter.value ? 'bold txt-regular' : 'txt-lighter'}`}
                                                             onClick={() => handleRadioChange(filter)}
                                                         >
                                                             {filter.label}

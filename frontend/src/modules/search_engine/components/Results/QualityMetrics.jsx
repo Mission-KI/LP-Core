@@ -1,11 +1,5 @@
 import React from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-import { ReactComponent as LockOpenMetricIcon } from '../../../common/assets/img/metric_icons/lock-open.svg';
-import datetimeImg from '../../../common/assets/img/metric_icons/datetime-attribute_w.png';
-import { ReactComponent as TemporalFrequencyMetricIcon } from '../../../common/assets/img/metric_icons/temporal-frequency.svg';
-import DataTypeConsestencyMetricIcon from '../../../common/assets/img/metric_icons/data-type-consistant_w.png';
-import AttributeConsestencyMetricIcon from '../../../common/assets/img/metric_icons/attribute-consistant_w.png';
-import SignificantVarianceMetricIcon from '../../../common/assets/img/metric_icons/significant-variance_w.png';
 import { calculateAttributeConsistency } from "../../../dataset/utils/calculations";
 import { Unlock, Gear, ClipboardCheck, Soundwave, Calendar, Broadcast, Activity, Sliders2, Sliders2Vertical, Lock, Robot, QuestionCircle } from "react-bootstrap-icons";
 
