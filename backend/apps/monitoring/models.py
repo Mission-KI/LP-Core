@@ -3,13 +3,11 @@ from django.db import models
 
 class EventLog(BaseModel):
 
-    STATUS_CHOICES = [
-        ('SUCCESS', 'success'),
-        ('FAIL', 'fail'),
-    ]
+    STATUS_SUCCESS = 'success'
+    STATUS_FAIL = 'fail'
     
     requested_url = models.CharField(max_length=50, null=True)
-    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='SUCCESS')
+    status = models.CharField(max_length=50, default='success')
     message = models.TextField()
     metadata = models.JSONField(null=True, blank=True)
 
