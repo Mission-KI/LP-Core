@@ -24,7 +24,7 @@ export const useFilterSections = () => {
 
     const filters = [
         {
-            title: "dataspace",
+            title: "dataspaces",
             type: "checkboxes",
             filters: dataSpaces.map(dataSpace => ({
                 label: dataSpace.key,
@@ -179,20 +179,6 @@ export const useFilterSections = () => {
             ],
         },
         {
-            title: "fileSize",
-            type: "filesize",
-            filters: [
-                {
-                    label: "Size range",
-                    name_1: "min_size",
-                    name_2: "max_size",
-                    type: "doublerange",
-                    minValue: 0,
-                    maxValue: 100,
-                },
-            ],
-        },
-        {
             title: "attributes",
             type: "doublerange",
             filters: [
@@ -211,6 +197,20 @@ export const useFilterSections = () => {
                     type: "doublerange",
                     minValue: 0,
                     maxValue: 57,
+                },
+            ],
+        },
+        {
+            title: "fileSize",
+            type: "filesize",
+            filters: [
+                {
+                    label: "Size range",
+                    name_1: "min_size",
+                    name_2: "max_size",
+                    type: "doublerange",
+                    minValue: 0,
+                    maxValue: 100,
                 },
             ],
         },

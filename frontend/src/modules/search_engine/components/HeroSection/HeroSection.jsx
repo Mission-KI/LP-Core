@@ -12,7 +12,7 @@ const HeroSection = () => {
 
     return (
         <div className='w-100' style={{ borderBottom: '1px solid var(--color-light-gray)' }}>
-            <div className="container pb-5 pt-3 pt-md-5" style={{ maxWidth: 1100 }}>
+            <div className="container pb-4 pt-3 pt-md-5" style={{ maxWidth: 1100 }}>
                 <div className='row pb-3'>
                     <div className="col-md-6">
                         <h2 className='bold mb-2 text-decoration-none' style={{ width: 'fit-content' }}>{t('page.title')}</h2>
@@ -22,13 +22,10 @@ const HeroSection = () => {
                     </div>
                 </div>
 
-
                 <MainSearchBar />
 
                 {expertMode && (
-                    <div className='px-2'>
-                        <Filters />
-                    </div>
+                    <Filters />
                 )}
 
 

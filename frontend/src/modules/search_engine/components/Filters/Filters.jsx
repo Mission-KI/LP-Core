@@ -149,33 +149,27 @@ function Filters() {
     }, [filtersDropdownVisible]);
 
     return (
-        <Dropdown show={filtersDropdownVisible} style={{ width: 'fit-content' }}>
-            <button onClick={toggleFiltersDropdown} className='btn rounded-lg mt-2'>
+        <div>
+            <button onClick={toggleFiltersDropdown} className='btn rounded-lg mt-4 px-0'>
                 <span className='medium txt-lighter fw-500'>{t('header.filters')} <ChevronDown className='small ms-1' /></span>
             </button>
-            <Dropdown.Menu ref={dropdownRef} className='border-0 shadow px-2' style={{ top: 0, left: 0, transform: 'translate(0%, 50px)', zIndex: 1 }}>
+            <div className={`${!filtersDropdownVisible ? 'd-none' : ''}`}>
 
-                <div className={`${styles.filtersWrapper} row`}>
+                <div className={`${styles.filtersWrapper} row`} style={{ maxWidth: 900 }}>
                     {filterSections.map((filterSection) => (
                         <FormGroup key={filterSection.title}
-                            className={`mb-4 ${filterSection.type === 'checkboxes' || filterSection.type === 'radio'
-                                ? 'col-md-6'
-                                : filterSection.type === 'single_icon'
-                                    ? 'col-md-2'
-                                    : ''
+                            className={`mb-2 ${filterSection.type === 'checkboxes' || filterSection.type === 'radio'
+                                ? 'col pe-5'
+                                : filterSection.type === 'single_icon' ? 'col-1'
+                                    : filterSection.type === 'filesize' ? 'col-md-4'
+                                        : ''
                                 }`}>
 
-                            {filterSection.title && (
-                                <label className="mb-2 small fw-500 text-uppercase">
-                                    {t(`filters.${filterSection.title}`)}
-                                </label>
-                            )}
-
-                            <div className='d-flex flex-wrap w-100 align-items-center py-1 position-relative'>
+                            <div className='d-flex align-items-center py-1 position-relative'>
                                 {filterSection.type == 'checkboxes' ? (
                                     <Dropdown>
-                                        <Dropdown.Toggle variant="link" id={`dropdown-filters-${filterSection.type}`} className='medium px-0 txt-primary text-decoration-none'>
-                                            {t('filters.select')} <ChevronDown className='small ms-2' />
+                                        <Dropdown.Toggle variant="link" id={`dropdown-filters-${filterSection.type}`} className='small px-0 txt-regular text-decoration-none'>
+                                            {t(`filters.${filterSection.title}`)} <ChevronDown className='small ms-2' />
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu className='border-0 shadow rounded'>
@@ -209,7 +203,7 @@ function Filters() {
                                             filterSection.filters.map((filter) => (
                                                 <button key={filter.value}
                                                     type="button"
-                                                    className={`btn mb-2 ${checkedOptions[filter.label] ? 'txt-regular bold' : 'txt-lighter'}`}
+                                                    className={`btn ps-0 mb-2 ${checkedOptions[filter.label] ? 'txt-regular bold' : 'txt-lighter'}`}
                                                     id={`checkbox-${filter.value}`}
                                                     name={filter.name}
                                                     value={filter.value}
@@ -223,12 +217,13 @@ function Filters() {
                                         }
                                     </div>
                                 ) : filterSection.type == 'doublerange' ? (
-                                    <>
+                                    <div className='d-flex w-100'>
                                         {
                                             filterSection.filters.map((filter) => (
-                                                <div style={{ width: 300 }}>
-                                                    <div className='d-flex flex-column w-100'>
-                                                        <label className='small txt-lighter'>{t(`filters.${filter.label}`)}</label>
+                                                <div className='col-md-4'>
+                                                    <label className='small mb-2'>{t(`filters.${filter.label}`)}</label>
+
+                                                    <div className='d-flex flex-column w-100' style={{ padding: '0 4px' }}>
                                                         <Slider
                                                             range
                                                             className='w-100'
@@ -246,31 +241,34 @@ function Filters() {
                                                 </div>
                                             ))
                                         }
-                                    </>
+                                    </div>
                                 ) : filterSection.type == 'filesize' ? (
                                     <>
                                         {
                                             filterSection.filters.map((filter) => (
-                                                <div style={{ width: 300 }}>
+                                                <div style={{ width: '100%' }}>
                                                     <div className='d-flex flex-column w-100'>
-                                                        <label className='small txt-lighter'>{t('filters.sizeRange')}</label>
-                                                        <div className='position-relative'>
-                                                            <Slider
-                                                                range
-                                                                className='w-100'
-                                                                min={filter.minValue}
-                                                                max={filter.maxValue}
-                                                                value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
-                                                                onChange={(values) => handleDoubleRangeChange(filter, values)}
-                                                                onChangeComplete={(values) => handleDoubleRangeComplete(filter, values)}
-                                                            />
-                                                            <div className={styles.sizeGroupSeparators}>
-                                                                <div className={styles.sizeGroupSeparator}></div>
-                                                                <div className={styles.sizeGroupSeparator}></div>
-                                                                <div className={styles.sizeGroupSeparator}></div>
-                                                                <div className={styles.sizeGroupSeparator}></div>
-                                                                <div className={styles.sizeGroupSeparator}></div>
+                                                        <label className='small mb-2'>{t('filters.sizeRange')}</label>
+                                                        <div className='position-relative' style={{ padding: '0 4px' }}>
+                                                            <div className='position-relative'>
+                                                                <Slider
+                                                                    range
+                                                                    className='w-100'
+                                                                    min={filter.minValue}
+                                                                    max={filter.maxValue}
+                                                                    value={rangeValues[filter.name_1] || [filter.minValue, filter.maxValue]}
+                                                                    onChange={(values) => handleDoubleRangeChange(filter, values)}
+                                                                    onChangeComplete={(values) => handleDoubleRangeComplete(filter, values)}
+                                                                />
+                                                                <div className={styles.sizeGroupSeparators}>
+                                                                    <div className={styles.sizeGroupSeparator}></div>
+                                                                    <div className={styles.sizeGroupSeparator}></div>
+                                                                    <div className={styles.sizeGroupSeparator}></div>
+                                                                    <div className={styles.sizeGroupSeparator}></div>
+                                                                    <div className={styles.sizeGroupSeparator}></div>
+                                                                </div>
                                                             </div>
+
                                                         </div>
 
                                                         <div className='d-flex justify-content-around mt-2'>
@@ -288,12 +286,12 @@ function Filters() {
                                     : filterSection.type === 'radio' ? (
                                         <>
                                             {
-                                                <div className="d-flex flex-wrap">
+                                                <div className="d-flex">
                                                     {filterSection.filters.map((filter) => (
                                                         <button
                                                             key={filter.value}
                                                             type="button"
-                                                            className={`btn mb-2 ${checkedRadios[filter.name] === filter.value ? 'bold txt-regular' : 'txt-lighter'}`}
+                                                            className={`btn ${checkedRadios[filter.name] === filter.value ? 'bold txt-regular' : 'txt-lighter'}`}
                                                             onClick={() => handleRadioChange(filter)}
                                                         >
                                                             {filter.label}
@@ -307,17 +305,17 @@ function Filters() {
                             </div>
                         </FormGroup>
                     ))}
-                    <div className="d-flex justify-content-end mt-3">
+                    <div className="mt-2">
                         <button
-                            className="btn btn-dark medium"
+                            className="btn btn-contrast medium"
                             onClick={handleClearFilters}
                         >
                             {t('filters.clear')}
                         </button>
                     </div>
                 </div>
-            </Dropdown.Menu>
-        </Dropdown >
+            </div>
+        </div >
     );
 }
 
