@@ -169,6 +169,10 @@ body {
   background-color: var(--color-body-background) !important;
 }
 
+.bgc-light-gray {
+  background-color: var(--color-light-gray) !important;
+}
+
 .rounded-lg {
   border-radius: 1.4rem !important;
 }

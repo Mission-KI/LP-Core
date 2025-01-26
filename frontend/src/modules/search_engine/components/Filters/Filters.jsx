@@ -6,7 +6,7 @@ import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import styles from './Filters.module.css';
 import { Dropdown } from 'react-bootstrap';
-import { ChevronDown, Filter } from 'react-bootstrap-icons';
+import { ChevronDown, X } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 
 function Filters() {
@@ -26,6 +26,13 @@ function Filters() {
         navigate(location.pathname, { replace: true });
     };
 
+    const removeFilter = (key) => {
+        const params = new URLSearchParams(location.search);
+        params.delete(key);
+        navigate(`${location.pathname}?${params.toString()}`);
+    };
+
+
     const toggleFiltersDropdown = () => {
         setFiltersDropdownVisible(!filtersDropdownVisible);
     };
@@ -41,6 +48,14 @@ function Filters() {
         });
         return queryObj;
     };
+
+    const [selectedFilters, setSelectedFilters] = useState({});
+    const ignoredKeys = ["q", "page"];
+
+    useEffect(() => {
+        const queryParams = getQueryParams();
+        setSelectedFilters(queryParams);
+    }, [location]);
 
     useEffect(() => {
         const queryParams = getQueryParams();
@@ -150,9 +165,29 @@ function Filters() {
 
     return (
         <div>
-            <button onClick={toggleFiltersDropdown} className='btn rounded-lg mt-4 px-0'>
-                <span className='medium txt-lighter fw-500'>{t('header.filters')} <ChevronDown className='small ms-1' /></span>
-            </button>
+            <div className='d-flex align-items-center mt-4 mb-3'>
+                <button onClick={toggleFiltersDropdown} className='btn rounded-lg px-0 me-3 mb-1'>
+                    <span className='medium txt-lighter fw-500'>{t('header.filters')} <ChevronDown className='small ms-1' /></span>
+                </button>
+                <div className='d-flex flex-wrap'>
+                    {Object.entries(selectedFilters)
+                        .filter(([key]) => !ignoredKeys.includes(key))
+                        .map(([key, values]) => (
+                            <div key={key} className="bgc-light-gray px-2 rounded me-2 mb-1">
+                                <span className="small">{key}</span>:{" "}
+                                <span className="small txt-lighter">{values.join(", ")}</span>
+                                <button
+                                    onClick={() => removeFilter(key)}
+                                    className="btn hover-lg txt-regular p-0 small ms-2"
+                                >
+                                    <X />
+                                </button>
+                            </div>
+                        ))}
+
+                </div>
+            </div>
+
             <div className={`${!filtersDropdownVisible ? 'd-none' : ''}`}>
 
                 <div className={`${styles.filtersWrapper} row`} style={{ maxWidth: 900 }}>
