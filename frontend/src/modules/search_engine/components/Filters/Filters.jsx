@@ -8,11 +8,14 @@ import styles from './Filters.module.css';
 import { Dropdown } from 'react-bootstrap';
 import { ChevronDown, X } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
+import { useSettings } from '../../../common/contexts/SettingsContext';
 
 function Filters() {
 
     const filterSections = useFilterSections();
-    const [filtersDropdownVisible, setFiltersDropdownVisible] = useState(false);
+    const { alwaysExpandFilters } = useSettings();
+
+    const [filtersDropdownVisible, setFiltersDropdownVisible] = useState(alwaysExpandFilters);
     const [checkedOptions, setCheckedOptions] = useState({});
     const [checkedRadios, setCheckedRadios] = useState({});
     const [rangeValues, setRangeValues] = useState({});
@@ -176,7 +179,7 @@ function Filters() {
                             <div key={key} className="bgc-light-gray px-2 rounded me-2 mb-1">
                                 <span className="small">{key}</span>:{" "}
                                 <span className="small txt-lighter">{values.join(", ")}</span>
-                                <button
+                                <button style={{ marginBottom: 1.5 }}
                                     onClick={() => removeFilter(key)}
                                     className="btn hover-lg txt-regular p-0 small ms-2"
                                 >

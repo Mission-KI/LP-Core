@@ -3,12 +3,12 @@ import MainSearchBar from '../../../common/components/Search/MainSearchBar';
 import PlaceholderHeroSectionIllustration from '../../../common/assets/img/illustrations/home-page-illustration.jpg'
 import { useTranslation } from 'react-i18next';
 import Filters from '../Filters/Filters';
-import { useExpert } from '../../../common/contexts/ExpertContext';
+import { useSettings } from '../../../common/contexts/SettingsContext';
 
 const HeroSection = () => {
 
     const { t } = useTranslation();
-    const { expertMode } = useExpert();
+    const { expertMode } = useSettings();
 
     return (
         <div className='w-100' style={{ borderBottom: '1px solid var(--color-light-gray)' }}>

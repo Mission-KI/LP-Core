@@ -5,13 +5,13 @@ import LanguageSettings from './LanguagePreferences';
 import ThemeSettings from './ThemePreferences';
 import SearchPreferences from './SearchPreferences';
 
-function PreferencesModal({ showPreferencesModal, setShowPreferencesModal }) {
+function SettingsModal({ showSettingsModal, setShowSettingsModal }) {
     const [selectedTab, setSelectedTab] = useState('search');
 
-    const handleClose = () => setShowPreferencesModal(false);
+    const handleClose = () => setShowSettingsModal(false);
 
     return (
-        <Modal show={showPreferencesModal} onHide={handleClose} size="lg" centered id="preferencesModal">
+        <Modal show={showSettingsModal} onHide={handleClose} size="lg" centered id="settingsModal">
             <Modal.Body className='rounded py-0'>
                 <div className="d-flex">
                     <div style={{ maxWidth: 200 }} className='w-100'>
@@ -19,7 +19,7 @@ function PreferencesModal({ showPreferencesModal, setShowPreferencesModal }) {
                             <ul className="list-unstyled pb-3">
                                 <div className='sidebar-link-group'>
                                     <div className='pb-4 pt-3'>
-                                        <span className='small bold text-secondary ps-2'>PREFERENCES</span>
+                                        <span className='small bold text-secondary ps-2'>SETTINGS</span>
                                     </div>
 
                                     <li
@@ -76,4 +76,4 @@ function PreferencesModal({ showPreferencesModal, setShowPreferencesModal }) {
     );
 }
 
-export default PreferencesModal;
+export default SettingsModal;

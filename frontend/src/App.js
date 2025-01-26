@@ -15,7 +15,7 @@ import supportRoutes from './modules/support';
 import Maintenance from './modules/common/pages/Maintenance';
 import helpRoutes from './modules/help';
 import { ThemeProvider } from './modules/common/contexts/ThemeContext';
-import { ExpertProvider } from './modules/common/contexts/ExpertContext';
+import { SettingsProvider } from './modules/common/contexts/SettingsContext';
 
 // Predefined hashed password
 const salt = bcrypt.genSaltSync(10);
@@ -69,12 +69,12 @@ function App() {
   return (
     <Router>
       <ThemeProvider>
-        <ExpertProvider>
+        <SettingsProvider>
           <AuthProvider>
             <ScrollToTop />
             <Routes>{renderRoutes(routes)}</Routes>
           </AuthProvider>
-        </ExpertProvider>
+        </SettingsProvider>
       </ThemeProvider>
     </Router>
   );
