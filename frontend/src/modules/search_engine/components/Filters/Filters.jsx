@@ -82,7 +82,6 @@ function Filters() {
 
                 if (filter.type === 'radio') {
                     newCheckedRadios[filter.name] = queryParams[filter.name]?.[0];
-                    console.log(newCheckedRadios)
                 }
             });
         });
@@ -168,7 +167,7 @@ function Filters() {
 
     return (
         <div>
-            <div className='d-flex align-items-center mt-4 mb-3'>
+            <div className='d-flex align-items-center mt-2 mb-3'>
                 <button onClick={toggleFiltersDropdown} className='btn rounded-lg px-0 me-3 mb-1'>
                     <span className='medium txt-lighter fw-500'>{t('header.filters')} <ChevronDown className='small ms-1' /></span>
                 </button>

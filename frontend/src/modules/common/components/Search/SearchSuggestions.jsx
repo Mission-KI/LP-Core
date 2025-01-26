@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { getAutocompleteSuggestions } from '../../api/elastic';
+import { useSettings } from '../../contexts/SettingsContext';
+import { getQuerySuggestions } from '../../../search_engine/utils/query_suggestions';
 
 function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestions, setShowSuggestions }) {
     const [suggestions, setSuggestions] = useState([]);
     const navigate = useNavigate();
+    const { expertMode } = useSettings();
 
     const handleSelectSuggestion = (suggestion) => {
         setLocalSearchTerm(suggestion);
@@ -21,7 +24,12 @@ function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestion
             if (localSearchTerm) {
                 try {
                     const fetchedSuggestions = await getAutocompleteSuggestions(localSearchTerm);
-                    setSuggestions(fetchedSuggestions);
+
+                    const mergedSuggestions = expertMode
+                        ? [...new Set([...getQuerySuggestions(localSearchTerm), ...fetchedSuggestions])]
+                        : fetchedSuggestions;
+
+                    setSuggestions(mergedSuggestions.slice(0, 10));
                 } catch (error) {
                     console.error("Error fetching suggestions:", error);
                     setSuggestions([]);
@@ -32,7 +40,8 @@ function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestion
         };
 
         fetchSuggestions();
-    }, [localSearchTerm]);
+    }, [localSearchTerm, expertMode]);
+
 
     return showSuggestions && (
         <Dropdown.Menu show className="border-0 shadow rounded w-100 bgc-body" style={{ position: 'absolute', top: '100%', left: 0, zIndex: 10, transform: 'translateY(10px)' }}>
