@@ -31,7 +31,7 @@ const SearchPreferences = () => {
                     <span className="slider round"></span>
                 </label>
                 <span style={{ marginLeft: '10px' }}>Always expand filters</span>
-                <p className='txt-lighter small mt-1'>This will make the filters always shown without having to toggle them to the view.</p>
+                <p className='txt-lighter small mt-1'>This will make the filters shown by default without having to toggle them to the view.</p>
             </div>
 
         </div>

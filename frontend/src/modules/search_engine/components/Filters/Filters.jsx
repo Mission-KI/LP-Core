@@ -74,7 +74,7 @@ function Filters() {
                 if (filter.type === 'doublerange') {
                     newRangeValues[filter.name_1] = [
                         queryParams[filter.name_1]?.[0] || filter.minValue,
-                        queryParams[filter.name_2]?.[0] || filter.maxValue,
+                        queryParams[filter.name_2]?.[0] || filter.minValue,
                     ];
                 } else if (filter.type === 'range') {
                     newRangeValues[filter.name] = queryParams[filter.name]?.[0] || filter.minValue;
@@ -198,11 +198,11 @@ function Filters() {
                             className={`mb-2 ${filterSection.type === 'checkboxes' || filterSection.type === 'radio'
                                 ? 'col pe-5'
                                 : filterSection.type === 'single_icon' ? 'col-1'
-                                    : filterSection.type === 'filesize' ? 'col-md-4'
+                                    : filterSection.type === 'filesize' ? 'col-md-8 pe-5'
                                         : ''
                                 }`}>
 
-                            <div className='d-flex align-items-center py-1 position-relative'>
+                            <div className='d-flex align-items-center py-1 position-relative h-100'>
                                 {filterSection.type == 'checkboxes' ? (
                                     <Dropdown>
                                         <Dropdown.Toggle variant="link" id={`dropdown-filters-${filterSection.type}`} className='small px-0 txt-regular text-decoration-none'>
@@ -240,7 +240,7 @@ function Filters() {
                                             filterSection.filters.map((filter) => (
                                                 <button key={filter.value}
                                                     type="button"
-                                                    className={`btn ps-0 mb-2 ${checkedOptions[filter.label] ? 'txt-regular bold' : 'txt-lighter'}`}
+                                                    className={`btn ps-0 ${checkedOptions[filter.label] ? 'txt-regular bold' : 'txt-lighter'}`}
                                                     id={`checkbox-${filter.value}`}
                                                     name={filter.name}
                                                     value={filter.value}
@@ -257,7 +257,7 @@ function Filters() {
                                     <div className='d-flex w-100'>
                                         {
                                             filterSection.filters.map((filter) => (
-                                                <div className='col-md-4'>
+                                                <div className='col-md-6'>
                                                     <label className='small mb-2'>{t(`filters.${filter.label}`)}</label>
 
                                                     <div className='d-flex flex-column w-100' style={{ padding: '0 4px' }}>
