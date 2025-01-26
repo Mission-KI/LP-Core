@@ -189,9 +189,19 @@ export const getFilterValues = async () => {
                         "field": "publisher.name.keyword",
                         "size": 10000
                     }
+                },
+                "max_row_count": {
+                    "max": {
+                        "field": "structuredDatasets.rowCount"
+                    }
+                },
+                "max_column_count": {
+                    "max": {
+                        "field": "structuredDatasets.columnCount"
+                    }
                 }
             }
-        }
+        };
 
         const response = await fetch(elasticURL + '/_search', {
             method: 'POST',
@@ -210,7 +220,7 @@ export const getFilterValues = async () => {
             throw new Error(responseData.errors);
         }
     } catch (error) {
-        throw new Error(error);
+        throw new Error(error.message);
     }
 };
 
