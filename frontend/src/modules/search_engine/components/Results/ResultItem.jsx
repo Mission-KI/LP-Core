@@ -30,7 +30,7 @@ function ResultItem({ dataset }) {
           <div>
             {isBookmarked(dataset._id) && (
               <span className="px-2 py-1">
-                <StarFill className="text-warning" />
+                <StarFill />
               </span>
             )}
           </div>
