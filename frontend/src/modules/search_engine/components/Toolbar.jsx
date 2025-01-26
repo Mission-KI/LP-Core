@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { Question, Sliders2, Star, StarFill } from 'react-bootstrap-icons';
+import { Question, Gear, Star, StarFill } from 'react-bootstrap-icons';
 import { getBookmarks } from '../../common/utils/bookmarks';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import PreferencesModal from '../../common/components/PreferencesModal/PreferencesModal'
+import SettingsModal from '../../common/components/SettingsModal/SettingsModal'
 
 const Toolbar = () => {
 
     const location = useLocation();
     const { t, i18n } = useTranslation();
-    const [showPreferencesModal, setShowPreferencesModal] = useState(false);
+    const [showSettingsModal, setShowSettingsModal] = useState(false);
 
     return (
         <>
@@ -21,10 +21,10 @@ const Toolbar = () => {
                 </Link>
             </div>
             <div className='pe-1 d-none d-md-block'>
-                <span onClick={() => setShowPreferencesModal(true)}
+                <span onClick={() => setShowSettingsModal(true)}
                     className="btn-hover px-1 h-100 d-flex align-items-center pointer"
                 >
-                    <Sliders2 className='h5 m-0' />
+                    <Gear className='h5 m-0' />
                 </span>
             </div>
             <div className='ps-1 d-none d-md-block'>
@@ -39,9 +39,9 @@ const Toolbar = () => {
                 </Link>
             </div>
 
-            <PreferencesModal
-                showPreferencesModal={showPreferencesModal}
-                setShowPreferencesModal={setShowPreferencesModal}
+            <SettingsModal
+                showSettingsModal={showSettingsModal}
+                setShowSettingsModal={setShowSettingsModal}
             />
 
         </>

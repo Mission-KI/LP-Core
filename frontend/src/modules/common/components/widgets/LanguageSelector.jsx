@@ -23,7 +23,7 @@ function LanguageSelector() {
                 {i18n.language} <ChevronDown />
             </Dropdown.Toggle>
 
-            <Dropdown.Menu className='border-0 shadow'>
+            <Dropdown.Menu className='border-0 shadow-sm mt-3 pointy-dropdown' style={{ end: 0 }}>
                 {Object.keys(lngs).map((lng) => (
                     <Dropdown.Item
                         key={lng}

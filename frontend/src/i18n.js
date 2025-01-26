@@ -105,7 +105,9 @@ i18n
           },
           filters: {
             dataspace: 'Dataspace',
+            dataspaces: 'Dataspaces',
             publisher: 'Publisher',
+            publishers: 'Publishers',
             assetProcessingStatus: "Asset processing",
             licenses: "Licenses",
             accessibility: "Accessibility",
@@ -235,6 +237,7 @@ i18n
           },
           filters: {
             dataspace: 'Datenraum',
+            dataspaces: 'Datenräume',
             licenses: "Lizenzen",
             dataFormat: "Datenformat",
             fileSize: "Größenbereich",

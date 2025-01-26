@@ -81,9 +81,6 @@ function MainSearchBar() {
     return (
         <form onSubmit={handleSubmit} className="d-flex w-100" ref={inputRef}>
             <InputGroup className={styles.searchBarWrapper}>
-                <InputGroup.Text className='ps-4 pe-3'>
-                    <Search style={{ fontSize: '13pt' }} />
-                </InputGroup.Text>
                 <Form.Control
                     onChange={handleChange}
                     onFocus={handleFocus}
@@ -94,9 +91,13 @@ function MainSearchBar() {
                     placeholder={t('header.search_placeholder')}
                     value={localSearchTerm}
                 />
-                {localSearchTerm && (
-                    <InputGroup.Text onClick={clearSearch} style={{ cursor: 'pointer' }}>
+                {localSearchTerm ? (
+                    <InputGroup.Text className='pe-4' onClick={clearSearch} style={{ cursor: 'pointer' }}>
                         <X className='h4 mb-0' />
+                    </InputGroup.Text>
+                ) : (
+                    <InputGroup.Text className='pe-4'>
+                        <Search style={{ fontSize: '13pt' }} />
                     </InputGroup.Text>
                 )}
                 <SearchSuggestions

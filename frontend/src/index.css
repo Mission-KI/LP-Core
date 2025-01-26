@@ -169,6 +169,10 @@ body {
   background-color: var(--color-body-background) !important;
 }
 
+.bgc-light-gray {
+  background-color: var(--color-light-gray) !important;
+}
+
 .rounded-lg {
   border-radius: 1.4rem !important;
 }
@@ -222,7 +226,7 @@ p.two-words::after {
   white-space: pre;
 }
 
-#preferencesModal .nav-tabs .nav-link {
+#settingsModal .nav-tabs .nav-link {
   font-size: 9.5pt !important;
   text-align: left !important;
   padding-left: .5rem !important;
@@ -231,8 +235,8 @@ p.two-words::after {
 }
 
 
-#preferencesModal .nav-item:hover,
-#preferencesModal .nav-item.active {
+#settingsModal .nav-item:hover,
+#settingsModal .nav-item.active {
   background-color: #00000011 !important;
 }
 
@@ -522,15 +526,15 @@ table.table.dataTable>:not(caption)>*>* {
   background-color: transparent !important;
 }
 
-#preferencesModal .nav-item.active,
-#preferencesModal .nav-item.active .nav-link,
-#preferencesModal .nav-item:hover,
-#preferencesModal .nav-item:hover .nav-link {
+#settingsModal .nav-item.active,
+#settingsModal .nav-item.active .nav-link,
+#settingsModal .nav-item:hover,
+#settingsModal .nav-item:hover .nav-link {
   color: #1e1f21 !important;
   color: var(--color-text) !important;
 }
 
-#preferencesModal .nav-item .nav-link {
+#settingsModal .nav-item .nav-link {
   color: #5d5e5f;
   color: var(--color-text-lighter);
   padding-bottom: .42rem;
@@ -608,4 +612,22 @@ input:checked+.slider:before {
 ::-webkit-scrollbar-thumb {
   background: var(--color-darker-gray);
   border-radius: 1rem;
+}
+
+.dropdown-menu[data-bs-popper]{
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  border: 1px solid var(--color-light-gray) !important;
+}
+
+.pointy-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-5px);
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent var(--color-light-gray) transparent;
+  z-index: 1;
 }
