@@ -1,0 +1,21 @@
+.searchBarWrapper {
+    border-radius: 2rem !important;
+    position: relative;
+    background-color: var(--search-bar-color) !important;
+}
+
+.searchBarWrapper:hover {
+    background-color: var(--search-bar-hover-color) !important;
+}
+
+.searchBarWrapper #searchBar,
+.searchBarWrapper span {
+    border: none !important;
+    background-color: transparent !important;
+    text-wrap: wrap;
+    color: var(--color-text) !important;
+}
+
+.searchBarWrapper #searchBar {
+    padding: .75rem 1.8rem !important;
+}

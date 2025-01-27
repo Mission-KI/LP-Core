@@ -1,0 +1,29 @@
+.cardWrapper {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+
+    .cardWrapper {
+        width: 50%;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .cardWrapper {
+        width: 20%;
+    }
+}
+
+.title{
+    font-weight: 500 !important;
+    color: var(--color-primary) !important;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+}
+.title:hover{
+    text-decoration: underline !important;
+}
