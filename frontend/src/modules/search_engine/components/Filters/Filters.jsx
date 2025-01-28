@@ -21,6 +21,7 @@ function Filters() {
         }
     }, [alwaysExpandFilters]);
 
+
     const [filtersDropdownVisible, setFiltersDropdownVisible] = useState(alwaysExpandFilters);
     const [checkedOptions, setCheckedOptions] = useState({});
     const [checkedRadios, setCheckedRadios] = useState({});
