@@ -15,6 +15,12 @@ function Filters() {
     const filterSections = useFilterSections();
     const { alwaysExpandFilters } = useSettings();
 
+    useEffect(() => {
+        if(alwaysExpandFilters){
+            setFiltersDropdownVisible(alwaysExpandFilters);
+        }
+    }, [alwaysExpandFilters]);
+
     const [filtersDropdownVisible, setFiltersDropdownVisible] = useState(alwaysExpandFilters);
     const [checkedOptions, setCheckedOptions] = useState({});
     const [checkedRadios, setCheckedRadios] = useState({});
