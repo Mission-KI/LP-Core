@@ -59,7 +59,7 @@ function SettingsModal({ showSettingsModal, setShowSettingsModal }) {
                     </div>
 
                     <button onClick={handleClose} className='btn btn-hover position-absolute p-1 mx-2 mt-2' style={{ right: 0, top: 0 }}>
-                        <X className="h2 mb-0" />
+                        <X className="h2 mb-0 txt-lighter" />
                     </button>
 
                     <div className="w-100 pt-3 pb-5 px-5">
