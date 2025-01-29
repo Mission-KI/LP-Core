@@ -36,6 +36,7 @@ extend-select = [
 
 [dependency-groups]
 dev = [
+    "pytest-cov>=6.0.0",
     "pytest-django>=4.9.0",
     "ruff>=0.9.3",
 ]
@@ -47,3 +48,6 @@ dev = [
 DJANGO_SETTINGS_MODULE = "daseen.settings"
 # -- recommended but optional:
 python_files = ["backend/**/tests.py"]
+
+[tool.coverage.run]
+relative_files = true

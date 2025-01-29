@@ -21,5 +21,19 @@ jobs:
         run: uv sync --all-extras
 
       - name: Run pytest
-        run: uv run pytest
-        working-directory: ./backend
+        run: pytest --cov=./ --cov-report=term-missing ./backend
+
+      - name: Coverage comment
+        id: coverage_comment
+        uses: py-cov-action/python-coverage-comment-action@v3
+        with:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            MINIMUM_GREEN: 100
+            MINIMUM_ORANGE: 80
+
+      - name: Store Pull Request comment to be posted
+        uses: actions/upload-artifact@v4
+        if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
+        with:
+            name: python-coverage-comment-action
+            path: backend/python-coverage-comment-action.txt
