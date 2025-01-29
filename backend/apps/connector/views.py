@@ -38,10 +38,10 @@ class EDPView(APIView):
 
         file = request.FILES["file"]
 
+        logger.info(f"Received {file.name}")
+
         if not file.name.endswith(".zip"):
             raise ValidationError({"detail": "Only ZIP files are accepted."})
-
-        logger.info(f"Received {file.name}")
 
         try:
             with zipfile.ZipFile(file, "r") as z:
