@@ -1,0 +1,25 @@
+name: Backend Tests
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: 3.12
+          enable-cache: false
+
+      - name: Install depdencies
+        run: uv sync --all-extras
+
+      - name: Run pytest
+        run: uv run pytest
+        working-directory: ./backend
