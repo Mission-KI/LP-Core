@@ -33,3 +33,4 @@ yarn-error.log*
 backend/staticfiles/
 .venv/
 .vscode/
+.coverage
