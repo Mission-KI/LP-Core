@@ -1,5 +1,5 @@
 from io import BytesIO, StringIO
-from typing import Callable, Dict
+from typing import Dict
 from zipfile import ZipFile
 
 import pytest
