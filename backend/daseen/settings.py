@@ -7,7 +7,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure--+2w2!&en+qe9092u^p)wuzn5(kj+nyr4*!!(ewh2fq4yha)xl"
+SECRET_KEY = "django-insecure--+2w2!&en+qe9092u^p)wuzn5(kj+nyr4*!!(ewh2fq4yha)xl"  # noqa: S105 needs to be fixed!
 
 DEBUG = True
 
