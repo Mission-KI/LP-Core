@@ -1,11 +1,39 @@
 import requests
+import base64
 from django.conf import settings
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-import base64
+
+
+def get_auth_headers():
+    """ Returns the authentication headers for Elasticsearch requests """
+    auth_value = f"{settings.ELASTICSEARCH_USERNAME}:{settings.ELASTICSEARCH_PASSWORD}"
+    encoded_auth_value = base64.b64encode(auth_value.encode('utf-8')).decode('utf-8')
+    
+    return {
+        "Content-Type": "application/json",
+        "Authorization": f"Basic {encoded_auth_value}",
+    }
+
+
+def elasticsearch_request(method, endpoint, data=None):
+    """ Helper function to send requests to Elasticsearch """
+    es_url = f"{settings.ELASTICSEARCH_URL}/{endpoint}"
+    
+    try:
+        response = requests.request(method, es_url, json=data, headers=get_auth_headers())
+
+        if response.status_code == 200:
+            return Response(response.json(), status=status.HTTP_200_OK)
+        else:
+            return Response({'error': response.text}, status=response.status_code)
+
+    except requests.exceptions.RequestException as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 @swagger_auto_schema(
     methods=['post'],
@@ -22,30 +50,9 @@ import base64
 )
 @api_view(['POST'])
 def search(request):
-    """ Sends a raw query to Elasticsearch using requests """
-
-    es_url = f"{settings.ELASTICSEARCH_URL}/_search"
-
-    auth_value = f"{settings.ELASTICSEARCH_USERNAME}:{settings.ELASTICSEARCH_PASSWORD}"
-    encoded_auth_value = base64.b64encode(auth_value.encode('utf-8')).decode('utf-8')
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Basic {encoded_auth_value}",
-    }
-
+    """ Sends a raw query to Elasticsearch """
     query = request.data.get('query', {})
-
-    try:
-        response = requests.post(es_url, json=query, headers=headers)
-
-        if response.status_code == 200:
-            return Response(response.json(), status=status.HTTP_200_OK)
-        else:
-            return Response({'error': response.text}, status=response.status_code)
-
-    except requests.exceptions.RequestException as e:
-        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    return elasticsearch_request('POST', '_search', query)
 
 
 @swagger_auto_schema(
@@ -62,51 +69,11 @@ def search(request):
 )
 @api_view(['GET'])
 def find(request, uuid):
-    """ Retrieve an EDP from elasticsearch """
-
-    es_url = f"{settings.ELASTICSEARCH_URL}/_doc/{uuid}"
-
-    auth_value = f"{settings.ELASTICSEARCH_USERNAME}:{settings.ELASTICSEARCH_PASSWORD}"
-    encoded_auth_value = base64.b64encode(auth_value.encode('utf-8')).decode('utf-8')
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Basic {encoded_auth_value}",
-    }
-
-    try:
-        response = requests.get(es_url, headers=headers)
-
-        if response.status_code == 200:
-            return Response(response.json(), status=status.HTTP_200_OK)
-        else:
-            return Response({'error': response.text}, status=response.status_code)
-
-    except requests.exceptions.RequestException as e:
-        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    """ Retrieve an EDP from Elasticsearch """
+    return elasticsearch_request('GET', f'_doc/{uuid}')
 
 
 @api_view(['GET'])
 def count(request):
-    """ Gets the total count of assets in elasticsearch """
-
-    es_url = f"{settings.ELASTICSEARCH_URL}/_count"
-
-    auth_value = f"{settings.ELASTICSEARCH_USERNAME}:{settings.ELASTICSEARCH_PASSWORD}"
-    encoded_auth_value = base64.b64encode(auth_value.encode('utf-8')).decode('utf-8')
-
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Basic {encoded_auth_value}",
-    }
-
-    try:
-        response = requests.get(es_url, headers=headers)
-
-        if response.status_code == 200:
-            return Response(response.json(), status=status.HTTP_200_OK)
-        else:
-            return Response({'error': response.text}, status=response.status_code)
-
-    except requests.exceptions.RequestException as e:
-        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    """ Gets the total count of assets in Elasticsearch """
+    return elasticsearch_request('GET', '_count')
