@@ -17,6 +17,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
+      secrets:
+        - github_token
     volumes:
       - "./backend:/backend"
     ports:
@@ -58,3 +60,7 @@ services:
 volumes:
   frontend-build:
   postgres_data:
+
+secrets:
+  github_token:
+    environment: GITHUB_TOKEN
