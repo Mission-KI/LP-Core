@@ -1,15 +1,14 @@
 services:
-  mysql:
-    image: mysql:latest
-    container_name: mysql
+  postgres:
+    image: postgres:latest
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - "3306:3306"
+      - "5432:5432"
     env_file:
       - .env
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
       interval: 10s
       timeout: 15s
       retries: 10
@@ -23,14 +22,10 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      mysql:
+      postgres:
         condition: service_healthy
     env_file:
       - .env
-    environment:
-      - WDS_SOCKET_HOST=127.0.0.1 
-      - CHOKIDAR_USEPOLLING=true
-      - WATCHPACK_POLLING=true 
 
   frontend:
     build:
