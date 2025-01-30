@@ -18,6 +18,8 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
+      secrets:
+        - github_token
     volumes:
       - "./backend:/backend"
     ports:
@@ -28,9 +30,9 @@ services:
     env_file:
       - .env
     environment:
-      - WDS_SOCKET_HOST=127.0.0.1 
+      - WDS_SOCKET_HOST=127.0.0.1
       - CHOKIDAR_USEPOLLING=true
-      - WATCHPACK_POLLING=true 
+      - WATCHPACK_POLLING=true
 
   frontend:
     build:
@@ -55,3 +57,7 @@ services:
 volumes:
   mysql_data:
   frontend-build:
+
+secrets:
+  github_token:
+    environment: GITHUB_TOKEN
