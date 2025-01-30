@@ -18,7 +18,9 @@ jobs:
           enable-cache: false
 
       - name: Install depdencies
-        run: uv sync --all-extras
+        run: |
+          git config --global url."https://${{ secrets.GIT_HUB_API_KEY }}@github.com".insteadOf "https://github.com"
+          uv sync --all-extras
 
       - name: Run pytest
         run: pytest --cov=./ --cov-report=term-missing ./backend
@@ -52,7 +54,9 @@ jobs:
           enable-cache: false
 
       - name: Install depdencies
-        run: uv sync --all-extras
+        run: |
+          git config --global url."https://${{ secrets.GIT_HUB_API_KEY }}@github.com".insteadOf "https://github.com"
+          uv sync --all-extras
 
       - name: ruff check
         run: ruff check --output-format=github .
