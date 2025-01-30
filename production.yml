@@ -35,11 +35,19 @@ services:
       - "./frontend:/app"
       - "/app/node_modules"
 
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile.prod
+    volumes:
+      - "./landing:/landing"
+      - "/landing/node_modules"
 
   nginx:
     depends_on:
       - backend
       - frontend
+      - landing
     restart: always
     build:
       dockerfile: Dockerfile
@@ -48,5 +56,5 @@ services:
       - "80:80"
 
 volumes:
-  mysql_data:
   frontend-build:
+  postgres_data:
