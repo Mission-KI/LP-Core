@@ -52,18 +52,6 @@ const DataScienceInfo = ({ datasetDetails }) => {
                 <div className="col-6">
                     <p className="small mb-1 fw-500">{calculateDataTypesAttribute(datasetDetails)}</p>
                 </div>
-                <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.growth")}</p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1 fw-500">{datasetDetails?._source?.growthFlag ?? "unknown"}</p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.growthRate")}</p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1 fw-500">unknown</p>
-                </div>
                 <div className="col-6 mt-3">
                     <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.temporalCover")}</p>
                 </div>

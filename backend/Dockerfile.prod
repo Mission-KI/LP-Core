@@ -10,4 +10,4 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 COPY . .
 
-CMD ["sh", "-c", "python manage.py makemigrations user && python manage.py migrate && python manage.py loaddata initial_data.json && exec gunicorn --bind 0.0.0.0:8000 --workers 1 daseen.wsgi:application --timeout 120"]
+CMD ["sh", "-c", "exec gunicorn --bind 0.0.0.0:8000 --workers 1 daseen.wsgi:application --timeout 120"]

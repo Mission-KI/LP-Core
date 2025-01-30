@@ -20,6 +20,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("connector/", include("apps.connector.urls")),
     path("monitoring/", include("apps.monitoring.urls")),
+    path("search/", include("apps.search.urls")),
     re_path(
         r"^swagger(?P<format>\.json|\.yaml)$",
         schema_view.without_ui(cache_timeout=0),

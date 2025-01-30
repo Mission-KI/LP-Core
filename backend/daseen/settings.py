@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "common",
     "apps.connector",
     "apps.monitoring",
+    "apps.search",
     "rest_framework",
     "drf_yasg",
     "corsheaders",
@@ -122,3 +123,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 TESTS_IN_REAL_DB = True
 
 SWAGGER_SETTINGS = {"USE_SESSION_AUTH": False}
+
+ELASTICSEARCH_URL = os.environ.get("ELASTICSEARCH_URL")
+ELASTICSEARCH_API_KEY = os.environ.get("ELASTICSEARCH_API_KEY")
+ELASTICSEARCH_USERNAME = os.environ.get("ELASTICSEARCH_USERNAME")
+ELASTICSEARCH_PASSWORD = os.environ.get("ELASTICSEARCH_PASSWORD")

@@ -41,7 +41,12 @@ def create_zip(file_list: Dict[str, str]):
             zip_file.writestr(file_name, data=content)
     zip_buf.seek(0)
     return InMemoryUploadedFile(
-        zip_buf, name="test_file.zip", content_type="application/zip", field_name=None, size=None, charset=None
+        zip_buf,
+        name="test_file.zip",
+        content_type="application/zip",
+        field_name=None,
+        size=None,
+        charset=None,
     )
 
 
@@ -104,7 +109,14 @@ def test_create_edp_file_zip_missing_json(client: APIClient, create_edp_url: str
 def test_create_edp_file_zip_validation_error(client: APIClient, create_edp_url: str):
     response = client.post(
         create_edp_url,
-        {"file": create_zip({"dummy_edp.json": '{"volume": "world"}', "some_other_file_will_be_ignored.png": ""})},
+        {
+            "file": create_zip(
+                {
+                    "dummy_edp.json": '{"volume": "world"}',
+                    "some_other_file_will_be_ignored.png": "",
+                }
+            )
+        },
         format="multipart",
     )
     assert isinstance(response, Response)
@@ -119,9 +131,19 @@ def test_create_edp_file_zip_validation_error(client: APIClient, create_edp_url:
 def test_create_edp_file_zip_success(client: APIClient, create_edp_url: str, mini_edp: ExtendedDatasetProfile):
     response = client.post(
         create_edp_url,
-        {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "some_other_file_will_be_ignored.png": ""})},
+        {
+            "file": create_zip(
+                {
+                    "dummy_edp.json": mini_edp.model_dump_json(),
+                    "some_other_file_will_be_ignored.png": "",
+                }
+            )
+        },
         format="multipart",
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK
-    assert response.data == {"message": "JSON file processed successfully", "json_content": mini_edp.model_dump()}
+    assert response.data == {
+        "message": "JSON file processed successfully",
+        "json_content": mini_edp.model_dump(),
+    }
