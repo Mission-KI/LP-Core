@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+
+from .views import EDPView
 
 urlpatterns = [
-    path('create-edp/', views.create_edp, name='create_edp'),
+    path("create-edp/", EDPView.as_view(), name="create_edp"),
 ]

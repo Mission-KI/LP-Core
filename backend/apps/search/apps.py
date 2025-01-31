@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class CommonConfig(AppConfig):
+class SearchConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "apps.connector"
+    name = "apps.search"

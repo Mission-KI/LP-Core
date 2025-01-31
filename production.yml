@@ -1,15 +1,14 @@
 services:
-  mysql:
-    image: mysql:latest
-    container_name: mysql
+  postgres:
+    image: postgres:latest
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - "3306:3306"
+      - "5432:5432"
     env_file:
       - .env
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
       interval: 10s
       timeout: 15s
       retries: 10
@@ -18,19 +17,17 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile.prod
+      secrets:
+        - github_token
     volumes:
       - "./backend:/backend"
     ports:
       - "8000:8000"
     depends_on:
-      mysql:
+      postgres:
         condition: service_healthy
     env_file:
       - .env
-    environment:
-      - WDS_SOCKET_HOST=127.0.0.1 
-      - CHOKIDAR_USEPOLLING=true
-      - WATCHPACK_POLLING=true 
 
   frontend:
     build:
@@ -40,11 +37,19 @@ services:
       - "./frontend:/app"
       - "/app/node_modules"
 
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile.prod
+    volumes:
+      - "./landing:/landing"
+      - "/landing/node_modules"
 
   nginx:
     depends_on:
       - backend
       - frontend
+      - landing
     restart: always
     build:
       dockerfile: Dockerfile
@@ -53,5 +58,9 @@ services:
       - "80:80"
 
 volumes:
-  mysql_data:
   frontend-build:
+  postgres_data:
+
+secrets:
+  github_token:
+    environment: GITHUB_TOKEN
