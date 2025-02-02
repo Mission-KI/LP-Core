@@ -18,6 +18,7 @@
   --search-bar-color: #ecedef;
   --search-bar-hover-color: #e8e9ea;
   --header-color: #fff;
+  --footer-color: #F2F2F2;
   --content-over-widget-color: #fff;
   --skeleton-loader-color-0: #00000011;
   --skeleton-loader-color-100: #00000019;
@@ -34,6 +35,7 @@
   --search-bar-color: #37383b;
   --search-bar-hover-color: #494a4e;
   --header-color: #171a1d;
+  --footer-color: #171a1d;
   --content-over-widget-color: #2a2e32;
   --skeleton-loader-color-0: #ffffff11;
   --skeleton-loader-color-100: #ffffff19;

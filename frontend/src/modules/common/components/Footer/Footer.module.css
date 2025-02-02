@@ -1,6 +1,5 @@
 .footer {
-    background-color: var(--color-light-gray);
-    /* margin-top: 3rem; */
+    background-color: var(--footer-color);
 }
 
 .footerLink{
