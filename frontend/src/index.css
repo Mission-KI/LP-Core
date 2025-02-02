@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
-  --color-primary: #006bad;
+  --color-primary: #005a92;
   --color-primary-lighter: #0063a1d1;
   --color-primary-darker: #005387;
   --color-primary-hover: #005b93;
@@ -14,9 +14,9 @@
   --color-darker-gray: #D9D9D9;
   --color-danger: #da5778;
   --color-success: #20c996aa !important;
-  --toastify-color-success: #004f7a !important;
+  --toastify-color-success: #000c7a !important;
   --search-bar-color: #ecedef;
-  --search-bar-hover-color: #dadce0;
+  --search-bar-hover-color: #e8e9ea;
   --header-color: #fff;
   --content-over-widget-color: #fff;
   --skeleton-loader-color-0: #00000011;
@@ -24,6 +24,7 @@
 }
 
 .dark-mode {
+  --color-primary: #5ac0ff;
   --color-text: white;
   --color-text-lighter: #a5b0b9;
   --color-body-background: #1e2125;
@@ -274,7 +275,7 @@ p.two-words::after {
 .table td,
 .table th {
   padding: .5rem .3rem !important;
-  font-size: 10.3pt !important;
+  font-size: 10pt !important;
   border: none !important;
 }
 
@@ -375,9 +376,11 @@ li.selected .pagination-btn,
 
 div.dt-container div.dt-search input {
   border-radius: .8rem !important;
-  border: 1px solid var(--color-darker-gray) !important;
+  border: 2px solid var(--color-light-gray) !important;
 }
-
+div.dt-container div.dt-search label{
+  color: var(--color-text-lighter) !important;
+}
 .dataset-attribute-tabs {
   display: flex;
   justify-content: space-between;
