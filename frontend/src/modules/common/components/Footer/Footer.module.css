@@ -5,7 +5,7 @@
 .footerLink{
     font-size: 13px !important;
     color: var(--color-text-lighter) !important;
-    padding-right: 2rem;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    /* padding-right: 2rem; */
+    padding-top: .7rem;
+    padding-bottom: .7rem;
 }
