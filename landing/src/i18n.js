@@ -20,6 +20,10 @@ i18n
           page: {
             title: "Dataset Search Engine"
           },
+          welcome: {
+            title: "Welcome to the landing page!",
+            text: "Please note that this site and downstream services are currently under development. It may therefore happen that the page itself or the functions shown are not available or only available to a limited extent. We apologise for the inconvenience."
+          },
           header: {
             home: "Home",
             search: "Search",
@@ -71,6 +75,10 @@ i18n
         translation: {
           page: {
             title: "Datensatz-Suchmaschine"
+          },
+          welcome: {
+            title: "Willkommen auf der Landing Page!",
+            text: "Bitte beachten Sie, dass sich diese Seite und nachgelagerten Dienste in der Entwicklung befinden. Es kann deshalb passieren, dass die Seite selbst oder dargestellte Funktionen nicht oder nur eingeschränkt zur Verfügung stehen. Wir bitten dies zu entschuldigen."
           },
           header: {
             home: "Startseite",

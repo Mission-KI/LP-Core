@@ -1,9 +1,11 @@
 .footer {
-    border-top: 1px solid var(--color-light-gray) !important;
-    margin-top: 3rem;
+    background-color: var(--footer-color);
 }
 
 .footerLink{
-    font-size: 9pt !important;
+    font-size: 13px !important;
     color: var(--color-text-lighter) !important;
+    /* padding-right: 2rem; */
+    padding-top: .7rem;
+    padding-bottom: .7rem;
 }

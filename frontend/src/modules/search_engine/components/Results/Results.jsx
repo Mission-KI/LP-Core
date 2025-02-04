@@ -54,6 +54,13 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
                             {datasets?.hits?.hits?.map((dataset) =>
                                 <ResultItem dataset={dataset} key={dataset._id} />
                             )}
+                            <div className='col-md-10'>
+                                <Paginator
+                                    pageCount={pageCount}
+                                    handlePageChange={handlePageChange}
+                                    currentPage={currentPage}
+                                />
+                            </div>
                         </div>
                     ) : activeTab == 'tiles' ? (
                         <>
@@ -62,17 +69,16 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
                                     <ResultItemCard dataset={dataset} key={dataset._id} />
                                 )}
                             </div>
+                            <Paginator
+                                pageCount={pageCount}
+                                handlePageChange={handlePageChange}
+                                currentPage={currentPage}
+                            />
                         </>
 
                     ) : ''}
 
                 </div>
-
-                <Paginator
-                    pageCount={pageCount}
-                    handlePageChange={handlePageChange}
-                    currentPage={currentPage}
-                />
 
             </div>
         </div>
