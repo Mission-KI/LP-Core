@@ -82,15 +82,15 @@ class EDPViewSet(ViewSet):
             raise DRFValidationError({"detail": "Uploaded file is not a valid ZIP archive."})
 
     def _edp_from_request(self, zip_file: ZipFile):
-        json_filename = None
-        for file_name in zip_file.namelist():
-            if file_name.endswith(".json"):
-                json_filename = file_name
-                break
+        json_files = [file_name for file_name in zip_file.namelist() if file_name.endswith(".json")]
 
-        if not json_filename:
+        if len(json_files) == 0:
             raise DRFValidationError({"detail": "No JSON file found in the ZIP archive."})
 
+        if len(json_files) > 1:
+            raise DRFValidationError({"detail": "Multiple JSON files found in the ZIP archive. Expected one."})
+
+        json_filename = json_files[0]
         logger.info(f"found JSON file {json_filename}")
 
         with zip_file.open(json_filename) as json_file:
