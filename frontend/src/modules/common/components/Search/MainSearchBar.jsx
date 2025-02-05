@@ -97,7 +97,7 @@ function MainSearchBar() {
                     </InputGroup.Text>
                 ) : (
                     <InputGroup.Text className='pe-4'>
-                        <Search style={{ fontSize: '13pt' }} />
+                        <Search style={{ fontSize: '13pt' }} className="txt-lighter" />
                     </InputGroup.Text>
                 )}
                 <SearchSuggestions
