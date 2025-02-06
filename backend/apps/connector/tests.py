@@ -1,11 +1,14 @@
+import uuid
 from datetime import datetime
 from io import BytesIO, StringIO
-from typing import Dict
+from typing import Any, Dict, List
+from unittest.mock import Mock
 from zipfile import ZipFile
 
-import pytest
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.test import override_settings
 from django.urls import reverse
+from elasticsearch import Elasticsearch
 from extended_dataset_profile import SchemaVersion
 from extended_dataset_profile.models.v0.edp import (
     DataSpace,
@@ -13,22 +16,40 @@ from extended_dataset_profile.models.v0.edp import (
     License,
     Publisher,
 )
+from pytest import MonkeyPatch, fixture
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 
 
-@pytest.fixture
-def client():
+@fixture()
+def settings():
+    with override_settings(
+        ELASTICSEARCH_URL="https://fake-server.beebucket.de/edp-data",
+        ELASTICSEARCH_API_KEY="dummy",
+        S3_ACCESS_KEY_ID="dummy-key-id",
+        S3_SECRET_ACCESS_KEY="dummy-key",
+        S3_BUCKET_NAME="dummy-bucket",
+    ) as s:
+        yield s
+
+
+@fixture
+def client(settings):
     return APIClient()
 
 
-@pytest.fixture
-def create_edp_url():
-    return reverse("create_edp")
+@fixture
+def edp_base_url():
+    return reverse("edp-base")
 
 
-@pytest.fixture
+@fixture
+def edp_detail_url():
+    return reverse("edp-detail", kwargs={"id": 1})
+
+
+@fixture
 def not_a_zip():
     with StringIO("fake data") as f:
         yield f
@@ -50,7 +71,7 @@ def create_zip(file_list: Dict[str, str]):
     )
 
 
-@pytest.fixture
+@fixture
 def mini_edp():
     return ExtendedDatasetProfile(
         schema_version=SchemaVersion.V0,
@@ -67,48 +88,48 @@ def mini_edp():
     )
 
 
-def test_create_edp_rejects_json(client: APIClient, create_edp_url: str):
-    response = client.post(create_edp_url, {}, format="json")
+def test_create_edp_rejects_json(client: APIClient, edp_base_url: str):
+    response = client.post(edp_base_url, {}, format="json")
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_415_UNSUPPORTED_MEDIA_TYPE
     assert response.data == {"detail": 'Unsupported media type "application/json" in request.'}
 
 
-def test_create_edp_no_file(client: APIClient, create_edp_url: str):
-    response = client.post(create_edp_url, {}, format="multipart")
+def test_create_edp_no_file(client: APIClient, edp_base_url: str):
+    response = client.post(edp_base_url, {}, format="multipart")
     assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert response.data == {"detail": "No file uploaded."}
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
+    assert response.json() == ["No file uploaded."]
 
 
-def test_create_edp_file_not_a_file(client: APIClient, create_edp_url: str):
-    response = client.post(create_edp_url, {"file": "not-a-file"}, format="multipart")
+def test_create_edp_file_not_a_file(client: APIClient, edp_base_url: str):
+    response = client.post(edp_base_url, {"file": "not-a-file"}, format="multipart")
     assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert response.data == {"detail": "No file uploaded."}
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
+    assert response.data == ["No file uploaded."]
 
 
-def test_create_edp_file_not_a_zip(client: APIClient, create_edp_url: str, not_a_zip):
-    response = client.post(create_edp_url, {"file": not_a_zip}, format="multipart")
+def test_create_edp_file_not_a_zip(client: APIClient, edp_base_url: str, not_a_zip):
+    response = client.post(edp_base_url, {"file": not_a_zip}, format="multipart")
     assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert response.data == {"detail": "Only ZIP files are accepted."}
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
+    assert response.json() == ["Only ZIP files are accepted."]
 
 
-def test_create_edp_file_zip_missing_json(client: APIClient, create_edp_url: str):
+def test_create_edp_file_zip_missing_json(client: APIClient, edp_base_url: str):
     response = client.post(
-        create_edp_url,
+        edp_base_url,
         {"file": create_zip({"not-a-json.txt": "{}"})},
         format="multipart",
     )
     assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert response.data == {"detail": "No JSON file found in the ZIP archive."}
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
+    assert response.json() == ["Expected exactly one EDP file, but found: []"]
 
 
-def test_create_edp_file_zip_validation_error(client: APIClient, create_edp_url: str):
+def test_create_edp_file_zip_validation_error(client: APIClient, edp_base_url: str):
     response = client.post(
-        create_edp_url,
+        edp_base_url,
         {
             "file": create_zip(
                 {
@@ -120,17 +141,19 @@ def test_create_edp_file_zip_validation_error(client: APIClient, create_edp_url:
         format="multipart",
     )
     assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_400_BAD_REQUEST
-    assert isinstance(response.data, dict)
-    assert "detail" in response.data
-    assert response.data["detail"].startswith("10 validation errors for ExtendedDatasetProfile"), response.data[
-        "detail"
-    ]
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
+    assert len(response.json()) == 1
+    assert response.json()[0].startswith("10 validation errors for ExtendedDatasetProfile")
 
 
-def test_create_edp_file_zip_success(client: APIClient, create_edp_url: str, mini_edp: ExtendedDatasetProfile):
+def test_create_edp_file_zip_success(
+    client: APIClient, edp_base_url: str, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch
+):
+    mock_index = Mock()
+    monkeypatch.setattr(Elasticsearch, "index", mock_index)
+
     response = client.post(
-        create_edp_url,
+        edp_base_url,
         {
             "file": create_zip(
                 {
@@ -141,9 +164,96 @@ def test_create_edp_file_zip_success(client: APIClient, create_edp_url: str, min
         },
         format="multipart",
     )
+    mock_index.assert_called_once()
     assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_200_OK
-    assert response.data == {
-        "message": "JSON file processed successfully",
-        "json_content": mini_edp.model_dump(),
-    }
+    assert response.status_code == status.HTTP_200_OK, response.json()
+    assert Matcher.matches(
+        response.data,
+        {
+            "message": "EDP uploaded successfully",
+            "edp": mini_edp.model_dump(mode="json"),
+            "id": "<uuid>",
+        },
+    )
+
+
+def test_update_edp_rejects_json(client: APIClient, edp_base_url: str):
+    response = client.post(edp_base_url, {}, format="json")
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, response.json()
+    assert response.data == {"detail": 'Unsupported media type "application/json" in request.'}
+
+
+def test_update_edp_file_zip_success(
+    client: APIClient, edp_detail_url: str, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch
+):
+    mock_index = Mock()
+    monkeypatch.setattr(Elasticsearch, "index", mock_index)
+    response = client.put(
+        edp_detail_url,
+        {
+            "file": create_zip(
+                {
+                    "dummy_edp.json": mini_edp.model_dump_json(),
+                    "some_other_file_will_be_ignored.png": "",
+                }
+            )
+        },
+        format="multipart",
+    )
+    mock_index.assert_called_once()
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_200_OK, response.json()
+    assert Matcher.matches(
+        response.data,
+        {
+            "message": "EDP 1 updated successfully",
+            "edp": mini_edp.model_dump(mode="json"),
+            "id": "<uuid>",
+        },
+    )
+
+
+def test_delete_edp_file_zip_success(client: APIClient, edp_detail_url: str, mini_edp: ExtendedDatasetProfile):
+    response = client.delete(
+        edp_detail_url,
+        {},
+        format="multipart",
+    )
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_200_OK, response.json()
+    assert response.data == {"message": "EDP 1 deleted successfully"}
+
+
+class Matcher:
+    @staticmethod
+    def matches(actual: Any, expected: Any) -> bool:
+        if isinstance(expected, dict):
+            return Matcher._match_dict(actual, expected)
+        elif isinstance(expected, list):
+            return Matcher._match_list(actual, expected)
+        elif isinstance(expected, str):
+            return Matcher._match_string(actual, expected)
+        return actual == expected
+
+    @staticmethod
+    def _match_dict(actual: Dict, expected: Dict) -> bool:
+        if not isinstance(actual, dict):
+            return False
+        return all(k in actual and Matcher.matches(actual[k], v) for k, v in expected.items())
+
+    @staticmethod
+    def _match_list(actual: List, expected: List) -> bool:
+        if not isinstance(actual, list) or len(actual) != len(expected):
+            return False
+        return all(Matcher.matches(a, e) for a, e in zip(actual, expected))
+
+    @staticmethod
+    def _match_string(actual: str, expected: str) -> bool:
+        if expected == "<uuid>":
+            try:
+                uuid.UUID(str(actual))
+                return True
+            except ValueError:
+                return False
+        return actual == expected
