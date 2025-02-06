@@ -59,3 +59,6 @@ python_files = ["backend/**/tests.py"]
 
 [tool.coverage.run]
 relative_files = true
+omit = [
+    "backend/**/tests.py",
+]
