@@ -1,12 +1,14 @@
 import typing
 from logging import getLogger
-from zipfile import BadZipFile, ZipFile
+from uuid import uuid4
 
+from common.edpuploader import EdpUploader, UploadConfig
+from django.conf import settings
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.datastructures import MultiValueDict
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from extended_dataset_profile import schema_versions
-from pydantic import ValidationError as PydanticValidationError
+from pydantic import HttpUrl
 from rest_framework import status
 from rest_framework.exceptions import APIException, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
@@ -33,17 +35,16 @@ class EDPViewSet(ViewSet):
     @swagger_auto_schema(operation_summary="upload an EDP zip file", manual_parameters=[_FILE_PARAM])
     def create(self, request: Request):
         try:
-            json_file_bytes = self._edp_bytes_from_request(request)
-            edp = self._try_to_apply_edp_schema(json_file_bytes)
-            # TODO(KB) return generated id
+            edp, edp_id = self._edp_from_request(request)
             return Response(
                 {
-                    "message": "JSON file processed successfully",
-                    "json_content": edp.model_dump(mode="json"),
+                    "message": "EDP uploaded successfully",
+                    "edp": edp.model_dump(mode="json"),
+                    "id": edp_id,
                 },
                 status=status.HTTP_200_OK,
             )
-        except (DRFValidationError, UnsupportedMediaType):
+        except (DRFValidationError, UnsupportedMediaType, APIException):
             raise
         except Exception as e:
             raise APIException(f"An unknown error occurred ({type(e)}): {str(e)}")
@@ -52,16 +53,16 @@ class EDPViewSet(ViewSet):
     def update(self, request: Request, id: int | None):
         try:
             # TODO(KB) check if `id` exists, see: https://ai-bites.atlassian.net/browse/DSE-710
-            json_file_bytes = self._edp_bytes_from_request(request)
-            edp = self._try_to_apply_edp_schema(json_file_bytes)
+            edp, edp_id = self._edp_from_request(request)
             return Response(
                 {
                     "message": f"EDP {id} updated successfully",
-                    "json_content": edp.model_dump(mode="json"),
+                    "edp": edp.model_dump(mode="json"),
+                    "id": edp_id,
                 },
                 status=status.HTTP_200_OK,
             )
-        except (DRFValidationError, UnsupportedMediaType):
+        except (DRFValidationError, UnsupportedMediaType, APIException):
             raise
         except Exception as e:
             raise APIException(f"An unknown error occurred: {str(e)}")
@@ -73,51 +74,38 @@ class EDPViewSet(ViewSet):
             status=status.HTTP_200_OK,
         )
 
-    def _edp_bytes_from_request(self, request: Request):
-        try:
-            with self._zip_file_from_request(request) as zip_file:
-                json_file_bytes = self._edp_from_request(zip_file)
-            return json_file_bytes
-        except BadZipFile:
-            raise DRFValidationError({"detail": "Uploaded file is not a valid ZIP archive."})
-
-    def _edp_from_request(self, zip_file: ZipFile):
-        json_files = [file_name for file_name in zip_file.namelist() if file_name.endswith(".json")]
-
-        if len(json_files) == 0:
-            raise DRFValidationError({"detail": "No JSON file found in the ZIP archive."})
-
-        if len(json_files) > 1:
-            raise DRFValidationError({"detail": "Multiple JSON files found in the ZIP archive. Expected one."})
-
-        json_filename = json_files[0]
-        logger.info(f"found JSON file {json_filename}")
-
-        with zip_file.open(json_filename) as json_file:
-            return json_file.read()
-
-    def _try_to_apply_edp_schema(self, json_file_bytes: bytes):
-        for schema in schema_versions.values():
-            try:
-                return schema.model_validate_json(json_file_bytes)
-            except PydanticValidationError as e:
-                raise DRFValidationError({"detail": str(e)})
-
-        raise DRFValidationError(
-            "JSON not matching any known EDP JSON schema. Supported versions:"
-            f" {', '.join([v.value for v in schema_versions.keys()])}"
+    def _edp_from_request(self, request: Request):
+        zip_file = self._file_from_request(request)
+        if settings.ELASTICSEARCH_URL is None:
+            raise APIException(detail="Missing elastic configuration")
+        url_data = HttpUrl(settings.ELASTICSEARCH_URL)
+        host_url = f"{url_data.scheme}://{url_data.host}"
+        if url_data.path is None or url_data.path.count("/") != 1:
+            raise APIException("Invalid elasticsearch url configured")
+        elastic_index = url_data.path[1:]
+        config = UploadConfig(
+            s3_access_key_id=settings.S3_ACCESS_KEY_ID,
+            s3_secret_access_key=settings.S3_SECRET_ACCESS_KEY,
+            s3_bucket_name=settings.S3_BUCKET_NAME,
+            elastic_url=host_url,
+            elastic_apikey=settings.ELASTICSEARCH_API_KEY,
+            elastic_index=elastic_index,
         )
 
-    def _zip_file_from_request(self, request: Request):
+        uploader = EdpUploader(config)
+        edp_id = str(uuid4())
+        return uploader.upload_edp_zip(zip_file, edp_id=edp_id), edp_id
+
+    def _file_from_request(self, request: Request) -> InMemoryUploadedFile:
         files = typing.cast(MultiValueDict, request.FILES)
         if "file" not in files:
-            raise DRFValidationError({"detail": "No file uploaded."})
+            raise DRFValidationError("No file uploaded.")
 
         input_file = files["file"]
 
         logger.info(f"Received {input_file.name}")
 
         if not input_file.name.endswith(".zip"):
-            raise DRFValidationError({"detail": "Only ZIP files are accepted."})
+            raise DRFValidationError("Only ZIP files are accepted.")
 
-        return ZipFile(input_file, "r")
+        return input_file
