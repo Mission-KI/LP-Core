@@ -15,6 +15,13 @@ function Filters() {
     const filterSections = useFilterSections();
     const { alwaysExpandFilters } = useSettings();
 
+    useEffect(() => {
+        if(alwaysExpandFilters){
+            setFiltersDropdownVisible(alwaysExpandFilters);
+        }
+    }, [alwaysExpandFilters]);
+
+
     const [filtersDropdownVisible, setFiltersDropdownVisible] = useState(alwaysExpandFilters);
     const [checkedOptions, setCheckedOptions] = useState({});
     const [checkedRadios, setCheckedRadios] = useState({});
@@ -169,7 +176,7 @@ function Filters() {
         <div>
             <div className='d-flex align-items-center mt-2 mb-3'>
                 <button onClick={toggleFiltersDropdown} className='btn rounded-lg px-0 me-3 mb-1'>
-                    <span className='medium txt-lighter fw-500'>{t('header.filters')} <ChevronDown className='small ms-1' /></span>
+                    <span className='medium txt-lighter'>{t('header.filters')} <ChevronDown className='small ms-1' /></span>
                 </button>
                 <div className='d-flex flex-wrap'>
                     {Object.entries(selectedFilters)

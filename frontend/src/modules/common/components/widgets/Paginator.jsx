@@ -16,7 +16,7 @@ function Paginator({ pageCount, handlePageChange, currentPage }) {
                 marginPagesDisplayed={1}
                 pageRangeDisplayed={5}
                 onPageChange={handlePageChange}
-                containerClassName="d-flex justify-content-around align-items-center m-auto mt-5 py-3 px-0"
+                containerClassName="d-flex justify-content-center align-items-center m-auto mt-5 py-3 px-0"
                 pageClassName="list-unstyled"
                 pageLinkClassName="btn btn-hover pagination-btn txt-lighter rounded"
                 activeLinkClassName="btn txt-primary medium"

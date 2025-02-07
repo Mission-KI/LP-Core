@@ -1,0 +1,94 @@
+name: Backend Tests
+
+on:
+  pull_request:
+
+jobs:
+  docker:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - uses: docker/login-action@v3.1.0
+        with:
+            username: cicdcorebeebucket
+            password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Build
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64,linux/arm64
+          tags: beebucket/daseen-backend:latest
+          file: backend/Dockerfile.prod
+          context: backend/
+          push: False
+          secrets: |
+            "github_token=${{ secrets.GIT_HUB_API_KEY }}"
+
+  test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: 3.12
+          enable-cache: false
+
+      - name: Install depdencies
+        run: |
+          git config --global url."https://${{ secrets.GIT_HUB_API_KEY }}@github.com".insteadOf "https://github.com"
+          uv sync --all-extras
+
+      - name: Run pytest
+        run: pytest --cov=./ --cov-report=term-missing ./backend
+
+      - name: Coverage comment
+        id: coverage_comment
+        uses: py-cov-action/python-coverage-comment-action@v3
+        with:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            MINIMUM_GREEN: 100
+            MINIMUM_ORANGE: 80
+
+      - name: Store Pull Request comment to be posted
+        uses: actions/upload-artifact@v4
+        if: steps.coverage_comment.outputs.COMMENT_FILE_WRITTEN == 'true'
+        with:
+            name: python-coverage-comment-action
+            path: backend/python-coverage-comment-action.txt
+
+  ruff:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: 3.12
+          enable-cache: false
+
+      - name: Install depdencies
+        run: |
+          git config --global url."https://${{ secrets.GIT_HUB_API_KEY }}@github.com".insteadOf "https://github.com"
+          uv sync --all-extras
+
+      - name: ruff check
+        run: ruff check --output-format=github .
+
+      - name: run format
+        run: ruff format --check .

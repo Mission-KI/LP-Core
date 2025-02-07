@@ -8,6 +8,7 @@ import { TilesContainer } from "react-tiles-dnd";
 import "../../node_modules/react-tiles-dnd/esm/index.css";
 import { useLocation } from 'react-router';
 import Footer from '../components/Footer/Footer';
+import WelcomePopup from '../components/WelcomePopup/WelcomePopup';
 import { ReactComponent as BMDV } from '../assets/img/BMDV.svg'
 import { ReactComponent as MKI } from '../assets/img/MKI.svg'
 
@@ -86,6 +87,8 @@ const Landing = () => {
 
 
                 <Footer />
+
+                <WelcomePopup />
 
             </div>
 

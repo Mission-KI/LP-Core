@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import HeroSection from '../../components/HeroSection/HeroSection';
 import HomeHeader from '../../components/HomeHeader/HomeHeader';
 import MainHeader from '../../components/MainHeader/MainHeader';
+import Footer from '../../../common/components/Footer/Footer';
 
 function Search() {
 
@@ -101,7 +102,7 @@ function Search() {
         </div>
       </div>
 
-
+      <Footer />
 
     </>
 

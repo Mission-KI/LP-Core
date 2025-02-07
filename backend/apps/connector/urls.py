@@ -1,6 +1,27 @@
 from django.urls import path
-from . import views
+
+from .views import EDPViewSet
 
 urlpatterns = [
-    path('create-edp/', views.create_edp, name='create_edp'),
+    path(
+        "edp/",
+        EDPViewSet.as_view(
+            {
+                # "get": "list",
+                "post": "create"
+            }
+        ),
+        name="edp-base",
+    ),
+    path(
+        "edp/<int:id>/",
+        EDPViewSet.as_view(
+            {
+                # "get": "retrieve",
+                "put": "update",
+                "delete": "delete",
+            }
+        ),
+        name="edp-detail",
+    ),
 ]

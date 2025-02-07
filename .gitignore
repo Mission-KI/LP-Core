@@ -31,3 +31,6 @@ yarn-error.log*
 *__pycache__/
 *.pyc
 backend/staticfiles/
+.venv/
+.vscode/
+.coverage

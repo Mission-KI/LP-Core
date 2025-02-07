@@ -47,10 +47,15 @@ const Header = () => {
                 </Navbar.Toggle>
                 <Navbar.Collapse id="basic-navbar-nav" className="mb-3 mb-md-0">
                     <Nav className="me-auto">
-                        <a href="/" className="nav-link ps-1 me-4">
+                        <div className="d-flex align-items-center ps-1 me-4">
+                            <span className="badge badge-primary bgc-danger py-2" style={{ fontSize: '10pt' }}>
+                                Alpha
+                            </span>
+                        </div>
+                        <a href="/" className="nav-link me-4">
                             Landing
                         </a>
-                        <a style={{ whiteSpace: 'nowrap' }} href={appUrl+"/help"} className="nav-link d-none d-md-block me-4">
+                        <a style={{ whiteSpace: 'nowrap' }} href={appUrl + "/help"} className="nav-link d-none d-md-block me-4">
                             Help
                         </a>
                         <a
@@ -62,11 +67,6 @@ const Header = () => {
                         </a>
                         <div className="me-4">
                             <LanguageSelector />
-                        </div>
-                        <div className="d-flex align-items-center">
-                            <span className="badge badge-primary bgc-danger" style={{ fontSize: '9pt' }}>
-                                Alpha
-                            </span>
                         </div>
                     </Nav>
                 </Navbar.Collapse>

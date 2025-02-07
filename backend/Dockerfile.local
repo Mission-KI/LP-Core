@@ -1,10 +1,15 @@
-FROM python:3.11
+FROM python:3.11 AS builder
 
 WORKDIR /backend
 
+RUN --mount=type=secret,id=github_token \
+    export GITHUB_TOKEN=$(cat /run/secrets/github_token) && \
+    git config --global url."https://${GITHUB_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+
 COPY requirements.txt ./
-RUN pip install -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install -r requirements.txt
 
 COPY . .
 
-CMD ["sh", "-c", "python manage.py migrate && exec gunicorn --bind 0.0.0.0:8000 --workers 3 daseen.wsgi:application --timeout 120"]
+CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

@@ -6,6 +6,7 @@ import styles from './Results.module.css'
 import { useTranslation } from 'react-i18next';
 import Paginator from '../../../common/components/widgets/Paginator';
 import ResultItemCard from './ResultItemCard';
+import SkeletonLoader from '../../../common/animations/SkeletonAnimation';
 
 function Results({ datasets, loading, pageCount, handlePageChange, currentPage }) {
     const { t } = useTranslation();
@@ -14,14 +15,6 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
     const handleTabChange = (tab) => {
         setActiveTab(tab);
     };
-
-    if (loading) {
-        return (
-            <div className='d-flex justify-content-center align-items-center' style={{ height: '50vh' }}>
-                <Spinner variant='dark' />
-            </div>
-        );
-    }
 
     return (
         <div className='mt-3 pt-3'>
@@ -33,7 +26,7 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
                             {datasets.hits?.total?.value >= 10000
                                 ? `> ${datasets.hits.total.value.toLocaleString()}`
                                 : datasets.hits?.total?.value?.toLocaleString()}
-                                &nbsp;
+                            &nbsp;
                             {datasets.hits?.total?.value === 1
                                 ? t('dataset.dataset')
                                 : t('dataset.datasets')}
@@ -54,11 +47,20 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
                         </div>
                     </div>
 
+                    {loading ? (<SkeletonLoader />) : ''}
+
                     {activeTab == 'list' ? (
                         <div className='col-md-9'>
                             {datasets?.hits?.hits?.map((dataset) =>
                                 <ResultItem dataset={dataset} key={dataset._id} />
                             )}
+                            <div className='col-md-10'>
+                                <Paginator
+                                    pageCount={pageCount}
+                                    handlePageChange={handlePageChange}
+                                    currentPage={currentPage}
+                                />
+                            </div>
                         </div>
                     ) : activeTab == 'tiles' ? (
                         <>
@@ -67,17 +69,16 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
                                     <ResultItemCard dataset={dataset} key={dataset._id} />
                                 )}
                             </div>
+                            <Paginator
+                                pageCount={pageCount}
+                                handlePageChange={handlePageChange}
+                                currentPage={currentPage}
+                            />
                         </>
 
                     ) : ''}
 
                 </div>
-
-                <Paginator
-                    pageCount={pageCount}
-                    handlePageChange={handlePageChange}
-                    currentPage={currentPage}
-                />
 
             </div>
         </div>
