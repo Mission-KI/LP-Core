@@ -8,6 +8,8 @@ import { TilesContainer } from "react-tiles-dnd";
 import "../../node_modules/react-tiles-dnd/esm/index.css";
 import { useLocation } from 'react-router';
 import Footer from '../components/Footer/Footer';
+import { ReactComponent as BMDV } from '../assets/img/BMDV.svg'
+import { ReactComponent as MKI } from '../assets/img/MKI.svg'
 
 const LOCAL_STORAGE_KEY = "userCategoriesOrder?v=2";
 
@@ -64,7 +66,24 @@ const Landing = () => {
                         className="w-100 row"
                         onReorderTiles={onReorderTiles}
                     />
+
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className='d-flex px-3 align-items-center justify-content-center w-100 bg-dark rounded-lg' style={{ height: 250 }}>
+                                <MKI style={{ maxWidth: 300 }} />
+                            </div>
+                        </div>
+                        <div className="col-md-6">
+                            <div className='d-flex px-3 align-items-center justify-content-center w-100 bg-light rounded-lg' style={{ height: 250 }}>
+                                <BMDV style={{ maxWidth: 300 }} />
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
+
+
 
                 <Footer />
 
