@@ -2,6 +2,8 @@ import typing
 from logging import getLogger
 from uuid import uuid4
 
+from apps.monitoring.models import EventLog
+from apps.monitoring.utils import create_log
 from common.edpuploader import EdpUploader, UploadConfig
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -36,6 +38,7 @@ class EDPViewSet(ViewSet):
     def create(self, request: Request):
         try:
             edp, edp_id = self._edp_from_request(request)
+            create_log(request.get_full_path(), "EDP upload done", EventLog.STATUS_SUCCESS)
             return Response(
                 {
                     "message": "EDP uploaded successfully",
@@ -44,16 +47,20 @@ class EDPViewSet(ViewSet):
                 },
                 status=status.HTTP_200_OK,
             )
-        except (DRFValidationError, UnsupportedMediaType, APIException):
-            raise
+        except (DRFValidationError, UnsupportedMediaType, APIException) as e:
+            create_log(request.get_full_path(), f"EDP upload failed: {e}", EventLog.STATUS_FAIL)
+            raise e
         except Exception as e:
-            raise APIException(f"An unknown error occurred ({type(e)}): {str(e)}")
+            message = f"An unknown error occurred ({type(e)}): {str(e)}"
+            create_log(request.get_full_path(), f"EDP upload failed: {message}", EventLog.STATUS_FAIL)
+            raise APIException(message)
 
     @swagger_auto_schema(operation_summary="update an EDP zip file", manual_parameters=[_FILE_PARAM])
     def update(self, request: Request, id: int | None):
         try:
             # TODO(KB) check if `id` exists, see: https://ai-bites.atlassian.net/browse/DSE-710
             edp, edp_id = self._edp_from_request(request)
+            create_log(request.get_full_path(), "EDP update done", EventLog.STATUS_SUCCESS)
             return Response(
                 {
                     "message": f"EDP {id} updated successfully",
@@ -62,13 +69,17 @@ class EDPViewSet(ViewSet):
                 },
                 status=status.HTTP_200_OK,
             )
-        except (DRFValidationError, UnsupportedMediaType, APIException):
-            raise
+        except (DRFValidationError, UnsupportedMediaType, APIException) as e:
+            create_log(request.get_full_path(), f"EDP update failed: {e}", EventLog.STATUS_FAIL)
+            raise e
         except Exception as e:
-            raise APIException(f"An unknown error occurred: {str(e)}")
+            message = f"An unknown error occurred ({type(e)}): {str(e)}"
+            create_log(request.get_full_path(), f"EDP update failed: {message}", EventLog.STATUS_FAIL)
+            raise APIException(message)
 
     @swagger_auto_schema(operation_summary="delete an EDP zip file")
     def delete(self, request: Request, id: int | None):
+        create_log(request.get_full_path(), "EDP delete done", EventLog.STATUS_SUCCESS)
         return Response(
             {"message": f"EDP {id} deleted successfully"},
             status=status.HTTP_200_OK,

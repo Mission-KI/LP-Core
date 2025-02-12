@@ -21,6 +21,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 
+# from apps.monitoring.utils import create_log
+
 
 @fixture()
 def settings():
@@ -88,46 +90,83 @@ def mini_edp():
     )
 
 
-def test_create_edp_rejects_json(client: APIClient, edp_base_url: str):
+@fixture
+def event_log_mock(monkeypatch: MonkeyPatch):
+    mock = Mock()
+    monkeypatch.setattr("apps.monitoring.models.EventLog.objects.create", mock)
+    return mock
+
+
+def test_create_edp_rejects_json(client: APIClient, edp_base_url: str, event_log_mock: Mock):
     response = client.post(edp_base_url, {}, format="json")
+    event_log_mock.assert_called_once_with(
+        requested_url="/connector/edp/",
+        status="fail",
+        message='EDP upload failed: Unsupported media type "application/json" in request.',
+        metadata=None,
+    )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_415_UNSUPPORTED_MEDIA_TYPE
     assert response.data == {"detail": 'Unsupported media type "application/json" in request.'}
 
 
-def test_create_edp_no_file(client: APIClient, edp_base_url: str):
+def test_create_edp_no_file(client: APIClient, edp_base_url: str, event_log_mock: Mock):
     response = client.post(edp_base_url, {}, format="multipart")
+    event_log_mock.assert_called_once_with(
+        requested_url="/connector/edp/",
+        status="fail",
+        message="EDP upload failed: [ErrorDetail(string='No file uploaded.', code='invalid')]",
+        metadata=None,
+    )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert response.json() == ["No file uploaded."]
 
 
-def test_create_edp_file_not_a_file(client: APIClient, edp_base_url: str):
+def test_create_edp_file_not_a_file(client: APIClient, edp_base_url: str, event_log_mock: Mock):
     response = client.post(edp_base_url, {"file": "not-a-file"}, format="multipart")
+    event_log_mock.assert_called_once_with(
+        requested_url="/connector/edp/",
+        status="fail",
+        message="EDP upload failed: [ErrorDetail(string='No file uploaded.', code='invalid')]",
+        metadata=None,
+    )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert response.data == ["No file uploaded."]
 
 
-def test_create_edp_file_not_a_zip(client: APIClient, edp_base_url: str, not_a_zip):
+def test_create_edp_file_not_a_zip(client: APIClient, edp_base_url: str, not_a_zip, event_log_mock: Mock):
     response = client.post(edp_base_url, {"file": not_a_zip}, format="multipart")
+    event_log_mock.assert_called_once_with(
+        requested_url="/connector/edp/",
+        status="fail",
+        message="EDP upload failed: [ErrorDetail(string='Only ZIP files are accepted.', code='invalid')]",
+        metadata=None,
+    )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert response.json() == ["Only ZIP files are accepted."]
 
 
-def test_create_edp_file_zip_missing_json(client: APIClient, edp_base_url: str):
+def test_create_edp_file_zip_missing_json(client: APIClient, edp_base_url: str, event_log_mock: Mock):
     response = client.post(
         edp_base_url,
         {"file": create_zip({"not-a-json.txt": "{}"})},
         format="multipart",
+    )
+    event_log_mock.assert_called_once_with(
+        requested_url="/connector/edp/",
+        status="fail",
+        message="EDP upload failed: [ErrorDetail(string='Expected exactly one EDP file, but found: []', code='invalid')]",
+        metadata=None,
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert response.json() == ["Expected exactly one EDP file, but found: []"]
 
 
-def test_create_edp_file_zip_validation_error(client: APIClient, edp_base_url: str):
+def test_create_edp_file_zip_validation_error(client: APIClient, edp_base_url: str, event_log_mock: Mock):
     response = client.post(
         edp_base_url,
         {
@@ -140,6 +179,7 @@ def test_create_edp_file_zip_validation_error(client: APIClient, edp_base_url: s
         },
         format="multipart",
     )
+    event_log_mock.assert_called_once()
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert len(response.json()) == 1
@@ -147,7 +187,11 @@ def test_create_edp_file_zip_validation_error(client: APIClient, edp_base_url: s
 
 
 def test_create_edp_file_zip_success(
-    client: APIClient, edp_base_url: str, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch
+    client: APIClient,
+    edp_base_url: str,
+    mini_edp: ExtendedDatasetProfile,
+    monkeypatch: MonkeyPatch,
+    event_log_mock: Mock,
 ):
     mock_index = Mock()
     monkeypatch.setattr(Elasticsearch, "index", mock_index)
@@ -164,6 +208,12 @@ def test_create_edp_file_zip_success(
         },
         format="multipart",
     )
+    event_log_mock.assert_called_once_with(
+        requested_url="/connector/edp/",
+        status="success",
+        message="EDP upload done",
+        metadata=None,
+    )
     mock_index.assert_called_once()
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
@@ -177,15 +227,25 @@ def test_create_edp_file_zip_success(
     )
 
 
-def test_update_edp_rejects_json(client: APIClient, edp_base_url: str):
+def test_update_edp_rejects_json(client: APIClient, edp_base_url: str, event_log_mock: Mock):
     response = client.post(edp_base_url, {}, format="json")
+    event_log_mock.assert_called_once_with(
+        requested_url="/connector/edp/",
+        status="fail",
+        message="""EDP upload failed: Unsupported media type "application/json" in request.""",
+        metadata=None,
+    )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, response.json()
     assert response.data == {"detail": 'Unsupported media type "application/json" in request.'}
 
 
 def test_update_edp_file_zip_success(
-    client: APIClient, edp_detail_url: str, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch
+    client: APIClient,
+    edp_detail_url: str,
+    mini_edp: ExtendedDatasetProfile,
+    monkeypatch: MonkeyPatch,
+    event_log_mock: Mock,
 ):
     mock_index = Mock()
     monkeypatch.setattr(Elasticsearch, "index", mock_index)
@@ -201,6 +261,12 @@ def test_update_edp_file_zip_success(
         },
         format="multipart",
     )
+    event_log_mock.assert_called_once_with(
+        requested_url="/connector/edp/1/",
+        status="success",
+        message="EDP update done",
+        metadata=None,
+    )
     mock_index.assert_called_once()
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
@@ -214,11 +280,19 @@ def test_update_edp_file_zip_success(
     )
 
 
-def test_delete_edp_file_zip_success(client: APIClient, edp_detail_url: str, mini_edp: ExtendedDatasetProfile):
+def test_delete_edp_file_zip_success(
+    client: APIClient, edp_detail_url: str, mini_edp: ExtendedDatasetProfile, event_log_mock: Mock
+):
     response = client.delete(
         edp_detail_url,
         {},
         format="multipart",
+    )
+    event_log_mock.assert_called_once_with(
+        requested_url="/connector/edp/1/",
+        status="success",
+        message="EDP delete done",
+        metadata=None,
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
