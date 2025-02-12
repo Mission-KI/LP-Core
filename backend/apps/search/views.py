@@ -53,7 +53,7 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
 def search(request):
     """Sends a raw query to Elasticsearch"""
     query = request.data.get("query", {})
-    return elasticsearch_request("POST", "_search", query)
+    return elasticsearch_request("POST", "_search", {"query": query})
 
 
 @swagger_auto_schema(
