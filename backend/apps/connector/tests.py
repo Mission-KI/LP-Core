@@ -5,6 +5,7 @@ from typing import Any, Dict, List
 from unittest.mock import Mock
 from zipfile import ZipFile
 
+from common.edpuploader.s3_edp_storage import S3EDPStorage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.test import override_settings
 from django.urls import reverse
@@ -169,14 +170,7 @@ def test_create_edp_file_zip_missing_json(client: APIClient, edp_base_url: str, 
 def test_create_edp_file_zip_validation_error(client: APIClient, edp_base_url: str, event_log_mock: Mock):
     response = client.post(
         edp_base_url,
-        {
-            "file": create_zip(
-                {
-                    "dummy_edp.json": '{"volume": "world"}',
-                    "some_other_file_will_be_ignored.png": "",
-                }
-            )
-        },
+        {"file": create_zip({"dummy_edp.json": '{"volume": "world"}', "image.png": ""})},
         format="multipart",
     )
     event_log_mock.assert_called_once()
@@ -195,17 +189,11 @@ def test_create_edp_file_zip_success(
 ):
     mock_index = Mock()
     monkeypatch.setattr(Elasticsearch, "index", mock_index)
-
+    bucket_mock = Mock()
+    monkeypatch.setattr(S3EDPStorage, "upload", bucket_mock)
     response = client.post(
         edp_base_url,
-        {
-            "file": create_zip(
-                {
-                    "dummy_edp.json": mini_edp.model_dump_json(),
-                    "some_other_file_will_be_ignored.png": "",
-                }
-            )
-        },
+        {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
         format="multipart",
     )
     event_log_mock.assert_called_once_with(
@@ -215,15 +203,12 @@ def test_create_edp_file_zip_success(
         metadata=None,
     )
     mock_index.assert_called_once()
+    bucket_mock.assert_called_once()
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert Matcher.matches(
         response.data,
-        {
-            "message": "EDP uploaded successfully",
-            "edp": mini_edp.model_dump(mode="json"),
-            "id": "<uuid>",
-        },
+        {"message": "EDP uploaded successfully", "edp": mini_edp.model_dump(mode="json"), "id": "<uuid>"},
     )
 
 
@@ -249,16 +234,12 @@ def test_update_edp_file_zip_success(
 ):
     mock_index = Mock()
     monkeypatch.setattr(Elasticsearch, "index", mock_index)
+    bucket_mock = Mock()
+    monkeypatch.setattr(S3EDPStorage, "upload", bucket_mock)
+
     response = client.put(
         edp_detail_url,
-        {
-            "file": create_zip(
-                {
-                    "dummy_edp.json": mini_edp.model_dump_json(),
-                    "some_other_file_will_be_ignored.png": "",
-                }
-            )
-        },
+        {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
         format="multipart",
     )
     event_log_mock.assert_called_once_with(
@@ -268,15 +249,12 @@ def test_update_edp_file_zip_success(
         metadata=None,
     )
     mock_index.assert_called_once()
+    bucket_mock.assert_called_once()
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert Matcher.matches(
         response.data,
-        {
-            "message": "EDP 1 updated successfully",
-            "edp": mini_edp.model_dump(mode="json"),
-            "id": "<uuid>",
-        },
+        {"message": "EDP 1 updated successfully", "edp": mini_edp.model_dump(mode="json"), "id": "<uuid>"},
     )
 
 
