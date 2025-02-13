@@ -48,6 +48,10 @@ class EdpUploader:
         self._elastic = ElasticDBWrapper(config=config)
         self._s3 = S3EDPStorage(config)
 
+    def delete_edp(self, edp_id: str):
+        self._s3.delete(edp_id)
+        self._elastic.delete(edp_id)
+
     def upload_edp_zip(self, edp_zip: Path | IO[Any], edp_id: str, action: Action):
         try:
             with (
@@ -84,6 +88,8 @@ class EdpUploader:
             )
 
         self._elastic.upload(edp_model, edp_id)
+        if action == "update":
+            self._s3.delete(edp_id)
         # Upload all other files to S3 using upload key edp_id/filename
         self._s3.upload(resource_files, edp_dir, edp_id)
         return edp_model

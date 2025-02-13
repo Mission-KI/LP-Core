@@ -14,7 +14,7 @@ urlpatterns = [
         name="edp-base",
     ),
     path(
-        "edp/<int:id>/",
+        "edp/<str:id>/",
         EDPViewSet.as_view(
             {
                 # "get": "retrieve",

@@ -31,6 +31,26 @@ _FILE_PARAM = openapi.Parameter(
 )
 
 
+def _create_uploader():
+    if settings.ELASTICSEARCH_URL is None:
+        raise APIException(detail="Missing elastic configuration")
+    url_data = HttpUrl(settings.ELASTICSEARCH_URL)
+    host_url = f"{url_data.scheme}://{url_data.host}"
+    if url_data.path is None or url_data.path.count("/") != 1:
+        raise APIException("Invalid elasticsearch url configured")
+    elastic_index = url_data.path[1:]
+    config = UploadConfig(
+        s3_access_key_id=settings.S3_ACCESS_KEY_ID,
+        s3_secret_access_key=settings.S3_SECRET_ACCESS_KEY,
+        s3_bucket_name=settings.S3_BUCKET_NAME,
+        elastic_url=host_url,
+        elastic_apikey=settings.ELASTICSEARCH_API_KEY,
+        elastic_index=elastic_index,
+    )
+
+    return EdpUploader(config)
+
+
 class EDPViewSet(ViewSet):
     parser_classes = [MultiPartParser]
 
@@ -78,9 +98,12 @@ class EDPViewSet(ViewSet):
             create_log(request.get_full_path(), f"EDP update failed: {message}", EventLog.STATUS_FAIL)
             raise APIException(message)
 
-    @swagger_auto_schema(operation_summary="delete an EDP zip file")
-    def delete(self, request: Request, id: int | None):
+    @swagger_auto_schema(operation_summary="delete an EDP by resource id")
+    def delete(self, request: Request, id: str):
+        uploader = _create_uploader()
+        uploader.delete_edp(id)
         create_log(request.get_full_path(), "EDP delete done", EventLog.STATUS_SUCCESS)
+
         return Response(
             {"message": f"EDP {id} deleted successfully"},
             status=status.HTTP_200_OK,
@@ -88,23 +111,7 @@ class EDPViewSet(ViewSet):
 
     def _edp_from_request(self, request: Request, action: Action):
         zip_file = self._file_from_request(request)
-        if settings.ELASTICSEARCH_URL is None:
-            raise APIException(detail="Missing elastic configuration")
-        url_data = HttpUrl(settings.ELASTICSEARCH_URL)
-        host_url = f"{url_data.scheme}://{url_data.host}"
-        if url_data.path is None or url_data.path.count("/") != 1:
-            raise APIException("Invalid elasticsearch url configured")
-        elastic_index = url_data.path[1:]
-        config = UploadConfig(
-            s3_access_key_id=settings.S3_ACCESS_KEY_ID,
-            s3_secret_access_key=settings.S3_SECRET_ACCESS_KEY,
-            s3_bucket_name=settings.S3_BUCKET_NAME,
-            elastic_url=host_url,
-            elastic_apikey=settings.ELASTICSEARCH_API_KEY,
-            elastic_index=elastic_index,
-        )
-
-        uploader = EdpUploader(config)
+        uploader = _create_uploader()
         edp_id = str(uuid4())
         return uploader.upload_edp_zip(zip_file, edp_id=edp_id, action=action), edp_id
 

@@ -2,7 +2,7 @@ from logging import getLogger
 from pathlib import Path
 
 import boto3
-from boto3.exceptions import S3UploadFailedError
+from boto3.exceptions import Boto3Error, S3UploadFailedError
 from pydantic import HttpUrl
 from rest_framework.exceptions import APIException
 
@@ -36,3 +36,15 @@ class S3EDPStorage:
                 raise APIException(f"Unable to upload edp {edp_id} to S3: {e}")
             full_download_url = HttpUrl(f"https://{self._bucket.name}.s3.amazonaws.com/{upload_key}")
             logger.info("Uploaded '%s' to S3: %s", resource_file_relative, full_download_url)
+
+    def delete(self, edp_id: str):
+        logger.info("Deleting EDP %s resource files from S3...", edp_id)
+
+        try:
+            self._bucket.objects.filter(Prefix=f"{edp_id}/").delete()
+        except Boto3Error as e:
+            logger.error(e)
+            raise APIException(f"Unable to delete edp {edp_id} to S3: {e}")
+        # except ClientError:
+        full_download_url = HttpUrl(f"https://{self._bucket.name}.s3.amazonaws.com/{edp_id}")
+        logger.info("Deleted '%s' from S3: %s", edp_id, full_download_url)
