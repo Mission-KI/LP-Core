@@ -1,13 +1,16 @@
 import json
+import typing
 from logging import getLogger
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import IO, Any
+from typing import IO, Any, Literal
 from zipfile import BadZipFile, ZipFile
 
-from extended_dataset_profile import SchemaVersion, schema_versions
+from extended_dataset_profile import CURRENT_SCHEMA, SchemaVersion, schema_versions
 from pydantic import ValidationError as PydanticValidationError
 from rest_framework.exceptions import ValidationError as DRFValidationError
+
+from backend.apps.search.views import _find_resource_id
 
 from .config import UploadConfig
 from .elastic_edp import ElasticDBWrapper
@@ -22,7 +25,7 @@ def edp_dict_to_model(edp_dict: dict):
         raise DRFValidationError("Unknown EDP schema version")
     schema_version = SchemaVersion(version_str)
     try:
-        edp_model = schema_versions[schema_version].model_validate(edp_dict)
+        edp_model = typing.cast(CURRENT_SCHEMA, schema_versions[schema_version].model_validate(edp_dict))
     except PydanticValidationError as e:
         raise DRFValidationError(str(e))
     return edp_model
@@ -36,13 +39,16 @@ def edp_model_from_file(edp_file):
     return edp_model
 
 
+Action = Literal["create", "update"]
+
+
 class EdpUploader:
     def __init__(self, config: UploadConfig):
         self._config = config
         self._elastic = ElasticDBWrapper(config=config)
         self._s3 = S3EDPStorage(config)
 
-    def upload_edp_zip(self, edp_zip: Path | IO[Any], edp_id: str):
+    def upload_edp_zip(self, edp_zip: Path | IO[Any], edp_id: str, action: Action):
         try:
             with (
                 ZipFile(edp_zip, "r") as zip_file,
@@ -51,17 +57,32 @@ class EdpUploader:
                 temp_path = Path(temp_dir)
                 logger.info("Unzipping '%s'...", edp_zip)
                 zip_file.extractall(temp_path)
-                return self.upload_edp_directory(temp_path, edp_id)
+                return self.upload_edp_directory(temp_path, edp_id, action)
         except BadZipFile:
             raise DRFValidationError("Uploaded file is not a valid ZIP archive.")
 
-    def upload_edp_directory(self, edp_dir: Path, edp_id: str):
+    def upload_edp_directory(self, edp_dir: Path, edp_id: str, action: Action):
         logger.info("Uploading EDP directory '%s'...", edp_dir)
         # Find EDP JSON file and additional resources-
         edp_file, resource_files = self._split_edp_json_and_additional_files(edp_dir)
         # Upload JSON to Elastic Search with document id edp_id
 
         edp_model = edp_model_from_file(edp_file)
+
+        hits = _find_resource_id(
+            edp_model.assetId,
+            edp_model.dataSpace.name,
+            edp_model.version,
+        )
+        if action == "create" and hits.data is not None and len(hits.data) != 0:
+            raise DRFValidationError(
+                f"Unable to upload EDP: Found existing EDP(s) {', '.join(hits.data)} with same dataSpace, id and version"
+            )
+        if action == "update" and hits.data is not None and len(hits.data) == 0:
+            raise DRFValidationError(
+                f"Unable to update EDP: Could not find existing EDP {edp_id} with same dataSpace, id and version"
+            )
+
         self._elastic.upload(edp_model, edp_id)
         # Upload all other files to S3 using upload key edp_id/filename
         self._s3.upload(resource_files, edp_dir, edp_id)

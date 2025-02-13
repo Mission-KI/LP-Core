@@ -4,7 +4,7 @@ from uuid import uuid4
 
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils import create_log
-from common.edpuploader import EdpUploader, UploadConfig
+from common.edpuploader import Action, EdpUploader, UploadConfig
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.datastructures import MultiValueDict
@@ -37,7 +37,7 @@ class EDPViewSet(ViewSet):
     @swagger_auto_schema(operation_summary="upload an EDP zip file", manual_parameters=[_FILE_PARAM])
     def create(self, request: Request):
         try:
-            edp, edp_id = self._edp_from_request(request)
+            edp, edp_id = self._edp_from_request(request, action="create")
             create_log(request.get_full_path(), "EDP upload done", EventLog.STATUS_SUCCESS)
             return Response(
                 {
@@ -56,16 +56,17 @@ class EDPViewSet(ViewSet):
             raise APIException(message)
 
     @swagger_auto_schema(operation_summary="update an EDP zip file", manual_parameters=[_FILE_PARAM])
-    def update(self, request: Request, id: int | None):
+    def update(self, request: Request, id: str):
         try:
-            # TODO(KB) check if `id` exists, see: https://ai-bites.atlassian.net/browse/DSE-710
-            edp, edp_id = self._edp_from_request(request)
+            zip_file = self._file_from_request(request)
+            uploader = _create_uploader()
+            edp = uploader.upload_edp_zip(zip_file, edp_id=id, action="update")
             create_log(request.get_full_path(), "EDP update done", EventLog.STATUS_SUCCESS)
             return Response(
                 {
                     "message": f"EDP {id} updated successfully",
                     "edp": edp.model_dump(mode="json"),
-                    "id": edp_id,
+                    "id": id,
                 },
                 status=status.HTTP_200_OK,
             )
@@ -85,7 +86,7 @@ class EDPViewSet(ViewSet):
             status=status.HTTP_200_OK,
         )
 
-    def _edp_from_request(self, request: Request):
+    def _edp_from_request(self, request: Request, action: Action):
         zip_file = self._file_from_request(request)
         if settings.ELASTICSEARCH_URL is None:
             raise APIException(detail="Missing elastic configuration")
@@ -105,7 +106,7 @@ class EDPViewSet(ViewSet):
 
         uploader = EdpUploader(config)
         edp_id = str(uuid4())
-        return uploader.upload_edp_zip(zip_file, edp_id=edp_id), edp_id
+        return uploader.upload_edp_zip(zip_file, edp_id=edp_id, action=action), edp_id
 
     def _file_from_request(self, request: Request) -> InMemoryUploadedFile:
         files = typing.cast(MultiValueDict, request.FILES)
