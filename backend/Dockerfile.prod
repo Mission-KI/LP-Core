@@ -10,4 +10,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 COPY . .
 
+RUN python manage.py collectstatic --noinput
+
 CMD ["sh", "-c", "exec gunicorn --bind 0.0.0.0:8000 --workers 1 daseen.wsgi:application --timeout 120"]
