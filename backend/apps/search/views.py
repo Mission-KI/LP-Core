@@ -1,5 +1,3 @@
-import base64
-
 import requests
 from django.conf import settings
 from drf_yasg import openapi
@@ -11,12 +9,10 @@ from rest_framework.response import Response
 
 def get_auth_headers():
     """Returns the authentication headers for Elasticsearch requests"""
-    auth_value = f"{settings.ELASTICSEARCH_USERNAME}:{settings.ELASTICSEARCH_PASSWORD}"
-    encoded_auth_value = base64.b64encode(auth_value.encode("utf-8")).decode("utf-8")
 
     return {
         "Content-Type": "application/json",
-        "Authorization": f"Basic {encoded_auth_value}",
+        "Authorization": f"ApiKey {settings.ELASTICSEARCH_API_KEY}",
     }
 
 

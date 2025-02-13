@@ -1,4 +1,3 @@
-import base64
 from unittest.mock import patch
 
 import pytest
@@ -30,11 +29,9 @@ def count_url():
 
 @pytest.fixture
 def mock_auth_headers():
-    auth_value = f"{settings.ELASTICSEARCH_USERNAME}:{settings.ELASTICSEARCH_PASSWORD}"
-    encoded_auth_value = base64.b64encode(auth_value.encode("utf-8")).decode("utf-8")
     return {
         "Content-Type": "application/json",
-        "Authorization": f"Basic {encoded_auth_value}",
+        "Authorization": f"ApiKey {settings.ELASTICSEARCH_API_KEY}",
     }
 
 
