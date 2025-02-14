@@ -5,6 +5,7 @@ from typing import Any, Dict, List
 from unittest.mock import Mock
 from zipfile import ZipFile
 
+import requests
 from common.edpuploader.s3_edp_storage import S3EDPStorage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.test import override_settings
@@ -18,6 +19,7 @@ from extended_dataset_profile.models.v0.edp import (
     Publisher,
 )
 from pytest import MonkeyPatch, fixture
+from requests import Response as RequestResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.test import APIClient
@@ -185,25 +187,28 @@ def test_create_edp_file_zip_success(
     edp_base_url: str,
     mini_edp: ExtendedDatasetProfile,
     monkeypatch: MonkeyPatch,
-    event_log_mock: Mock,
 ):
-    mock_index = Mock()
-    monkeypatch.setattr(Elasticsearch, "index", mock_index)
-    bucket_mock = Mock()
-    monkeypatch.setattr(S3EDPStorage, "upload", bucket_mock)
+    def eventlog(requested_url, status, message: str, metadata):
+        assert requested_url == "/connector/edp/"
+        assert status == "success", message
+        assert message.endswith(" upload done")
+        assert metadata is None
+
+    monkeypatch.setattr("apps.monitoring.models.EventLog.objects.create", eventlog)
+    elastic_index = mkmock(monkeypatch, Elasticsearch, "index")
+    s3_upload = mkmock(monkeypatch, S3EDPStorage, "upload")
+    resp = RequestResponse()
+    resp.status_code = 200
+    monkeypatch.setattr(resp, "json", lambda: {"hits": {"hits": {}}})
+    request = mkmock(monkeypatch, requests, "request", return_value=resp)
     response = client.post(
         edp_base_url,
         {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
         format="multipart",
     )
-    event_log_mock.assert_called_once_with(
-        requested_url="/connector/edp/",
-        status="success",
-        message="EDP upload done",
-        metadata=None,
-    )
-    mock_index.assert_called_once()
-    bucket_mock.assert_called_once()
+    elastic_index.assert_called_once()
+    s3_upload.assert_called_once()
+    request.assert_called_once()
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert Matcher.matches(
@@ -232,10 +237,13 @@ def test_update_edp_file_zip_success(
     monkeypatch: MonkeyPatch,
     event_log_mock: Mock,
 ):
-    mock_index = Mock()
-    monkeypatch.setattr(Elasticsearch, "index", mock_index)
-    bucket_mock = Mock()
-    monkeypatch.setattr(S3EDPStorage, "upload", bucket_mock)
+    mock_index = mkmock(monkeypatch, Elasticsearch, "index")
+    s3_upload_mock = mkmock(monkeypatch, S3EDPStorage, "upload")
+    s3_delete_mock = mkmock(monkeypatch, S3EDPStorage, "delete")
+    resp = RequestResponse()
+    resp.status_code = 200
+    monkeypatch.setattr(resp, "json", lambda: {"hits": {"hits": [{"_id": "dummy"}]}})
+    monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
 
     response = client.put(
         edp_detail_url,
@@ -245,22 +253,30 @@ def test_update_edp_file_zip_success(
     event_log_mock.assert_called_once_with(
         requested_url="/connector/edp/1/",
         status="success",
-        message="EDP update done",
+        message="EDP 1 update done",
         metadata=None,
     )
     mock_index.assert_called_once()
-    bucket_mock.assert_called_once()
+    s3_upload_mock.assert_called_once()
+    s3_delete_mock.assert_called_once()
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert Matcher.matches(
         response.data,
-        {"message": "EDP 1 updated successfully", "edp": mini_edp.model_dump(mode="json"), "id": "<uuid>"},
+        {"message": "EDP 1 updated successfully", "edp": mini_edp.model_dump(mode="json"), "id": "1"},
     )
 
 
 def test_delete_edp_file_zip_success(
-    client: APIClient, edp_detail_url: str, mini_edp: ExtendedDatasetProfile, event_log_mock: Mock
+    client: APIClient,
+    edp_detail_url: str,
+    mini_edp: ExtendedDatasetProfile,
+    event_log_mock: Mock,
+    monkeypatch: MonkeyPatch,
 ):
+    elastic_delete = mkmock(monkeypatch, Elasticsearch, "delete")
+    s3_delete = mkmock(monkeypatch, S3EDPStorage, "delete")
+
     response = client.delete(
         edp_detail_url,
         {},
@@ -269,12 +285,20 @@ def test_delete_edp_file_zip_success(
     event_log_mock.assert_called_once_with(
         requested_url="/connector/edp/1/",
         status="success",
-        message="EDP delete done",
+        message="EDP 1 delete done",
         metadata=None,
     )
+    elastic_delete.assert_called_once_with(index="edp-data", id="1")
+    s3_delete.assert_called_once_with("1")
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert response.data == {"message": "EDP 1 deleted successfully"}
+
+
+def mkmock(monkeypatch, t, mod, **kwargs):
+    mock = Mock(**kwargs)
+    monkeypatch.setattr(t, mod, mock)
+    return mock
 
 
 class Matcher:

@@ -58,7 +58,7 @@ class EDPViewSet(ViewSet):
     def create(self, request: Request):
         try:
             edp, edp_id = self._edp_from_request(request, action="create")
-            create_log(request.get_full_path(), "EDP upload done", EventLog.STATUS_SUCCESS)
+            create_log(request.get_full_path(), f"EDP {edp_id} upload done", EventLog.STATUS_SUCCESS)
             return Response(
                 {
                     "message": "EDP uploaded successfully",
@@ -81,7 +81,7 @@ class EDPViewSet(ViewSet):
             zip_file = self._file_from_request(request)
             uploader = _create_uploader()
             edp = uploader.upload_edp_zip(zip_file, edp_id=id, action="update")
-            create_log(request.get_full_path(), "EDP update done", EventLog.STATUS_SUCCESS)
+            create_log(request.get_full_path(), f"EDP {id} update done", EventLog.STATUS_SUCCESS)
             return Response(
                 {
                     "message": f"EDP {id} updated successfully",
@@ -102,7 +102,7 @@ class EDPViewSet(ViewSet):
     def delete(self, request: Request, id: str):
         uploader = _create_uploader()
         uploader.delete_edp(id)
-        create_log(request.get_full_path(), "EDP delete done", EventLog.STATUS_SUCCESS)
+        create_log(request.get_full_path(), f"EDP {id} delete done", EventLog.STATUS_SUCCESS)
 
         return Response(
             {"message": f"EDP {id} deleted successfully"},
