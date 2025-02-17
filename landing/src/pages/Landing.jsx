@@ -71,12 +71,12 @@ const Landing = () => {
                     <div className="row">
                         <div className="col-md-6">
                             <div className='d-flex px-3 align-items-center justify-content-center w-100 bg-dark rounded-lg' style={{ height: 250 }}>
-                                <MKI style={{ maxWidth: 300 }} />
+                                <MKI style={{ maxWidth: 300 }} className="w-100" />
                             </div>
                         </div>
                         <div className="col-md-6">
                             <div className='d-flex px-3 align-items-center justify-content-center w-100 bg-light rounded-lg' style={{ height: 250 }}>
-                                <BMDV style={{ maxWidth: 300 }} />
+                                <BMDV style={{ maxWidth: 300 }} className="w-100" />
                             </div>
                         </div>
                     </div>
