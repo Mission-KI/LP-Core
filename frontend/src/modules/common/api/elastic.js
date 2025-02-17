@@ -15,11 +15,13 @@ export const getDatasets = async (from = 0, size = 10) => {
                 if (values[0] === '') continue;
 
                 filters.push({
-                    query_string: {
+                    multi_match: {
                         query: values[0],
-                        fields: ["name", "description", "dataSpace.name", "publisher.name", "license.name"]
+                        fields: ["name", "description", "dataSpace.name", "publisher.name", "license.name"],
+                        type: "best_fields"
                     }
                 });
+
             } else if (key === 'dataTypes') {
                 filters.push({
                     terms: { 'dataTypes': values }
