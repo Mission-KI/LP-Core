@@ -6,11 +6,10 @@ from tempfile import TemporaryDirectory
 from typing import IO, Any, Literal
 from zipfile import BadZipFile, ZipFile
 
+from apps.search.views import _find_resource_id
 from extended_dataset_profile import CURRENT_SCHEMA, SchemaVersion, schema_versions
 from pydantic import ValidationError as PydanticValidationError
 from rest_framework.exceptions import ValidationError as DRFValidationError
-
-from backend.apps.search.views import _find_resource_id
 
 from .config import UploadConfig
 from .elastic_edp import ElasticDBWrapper
