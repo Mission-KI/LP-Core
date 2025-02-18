@@ -5,23 +5,12 @@ from .views import EDPViewSet
 urlpatterns = [
     path(
         "edp/",
-        EDPViewSet.as_view(
-            {
-                # "get": "list",
-                "post": "create"
-            }
-        ),
+        EDPViewSet.as_view({"post": "create"}),
         name="edp-base",
     ),
     path(
         "edp/<str:id>/",
-        EDPViewSet.as_view(
-            {
-                # "get": "retrieve",
-                "put": "update",
-                "delete": "delete",
-            }
-        ),
+        EDPViewSet.as_view({"put": "upload", "delete": "delete"}),
         name="edp-detail",
     ),
 ]

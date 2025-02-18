@@ -3,7 +3,7 @@ import typing
 from logging import getLogger
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import IO, Any, Literal
+from typing import IO, Any
 from zipfile import BadZipFile, ZipFile
 
 from apps.search.views import _find_resource_id
@@ -38,9 +38,6 @@ def edp_model_from_file(edp_file):
     return edp_model
 
 
-Action = Literal["create", "update"]
-
-
 class EdpUploader:
     def __init__(self, config: UploadConfig):
         self._config = config
@@ -51,7 +48,7 @@ class EdpUploader:
         self._s3.delete(edp_id)
         self._elastic.delete(edp_id)
 
-    def upload_edp_zip(self, edp_zip: Path | IO[Any], edp_id: str, action: Action):
+    def upload_edp_zip(self, edp_zip: Path | IO[Any], edp_id: str):
         try:
             with (
                 ZipFile(edp_zip, "r") as zip_file,
@@ -60,11 +57,11 @@ class EdpUploader:
                 temp_path = Path(temp_dir)
                 logger.info("Unzipping '%s'...", edp_zip)
                 zip_file.extractall(temp_path)
-                return self.upload_edp_directory(temp_path, edp_id, action)
+                return self.upload_edp_directory(temp_path, edp_id)
         except BadZipFile:
             raise DRFValidationError("Uploaded file is not a valid ZIP archive.")
 
-    def upload_edp_directory(self, edp_dir: Path, edp_id: str, action: Action):
+    def upload_edp_directory(self, edp_dir: Path, edp_id: str):
         logger.info("Uploading EDP directory '%s'...", edp_dir)
         # Find EDP JSON file and additional resources-
         edp_file, resource_files = self._split_edp_json_and_additional_files(edp_dir)
@@ -77,17 +74,8 @@ class EdpUploader:
             edp_model.dataSpace.name,
             edp_model.version,
         )
-        if action == "create" and hits.data is not None and len(hits.data) != 0:
-            raise DRFValidationError(
-                f"Unable to upload EDP: Found existing EDP(s) {', '.join(hits.data)} with same dataSpace, id and version"
-            )
-        if action == "update" and hits.data is not None and len(hits.data) == 0:
-            raise DRFValidationError(
-                f"Unable to update EDP: Could not find existing EDP {edp_id} with same dataSpace, id and version"
-            )
-
         self._elastic.upload(edp_model, edp_id)
-        if action == "update":
+        if hits.data is not None and len(hits.data) != 0:
             self._s3.delete(edp_id)
         # Upload all other files to S3 using upload key edp_id/filename
         self._s3.upload(resource_files, edp_dir, edp_id)
