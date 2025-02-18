@@ -33,6 +33,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
+    env_file:
+      - .env
     volumes:
       - "./frontend:/app"
       - "/app/node_modules"
@@ -41,9 +43,22 @@ services:
     build:
       context: ./landing
       dockerfile: Dockerfile.prod
+    env_file:
+      - .env
     volumes:
       - "./landing:/landing"
       - "/landing/node_modules"
+
+  nautilus:
+    image: beebucket/nautilus:latest
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+    restart: always                 
+
 
   nginx:
     depends_on:
@@ -55,7 +70,7 @@ services:
       dockerfile: Dockerfile
       context: ./nginx
     ports:
-      - "80:80"
+      - "443:443"
 
 volumes:
   frontend-build:
