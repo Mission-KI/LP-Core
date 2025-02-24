@@ -7,7 +7,7 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure--+2w2!&en+qe9092u^p)wuzn5(kj+nyr4*!!(ewh2fq4yha)xl"  # noqa: S105 needs to be fixed!
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 DEBUG = True
 
@@ -126,8 +126,6 @@ SWAGGER_SETTINGS = {"USE_SESSION_AUTH": False}
 
 ELASTICSEARCH_URL = os.environ.get("ELASTICSEARCH_URL")
 ELASTICSEARCH_API_KEY = os.environ.get("ELASTICSEARCH_API_KEY")
-ELASTICSEARCH_USERNAME = os.environ.get("ELASTICSEARCH_USERNAME")
-ELASTICSEARCH_PASSWORD = os.environ.get("ELASTICSEARCH_PASSWORD")
 
 S3_ACCESS_KEY_ID = os.getenv("S3_ACCESS_KEY_ID")
 S3_SECRET_ACCESS_KEY = os.getenv("S3_SECRET_ACCESS_KEY")

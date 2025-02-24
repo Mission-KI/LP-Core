@@ -68,16 +68,13 @@ const Landing = () => {
                         onReorderTiles={onReorderTiles}
                     />
 
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className='d-flex px-3 align-items-center justify-content-center w-100 bg-dark rounded-lg' style={{ height: 250 }}>
-                                <MKI style={{ maxWidth: 300 }} />
-                            </div>
+                    <div className="d-flex justify-content-center align-items-center my-5">
+                        <div className='px-5 mx-4'>
+                            <MKI style={{ maxWidth: 230 }} className="w-100" />
                         </div>
-                        <div className="col-md-6">
-                            <div className='d-flex px-3 align-items-center justify-content-center w-100 bg-light rounded-lg' style={{ height: 250 }}>
-                                <BMDV style={{ maxWidth: 300 }} />
-                            </div>
+
+                        <div className='px-5 mx-4'>
+                            <BMDV style={{ maxWidth: 230 }} className="w-100" />
                         </div>
                     </div>
 

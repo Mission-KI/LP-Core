@@ -9,18 +9,19 @@ import { Dropdown } from 'react-bootstrap';
 import { ChevronDown, X } from 'react-bootstrap-icons';
 import { useTranslation } from 'react-i18next';
 import { useSettings } from '../../../common/contexts/SettingsContext';
+import { Spinner } from 'react-bootstrap';
 
 function Filters() {
 
-    const filterSections = useFilterSections();
+    const { filterSections, loading } = useFilterSections();
     const { alwaysExpandFilters } = useSettings();
+
 
     useEffect(() => {
         if(alwaysExpandFilters){
             setFiltersDropdownVisible(alwaysExpandFilters);
         }
     }, [alwaysExpandFilters]);
-
 
     const [filtersDropdownVisible, setFiltersDropdownVisible] = useState(alwaysExpandFilters);
     const [checkedOptions, setCheckedOptions] = useState({});
@@ -72,8 +73,9 @@ function Filters() {
         const newCheckedOptions = {};
         const newRangeValues = {};
         const newCheckedRadios = {};
+        console.log(filterSections);
 
-        filterSections.forEach((filterSection) => {
+        filterSections?.forEach((filterSection) => {
             filterSection.filters.forEach((filter) => {
                 if (filter.type === 'checkbox') {
                     newCheckedOptions[filter.label] = queryParams[filter.name]?.includes(filter.value) || false;
@@ -81,7 +83,7 @@ function Filters() {
                 if (filter.type === 'doublerange') {
                     newRangeValues[filter.name_1] = [
                         queryParams[filter.name_1]?.[0] || filter.minValue,
-                        queryParams[filter.name_2]?.[0] || filter.minValue,
+                        queryParams[filter.name_2]?.[0] || filter.maxValue,
                     ];
                 } else if (filter.type === 'range') {
                     newRangeValues[filter.name] = queryParams[filter.name]?.[0] || filter.minValue;
@@ -96,7 +98,7 @@ function Filters() {
         setCheckedOptions(newCheckedOptions);
         setRangeValues(newRangeValues);
         setCheckedRadios(newCheckedRadios);
-    }, [location]);
+    }, [location, loading]);
 
     const updateQueryParams = (name, value, checked) => {
         const params = new URLSearchParams(location.search);
@@ -172,6 +174,10 @@ function Filters() {
         };
     }, [filtersDropdownVisible]);
 
+    if (loading) {
+        return <div className='py-5 d-flex justify-content-center'><Spinner variant="dark" /></div>;
+    }
+
     return (
         <div>
             <div className='d-flex align-items-center mt-2 mb-3'>
@@ -187,7 +193,7 @@ function Filters() {
                                 <span className="small txt-lighter">{values.join(", ")}</span>
                                 <button style={{ marginBottom: 1.5 }}
                                     onClick={() => removeFilter(key)}
-                                    className="btn hover-lg txt-regular p-0 small ms-2"
+                                    className="btn hover-lg txt-primary p-0 small ms-2"
                                 >
                                     <X />
                                 </button>
@@ -200,7 +206,7 @@ function Filters() {
             <div className={`${!filtersDropdownVisible ? 'd-none' : ''}`}>
 
                 <div className={`${styles.filtersWrapper} row`} style={{ maxWidth: 900 }}>
-                    {filterSections.map((filterSection) => (
+                    {filterSections?.map((filterSection) => (
                         <FormGroup key={filterSection.title}
                             className={`mb-2 ${filterSection.type === 'checkboxes' || filterSection.type === 'radio'
                                 ? 'col pe-5'
@@ -247,7 +253,7 @@ function Filters() {
                                             filterSection.filters.map((filter) => (
                                                 <button key={filter.value}
                                                     type="button"
-                                                    className={`btn ps-0 ${checkedOptions[filter.label] ? 'txt-regular bold' : 'txt-lighter'}`}
+                                                    className={`btn ps-0 ${checkedOptions[filter.label] ? 'txt-primary bold' : 'txt-lighter'}`}
                                                     id={`checkbox-${filter.value}`}
                                                     name={filter.name}
                                                     value={filter.value}
@@ -335,7 +341,7 @@ function Filters() {
                                                         <button
                                                             key={filter.value}
                                                             type="button"
-                                                            className={`btn ${checkedRadios[filter.name] === filter.value ? 'bold txt-regular' : 'txt-lighter'}`}
+                                                            className={`btn ${checkedRadios[filter.name] === filter.value ? 'bold txt-primary' : 'txt-lighter'}`}
                                                             onClick={() => handleRadioChange(filter)}
                                                         >
                                                             {filter.label}

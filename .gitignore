@@ -34,3 +34,5 @@ backend/staticfiles/
 .venv/
 .vscode/
 .coverage
+.ruff_cache/
+.pytest_cache/

@@ -30,13 +30,13 @@ const HomeHeader = () => {
                 </Nav>
                 <Nav className="me-auto">
                     <a href={landingRedirectUrl} className="nav-link d-none d-md-block me-4 ps-1">
-                        Landing
+                        Landing Page
                     </a>
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="d-none d-md-block me-4">
                         {t('header.search')}
                     </Nav.Link>
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/help" className="d-none d-md-block">
-                        Help
+                        {t('header.help')}
                     </Nav.Link>
                     <div className='d-none d-md-block'>
                         <LanguageSelector />

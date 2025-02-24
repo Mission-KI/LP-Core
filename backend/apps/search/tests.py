@@ -1,4 +1,3 @@
-import base64
 from unittest.mock import patch
 
 import pytest
@@ -29,12 +28,15 @@ def count_url():
 
 
 @pytest.fixture
+def find_resource_id_url():
+    return reverse("find_resource_id")
+
+
+@pytest.fixture
 def mock_auth_headers():
-    auth_value = f"{settings.ELASTICSEARCH_USERNAME}:{settings.ELASTICSEARCH_PASSWORD}"
-    encoded_auth_value = base64.b64encode(auth_value.encode("utf-8")).decode("utf-8")
     return {
         "Content-Type": "application/json",
-        "Authorization": f"Basic {encoded_auth_value}",
+        "Authorization": f"ApiKey {settings.ELASTICSEARCH_API_KEY}",
     }
 
 
@@ -131,3 +133,13 @@ def test_count_elasticsearch_failure(mock_request, client, count_url):
 
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
     assert response.data == {"error": "Internal Server Error"}
+
+
+@patch("requests.request")
+def test_find_resource_id(mock_request, client: APIClient, find_resource_id_url: str):
+    mock_request.return_value.status_code = 200
+    mock_request.return_value.text = "OK"
+
+    response = client.post(find_resource_id_url, data={"assetId": "uuid", "dataSpaceName": "dPName"}, format="json")
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data == []

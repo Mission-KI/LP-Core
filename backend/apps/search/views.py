@@ -1,5 +1,3 @@
-import base64
-
 import requests
 from django.conf import settings
 from drf_yasg import openapi
@@ -11,12 +9,10 @@ from rest_framework.response import Response
 
 def get_auth_headers():
     """Returns the authentication headers for Elasticsearch requests"""
-    auth_value = f"{settings.ELASTICSEARCH_USERNAME}:{settings.ELASTICSEARCH_PASSWORD}"
-    encoded_auth_value = base64.b64encode(auth_value.encode("utf-8")).decode("utf-8")
 
     return {
         "Content-Type": "application/json",
-        "Authorization": f"Basic {encoded_auth_value}",
+        "Authorization": f"ApiKey {settings.ELASTICSEARCH_API_KEY}",
     }
 
 
@@ -53,7 +49,7 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
 def search(request):
     """Sends a raw query to Elasticsearch"""
     query = request.data.get("query", {})
-    return elasticsearch_request("POST", "_search", query)
+    return elasticsearch_request("POST", "_search", {"query": query})
 
 
 @swagger_auto_schema(
@@ -78,3 +74,48 @@ def find(request, uuid):
 def count(request):
     """Gets the total count of assets in Elasticsearch"""
     return elasticsearch_request("GET", "_count")
+
+
+@swagger_auto_schema(
+    methods=["post"],
+    request_body=openapi.Schema(
+        type=openapi.TYPE_OBJECT,
+        properties={
+            "assetId": openapi.Schema(
+                type=openapi.TYPE_STRING, description="assetId identifying the EDP in the dataSpace"
+            ),
+            "dataSpaceName": openapi.Schema(
+                type=openapi.TYPE_STRING, description="Name of the dataSpace used to publish the EDP"
+            ),
+            "assetVersion": openapi.Schema(type=openapi.TYPE_STRING, description="Asset version"),
+        },
+        required=["assetId", "dataSpaceName"],
+    ),
+)
+@api_view(["POST"])
+def find_resource_id(request):
+    asset_id = request.data.get("assetId", "string")
+    data_space_name = request.data.get("dataSpaceName", None)
+    asset_version = request.data.get("assetVersion", None)
+    return _find_resource_id(asset_id, data_space_name, asset_version)
+
+
+def _find_resource_id(asset_id: str, data_space_name: str, asset_version: str | None):
+    must = [
+        {"match": {"assetId": asset_id}},
+        {"match": {"dataSpace.name": data_space_name}},
+    ]
+    if asset_version is not None:
+        must.append({"match": {"version": asset_version}})
+
+    resp = elasticsearch_request(
+        "POST",
+        "_search",
+        {"query": {"bool": {"must": must}}},
+    )
+    if resp.status_code != status.HTTP_200_OK:
+        return resp
+
+    return Response(
+        [hit["_id"] for hit in resp.data["hits"]["hits"]] if resp.data is not None else [], status.HTTP_200_OK
+    )

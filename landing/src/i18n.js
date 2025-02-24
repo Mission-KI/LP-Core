@@ -27,6 +27,7 @@ i18n
           header: {
             home: "Home",
             search: "Search",
+            help: "Help",
             about: "About",
           },
           home: {
@@ -78,11 +79,12 @@ i18n
           },
           welcome: {
             title: "Willkommen auf der Landing Page!",
-            text: "Bitte beachten Sie, dass sich diese Seite und nachgelagerten Dienste in der Entwicklung befinden. Es kann deshalb passieren, dass die Seite selbst oder dargestellte Funktionen nicht oder nur eingeschränkt zur Verfügung stehen. Wir bitten dies zu entschuldigen."
+            text: "Bitte beachten Sie, dass sich diese Seite und die nachgelagerten Dienste in der Entwicklung befinden. Es kann deshalb passieren, dass die Seite selbst oder dargestellte Funktionen nicht oder nur eingeschränkt zur Verfügung stehen. Wir bitten dies zu entschuldigen."
           },
           header: {
             home: "Startseite",
             search: "Suche",
+            help: "Hilfe",
             about: "Über uns",
             privacyPolicy: "Datenschutzrichtlinie",
             imprint: "Impressum",

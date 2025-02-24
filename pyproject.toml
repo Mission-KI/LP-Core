@@ -16,7 +16,7 @@ dependencies = [
     "drf-nested-routers>=0.94.1",
     "drf-yasg>=1.21.8",
     "elasticsearch>=8.17.1",
-    "extended_dataset_profile @ git+https://github.com/Beebucket/extended_dataset_profile@v0.1.0",
+    "extended-dataset-profile",
     "gunicorn>=23.0.0",
     "psycopg>=3.2.4",
     "pymemcache>=4.0.0",
@@ -54,11 +54,14 @@ extend-select = [
 log_cli = true
 log_cli_level = "INFO"
 DJANGO_SETTINGS_MODULE = "daseen.settings"
-# -- recommended but optional:
-python_files = ["backend/**/tests.py"]
+testpaths = ["backend/**/"]
+python_files = ["tests.py", "test_*.py", "*_test.py"]
 
 [tool.coverage.run]
 relative_files = true
 omit = [
     "backend/**/tests.py",
 ]
+
+[tool.uv.sources]
+extended-dataset-profile = { git = "https://github.com/Beebucket/extended_dataset_profile", rev = "v0.2.0" }

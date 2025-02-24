@@ -2,28 +2,9 @@ import React from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { calculateAttributeConsistency } from "../../../dataset/utils/calculations";
 import { Unlock, Gear, ClipboardCheck, Soundwave, Calendar, Broadcast, Activity, Sliders2, Sliders2Vertical, Lock, Robot, QuestionCircle } from "react-bootstrap-icons";
+import { renderTooltip } from '../../../common/utils/tooltip';
 
 const QualityMetrics = ({ dataset }) => {
-    const renderTooltip = (message, helpHash = "asset-processing-status-section") => (
-        <Tooltip>
-            <div className="d-flex align-items-center h-100">
-                <span>{message}</span>
-                <QuestionCircle
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        window.location.href = `/help#${helpHash}`;
-                    }}
-                    style={{
-                        fontSize: '15px !important',
-                        marginLeft: '7px',
-                        cursor: 'pointer',
-                        color: '#007bff',
-                    }}
-                />
-            </div>
-        </Tooltip>
-    );
-
     return (
         <div className="d-flex">
             {dataset?._source?.freely_available ? (
