@@ -8,6 +8,7 @@ export const useFilterSections = () => {
     const [publishers, setPublishers] = useState([]);
     const [maxRowCount, setMaxRowCount] = useState(0);
     const [maxColumnCount, setMaxColumnCount] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchFilterValues = async () => {
@@ -21,12 +22,15 @@ export const useFilterSections = () => {
             } catch (error) {
                 console.error("Error fetching dataSpaces and licenses:", error);
             }
+            finally {
+                setLoading(false);
+            }
         };
 
         fetchFilterValues();
     }, []);
 
-    const filters = [
+    const filterSections = [
         {
             title: "dataspaces",
             type: "checkboxes",
@@ -207,5 +211,5 @@ export const useFilterSections = () => {
         },
     ];
 
-    return filters;
+    return { filterSections, loading };
 };
