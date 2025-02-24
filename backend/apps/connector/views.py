@@ -50,7 +50,12 @@ class EDPViewSet(ViewSet):
     def create(self, request: Request):
         try:
             resource = ResourceStatus.objects.create()
-            create_log(request.get_full_path(), f"EDP resource {resource.id} created", EventLog.STATUS_SUCCESS)
+            create_log(
+                request.get_full_path(),
+                "EDP resource created",
+                EventLog.STATUS_SUCCESS,
+                metadata={"id": str(resource.id)},
+            )
             return Response({"id": resource.id}, status=status.HTTP_201_CREATED)
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
@@ -84,21 +89,23 @@ class EDPViewSet(ViewSet):
             edp = uploader.upload_edp_zip(zip_file, edp_id=id)
             resource.status = "uploaded"
             resource.save()
-            create_log(request.get_full_path(), f"EDP {id} upload done", EventLog.STATUS_SUCCESS)
+            create_log(request.get_full_path(), f"EDP {id} upload done", EventLog.STATUS_SUCCESS, metadata={"id": id})
             return Response(
                 {
-                    "message": f"EDP {id} uploaded successfully",
+                    "message": "EDP uploaded successfully",
                     "edp": edp.model_dump(mode="json"),
                     "id": id,
                 },
                 status=status.HTTP_200_OK,
             )
         except (DRFValidationError, UnsupportedMediaType, APIException) as e:
-            create_log(request.get_full_path(), f"EDP upload failed: {e}", EventLog.STATUS_FAIL)
+            create_log(request.get_full_path(), f"EDP upload failed: {e}", EventLog.STATUS_FAIL, metadata={"id": id})
             raise e
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
-            create_log(request.get_full_path(), f"EDP upload failed: {message}", EventLog.STATUS_FAIL)
+            create_log(
+                request.get_full_path(), f"EDP upload failed: {message}", EventLog.STATUS_FAIL, metadata={"id": id}
+            )
             raise APIException(message)
 
     @swagger_auto_schema(
@@ -117,22 +124,24 @@ class EDPViewSet(ViewSet):
         resource = get_object_or_404(ResourceStatus, pk=id)
 
         try:
-        uploader = _create_uploader()
-        uploader.delete_edp(id)
+            uploader = _create_uploader()
+            uploader.delete_edp(id)
 
             resource.delete()
-        create_log(request.get_full_path(), f"EDP {id} delete done", EventLog.STATUS_SUCCESS)
+            create_log(request.get_full_path(), "EDP delete done", EventLog.STATUS_SUCCESS, metadata={"id": id})
 
-        return Response(
-            {"message": f"EDP {id} deleted successfully"},
-            status=status.HTTP_200_OK,
-        )
+            return Response(
+                {"message": "EDP deleted successfully", "id": id},
+                status=status.HTTP_200_OK,
+            )
         except (DRFValidationError, UnsupportedMediaType, APIException) as e:
-            create_log(request.get_full_path(), f"EDP {id} delete failed: {e}", EventLog.STATUS_FAIL)
+            create_log(request.get_full_path(), f"EDP delete failed: {e}", EventLog.STATUS_FAIL, metadata={"id": id})
             raise e
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
-            create_log(request.get_full_path(), f"EDP {id} delete failed: {message}", EventLog.STATUS_FAIL)
+            create_log(
+                request.get_full_path(), f"EDP delete failed: {message}", EventLog.STATUS_FAIL, metadata={"id": id}
+            )
             raise APIException(message)
 
     def _file_from_request(self, request: Request):
