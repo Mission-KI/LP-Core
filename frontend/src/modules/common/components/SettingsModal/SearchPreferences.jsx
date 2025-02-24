@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSettings } from '../../contexts/SettingsContext';
+import { useTranslation } from 'react-i18next';
 
 const SearchPreferences = () => {
     const { expertMode, setExpertMode, alwaysExpandFilters, setAlwaysExpandFilters } = useSettings();
+    const { t } = useTranslation();
 
     const toggleExpertMode = () => {
         setExpertMode(!expertMode);
@@ -14,15 +16,15 @@ const SearchPreferences = () => {
 
     return (
         <div>
-            <p className='bold' style={{ fontSize: 17 }}>Search Settings</p>
+            <p className='bold' style={{ fontSize: 17 }}>{t('settings.searchSettings')}</p>
 
             <div className='py-4'>
                 <label className="switch">
                     <input type="checkbox" checked={expertMode} onChange={toggleExpertMode} />
                     <span className="slider round"></span>
                 </label>
-                <span style={{ marginLeft: '10px' }}>Expert Mode</span>
-                <p className='txt-lighter small mt-1'>This will enable complex filters and support in writting complicated search queries.</p>
+                <span style={{ marginLeft: '10px' }}>{t('settings.expertMode')}</span>
+                <p className='txt-lighter small mt-1'>{t('settings.expertModeDescription')}</p>
             </div>
 
             <div className='pt-2 pb-4'>
@@ -30,8 +32,8 @@ const SearchPreferences = () => {
                     <input type="checkbox" checked={alwaysExpandFilters} onChange={toggleAlwaysExpandFilters} />
                     <span className="slider round"></span>
                 </label>
-                <span style={{ marginLeft: '10px' }}>Always expand filters</span>
-                <p className='txt-lighter small mt-1'>This will make the filters shown by default without having to toggle them to the view.</p>
+                <span style={{ marginLeft: '10px' }}>{t('settings.alwaysExpandFilters')}</span>
+                <p className='txt-lighter small mt-1'>{t('settings.alwaysExpandFiltersDescription')}</p>
             </div>
 
         </div>

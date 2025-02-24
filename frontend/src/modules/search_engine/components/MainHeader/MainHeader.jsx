@@ -33,7 +33,7 @@ const MainHeader = () => {
                     <Navbar.Collapse id="main-header" className='mb-3 mb-md-0'>
                         <Nav className="me-auto">
                             <a href={landingRedirectUrl} className="nav-link ps-0 me-4" style={{ whiteSpace: 'nowrap' }}>
-                                Landing
+                                Landing Page
                             </a>
                             <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/" className="">
                                 {t('header.search')}

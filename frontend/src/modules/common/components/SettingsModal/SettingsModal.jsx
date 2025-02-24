@@ -4,9 +4,11 @@ import Modal from 'react-bootstrap/Modal';
 import LanguageSettings from './LanguagePreferences';
 import ThemeSettings from './ThemePreferences';
 import SearchPreferences from './SearchPreferences';
+import { useTranslation } from 'react-i18next';
 
 function SettingsModal({ showSettingsModal, setShowSettingsModal }) {
     const [selectedTab, setSelectedTab] = useState('search');
+    const { t } = useTranslation();
 
     const handleClose = () => setShowSettingsModal(false);
 
@@ -19,7 +21,7 @@ function SettingsModal({ showSettingsModal, setShowSettingsModal }) {
                             <ul className="list-unstyled pb-3">
                                 <div className='sidebar-link-group'>
                                     <div className='pb-4 pt-3'>
-                                        <span className='small bold text-secondary ps-2'>SETTINGS</span>
+                                        <span className='small bold text-secondary ps-2'>{t('settings.settings')}</span>
                                     </div>
 
                                     <li
@@ -28,7 +30,7 @@ function SettingsModal({ showSettingsModal, setShowSettingsModal }) {
                                     >
                                         <a className='nav-link'>
                                             <Search />
-                                            <span className='ps-2 medium'>Search</span>
+                                            <span className='ps-2 medium'>{t('header.search')}</span>
                                         </a>
                                     </li>
 
@@ -39,7 +41,7 @@ function SettingsModal({ showSettingsModal, setShowSettingsModal }) {
                                     >
                                         <a className='nav-link'>
                                             <Palette />
-                                            <span className='ps-2 medium'>Theme</span>
+                                            <span className='ps-2 medium'>{t('settings.theme')}</span>
                                         </a>
                                     </li>
 
@@ -49,7 +51,7 @@ function SettingsModal({ showSettingsModal, setShowSettingsModal }) {
                                     >
                                         <a className='nav-link'>
                                             <Translate />
-                                            <span className='ps-2 medium'>Language</span>
+                                            <span className='ps-2 medium'>{t('settings.language')}</span>
                                         </a>
                                     </li>
 

@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { getFilterValues } from "../api/elastic";
-import { LockFill, Soundwave, UnlockFill, Calendar, Activity, Sliders2, Clipboard, GraphUpArrow } from 'react-bootstrap-icons';
+import { LockFill, Calendar, Activity, Sliders2Vertical } from 'react-bootstrap-icons';
+import { OverlayTrigger } from 'react-bootstrap';
+import { UnlockFill, Soundwave } from "react-bootstrap-icons";
+import { renderTooltip } from "./tooltip";
 
 export const useFilterSections = () => {
     const [dataSpaces, setDataSpaces] = useState([]);
@@ -108,13 +111,21 @@ export const useFilterSections = () => {
             type: "radio",
             filters: [
                 {
-                    label: <><UnlockFill /></>,
+                    label: <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Open access', 'open-access-section')}>
+                        <div>
+                            <UnlockFill />
+                        </div>
+                    </OverlayTrigger>,
                     value: "true",
                     name: "freely_available",
                     type: "radio",
                 },
                 {
-                    label: <><LockFill /></>,
+                    label: <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Closed access', 'closed-access-section')}>
+                        <div>
+                            <LockFill />
+                        </div>
+                    </OverlayTrigger>,
                     value: "false",
                     name: "freely_available",
                     type: "radio",
@@ -163,7 +174,11 @@ export const useFilterSections = () => {
             filters: [
                 {
                     label: "hasDatetimeAttribute",
-                    icon: <><Calendar /></>,
+                    icon: <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Date time attribute', 'date-time-attribute-section')}>
+                        <div>
+                            <Calendar />
+                        </div>
+                    </OverlayTrigger>,
                     value: "true",
                     name: "hasDatetimeAttribute",
                     type: "checkbox",
@@ -176,7 +191,11 @@ export const useFilterSections = () => {
             filters: [
                 {
                     label: "hasTemporalFrequency",
-                    icon: <><Soundwave /></>,
+                    icon: <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Temporal frequency', 'temporal-frequency-section')}>
+                        <div>
+                            <Soundwave />
+                        </div>
+                    </OverlayTrigger>,
                     value: "true",
                     name: "hasTemporalFrequency",
                     type: "checkbox",
@@ -189,7 +208,11 @@ export const useFilterSections = () => {
             filters: [
                 {
                     label: "dataTypeConsistency",
-                    icon: <><Sliders2 /></>,
+                    icon: <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Data type consistency', 'data-type-consistency-section')}>
+                        <div>
+                            <Sliders2Vertical />
+                        </div>
+                    </OverlayTrigger>,
                     value: "true",
                     name: "dataTypeConsistency",
                     type: "checkbox",
@@ -202,7 +225,11 @@ export const useFilterSections = () => {
             filters: [
                 {
                     label: "significantVariance",
-                    icon: <><Activity /></>,
+                    icon: <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Significant variance', 'significant-variance-section')}>
+                        <div>
+                            <Activity />
+                        </div>
+                    </OverlayTrigger>,
                     value: "true",
                     name: "significantVariance",
                     type: "checkbox",

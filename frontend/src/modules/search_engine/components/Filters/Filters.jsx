@@ -193,7 +193,7 @@ function Filters() {
                                 <span className="small txt-lighter">{values.join(", ")}</span>
                                 <button style={{ marginBottom: 1.5 }}
                                     onClick={() => removeFilter(key)}
-                                    className="btn hover-lg txt-regular p-0 small ms-2"
+                                    className="btn hover-lg txt-primary p-0 small ms-2"
                                 >
                                     <X />
                                 </button>
@@ -253,7 +253,7 @@ function Filters() {
                                             filterSection.filters.map((filter) => (
                                                 <button key={filter.value}
                                                     type="button"
-                                                    className={`btn ps-0 ${checkedOptions[filter.label] ? 'txt-regular bold' : 'txt-lighter'}`}
+                                                    className={`btn ps-0 ${checkedOptions[filter.label] ? 'txt-primary bold' : 'txt-lighter'}`}
                                                     id={`checkbox-${filter.value}`}
                                                     name={filter.name}
                                                     value={filter.value}
@@ -341,7 +341,7 @@ function Filters() {
                                                         <button
                                                             key={filter.value}
                                                             type="button"
-                                                            className={`btn ${checkedRadios[filter.name] === filter.value ? 'bold txt-regular' : 'txt-lighter'}`}
+                                                            className={`btn ${checkedRadios[filter.name] === filter.value ? 'bold txt-primary' : 'txt-lighter'}`}
                                                             onClick={() => handleRadioChange(filter)}
                                                         >
                                                             {filter.label}

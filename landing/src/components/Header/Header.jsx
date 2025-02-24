@@ -47,26 +47,26 @@ const Header = () => {
                 </Navbar.Toggle>
                 <Navbar.Collapse id="basic-navbar-nav" className="mb-3 mb-md-0">
                     <Nav className="me-auto">
-                        <div className="d-flex align-items-center ps-1 me-4">
-                            <span className="badge badge-primary bgc-danger py-2" style={{ fontSize: '10pt' }}>
-                                Alpha
-                            </span>
-                        </div>
                         <a href="/" className="nav-link me-4">
-                            Landing
-                        </a>
-                        <a style={{ whiteSpace: 'nowrap' }} href={appUrl + "/help"} className="nav-link d-none d-md-block me-4">
-                            Help
+                            Landing Page
                         </a>
                         <a
                             style={{ whiteSpace: 'nowrap' }}
                             href={searchPageRedirectUrl}
-                            className="nav-link me-4 pe-3"
+                            className="nav-link me-3 pe-3"
                         >
                             {t('header.search')}
                         </a>
+                        <a style={{ whiteSpace: 'nowrap' }} href={appUrl + "/help"} className="nav-link d-none d-md-block me-4">
+                            {t('header.help')}
+                        </a>
                         <div className="me-4">
                             <LanguageSelector />
+                        </div>
+                        <div className="d-flex align-items-center ps-1 me-4">
+                            <span className="badge badge-primary bgc-danger py-2" style={{ fontSize: '10pt' }}>
+                                Alpha
+                            </span>
                         </div>
                     </Nav>
                 </Navbar.Collapse>
