@@ -2,6 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import assetPropertiesHelpText from './modules/help/translations/assetProperties';
+import expertModeHelpText from './modules/help/translations/expertMode';
 
 i18n
   .use(LanguageDetector)
@@ -33,7 +34,8 @@ i18n
             getDataset: "Get Dataset",
             bookmarks: "Bookmarks",
             bookmark: "Bookmark",
-            removeBookmark: "Remove Bookmark"
+            removeBookmark: "Remove Bookmark",
+            help: "Help"
           },
           dataset: {
             datasets: "Datasets",
@@ -121,6 +123,18 @@ i18n
             columns: "Columns",
             clear: "Clear"
           },
+          settings: {
+            settings: "SETTINGS",
+            searchSettings: "Search Settings",
+            expertMode: "Expert Mode",
+            expertModeDescription: "This will enable complex filters and support in writting complicated search queries.",
+            alwaysExpandFilters: "Always expand filters",
+            alwaysExpandFiltersDescription: "This will make the filters shown by default without having to toggle them to the view.",
+            language: "Language",
+            theme: "Theme",
+            lightTheme: "Light Theme",
+            darkTheme: "Dark Theme",
+          },
           common: {
             all: "All",
             bookmarks: "Bookmarks"
@@ -142,6 +156,7 @@ i18n
           },
           maintenance: "Daseen is under maintenance and will be back at 5 pm",
           assetProperties: assetPropertiesHelpText.en.fullContent,
+          expertMode: expertModeHelpText.en.fullContent,
           help: {
             alert: "Welcome to the Help Center! This page provides detailed explanations and guides about various features, functionalities, and widgets available on our website. If you're unsure about how something works or need clarification, this is the perfect place to find answers.",
           }
@@ -168,7 +183,8 @@ i18n
             bookmarks: "Lesezeichen",
             bookmark: "Lesezeichen",
             removeBookmark: "Lesezeichen entfernen",
-            noBookmarks: "Keine Lesezeichen verfügbar"
+            noBookmarks: "Keine Lesezeichen verfügbar",
+            help: "Hilfe"
           },
           dataset: {
             datasets: "Datensätze",
@@ -240,6 +256,7 @@ i18n
             dataspaces: 'Datenräume',
             licenses: "Lizenzen",
             dataFormat: "Datenformat",
+            assetProcessingStatus: "Verarbeitungszustand",
             fileSize: "Größenbereich",
             attributes: "Attribute",
             sizeRange: "Größenbereich",
@@ -247,6 +264,18 @@ i18n
             lines: "Zeilen",
             columns: "Spalten",
             clear: "Zurücksetzen"
+          },
+          settings: {
+            settings: "EINSTELLUNGEN",
+            searchSettings: "Sucheinstellungen",
+            expertMode: "Expertenmodus",
+            expertModeDescription: "Dies aktiviert komplexe Filter und unterstützt das Schreiben komplizierter Suchanfragen.",
+            alwaysExpandFilters: "Filter immer ausklappen",
+            alwaysExpandFiltersDescription: "Dadurch werden die Filter standardmäßig angezeigt, ohne dass sie umgeschaltet werden müssen.",
+            language: "Sprache",
+            theme: "Thema",
+            lightTheme: "Helles Thema",
+            darkTheme: "Dunkles Thema",
           },
           common: {
             all: "Alle",
@@ -269,6 +298,7 @@ i18n
           },
           maintenance: "Daseen befindet sich in Wartung und wird ab 17 Uhr wieder verfügbar sein.",
           assetProperties: assetPropertiesHelpText.de.fullContent,
+          expertMode: expertModeHelpText.de.fullContent,
           help: {
             alert: "Willkommen im Hilfe-Center! Diese Seite bietet detaillierte Erklärungen und Anleitungen zu den verschiedenen Funktionen, Features und Widgets auf unserer Website. Wenn Sie sich nicht sicher sind, wie etwas funktioniert, oder eine Klärung benötigen, finden Sie hier die passenden Antworten.",
           }

@@ -27,6 +27,7 @@ i18n
           header: {
             home: "Home",
             search: "Search",
+            help: "Help",
             about: "About",
           },
           home: {
@@ -83,6 +84,7 @@ i18n
           header: {
             home: "Startseite",
             search: "Suche",
+            help: "Hilfe",
             about: "Über uns",
             privacyPolicy: "Datenschutzrichtlinie",
             imprint: "Impressum",

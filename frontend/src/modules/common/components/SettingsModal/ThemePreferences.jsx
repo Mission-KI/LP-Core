@@ -1,9 +1,11 @@
 import React from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { MoonFill, SunFill } from 'react-bootstrap-icons';
+import { useTranslation } from 'react-i18next';
 
 const ThemePreferences = () => {
     const { darkMode, setDarkMode } = useTheme();
+    const { t } = useTranslation();
 
     const handleThemeChange = (mode) => {
         setDarkMode(mode === 'dark');
@@ -11,7 +13,7 @@ const ThemePreferences = () => {
 
     return (
         <div>
-            <p className='bold' style={{ fontSize: 17 }}>Theme</p>
+            <p className='bold' style={{ fontSize: 17 }}>{t('settings.theme')}</p>
             <div className='py-4 d-flex gap-3'>
                 <div
                     onClick={() => handleThemeChange('light')}
@@ -24,7 +26,7 @@ const ThemePreferences = () => {
                     }}
                 >
                     <SunFill size={24} className='text-warning' style={{ marginBottom: '10px' }} />
-                    <p>Light Theme</p>
+                    <p>{t('settings.lightTheme')}</p>
                 </div>
                 <div
                     onClick={() => handleThemeChange('dark')}
@@ -37,7 +39,7 @@ const ThemePreferences = () => {
                     }}
                 >
                     <MoonFill size={24} className="txt-primary-darker" style={{ marginBottom: '10px' }} />
-                    <p>Dark Theme</p>
+                    <p>{t('settings.darkTheme')}</p>
                 </div>
             </div>
         </div>
