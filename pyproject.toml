@@ -54,7 +54,7 @@ extend-select = [
 [tool.pytest.ini_options]
 log_cli = true
 log_cli_level = "INFO"
-DJANGO_SETTINGS_MODULE = "daseen.settings"
+DJANGO_SETTINGS_MODULE = "daseen.test_settings"
 testpaths = ["backend/**/"]
 python_files = ["tests.py", "test_*.py", "*_test.py"]
 
