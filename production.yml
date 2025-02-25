@@ -1,45 +1,66 @@
 services:
-  # backend:
-  #   build: ./backend
-  #   volumes:
-  #     - "./backend:/backend"
-  #   ports:
-  #     - "8000:8000"
-  #   depends_on:
-  #     - postgres
-  #   env_file:
-  #     - .env
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      interval: 10s
+      timeout: 15s
+      retries: 10
 
-  # postgres:
-  #   image: postgres
-  #   container_name: postgres
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #     - /var/run/postgresql:/var/run/postgresql
-  #   ports:
-  #     - "5432:5432"
-  #   env_file:
-  #     - .env
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+      secrets:
+        - github_token
+    volumes:
+      - "./backend:/backend"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
 
   frontend:
     build:
-       context: ./frontend
-       dockerfile: Dockerfile.prod
+      context: ./frontend
+      dockerfile: Dockerfile.prod
     volumes:
       - "./frontend:/app"
       - "/app/node_modules"
+
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile.prod
+    volumes:
+      - "./landing:/landing"
+      - "/landing/node_modules"
+
+  nginx:
+    depends_on:
+      - backend
+      - frontend
+      - landing
+    restart: always
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
     ports:
       - "80:80"
 
-  # nginx:
-  #   image: nginx:latest
-  #   volumes:
-  #     - frontend-build:/usr/share/nginx/html
-  #   ports:
-  #     - "80:80"
-  #   depends_on:
-  #     - frontend
-  
 volumes:
-  # postgres_data:
   frontend-build:
+  postgres_data:
+
+secrets:
+  github_token:
+    environment: GITHUB_TOKEN

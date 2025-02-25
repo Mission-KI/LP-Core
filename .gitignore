@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+/frontend/node_modules
 /landing/node_modules
-/daseen/node_modules
 /.pnp
 .pnp.js
 
@@ -10,7 +10,7 @@
 /coverage
 
 # production
-/daseen/build
+/frontend/build
 /landing/build
 
 # misc
@@ -28,3 +28,11 @@ yarn-error.log*
 /daseen/playwright-report/
 /blob-report/
 /daseen/playwright/.cache/
+*__pycache__/
+*.pyc
+backend/staticfiles/
+.venv/
+.vscode/
+.coverage
+.ruff_cache/
+.pytest_cache/

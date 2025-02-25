@@ -1,9 +1,14 @@
 FROM node:18-alpine
 
-WORKDIR /app
+# Install additional dependencies if needed
+RUN apk add --no-cache bash
 
-COPY package.json .
-COPY package-lock.json .
-RUN npm install 
+WORKDIR /landing
 
+COPY package.json ./
+
+# Install Node.js dependencies
+RUN npm install --force
+
+# Set the default command
 CMD ["npm", "start"]

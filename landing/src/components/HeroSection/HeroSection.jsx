@@ -38,7 +38,7 @@ const HeroSection = () => {
                 <div className="row pb-5 pt-5">
                     <div className="col-md-6 pe-5">
                         <h1 className='bold mb-3' style={{ fontSize: '30pt' }}>{t('home.heroSection.welcome')}</h1>
-                        <p style={{ textAlign: 'justify' }}>{t('home.heroSection.description')}</p>
+                        <p className='txt-lighter' style={{ textAlign: 'justify' }}>{t('home.heroSection.description')}</p>
                         <div className='d-flex pt-4'>
                             <div className="pe-2">
                                 <a href={searchPageRedirectUrl} className="btn btn-primary fw-500 px-4 py-2">
@@ -54,7 +54,7 @@ const HeroSection = () => {
                                     <div className="card-body py-3">
                                         <div className="d-flex justify-content-between flex-wrap">
                                             <div className="">
-                                                <span className='text-muted medium d-flex align-items-center'><FileEarmarkZip className='me-2' /> {t('home.dataAssets')}</span>
+                                                <span className='txt-lighter medium d-flex align-items-center'><FileEarmarkZip className='me-2' /> {t('home.dataAssets')}</span>
                                                 <div className='d-flex align-items-center'>
                                                     <h2 className='bold mb-0'><AnimatedNumber value={totalDatasetCount} duration={1000} /></h2>
                                                     <span className='text-success fw-500 ps-2'><ArrowUpCircle /> 13%</span>
@@ -73,7 +73,7 @@ const HeroSection = () => {
                                     <div className="card-body py-3">
                                         <div className="d-flex justify-content-between flex-wrap">
                                             <div className="">
-                                                <span className='text-muted medium d-flex align-items-center'><Database className='me-2' /> {t('home.dataSpaces')}</span>
+                                                <span className='txt-lighter medium d-flex align-items-center'><Database className='me-2' /> {t('home.dataSpaces')}</span>
                                                 <div className='d-flex align-items-center'>
                                                     <h2 className='bold mb-0'><AnimatedNumber value={4} duration={1000} /></h2>
                                                     <span className='text-success fw-500 ps-2'><ArrowUpCircle /> 15%</span>
@@ -89,7 +89,7 @@ const HeroSection = () => {
                             <div className="col-md-6 pb-4">
                                 <div className={`card border ${styles.statsCard}`}>
                                     <div className="card-body py-3">
-                                        <span className='text-muted medium d-flex align-items-center'><PersonCheck className='me-2' /> {t('home.dataPublishers')}</span>
+                                        <span className='txt-lighter medium d-flex align-items-center'><PersonCheck className='me-2' /> {t('home.dataPublishers')}</span>
                                         <h2 className='bold mb-0'><AnimatedNumber value={11} duration={1000} /></h2>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@ const HeroSection = () => {
                             <div className="col-md-6 pb-4">
                                 <div className={`card border ${styles.statsCard}`}>
                                     <div className="card-body py-3">
-                                        <span className='text-muted medium d-flex align-items-center'><Grid className='me-2' /> {t('home.dataCategories')}</span>
+                                        <span className='txt-lighter medium d-flex align-items-center'><Grid className='me-2' /> {t('home.dataCategories')}</span>
                                         <h2 className='bold mb-0'><AnimatedNumber value={10} duration={1000} /></h2>
                                     </div>
                                 </div>

@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -5,9 +6,23 @@ import LanguageSelector from '../LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { appUrl } from '../../api/config';
 import { List } from 'react-bootstrap-icons';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
     const { t, i18n } = useTranslation();
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 100);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     var searchPageRedirectUrl;
     if (i18n.language === 'en' || i18n.language === 'English') {
@@ -19,22 +34,37 @@ const Header = () => {
     }
 
     return (
-        <Navbar bg="white" data-bs-theme="light" fixed="top" expand="md" className="py-3">
+        <Navbar
+            bg="white"
+            data-bs-theme="light"
+            fixed="top"
+            expand="md"
+            className={`py-3 ${isScrolled ? 'shadow' : ''}`}
+        >
             <Container>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" className='border-0 text-dark'><List /></Navbar.Toggle>
-                <Navbar.Collapse id="basic-navbar-nav" className='mb-3 mb-md-0'>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0 txt-regular">
+                    <List />
+                </Navbar.Toggle>
+                <Navbar.Collapse id="basic-navbar-nav" className="mb-3 mb-md-0">
                     <Nav className="me-auto">
                         <a href="/" className="nav-link me-4">
-                            Landing page
+                            Landing Page
                         </a>
-                        <a style={{ whiteSpace: 'nowrap' }} href={searchPageRedirectUrl} className="nav-link me-4 pe-3">
+                        <a
+                            style={{ whiteSpace: 'nowrap' }}
+                            href={searchPageRedirectUrl}
+                            className="nav-link me-3 pe-3"
+                        >
                             {t('header.search')}
                         </a>
-                        <div className='me-4'>
+                        <a style={{ whiteSpace: 'nowrap' }} href={appUrl + "/help"} className="nav-link d-none d-md-block me-4">
+                            {t('header.help')}
+                        </a>
+                        <div className="me-4">
                             <LanguageSelector />
                         </div>
-                        <div className="d-flex align-items-center">
-                            <span className="badge badge-primary bg-danger" style={{ fontSize: '10pt' }}>
+                        <div className="d-flex align-items-center ps-1 me-4">
+                            <span className="badge badge-primary bgc-danger py-2" style={{ fontSize: '10pt' }}>
                                 Alpha
                             </span>
                         </div>
@@ -42,7 +72,7 @@ const Header = () => {
                 </Navbar.Collapse>
                 <Nav className="ms-md-auto">
                     <div>
-                        <a href="https://beebucket.ai/kontakt/" className="btn btn-primary fw-500">
+                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-dark">
                             {t('auth.register')}
                         </a>
                     </div>

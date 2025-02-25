@@ -1,24 +1,11 @@
-FROM node:23-alpine3.20 AS builder
-
-WORKDIR /app
-
-COPY frontend/package.json ./
-COPY frontend/package-lock.json ./
-RUN npm install
-
-COPY ./frontend .
+FROM node:14.14.0-alpine AS builder
+WORKDIR /landing
+COPY ./package.json ./
+RUN npm install --force
+COPY . .
 RUN npm run build
 
-FROM node:23-alpine3.20 AS production
-
-# Create a non-root user for security
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
-
-COPY --from=builder /app/build /usr/share/nginx/html
-
-COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+FROM nginx
+EXPOSE 3000
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /landing/build /usr/share/nginx/html

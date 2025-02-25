@@ -21,7 +21,7 @@ const CategoryCard = ({ category }) => {
 
     return (
         <div className={`mb-5 px-2`}>
-            <Card className={`h-100 p-3 shadow rounded`}>
+            <Card className={`h-100 shadow rounded`}>
                 <Card.Img
                     variant='top'
                     src={category.image}
@@ -29,7 +29,7 @@ const CategoryCard = ({ category }) => {
                     style={{ minHeight: 115 }}
                     draggable={false}
                 />
-                <Card.Body className='pb-2 w-100 p-0 pt-3'>
+                <Card.Body className='pb-2 w-100 px-3 pt-3'>
                     <a
                         href="#"
                         onClick={handleClick}

@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      REACT_APP_URL: https://daseen.netlify.app/
+      REACT_APP_MAIN_URL: https://app.daseen.de/
 
     steps:
       - name: Checkout code
