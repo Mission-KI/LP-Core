@@ -32,6 +32,14 @@ jobs:
         run: CI=false npm run build
         working-directory: ./frontend
 
+      - name: Cache Playwright Browsers
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-browser-cache
+          restore-keys: |
+            playwright-browser-cache
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
         working-directory: ./frontend
@@ -45,5 +53,5 @@ jobs:
         working-directory: ./frontend
 
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test --headless
         working-directory: ./frontend
