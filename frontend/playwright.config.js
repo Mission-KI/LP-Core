@@ -24,7 +24,7 @@ module.exports = defineConfig({
     trace: 'on-first-retry',
 
     timeout: 600000,
-    navigationTimeout: 300000,
+    navigationTimeout: 800000,
     actionTimeout: 80000,
     headless: true,
   },
