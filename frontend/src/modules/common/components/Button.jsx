@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 const Button = ({ variant, size, children, onClick, disabled, type, loading }) => {
 
     const classNames = `btn fw-500 d-flex hover align-items-center justify-content-center btn-${variant} ${size == 'lg' ? 'w-100 py-3' : 'medium'}`;
-
     return (
         <button
             type={type}

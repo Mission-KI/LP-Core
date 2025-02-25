@@ -1,11 +1,16 @@
 import React from 'react';
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
-import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalCover } from "../utils/calculations";
+import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from "../utils/calculations";
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { QuestionCircle } from 'react-bootstrap-icons';
 
 const DataScienceInfo = ({ datasetDetails }) => {
 
     const { t } = useTranslation();
+
+    const topDistributions = getTopNumericDistributions(datasetDetails);
+    const allDistributions = getUniqueNumericDistributions(datasetDetails);
 
     return (
         <div>
@@ -89,14 +94,34 @@ const DataScienceInfo = ({ datasetDetails }) => {
                 <div className="col-6">
                     <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.numericValueDistribution")}</p>
                 </div>
-                <div className="col-6">
-                    <p className="small mb-1 fw-500">heterogen</p>
+                <div className="col-6 d-flex align-items-center">
+                    <p className="small mb-1 fw-500">{topDistributions}</p>
+                    <OverlayTrigger
+                        placement="top"
+                        overlay={
+                            <Tooltip id="tooltip-numeric-distributions">
+                                <div className="text-start">
+                                    <ul className="list-unstyled mb-0">
+                                        {allDistributions.length > 0 ? (
+                                            allDistributions.map((dist, index) => (
+                                                <li key={index}>{dist}</li>
+                                            ))
+                                        ) : (
+                                            <li>N/A</li>
+                                        )}
+                                    </ul>
+                                </div>
+                            </Tooltip>
+                        }
+                    >
+                        <QuestionCircle className="ms-2 text-muted" style={{ cursor: 'pointer' }} />
+                    </OverlayTrigger>
                 </div>
                 <div className="col-6">
                     <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.stringValueDistribution")}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">heterogen</p>
+                    <p className="small mb-1 fw-500">{getStringValueDistributionOverview(datasetDetails)}</p>
                 </div>
                 <div className="col-6">
                     <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.numericCorrelationAnalysis")}</p>
