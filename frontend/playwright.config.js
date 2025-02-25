@@ -27,6 +27,9 @@ module.exports = defineConfig({
     navigationTimeout: 800000,
     actionTimeout: 80000,
     headless: true,
+    launchOptions: {
+      args: ['--disable-animations'],
+    },
   },
 
   projects: [

@@ -44,5 +44,5 @@ jobs:
         working-directory: ./frontend
 
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx playwright test --headed=false
         working-directory: ./frontend
