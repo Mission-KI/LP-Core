@@ -22,14 +22,6 @@ module.exports = defineConfig({
     baseURL: process.env.REACT_APP_MAIN_URL,
 
     trace: 'on-first-retry',
-
-    timeout: 600000,
-    navigationTimeout: 800000,
-    actionTimeout: 80000,
-    headless: true,
-    launchOptions: {
-      args: ['--disable-animations'],
-    },
   },
 
   projects: [

@@ -45,7 +45,3 @@ jobs:
       - name: Run Playwright Tests
         run: npx playwright test
         working-directory: ./frontend
-
-      - name: Run Playwright tests
-        run: npx playwright test
-        working-directory: ./frontend
