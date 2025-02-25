@@ -27,13 +27,16 @@ jobs:
         run: npm install
         working-directory: ./frontend
 
+      - name: Build React App
+        run: npm run build
+        working-directory: ./frontend
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
         working-directory: ./frontend
 
       - name: Start Local Server
-        run: |
-          npm start &
+        run: npx serve -s build -l 3001 &
         working-directory: ./frontend
 
       - name: Wait for Local Server

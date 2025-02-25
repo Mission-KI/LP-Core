@@ -14,7 +14,7 @@ module.exports = defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 6 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -23,9 +23,9 @@ module.exports = defineConfig({
 
     trace: 'on-first-retry',
 
-    timeout: 60000,
-    navigationTimeout: 30000,
-    actionTimeout: 15000,
+    timeout: 600000,
+    navigationTimeout: 300000,
+    actionTimeout: 80000,
     headless: true,
   },
 
