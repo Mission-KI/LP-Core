@@ -4,13 +4,15 @@ on:
   pull_request:
     branches:
       - main
+      - dev
+      - staging
 
 jobs:
   test:
     runs-on: ubuntu-latest
 
     env:
-      REACT_APP_MAIN_URL: https://app.daseen.de/
+      REACT_APP_MAIN_URL: http://localhost:3001
 
     steps:
       - name: Checkout code
@@ -27,6 +29,15 @@ jobs:
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+        working-directory: ./frontend
+
+      - name: Start Local Server
+        run: |
+          npm start &
+        working-directory: ./frontend
+
+      - name: Wait for Local Server
+        run: npx wait-on http://localhost:3001
         working-directory: ./frontend
 
       - name: Run Playwright tests
