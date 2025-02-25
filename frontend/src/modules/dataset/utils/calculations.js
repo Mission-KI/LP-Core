@@ -84,8 +84,8 @@ export const getStringValueDistributionOverview = (dataset) => {
 
     if (homogenCount === totalColumns) return "all/homogen";
     if (heterogenCount === totalColumns) return "all/heterogen";
-    if (homogenCount / totalColumns >= 0.5) return "many/homogen";
-    if (heterogenCount / totalColumns > 0.5) return "many/heterogen";
+    if (homogenCount / totalColumns > 0.5) return "many/homogen";
+    if (heterogenCount / totalColumns >= 0.5) return "many/heterogen";
 
     return "N/A";
 };
