@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      REACT_APP_ELASTIC_URL: https://dl68t7d71bx5l.cloudfront.net/edp-data
+      REACT_APP_IMAGE_BASE_PATH: https://d2xfg3kfb5x390.cloudfront.net/
+      REACT_APP_LANDING_URL: http://localhost:3000
       REACT_APP_MAIN_URL: http://localhost:3001
 
     steps:
@@ -27,21 +30,7 @@ jobs:
         run: npm install
         working-directory: ./frontend
 
-      - name: Build React App
-        run: CI=false npm run build
-        working-directory: ./frontend
-
-      - name: Cache Playwright Browsers
-        id: playwright-cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-browser-cache-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            playwright-browser-cache-${{ runner.os }}-
-
       - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
         working-directory: ./frontend
 
