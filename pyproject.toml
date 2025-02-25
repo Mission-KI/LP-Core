@@ -16,7 +16,7 @@ dependencies = [
     "drf-nested-routers>=0.94.1",
     "drf-yasg>=1.21.8",
     "elasticsearch>=8.17.1",
-    "extended-dataset-profile",
+    "extended_dataset_profile @ git+https://github.com/Beebucket/extended_dataset_profile@v0.1.0",
     "gunicorn>=23.0.0",
     "psycopg>=3.2.4",
     "pymemcache>=4.0.0",
@@ -40,6 +40,7 @@ allow-direct-references = true
 
 [tool.ruff]
 line-length = 120
+extend-exclude = ["backend/**/migrations"]
 
 [tool.ruff.lint]
 extend-select = [
@@ -53,7 +54,7 @@ extend-select = [
 [tool.pytest.ini_options]
 log_cli = true
 log_cli_level = "INFO"
-DJANGO_SETTINGS_MODULE = "daseen.settings"
+DJANGO_SETTINGS_MODULE = "daseen.test_settings"
 testpaths = ["backend/**/"]
 python_files = ["tests.py", "test_*.py", "*_test.py"]
 

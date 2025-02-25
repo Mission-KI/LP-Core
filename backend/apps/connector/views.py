@@ -1,12 +1,11 @@
 import typing
 from logging import getLogger
-from uuid import uuid4
 
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils import create_log
 from common.edpuploader import EdpUploader, UploadConfig
 from django.conf import settings
-from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.shortcuts import get_object_or_404
 from django.utils.datastructures import MultiValueDict
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
@@ -18,6 +17,8 @@ from rest_framework.parsers import MultiPartParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+
+from .models import ResourceStatus
 
 logger = getLogger(__name__)
 
@@ -48,9 +49,14 @@ class EDPViewSet(ViewSet):
     @swagger_auto_schema(operation_summary="create EDP resource")
     def create(self, request: Request):
         try:
-            edp_id = str(uuid4())
-            create_log(request.get_full_path(), f"EDP resource {edp_id} created", EventLog.STATUS_SUCCESS)
-            return Response({"id": edp_id}, status=status.HTTP_200_OK)
+            resource = ResourceStatus.objects.create()
+            create_log(
+                request.get_full_path(),
+                "EDP resource created",
+                EventLog.STATUS_SUCCESS,
+                metadata={"id": str(resource.id)},
+            )
+            return Response({"id": resource.id}, status=status.HTTP_201_CREATED)
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
             create_log(request.get_full_path(), f"EDP resource create failed: {message}", EventLog.STATUS_FAIL)
@@ -60,48 +66,85 @@ class EDPViewSet(ViewSet):
         operation_summary="upload a EDP ZIP file",
         manual_parameters=[
             openapi.Parameter(
+                "id",
+                openapi.IN_PATH,
+                type=openapi.TYPE_STRING,
+                format=openapi.FORMAT_UUID,
+                description="Resource ID",
+            ),
+            openapi.Parameter(
                 name="file",
                 in_=openapi.IN_FORM,
                 description="ZIP file containing an EDP with it's json file + images.",
                 type=openapi.TYPE_FILE,
                 required=True,
-            )
+            ),
         ],
     )
     def upload(self, request: Request, id: str):
+        resource = get_object_or_404(ResourceStatus, pk=id)
         try:
             zip_file = self._file_from_request(request)
             uploader = _create_uploader()
             edp = uploader.upload_edp_zip(zip_file, edp_id=id)
-            create_log(request.get_full_path(), f"EDP {id} upload done", EventLog.STATUS_SUCCESS)
+            resource.status = "uploaded"
+            resource.save()
+            create_log(request.get_full_path(), f"EDP {id} upload done", EventLog.STATUS_SUCCESS, metadata={"id": id})
             return Response(
                 {
-                    "message": f"EDP {id} uploaded successfully",
+                    "message": "EDP uploaded successfully",
                     "edp": edp.model_dump(mode="json"),
                     "id": id,
                 },
                 status=status.HTTP_200_OK,
             )
         except (DRFValidationError, UnsupportedMediaType, APIException) as e:
-            create_log(request.get_full_path(), f"EDP upload failed: {e}", EventLog.STATUS_FAIL)
+            create_log(request.get_full_path(), f"EDP upload failed: {e}", EventLog.STATUS_FAIL, metadata={"id": id})
             raise e
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
-            create_log(request.get_full_path(), f"EDP upload failed: {message}", EventLog.STATUS_FAIL)
+            create_log(
+                request.get_full_path(), f"EDP upload failed: {message}", EventLog.STATUS_FAIL, metadata={"id": id}
+            )
             raise APIException(message)
 
-    @swagger_auto_schema(operation_summary="delete an EDP by resource id")
+    @swagger_auto_schema(
+        operation_summary="delete an EDP by resource id",
+        manual_parameters=[
+            openapi.Parameter(
+                "id",
+                openapi.IN_PATH,
+                type=openapi.TYPE_STRING,
+                format=openapi.FORMAT_UUID,
+                description="Resource ID",
+            )
+        ],
+    )
     def delete(self, request: Request, id: str):
-        uploader = _create_uploader()
-        uploader.delete_edp(id)
-        create_log(request.get_full_path(), f"EDP {id} delete done", EventLog.STATUS_SUCCESS)
+        resource = get_object_or_404(ResourceStatus, pk=id)
 
-        return Response(
-            {"message": f"EDP {id} deleted successfully"},
-            status=status.HTTP_200_OK,
-        )
+        try:
+            uploader = _create_uploader()
+            uploader.delete_edp(id)
 
-    def _file_from_request(self, request: Request) -> InMemoryUploadedFile:
+            resource.delete()
+            create_log(request.get_full_path(), "EDP delete done", EventLog.STATUS_SUCCESS, metadata={"id": id})
+
+            return Response(
+                {"message": "EDP deleted successfully", "id": id},
+                status=status.HTTP_200_OK,
+            )
+        except (DRFValidationError, UnsupportedMediaType, APIException) as e:
+            create_log(request.get_full_path(), f"EDP delete failed: {e}", EventLog.STATUS_FAIL, metadata={"id": id})
+            raise e
+        except Exception as e:
+            message = f"An unknown error occurred ({type(e)}): {str(e)}"
+            create_log(
+                request.get_full_path(), f"EDP delete failed: {message}", EventLog.STATUS_FAIL, metadata={"id": id}
+            )
+            raise APIException(message)
+
+    def _file_from_request(self, request: Request):
         files = typing.cast(MultiValueDict, request.FILES)
         if "file" not in files:
             raise DRFValidationError("No file uploaded.")
