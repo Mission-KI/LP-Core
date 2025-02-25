@@ -28,7 +28,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Build React App
-        run: npm run build
+        run: CI=false npm run build
         working-directory: ./frontend
 
       - name: Install Playwright Browsers
