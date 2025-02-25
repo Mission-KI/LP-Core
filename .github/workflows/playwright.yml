@@ -53,5 +53,5 @@ jobs:
         working-directory: ./frontend
 
       - name: Run Playwright tests
-        run: npx playwright test --headless
+        run: npx playwright test
         working-directory: ./frontend
