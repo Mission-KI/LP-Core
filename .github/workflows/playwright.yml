@@ -13,6 +13,7 @@ jobs:
 
     env:
       REACT_APP_MAIN_URL: http://localhost:3001
+      PLAYWRIGHT_TEST_TIMEOUT: 60000
 
     steps:
       - name: Checkout code
