@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      REACT_APP_MAIN_URL: https://app.daseen.de
+      REACT_APP_MAIN_URL: http://localhost:3001
 
     steps:
       - name: Checkout code
@@ -32,23 +32,29 @@ jobs:
         working-directory: ./frontend
 
       - name: Cache Playwright Browsers
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: ~/.cache/ms-playwright
-          key: playwright-browser-cache
+          key: playwright-browser-cache-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            playwright-browser-cache
+            playwright-browser-cache-${{ runner.os }}-
 
       - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
         working-directory: ./frontend
 
-      - name: Start Local Server
-        run: npx serve -s build -l 3001 &
+      - name: Start Local Dev Server
+        run: npm start &
         working-directory: ./frontend
 
-      - name: Wait for Local Server
+      - name: Wait for Local Dev Server
         run: npx wait-on http://localhost:3001
+        working-directory: ./frontend
+
+      - name: Run Playwright Tests
+        run: npx playwright test
         working-directory: ./frontend
 
       - name: Run Playwright tests
