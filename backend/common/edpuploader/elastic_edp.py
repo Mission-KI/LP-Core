@@ -2,7 +2,7 @@ from logging import getLogger
 
 from elasticsearch import AuthenticationException, Elasticsearch, NotFoundError
 from pydantic import BaseModel, HttpUrl
-from rest_framework.exceptions import APIException, NotFound
+from rest_framework.exceptions import APIException
 
 from .config import ElasticConfig
 
@@ -40,9 +40,10 @@ class ElasticDBWrapper:
                 id=edp_id,
             )
         except NotFoundError:
-            raise NotFound(f"Unable to delete EDP {edp_id} from Elastic Search")
+            logger.warning(f"No EDP with id {edp_id} found for deletion")
+            return
         except AuthenticationException:
             raise APIException("Unable to authenticate to Elastic Search")
 
         full_download_url = HttpUrl(f"{self._config.elastic_url}/{self._config.elastic_index}/_doc/{edp_id}")
-        logger.info("Deleted EDP from Elastic Search: %s", full_download_url)
+        logger.info(f"Deleted EDP {edp_id} from Elastic Search: %s", full_download_url)

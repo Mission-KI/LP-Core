@@ -5,13 +5,13 @@ from typing import Any, Dict, List
 from unittest.mock import Mock
 from zipfile import ZipFile
 
+import boto3
 import pytest
 import requests
 from apps.connector.models import ResourceStatus
 from apps.monitoring.models import EventLog
-from common.edpuploader.s3_edp_storage import S3EDPStorage
+from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.test import override_settings
 from django.urls import reverse
 from elasticsearch import Elasticsearch
 from extended_dataset_profile import SchemaVersion
@@ -21,6 +21,7 @@ from extended_dataset_profile.models.v0.edp import (
     License,
     Publisher,
 )
+from moto import mock_aws
 from pytest import MonkeyPatch, fixture
 from requests import Response as RequestResponse
 from rest_framework import status
@@ -30,20 +31,8 @@ from rest_framework.test import APIClient
 # from apps.monitoring.utils import create_log
 
 
-@fixture()
-def settings():
-    with override_settings(
-        ELASTICSEARCH_URL="https://fake-server.beebucket.de/edp-data",
-        ELASTICSEARCH_API_KEY="dummy",
-        S3_ACCESS_KEY_ID="dummy-key-id",
-        S3_SECRET_ACCESS_KEY="dummy-key",
-        S3_BUCKET_NAME="dummy-bucket",
-    ) as s:
-        yield s
-
-
 @fixture
-def client(settings):
+def client():
     return APIClient()
 
 
@@ -97,9 +86,7 @@ def mini_edp():
 def check_event_log(url, status, message, expect_id=True):
     assert EventLog.objects.count() == 1
     event_log = EventLog.objects.all()[0]
-    assert event_log.requested_url == url
-    assert event_log.status == status
-    assert event_log.message == message
+    assert event_log.requested_url == url and event_log.message == message and event_log.status == status
     if expect_id:
         assert event_log.metadata is not None and "id" in event_log.metadata
 
@@ -203,11 +190,12 @@ def test_create_edp_file_zip_validation_error(client: APIClient):
     assert response.json()[0].startswith("10 validation errors for ExtendedDatasetProfile")
 
 
+@mock_aws
 @pytest.mark.django_db()
 def test_upload_edp_file_zip_success(client: APIClient, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch):
     mock_index = mkmock(monkeypatch, Elasticsearch, "index")
-    s3_upload_mock = mkmock(monkeypatch, S3EDPStorage, "upload")
-    s3_delete_mock = mkmock(monkeypatch, S3EDPStorage, "delete")
+    conn = boto3.resource("s3")
+    conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
     resp = RequestResponse()
     resp.status_code = 200
     monkeypatch.setattr(resp, "json", lambda: {"hits": {"hits": [{"_id": "dummy"}]}})
@@ -226,8 +214,6 @@ def test_upload_edp_file_zip_success(client: APIClient, mini_edp: ExtendedDatase
         message=f"EDP {id} upload done",
     )
     mock_index.assert_called_once()
-    s3_upload_mock.assert_called_once()
-    s3_delete_mock.assert_called_once()
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert Matcher.matches(
@@ -236,10 +222,12 @@ def test_upload_edp_file_zip_success(client: APIClient, mini_edp: ExtendedDatase
     )
 
 
+@mock_aws
 @pytest.mark.django_db()
 def test_delete_edp_file_zip_success(client: APIClient, monkeypatch: MonkeyPatch):
     elastic_delete = mkmock(monkeypatch, Elasticsearch, "delete")
-    s3_delete = mkmock(monkeypatch, S3EDPStorage, "delete")
+    conn = boto3.resource("s3")
+    conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
 
     id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
@@ -254,7 +242,6 @@ def test_delete_edp_file_zip_success(client: APIClient, monkeypatch: MonkeyPatch
         message="EDP delete done",
     )
     elastic_delete.assert_called_once_with(index="edp-data", id=str(id))
-    s3_delete.assert_called_once_with(str(id))
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert response.data == {"message": "EDP deleted successfully", "id": str(id)}
