@@ -37,6 +37,12 @@ function StringValueDistribution({ datasetDetails }) {
 
     const { t } = useTranslation();
 
+    const getUniqueValueText = (num) => {
+        if (num === 1) return "homogen";
+        if (num > 1) return "heterogen";
+        return "N/A";
+    };
+
     return (
         <Tabs
             activeKey={defaultTab}
@@ -72,7 +78,7 @@ function StringValueDistribution({ datasetDetails }) {
                                     <tr key={index} className='hover'>
                                         <td className='w-33'>{column.name}</td>
                                         <td className='w-33'>NA</td>
-                                        <td className='w-33'>{column.numberUnique}</td>
+                                        <td className='w-33'>{getUniqueValueText(column.numberUnique)}</td>
                                     </tr>
                                 ))}
                             </tbody>
