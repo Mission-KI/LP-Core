@@ -3,7 +3,6 @@ from logging import getLogger
 
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils import create_log
-from common.edpuploader import EdpUploader, UploadConfig
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.utils.datastructures import MultiValueDict
@@ -19,6 +18,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from .models import ResourceStatus
+from .utils.edpuploader import EdpUploader, UploadConfig
 
 logger = getLogger(__name__)
 
