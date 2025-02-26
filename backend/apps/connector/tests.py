@@ -14,7 +14,7 @@ from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.urls import reverse
 from elasticsearch import Elasticsearch
-from extended_dataset_profile import SchemaVersion
+from extended_dataset_profile import CURRENT_SCHEMA, SchemaVersion
 from extended_dataset_profile.models.v0.edp import (
     DataSpace,
     ExtendedDatasetProfile,
@@ -245,6 +245,13 @@ def test_delete_edp_file_zip_success(client: APIClient, monkeypatch: MonkeyPatch
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert response.data == {"message": "EDP deleted successfully", "id": str(id)}
+
+
+def test_get_schema(client: APIClient):
+    response = client.get(reverse("edp-schema"))
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_200_OK, response.json()
+    assert response.data == CURRENT_SCHEMA.model_json_schema()
 
 
 def mkmock(monkeypatch, t, mod, **kwargs):

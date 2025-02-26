@@ -8,8 +8,10 @@ from django.shortcuts import get_object_or_404
 from django.utils.datastructures import MultiValueDict
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from extended_dataset_profile import CURRENT_SCHEMA
 from pydantic import HttpUrl
 from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.parsers import MultiPartParser
@@ -157,3 +159,10 @@ class EDPViewSet(ViewSet):
             raise DRFValidationError("Only ZIP files are accepted.")
 
         return input_file
+
+
+@swagger_auto_schema(method="GET", operation_summary="get the current JSON schema of an EDP")
+@api_view(["GET"])
+def get_schema(request: Request):
+    schema = CURRENT_SCHEMA.model_json_schema()
+    return Response(schema, status=status.HTTP_200_OK)
