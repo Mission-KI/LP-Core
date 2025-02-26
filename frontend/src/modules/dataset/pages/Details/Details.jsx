@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import styles from "./Details.module.css";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams, useLocation } from "react-router";
 import { getDataset } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import moment from "moment";
@@ -31,6 +31,7 @@ function Details() {
   const [activeKey, setActiveKey] = useState("attributes");
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchDatasets = async () => {
@@ -47,9 +48,16 @@ function Details() {
     fetchDatasets();
   }, [id]);
 
-  const handleToggleTab = (item) => {
-    setActiveKey(item);
-  };
+  useEffect(() => {
+    if (location.hash) {
+      setActiveKey(location.hash.replace("#", ""));
+    }
+  }, [location.hash]);
+
+  const toggleTab = (key) => {
+    setActiveKey(key);
+    navigate(`#${key}`, { replace: true });
+  }
 
   if (loading) {
     return (
@@ -145,7 +153,7 @@ function Details() {
             <Tabs
               activeKey={activeKey}
               id={styles.datasetAttributeTabs}
-              onSelect={(k) => setActiveKey(k)}
+              onSelect={(k) => toggleTab(k)}
               className="dataset-attribute-tabs mb-3"
             >
               <Tab
