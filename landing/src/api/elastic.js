@@ -1,23 +1,27 @@
 import { elasticURL } from "./config";
+import { fetchJSON } from "./http";
 
 export const getTotalDatasetCount = async () => {
-    try {
-        const response = await fetch(`${elasticURL}/_count`, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        });
+    const responseData = await fetchJSON(`${elasticURL}/_count`, { method: 'POST' });
+    return responseData.count;
+};
 
-        const responseData = await response.json();
-
-        if (response.ok) {
-            return responseData.count;
-        } else {
-            throw new Error(responseData.errors);
+export const getAttributeCounts = async () => {
+    const requestBody = {
+        size: 0,
+        aggs: {
+            unique_data_spaces: { cardinality: { field: "dataSpace.name.keyword" } },
+            unique_publishers: { cardinality: { field: "publisher.name.keyword" } }
         }
-    } catch (error) {
-        throw new Error(error);
-    }
+    };
+
+    const responseData = await fetchJSON(`${elasticURL}/_search`, {
+        method: 'POST',
+        body: JSON.stringify(requestBody)
+    });
+
+    return {
+        dataSpaceCount: responseData.aggregations.unique_data_spaces.value,
+        publisherCount: responseData.aggregations.unique_publishers.value
+    };
 };
