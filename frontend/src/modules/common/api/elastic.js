@@ -126,11 +126,13 @@ export const getDatasets = async (from = 0, size = 10) => {
         const query = {
             "from": from,
             "size": size,
-            "query": {
-                "bool": {
-                    "filter": filters
+            ...(filters.length > 0 ? {
+                "query": {
+                    "bool": {
+                        "filter": filters
+                    }
                 }
-            },
+            } : {}),
             "sort": [
                 "_score",
                 {
