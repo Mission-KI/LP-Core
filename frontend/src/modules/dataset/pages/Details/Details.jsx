@@ -113,7 +113,7 @@ function Details() {
           </a>
 
           <span className="small pe-3">
-            {t("dataset.version")} {(datasetDetails?._source?.version ?? 1).toFixed(1)}
+            {t("dataset.version")} {(parseInt(datasetDetails?._source?.version) ?? 1).toFixed(1)}
           </span>
           <span className="small pe-3">
             {t('dataset.assetUploaded')} {new Date(datasetDetails?._source?.publishDate).toLocaleDateString()} ({moment(datasetDetails?._source?.publishDate).fromNow()})
