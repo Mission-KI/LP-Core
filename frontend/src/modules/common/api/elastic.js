@@ -132,21 +132,22 @@ export const getDatasets = async (from = 0, size = 10) => {
                         "filter": filters
                     }
                 }
-            } : {}),
-            "sort": [
-                "_score",
-                {
-                    "_script": {
-                        "type": "number",
-                        "script": {
-                            "source": "doc['description.keyword'].size() > 0 ? 1 : 0",
-                            "lang": "painless"
-                        },
-                        "order": "desc"
-                    }
-                },
-                { "description.keyword": "desc" }
-            ]
+            } : {})
+            // ,
+            // "sort": [
+            //     "_score",
+            //     {
+            //         "_script": {
+            //             "type": "number",
+            //             "script": {
+            //                 "source": "doc['description.keyword'].size() > 0 ? 1 : 0",
+            //                 "lang": "painless"
+            //             },
+            //             "order": "desc"
+            //         }
+            //     },
+            //     { "description.keyword": "desc" }
+            //]
         };
 
         const response = await fetch(elasticURL + '/_search', {

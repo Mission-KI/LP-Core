@@ -37,7 +37,7 @@ export const useFilterSections = () => {
         {
             title: "dataspaces",
             type: "checkboxes",
-            filters: dataSpaces.map(dataSpace => ({
+            filters: dataSpaces?.map(dataSpace => ({
                 label: dataSpace.key,
                 value: dataSpace.key,
                 name: "dataSpace.name",
@@ -47,7 +47,7 @@ export const useFilterSections = () => {
         {
             title: "publisher",
             type: "checkboxes",
-            filters: publishers.map(publisher => ({
+            filters: publishers?.map(publisher => ({
                 label: publisher.key,
                 value: publisher.key,
                 name: "publisher.name",
@@ -87,7 +87,7 @@ export const useFilterSections = () => {
         {
             title: "licenses",
             type: "checkboxes",
-            filters: licenses.map(license => ({
+            filters: licenses?.map(license => ({
                 label: license.key,
                 value: license.key,
                 name: "license.name",
