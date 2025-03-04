@@ -48,8 +48,8 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
 @api_view(["POST"])
 def search(request):
     """Sends a raw query to Elasticsearch"""
-    query = request.data.get("query", {})
-    return elasticsearch_request("POST", "_search", {"query": query})
+    query = request.data
+    return elasticsearch_request("POST", "_search", query)
 
 
 @swagger_auto_schema(
