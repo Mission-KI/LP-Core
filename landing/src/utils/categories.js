@@ -10,7 +10,7 @@ import ScienceImg from '../assets/img/categories/tile-09_education_science.jpg';
 import RealestateImg from '../assets/img/categories/tile-10_finance_and_realestate.jpg';
 import { useTranslation } from 'react-i18next';
 import autobahn from '../assets/img/dataspace_logos/logo_autobahn-gmbh.png';
-import bast from '../assets/img/dataspace_logos/logo_bast.png';
+import bast from '../assets/img/dataspace_logos/logo_bast.png?v=2';
 import flugsicherung from '../assets/img/dataspace_logos/logo_deutsche_flugsicherung.png';
 import govdata from '../assets/img/dataspace_logos/logo_govdata.png';
 import mobilithek from '../assets/img/dataspace_logos/logo_mobilithek.png';

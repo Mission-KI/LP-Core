@@ -9,12 +9,14 @@ const Footer = () => {
 
     return (
         <div className={styles.footer}>
-            <div className="container pt-4 pb-4">
-                <div className='d-flex w-100 justify-content-between'>
-                    <span className={styles.footerLink}>{t('footer.c')}</span>
-                    <Link to="/imprint" className={styles.footerLink}>{t('footer.imprint')}</Link>
-                    <Link to="/privacy-policy" className={styles.footerLink}>{t('footer.privacyPolicy')}</Link>
-                    <Link to="/use-policy" className={styles.footerLink}>{t('footer.usePolicy')}</Link>
+            <div className="container pt-4 pb-4" style={{ maxWidth: 1100 }}>
+                <div className='d-flex flex-wrap justify-content-between align-items-center'>
+                    <div className='d-flex flex-wrap justify-content-between align-items-center w-100' style={{ maxWidth: 600 }}>
+                        <Link to="/imprint" className={styles.footerLink}>{t('footer.imprint')}</Link>
+                        <Link to="/privacy-policy" className={styles.footerLink}>{t('footer.privacyPolicy')}</Link>
+                        <Link to="/use-policy" className={styles.footerLink}>{t('footer.usePolicy')}</Link>
+                    </div>
+                    <span className={`${styles.footerLink}`}><span className='txt-primary h6 mb-0'>{t('footer.c')}</span></span>
                 </div>
             </div>
         </div>
