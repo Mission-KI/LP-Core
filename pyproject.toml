@@ -1,8 +1,8 @@
 [project]
 name = "daseen"
-version = "0.1.0"
 description = "Daseen"
 readme = "README.md"
+dynamic = ["version"]
 authors = [
     { name = "Kai Buschulte", email = "kb@beebucket.de" }
 ]
@@ -34,8 +34,11 @@ dev = [
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
 
 [tool.hatch.metadata]
 allow-direct-references = true

@@ -249,7 +249,6 @@ wheels = [
 
 [[package]]
 name = "daseen"
-version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "boto3" },
