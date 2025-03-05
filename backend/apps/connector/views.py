@@ -1,25 +1,24 @@
-import typing
 from logging import getLogger
 
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils import create_log
 from django.conf import settings
 from django.shortcuts import get_object_or_404
-from django.utils.datastructures import MultiValueDict
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from extended_dataset_profile import CURRENT_SCHEMA
 from pydantic import HttpUrl
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
-from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from .models import ResourceStatus
+from .serializers import BinaryUploadSerializer
 from .utils.edpuploader import EdpUploader, UploadConfig
 
 logger = getLogger(__name__)
@@ -46,9 +45,9 @@ def _create_uploader():
 
 
 class EDPViewSet(ViewSet):
-    parser_classes = [MultiPartParser]
+    parser_classes = [MultiPartParser, FormParser]
 
-    @swagger_auto_schema(operation_summary="create EDP resource")
+    @extend_schema(summary="create EDP resource")
     def create(self, request: Request):
         try:
             resource = ResourceStatus.objects.create()
@@ -64,24 +63,18 @@ class EDPViewSet(ViewSet):
             create_log(request.get_full_path(), f"EDP resource create failed: {message}", EventLog.STATUS_FAIL)
             raise APIException(message)
 
-    @swagger_auto_schema(
-        operation_summary="upload a EDP ZIP file",
-        manual_parameters=[
-            openapi.Parameter(
+    @extend_schema(
+        summary="upload a EDP ZIP file",
+        request=BinaryUploadSerializer,
+        parameters=[
+            OpenApiParameter(
                 "id",
-                openapi.IN_PATH,
-                type=openapi.TYPE_STRING,
-                format=openapi.FORMAT_UUID,
+                location=OpenApiParameter.PATH,
+                type=OpenApiTypes.UUID,
                 description="Resource ID",
-            ),
-            openapi.Parameter(
-                name="file",
-                in_=openapi.IN_FORM,
-                description="ZIP file containing an EDP with it's json file + images.",
-                type=openapi.TYPE_FILE,
-                required=True,
-            ),
+            )
         ],
+        responses={200: OpenApiTypes.OBJECT},
     )
     def upload(self, request: Request, id: str):
         resource = get_object_or_404(ResourceStatus, pk=id)
@@ -110,14 +103,13 @@ class EDPViewSet(ViewSet):
             )
             raise APIException(message)
 
-    @swagger_auto_schema(
-        operation_summary="delete an EDP by resource id",
-        manual_parameters=[
-            openapi.Parameter(
+    @extend_schema(
+        summary="delete an EDP by resource id",
+        parameters=[
+            OpenApiParameter(
                 "id",
-                openapi.IN_PATH,
-                type=openapi.TYPE_STRING,
-                format=openapi.FORMAT_UUID,
+                location=OpenApiParameter.PATH,
+                type=OpenApiTypes.UUID,
                 description="Resource ID",
             )
         ],
@@ -147,21 +139,16 @@ class EDPViewSet(ViewSet):
             raise APIException(message)
 
     def _file_from_request(self, request: Request):
-        files = typing.cast(MultiValueDict, request.FILES)
-        if "file" not in files:
-            raise DRFValidationError("No file uploaded.")
-
-        input_file = files["file"]
+        serializer = BinaryUploadSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        input_file = serializer.validated_data.get("file")
 
         logger.info(f"Received {input_file.name}")
-
-        if not input_file.name.endswith(".zip"):
-            raise DRFValidationError("Only ZIP files are accepted.")
 
         return input_file
 
 
-@swagger_auto_schema(method="GET", operation_summary="get the current JSON schema of an EDP")
+@extend_schema(methods=["GET"], summary="get the current JSON schema of an EDP")
 @api_view(["GET"])
 def get_schema(request: Request):
     schema = CURRENT_SCHEMA.model_json_schema()

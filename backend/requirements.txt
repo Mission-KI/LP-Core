@@ -2,6 +2,7 @@
 #    uv export --no-emit-project --no-hashes --no-dev --format requirements-txt --output-file backend/requirements.txt
 annotated-types==0.7.0
 asgiref==3.8.1
+attrs==25.1.0
 boto3==1.37.6
 botocore==1.37.6
 certifi==2025.1.31
@@ -12,7 +13,7 @@ django-rest-framework==0.1.0
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.5.0
 drf-nested-routers==0.94.1
-drf-yasg==1.21.9
+drf-spectacular==0.28.0
 elastic-transport==8.17.0
 elasticsearch==8.17.2
 extended-dataset-profile @ git+https://github.com/Beebucket/extended_dataset_profile@57f55b533ff6701cbbf9907e9ca0f3a1fe28120e
@@ -20,6 +21,8 @@ gunicorn==23.0.0
 idna==3.10
 inflection==0.5.1
 jmespath==1.0.1
+jsonschema==4.23.0
+jsonschema-specifications==2024.10.1
 packaging==24.2
 psycopg==3.2.5
 pydantic==2.10.6
@@ -28,9 +31,10 @@ pyjwt==2.9.0
 pymemcache==4.0.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
-pytz==2025.1
 pyyaml==6.0.2
+referencing==0.36.2
 requests==2.32.3
+rpds-py==0.23.1
 s3transfer==0.11.4
 six==1.17.0
 sqlparse==0.5.3

@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "rest_framework_simplejwt.token_blacklist",
-    "drf_yasg",
+    "drf_spectacular",
     "corsheaders",
 ]
 
@@ -92,6 +92,7 @@ DATABASES = {
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SIMPLE_JWT = {
@@ -163,7 +164,13 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 TESTS_IN_REAL_DB = True
 
-SWAGGER_SETTINGS = {"USE_SESSION_AUTH": False}
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Daseen REST API",
+    "DESCRIPTION": "Daseen API documentation",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "COMPONENT_SPLIT_REQUEST": True,
+}
 
 ELASTICSEARCH_URL = os.environ.get("ELASTICSEARCH_URL")
 ELASTICSEARCH_API_KEY = os.environ.get("ELASTICSEARCH_API_KEY")
