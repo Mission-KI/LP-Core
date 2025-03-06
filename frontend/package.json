@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@vitejs/plugin-react-swc": "^3.8.0",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.3.3",
     "chartjs": "^0.3.24",
@@ -31,17 +32,15 @@
     "react-paginate": "^8.2.0",
     "react-router": "^6.26.2",
     "react-router-dom": "^6.26.2",
-    "react-scripts": "5.0.1",
     "react-slider": "^2.0.6",
     "react-tiles-dnd": "^0.1.2",
     "react-toastify": "^10.0.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
-    "build": "PORT=3001 react-scripts build",
-    "test": "npx playwright test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": [
@@ -64,6 +63,8 @@
   "devDependencies": {
     "@playwright/test": "^1.48.1",
     "@types/node": "^22.7.9",
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.2.0",
     "wait-on": "^8.0.2"
   }
 }

@@ -35,7 +35,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Start Local Dev Server
-        run: npm start &
+        run: npm run dev &
         working-directory: ./frontend
 
       - name: Wait for Local Dev Server
