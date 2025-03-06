@@ -13,7 +13,7 @@ module.exports = defineConfig({
   reporter: 'html',
   
   use: {
-    baseURL: process.env.VITE_MAIN_URL || 'http://localhost:3000',
+    baseURL: process.env.VITE_MAIN_URL || 'http://localhost:3001',
     trace: 'on-first-retry',
   },
 
