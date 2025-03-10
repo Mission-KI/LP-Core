@@ -1,8 +1,8 @@
 [project]
 name = "daseen"
-version = "0.1.0"
 description = "Daseen"
 readme = "README.md"
+dynamic = ["version"]
 authors = [
     { name = "Kai Buschulte", email = "kb@beebucket.de" }
 ]
@@ -14,7 +14,7 @@ dependencies = [
     "django-rest-framework>=0.1.0",
     "djangorestframework-simplejwt>=5.3.1",
     "drf-nested-routers>=0.94.1",
-    "drf-yasg>=1.21.8",
+    "drf-spectacular>=0.28.0",
     "elasticsearch>=8.17.1",
     "extended-dataset-profile", # version specified in tool.uv.sources
     "gunicorn>=23.0.0",
@@ -34,8 +34,11 @@ dev = [
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
 
 [tool.hatch.metadata]
 allow-direct-references = true

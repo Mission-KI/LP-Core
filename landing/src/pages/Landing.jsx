@@ -9,8 +9,8 @@ import "../../node_modules/react-tiles-dnd/esm/index.css";
 import { useLocation } from 'react-router';
 import Footer from '../components/Footer/Footer';
 import WelcomePopup from '../components/WelcomePopup/WelcomePopup';
-import { ReactComponent as BMDV } from '../assets/img/BMDV.svg'
-import { ReactComponent as MKI } from '../assets/img/MKI.svg'
+import BMDV from '../assets/img/BMDV.svg?react'
+import MKI from '../assets/img/MKI.svg?react'
 
 const LOCAL_STORAGE_KEY = "userCategoriesOrder?v=2";
 

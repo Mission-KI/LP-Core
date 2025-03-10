@@ -25,6 +25,7 @@ from moto import mock_aws
 from pytest import MonkeyPatch, fixture
 from requests import Response as RequestResponse
 from rest_framework import status
+from rest_framework.exceptions import ErrorDetail
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 
@@ -114,11 +115,11 @@ def test_upload_edp_no_file(client: APIClient):
     check_event_log(
         url=url,
         status="fail",
-        message="EDP upload failed: [ErrorDetail(string='No file uploaded.', code='invalid')]",
+        message="EDP upload failed: {'file': [ErrorDetail(string='No file was submitted.', code='required')]}",
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert response.json() == ["No file uploaded."]
+    assert response.json() == {"file": ["No file was submitted."]}
 
 
 @pytest.mark.django_db()
@@ -129,11 +130,17 @@ def test_upload_edp_file_not_a_file(client: APIClient):
     check_event_log(
         url=url,
         status="fail",
-        message="EDP upload failed: [ErrorDetail(string='No file uploaded.', code='invalid')]",
+        message="EDP upload failed: {'file': [ErrorDetail(string='The submitted data was not a file. Check the encoding type on the form.', code='invalid')]}",
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert response.data == ["No file uploaded."]
+    assert response.data == {
+        "file": [
+            ErrorDetail(
+                string="The submitted data was not a file. Check the encoding type on the form.", code="invalid"
+            )
+        ]
+    }
 
 
 @pytest.mark.django_db()
@@ -144,11 +151,11 @@ def test_upload_edp_file_not_a_zip(client: APIClient, not_a_zip):
     check_event_log(
         url=url,
         status="fail",
-        message="EDP upload failed: [ErrorDetail(string='Only ZIP files are accepted.', code='invalid')]",
+        message="EDP upload failed: {'file': [ErrorDetail(string='File extension “” is not allowed. Allowed extensions are: zip.', code='invalid_extension')]}",
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert response.json() == ["Only ZIP files are accepted."]
+    assert response.json() == {"file": ["File extension “” is not allowed. Allowed extensions are: zip."]}
 
 
 @pytest.mark.django_db()
