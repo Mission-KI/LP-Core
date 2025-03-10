@@ -71,7 +71,7 @@ class EdpUploader:
 
         hits = _find_resource_id(edp_model.assetId, edp_model.dataSpace.name)
         self._elastic.upload(edp_model, edp_id)
-        if hits.data is not None and len(hits.data) != 0:
+        if hits is not None and len(hits) != 0:
             self._s3.delete(edp_id)
         # Upload all other files to S3 using upload key edp_id/filename
         self._s3.upload(resource_files, edp_dir, edp_id)
