@@ -79,6 +79,9 @@ def count(request):
     methods=["POST"],
     request=FindResourceIDSerializer,
     responses={200: OpenApiTypes.STR, 404: "Not found"},
+    summary="Find the resource ID(s) of an EDP in Elasticsearch",
+    description="This endpoint can be used to find the resource ID(s) of an EDP in Elasticsearch. "
+    "The result is ordered by oldest to newest EDP.",
 )
 @api_view(["POST"])
 def find_resource_id(request):
