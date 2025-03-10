@@ -1,4 +1,4 @@
-export const apiUrl = process.env.REACT_APP_API_URL;
-export const elasticURL = process.env.REACT_APP_ELASTIC_URL;
-export const landingUrl = process.env.REACT_APP_LANDING_URL;
-export const appUrl = process.env.REACT_APP_MAIN_URL;
+export const apiUrl = import.meta.env.VITE_API_URL;
+export const elasticURL = import.meta.env.VITE_ELASTIC_URL;
+export const landingUrl = import.meta.env.VITE_LANDING_URL;
+export const appUrl = import.meta.env.VITE_MAIN_URL;

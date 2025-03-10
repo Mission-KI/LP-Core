@@ -1,5 +1,5 @@
-export const apiUrl = process.env.REACT_APP_API_URL;
-export const elasticURL = process.env.REACT_APP_ELASTIC_URL;
-export const imageBasePath = process.env.REACT_APP_IMAGE_BASE_PATH;
-export const landingUrl = process.env.REACT_APP_LANDING_URL;
-export const appUrl = process.env.REACT_APP_MAIN_URL;
+export const apiUrl = import.meta.env.VITE_API_URL;
+export const elasticURL = import.meta.env.VITE_ELASTIC_URL;
+export const imageBasePath = import.meta.env.VITE_IMAGE_BASE_PATH;
+export const landingUrl = import.meta.env.VITE_LANDING_URL;
+export const appUrl = import.meta.env.VITE_MAIN_URL;
