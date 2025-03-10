@@ -70,9 +70,15 @@ class EdpUploader:
         edp_model = edp_model_from_file(edp_file)
 
         hits = _find_resource_id(edp_model.assetId, edp_model.dataSpace.name)
+        if len(hits) > 0 and edp_id not in hits:
+            raise DRFValidationError(
+                f"Asset ID {edp_model.assetId} already exists in the data space {edp_model.dataSpace.name}: {', '.join(hits)}"
+            )
+
         self._elastic.upload(edp_model, edp_id)
-        if hits is not None and len(hits) != 0:
+        if len(hits) > 0:
             self._s3.delete(edp_id)
+
         # Upload all other files to S3 using upload key edp_id/filename
         self._s3.upload(resource_files, edp_dir, edp_id)
         return edp_model
