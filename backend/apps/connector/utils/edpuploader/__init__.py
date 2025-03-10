@@ -69,11 +69,7 @@ class EdpUploader:
 
         edp_model = edp_model_from_file(edp_file)
 
-        hits = _find_resource_id(
-            edp_model.assetId,
-            edp_model.dataSpace.name,
-            edp_model.version,
-        )
+        hits = _find_resource_id(edp_model.assetId, edp_model.dataSpace.name)
         self._elastic.upload(edp_model, edp_id)
         if hits.data is not None and len(hits.data) != 0:
             self._s3.delete(edp_id)

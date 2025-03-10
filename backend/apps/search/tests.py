@@ -138,8 +138,18 @@ def test_count_elasticsearch_failure(mock_request, client, count_url):
 @patch("requests.request")
 def test_find_resource_id(mock_request, client: APIClient, find_resource_id_url: str):
     mock_request.return_value.status_code = 200
-    mock_request.return_value.text = "OK"
+    mock_request.return_value.json.return_value = {"hits": {"total": 1, "hits": [{"_id": "dummy-resource-id"}]}}
 
-    response = client.post(find_resource_id_url, data={"assetId": "uuid", "dataSpaceName": "dPName"}, format="json")
+    response = client.post(find_resource_id_url, data={"assetId": "asset-id", "dataSpaceName": "dPName"}, format="json")
     assert response.status_code == status.HTTP_200_OK
-    assert response.data == []
+    assert response.data == ["dummy-resource-id"]
+    mock_request.assert_called_once()
+    assert mock_request.call_args[0][0] == "POST"
+    assert mock_request.call_args[0][1] == f"{settings.ELASTICSEARCH_URL}/_search"
+    assert mock_request.call_args[1] == {
+        "json": {
+            "query": {"bool": {"must": [{"match": {"assetId": "asset-id"}}, {"match": {"dataSpace.name": "dPName"}}]}}
+        },
+        "headers": {"Content-Type": "application/json", "Authorization": f"ApiKey {settings.ELASTICSEARCH_API_KEY}"},
+        "timeout": 10,
+    }

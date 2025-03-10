@@ -88,17 +88,14 @@ def find_resource_id(request):
 
     asset_id = serializer.validated_data.get("assetId")
     data_space_name = serializer.validated_data.get("dataSpaceName")
-    asset_version = serializer.validated_data.get("assetVersion")
-    return _find_resource_id(asset_id, data_space_name, asset_version)
+    return _find_resource_id(asset_id, data_space_name)
 
 
-def _find_resource_id(asset_id: str, data_space_name: str, asset_version: str | None):
+def _find_resource_id(asset_id: str, data_space_name: str):
     must = [
         {"match": {"assetId": asset_id}},
         {"match": {"dataSpace.name": data_space_name}},
     ]
-    if asset_version is not None:
-        must.append({"match": {"version": asset_version}})
 
     resp = elasticsearch_request(
         "POST",
@@ -108,6 +105,8 @@ def _find_resource_id(asset_id: str, data_space_name: str, asset_version: str | 
     if resp.status_code != status.HTTP_200_OK:
         return resp
 
-    return Response(
-        [hit["_id"] for hit in resp.data["hits"]["hits"]] if resp.data is not None else [], status.HTTP_200_OK
-    )
+    if resp.data is not None and "hits" in resp.data and "hits" in resp.data["hits"]:
+        data = [hit["_id"] for hit in resp.data["hits"]["hits"]]
+        return Response(data, status=status.HTTP_200_OK)
+
+    return Response([], status=status.HTTP_200_OK)
