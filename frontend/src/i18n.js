@@ -215,7 +215,7 @@ i18n
             assetUploaded: "Veröffentlicht",
             tabs: {
               attributeList: "Attribut- liste",
-              attributeIntegrity: "Attribut- Konsistenz",
+              attributeIntegrity: "Vollständigkeit",
               temporalConsistency: "Zeitliche Konsistenz",
               numericValueDistribution: "Numerische Wertever- Teilung",
               stringValueDistribution: "String-Wertever- Teilung",
