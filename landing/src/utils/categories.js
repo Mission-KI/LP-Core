@@ -165,7 +165,7 @@ export const useCategories = () => {
                     "name": "PANGAEA",
                     "amount_of_publishers": 1,
                     "amount_of_assets": 27232,
-                    "datasource_filters": [],
+                    "dataspace_filters": [],
                     "publisher_filters": ["PANGAEA"]
                 },
                 {
@@ -174,7 +174,7 @@ export const useCategories = () => {
                     "name": "Geoportal.de",
                     "amount_of_publishers": 1,
                     "amount_of_assets": 27232,
-                    "datasource_filters": ["Geoportal.de"],
+                    "dataspace_filters": ["Geoportal.de"],
                     "publisher_filters": ["PANGAEA"]
                 }
             ]
