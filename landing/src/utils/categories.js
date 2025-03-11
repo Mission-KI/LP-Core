@@ -11,11 +11,12 @@ import RealestateImg from '../assets/img/categories/tile-10_finance_and_realesta
 import { useTranslation } from 'react-i18next';
 import autobahn from '../assets/img/dataspace_logos/logo_autobahn-gmbh.png';
 import bast from '../assets/img/dataspace_logos/logo_bast.png?v=2';
-import flugsicherung from '../assets/img/dataspace_logos/logo_deutsche_flugsicherung.png';
+import pangaea from '../assets/img/dataspace_logos/pangaea.png';
 import govdata from '../assets/img/dataspace_logos/logo_govdata.png';
 import mobilithek from '../assets/img/dataspace_logos/logo_mobilithek.png';
 import mobility from '../assets/img/dataspace_logos/logo_mobility-data-space.png';
 import collect from '../assets/img/dataspace_logos/logo_toll-collect.png';
+import geoportal from '../assets/img/dataspace_logos/geoportal.png';
 
 export const useCategories = () => {
     const { t } = useTranslation();
@@ -34,7 +35,7 @@ export const useCategories = () => {
                     "name": "GovData",
                     "image": govdata,
                     "amount_of_publishers": 1,
-                    "amount_of_assets": 13162,
+                    "amount_of_assets": 12849,
                     "dataspace_filters": ["GovData"],
                     "publisher_filters": ["BASt"]
                 },
@@ -61,7 +62,7 @@ export const useCategories = () => {
                     "name": "BASt",
                     "image": bast,
                     "amount_of_publishers": 1,
-                    "amount_of_assets": 13171,
+                    "amount_of_assets": 12858,
                     "dataspace_filters": [],
                     "publisher_filters": ["BASt"]
                 },
@@ -128,14 +129,14 @@ export const useCategories = () => {
             "slug": "administration-and-public-sector",
             "image": GovernmentImg,
             "amount_of_publishers": 9,
-            "amount_of_assets": 51327,
+            "amount_of_assets": 51014,
             "tiles": [
                 {
                     "id": 1,
                     "name": "GovData",
                     "image": govdata,
                     "amount_of_publishers": 9,
-                    "amount_of_assets": 51327,
+                    "amount_of_assets": 51014,
                     "dataspace_filters": ["GovData"],
                     "publisher_filters": ["BASt", "Open-Data Schleswig-Holstein", "Transparenzportal Hamburg", "Offene Daten KDVZ Rhein-Erft-Rur", "Bayrisches Landesamt für Statistik", "Landesdatenbank NRW", "Freistaat Bayern", "Statistisches Bundesamt", "Statistik Nord"]
                 },
@@ -144,7 +145,7 @@ export const useCategories = () => {
                     "name": "BASt",
                     "image": bast,
                     "amount_of_publishers": 1,
-                    "amount_of_assets": 13171,
+                    "amount_of_assets": 12858,
                     "dataspace_filters": [],
                     "publisher_filters": ["BASt"]
                 }
@@ -154,10 +155,29 @@ export const useCategories = () => {
             "id": 6,
             "name": t('categories.geodata'),
             "slug": "geodata-and-weather",
-            "amount_of_publishers": 0,
+            "amount_of_publishers": 1,
             "image": GeomapsImg,
-            "amount_of_assets": 0,
-            "tiles": []
+            "amount_of_assets": 27232,
+            "tiles": [
+                {
+                    "id": 1,
+                    "image": pangaea,
+                    "name": "PANGAEA",
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 27232,
+                    "datasource_filters": [],
+                    "publisher_filters": ["PANGAEA"]
+                },
+                {
+                    "id": 2,
+                    "image": geoportal,
+                    "name": "Geoportal.de",
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 27232,
+                    "datasource_filters": ["Geoportal.de"],
+                    "publisher_filters": ["PANGAEA"]
+                }
+            ]
         },
         {
             "id": 7,
