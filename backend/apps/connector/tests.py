@@ -205,10 +205,10 @@ def test_upload_edp_file_zip_success(client: APIClient, mini_edp: ExtendedDatase
     conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
     resp = RequestResponse()
     resp.status_code = 200
-    monkeypatch.setattr(resp, "json", lambda: {"hits": {"hits": [{"_id": "dummy"}]}})
+    id = ResourceStatus.objects.create().id
+    monkeypatch.setattr(resp, "json", lambda: {"hits": {"total": 1, "hits": [{"_id": str(id)}]}})
     monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
 
-    id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
     response = client.put(
         url,
@@ -227,6 +227,38 @@ def test_upload_edp_file_zip_success(client: APIClient, mini_edp: ExtendedDatase
         response.data,
         {"message": "EDP uploaded successfully", "edp": mini_edp.model_dump(mode="json"), "id": str(id)},
     )
+
+
+@mock_aws
+@pytest.mark.django_db()
+def test_upload_edp_file_already_exists_with_different_resource_id(
+    client: APIClient, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch
+):
+    mock_index = mkmock(monkeypatch, Elasticsearch, "index")
+    conn = boto3.resource("s3")
+    conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
+    resp = RequestResponse()
+    resp.status_code = 200
+    monkeypatch.setattr(resp, "json", lambda: {"hits": {"total": 1, "hits": [{"_id": "<the-other-id>"}]}})
+    monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
+
+    id = ResourceStatus.objects.create().id
+    url = edp_detail_url(id)
+    response = client.put(
+        url,
+        {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
+        format="multipart",
+    )
+    msg = f"Asset ID {mini_edp.assetId} already exists in the data space {mini_edp.dataSpace.name}: <the-other-id>"
+    check_event_log(
+        url=url,
+        status="fail",
+        message=f"EDP upload failed: [ErrorDetail(string='{msg}', code='invalid')]",
+    )
+    assert mock_index.call_count == 0
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
+    assert response.json() == [msg]
 
 
 @mock_aws
