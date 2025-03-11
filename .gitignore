@@ -25,9 +25,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 /test-results/
-/daseen/playwright-report/
+/frontend/playwright-report/
 /blob-report/
-/daseen/playwright/.cache/
+/frontend/playwright/.cache/
 *__pycache__/
 *.pyc
 backend/staticfiles/
@@ -36,3 +36,4 @@ backend/staticfiles/
 .coverage
 .ruff_cache/
 .pytest_cache/
+frontend/playwright-report/index.html

@@ -1,8 +1,8 @@
 [project]
 name = "daseen"
-version = "0.1.0"
 description = "Daseen"
 readme = "README.md"
+dynamic = ["version"]
 authors = [
     { name = "Kai Buschulte", email = "kb@beebucket.de" }
 ]
@@ -14,9 +14,9 @@ dependencies = [
     "django-rest-framework>=0.1.0",
     "djangorestframework-simplejwt>=5.3.1",
     "drf-nested-routers>=0.94.1",
-    "drf-yasg>=1.21.8",
+    "drf-spectacular>=0.28.0",
     "elasticsearch>=8.17.1",
-    "extended-dataset-profile",
+    "extended-dataset-profile", # version specified in tool.uv.sources
     "gunicorn>=23.0.0",
     "psycopg>=3.2.4",
     "pymemcache>=4.0.0",
@@ -26,20 +26,26 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "boto3-stubs[s3]>=1.37.0",
+    "moto[s3]>=5.1.0",
     "pytest-cov>=6.0.0",
     "pytest-django>=4.9.0",
     "ruff>=0.9.3",
 ]
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
 
 [tool.hatch.metadata]
 allow-direct-references = true
 
 [tool.ruff]
 line-length = 120
+extend-exclude = ["backend/**/migrations"]
 
 [tool.ruff.lint]
 extend-select = [
@@ -53,7 +59,7 @@ extend-select = [
 [tool.pytest.ini_options]
 log_cli = true
 log_cli_level = "INFO"
-DJANGO_SETTINGS_MODULE = "daseen.settings"
+DJANGO_SETTINGS_MODULE = "daseen.test_settings"
 testpaths = ["backend/**/"]
 python_files = ["tests.py", "test_*.py", "*_test.py"]
 
@@ -64,4 +70,4 @@ omit = [
 ]
 
 [tool.uv.sources]
-extended-dataset-profile = { git = "https://github.com/Beebucket/extended_dataset_profile", rev = "v0.2.0" }
+extended-dataset-profile = { git = "https://github.com/Beebucket/extended_dataset_profile", tag = "0.4.0" }

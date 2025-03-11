@@ -5,42 +5,35 @@ from typing import Any, Dict, List
 from unittest.mock import Mock
 from zipfile import ZipFile
 
+import boto3
+import pytest
 import requests
-from common.edpuploader.s3_edp_storage import S3EDPStorage
+from apps.connector.models import ResourceStatus
+from apps.monitoring.models import EventLog
+from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.test import override_settings
 from django.urls import reverse
 from elasticsearch import Elasticsearch
-from extended_dataset_profile import SchemaVersion
+from extended_dataset_profile import CURRENT_SCHEMA, SchemaVersion
 from extended_dataset_profile.models.v0.edp import (
     DataSpace,
     ExtendedDatasetProfile,
     License,
     Publisher,
 )
+from moto import mock_aws
 from pytest import MonkeyPatch, fixture
 from requests import Response as RequestResponse
 from rest_framework import status
+from rest_framework.exceptions import ErrorDetail
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 
 # from apps.monitoring.utils import create_log
 
 
-@fixture()
-def settings():
-    with override_settings(
-        ELASTICSEARCH_URL="https://fake-server.beebucket.de/edp-data",
-        ELASTICSEARCH_API_KEY="dummy",
-        S3_ACCESS_KEY_ID="dummy-key-id",
-        S3_SECRET_ACCESS_KEY="dummy-key",
-        S3_BUCKET_NAME="dummy-bucket",
-    ) as s:
-        yield s
-
-
 @fixture
-def client(settings):
+def client():
     return APIClient()
 
 
@@ -48,7 +41,7 @@ def edp_base_url():
     return reverse("edp-base")
 
 
-def edp_detail_url(id: str):
+def edp_detail_url(id: uuid.UUID):
     return reverse("edp-detail", kwargs={"id": id})
 
 
@@ -91,181 +84,213 @@ def mini_edp():
     )
 
 
-@fixture
-def event_log_mock(monkeypatch: MonkeyPatch):
-    mock = Mock()
-    monkeypatch.setattr("apps.monitoring.models.EventLog.objects.create", mock)
-    return mock
+def check_event_log(url, status, message, expect_id=True):
+    assert EventLog.objects.count() == 1
+    event_log = EventLog.objects.all()[0]
+    assert event_log.requested_url == url and event_log.message == message and event_log.status == status
+    if expect_id:
+        assert event_log.metadata is not None and "id" in event_log.metadata
 
 
-def create_resource_id(client: APIClient, event_log_mock: Mock):
-    response = client.post(edp_base_url())
-    assert isinstance(response, Response)
-    assert response.data is not None
-    assert "id" in response.data
-    event_log_mock.assert_called_once()
-    event_log_mock.reset_mock()
-    return response.data["id"]
-
-
-def test_upload_edp_rejects_json(client: APIClient, event_log_mock: Mock):
-    id = create_resource_id(client, event_log_mock)
+@pytest.mark.django_db()
+def test_upload_edp_rejects_json(client: APIClient):
+    id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
     response = client.put(url, {}, format="json")
-    event_log_mock.assert_called_once_with(
-        requested_url=url,
-        status="fail",
-        message='EDP upload failed: Unsupported media type "application/json" in request.',
-        metadata=None,
+    check_event_log(
+        url, status="fail", message='EDP upload failed: Unsupported media type "application/json" in request.'
     )
-    assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_415_UNSUPPORTED_MEDIA_TYPE
-    assert response.data == {"detail": 'Unsupported media type "application/json" in request.'}
+    assert (
+        isinstance(response, Response)
+        and response.status_code == status.HTTP_415_UNSUPPORTED_MEDIA_TYPE
+        and response.data == {"detail": 'Unsupported media type "application/json" in request.'}
+    )
 
 
-def test_upload_edp_no_file(client: APIClient, event_log_mock: Mock):
-    id = create_resource_id(client, event_log_mock)
+@pytest.mark.django_db()
+def test_upload_edp_no_file(client: APIClient):
+    id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
     response = client.put(url, {}, format="multipart")
-    event_log_mock.assert_called_once_with(
-        requested_url=url,
+    check_event_log(
+        url=url,
         status="fail",
-        message="EDP upload failed: [ErrorDetail(string='No file uploaded.', code='invalid')]",
-        metadata=None,
+        message="EDP upload failed: {'file': [ErrorDetail(string='No file was submitted.', code='required')]}",
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert response.json() == ["No file uploaded."]
+    assert response.json() == {"file": ["No file was submitted."]}
 
 
-def test_upload_edp_file_not_a_file(client: APIClient, event_log_mock: Mock):
-    id = create_resource_id(client, event_log_mock)
+@pytest.mark.django_db()
+def test_upload_edp_file_not_a_file(client: APIClient):
+    id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
     response = client.put(url, {"file": "not-a-file"}, format="multipart")
-    event_log_mock.assert_called_once_with(
-        requested_url=url,
+    check_event_log(
+        url=url,
         status="fail",
-        message="EDP upload failed: [ErrorDetail(string='No file uploaded.', code='invalid')]",
-        metadata=None,
+        message="EDP upload failed: {'file': [ErrorDetail(string='The submitted data was not a file. Check the encoding type on the form.', code='invalid')]}",
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert response.data == ["No file uploaded."]
+    assert response.data == {
+        "file": [
+            ErrorDetail(
+                string="The submitted data was not a file. Check the encoding type on the form.", code="invalid"
+            )
+        ]
+    }
 
 
-def test_upload_edp_file_not_a_zip(client: APIClient, not_a_zip, event_log_mock: Mock):
-    id = create_resource_id(client, event_log_mock)
+@pytest.mark.django_db()
+def test_upload_edp_file_not_a_zip(client: APIClient, not_a_zip):
+    id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
     response = client.put(url, {"file": not_a_zip}, format="multipart")
-    event_log_mock.assert_called_once_with(
-        requested_url=url,
+    check_event_log(
+        url=url,
         status="fail",
-        message="EDP upload failed: [ErrorDetail(string='Only ZIP files are accepted.', code='invalid')]",
-        metadata=None,
+        message="EDP upload failed: {'file': [ErrorDetail(string='File extension “” is not allowed. Allowed extensions are: zip.', code='invalid_extension')]}",
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert response.json() == ["Only ZIP files are accepted."]
+    assert response.json() == {"file": ["File extension “” is not allowed. Allowed extensions are: zip."]}
 
 
-def test_create_edp_file_zip_missing_json(client: APIClient, event_log_mock: Mock):
-    id = create_resource_id(client, event_log_mock)
+@pytest.mark.django_db()
+def test_create_edp_file_zip_missing_json(client: APIClient):
+    id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
     response = client.put(
         url,
         {"file": create_zip({"not-a-json.txt": "{}"})},
         format="multipart",
     )
-    event_log_mock.assert_called_once_with(
-        requested_url=url,
+    check_event_log(
+        url=url,
         status="fail",
         message="EDP upload failed: [ErrorDetail(string='Expected exactly one EDP file, but found: []', code='invalid')]",
-        metadata=None,
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert response.json() == ["Expected exactly one EDP file, but found: []"]
 
 
-def test_create_edp_file_zip_validation_error(client: APIClient, event_log_mock: Mock):
-    id = create_resource_id(client, event_log_mock)
+@pytest.mark.django_db()
+def test_create_edp_file_zip_validation_error(client: APIClient):
+    id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
     response = client.put(
         url,
         {"file": create_zip({"dummy_edp.json": '{"volume": "world"}', "image.png": ""})},
         format="multipart",
     )
-    event_log_mock.assert_called_once()
+    assert EventLog.objects.count() == 1
+    event_log = EventLog.objects.all()[0]
+    assert event_log.requested_url == url
+    assert event_log.status == "fail"
+    assert "validation errors for ExtendedDatasetProfile" in event_log.message
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert len(response.json()) == 1
     assert response.json()[0].startswith("10 validation errors for ExtendedDatasetProfile")
 
 
-def test_upload_edp_file_zip_success(
-    client: APIClient,
-    mini_edp: ExtendedDatasetProfile,
-    monkeypatch: MonkeyPatch,
-    event_log_mock: Mock,
-):
+@mock_aws
+@pytest.mark.django_db()
+def test_upload_edp_file_zip_success(client: APIClient, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch):
     mock_index = mkmock(monkeypatch, Elasticsearch, "index")
-    s3_upload_mock = mkmock(monkeypatch, S3EDPStorage, "upload")
-    s3_delete_mock = mkmock(monkeypatch, S3EDPStorage, "delete")
+    conn = boto3.resource("s3")
+    conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
     resp = RequestResponse()
     resp.status_code = 200
-    monkeypatch.setattr(resp, "json", lambda: {"hits": {"hits": [{"_id": "dummy"}]}})
+    id = ResourceStatus.objects.create().id
+    monkeypatch.setattr(resp, "json", lambda: {"hits": {"total": 1, "hits": [{"_id": str(id)}]}})
     monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
 
-    id = create_resource_id(client, event_log_mock)
     url = edp_detail_url(id)
     response = client.put(
         url,
         {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
         format="multipart",
     )
-    event_log_mock.assert_called_once_with(
-        requested_url=url,
+    check_event_log(
+        url=url,
         status="success",
         message=f"EDP {id} upload done",
-        metadata=None,
     )
     mock_index.assert_called_once()
-    s3_upload_mock.assert_called_once()
-    s3_delete_mock.assert_called_once()
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert Matcher.matches(
         response.data,
-        {"message": f"EDP {id} uploaded successfully", "edp": mini_edp.model_dump(mode="json"), "id": id},
+        {"message": "EDP uploaded successfully", "edp": mini_edp.model_dump(mode="json"), "id": str(id)},
     )
 
 
-def test_delete_edp_file_zip_success(
-    client: APIClient,
-    event_log_mock: Mock,
-    monkeypatch: MonkeyPatch,
+@mock_aws
+@pytest.mark.django_db()
+def test_upload_edp_file_already_exists_with_different_resource_id(
+    client: APIClient, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch
 ):
-    elastic_delete = mkmock(monkeypatch, Elasticsearch, "delete")
-    s3_delete = mkmock(monkeypatch, S3EDPStorage, "delete")
+    mock_index = mkmock(monkeypatch, Elasticsearch, "index")
+    conn = boto3.resource("s3")
+    conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
+    resp = RequestResponse()
+    resp.status_code = 200
+    monkeypatch.setattr(resp, "json", lambda: {"hits": {"total": 1, "hits": [{"_id": "<the-other-id>"}]}})
+    monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
 
-    id = create_resource_id(client, event_log_mock)
+    id = ResourceStatus.objects.create().id
+    url = edp_detail_url(id)
+    response = client.put(
+        url,
+        {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
+        format="multipart",
+    )
+    msg = f"Asset ID {mini_edp.assetId} already exists in the data space {mini_edp.dataSpace.name}: <the-other-id>"
+    check_event_log(
+        url=url,
+        status="fail",
+        message=f"EDP upload failed: [ErrorDetail(string='{msg}', code='invalid')]",
+    )
+    assert mock_index.call_count == 0
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
+    assert response.json() == [msg]
+
+
+@mock_aws
+@pytest.mark.django_db()
+def test_delete_edp_file_zip_success(client: APIClient, monkeypatch: MonkeyPatch):
+    elastic_delete = mkmock(monkeypatch, Elasticsearch, "delete")
+    conn = boto3.resource("s3")
+    conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
+
+    id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
     response = client.delete(
         url,
         {},
         format="multipart",
     )
-    event_log_mock.assert_called_once_with(
-        requested_url=url,
+    check_event_log(
+        url=url,
         status="success",
-        message=f"EDP {id} delete done",
-        metadata=None,
+        message="EDP delete done",
     )
-    elastic_delete.assert_called_once_with(index="edp-data", id=id)
-    s3_delete.assert_called_once_with(id)
+    elastic_delete.assert_called_once_with(index="edp-data", id=str(id))
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
-    assert response.data == {"message": f"EDP {id} deleted successfully"}
+    assert response.data == {"message": "EDP deleted successfully", "id": str(id)}
+
+
+def test_get_schema(client: APIClient):
+    response = client.get(reverse("edp-schema"))
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_200_OK, response.json()
+    assert response.data == CURRENT_SCHEMA.model_json_schema()
 
 
 def mkmock(monkeypatch, t, mod, **kwargs):

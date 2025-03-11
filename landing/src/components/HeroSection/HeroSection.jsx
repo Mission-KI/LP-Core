@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowUpCircle, Database, FileEarmarkZip, FileEarmarkZipFill, Grid, Person, PersonCheck } from 'react-bootstrap-icons';
-import ExampleGraph1 from '../../assets/img/graphs/exampleGraph1.webp'
+import { Database, FileEarmarkZip, Grid, PersonCheck } from 'react-bootstrap-icons';
 import styles from './HeroSection.module.css'
 import AnimatedNumber from '../AnimatedNumber';
 import { useTranslation } from 'react-i18next';
-import { getTotalDatasetCount } from '../../api/elastic';
+import { getTotalDatasetCount, getAttributeCounts } from '../../api/elastic';
 import { appUrl } from '../../api/config';
 
 const HeroSection = () => {
 
     const { t } = useTranslation();
     const [totalDatasetCount, setTotalDatasetCount] = useState(0);
+    const [attributeCounts, setAttributeCounts] = useState(0);
     const { i18n } = useTranslation();
 
     useEffect(() => {
-        const getDatasetCount = async () => {
+        const fetchAttibuteCounts = async () => {
+    
             const totalCount = await getTotalDatasetCount();
+            const fetchedAttributeCounts = await getAttributeCounts();
+    
             setTotalDatasetCount(totalCount);
+            setAttributeCounts(fetchedAttributeCounts);
         }
-        getDatasetCount();
+        fetchAttibuteCounts();
     }, []);
 
 
@@ -57,11 +61,7 @@ const HeroSection = () => {
                                                 <span className='txt-lighter medium d-flex align-items-center'><FileEarmarkZip className='me-2' /> {t('home.dataAssets')}</span>
                                                 <div className='d-flex align-items-center'>
                                                     <h2 className='bold mb-0'><AnimatedNumber value={totalDatasetCount} duration={1000} /></h2>
-                                                    <span className='text-success fw-500 ps-2'><ArrowUpCircle /> 13%</span>
                                                 </div>
-                                            </div>
-                                            <div className="">
-                                                <img src={ExampleGraph1} style={{ height: 58 }} alt="" />
                                             </div>
                                         </div>
 
@@ -75,12 +75,8 @@ const HeroSection = () => {
                                             <div className="">
                                                 <span className='txt-lighter medium d-flex align-items-center'><Database className='me-2' /> {t('home.dataSpaces')}</span>
                                                 <div className='d-flex align-items-center'>
-                                                    <h2 className='bold mb-0'><AnimatedNumber value={4} duration={1000} /></h2>
-                                                    <span className='text-success fw-500 ps-2'><ArrowUpCircle /> 15%</span>
+                                                    <h2 className='bold mb-0'><AnimatedNumber value={attributeCounts?.dataSpaceCount} duration={1000} /></h2>
                                                 </div>
-                                            </div>
-                                            <div className="">
-                                                <img src={ExampleGraph1} style={{ height: 58 }} alt="" />
                                             </div>
                                         </div>
                                     </div>
@@ -90,7 +86,7 @@ const HeroSection = () => {
                                 <div className={`card border ${styles.statsCard}`}>
                                     <div className="card-body py-3">
                                         <span className='txt-lighter medium d-flex align-items-center'><PersonCheck className='me-2' /> {t('home.dataPublishers')}</span>
-                                        <h2 className='bold mb-0'><AnimatedNumber value={11} duration={1000} /></h2>
+                                        <h2 className='bold mb-0'><AnimatedNumber value={attributeCounts?.publisherCount} duration={1000} /></h2>
                                     </div>
                                 </div>
                             </div>

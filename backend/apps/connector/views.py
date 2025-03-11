@@ -1,23 +1,25 @@
-import typing
 from logging import getLogger
-from uuid import uuid4
 
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils import create_log
-from common.edpuploader import EdpUploader, UploadConfig
 from django.conf import settings
-from django.core.files.uploadedfile import InMemoryUploadedFile
-from django.utils.datastructures import MultiValueDict
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
+from django.shortcuts import get_object_or_404
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import OpenApiParameter, extend_schema
+from extended_dataset_profile import CURRENT_SCHEMA
 from pydantic import HttpUrl
 from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
-from rest_framework.parsers import MultiPartParser
+from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+
+from .models import ResourceStatus
+from .serializers import BinaryUploadSerializer
+from .utils.edpuploader import EdpUploader, UploadConfig
 
 logger = getLogger(__name__)
 
@@ -43,74 +45,111 @@ def _create_uploader():
 
 
 class EDPViewSet(ViewSet):
-    parser_classes = [MultiPartParser]
+    parser_classes = [MultiPartParser, FormParser]
 
-    @swagger_auto_schema(operation_summary="create EDP resource")
+    @extend_schema(summary="create EDP resource")
     def create(self, request: Request):
         try:
-            edp_id = str(uuid4())
-            create_log(request.get_full_path(), f"EDP resource {edp_id} created", EventLog.STATUS_SUCCESS)
-            return Response({"id": edp_id}, status=status.HTTP_200_OK)
+            resource = ResourceStatus.objects.create()
+            create_log(
+                request.get_full_path(),
+                "EDP resource created",
+                EventLog.STATUS_SUCCESS,
+                metadata={"id": str(resource.id)},
+            )
+            return Response({"id": resource.id}, status=status.HTTP_201_CREATED)
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
             create_log(request.get_full_path(), f"EDP resource create failed: {message}", EventLog.STATUS_FAIL)
             raise APIException(message)
 
-    @swagger_auto_schema(
-        operation_summary="upload a EDP ZIP file",
-        manual_parameters=[
-            openapi.Parameter(
-                name="file",
-                in_=openapi.IN_FORM,
-                description="ZIP file containing an EDP with it's json file + images.",
-                type=openapi.TYPE_FILE,
-                required=True,
+    @extend_schema(
+        summary="upload a EDP ZIP file",
+        request=BinaryUploadSerializer,
+        parameters=[
+            OpenApiParameter(
+                "id",
+                location=OpenApiParameter.PATH,
+                type=OpenApiTypes.UUID,
+                description="Resource ID",
             )
         ],
+        responses={200: OpenApiTypes.OBJECT},
     )
     def upload(self, request: Request, id: str):
+        resource = get_object_or_404(ResourceStatus, pk=id)
         try:
             zip_file = self._file_from_request(request)
             uploader = _create_uploader()
             edp = uploader.upload_edp_zip(zip_file, edp_id=id)
-            create_log(request.get_full_path(), f"EDP {id} upload done", EventLog.STATUS_SUCCESS)
+            resource.status = "uploaded"
+            resource.save()
+            create_log(request.get_full_path(), f"EDP {id} upload done", EventLog.STATUS_SUCCESS, metadata={"id": id})
             return Response(
                 {
-                    "message": f"EDP {id} uploaded successfully",
+                    "message": "EDP uploaded successfully",
                     "edp": edp.model_dump(mode="json"),
                     "id": id,
                 },
                 status=status.HTTP_200_OK,
             )
         except (DRFValidationError, UnsupportedMediaType, APIException) as e:
-            create_log(request.get_full_path(), f"EDP upload failed: {e}", EventLog.STATUS_FAIL)
+            create_log(request.get_full_path(), f"EDP upload failed: {e}", EventLog.STATUS_FAIL, metadata={"id": id})
             raise e
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
-            create_log(request.get_full_path(), f"EDP upload failed: {message}", EventLog.STATUS_FAIL)
+            create_log(
+                request.get_full_path(), f"EDP upload failed: {message}", EventLog.STATUS_FAIL, metadata={"id": id}
+            )
             raise APIException(message)
 
-    @swagger_auto_schema(operation_summary="delete an EDP by resource id")
+    @extend_schema(
+        summary="delete an EDP by resource id",
+        parameters=[
+            OpenApiParameter(
+                "id",
+                location=OpenApiParameter.PATH,
+                type=OpenApiTypes.UUID,
+                description="Resource ID",
+            )
+        ],
+    )
     def delete(self, request: Request, id: str):
-        uploader = _create_uploader()
-        uploader.delete_edp(id)
-        create_log(request.get_full_path(), f"EDP {id} delete done", EventLog.STATUS_SUCCESS)
+        resource = get_object_or_404(ResourceStatus, pk=id)
 
-        return Response(
-            {"message": f"EDP {id} deleted successfully"},
-            status=status.HTTP_200_OK,
-        )
+        try:
+            uploader = _create_uploader()
+            uploader.delete_edp(id)
 
-    def _file_from_request(self, request: Request) -> InMemoryUploadedFile:
-        files = typing.cast(MultiValueDict, request.FILES)
-        if "file" not in files:
-            raise DRFValidationError("No file uploaded.")
+            resource.delete()
+            create_log(request.get_full_path(), "EDP delete done", EventLog.STATUS_SUCCESS, metadata={"id": id})
 
-        input_file = files["file"]
+            return Response(
+                {"message": "EDP deleted successfully", "id": id},
+                status=status.HTTP_200_OK,
+            )
+        except (DRFValidationError, UnsupportedMediaType, APIException) as e:
+            create_log(request.get_full_path(), f"EDP delete failed: {e}", EventLog.STATUS_FAIL, metadata={"id": id})
+            raise e
+        except Exception as e:
+            message = f"An unknown error occurred ({type(e)}): {str(e)}"
+            create_log(
+                request.get_full_path(), f"EDP delete failed: {message}", EventLog.STATUS_FAIL, metadata={"id": id}
+            )
+            raise APIException(message)
+
+    def _file_from_request(self, request: Request):
+        serializer = BinaryUploadSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        input_file = serializer.validated_data.get("file")
 
         logger.info(f"Received {input_file.name}")
 
-        if not input_file.name.endswith(".zip"):
-            raise DRFValidationError("Only ZIP files are accepted.")
-
         return input_file
+
+
+@extend_schema(methods=["GET"], summary="get the current JSON schema of an EDP")
+@api_view(["GET"])
+def get_schema(request: Request):
+    schema = CURRENT_SCHEMA.model_json_schema()
+    return Response(schema, status=status.HTTP_200_OK)

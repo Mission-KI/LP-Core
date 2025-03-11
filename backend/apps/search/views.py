@@ -1,10 +1,14 @@
+# filepath: /Users/kai/git/daseen/backend/apps/search/views.py
 import requests
 from django.conf import settings
-from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
+from rest_framework.exceptions import APIException, NotFound, ValidationError
 from rest_framework.response import Response
+
+from .serializers import FindResourceIDSerializer, SearchSerializer
 
 
 def get_auth_headers():
@@ -35,31 +39,26 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@swagger_auto_schema(
-    methods=["post"],
-    request_body=openapi.Schema(
-        type=openapi.TYPE_OBJECT,
-        properties={
-            "query": openapi.Schema(type=openapi.TYPE_OBJECT, description="Full Elasticsearch query object"),
-        },
-        required=["query"],
-    ),
+@extend_schema(
+    methods=["POST"],
+    request=SearchSerializer,
+    responses={200: OpenApiTypes.OBJECT},
 )
 @api_view(["POST"])
 def search(request):
     """Sends a raw query to Elasticsearch"""
-    query = request.data.get("query", {})
-    return elasticsearch_request("POST", "_search", {"query": query})
+    query = request.data
+    return elasticsearch_request("POST", "_search", query)
 
 
-@swagger_auto_schema(
-    method="get",
-    manual_parameters=[
-        openapi.Parameter(
+@extend_schema(
+    methods=["GET"],
+    parameters=[
+        OpenApiParameter(
             "uuid",
-            openapi.IN_PATH,
+            location=OpenApiParameter.PATH,
             description="Unique identifier of the EDP document",
-            type=openapi.TYPE_STRING,
+            type=OpenApiTypes.STR,
             required=True,
         )
     ],
@@ -76,37 +75,34 @@ def count(request):
     return elasticsearch_request("GET", "_count")
 
 
-@swagger_auto_schema(
-    methods=["post"],
-    request_body=openapi.Schema(
-        type=openapi.TYPE_OBJECT,
-        properties={
-            "assetId": openapi.Schema(
-                type=openapi.TYPE_STRING, description="assetId identifying the EDP in the dataSpace"
-            ),
-            "dataSpaceName": openapi.Schema(
-                type=openapi.TYPE_STRING, description="Name of the dataSpace used to publish the EDP"
-            ),
-            "assetVersion": openapi.Schema(type=openapi.TYPE_STRING, description="Asset version"),
-        },
-        required=["assetId", "dataSpaceName"],
-    ),
+@extend_schema(
+    methods=["POST"],
+    request=FindResourceIDSerializer,
+    responses={200: OpenApiTypes.STR, 404: "Not found"},
+    summary="Find the resource ID(s) of an EDP in Elasticsearch",
+    description="This endpoint can be used to find the resource ID(s) of an EDP in Elasticsearch. "
+    "The result is ordered by oldest to newest EDP.",
 )
 @api_view(["POST"])
 def find_resource_id(request):
-    asset_id = request.data.get("assetId", "string")
-    data_space_name = request.data.get("dataSpaceName", None)
-    asset_version = request.data.get("assetVersion", None)
-    return _find_resource_id(asset_id, data_space_name, asset_version)
+    serializer = FindResourceIDSerializer(data=request.data)
+    if not serializer.is_valid():
+        raise ValidationError(serializer.errors)
+
+    asset_id = serializer.validated_data.get("assetId")
+    data_space_name = serializer.validated_data.get("dataSpaceName")
+    data = _find_resource_id(asset_id, data_space_name)
+    if len(data) != 1:
+        raise NotFound("Resource not found")
+
+    return Response(data, status=status.HTTP_200_OK)
 
 
-def _find_resource_id(asset_id: str, data_space_name: str, asset_version: str | None):
+def _find_resource_id(asset_id: str, data_space_name: str):
     must = [
         {"match": {"assetId": asset_id}},
         {"match": {"dataSpace.name": data_space_name}},
     ]
-    if asset_version is not None:
-        must.append({"match": {"version": asset_version}})
 
     resp = elasticsearch_request(
         "POST",
@@ -114,8 +110,14 @@ def _find_resource_id(asset_id: str, data_space_name: str, asset_version: str | 
         {"query": {"bool": {"must": must}}},
     )
     if resp.status_code != status.HTTP_200_OK:
-        return resp
+        raise APIException("Failed to query Elasticsearch")
 
-    return Response(
-        [hit["_id"] for hit in resp.data["hits"]["hits"]] if resp.data is not None else [], status.HTTP_200_OK
-    )
+    if (
+        resp.data is None
+        or "hits" not in resp.data
+        or "hits" not in resp.data["hits"]
+        or "total" not in resp.data["hits"]
+    ):
+        raise APIException("Invalid response from Elasticsearch")
+
+    return [hit["_id"] for hit in resp.data["hits"]["hits"]]
