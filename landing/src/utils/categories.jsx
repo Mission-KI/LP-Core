@@ -11,14 +11,23 @@ import RealestateImg from '../assets/img/categories/tile-10_finance_and_realesta
 import { useTranslation } from 'react-i18next';
 import autobahn from '../assets/img/dataspace_logos/logo_autobahn-gmbh.png';
 import bast from '../assets/img/dataspace_logos/logo_bast.png?v=2';
-import flugsicherung from '../assets/img/dataspace_logos/logo_deutsche_flugsicherung.png';
 import govdata from '../assets/img/dataspace_logos/logo_govdata.png';
 import mobilithek from '../assets/img/dataspace_logos/logo_mobilithek.png';
 import mobility from '../assets/img/dataspace_logos/logo_mobility-data-space.png';
 import collect from '../assets/img/dataspace_logos/logo_toll-collect.png';
+import { useState, useEffect, useMemo } from "react";
+import { getPublisherAssetCounts } from '../api/elastic';
 
 export const useCategories = () => {
     const { t } = useTranslation();
+    const [publisherAssetCounts, setPublisherAssetCounts] = useState([]);
+
+    const getAssetCount = (publisher, dataspace) => {
+        const match = publisherAssetCounts?.find(
+            (item) => item.key_as_string === `${publisher}|${dataspace}`
+        );
+        return match ? match.doc_count : 0;
+    };
 
     const categories = [
         {
@@ -195,7 +204,17 @@ export const useCategories = () => {
             "amount_of_assets": 0,
             "tiles": []
         }
-    ];
+    ]
+
+    useEffect(() => {
+        const fetchPublisherAssetCounts = async () => {
+            const response = await getPublisherAssetCounts();
+            setPublisherAssetCounts(response?.aggregations?.by_ds_and_pub?.buckets || []);
+            setLoading(false);
+        };
+        fetchPublisherAssetCounts();
+
+    }, []);
 
     const getCategoryBySlug = (slug) => {
         return categories.find(category => category.slug === slug);
