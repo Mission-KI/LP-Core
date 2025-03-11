@@ -101,7 +101,7 @@ i18n
             dataProviders: 'Datenquellen',
             dataAsset: 'Datensatz',
             dataAssets: 'Datensätze',
-            dataSpaces: 'Datentreuhänder und Datenportale',
+            dataSpaces: 'Datenräume und Datenportale',
             dataPublishers: 'Datenanbieter',
             dataCategories: "Datenkategorien"
           },
