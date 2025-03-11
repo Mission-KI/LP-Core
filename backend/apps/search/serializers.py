@@ -1,4 +1,3 @@
-# filepath: /Users/kai/git/daseen/backend/apps/search/serializers.py
 from rest_framework import serializers
 
 

@@ -1,11 +1,11 @@
-# filepath: /Users/kai/git/daseen/backend/apps/search/views.py
 import requests
 from django.conf import settings
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException, NotFound, ValidationError
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from .serializers import FindResourceIDSerializer, SearchSerializer
@@ -45,6 +45,7 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
     responses={200: OpenApiTypes.OBJECT},
 )
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def search(request):
     """Sends a raw query to Elasticsearch"""
     query = request.data
@@ -64,12 +65,14 @@ def search(request):
     ],
 )
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def find(request, uuid):
     """Retrieve an EDP from Elasticsearch"""
     return elasticsearch_request("GET", f"_doc/{uuid}")
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def count(request):
     """Gets the total count of assets in Elasticsearch"""
     return elasticsearch_request("GET", "_count")
@@ -84,6 +87,7 @@ def count(request):
     "The result is ordered by oldest to newest EDP.",
 )
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def find_resource_id(request):
     serializer = FindResourceIDSerializer(data=request.data)
     if not serializer.is_valid():

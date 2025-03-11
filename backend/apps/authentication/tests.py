@@ -8,33 +8,32 @@ from rest_framework.test import APIClient
 
 def test_change_password_forbidden():
     response = APIClient().post(reverse("change_password"), data={}, format="json")
-    assert isinstance(response, Response) and response.status_code == status.HTTP_403_FORBIDDEN, response.data
+    assert isinstance(response, Response) and response.status_code == status.HTTP_401_UNAUTHORIZED, response.data
 
 
-@pytest.mark.django_db()
-def test_change_password_bad_request():
+@pytest.fixture
+def auth_client():
     user = User.objects.create_user(username="testuser", password="testpassword")
     client = APIClient()
     client.force_authenticate(user=user)
-    response = client.post(reverse("change_password"), data={}, format="json")
+    return client
+
+
+@pytest.mark.django_db()
+def test_change_password_bad_request(auth_client: APIClient):
+    response = auth_client.post(reverse("change_password"), data={}, format="json")
     assert isinstance(response, Response) and response.status_code == status.HTTP_400_BAD_REQUEST, response.data
 
 
 @pytest.mark.django_db()
-def test_change_password_missing_field():
-    user = User.objects.create_user(username="testuser", password="testpassword")
-    client = APIClient()
-    client.force_authenticate(user=user)
-    response = client.post(reverse("change_password"), data={"current_password": "testpassword"}, format="json")
+def test_change_password_missing_field(auth_client: APIClient):
+    response = auth_client.post(reverse("change_password"), data={"current_password": "testpassword"}, format="json")
     assert isinstance(response, Response) and response.status_code == status.HTTP_400_BAD_REQUEST, response.data
 
 
 @pytest.mark.django_db()
-def test_change_password_wrong_password():
-    user = User.objects.create_user(username="testuser", password="testpassword")
-    client = APIClient()
-    client.force_authenticate(user=user)
-    response = client.post(
+def test_change_password_wrong_password(auth_client: APIClient):
+    response = auth_client.post(
         reverse("change_password"),
         data={
             "current_password": "wrongpassword",
@@ -47,11 +46,8 @@ def test_change_password_wrong_password():
 
 
 @pytest.mark.django_db()
-def test_change_password_confirm_password_mismatch():
-    user = User.objects.create_user(username="testuser", password="testpassword")
-    client = APIClient()
-    client.force_authenticate(user=user)
-    response = client.post(
+def test_change_password_confirm_password_mismatch(auth_client: APIClient):
+    response = auth_client.post(
         reverse("change_password"),
         data={
             "current_password": "testpassword",
@@ -64,11 +60,8 @@ def test_change_password_confirm_password_mismatch():
 
 
 @pytest.mark.django_db()
-def test_change_password():
-    user = User.objects.create_user(username="testuser", password="testpassword")
-    client = APIClient()
-    client.force_authenticate(user=user)
-    response = client.post(
+def test_change_password(auth_client: APIClient):
+    response = auth_client.post(
         reverse("change_password"),
         data={
             "current_password": "testpassword",
