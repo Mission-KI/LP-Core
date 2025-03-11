@@ -5,7 +5,7 @@ from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
 from rest_framework.decorators import api_view
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import APIException, NotFound, ValidationError
 from rest_framework.response import Response
 
 from .serializers import FindResourceIDSerializer, SearchSerializer
@@ -78,7 +78,7 @@ def count(request):
 @extend_schema(
     methods=["POST"],
     request=FindResourceIDSerializer,
-    responses={200: OpenApiTypes.OBJECT},
+    responses={200: OpenApiTypes.STR, 404: "Not found"},
 )
 @api_view(["POST"])
 def find_resource_id(request):
@@ -88,17 +88,18 @@ def find_resource_id(request):
 
     asset_id = serializer.validated_data.get("assetId")
     data_space_name = serializer.validated_data.get("dataSpaceName")
-    asset_version = serializer.validated_data.get("assetVersion")
-    return _find_resource_id(asset_id, data_space_name, asset_version)
+    data = _find_resource_id(asset_id, data_space_name)
+    if len(data) != 1:
+        raise NotFound("Resource not found")
+
+    return Response(data, status=status.HTTP_200_OK)
 
 
-def _find_resource_id(asset_id: str, data_space_name: str, asset_version: str | None):
+def _find_resource_id(asset_id: str, data_space_name: str):
     must = [
         {"match": {"assetId": asset_id}},
         {"match": {"dataSpace.name": data_space_name}},
     ]
-    if asset_version is not None:
-        must.append({"match": {"version": asset_version}})
 
     resp = elasticsearch_request(
         "POST",
@@ -106,8 +107,14 @@ def _find_resource_id(asset_id: str, data_space_name: str, asset_version: str | 
         {"query": {"bool": {"must": must}}},
     )
     if resp.status_code != status.HTTP_200_OK:
-        return resp
+        raise APIException("Failed to query Elasticsearch")
 
-    return Response(
-        [hit["_id"] for hit in resp.data["hits"]["hits"]] if resp.data is not None else [], status.HTTP_200_OK
-    )
+    if (
+        resp.data is None
+        or "hits" not in resp.data
+        or "hits" not in resp.data["hits"]
+        or "total" not in resp.data["hits"]
+    ):
+        raise APIException("Invalid response from Elasticsearch")
+
+    return [hit["_id"] for hit in resp.data["hits"]["hits"]]
