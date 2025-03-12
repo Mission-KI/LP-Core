@@ -21,7 +21,7 @@ services:
       secrets:
         - github_token
     volumes:
-      - "./backend:/backend"
+      - "./backend:/app"
     ports:
       - "8000:8000"
     depends_on:

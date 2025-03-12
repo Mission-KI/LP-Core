@@ -12,6 +12,4 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 RUN --mount=type=secret,id=github_token \
     git config --global --unset url."https://$(cat /run/secrets/github_token):x-oauth-basic@github.com/".insteadOf
 
-COPY . .
-
 CMD ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
