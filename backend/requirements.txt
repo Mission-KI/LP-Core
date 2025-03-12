@@ -16,7 +16,7 @@ drf-nested-routers==0.94.1
 drf-spectacular==0.28.0
 elastic-transport==8.17.0
 elasticsearch==8.17.2
-extended-dataset-profile @ git+https://github.com/Beebucket/extended_dataset_profile@57f55b533ff6701cbbf9907e9ca0f3a1fe28120e
+extended-dataset-profile @ git+https://github.com/Beebucket/extended_dataset_profile@2870ee9d825e0fe54940e4c70c3f3c50170274fa
 gunicorn==23.0.0
 idna==3.10
 inflection==0.5.1

@@ -194,7 +194,7 @@ def test_create_edp_file_zip_validation_error(client: APIClient):
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert len(response.json()) == 1
-    assert response.json()[0].startswith("10 validation errors for ExtendedDatasetProfile")
+    assert response.json()[0].startswith("9 validation errors for ExtendedDatasetProfile")
 
 
 @mock_aws
