@@ -23,8 +23,8 @@ const assetPropertiesHelpText = {
                     <li class="py-2" id="data-type-consistency-section">
                         <span class="bold">Data Type Consistency:</span> This icon shows whether all values in a column of a structured text data asset are of the same type. If not, the EDP Detail View (see EDP Detail View) can be used to see for which attributes inconsistencies have been determined.
                     </li>
-                    <li class="py-2" id="attribute-consistency-section">
-                        <span class="bold">Attribute Consistency:</span> This icon shows whether a value exists for each column and row in a structured text data asset. If not, the EDP Detail View (see EDP Detail View) can be used to see how many values have been determined for each column and row.
+                    <li class="py-2" id="attribute-integrity-section">
+                        <span class="bold">Attribute integrity:</span> This icon shows whether a value exists for each column and row in a structured text data asset. If not, the EDP Detail View (see EDP Detail View) can be used to see how many values have been determined for each column and row.
                     </li>
                     <li class="py-2" id="significant-variance-section">
                         <span class="bold">Significant Variance:</span> This icon indicates whether a significant variance was found in the asset data. If so, the asset is examined for different distributions. The results are documented in graphical and tabular form in the EDP Detail View (see EDP Detail View).
@@ -73,8 +73,8 @@ const assetPropertiesHelpText = {
                     <li class="py-2" id="data-type-consistency-section">
                         Data Type Consistency: Dieses Icon zeigt an, ob in einem strukturierten Textdaten Asset alle Werte in einer Spalte vom gleichen Typ sind. Falls nicht, kann über den EDP Detail View (siehe EDP Detail View) eingesehen werden, für welche Attribute Inkonsistenzen ermittelt wurden. 
                     </li>
-                    <li class="py-2" id="attribute-consistency-section">
-                        Attribute Consistency: Dieses Icon zeigt an, ob in einem strukturierten Textdaten Asset für jede Spalte und Reihe ein Wert existiert. Falls nicht, kann über den EDP Detail View (siehe EDP Detail View) eingesehen werden, wie viele Werte für pro Spalte fehlen. 
+                    <li class="py-2" id="attribute-integrity-section">
+                        Attribute Integrity: Dieses Icon zeigt an, ob in einem strukturierten Textdaten Asset für jede Spalte und Reihe ein Wert existiert. Falls nicht, kann über den EDP Detail View (siehe EDP Detail View) eingesehen werden, wie viele Werte für pro Spalte fehlen. 
                     </li>
                     <li class="py-2" id="significant-variance-section">
                         Significant Variance: Dieses Icon zeigt an, ob eine signifikante Varianz in dem Daten des Asset gefunden werden konnte. Falls ja, wird das Asset auf unterschiedliche Verteilungen untersucht. Die Ergebnisse werden im EDP Detail View (siehe EDP Detail View) in grafischer und tabellarischer Form dokumentiert. 

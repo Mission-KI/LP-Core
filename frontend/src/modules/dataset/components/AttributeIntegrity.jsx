@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import $ from 'jquery';
 import { useTranslation } from 'react-i18next';
 
-function AttributeConsistency({ datasetDetails }) {
+function AttributeIntegrity({ datasetDetails }) {
     useEffect(() => {
         const table = $('#consistencyTable').DataTable({
             paging: false,
@@ -61,4 +61,4 @@ function AttributeConsistency({ datasetDetails }) {
     )
 }
 
-export default AttributeConsistency;
+export default AttributeIntegrity;
