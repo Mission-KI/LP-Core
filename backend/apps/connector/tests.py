@@ -11,7 +11,6 @@ import requests
 from apps.connector.models import ResourceStatus
 from apps.monitoring.models import EventLog
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.urls import reverse
 from elasticsearch import Elasticsearch
@@ -29,6 +28,7 @@ from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
 from rest_framework.response import Response
 from rest_framework.test import APIClient
+from user.models import User
 
 # from apps.monitoring.utils import create_log
 
