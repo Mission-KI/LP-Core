@@ -42,8 +42,8 @@ def client():
 def auth_client():
     client = APIClient()
     user = User.objects.create_user(username="test", password="test")
+    user.is_connector_user = True
     client.force_authenticate(user=user)
-    client.credentials()
     return client
 
 
@@ -292,6 +292,69 @@ def test_get_schema(auth_client: APIClient):
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert response.data == CURRENT_SCHEMA.model_json_schema()
+
+
+@pytest.fixture
+def no_perm_client():
+    client = APIClient()
+    user = User.objects.create_user(username="test", password="test")
+    user.is_connector_user = False
+    client.force_authenticate(user=user)
+    return client
+
+
+@pytest.mark.django_db()
+def test_create_permission_denied(no_perm_client: APIClient):
+    response = no_perm_client.post(reverse("edp-base"))
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_403_FORBIDDEN, response.json()
+    assert response.data == {"message": "Permission denied"}
+    check_event_log(
+        url=response.request["PATH_INFO"],
+        status="fail",
+        message="Resource ID create failed: Permission denied",
+        expect_id=False,
+    )
+
+
+@pytest.mark.django_db()
+def test_upload_permission_denied(no_perm_client: APIClient):
+    response = no_perm_client.put(reverse("edp-detail", kwargs={"id": uuid.uuid4()}), {}, format="multipart")
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_403_FORBIDDEN, response.json()
+    assert response.data == {"message": "Permission denied"}
+    check_event_log(
+        url=response.request["PATH_INFO"],
+        status="fail",
+        message="EDP upload failed: Permission denied",
+    )
+
+
+@pytest.mark.django_db()
+def test_delete_permission_denied(no_perm_client: APIClient):
+    response = no_perm_client.delete(reverse("edp-detail", kwargs={"id": uuid.uuid4()}), {}, format="multipart")
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_403_FORBIDDEN, response.json()
+    assert response.data == {"message": "Permission denied"}
+    check_event_log(
+        url=response.request["PATH_INFO"],
+        status="fail",
+        message="EDP delete failed: Permission denied",
+    )
+
+
+@pytest.mark.django_db()
+def test_status_permission_denied(no_perm_client: APIClient):
+    response = no_perm_client.get(reverse("edp-schema"))
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_403_FORBIDDEN, response.json()
+    assert response.data == {"message": "Permission denied"}
+    check_event_log(
+        url=response.request["PATH_INFO"],
+        status="fail",
+        message="EDP schema failed: Permission denied",
+        expect_id=False,
+    )
 
 
 def mkmock(monkeypatch, t, mod, **kwargs):
