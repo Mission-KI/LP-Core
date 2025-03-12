@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-import { calculateAttributeConsistency } from "../../../dataset/utils/calculations";
+import { calculateAttributeIntegrity } from "../../../dataset/utils/calculations";
 import { Unlock, Gear, ClipboardCheck, Soundwave, Calendar, Broadcast, Activity, Sliders2, Sliders2Vertical, Lock, Robot, QuestionCircle } from "react-bootstrap-icons";
 import { renderTooltip } from '../../../common/utils/tooltip';
 
@@ -49,9 +49,9 @@ const QualityMetrics = ({ dataset }) => {
                     </div>
                 </OverlayTrigger>
             </div>
-            {calculateAttributeConsistency(dataset) === 'consistent' && (
+            {calculateAttributeIntegrity(dataset) === 'consistent' && (
                 <div className="ps-2">
-                    <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Attribute consistency', 'attribute-consistency-section')}>
+                    <OverlayTrigger delay={{ show: 100, hide: 700 }} placement="top" overlay={renderTooltip('Attribute integrity', 'attribute-integrity-section')}>
                         <div>
                             <Sliders2 />
                         </div>
