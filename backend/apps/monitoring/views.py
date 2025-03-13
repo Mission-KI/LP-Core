@@ -1,8 +1,7 @@
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import permissions
-from rest_framework.authentication import BasicAuthentication
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
 from .models import EventLog
@@ -22,7 +21,6 @@ class HasAddEventLogPermission(permissions.BasePermission):
 
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated, HasAddEventLogPermission])
-@authentication_classes([BasicAuthentication])
 def log_edp_download(request):
     create_log(request.get_full_path(), "edp download", EventLog.STATUS_SUCCESS)
     return Response({"message": "success"})
