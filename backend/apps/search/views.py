@@ -104,13 +104,19 @@ def find_resource_id(request):
 
 def _find_resource_id(asset_id: str, data_space_name: str):
     must = [
-        {"nested": {
-            "path": "assetRefs",
-            "query": {
-                "match": {"assetRefs.assetId": asset_id}
+        {
+            "nested": {
+                "path": "assetRefs",
+                "query": {
+                    "bool": {
+                        "must": [
+                            {"match": {"assetRefs.assetId": asset_id}},
+                            {"match": {"assetRefs.dataSpace.name": data_space_name}},
+                        ]
+                    }
+                },
             }
-        }},
-        {"match": {"dataSpace.name": data_space_name}},
+        }
     ]
 
     resp = elasticsearch_request(
