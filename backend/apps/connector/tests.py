@@ -82,7 +82,6 @@ def mini_edp():
     return ExtendedDatasetProfile(
         schema_version=SchemaVersion.V0,
         volume=4307,
-        assetId="did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123",
         dataTypes=set(),
         name="Sample asset",
         url="https://portal.pontus-x.eu/asset/did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123",
