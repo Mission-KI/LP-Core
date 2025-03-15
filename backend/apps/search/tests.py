@@ -156,8 +156,19 @@ def test_find_resource_id_successful(mock_request, client: APIClient, find_resou
             "query": {
                 "bool": {
                     "must": [
-                        {"match": {"assetId": "asset-id"}},
-                        {"match": {"dataSpace.name": "dPName"}},
+                        {
+                            "nested": {
+                                "path": "assetRefs",
+                                "query": {
+                                    "bool": {
+                                        "must": [
+                                            {"match": {"assetRefs.assetId": "asset-id"}},
+                                            {"match": {"assetRefs.dataSpace.name": "dPName"}},
+                                        ]
+                                    }
+                                },
+                            }
+                        }
                     ]
                 }
             }
