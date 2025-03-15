@@ -85,8 +85,6 @@ def mini_edp():
         dataTypes=set(),
         name="Sample asset",
         url="https://portal.pontus-x.eu/asset/did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123",
-        dataSpace=DataSpace(name="Pontus-X", url="https://portal.pontus-x.eu"),
-        publisher=Publisher(name="OPF", url=None),
         publishDate=datetime(year=2026, month=12, day=1),
         license=License(name=None, url="https://market.oceanprotocol.com/terms"),
         freely_available=False,
