@@ -255,10 +255,28 @@ def test_upload_edp_file_already_exists_with_different_resource_id(
     conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
     resp = RequestResponse()
     resp.status_code = 200
+
     monkeypatch.setattr(
         resp,
         "json",
-        lambda: {"hits": {"total": 1, "hits": [{"_id": "<the-other-id>"}]}},
+        lambda: {
+            "hits": {
+                "total": 1,
+                "hits": [
+                    {
+                        "_id": "<the-other-id>",
+                        "_source": {
+                            "assetRefs": [
+                                {
+                                    "assetId": "asset-id",
+                                    "dataSpace": {"name": "dPName"},
+                                }
+                            ]
+                        },
+                    }
+                ],
+            }
+        },
     )
     monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
 
