@@ -13,7 +13,7 @@ export const useAuth = () => {
 // AuthProvider component to wrap your app and provide the auth state
 export const AuthProvider = ({ children }) => {
     const [authenticated, setAuthenticated] = useState(false);
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [token, setToken] = useState('');
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -23,10 +23,10 @@ export const AuthProvider = ({ children }) => {
         const response = await login(user);
         if (response.access) {
             setAuthenticated(true);
-            setEmail(email);
+            setUsername(username);
             setToken(response.access);
             localStorage.setItem('accessToken', response.access);
-            navigate('/');
+            navigate('/monitoring/dashboard');
             return { success: true };
         } else {
             return { success: false, message: response.message || 'Login failed' };
@@ -35,10 +35,10 @@ export const AuthProvider = ({ children }) => {
 
     const handleLogout = () => {
         setAuthenticated(false);
-        setEmail('');
+        setUsername('');
         setToken('');
         localStorage.removeItem('accessToken');
-        navigate('/');
+        navigate('/monitoring/dashboard');
     };
 
     const checkTokenExpiration = (token) => {
@@ -54,14 +54,14 @@ export const AuthProvider = ({ children }) => {
             checkTokenExpiration(storedToken);
             setAuthenticated(true);
             setToken(storedToken);
-            setEmail(jwtDecode(storedToken).email);
+            setUsername(jwtDecode(storedToken).username);
         }
         setLoading(false);
     }, []);
 
     const value = {
         authenticated,
-        email,
+        username,
         token,
         login: handleLogin,
         logout: handleLogout,
