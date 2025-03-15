@@ -70,18 +70,19 @@ def create_zip(file_list: Dict[str, str]):
 
 @fixture
 def mini_edp():
-
     asset_ref = AssetReference(
+        assetId="did:op:ACce37394eD2848dd383c651Dsb7sf823b7dd123",
         assetUrl="https://portal.pontus-x.eu/asset/did:op:ACce37394eD2848dd383c651Dsb7sf823b7dd123",
         dataSpace=DataSpace(name="Pontus-X", url="https://portal.pontus-x.eu"),
         publisher=Publisher(name="OPF", url=None),
         publishDate=datetime(year=2026, month=12, day=1),
-        license=License(name=None, url="https://market.oceanprotocol.com/terms")
+        license=License(name=None, url="https://market.oceanprotocol.com/terms"),
     )
-    
+
     return ExtendedDatasetProfile(
         schema_version=SchemaVersion.V0,
         volume=4307,
+        assetId="did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123",
         dataTypes=set(),
         name="Sample asset",
         url="https://portal.pontus-x.eu/asset/did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123",
@@ -98,7 +99,11 @@ def mini_edp():
 def check_event_log(url, status, message, expect_id=True):
     assert EventLog.objects.count() == 1
     event_log = EventLog.objects.all()[0]
-    assert event_log.requested_url == url and event_log.message == message and event_log.status == status
+    assert (
+        event_log.requested_url == url
+        and event_log.message == message
+        and event_log.status == status
+    )
     if expect_id:
         assert event_log.metadata is not None and "id" in event_log.metadata
 
@@ -109,12 +114,15 @@ def test_upload_edp_rejects_json(client: APIClient):
     url = edp_detail_url(id)
     response = client.put(url, {}, format="json")
     check_event_log(
-        url, status="fail", message='EDP upload failed: Unsupported media type "application/json" in request.'
+        url,
+        status="fail",
+        message='EDP upload failed: Unsupported media type "application/json" in request.',
     )
     assert (
         isinstance(response, Response)
         and response.status_code == status.HTTP_415_UNSUPPORTED_MEDIA_TYPE
-        and response.data == {"detail": 'Unsupported media type "application/json" in request.'}
+        and response.data
+        == {"detail": 'Unsupported media type "application/json" in request.'}
     )
 
 
@@ -148,7 +156,8 @@ def test_upload_edp_file_not_a_file(client: APIClient):
     assert response.data == {
         "file": [
             ErrorDetail(
-                string="The submitted data was not a file. Check the encoding type on the form.", code="invalid"
+                string="The submitted data was not a file. Check the encoding type on the form.",
+                code="invalid",
             )
         ]
     }
@@ -166,7 +175,9 @@ def test_upload_edp_file_not_a_zip(client: APIClient, not_a_zip):
     )
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert response.json() == {"file": ["File extension “” is not allowed. Allowed extensions are: zip."]}
+    assert response.json() == {
+        "file": ["File extension “” is not allowed. Allowed extensions are: zip."]
+    }
 
 
 @pytest.mark.django_db()
@@ -194,7 +205,11 @@ def test_create_edp_file_zip_validation_error(client: APIClient):
     url = edp_detail_url(id)
     response = client.put(
         url,
-        {"file": create_zip({"dummy_edp.json": '{"volume": "world"}', "image.png": ""})},
+        {
+            "file": create_zip(
+                {"dummy_edp.json": '{"volume": "world"}', "image.png": ""}
+            )
+        },
         format="multipart",
     )
     assert EventLog.objects.count() == 1
@@ -210,20 +225,30 @@ def test_create_edp_file_zip_validation_error(client: APIClient):
 
 @mock_aws
 @pytest.mark.django_db()
-def test_upload_edp_file_zip_success(client: APIClient, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch):
+def test_upload_edp_file_zip_success(
+    client: APIClient, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch
+):
     mock_index = mkmock(monkeypatch, Elasticsearch, "index")
     conn = boto3.resource("s3")
     conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
     resp = RequestResponse()
     resp.status_code = 200
     id = ResourceStatus.objects.create().id
-    monkeypatch.setattr(resp, "json", lambda: {"hits": {"total": 1, "hits": [{"_id": str(id)}]}})
-    monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
+    monkeypatch.setattr(
+        resp, "json", lambda: {"hits": {"total": 1, "hits": [{"_id": str(id)}]}}
+    )
+    monkeypatch.setattr(
+        requests, "request", lambda method, es_url, json, headers, timeout: resp
+    )
 
     url = edp_detail_url(id)
     response = client.put(
         url,
-        {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
+        {
+            "file": create_zip(
+                {"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""}
+            )
+        },
         format="multipart",
     )
     check_event_log(
@@ -236,7 +261,11 @@ def test_upload_edp_file_zip_success(client: APIClient, mini_edp: ExtendedDatase
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert Matcher.matches(
         response.data,
-        {"message": "EDP uploaded successfully", "edp": mini_edp.model_dump(mode="json"), "id": str(id)},
+        {
+            "message": "EDP uploaded successfully",
+            "edp": mini_edp.model_dump(mode="json"),
+            "id": str(id),
+        },
     )
 
 
@@ -250,14 +279,24 @@ def test_upload_edp_file_already_exists_with_different_resource_id(
     conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
     resp = RequestResponse()
     resp.status_code = 200
-    monkeypatch.setattr(resp, "json", lambda: {"hits": {"total": 1, "hits": [{"_id": "<the-other-id>"}]}})
-    monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
+    monkeypatch.setattr(
+        resp,
+        "json",
+        lambda: {"hits": {"total": 1, "hits": [{"_id": "<the-other-id>"}]}},
+    )
+    monkeypatch.setattr(
+        requests, "request", lambda method, es_url, json, headers, timeout: resp
+    )
 
     id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
     response = client.put(
         url,
-        {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
+        {
+            "file": create_zip(
+                {"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""}
+            )
+        },
         format="multipart",
     )
     msg = f"Asset ID {mini_edp.assetId} already exists in the data space {mini_edp.dataSpace.name}: <the-other-id>"
@@ -325,7 +364,9 @@ class Matcher:
     def _match_dict(actual: Dict, expected: Dict) -> bool:
         if not isinstance(actual, dict):
             return False
-        return all(k in actual and Matcher.matches(actual[k], v) for k, v in expected.items())
+        return all(
+            k in actual and Matcher.matches(actual[k], v) for k, v in expected.items()
+        )
 
     @staticmethod
     def _match_list(actual: List, expected: List) -> bool:

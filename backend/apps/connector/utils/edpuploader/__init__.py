@@ -24,7 +24,9 @@ def edp_dict_to_model(edp_dict: dict):
         raise DRFValidationError("Unknown EDP schema version")
     schema_version = SchemaVersion(version_str)
     try:
-        edp_model = typing.cast(CURRENT_SCHEMA, schema_versions[schema_version].model_validate(edp_dict))
+        edp_model = typing.cast(
+            CURRENT_SCHEMA, schema_versions[schema_version].model_validate(edp_dict)
+        )
     except PydanticValidationError as e:
         raise DRFValidationError(str(e))
     return edp_model
@@ -83,11 +85,17 @@ class EdpUploader:
         self._s3.upload(resource_files, edp_dir, edp_id)
         return edp_model
 
-    def _split_edp_json_and_additional_files(self, edp_dir: Path) -> tuple[Path, list[Path]]:
+    def _split_edp_json_and_additional_files(
+        self, edp_dir: Path
+    ) -> tuple[Path, list[Path]]:
         dir_contents = edp_dir.rglob("**/*")
         all_paths = [f for f in dir_contents if f.is_file()]
-        json_paths = [f for f in all_paths if f.suffix == ".json" and f.parent == edp_dir]
+        json_paths = [
+            f for f in all_paths if f.suffix == ".json" and f.parent == edp_dir
+        ]
         resource_paths = [f for f in all_paths if f.suffix != ".json"]
         if len(json_paths) != 1:
-            raise DRFValidationError(f"Expected exactly one EDP file, but found: {json_paths}")
+            raise DRFValidationError(
+                f"Expected exactly one EDP file, but found: {json_paths}"
+            )
         return json_paths[0], resource_paths

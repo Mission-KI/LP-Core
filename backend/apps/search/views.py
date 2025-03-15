@@ -25,7 +25,9 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
     es_url = f"{settings.ELASTICSEARCH_URL}/{endpoint}"
 
     try:
-        response = requests.request(method, es_url, json=data, headers=get_auth_headers(), timeout=timeout)
+        response = requests.request(
+            method, es_url, json=data, headers=get_auth_headers(), timeout=timeout
+        )
 
         if response.status_code == 200:
             return Response(response.json(), status=status.HTTP_200_OK)
@@ -33,7 +35,9 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
             return Response({"error": response.text}, status=response.status_code)
 
     except requests.exceptions.Timeout:
-        return Response({"error": "Request timed out"}, status=status.HTTP_504_GATEWAY_TIMEOUT)
+        return Response(
+            {"error": "Request timed out"}, status=status.HTTP_504_GATEWAY_TIMEOUT
+        )
 
     except requests.exceptions.RequestException as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

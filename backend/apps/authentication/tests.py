@@ -8,7 +8,10 @@ from rest_framework.test import APIClient
 
 def test_change_password_forbidden():
     response = APIClient().post(reverse("change_password"), data={}, format="json")
-    assert isinstance(response, Response) and response.status_code == status.HTTP_403_FORBIDDEN, response.data
+    assert (
+        isinstance(response, Response)
+        and response.status_code == status.HTTP_403_FORBIDDEN
+    ), response.data
 
 
 @pytest.mark.django_db()
@@ -17,7 +20,10 @@ def test_change_password_bad_request():
     client = APIClient()
     client.force_authenticate(user=user)
     response = client.post(reverse("change_password"), data={}, format="json")
-    assert isinstance(response, Response) and response.status_code == status.HTTP_400_BAD_REQUEST, response.data
+    assert (
+        isinstance(response, Response)
+        and response.status_code == status.HTTP_400_BAD_REQUEST
+    ), response.data
 
 
 @pytest.mark.django_db()
@@ -25,8 +31,15 @@ def test_change_password_missing_field():
     user = User.objects.create_user(username="testuser", password="testpassword")
     client = APIClient()
     client.force_authenticate(user=user)
-    response = client.post(reverse("change_password"), data={"current_password": "testpassword"}, format="json")
-    assert isinstance(response, Response) and response.status_code == status.HTTP_400_BAD_REQUEST, response.data
+    response = client.post(
+        reverse("change_password"),
+        data={"current_password": "testpassword"},
+        format="json",
+    )
+    assert (
+        isinstance(response, Response)
+        and response.status_code == status.HTTP_400_BAD_REQUEST
+    ), response.data
 
 
 @pytest.mark.django_db()
@@ -43,7 +56,10 @@ def test_change_password_wrong_password():
         },
         format="json",
     )
-    assert isinstance(response, Response) and response.status_code == status.HTTP_400_BAD_REQUEST, response.data
+    assert (
+        isinstance(response, Response)
+        and response.status_code == status.HTTP_400_BAD_REQUEST
+    ), response.data
 
 
 @pytest.mark.django_db()
@@ -60,7 +76,10 @@ def test_change_password_confirm_password_mismatch():
         },
         format="json",
     )
-    assert isinstance(response, Response) and response.status_code == status.HTTP_400_BAD_REQUEST, response.data
+    assert (
+        isinstance(response, Response)
+        and response.status_code == status.HTTP_400_BAD_REQUEST
+    ), response.data
 
 
 @pytest.mark.django_db()
@@ -77,5 +96,7 @@ def test_change_password():
         },
         format="json",
     )
-    assert isinstance(response, Response) and response.status_code == status.HTTP_200_OK, response.data
+    assert (
+        isinstance(response, Response) and response.status_code == status.HTTP_200_OK
+    ), response.data
     assert User.objects.get(username="testuser").check_password("newpassword")
