@@ -1,11 +1,45 @@
+from apps.monitoring.utils.logging import create_log
 from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import EventLog
-from .utils import create_log
+from .utils.analytics import get_elastic_monitoring_analytics
+
+
+class MonitoringAnalyticsView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+
+        dataSpaceName = request.username # To be replaced with a custom field
+
+        try:
+
+            es_counts = get_elastic_monitoring_analytics(dataSpaceName)
+            
+            analytics_data = {
+                "edp_count": es_counts["aggregations"]["total_items"]["value"],
+                "publishers_count": es_counts["aggregations"]["unique_publishers"]["value"],
+                "original_data_count": es_counts["aggregations"]["total_original_data_assets"]["count"]["value"],
+                "processed_data_count": es_counts["aggregations"]["total_processed_data_assets"]["count"]["value"],
+                "refined_data_count": es_counts["aggregations"]["total_refined_data_assets"]["count"]["value"],
+                "aiml_result_data_count": es_counts["aggregations"]["total_aiml_result_data_assets"]["count"]["value"],
+
+            }
+
+            return Response(analytics_data)
+    
+        except Exception as e:
+            return Response(
+                {"error": f"An unexpected error occurred {e}"},
+                status=500,
+            )
+    
+
 
 
 class HasAddEventLogPermission(permissions.BasePermission):

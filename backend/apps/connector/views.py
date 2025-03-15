@@ -1,7 +1,7 @@
 from logging import getLogger
 
 from apps.monitoring.models import EventLog
-from apps.monitoring.utils import create_log
+from apps.monitoring.utils.logging import create_log
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from drf_spectacular.types import OpenApiTypes

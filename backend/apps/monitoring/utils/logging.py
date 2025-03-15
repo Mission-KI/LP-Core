@@ -1,4 +1,4 @@
-from .models import EventLog
+from ..models import EventLog
 
 
 def create_log(requested_url, message, status=None, metadata=None):
