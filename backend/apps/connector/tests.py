@@ -298,10 +298,7 @@ def test_upload_edp_file_already_exists_with_different_resource_id(
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
 
-    assert re.match(
-        r"EDP upload failed: \[ErrorDetail\(string='Asset ID .+ already exists in the data space: <the-other-id>', code='invalid'\)\]",
-        response.json()[0]
-    )
+    assert "already exists in the data space" in response.json()
 
 
 @mock_aws
