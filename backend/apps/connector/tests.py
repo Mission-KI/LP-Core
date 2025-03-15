@@ -1,3 +1,4 @@
+import re
 import uuid
 from datetime import datetime
 from io import BytesIO, StringIO
@@ -296,7 +297,11 @@ def test_upload_edp_file_already_exists_with_different_resource_id(
     assert mock_index.call_count == 0
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert response.json() == [msg]
+
+    assert re.match(
+        r"EDP upload failed: \[ErrorDetail\(string='Asset ID .+ already exists in the data space: <the-other-id>', code='invalid'\)\]",
+        response.json()[0],
+    )
 
 
 @mock_aws
