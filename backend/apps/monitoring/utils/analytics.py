@@ -34,3 +34,19 @@ def get_elastic_monitoring_analytics(dataSpaceName: str):
     )
 
     return response
+
+def get_edp_event_counts(dataSpaceName: str):
+    return {
+        "uploads": {
+            "successfull": 1,
+            "failed": 1
+        },
+        "edits": {
+            "successfull": 1,
+            "failed": 1
+        },
+        "deletions": {
+            "successfull": 1,
+            "failed": 1
+        }
+    }

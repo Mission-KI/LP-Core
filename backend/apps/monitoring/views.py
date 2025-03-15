@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import EventLog
-from .utils.analytics import get_elastic_monitoring_analytics
+from .utils.analytics import get_edp_event_counts, get_elastic_monitoring_analytics
 
 
 class MonitoringAnalyticsView(APIView):
@@ -15,20 +15,21 @@ class MonitoringAnalyticsView(APIView):
 
     def get(self, request):
 
-        dataSpaceName = request.username # To be replaced with a custom field
+        dataSpaceName = request.user.username # To be replaced with a custom field
 
         try:
 
-            es_counts = get_elastic_monitoring_analytics(dataSpaceName)
+            elastic_counts = get_elastic_monitoring_analytics(dataSpaceName)
+            edp_event_counts = get_edp_event_counts(dataSpaceName)
             
             analytics_data = {
-                "edp_count": es_counts["aggregations"]["total_items"]["value"],
-                "publishers_count": es_counts["aggregations"]["unique_publishers"]["value"],
-                "original_data_count": es_counts["aggregations"]["total_original_data_assets"]["count"]["value"],
-                "processed_data_count": es_counts["aggregations"]["total_processed_data_assets"]["count"]["value"],
-                "refined_data_count": es_counts["aggregations"]["total_refined_data_assets"]["count"]["value"],
-                "aiml_result_data_count": es_counts["aggregations"]["total_aiml_result_data_assets"]["count"]["value"],
-
+                "edp_count": elastic_counts["aggregations"]["total_items"]["value"],
+                "publishers_count": elastic_counts["aggregations"]["unique_publishers"]["value"],
+                "original_data_count": elastic_counts["aggregations"]["total_original_data_assets"]["count"]["value"],
+                "processed_data_count": elastic_counts["aggregations"]["total_processed_data_assets"]["count"]["value"],
+                "refined_data_count": elastic_counts["aggregations"]["total_refined_data_assets"]["count"]["value"],
+                "aiml_result_data_count": elastic_counts["aggregations"]["total_aiml_result_data_assets"]["count"]["value"],
+                "edp_event_counts": edp_event_counts,
             }
 
             return Response(analytics_data)
