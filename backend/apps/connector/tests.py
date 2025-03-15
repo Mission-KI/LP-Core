@@ -298,7 +298,7 @@ def test_upload_edp_file_already_exists_with_different_resource_id(
         },
         format="multipart",
     )
-    msg = f"Asset ID {mini_edp.assetId} already exists in the data space {mini_edp.dataSpace.name}: <the-other-id>"
+    msg = f"Asset ID already exists in the data space {mini_edp.dataSpace.name}: <the-other-id>"
     check_event_log(
         url=url,
         status="fail",
