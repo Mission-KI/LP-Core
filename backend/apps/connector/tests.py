@@ -72,7 +72,6 @@ def create_zip(file_list: Dict[str, str]):
 def mini_edp():
 
     asset_ref = AssetReference(
-        assetId="did:op:ACce37394eD2848dd383c651Dsb7sf823b7dd123",
         assetUrl="https://portal.pontus-x.eu/asset/did:op:ACce37394eD2848dd383c651Dsb7sf823b7dd123",
         dataSpace=DataSpace(name="Pontus-X", url="https://portal.pontus-x.eu"),
         publisher=Publisher(name="OPF", url=None),
@@ -84,7 +83,6 @@ def mini_edp():
         schema_version=SchemaVersion.V0,
         volume=4307,
         dataTypes=set(),
-        assetId="did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123",
         name="Sample asset",
         url="https://portal.pontus-x.eu/asset/did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123",
         dataSpace=DataSpace(name="Pontus-X", url="https://portal.pontus-x.eu"),
