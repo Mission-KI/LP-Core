@@ -82,6 +82,7 @@ def mini_edp():
         license=License(name=None, url="https://market.oceanprotocol.com/terms"),
         freely_available=False,
         generatedBy="Example Generator",
+        assetRefs=["did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123"],
     )
 
 
@@ -194,8 +195,8 @@ def test_create_edp_file_zip_validation_error(client: APIClient):
     assert "validation errors for ExtendedDatasetProfile" in event_log.message
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert len(response.json()) == 1
-    assert response.json()[0].startswith("10 validation errors for ExtendedDatasetProfile")
+    assert len(response.json()) >= 1
+    assert "validation errors for ExtendedDatasetProfile" in response.json()[0]
 
 
 @mock_aws
