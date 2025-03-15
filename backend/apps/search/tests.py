@@ -137,13 +137,9 @@ def test_count_elasticsearch_failure(mock_request, client, count_url):
 
 
 @patch("requests.request")
-def test_find_resource_id_successful(
-    mock_request, client: APIClient, find_resource_id_url: str
-):
+def test_find_resource_id_successful(mock_request, client: APIClient, find_resource_id_url: str):
     mock_request.return_value.status_code = 200
-    mock_request.return_value.json.return_value = {
-        "hits": {"total": 1, "hits": [{"_id": "dummy-resource-id"}]}
-    }
+    mock_request.return_value.json.return_value = {"hits": {"total": 1, "hits": [{"_id": "dummy-resource-id"}]}}
 
     response = client.post(
         find_resource_id_url,
@@ -175,9 +171,7 @@ def test_find_resource_id_successful(
 
 
 @patch("requests.request")
-def test_find_resource_id_not_found(
-    mock_request: MagicMock, client: APIClient, find_resource_id_url: str
-):
+def test_find_resource_id_not_found(mock_request: MagicMock, client: APIClient, find_resource_id_url: str):
     mock_request.return_value.status_code = 200
     mock_request.return_value.json.return_value = {"hits": {"total": 0, "hits": []}}
 
@@ -187,20 +181,14 @@ def test_find_resource_id_not_found(
         format="json",
     )
     assert response.status_code == status.HTTP_404_NOT_FOUND
-    assert response.data == {
-        "detail": ErrorDetail(string="Resource not found", code="not_found")
-    }
+    assert response.data == {"detail": ErrorDetail(string="Resource not found", code="not_found")}
     mock_request.assert_called_once()
 
 
 @patch("requests.request")
-def test_find_resource_id_not_found_multiple(
-    mock_request: MagicMock, client: APIClient, find_resource_id_url: str
-):
+def test_find_resource_id_not_found_multiple(mock_request: MagicMock, client: APIClient, find_resource_id_url: str):
     mock_request.return_value.status_code = 200
-    mock_request.return_value.json.return_value = {
-        "hits": {"total": 2, "hits": [{"_id": "first"}, {"_id": "second"}]}
-    }
+    mock_request.return_value.json.return_value = {"hits": {"total": 2, "hits": [{"_id": "first"}, {"_id": "second"}]}}
 
     response = client.post(
         find_resource_id_url,
@@ -208,16 +196,12 @@ def test_find_resource_id_not_found_multiple(
         format="json",
     )
     assert response.status_code == status.HTTP_404_NOT_FOUND
-    assert response.data == {
-        "detail": ErrorDetail(string="Resource not found", code="not_found")
-    }
+    assert response.data == {"detail": ErrorDetail(string="Resource not found", code="not_found")}
     mock_request.assert_called_once()
 
 
 @patch("requests.request")
-def test_find_resource_id_api_exception(
-    mock_request: MagicMock, client: APIClient, find_resource_id_url: str
-):
+def test_find_resource_id_api_exception(mock_request: MagicMock, client: APIClient, find_resource_id_url: str):
     mock_request.return_value.status_code = 200
     mock_request.return_value.json.return_value = {}
 
@@ -227,18 +211,12 @@ def test_find_resource_id_api_exception(
         format="json",
     )
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-    assert response.data == {
-        "detail": ErrorDetail(
-            string="Invalid response from Elasticsearch", code="error"
-        )
-    }
+    assert response.data == {"detail": ErrorDetail(string="Invalid response from Elasticsearch", code="error")}
     mock_request.assert_called_once()
 
 
 @patch("requests.request")
-def test_find_resource_id_elastic_api_exception(
-    mock_request: MagicMock, client: APIClient, find_resource_id_url: str
-):
+def test_find_resource_id_elastic_api_exception(mock_request: MagicMock, client: APIClient, find_resource_id_url: str):
     mock_request.return_value.status_code = 404
     mock_request.return_value.json.return_value = {}
 
@@ -248,7 +226,5 @@ def test_find_resource_id_elastic_api_exception(
         format="json",
     )
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-    assert response.data == {
-        "detail": ErrorDetail(string="Failed to query Elasticsearch", code="error")
-    }
+    assert response.data == {"detail": ErrorDetail(string="Failed to query Elasticsearch", code="error")}
     mock_request.assert_called_once()

@@ -29,9 +29,7 @@ class ElasticDBWrapper:
         except AuthenticationException:
             raise APIException("Unable to authenticate to Elastic Search")
 
-        full_download_url = HttpUrl(
-            f"{self._config.elastic_url}/{self._config.elastic_index}/_doc/{edp_id}"
-        )
+        full_download_url = HttpUrl(f"{self._config.elastic_url}/{self._config.elastic_index}/_doc/{edp_id}")
         logger.info("Uploaded EDP to Elastic Search: %s", full_download_url)
 
     def delete(self, edp_id: str):
@@ -47,7 +45,5 @@ class ElasticDBWrapper:
         except AuthenticationException:
             raise APIException("Unable to authenticate to Elastic Search")
 
-        full_download_url = HttpUrl(
-            f"{self._config.elastic_url}/{self._config.elastic_index}/_doc/{edp_id}"
-        )
+        full_download_url = HttpUrl(f"{self._config.elastic_url}/{self._config.elastic_index}/_doc/{edp_id}")
         logger.info(f"Deleted EDP {edp_id} from Elastic Search: %s", full_download_url)

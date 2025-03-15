@@ -14,9 +14,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = (
-    os.environ.get("CSRF_TRUSTED_ORIGINS").split(";")
-    if os.environ.get("CSRF_TRUSTED_ORIGINS")
-    else None
+    os.environ.get("CSRF_TRUSTED_ORIGINS").split(";") if os.environ.get("CSRF_TRUSTED_ORIGINS") else None
 )
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
