@@ -16,6 +16,7 @@ from django.urls import reverse
 from elasticsearch import Elasticsearch
 from extended_dataset_profile import CURRENT_SCHEMA, SchemaVersion
 from extended_dataset_profile.models.v0.edp import (
+    AssetReference,
     DataSpace,
     ExtendedDatasetProfile,
     License,
@@ -82,7 +83,7 @@ def mini_edp():
         license=License(name=None, url="https://market.oceanprotocol.com/terms"),
         freely_available=False,
         generatedBy="Example Generator",
-        assetRefs=["did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123"],
+        assetRefs=[AssetReference(id="did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123")],
     )
 
 
