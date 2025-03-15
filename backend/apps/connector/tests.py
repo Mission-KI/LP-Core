@@ -81,6 +81,7 @@ def mini_edp():
         publishDate=datetime(year=2026, month=12, day=1),
         license=License(name=None, url="https://market.oceanprotocol.com/terms"),
         freely_available=False,
+        generatedBy="Example Generator",
     )
 
 
