@@ -26,7 +26,6 @@ class HasAddEventLogPermission(permissions.BasePermission):
 
 @api_view(["POST"])
 @permission_classes([permissions.IsAuthenticated, HasAddEventLogPermission])
-@authentication_classes([BasicAuthentication])
 def log_edp_download(request):
     create_log(request.get_full_path(), "edp download", EventLog.STATUS_SUCCESS)
     return Response({"message": "success"})

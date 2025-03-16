@@ -9,7 +9,6 @@ import moment from "moment";
 import 'datatables.net-bs5/css/dataTables.bootstrap5.min.css';
 import 'datatables.net-bs5';
 import AttributeList from "../../components/AttributeList";
-import AttributeConsistency from "../../components/AttributeConsistency";
 import TemporalConsistency from "../../components/TemporalConsistency";
 import { useTranslation } from "react-i18next";
 import NumericValueDistribution from "../../components/NumericValueDistribution";
@@ -23,6 +22,7 @@ import DataScienceInfo from "../../components/DataScienceInfo";
 import DatasetActions from "../../components/DatasetActions";
 import { truncateString } from "../../../common/utils/format_utils";
 import { ArrowLeft } from "react-bootstrap-icons";
+import AttributeIntegrity from "../../components/AttributeIntegrity";
 
 function Details() {
   const { id } = useParams();
@@ -138,12 +138,12 @@ function Details() {
               <div className="d-flex align-items-center mt-4">
                 <span className="small pe-3">{t("dataset.tags")}</span>
                 {datasetDetails._source.tags.map((tag) => (
-                  <button
-                    className="btn btn-basic border small rounded-lg me-3"
+                  <span
+                    className="py-1 px-2 border small rounded-lg me-3"
                     key={tag}
                   >
                     {tag}
-                  </button>
+                  </span>
                 ))}
               </div>
             )}
@@ -171,12 +171,12 @@ function Details() {
                 eventKey="attribute_consistency"
                 title={
                   <span className="small text-uppercase">
-                    {t('dataset.tabs.attributeConsistency')}
+                    {t('dataset.tabs.attributeIntegrity')}
                   </span>
                 }
                 className={styles.tab}
               >
-                <AttributeConsistency datasetDetails={datasetDetails} />
+                <AttributeIntegrity datasetDetails={datasetDetails} />
               </Tab>
               <Tab
                 eventKey="temporal_consistency"
