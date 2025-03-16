@@ -63,17 +63,19 @@ class EdpUploader:
 
     def upload_edp_directory(self, edp_dir: Path, edp_id: str):
         logger.info("Uploading EDP directory '%s'...", edp_dir)
-        # Find EDP JSON file and additional resources-
+        # Find EDP JSON file and additional resources
         edp_file, resource_files = self._split_edp_json_and_additional_files(edp_dir)
         # Upload JSON to Elastic Search with document id edp_id
 
         edp_model = edp_model_from_file(edp_file)
 
-        hits = _find_resource_id(edp_model.assetId, edp_model.dataSpace.name)
-        if len(hits) > 0 and edp_id not in hits:
-            raise DRFValidationError(
-                f"Asset ID {edp_model.assetId} already exists in the data space {edp_model.dataSpace.name}: {', '.join(hits)}"
-            )
+        # Loop through all asset references to check for an existing assetId
+        for asset_ref in edp_model.assetRefs:
+            hits = _find_resource_id(asset_ref.assetId, asset_ref.dataSpace.name)
+            if len(hits) > 0 and edp_id not in hits:
+                raise DRFValidationError(
+                    f"Asset ID {asset_ref.assetId} already exists in the data space {asset_ref.dataSpace.name}: {', '.join(hits)}"
+                )
 
         self._elastic.upload(edp_model, edp_id)
         if len(hits) > 0:
