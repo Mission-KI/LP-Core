@@ -35,12 +35,8 @@ class S3EDPStorage:
             except S3UploadFailedError as e:
                 logger.error(e)
                 raise APIException(f"Unable to upload edp {edp_id} to S3: {e}")
-            full_download_url = HttpUrl(
-                f"https://{self._bucket.name}.s3.amazonaws.com/{upload_key}"
-            )
-            logger.info(
-                "Uploaded '%s' to S3: %s", resource_file_relative, full_download_url
-            )
+            full_download_url = HttpUrl(f"https://{self._bucket.name}.s3.amazonaws.com/{upload_key}")
+            logger.info("Uploaded '%s' to S3: %s", resource_file_relative, full_download_url)
 
     def delete(self, edp_id: str):
         logger.info("Deleting EDP %s resource files from S3...", edp_id)
@@ -49,9 +45,7 @@ class S3EDPStorage:
             result = self._bucket.objects.filter(Prefix=f"{edp_id}/").delete()
             if isinstance(result, list) and len(result) == 1 and "Deleted" in result[0]:
                 num_deleted = len(result[0]["Deleted"])
-                full_download_url = HttpUrl(
-                    f"https://{self._bucket.name}.s3.amazonaws.com/{edp_id}"
-                )
+                full_download_url = HttpUrl(f"https://{self._bucket.name}.s3.amazonaws.com/{edp_id}")
                 logger.info(
                     "Deleted '%s' from S3: %s (num items: %d)",
                     edp_id,

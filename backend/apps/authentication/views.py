@@ -46,6 +46,4 @@ class ChangePasswordView(APIView):
         user.set_password(new_password)
         user.save()
 
-        return Response(
-            {"message": "Password changed successfully."}, status=status.HTTP_200_OK
-        )
+        return Response({"message": "Password changed successfully."}, status=status.HTTP_200_OK)

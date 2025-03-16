@@ -10,6 +10,4 @@ def create_log(requested_url, message, status=None, metadata=None):
     :param metadata: Additional data for the log entry (optional).
     :return: None
     """
-    EventLog.objects.create(
-        requested_url=requested_url, status=status, message=message, metadata=metadata
-    )
+    EventLog.objects.create(requested_url=requested_url, status=status, message=message, metadata=metadata)
