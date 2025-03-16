@@ -26,8 +26,16 @@ def test_change_password_bad_request(auth_client: APIClient):
 
 
 @pytest.mark.django_db()
-def test_change_password_missing_field(auth_client: APIClient):
-    response = auth_client.post(reverse("change_password"), data={"current_password": "testpassword"}, format="json")
+def test_change_password_missing_field():
+    user = User.objects.create_user(username="testuser", password="testpassword")
+    client = APIClient()
+    client.force_authenticate(user=user)
+    response = client.post(
+        reverse("change_password"),
+        data={"current_password": "testpassword"},
+        format="json",
+    )
+
     assert isinstance(response, Response) and response.status_code == status.HTTP_400_BAD_REQUEST, response.data
 
 

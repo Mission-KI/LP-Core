@@ -70,4 +70,4 @@ omit = [
 ]
 
 [tool.uv.sources]
-extended-dataset-profile = { git = "https://github.com/Beebucket/extended_dataset_profile", tag = "0.7.0" }
+extended-dataset-profile = { git = "https://github.com/Beebucket/extended_dataset_profile", tag = "0.16.0" }
