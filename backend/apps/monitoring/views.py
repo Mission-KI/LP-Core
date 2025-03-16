@@ -17,33 +17,31 @@ class MonitoringAnalyticsView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-
-        dataSpaceName = request.user.username # To be replaced with a custom field
+        dataSpaceName = request.user.username  # To be replaced with a custom field
 
         try:
-
             elastic_counts = get_elastic_monitoring_analytics(dataSpaceName)
             edp_event_counts = get_edp_event_counts(dataSpaceName)
-            
+
             analytics_data = {
                 "edp_count": elastic_counts["aggregations"]["total_items"]["value"],
                 "publishers_count": elastic_counts["aggregations"]["unique_publishers"]["value"],
                 "original_data_count": elastic_counts["aggregations"]["total_original_data_assets"]["count"]["value"],
                 "processed_data_count": elastic_counts["aggregations"]["total_processed_data_assets"]["count"]["value"],
                 "refined_data_count": elastic_counts["aggregations"]["total_refined_data_assets"]["count"]["value"],
-                "aiml_result_data_count": elastic_counts["aggregations"]["total_aiml_result_data_assets"]["count"]["value"],
+                "aiml_result_data_count": elastic_counts["aggregations"]["total_aiml_result_data_assets"]["count"][
+                    "value"
+                ],
                 "edp_event_counts": edp_event_counts,
             }
 
             return Response(analytics_data)
-    
+
         except Exception as e:
             return Response(
                 {"error": f"An unexpected error occurred {e}"},
                 status=500,
             )
-    
-
 
 
 class HasAddEventLogPermission(permissions.BasePermission):
@@ -58,7 +56,7 @@ class HasAddEventLogPermission(permissions.BasePermission):
 
 
 @api_view(["POST"])
-@permission_classes([permissions.IsAuthenticated, HasAddEventLogPermission])
+@permission_classes([permissions.AllowAny])
 def log_edp_download(request):
-    create_log(request.get_full_path(), "edp download", EventLog.STATUS_SUCCESS)
+    create_log(request.get_full_path(), "edp download", EventLog.STATUS_SUCCESS, None, EventLog.TYPE_DOWNLOAD)
     return Response({"message": "success"})

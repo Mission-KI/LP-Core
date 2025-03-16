@@ -13,7 +13,6 @@ def get_auth_headers():
     }
 
 
-
 def elasticsearch_request(method, endpoint, data=None, timeout=10):
     """Helper function to send requests to Elasticsearch with a timeout"""
     es_url = f"{settings.ELASTICSEARCH_URL}/{endpoint}"
@@ -31,4 +30,3 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
 
     except requests.exceptions.RequestException as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-

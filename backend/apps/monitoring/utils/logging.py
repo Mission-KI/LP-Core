@@ -1,7 +1,7 @@
 from ..models import EventLog
 
 
-def create_log(requested_url, message, status=None, metadata=None):
+def create_log(requested_url, message, status=None, metadata=None, type=None):
     """
     Utility function to create a log entry.
     :param requested_url: The URL where the event occurred.
@@ -10,4 +10,4 @@ def create_log(requested_url, message, status=None, metadata=None):
     :param metadata: Additional data for the log entry (optional).
     :return: None
     """
-    EventLog.objects.create(requested_url=requested_url, status=status, message=message, metadata=metadata)
+    EventLog.objects.create(requested_url=requested_url, status=status, message=message, metadata=metadata, type=type)

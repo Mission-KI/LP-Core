@@ -1,5 +1,7 @@
 from apps.search.utils.elasticsearch import elasticsearch_request
 
+from ..models import EventLog
+
 
 def get_elastic_monitoring_analytics(dataSpaceName: str):
     query = {
@@ -35,18 +37,24 @@ def get_elastic_monitoring_analytics(dataSpaceName: str):
 
     return response
 
+
 def get_edp_event_counts(dataSpaceName: str):
+    edp_events = EventLog.objects.filter(requested_url="/connector/edp/")
+
+    edp_successfull_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_SUCCESS).count()
+    edp_failed_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_FAIL).count()
+
+    edp_successfull_edits = edp_events.filter(type=EventLog.TYPE_EDIT, status=EventLog.STATUS_SUCCESS).count()
+    edp_failed_edits = edp_events.filter(type=EventLog.TYPE_EDIT, status=EventLog.STATUS_FAIL).count()
+
+    edp_successfull_deletions = edp_events.filter(type=EventLog.TYPE_DELETE, status=EventLog.STATUS_SUCCESS).count()
+    edp_failed_deletions = edp_events.filter(type=EventLog.TYPE_DELETE, status=EventLog.STATUS_FAIL).count()
+
+    edp_downloads = EventLog.objects.filter(type=EventLog.TYPE_DOWNLOAD).count()
+
     return {
-        "uploads": {
-            "successfull": 1,
-            "failed": 1
-        },
-        "edits": {
-            "successfull": 1,
-            "failed": 1
-        },
-        "deletions": {
-            "successfull": 1,
-            "failed": 1
-        }
+        "uploads": {"successfull": edp_successfull_uploads, "failed": edp_failed_uploads},
+        "edits": {"successfull": edp_successfull_edits, "failed": edp_failed_edits},
+        "deletions": {"successfull": edp_successfull_deletions, "failed": edp_failed_deletions},
+        "downloads": edp_downloads,
     }

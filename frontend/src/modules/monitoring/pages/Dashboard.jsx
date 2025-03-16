@@ -61,7 +61,7 @@ function Dashboard() {
                     <div className="card d-flex justify-content-center flex-column w-100 h-100">
                         <div className="card-body">
                             <h6 className="mb-2">Asset downloads</h6>
-                            <h3 className="bold txt-primary-lighter">243</h3> {/* Mock value */}
+                            <h3 className="bold txt-primary-lighter">{analytics?.edp_event_counts?.downloads}</h3>
                         </div>
                     </div>
                 </div>
@@ -119,14 +119,6 @@ function Dashboard() {
                                 <th>Assets With AI/ML result Data</th>
                                 <td className='text-end'>{analytics.aiml_result_data_count}</td>
                             </tr>
-                            <tr>
-                                <th>Amount per data format</th>
-                                <td className='text-end'>567567</td> {/* Mock value */}
-                            </tr>
-                            <tr>
-                                <th>Asset downloads</th>
-                                <td className='text-end'>567567</td> {/* Mock value */}
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -136,11 +128,11 @@ function Dashboard() {
                         <tbody>
                             <tr>
                                 <th>Amount per data format</th>
-                                <td className='text-end'>567567</td> {/* Mock value */}
+                                <td className='text-end'>Unknown</td>
                             </tr>
                             <tr>
                                 <th>Asset downloads</th>
-                                <td className='text-end'>567567</td> {/* Mock value */}
+                                <td className='text-end'>{analytics?.edp_event_counts?.downloads}</td>
                             </tr>
                         </tbody>
                     </table>
