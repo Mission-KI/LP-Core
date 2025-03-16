@@ -35,7 +35,7 @@ def test_change_password_missing_field():
         data={"current_password": "testpassword"},
         format="json",
     )
-    
+
     assert isinstance(response, Response) and response.status_code == status.HTTP_400_BAD_REQUEST, response.data
 
 
