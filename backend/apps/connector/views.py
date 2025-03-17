@@ -1,3 +1,5 @@
+import io
+import zipfile
 from logging import getLogger
 
 from apps.monitoring.models import EventLog
@@ -8,7 +10,7 @@ from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from extended_dataset_profile import CURRENT_SCHEMA
 from pydantic import HttpUrl
-from rest_framework import status
+from rest_framework import parsers, status, views
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import APIException, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
@@ -18,7 +20,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 
 from .models import ResourceStatus
-from .serializers import BinaryUploadSerializer
+from .serializers import MultipartFormDataUploadSerializer
 from .utils.edpuploader import EdpUploader, UploadConfig
 
 logger = getLogger(__name__)
@@ -44,8 +46,89 @@ def _create_uploader():
     return EdpUploader(config)
 
 
+def _do_upload(request: Request, id: str, zip_file):
+    uploader = _create_uploader()
+    edp = uploader.upload_edp_zip(zip_file, edp_id=id)
+    create_log(
+        request.get_full_path(),
+        f"EDP {id} upload done",
+        EventLog.STATUS_SUCCESS,
+        metadata={"id": id},
+    )
+    return Response(
+        {
+            "message": "EDP uploaded successfully",
+            "edp": edp.model_dump(mode="json"),
+            "id": id,
+        },
+        status=status.HTTP_200_OK,
+    )
+
+
+class RawZipParser(parsers.BaseParser):
+    media_type = "application/zip"
+
+    def parse(self, stream, media_type=None, parser_context=None):
+        if media_type != self.media_type:
+            raise UnsupportedMediaType(media_type)
+        return stream.read()
+
+
+class RawZipUploadView(views.APIView):
+    parser_classes = [RawZipParser]
+
+    @extend_schema(
+        request={
+            "application/zip": OpenApiTypes.BINARY,
+        },
+        responses={
+            200: {
+                "type": "object",
+                "properties": {
+                    "message": {"type": "string"},
+                    "files": {"type": "array", "items": {"type": "string"}},
+                },
+            },
+            400: {"type": "object", "properties": {"error": {"type": "string"}}},
+            500: {"type": "object", "properties": {"error": {"type": "string"}}},
+        },
+        summary="Upload a raw zip file.",
+    )
+    def put(self, request: Request, id: str, file_name: str):
+        if not request.user.profile.is_connector_user:
+            create_log(
+                request.get_full_path(), "Resource ID raw upload failed: Permission denied", EventLog.STATUS_FAIL
+            )
+            return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
+        resource = get_object_or_404(ResourceStatus, pk=id)
+        try:
+            file_io = io.BytesIO(request.data)
+            result = _do_upload(request, id, file_io)
+            resource.status = "uploaded"
+            resource.save()
+            return result
+        except (DRFValidationError, UnsupportedMediaType, APIException) as e:
+            create_log(
+                request.get_full_path(),
+                f"EDP upload failed: {e}",
+                EventLog.STATUS_FAIL,
+                metadata={"id": id},
+            )
+            raise e
+        except zipfile.BadZipFile:
+            create_log(request.get_full_path(), "Invalid zip file.", EventLog.STATUS_FAIL, metadata={"id": id})
+            return Response({"error": "Invalid zip file."}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            message = f"An unknown error occurred ({type(e)}): {str(e)}"
+            create_log(
+                request.get_full_path(), f"EDP upload failed: {message}", EventLog.STATUS_FAIL, metadata={"id": id}
+            )
+            return Response({"error": f"An error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 class EDPViewSet(ViewSet):
     parser_classes = [MultiPartParser, FormParser]
+    serializer_class = MultipartFormDataUploadSerializer
 
     @extend_schema(summary="create EDP resource")
     def create(self, request: Request):
@@ -72,7 +155,7 @@ class EDPViewSet(ViewSet):
 
     @extend_schema(
         summary="upload a EDP ZIP file",
-        request=BinaryUploadSerializer,
+        request=MultipartFormDataUploadSerializer,
         parameters=[
             OpenApiParameter(
                 "id",
@@ -95,24 +178,10 @@ class EDPViewSet(ViewSet):
         resource = get_object_or_404(ResourceStatus, pk=id)
         try:
             zip_file = self._file_from_request(request)
-            uploader = _create_uploader()
-            edp = uploader.upload_edp_zip(zip_file, edp_id=id)
+            result = _do_upload(request, id, zip_file)
             resource.status = "uploaded"
             resource.save()
-            create_log(
-                request.get_full_path(),
-                f"EDP {id} upload done",
-                EventLog.STATUS_SUCCESS,
-                metadata={"id": id},
-            )
-            return Response(
-                {
-                    "message": "EDP uploaded successfully",
-                    "edp": edp.model_dump(mode="json"),
-                    "id": id,
-                },
-                status=status.HTTP_200_OK,
-            )
+            return result
         except (DRFValidationError, UnsupportedMediaType, APIException) as e:
             create_log(
                 request.get_full_path(),
@@ -121,6 +190,14 @@ class EDPViewSet(ViewSet):
                 metadata={"id": id},
             )
             raise e
+        except zipfile.BadZipFile:
+            create_log(
+                request.get_full_path(),
+                "Invalid zip file.",
+                EventLog.STATUS_FAIL,
+                metadata={"id": id},
+            )
+            return Response({"error": "Invalid zip file."}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
             create_log(
@@ -189,7 +266,7 @@ class EDPViewSet(ViewSet):
             raise APIException(message)
 
     def _file_from_request(self, request: Request):
-        serializer = BinaryUploadSerializer(data=request.data)
+        serializer = MultipartFormDataUploadSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         input_file = serializer.validated_data.get("file")
 
