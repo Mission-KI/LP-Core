@@ -24,7 +24,7 @@ class ElasticDBWrapper:
             self._elastic_client.index(
                 index=self._config.elastic_index,
                 id=edp_id,
-                document=edp.model_dump(mode="json"),
+                document=edp.model_dump(mode="json", by_alias=True),
             )
         except AuthenticationException:
             raise APIException("Unable to authenticate to Elastic Search")

@@ -1,9 +1,10 @@
 from django.contrib.auth.hashers import check_password
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+from .serializers import ChangePasswordSerializer
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -13,28 +14,20 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token["email"] = user.email
         token["username"] = user.username
-        token["name"] = user.name
-        token["currently_selected_project_id"] = user.currently_selected_project_id
 
         return token
 
 
 class ChangePasswordView(APIView):
-    permission_classes = [IsAuthenticated]
+    serializer_class = ChangePasswordSerializer
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         user = request.user
-        data = request.data
-
-        current_password = data.get("current_password")
-        new_password = data.get("new_password")
-        confirm_password = data.get("confirm_password")
-
-        if not current_password or not new_password or not confirm_password:
-            return Response(
-                {"error": "All fields are required."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        serializer = ChangePasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        current_password = serializer.validated_data.get("current_password")
+        new_password = serializer.validated_data.get("new_password")
+        confirm_password = serializer.validated_data.get("confirm_password")
 
         if not check_password(current_password, user.password):
             return Response(

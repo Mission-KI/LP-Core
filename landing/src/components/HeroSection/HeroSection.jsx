@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowUpCircle, Database, FileEarmarkZip, FileEarmarkZipFill, Grid, Person, PersonCheck } from 'react-bootstrap-icons';
-import ExampleGraph1 from '../../assets/img/graphs/exampleGraph1.webp'
+import { Database, FileEarmarkZip, Grid, PersonCheck } from 'react-bootstrap-icons';
 import styles from './HeroSection.module.css'
 import AnimatedNumber from '../AnimatedNumber';
 import { useTranslation } from 'react-i18next';
@@ -62,11 +61,7 @@ const HeroSection = () => {
                                                 <span className='txt-lighter medium d-flex align-items-center'><FileEarmarkZip className='me-2' /> {t('home.dataAssets')}</span>
                                                 <div className='d-flex align-items-center'>
                                                     <h2 className='bold mb-0'><AnimatedNumber value={totalDatasetCount} duration={1000} /></h2>
-                                                    <span className='text-success fw-500 ps-2'><ArrowUpCircle /> 13%</span>
                                                 </div>
-                                            </div>
-                                            <div className="">
-                                                <img src={ExampleGraph1} style={{ height: 58 }} alt="" />
                                             </div>
                                         </div>
 
@@ -81,11 +76,7 @@ const HeroSection = () => {
                                                 <span className='txt-lighter medium d-flex align-items-center'><Database className='me-2' /> {t('home.dataSpaces')}</span>
                                                 <div className='d-flex align-items-center'>
                                                     <h2 className='bold mb-0'><AnimatedNumber value={attributeCounts?.dataSpaceCount} duration={1000} /></h2>
-                                                    <span className='text-success fw-500 ps-2'><ArrowUpCircle /> 15%</span>
                                                 </div>
-                                            </div>
-                                            <div className="">
-                                                <img src={ExampleGraph1} style={{ height: 58 }} alt="" />
                                             </div>
                                         </div>
                                     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
-import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from "../utils/calculations";
+import { calculateAttributeIntegrity, calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from "../utils/calculations";
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { QuestionCircle } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router'
@@ -99,11 +99,11 @@ const DataScienceInfo = ({ datasetDetails }) => {
                     <p
                         onClick={() => scienceInfoTabNavigate('attribute_consistency')}
                         className="small mb-1 txt-lighter text-uppercase pointer">
-                        {t("dataset.attributeConsistency")}
+                        {t("dataset.attributeIntegrity")}
                     </p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 fw-500">{calculateAttributeConsistency(datasetDetails)}</p>
+                    <p className="small mb-1 fw-500">{calculateAttributeIntegrity(datasetDetails)}</p>
                 </div>
                 <div className="col-6">
                     <p onClick={() => scienceInfoTabNavigate('numeric_value_distribution')}

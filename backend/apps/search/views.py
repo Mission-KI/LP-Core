@@ -1,11 +1,11 @@
-# filepath: /Users/kai/git/daseen/backend/apps/search/views.py
 import requests
 from django.conf import settings
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.exceptions import ValidationError
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.exceptions import APIException, NotFound, ValidationError
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from .serializers import FindResourceIDSerializer, SearchSerializer
@@ -45,6 +45,7 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
     responses={200: OpenApiTypes.OBJECT},
 )
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def search(request):
     """Sends a raw query to Elasticsearch"""
     query = request.data
@@ -64,12 +65,14 @@ def search(request):
     ],
 )
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def find(request, uuid):
     """Retrieve an EDP from Elasticsearch"""
     return elasticsearch_request("GET", f"_doc/{uuid}")
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def count(request):
     """Gets the total count of assets in Elasticsearch"""
     return elasticsearch_request("GET", "_count")
@@ -78,9 +81,13 @@ def count(request):
 @extend_schema(
     methods=["POST"],
     request=FindResourceIDSerializer,
-    responses={200: OpenApiTypes.OBJECT},
+    responses={200: OpenApiTypes.STR, 404: "Not found"},
+    summary="Find the resource ID(s) of an EDP in Elasticsearch",
+    description="This endpoint can be used to find the resource ID(s) of an EDP in Elasticsearch. "
+    "The result is ordered by oldest to newest EDP.",
 )
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def find_resource_id(request):
     serializer = FindResourceIDSerializer(data=request.data)
     if not serializer.is_valid():
@@ -88,26 +95,42 @@ def find_resource_id(request):
 
     asset_id = serializer.validated_data.get("assetId")
     data_space_name = serializer.validated_data.get("dataSpaceName")
-    asset_version = serializer.validated_data.get("assetVersion")
-    return _find_resource_id(asset_id, data_space_name, asset_version)
+    data = _find_resource_id(asset_id, data_space_name)
+    if len(data) != 1:
+        raise NotFound("Resource not found")
+
+    return Response(data, status=status.HTTP_200_OK)
 
 
-def _find_resource_id(asset_id: str, data_space_name: str, asset_version: str | None):
-    must = [
-        {"match": {"assetId": asset_id}},
-        {"match": {"dataSpace.name": data_space_name}},
-    ]
-    if asset_version is not None:
-        must.append({"match": {"version": asset_version}})
-
+def _find_resource_id(asset_id: str, data_space_name: str):
     resp = elasticsearch_request(
         "POST",
         "_search",
-        {"query": {"bool": {"must": must}}},
+        {
+            "query": {
+                "nested": {
+                    "path": "assetRefs",
+                    "query": {
+                        "bool": {
+                            "must": [
+                                {"match": {"assetRefs.assetId.keyword": asset_id}},
+                                {"match": {"assetRefs.dataSpace.name.keyword": data_space_name}},
+                            ]
+                        }
+                    },
+                }
+            }
+        },
     )
     if resp.status_code != status.HTTP_200_OK:
-        return resp
+        raise APIException(f"Failed to query Elasticsearch: {resp.data}")
 
-    return Response(
-        [hit["_id"] for hit in resp.data["hits"]["hits"]] if resp.data is not None else [], status.HTTP_200_OK
-    )
+    if (
+        resp.data is None
+        or "hits" not in resp.data
+        or "hits" not in resp.data["hits"]
+        or "total" not in resp.data["hits"]
+    ):
+        raise APIException("Invalid response from Elasticsearch")
+
+    return [hit["_id"] for hit in resp.data["hits"]["hits"]]
