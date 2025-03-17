@@ -74,29 +74,22 @@ def find_resource_id(request):
 
 
 def _find_resource_id(asset_id: str, data_space_name: str):
-    must = [
-        {
-            "nested": {
-                "path": "assetRefs",
-                "query": {
-                    "bool": {
-                        "must": [
-                            {"match": {"assetRefs.assetId": asset_id}},
-                            {"match": {"assetRefs.dataSpace.name": data_space_name}},
-                        ]
-                    }
-                },
-            }
-        }
-    ]
-
     resp = elasticsearch_request(
         "POST",
         "_search",
-        {"query": {"bool": {"must": must}}},
+        {
+            "query": {
+                "bool": {
+                    "must": [
+                        {"term": {"assetRefs.0.assetId.keyword": {"value": asset_id}}},
+                        {"term": {"assetRefs.0.dataSpace.name.keyword": {"value": data_space_name}}},
+                    ]
+                }
+            }
+        },
     )
     if resp.status_code != status.HTTP_200_OK:
-        raise APIException("Failed to query Elasticsearch")
+        raise APIException(f"Failed to query Elasticsearch: {resp.data}")
 
     if (
         resp.data is None
