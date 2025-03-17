@@ -26,6 +26,13 @@ def get_elastic_monitoring_analytics(dataSpaceName: str):
                 "filter": {"term": {"assetProcessingStatus.keyword": "AI/ML Result Data"}},
                 "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
             },
+            "publishers_list": {
+                "terms": {
+                    "field": "publisher.name.keyword",
+                    "size": 100,
+                },
+                "aggs": {"asset_count": {"value_count": {"field": "publisher.name.keyword"}}},
+            },
         },
     }
 

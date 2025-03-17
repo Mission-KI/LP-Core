@@ -22,8 +22,9 @@ export const AuthProvider = ({ children }) => {
     const handleLogin = async (user) => {
         const response = await login(user);
         if (response.access) {
+            const decodedToken = jwtDecode(response.access);
             setAuthenticated(true);
-            setUsername(username);
+            setUsername(decodedToken.username);
             setToken(response.access);
             localStorage.setItem('accessToken', response.access);
             navigate('/monitoring/dashboard');
@@ -38,7 +39,7 @@ export const AuthProvider = ({ children }) => {
         setUsername('');
         setToken('');
         localStorage.removeItem('accessToken');
-        navigate('/monitoring/dashboard');
+        navigate('/');
     };
 
     const checkTokenExpiration = (token) => {
@@ -52,9 +53,9 @@ export const AuthProvider = ({ children }) => {
         const storedToken = localStorage.getItem('accessToken');
         if (storedToken) {
             checkTokenExpiration(storedToken);
+            setUsername(jwtDecode(storedToken).username);
             setAuthenticated(true);
             setToken(storedToken);
-            setUsername(jwtDecode(storedToken).username);
         }
         setLoading(false);
     }, []);

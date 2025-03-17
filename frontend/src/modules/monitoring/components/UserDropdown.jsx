@@ -18,14 +18,14 @@ function UserDropdown() {
   return (
     <Dropdown className="d-flex align-items-center">
       <Dropdown.Toggle
-        variant="basic"
+        variant="light"
         id="dropdown-basic"
         className="p-0 border-0 bg-transparent"
       >
         <img
           src={placeholderProfileImage}
-          className="rounded pointer"
-          style={{ width: 23, height: 23, objectFit: "cover" }}
+          className="rounded-circle border pointer"
+          style={{ width: 26, height: 26, objectFit: "cover" }}
           alt="Profile"
         />
       </Dropdown.Toggle>
@@ -39,18 +39,12 @@ function UserDropdown() {
           <div className="position-relative">
             <img
               src={placeholderProfileImage}
-              className="rounded"
+              className="rounded-circle"
               style={{ width: 30, height: 30, objectFit: "cover" }}
               alt=""
             />
           </div>
           <div className="d-flex flex-column ps-3">
-            <span
-              className="medium fw-500"
-              style={{ color: "var(--color-text)" }}
-            >
-              {name}
-            </span>
             <span className="small txt-lighter">{username}</span>
           </div>
         </div>
@@ -59,9 +53,6 @@ function UserDropdown() {
 
         <Dropdown.Item className="rounded" as={Link} to="/">
           <Search /> <span className="ps-3 medium">Search</span>
-        </Dropdown.Item>
-        <Dropdown.Item className="rounded" as={Link} to="/account">
-          <PersonCircle /> <span className="ps-3 medium">My Account</span>
         </Dropdown.Item>
 
         <Dropdown.Divider />

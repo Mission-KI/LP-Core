@@ -8,7 +8,7 @@ const Footer = () => {
     const { t } = useTranslation();
 
     return (
-        <div className={`${styles.footer} shadow`}>
+        <div className={`${styles.footer} border`}>
             <div className="container pt-4 pb-4" style={{ maxWidth: 1100 }}>
                 <div className='d-flex flex-wrap justify-content-between align-items-center'>
                     <div className='d-flex flex-wrap justify-content-between align-items-center w-100' style={{ maxWidth: 600 }}>

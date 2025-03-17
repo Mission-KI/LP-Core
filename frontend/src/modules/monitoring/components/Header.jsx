@@ -20,7 +20,7 @@ function Header() {
               onClick={() => {
                 setShowSettingsModal(true);
               }}
-              style={{ fontSize: 19 }}
+              style={{ fontSize: 22 }}
               className="pointer txt-lighter"
             />
           </div>

@@ -250,6 +250,7 @@ p.two-words::after {
 }
 
 .table>:not(caption)>*>* {
+  background: transparent !important;
   color: var(--color-text) !important;
 }
 
@@ -687,10 +688,7 @@ input:checked+.slider:before {
   margin-bottom: 0 !important;
 }
 
-.breadcrumb-item+.breadcrumb-item::before{
-  color: var(--color-darker-gray) !important;
-}
-
 .breadcrumb-item{
   font-size: 10pt !important;
+  color: var(--color-text-lighter) !important;
 }
