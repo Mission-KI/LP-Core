@@ -8,7 +8,7 @@ class EventLog(BaseModel):
 
     TYPE_UPLOAD = "upload"
     TYPE_EDIT = "edit"
-    TYPE_DELETE = "edit"
+    TYPE_DELETE = "delete"
     TYPE_DOWNLOAD = "download"
 
     requested_url = models.CharField(max_length=100, null=True)
