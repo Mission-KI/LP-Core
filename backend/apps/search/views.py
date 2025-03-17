@@ -108,11 +108,16 @@ def _find_resource_id(asset_id: str, data_space_name: str):
         "_search",
         {
             "query": {
-                "bool": {
-                    "must": [
-                        {"term": {"assetRefs.0.assetId.keyword": {"value": asset_id}}},
-                        {"term": {"assetRefs.0.dataSpace.name.keyword": {"value": data_space_name}}},
-                    ]
+                "nested": {
+                    "path": "assetRefs",
+                    "query": {
+                        "bool": {
+                            "must": [
+                                {"match": {"assetRefs.assetId.keyword": asset_id}},
+                                {"match": {"assetRefs.dataSpace.name.keyword": data_space_name}},
+                            ]
+                        }
+                    },
                 }
             }
         },

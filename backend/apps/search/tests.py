@@ -154,11 +154,16 @@ def test_find_resource_id_successful(mock_request, client: APIClient, find_resou
     assert mock_request.call_args[1] == {
         "json": {
             "query": {
-                "bool": {
-                    "must": [
-                        {"term": {"assetRefs.0.assetId.keyword": {"value": "asset-id"}}},
-                        {"term": {"assetRefs.0.dataSpace.name.keyword": {"value": "dPName"}}},
-                    ]
+                "nested": {
+                    "path": "assetRefs",
+                    "query": {
+                        "bool": {
+                            "must": [
+                                {"match": {"assetRefs.assetId.keyword": "asset-id"}},
+                                {"match": {"assetRefs.dataSpace.name.keyword": "dPName"}},
+                            ]
+                        }
+                    },
                 }
             }
         },
