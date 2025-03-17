@@ -1,7 +1,6 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
-import requests
 from django.conf import settings
 from django.urls import reverse
 from rest_framework import status
@@ -67,16 +66,13 @@ def test_search_missing_query(mock_request, client, search_url):
 
 @patch("requests.request")
 def test_search_elasticsearch_failure(mock_request, client, search_url):
-    mock_response = requests.Response()
-    mock_response.status_code = 500
-    mock_response._content = b'{"error": "Internal Server Error"}'
-
-    mock_request.return_value = mock_response
+    mock_request.return_value.status_code = 500
+    mock_request.return_value.text = "Internal Server Error"
 
     response = client.post(search_url, {"query": {"match_all": {}}}, format="json")
 
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-    assert response.json() == {"error": "Internal Server Error"}
+    assert response.data == {"error": "Internal Server Error"}
 
 
 @patch("requests.request")
@@ -97,31 +93,25 @@ def test_find_success(mock_request, client, find_url, mock_auth_headers):
 @patch("requests.request")
 def test_find_not_found(mock_request, client, find_url):
     uuid = "12345"
-    mock_response = requests.Response()
-    mock_response.status_code = 404
-    mock_response._content = b'{"error": "Not Found"}'
-
-    mock_request.return_value = mock_response
+    mock_request.return_value.status_code = 404
+    mock_request.return_value.text = "Not Found"
 
     response = client.get(find_url(uuid))
 
     assert response.status_code == status.HTTP_404_NOT_FOUND
-    assert response.json() == {"error": "Not Found"}
+    assert response.data == {"error": "Not Found"}
 
 
 @patch("requests.request")
 def test_find_elasticsearch_failure(mock_request, client, find_url):
     uuid = "12345"
-    mock_response = requests.Response()
-    mock_response.status_code = 500
-    mock_response._content = b'{"error": "Internal Server Error"}'
-
-    mock_request.return_value = mock_response
+    mock_request.return_value.status_code = 500
+    mock_request.return_value.text = "Internal Server Error"
 
     response = client.get(find_url(uuid))
 
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-    assert response.json() == {"error": "Internal Server Error"}
+    assert response.data == {"error": "Internal Server Error"}
 
 
 @patch("requests.request")
@@ -137,16 +127,13 @@ def test_count_success(mock_request, client, count_url, mock_auth_headers):
 
 @patch("requests.request")
 def test_count_elasticsearch_failure(mock_request, client, count_url):
-    mock_response = requests.Response()
-    mock_response.status_code = 500
-    mock_response._content = b'{"error": "Internal Server Error"}'
-
-    mock_request.return_value = mock_response
+    mock_request.return_value.status_code = 500
+    mock_request.return_value.text = "Internal Server Error"
 
     response = client.get(count_url)
 
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-    assert response.json() == {"error": "Internal Server Error"}
+    assert response.data == {"error": "Internal Server Error"}
 
 
 @patch("requests.request")

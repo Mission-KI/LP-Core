@@ -42,7 +42,7 @@ def get_elastic_monitoring_analytics(dataSpaceName: str):
         query,
     )
 
-    return response
+    return response.data
 
 
 def get_edp_event_counts(dataSpaceName: str):
