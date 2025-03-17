@@ -21,7 +21,7 @@ def elasticsearch_request(method, endpoint, data=None, timeout=10):
         response = requests.request(method, es_url, json=data, headers=get_auth_headers(), timeout=timeout)
 
         if response.status_code == 200:
-            return Response(response.json())
+            return Response(response.json(), status=status.HTTP_200_OK)
         else:
             return Response({"error": response.text}, status=response.status_code)
 
