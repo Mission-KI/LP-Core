@@ -1,5 +1,4 @@
 import React from 'react';
-import { Database, Files } from 'react-bootstrap-icons';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router';
 import styles from './CategoryCard.module.css';
