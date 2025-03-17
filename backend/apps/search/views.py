@@ -20,7 +20,7 @@ from .utils.elasticsearch import elasticsearch_request
 def search(request):
     """Sends a raw query to Elasticsearch"""
     query = request.data
-    return elasticsearch_request("POST", "_search", query)
+    return Response(elasticsearch_request("POST", "_search", query))
 
 
 @extend_schema(
@@ -39,14 +39,14 @@ def search(request):
 @permission_classes([AllowAny])
 def find(request, uuid):
     """Retrieve an EDP from Elasticsearch"""
-    return elasticsearch_request("GET", f"_doc/{uuid}")
+    return Response(elasticsearch_request("GET", f"_doc/{uuid}"))
 
 
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def count(request):
     """Gets the total count of assets in Elasticsearch"""
-    return elasticsearch_request("GET", "_count")
+    return Response(elasticsearch_request("GET", "_count"))
 
 
 @extend_schema(
