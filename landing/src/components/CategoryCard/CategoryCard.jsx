@@ -29,26 +29,27 @@ const CategoryCard = ({ category }) => {
                     onClick={handleClick}
                     draggable={false}
                 />
-                <Card.Body className='pb-2 w-100 px-3 pt-3'>
+                <div className='pb-2 w-100 px-3 pt-3'>
                     <a
                         href="#"
                         onClick={handleClick}
                         className={`${styles.title} h5`}
                     >
-                        {category.name}
+                        {category.title}
                     </a>
-                    <Card.Text>
-                        <div className="d-flex flex-wrap mt-2">
-                            <span className='small d-flex align-items-center pe-3'>
-                                <span className='bold pe-1'>{category.amount_of_publishers}</span>
-                                {category.amount_of_publishers === 1 ? t('home.dataProvider') : t('home.dataProviders')}
-                            </span>
-                            <span className='small d-flex align-items-center'>
-                                <span className="bold pe-1">{category.amount_of_assets}</span>
-                                {category.amount_of_assets === 1 ? t('home.dataAsset') : t('home.dataAssets')}
-                            </span>
-                        </div>
-                    </Card.Text>
+                </div>
+
+                <Card.Body className='d-flex flex-column justify-content-end w-100 px-3'>
+                    <div className="d-flex justify-content-between">
+                        <span className='small d-flex align-items-center pe-3'>
+                            <span className='bold pe-1'>{category.amount_of_publishers}</span>
+                            {category.amount_of_publishers === 1 ? t('home.dataProvider') : t('home.dataProviders')}
+                        </span>
+                        <span className='small d-flex align-items-center'>
+                            <span className="bold pe-1">{category.amount_of_assets}</span>
+                            {category.amount_of_assets === 1 ? t('home.dataAsset') : t('home.dataAssets')}
+                        </span>
+                    </div>
                 </Card.Body>
             </Card>
         </div>
