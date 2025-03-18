@@ -4,6 +4,7 @@ import { addBookmark, isBookmarked, removeBookmark } from "../../common/utils/bo
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
+import { notifyEdpDownloadEvent } from "../api/dataset";
 
 const DatasetActions = ({ datasetDetails }) => {
 
@@ -24,6 +25,12 @@ const DatasetActions = ({ datasetDetails }) => {
         removeBookmark(id);
         setBookmarked(false);
     }
+
+    const handleDownload = async (url) => {
+        if (!url) return;
+        window.open(url, '_blank');
+        await notifyEdpDownloadEvent();
+    };
 
     const isHomePage = location.pathname === '/';
 
@@ -51,14 +58,17 @@ const DatasetActions = ({ datasetDetails }) => {
                     </span>
                 </div>
                 <div className='pe-2 pt-1'>
-                    <a href={datasetDetails?._source?.url} target='_blank' className='btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
+                    <button
+                        className='btn btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'
+                        onClick={() => handleDownload(datasetDetails?._source?.url)}
+                    >
                         <Download className='me-1' /> {t('header.getDataset')}
-                    </a>
+                    </button>
                 </div>
                 {!bookmarked ? (
                     <div className='pe-2 pt-1'>
-                        <span 
-                            onClick={() => handleAddBookmark(datasetDetails?._id)} 
+                        <span
+                            onClick={() => handleAddBookmark(datasetDetails?._id)}
                             data-test-id="bookmark-button"
                             className='btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
                             {t('header.bookmark')} <Star className='txt-white ms-2' />

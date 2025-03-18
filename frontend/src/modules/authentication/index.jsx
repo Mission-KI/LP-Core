@@ -1,18 +1,13 @@
-import Login from './pages/Login/Login';
-import Logout from './pages/Logout';
-import Register from './pages/Register/Reigister';
+import Login from "./pages/Login/Login";
+import Logout from "./pages/Logout";
 
 const authRoutes = [
   {
-    path: 'login',
+    path: "auth/login",
     element: <Login />,
   },
   {
-    path: 'register',
-    element: <Register />,
-  },
-  {
-    path: 'logout',
+    path: "auth/logout",
     element: <Logout />,
   },
 ];
