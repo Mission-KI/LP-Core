@@ -1,9 +1,10 @@
 import React from 'react';
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
-import { calculateAttributeConsistency, calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from "../utils/calculations";
+import { calculateAttributeIntegrity, calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from "../utils/calculations";
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { QuestionCircle } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router'
 
 const DataScienceInfo = ({ datasetDetails }) => {
 
@@ -11,6 +12,12 @@ const DataScienceInfo = ({ datasetDetails }) => {
 
     const topDistributions = getTopNumericDistributions(datasetDetails);
     const allDistributions = getUniqueNumericDistributions(datasetDetails);
+    const navigate = useNavigate();
+    const detailViewPath = `/details/${datasetDetails._id}`
+
+    const scienceInfoTabNavigate = (hash) => {
+        navigate(detailViewPath + '#' + hash);
+    }
 
     return (
         <div>
@@ -64,7 +71,10 @@ const DataScienceInfo = ({ datasetDetails }) => {
                     <p className="small mb-1 fw-500">{calculateTemporalCover(datasetDetails)}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.temporalConsistency")}</p>
+                    <p onClick={() => scienceInfoTabNavigate('temporal_consistency')}
+                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        {t("dataset.temporalConsistency")}
+                    </p>
                 </div>
                 <div className="col-6">
                     <p className="small mb-1 fw-500">{datasetDetails?._source?.periodicity ?? "N/A"}</p>
@@ -86,13 +96,20 @@ const DataScienceInfo = ({ datasetDetails }) => {
                     </p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.attributeConsistency")}</p>
+                    <p
+                        onClick={() => scienceInfoTabNavigate('attribute_consistency')}
+                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        {t("dataset.attributeIntegrity")}
+                    </p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 fw-500">{calculateAttributeConsistency(datasetDetails)}</p>
+                    <p className="small mb-1 fw-500">{calculateAttributeIntegrity(datasetDetails)}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.numericValueDistribution")}</p>
+                    <p onClick={() => scienceInfoTabNavigate('numeric_value_distribution')}
+                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        {t("dataset.numericValueDistribution")}
+                    </p>
                 </div>
                 <div className="col-6 d-flex align-items-center">
                     <p className="small mb-1 fw-500">{topDistributions}</p>
@@ -118,25 +135,40 @@ const DataScienceInfo = ({ datasetDetails }) => {
                     </OverlayTrigger>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.stringValueDistribution")}</p>
+                    <p
+                        onClick={() => scienceInfoTabNavigate('string_value_distribution')}
+                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        {t("dataset.stringValueDistribution")}
+                    </p>
                 </div>
                 <div className="col-6">
                     <p className="small mb-1 fw-500">{getStringValueDistributionOverview(datasetDetails)}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.numericCorrelationAnalysis")}</p>
+                    <p onClick={() => scienceInfoTabNavigate('correlation_analysis')}
+                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        {t("dataset.numericCorrelationAnalysis")}
+                    </p>
                 </div>
                 <div className="col-6">
                     <p className="small mb-1 fw-500">partial correlation</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.numericAnomalyAnalysis")}</p>
+                    <p
+                        onClick={() => scienceInfoTabNavigate('anomaly_analysis')}
+                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        {t("dataset.numericAnomalyAnalysis")}
+                    </p>
                 </div>
                 <div className="col-6">
                     <p className="small mb-1 fw-500">anomaly exists</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.dataSeasonality")}</p>
+                    <p
+                        onClick={() => scienceInfoTabNavigate('data_seasonality')}
+                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        {t("dataset.dataSeasonality")}
+                    </p>
                 </div>
                 <div className="col-6">
                     <p className="small mb-1 fw-500">seasonal, no trend</p>

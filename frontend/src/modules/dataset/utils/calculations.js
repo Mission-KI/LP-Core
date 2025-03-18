@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-export const calculateAttributeConsistency = (dataset) => {
+export const calculateAttributeIntegrity = (dataset) => {
 
     var sumOfMissingValueCounts = 0;
     var countWithMissingValues = 0;

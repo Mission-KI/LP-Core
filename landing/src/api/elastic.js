@@ -25,3 +25,26 @@ export const getAttributeCounts = async () => {
         publisherCount: responseData.aggregations.unique_publishers.value
     };
 };
+
+export const getPublisherAssetCounts = async () => {
+    const requestBody = {
+        "aggs": {
+            "by_ds_and_pub": {
+                "multi_terms": {
+                    "terms": [{
+                        "field": "publisher.name.keyword"
+                    }, {
+                        "field": "dataSpace.name.keyword"
+                    }], "size": 100
+                }
+            }
+        }, "_source": ["publisher", "dataSpace"]
+    };
+
+    const responseData = await fetchJSON(`${elasticURL}/_search`, {
+        method: 'POST',
+        body: JSON.stringify(requestBody)
+    });
+
+    return responseData;
+};

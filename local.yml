@@ -21,7 +21,7 @@ services:
       secrets:
         - github_token
     volumes:
-      - "./backend:/backend"
+      - "./backend:/app"
     ports:
       - "8000:8000"
     depends_on:
@@ -45,7 +45,7 @@ services:
       - "3001:3001"
     env_file:
       - .env
-    command: npm run start
+    command: npm run dev -- --host
 
   landing:
     build:
@@ -58,7 +58,7 @@ services:
       - "3000:3000"
     env_file:
       - .env
-    command: npm run start
+    command: npm run dev -- --host
 
 volumes:
   postgres_data:

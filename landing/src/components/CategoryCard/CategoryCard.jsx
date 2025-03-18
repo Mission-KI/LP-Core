@@ -1,5 +1,4 @@
 import React from 'react';
-import { Database, Files } from 'react-bootstrap-icons';
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from 'react-router';
 import styles from './CategoryCard.module.css';
@@ -27,6 +26,7 @@ const CategoryCard = ({ category }) => {
                     src={category.image}
                     className='rounded pointer'
                     style={{ minHeight: 115 }}
+                    onClick={handleClick}
                     draggable={false}
                 />
                 <Card.Body className='pb-2 w-100 px-3 pt-3'>

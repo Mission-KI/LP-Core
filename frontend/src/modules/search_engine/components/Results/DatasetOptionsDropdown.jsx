@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { Download, Star, StarFill, ThreeDots, ThreeDotsVertical } from 'react-bootstrap-icons';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { addBookmark, removeBookmark, isBookmarked } from '../../../common/utils/bookmarks';
 import { t } from 'i18next';
 
