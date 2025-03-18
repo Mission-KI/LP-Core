@@ -1,29 +1,7 @@
-.cardWrapper {
-    width: 100%;
+.card {
+    transition: box-shadow 0.3s ease-in-out;
 }
 
-@media (min-width: 768px) {
-
-    .cardWrapper {
-        width: 50%;
-    }
-}
-
-@media (min-width: 1024px) {
-
-    .cardWrapper {
-        width: 20%;
-    }
-}
-
-.title{
-    font-weight: 500 !important;
-    color: var(--color-primary) !important;
-    text-align: center;
-    cursor: pointer;
-    display: block;
-    margin: auto;
-}
-.title:hover{
-    text-decoration: underline !important;
+.card:hover {
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
 }

@@ -35,7 +35,7 @@ export const getPublisherAssetCounts = async () => {
                         "field": "publisher.name.keyword"
                     }, {
                         "field": "dataSpace.name.keyword"
-                    }], "size": 100
+                    }]
                 }
             }
         }, "_source": ["publisher", "dataSpace"]

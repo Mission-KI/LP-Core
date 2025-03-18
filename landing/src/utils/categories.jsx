@@ -45,15 +45,21 @@ export const useCategories = () => {
         const updatedCategories = [
             {
                 "id": 1,
-                "name": t('categories.mobilityAndTransportation'),
+                "title": t('categories.mobilityAndTransportation'),
                 "slug": "mobility-and-transportation",
                 "amount_of_publishers": 4,
-                "amount_of_assets": 13181,
-                "image": MobilityImg,
+                "amount_of_assets":
+                    getAssetCount("BASt", "GovData")
+                    + getAssetCount("NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH ", "Mobility Data Space")
+                    + getAssetCount("Toll Collect GmbH", "mobilithek") + getAssetCount("Autobahn GmbH", "mobilithek")
+                    + getAssetCount("BASt", "GovData")
+                    + getAssetCount("Toll Collect GmbH", "mobilithek")
+                , "image": MobilityImg,
                 "tiles": [
                     {
                         "id": 1,
-                        "name": "GovData",
+                        "title": t('dataSpaces.govdata.title'),
+                        "description": t('dataSpaces.govdata.description'),
                         "image": govdata,
                         "amount_of_publishers": 1,
                         "amount_of_assets": getAssetCount("BASt", "GovData"),
@@ -62,7 +68,8 @@ export const useCategories = () => {
                     },
                     {
                         "id": 2,
-                        "name": "Mobility Data Space",
+                        "title": t('dataSpaces.mobility.title'),
+                        "description": t('dataSpaces.mobility.description'),
                         "image": mobility,
                         "amount_of_publishers": 1,
                         "amount_of_assets": getAssetCount("NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH ", "Mobility Data Space"),
@@ -71,7 +78,8 @@ export const useCategories = () => {
                     },
                     {
                         "id": 3,
-                        "name": "mobilithek",
+                        "title": t('dataSpaces.mobilithek.title'),
+                        "description": t('dataSpaces.mobilithek.description'),
                         "image": mobilithek,
                         "amount_of_publishers": 2,
                         "amount_of_assets": getAssetCount("Toll Collect GmbH", "mobilithek") + getAssetCount("Autobahn GmbH", "mobilithek"),
@@ -80,7 +88,8 @@ export const useCategories = () => {
                     },
                     {
                         "id": 4,
-                        "name": "BASt",
+                        "title": t('publishers.bast.title'),
+                        "description": t('publishers.bast.description'),
                         "image": bast,
                         "amount_of_publishers": 1,
                         "amount_of_assets": getAssetCount("BASt", "GovData"),
@@ -89,7 +98,8 @@ export const useCategories = () => {
                     },
                     {
                         "id": 5,
-                        "name": "Toll Collect",
+                        "title": t('publishers.tollcollect.title'),
+                        "description": t('publishers.tollcollect.description'),
                         "image": collect,
                         "amount_of_publishers": 1,
                         "amount_of_assets": getAssetCount("Toll Collect GmbH", "mobilithek"),
@@ -98,7 +108,8 @@ export const useCategories = () => {
                     },
                     {
                         "id": 6,
-                        "name": "Autobahn GmbH",
+                        "title": t('publishers.autobahn.title'),
+                        "description": t('publishers.autobahn.description'),
                         "image": autobahn,
                         "amount_of_publishers": 1,
                         "amount_of_assets": 0,
@@ -109,7 +120,7 @@ export const useCategories = () => {
             },
             {
                 "id": 2,
-                "name": t('categories.industryAndProduction'),
+                "title": t('categories.industryAndProduction'),
                 "slug": "industry-and-production",
                 "amount_of_publishers": 0,
                 "amount_of_assets": 0,
@@ -118,7 +129,7 @@ export const useCategories = () => {
             },
             {
                 "id": 3,
-                "name": t('categories.health'),
+                "title": t('categories.health'),
                 "slug": "health-pharmaceuticals-and-medicine",
                 "amount_of_publishers": 0,
                 "amount_of_assets": 0,
@@ -127,7 +138,7 @@ export const useCategories = () => {
             },
             {
                 "id": 4,
-                "name": t('categories.environment'),
+                "title": t('categories.environment'),
                 "slug": "environment-food-and-agriculture",
                 "amount_of_publishers": 1,
                 "amount_of_assets": getAssetCount("Transparenzportal Hamburg", "GovData"),
@@ -135,7 +146,8 @@ export const useCategories = () => {
                 "tiles": [
                     {
                         "id": 1,
-                        "name": "GovData",
+                        "title": t('dataSpaces.govdata.title'),
+                        "description": t('dataSpaces.govdata.description'),
                         "image": govdata,
                         "amount_of_publishers": 1,
                         "amount_of_assets": getAssetCount("Transparenzportal Hamburg", "GovData"),
@@ -146,23 +158,33 @@ export const useCategories = () => {
             },
             {
                 "id": 5,
-                "name": t('categories.administration'),
+                "title": t('categories.administration'),
                 "slug": "administration-and-public-sector",
                 "image": GovernmentImg,
                 "amount_of_publishers": 9,
-                "amount_of_assets": 51327,
+                "amount_of_assets":
+                    getAssetCount("BASt", "GovData") +
+                    getAssetCount("Open-Data Schleswig-Holstein", "GovData") +
+                    getAssetCount("Transparenzportal Hamburg", "GovData") +
+                    getAssetCount("Offene Daten KDVZ Rhein-Erft-Rur", "GovData") +
+                    getAssetCount("Bayrisches Landesamt für Statistik", "GovData") +
+                    getAssetCount("Landesdatenbank NRW", "GovData") +
+                    getAssetCount("Freistaat Bayern", "GovData") +
+                    getAssetCount("Statistisches Bundesamt", "GovData") +
+                    getAssetCount("Statistik Nord", "GovData"),
                 "tiles": [
                     {
                         "id": 1,
-                        "name": "GovData",
+                        "title": t('dataSpaces.govdata.title'),
+                        "description": t('dataSpaces.govdata.description'),
                         "image": govdata,
                         "amount_of_publishers": 9,
-                        "amount_of_assets": 
-                            getAssetCount("BASt", "GovData") + 
-                            getAssetCount("Open-Data Schleswig-Holstein", "GovData") + 
+                        "amount_of_assets":
+                            getAssetCount("BASt", "GovData") +
+                            getAssetCount("Open-Data Schleswig-Holstein", "GovData") +
                             getAssetCount("Transparenzportal Hamburg", "GovData") +
-                            getAssetCount("Offene Daten KDVZ Rhein-Erft-Rur", "GovData") + 
-                            getAssetCount("Bayrisches Landesamt für Statistik", "GovData") + 
+                            getAssetCount("Offene Daten KDVZ Rhein-Erft-Rur", "GovData") +
+                            getAssetCount("Bayrisches Landesamt für Statistik", "GovData") +
                             getAssetCount("Landesdatenbank NRW", "GovData") +
                             getAssetCount("Freistaat Bayern", "GovData") +
                             getAssetCount("Statistisches Bundesamt", "GovData") +
@@ -172,7 +194,8 @@ export const useCategories = () => {
                     },
                     {
                         "id": 2,
-                        "name": "BASt",
+                        "title": t('publishers.bast.title'),
+                        "description": t('publishers.bast.description'),
                         "image": bast,
                         "amount_of_publishers": 1,
                         "amount_of_assets": getAssetCount("BASt", "GovData"),
@@ -183,7 +206,7 @@ export const useCategories = () => {
             },
             {
                 "id": 6,
-                "name": t('categories.geodata'),
+                "title": t('categories.geodata'),
                 "slug": "geodata-and-weather",
                 "amount_of_publishers": 0,
                 "image": GeomapsImg,
@@ -192,7 +215,7 @@ export const useCategories = () => {
             },
             {
                 "id": 7,
-                "name": t('categories.energy'),
+                "title": t('categories.energy'),
                 "slug": "energy",
                 "image": EnergyImg,
                 "amount_of_publishers": 0,
@@ -201,7 +224,7 @@ export const useCategories = () => {
             },
             {
                 "id": 8,
-                "name": t('categories.culture'),
+                "title": t('categories.culture'),
                 "slug": "culture-and-media",
                 "image": CultureImg,
                 "amount_of_publishers": 0,
@@ -210,7 +233,7 @@ export const useCategories = () => {
             },
             {
                 "id": 9,
-                "name": t('categories.education'),
+                "title": t('categories.education'),
                 "slug": "education-research-and-science",
                 "image": ScienceImg,
                 "amount_of_publishers": 0,
@@ -219,7 +242,7 @@ export const useCategories = () => {
             },
             {
                 "id": 10,
-                "name": t('categories.realestate'),
+                "title": t('categories.realestate'),
                 "slug": "real-estate-and-finance",
                 "image": RealestateImg,
                 "amount_of_publishers": 0,

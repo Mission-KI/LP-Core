@@ -7,7 +7,7 @@
   --color-primary-darker: #005387;
   --color-text: #1e1f21;
   --color-text-lighter: #4C4D4E;
-  --color-body-background: #fafafa;
+  --color-body-background: #ffffff;
   --color-main-background: #fff;
   --color-light-gray: #F2F2F2;
   --color-darker-gray: #D9D9D9;
@@ -315,4 +315,8 @@ table.dataTable thead>tr>td.dt-ordering-desc span.dt-column-order:after {
 [data-rmiz-content="found"] [role="img"],
 [data-rmiz-content="found"] [data-zoom] {
   cursor: pointer !important;
+}
+
+.border-lighter {
+  border: 1px solid var(--color-light-gray) !important;
 }
