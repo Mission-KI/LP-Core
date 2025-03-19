@@ -25,96 +25,96 @@ const DataScienceInfo = ({ datasetDetails }) => {
         <div>
             <div className="row w-100">
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.structure")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.structure")}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">Text (CSV)</p>
+                    <p className="small mb-1">Text (CSV)</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.volume")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.volume")}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">{filesize(datasetDetails?._source?.volume)}</p>
+                    <p className="small mb-1">{filesize(datasetDetails?._source?.volume)}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.compression")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.compression")}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">{datasetDetails?._source?.compression ?? "None"}</p>
+                    <p className="small mb-1">{datasetDetails?._source?.compression ?? "None"}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.languages")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.languages")}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">{getEdpLanguagesList(datasetDetails)}</p>
+                    <p className="small mb-1">{getEdpLanguagesList(datasetDetails)}</p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.transferType")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.transferType")}</p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 fw-500">{datasetDetails?._source?.transferTypeFlag ?? "unknown"}</p>
+                    <p className="small mb-1">{datasetDetails?._source?.transferTypeFlag ?? "unknown"}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.immutability")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.immutability")}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">{datasetDetails?._source?.immutabilityFlag ?? "unknown"}</p>
+                    <p className="small mb-1">{datasetDetails?._source?.immutabilityFlag ?? "unknown"}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.dataTypes")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.dataTypes")}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">{calculateDataTypesAttribute(datasetDetails)}</p>
+                    <p className="small mb-1">{calculateDataTypesAttribute(datasetDetails)}</p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.temporalCover")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.temporalCover")}</p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 fw-500">{calculateTemporalCover(datasetDetails)}</p>
+                    <p className="small mb-1">{calculateTemporalCover(datasetDetails)}</p>
                 </div>
                 <div className="col-6">
                     <p onClick={() => scienceInfoTabNavigate('temporal_consistency')}
-                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        className="small mb-1 fw-500 text-uppercase pointer">
                         {t("dataset.temporalConsistency")}
                     </p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">{datasetDetails?._source?.periodicity ?? "N/A"}</p>
+                    <p className="small mb-1">{datasetDetails?._source?.periodicity ?? "N/A"}</p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.noOfColumns")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.noOfColumns")}</p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 fw-500">
+                    <p className="small mb-1">
                         {datasetDetails?._source?.structuredDatasets?.[0]?.columnCount ?? "unknown"}
                     </p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 txt-lighter text-uppercase">{t("dataset.noOfLines")}</p>
+                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.noOfLines")}</p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">
+                    <p className="small mb-1">
                         {datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? "unknown"}
                     </p>
                 </div>
                 <div className="col-6 mt-3">
                     <p
                         onClick={() => scienceInfoTabNavigate('attribute_consistency')}
-                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        className="small mb-1 fw-500 text-uppercase pointer">
                         {t("dataset.attributeIntegrity")}
                     </p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p className="small mb-1 fw-500">{calculateAttributeIntegrity(datasetDetails)}</p>
+                    <p className="small mb-1">{calculateAttributeIntegrity(datasetDetails)}</p>
                 </div>
                 <div className="col-6">
                     <p onClick={() => scienceInfoTabNavigate('numeric_value_distribution')}
-                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        className="small mb-1 fw-500 text-uppercase pointer">
                         {t("dataset.numericValueDistribution")}
                     </p>
                 </div>
                 <div className="col-6 d-flex align-items-center">
-                    <p className="small mb-1 fw-500">{topDistributions}</p>
+                    <p className="small mb-1">{topDistributions}</p>
                     <OverlayTrigger
                         placement="top"
                         overlay={
@@ -139,45 +139,45 @@ const DataScienceInfo = ({ datasetDetails }) => {
                 <div className="col-6">
                     <p
                         onClick={() => scienceInfoTabNavigate('string_value_distribution')}
-                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        className="small mb-1 fw-500 text-uppercase pointer">
                         {t("dataset.stringValueDistribution")}
                     </p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">{getStringValueDistributionOverview(datasetDetails)}</p>
+                    <p className="small mb-1">{getStringValueDistributionOverview(datasetDetails)}</p>
                 </div>
                 <div className="col-6">
                     <p onClick={() => scienceInfoTabNavigate('correlation_analysis')}
-                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        className="small mb-1 fw-500 text-uppercase pointer">
                         {t("dataset.numericCorrelationAnalysis")}
                     </p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">partial correlation</p>
+                    <p className="small mb-1">partial correlation</p>
                 </div>
                 <div className="col-6">
                     <p
                         onClick={() => scienceInfoTabNavigate('anomaly_analysis')}
-                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        className="small mb-1 fw-500 text-uppercase pointer">
                         {t("dataset.numericAnomalyAnalysis")}
                     </p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">anomaly exists</p>
+                    <p className="small mb-1">anomaly exists</p>
                 </div>
                 <div className="col-6">
                     <p
                         onClick={() => scienceInfoTabNavigate('data_seasonality')}
-                        className="small mb-1 txt-lighter text-uppercase pointer">
+                        className="small mb-1 fw-500 text-uppercase pointer">
                         {t("dataset.dataSeasonality")}
                     </p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1 fw-500">seasonal, no trend</p>
+                    <p className="small mb-1">seasonal, no trend</p>
                 </div>
                 <div className="col-6">
                     <p
-                        className="small mb-1 txt-lighter text-uppercase">
+                        className="small mb-1 fw-500 text-uppercase pt-3">
                         {t("dataset.edpStructure")}
                     </p>
                 </div>

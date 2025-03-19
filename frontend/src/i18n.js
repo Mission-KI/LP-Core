@@ -70,6 +70,8 @@ i18n
             tabs: {
               attributeList: "Attribute List",
               attributeIntegrity: "Attribute Integrity",
+              embeddedImages: "Embedded images",
+              embeddedTables: "Embedded tables",
               temporalConsistency: "Temporal Consistency",
               numericValueDistribution: "Numeric Value Distribution",
               stringValueDistribution: "String Value Distribution",
@@ -218,6 +220,8 @@ i18n
             tabs: {
               attributeList: "Attribut- liste",
               attributeIntegrity: "Vollständigkeit",
+              embeddedImages: "Embedded images",
+              embeddedTables: "Embedded tables",
               temporalConsistency: "Zeitliche Konsistenz",
               numericValueDistribution: "Numerische Wertever- Teilung",
               stringValueDistribution: "String-Wertever- Teilung",

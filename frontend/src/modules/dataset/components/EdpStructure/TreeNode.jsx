@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Dash, Plus } from "react-bootstrap-icons";
+import { truncateString } from "../../../common/utils/format_utils";
 
 const TreeNode = ({ node, childrenMap, dataset }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -23,7 +24,8 @@ const TreeNode = ({ node, childrenMap, dataset }) => {
 
                 <div>
                     <div>
-                        {childrenMap?.[node?.name]?.length > 0 ? (isExpanded ? "📂" : "📁") : "📄"} {node.name}
+                        {childrenMap?.[node?.name]?.length > 0 ? (isExpanded ? "📂 " : "📁 ") : "📄 "} 
+                        {truncateString(node.name, 15)}
                     </div>
                     {isExpanded && hasChildren && (
                         <div>

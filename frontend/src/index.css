@@ -611,7 +611,7 @@ input:checked+.slider:before {
   background-color: var(--content-over-widget-color) !important;
   color: var(--color-text) !important;
 }
-
+/* 
 ::-webkit-scrollbar {
   width: 11px;
 }
@@ -625,7 +625,7 @@ input:checked+.slider:before {
 ::-webkit-scrollbar-thumb {
   background: var(--color-darker-gray);
   border-radius: 1rem;
-}
+} */
 
 .dropdown-menu[data-bs-popper] {
   left: 50% !important;
