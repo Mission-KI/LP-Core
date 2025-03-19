@@ -14,7 +14,6 @@ from apps.connector.utils.edpuploader.elastic_edp import ElasticDBWrapper
 from apps.connector.utils.edpuploader.s3_edp_storage import S3EDPStorage
 from apps.monitoring.models import EventLog
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.urls import reverse
 from elasticsearch import Elasticsearch
@@ -33,6 +32,7 @@ from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
 from rest_framework.response import Response
 from rest_framework.test import APIClient
+from user.models import User
 
 
 @pytest.fixture
@@ -44,7 +44,7 @@ def client():
 def auth_client():
     client = APIClient()
     user = User.objects.create_user(username="test", password="test")
-    user.profile.is_connector_user = True
+    user.is_connector_user = True
     client.force_authenticate(user=user)
     return client
 
@@ -53,7 +53,7 @@ def auth_client():
 def no_perm_client():
     client = APIClient()
     user = User.objects.create_user(username="test", password="test")
-    user.profile.is_connector_user = False
+    user.is_connector_user = False
     client.force_authenticate(user=user)
     return client
 

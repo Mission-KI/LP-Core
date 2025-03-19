@@ -19,6 +19,8 @@ CSRF_TRUSTED_ORIGINS = (
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
 
+AUTH_USER_MODEL = "user.User"
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
