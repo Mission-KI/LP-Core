@@ -17,11 +17,11 @@ export const useFilterSections = () => {
         const fetchFilterValues = async () => {
             try {
                 const response = await getFilterValues();
-                setDataSpaces(response?.aggregations?.distinct_dataSpace_names?.buckets);
-                setLicenses(response?.aggregations?.distinct_license_names?.buckets);
-                setPublishers(response?.aggregations?.distinct_publisher_names?.buckets);
-                setMaxRowCount(response?.aggregations?.max_row_count?.value);
-                setMaxColumnCount(response?.aggregations?.max_column_count?.value);
+                setDataSpaces(response?.aggregations?.nested_asset_refs?.distinct_dataSpace_names?.buckets || []);
+                setLicenses(response?.aggregations?.nested_asset_refs?.distinct_license_names?.buckets || []);
+                setPublishers(response?.aggregations?.nested_asset_refs?.distinct_publisher_names?.buckets || []);
+                setMaxRowCount(response?.aggregations?.max_row_count?.value || 0);
+                setMaxColumnCount(response?.aggregations?.max_column_count?.value || 0);
             } catch (error) {
                 console.error("Error fetching dataSpaces and licenses:", error);
             }
