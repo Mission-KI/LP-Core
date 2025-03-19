@@ -6,32 +6,65 @@ from ..models import EventLog
 def get_elastic_monitoring_analytics(dataSpaceName: str):
     query = {
         "size": 0,
-        "query": {"bool": {"filter": [{"term": {"dataSpace.name.keyword": dataSpaceName}}]}},
+        "query": {
+            "nested": {
+                "path": "assetRefs",
+                "query": {"bool": {"filter": [{"term": {"assetRefs.dataSpace.name.keyword": dataSpaceName}}]}},
+            }
+        },
         "aggs": {
-            "unique_publishers": {"cardinality": {"field": "publisher.name.keyword"}},
-            "total_items": {"value_count": {"field": "dataSpace.name.keyword"}},
+            "unique_publishers": {
+                "nested": {"path": "assetRefs"},
+                "aggs": {"unique_publishers_count": {"cardinality": {"field": "assetRefs.publisher.name.keyword"}}},
+            },
+            "total_items": {
+                "nested": {"path": "assetRefs"},
+                "aggs": {"count": {"value_count": {"field": "assetRefs.dataSpace.name.keyword"}}},
+            },
             "total_original_data_assets": {
-                "filter": {"term": {"assetProcessingStatus.keyword": "Original Data"}},
-                "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
+                "nested": {"path": "assetRefs"},
+                "aggs": {
+                    "filtered": {
+                        "filter": {"term": {"assetRefs.assetProcessingStatus.keyword": "Original Data"}},
+                        "aggs": {"count": {"value_count": {"field": "assetRefs.assetProcessingStatus.keyword"}}},
+                    }
+                },
             },
             "total_processed_data_assets": {
-                "filter": {"term": {"assetProcessingStatus.keyword": "Processed Data"}},
-                "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
+                "nested": {"path": "assetRefs"},
+                "aggs": {
+                    "filtered": {
+                        "filter": {"term": {"assetRefs.assetProcessingStatus.keyword": "Processed Data"}},
+                        "aggs": {"count": {"value_count": {"field": "assetRefs.assetProcessingStatus.keyword"}}},
+                    }
+                },
             },
             "total_refined_data_assets": {
-                "filter": {"term": {"assetProcessingStatus.keyword": "Refined Data"}},
-                "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
+                "nested": {"path": "assetRefs"},
+                "aggs": {
+                    "filtered": {
+                        "filter": {"term": {"assetRefs.assetProcessingStatus.keyword": "Refined Data"}},
+                        "aggs": {"count": {"value_count": {"field": "assetRefs.assetProcessingStatus.keyword"}}},
+                    }
+                },
             },
             "total_aiml_result_data_assets": {
-                "filter": {"term": {"assetProcessingStatus.keyword": "AI/ML Result Data"}},
-                "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
+                "nested": {"path": "assetRefs"},
+                "aggs": {
+                    "filtered": {
+                        "filter": {"term": {"assetRefs.assetProcessingStatus.keyword": "AI/ML Result Data"}},
+                        "aggs": {"count": {"value_count": {"field": "assetRefs.assetProcessingStatus.keyword"}}},
+                    }
+                },
             },
             "publishers_list": {
-                "terms": {
-                    "field": "publisher.name.keyword",
-                    "size": 100,
+                "nested": {"path": "assetRefs"},
+                "aggs": {
+                    "publishers": {
+                        "terms": {"field": "assetRefs.publisher.name.keyword", "size": 100},
+                        "aggs": {"asset_count": {"value_count": {"field": "assetRefs.publisher.name.keyword"}}},
+                    }
                 },
-                "aggs": {"asset_count": {"value_count": {"field": "publisher.name.keyword"}}},
             },
         },
     }
@@ -41,6 +74,8 @@ def get_elastic_monitoring_analytics(dataSpaceName: str):
         "_search",
         query,
     )
+
+    print(response.data, flush=True)
 
     return response.data
 
