@@ -75,8 +75,6 @@ def get_elastic_monitoring_analytics(dataSpaceName: str):
         query,
     )
 
-    print(response.data, flush=True)
-
     return response.data
 
 

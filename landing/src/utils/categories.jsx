@@ -27,7 +27,7 @@ export const useCategories = () => {
     useEffect(() => {
         const fetchPublisherAssetCounts = async () => {
             const response = await getPublisherAssetCounts();
-            setPublisherAssetCounts(response?.aggregations?.by_ds_and_pub?.buckets || []);
+            setPublisherAssetCounts(response?.aggregations?.by_ds_and_pub?.multi_terms_agg?.buckets || []);
         };
         fetchPublisherAssetCounts();
     }, []);
