@@ -1,17 +1,19 @@
 import uuid
 from datetime import datetime
-from io import BytesIO, StringIO
+from io import BytesIO
 from typing import Any, Dict, List
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from zipfile import ZipFile
 
+import apps.search.views as search_views
 import boto3
 import pytest
 import requests
 from apps.connector.models import ResourceStatus
+from apps.connector.utils.edpuploader.elastic_edp import ElasticDBWrapper
+from apps.connector.utils.edpuploader.s3_edp_storage import S3EDPStorage
 from apps.monitoring.models import EventLog
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.urls import reverse
 from elasticsearch import Elasticsearch
@@ -30,6 +32,7 @@ from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
 from rest_framework.response import Response
 from rest_framework.test import APIClient
+from user.models import User
 
 
 @pytest.fixture
@@ -41,9 +44,32 @@ def client():
 def auth_client():
     client = APIClient()
     user = User.objects.create_user(username="test", password="test")
-    user.profile.is_connector_user = True
+    user.is_connector_user = True
     client.force_authenticate(user=user)
     return client
+
+
+@pytest.fixture
+def no_perm_client():
+    client = APIClient()
+    user = User.objects.create_user(username="test", password="test")
+    user.is_connector_user = False
+    client.force_authenticate(user=user)
+    return client
+
+
+@pytest.fixture
+def valid_zip_file():
+    return create_zip_from_file_list({"edp.json": mini_edp().model_dump_json(), "image.png": ""})
+
+
+@pytest.fixture
+def invalid_zip_file():
+    return BytesIO(b"This is not a zip file")
+
+
+def raw_zip_upload_url(id):
+    return reverse("edp-raw-zip-upload", kwargs={"id": id, "file_name": "test.zip"})
 
 
 def edp_base_url():
@@ -54,20 +80,18 @@ def edp_detail_url(id: uuid.UUID):
     return reverse("edp-detail", kwargs={"id": id})
 
 
-@pytest.fixture
-def not_a_zip():
-    with StringIO("fake data") as f:
-        yield f
-
-
-def create_zip(file_list: Dict[str, str]):
+def create_zip_from_file_list(file_list: Dict[str, str]):
     zip_buf = BytesIO()
     with ZipFile(zip_buf, "w") as zip_file:
         for file_name, content in file_list.items():
             zip_file.writestr(file_name, data=content)
     zip_buf.seek(0)
+    return zip_buf
+
+
+def create_upload_zip_file(file_list: Dict[str, str]):
     return InMemoryUploadedFile(
-        zip_buf,
+        create_zip_from_file_list(file_list),
         name="test_file.zip",
         content_type="application/zip",
         field_name=None,
@@ -76,7 +100,6 @@ def create_zip(file_list: Dict[str, str]):
     )
 
 
-@pytest.fixture
 def mini_edp():
     asset_ref = AssetReference(
         assetId="did:op:ACce37394eD2848dd383c651Dsb7sf823b7dd123",
@@ -92,9 +115,6 @@ def mini_edp():
         volume=4307,
         dataTypes=set(),
         name="Sample asset",
-        url="https://portal.pontus-x.eu/asset/did:op:ACce67694eD2848dd683c651Dab7Af823b7dd123",
-        publishDate=datetime(year=2026, month=12, day=1),
-        license=License(name=None, url="https://market.oceanprotocol.com/terms"),
         freely_available=False,
         generatedBy="Example Generator",
         assetRefs=[asset_ref],
@@ -164,10 +184,10 @@ def test_upload_edp_file_not_a_file(auth_client: APIClient):
 
 
 @pytest.mark.django_db()
-def test_upload_edp_file_not_a_zip(auth_client: APIClient, not_a_zip):
+def test_upload_edp_file_invalid_zip_file(auth_client: APIClient, invalid_zip_file):
     id = ResourceStatus.objects.create().id
     url = edp_detail_url(id)
-    response = auth_client.put(url, {"file": not_a_zip}, format="multipart")
+    response = auth_client.put(url, {"file": invalid_zip_file}, format="multipart")
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert response.json() == {"file": ["File extension “” is not allowed. Allowed extensions are: zip."]}
@@ -184,7 +204,7 @@ def test_create_edp_file_zip_missing_json(auth_client: APIClient):
     url = edp_detail_url(id)
     response = auth_client.put(
         url,
-        {"file": create_zip({"not-a-json.txt": "{}"})},
+        {"file": create_upload_zip_file({"not-a-json.txt": "{}"})},
         format="multipart",
     )
     assert isinstance(response, Response)
@@ -203,7 +223,7 @@ def test_create_edp_file_zip_validation_error(auth_client: APIClient):
     url = edp_detail_url(id)
     response = auth_client.put(
         url,
-        {"file": create_zip({"dummy_edp.json": '{"volume": "world"}', "image.png": ""})},
+        {"file": create_upload_zip_file({"dummy_edp.json": '{"volume": "world"}', "image.png": ""})},
         format="multipart",
     )
     assert isinstance(response, Response)
@@ -214,22 +234,22 @@ def test_create_edp_file_zip_validation_error(auth_client: APIClient):
 
 @mock_aws
 @pytest.mark.django_db()
-def test_upload_edp_file_zip_success(
-    auth_client: APIClient, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch
-):
+def test_upload_edp_file_zip_success(auth_client: APIClient, monkeypatch: MonkeyPatch):
     mock_index = mkmock(monkeypatch, Elasticsearch, "index")
     conn = boto3.resource("s3")
     conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
-    resp = RequestResponse()
-    resp.status_code = 200
     id = ResourceStatus.objects.create().id
-    monkeypatch.setattr(resp, "json", lambda: {"hits": {"total": 1, "hits": [{"_id": str(id)}]}})
-    monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
+    monkeypatch.setattr(
+        search_views,
+        "elasticsearch_request",
+        Mock(return_value=Response({"hits": {"total": 1, "hits": [{"_id": str(id)}]}})),
+    )
 
     url = edp_detail_url(id)
+    edp = mini_edp()
     response = auth_client.put(
         url,
-        {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
+        {"file": create_upload_zip_file({"dummy_edp.json": edp.model_dump_json(), "image.png": ""})},
         format="multipart",
     )
     assert isinstance(response, Response)
@@ -238,7 +258,7 @@ def test_upload_edp_file_zip_success(
         response.data,
         {
             "message": "EDP uploaded successfully",
-            "edp": mini_edp.model_dump(mode="json"),
+            "edp": edp.model_dump(mode="json"),
             "id": str(id),
         },
     )
@@ -248,9 +268,7 @@ def test_upload_edp_file_zip_success(
 
 @mock_aws
 @pytest.mark.django_db()
-def test_upload_edp_file_already_exists_with_different_resource_id(
-    auth_client: APIClient, mini_edp: ExtendedDatasetProfile, monkeypatch: MonkeyPatch
-):
+def test_upload_edp_file_already_exists_with_different_resource_id(auth_client: APIClient, monkeypatch: MonkeyPatch):
     mock_index = mkmock(monkeypatch, Elasticsearch, "index")
     conn = boto3.resource("s3")
     conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
@@ -285,7 +303,7 @@ def test_upload_edp_file_already_exists_with_different_resource_id(
     url = edp_detail_url(id)
     response = auth_client.put(
         url,
-        {"file": create_zip({"dummy_edp.json": mini_edp.model_dump_json(), "image.png": ""})},
+        {"file": create_upload_zip_file({"dummy_edp.json": mini_edp().model_dump_json(), "image.png": ""})},
         format="multipart",
     )
     # msg = "Asset ID already exists in the data space: <the-other-id>"
@@ -330,13 +348,64 @@ def test_get_schema(auth_client: APIClient):
     assert response.data == CURRENT_SCHEMA.model_json_schema()
 
 
-@pytest.fixture
-def no_perm_client():
-    client = APIClient()
-    user = User.objects.create_user(username="test", password="test")
-    user.profile.is_connector_user = False
-    client.force_authenticate(user=user)
-    return client
+@pytest.mark.django_db
+def test_raw_zip_upload_success(auth_client: APIClient, valid_zip_file: BytesIO, monkeypatch: MonkeyPatch):
+    resource = ResourceStatus.objects.create()
+    url = raw_zip_upload_url(resource.id)
+
+    monkeypatch.setattr(
+        search_views,
+        "elasticsearch_request",
+        Mock(return_value=Response({"hits": {"total": 0, "hits": []}})),
+    )
+    monkeypatch.setattr(ElasticDBWrapper, "upload", Mock())
+    monkeypatch.setattr(S3EDPStorage, "upload", Mock())
+    response = auth_client.put(url, data=valid_zip_file.getvalue(), content_type="application/zip")
+
+    assert response.status_code == status.HTTP_200_OK, response.data
+    assert response.data["message"] == "EDP uploaded successfully"
+    assert EventLog.objects.filter(metadata__id=str(resource.id)).exists()
+
+
+@pytest.mark.django_db
+def test_raw_zip_upload_permission_denied(no_perm_client, valid_zip_file):
+    resource = ResourceStatus.objects.create()
+    url = raw_zip_upload_url(resource.id)
+    response = no_perm_client.put(url, data=valid_zip_file.getvalue(), content_type="application/zip")
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+    assert response.data["message"] == "Permission denied"
+
+
+@pytest.mark.django_db
+def test_raw_zip_upload_invalid_zip(auth_client, invalid_zip_file):
+    resource = ResourceStatus.objects.create()
+    url = raw_zip_upload_url(resource.id)
+    response = auth_client.put(url, data=invalid_zip_file.getvalue(), content_type="application/zip")
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    rjs = response.json()
+    assert rjs == ["Uploaded file is not a valid ZIP archive."]
+    assert EventLog.objects.filter(metadata__id=str(resource.id)).exists()
+
+
+@pytest.mark.django_db
+def test_raw_zip_upload_unsupported_media_type(auth_client, valid_zip_file):
+    resource = ResourceStatus.objects.create()
+    url = raw_zip_upload_url(resource.id)
+    response = auth_client.put(url, data=valid_zip_file.getvalue(), content_type="application/json")
+    assert response.status_code == status.HTTP_415_UNSUPPORTED_MEDIA_TYPE
+    assert EventLog.objects.filter(metadata__id=str(resource.id)).exists()
+
+
+@pytest.mark.django_db
+@patch("apps.connector.views._do_upload")
+def test_raw_zip_upload_general_exception(mock_do_upload, auth_client, valid_zip_file):
+    mock_do_upload.side_effect = Exception("Test exception")
+    resource = ResourceStatus.objects.create()
+    url = raw_zip_upload_url(resource.id)
+    response = auth_client.put(url, data=valid_zip_file.getvalue(), content_type="application/zip")
+    assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
+    assert "An error occurred" in response.data["error"]
+    assert EventLog.objects.filter(metadata__id=str(resource.id)).exists()
 
 
 @pytest.mark.django_db()

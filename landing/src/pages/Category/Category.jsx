@@ -45,7 +45,7 @@ const Category = () => {
 
     return (
         <div className="container pt-3 pb-4">
-            <h3 className='mt-5 mb-4 bold text-upper'>{category.name}</h3>
+            <h3 className='mt-5 mb-4 bold text-upper'>{category.title}</h3>
 
             <div className="mt-4">
                 {dataSpaces.length > 0 ? (
@@ -54,8 +54,8 @@ const Category = () => {
                         renderTile={({ data, isDragging }) => (
                             <DataspaceCard dataSpace={data} category={category} isDragging={isDragging} />
                         )}
-                        forceTileWidth={250}
-                        forceTileHeight={230}
+                        forceTileWidth={320}
+                        forceTileHeight={410}
                         className="w-100 row"
                         onReorderTiles={(newOrder) => {
                             setDataSpaces(newOrder);

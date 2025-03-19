@@ -61,6 +61,34 @@ i18n
             realestate: "Real estate and finance",
             noItems: "Unfortunately there is no data available for this category yet."
           },
+          publishers: {
+            bast: {
+              title: "Federal Highway Research Institute",
+              description: "The research institute BASt, which is part of the Federal Ministry of Transport, provides data on the safety, environmental compatibility, economic efficiency and performance of Germany's roads."
+            },
+            tollcollect: {
+              title: "Toll Collect GmbH",
+              description: "Toll Collect GmbH offers data in the context of the German truck toll system."
+            },
+            autobahn: {
+              title: "Autobahn GmbH",
+              description: "The Autobahn GmbH of the Federal Government offers data in the context of planning, construction, operation, traffic management, maintenance, financing and asset management of highways and trunk roads in Germany. "
+            }
+          },
+          dataSpaces: {
+            govdata: {
+              title: "The data portal for Germany",
+              description: "The GovData portal offers transparent, open and freely accessible data from all levels of government."
+            },
+            mobility: {
+              title: "Data Sharing Community for mobility pioneers",
+              description: "The Mobility Data Space is the fair data sharing community for everyone who wants to exchange data from the mobility sector."
+            },
+            mobilithek: {
+              title: "Germany's platform for data that drives things forward",
+              description: "The platform Mobilithek offers access to open mobility data and is a national access point for mobility data."
+            }
+          },
           footer: {
             c: "© beebucket 2024",
             imprint: "Imprint",
@@ -120,6 +148,34 @@ i18n
             education: "Bildung, Forschung und Wissenschaft",
             realestate: "Immobilien und Finanzen",
             noItems: "Es sind leider noch keine Daten für diese Kategorie vorhanden."
+          },
+          publishers: {
+            bast: {
+              title: "Bundesanstalt für Straßen- und Verkehrswesen",
+              description: "Die Forschungseinrichtung BASt im Ressort des Bundesverkehrsministeriums bietet Daten im Kontext Sicherheit, Umweltverträglichkeit, Wirtschaftlichkeit und Leistungsfähigkeit der bundesdeutschen Straßen an."
+            },
+            tollcollect: {
+              title: "Toll Collect GmbH",
+              description: "Die Toll Collect GmbH bietet Daten im Kontext des deutschen LKW-Mautsystems an."
+            },
+            autobahn: {
+              title: "Autobahn GmbH",
+              description: "Die Autobahn GmbH des Bundes bietet Daten im Kontext Planung, Bau, Betrieb, Verkehrsmanagement, Erhalt, Finanzierung und vermögensmäßige Verwaltung der Autobahnen und Fernstraßen in Deutschland an."
+            }
+          },
+          dataSpaces: {
+            govdata: {
+              title: "Das Datenportal für Deutschland",
+              description: "Das Portal GovData bietet Daten aller Verwaltungsebenen transparent, offen und frei zugänglich an."
+            },
+            mobility: {
+              title: "Data Sharing Community für Mobilitätspioniere",
+              description: "Der Mobility Data Space ist die faire Data Sharing Community für alle, die Daten aus dem Mobilitätssektor miteinander austauschen wollen."
+            },
+            mobilithek: {
+              title: "Deutschlands Plattform für Daten, die etwas bewegen",
+              description: "Die Plattform Mobilithek bietet Zugang zu offenen Mobilitätsdaten (open data) und ist nationaler Zugangspunkt für Mobilitätsdaten."
+            }
           },
           footer: {
             c: "© beebucket 2024",
