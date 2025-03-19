@@ -128,7 +128,6 @@ class RawZipUploadView(views.APIView):
 
 class EDPViewSet(ViewSet):
     parser_classes = [MultiPartParser, FormParser]
-    serializer_class = MultipartFormDataUploadSerializer
 
     @extend_schema(summary="create EDP resource")
     def create(self, request: Request):
