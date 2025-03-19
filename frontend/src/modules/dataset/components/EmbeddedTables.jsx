@@ -11,7 +11,7 @@ function EmbeddedTables({ datasetDetails }) {
     const { t } = useTranslation();
 
     return (
-        <p>asadsd</p>
+        <p>No data available for this table.</p>
     );
 }
 

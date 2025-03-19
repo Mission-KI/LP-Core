@@ -16,7 +16,7 @@ const Footer = () => {
                         <a href={`${landingUrl}/use-policy`} className={styles.footerLink}>{t('footer.usePolicy')}</a>
                         <a href={`${landingUrl}/imprint`} className={styles.footerLink}>{t('footer.imprint')}</a>
                     </div>
-                    <span className={`${styles.footerLink}`}><span className='txt-primary h6 mb-0'>{t('footer.c')}</span></span>
+                    <span className={`${styles.footerLink}`}><span className='txt-primary fw-400 mb-0'>{t('footer.c')}</span></span>
                 </div>
             </div>
         </div>

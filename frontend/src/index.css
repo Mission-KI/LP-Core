@@ -81,7 +81,7 @@ body {
 }
 
 .navbar .nav-link {
-  color: var(--color-text-lighter) !important;
+  /* color: var(--color-text-lighter) !important; */
   font-size: 14px !important;
 }
 
