@@ -5,6 +5,8 @@ import { useAuth } from "../../common/contexts/AuthContext";
 import Header from "../components/Header";
 import { getAnalytics } from '../monitoring';
 import { CloudArrowUp, Download, Pencil, PencilFill, Trash3 } from 'react-bootstrap-icons';
+import DownloadsOverTime from '../components/DownloadsOverTime';
+import UploadsOverTime from '../components/UploadsOverTime';
 
 function Dashboard() {
 
@@ -67,6 +69,16 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
+
+            <div className="row">
+                <div className="col-md-6">
+                    <DownloadsOverTime analytics={analytics} />
+                </div>
+                <div className="col-md-6">
+                    <UploadsOverTime analytics={analytics} />
+                </div>
+            </div>
+
 
             <div className="row">
                 <div className="col-md-6">
