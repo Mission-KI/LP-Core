@@ -17,6 +17,8 @@ import mobility from '../assets/img/dataspace_logos/logo_mobility-data-space.png
 import collect from '../assets/img/dataspace_logos/logo_toll-collect.png';
 import { useState, useEffect } from "react";
 import { getPublisherAssetCounts } from '../api/elastic';
+import pangaea from '../assets/img/dataspace_logos/pangaea.png';
+import geoportal from '../assets/img/dataspace_logos/geoportal.png';
 
 export const useCategories = () => {
     const { t } = useTranslation();
@@ -27,7 +29,7 @@ export const useCategories = () => {
     useEffect(() => {
         const fetchPublisherAssetCounts = async () => {
             const response = await getPublisherAssetCounts();
-            setPublisherAssetCounts(response?.aggregations?.by_ds_and_pub?.buckets || []);
+            setPublisherAssetCounts(response?.aggregations?.by_ds_and_pub?.multi_terms_agg?.buckets || []);
         };
         fetchPublisherAssetCounts();
     }, []);
@@ -208,10 +210,31 @@ export const useCategories = () => {
                 "id": 6,
                 "title": t('categories.geodata'),
                 "slug": "geodata-and-weather",
-                "amount_of_publishers": 0,
+                "amount_of_publishers": 1,
                 "image": GeomapsImg,
                 "amount_of_assets": 0,
-                "tiles": []
+                "tiles": [
+                    {
+                        "id": 1,
+                        "image": pangaea,
+                        "title": t('publishers.pangaea.title'),
+                        "description": t('publishers.pangaea.description'),
+                        "amount_of_publishers": 1,
+                        "amount_of_assets": getAssetCount("PANGAEA", "Geoportal.de"),
+                        "dataspace_filters": [],
+                        "publisher_filters": ["PANGAEA"]
+                    },
+                    {
+                        "id": 2,
+                        "image": geoportal,
+                        "title": t('dataSpaces.geoportal.title'),
+                        "description": t('dataSpaces.geoportal.description'),
+                        "amount_of_publishers": 1,
+                        "amount_of_assets": getAssetCount("PANGAEA", "Geoportal.de"),
+                        "dataspace_filters": ["Geoportal.de"],
+                        "publisher_filters": ["PANGAEA"]
+                    }
+                ]
             },
             {
                 "id": 7,

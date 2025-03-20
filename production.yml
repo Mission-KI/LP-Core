@@ -4,7 +4,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     env_file:
       - .env
     healthcheck:
@@ -22,7 +22,7 @@ services:
     volumes:
       - "./backend:/backend"
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -57,7 +57,7 @@ services:
       - .env
     environment:
       - NODE_ENV=development
-    restart: always                 
+    restart: always
 
 
   nginx:

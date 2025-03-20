@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
-  --color-primary: #005a92;
+  --color-primary: #006aac;
   --color-primary-lighter: #43acff;
   --color-primary-darker: #005387;
   --color-primary-hover: #005b93;
@@ -81,7 +81,7 @@ body {
 }
 
 .navbar .nav-link {
-  color: var(--color-text-lighter) !important;
+  /* color: var(--color-text-lighter) !important; */
   font-size: 14px !important;
 }
 
@@ -611,7 +611,7 @@ input:checked+.slider:before {
   background-color: var(--content-over-widget-color) !important;
   color: var(--color-text) !important;
 }
-
+/* 
 ::-webkit-scrollbar {
   width: 11px;
 }
@@ -625,7 +625,7 @@ input:checked+.slider:before {
 ::-webkit-scrollbar-thumb {
   background: var(--color-darker-gray);
   border-radius: 1rem;
-}
+} */
 
 .dropdown-menu[data-bs-popper] {
   left: 50% !important;

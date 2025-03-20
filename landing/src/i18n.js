@@ -73,6 +73,10 @@ i18n
             autobahn: {
               title: "Autobahn GmbH",
               description: "The Autobahn GmbH of the Federal Government offers data in the context of planning, construction, operation, traffic management, maintenance, financing and asset management of highways and trunk roads in Germany. "
+            },
+            pangaea: {
+              title: "PANGAEA - Data Publisher for Earth & Environmental Science",
+              description: "PANGAEA is a member of the World Data System and offers services for the archiving, publication and dissemination of georeferenced data from Earth system research."
             }
           },
           dataSpaces: {
@@ -87,6 +91,10 @@ i18n
             mobilithek: {
               title: "Germany's platform for data that drives things forward",
               description: "The platform Mobilithek offers access to open mobility data and is a national access point for mobility data."
+            },
+            geoportal: {
+              title: "Geodata from federal, state and local authorities",
+              description: "Via this portal interested users can search, find and use publicly available geodata from federal, state and local authorities."
             }
           },
           footer: {
@@ -161,6 +169,10 @@ i18n
             autobahn: {
               title: "Autobahn GmbH",
               description: "Die Autobahn GmbH des Bundes bietet Daten im Kontext Planung, Bau, Betrieb, Verkehrsmanagement, Erhalt, Finanzierung und vermögensmäßige Verwaltung der Autobahnen und Fernstraßen in Deutschland an."
+            },
+            pangaea: {
+              title: "PANGAEA - Datenanbieter für Geo- und Umweltwissenschaften",
+              description: "PANGAEA ist Mitglied des World Data Systems und bietet Dienste zur Archivierung, Veröffentlichung und Verbreitung von georeferenzierten Daten aus der Erdsystemforschung an."
             }
           },
           dataSpaces: {
@@ -175,6 +187,10 @@ i18n
             mobilithek: {
               title: "Deutschlands Plattform für Daten, die etwas bewegen",
               description: "Die Plattform Mobilithek bietet Zugang zu offenen Mobilitätsdaten (open data) und ist nationaler Zugangspunkt für Mobilitätsdaten."
+            },
+            geoportal: {
+              title: "Geodaten von Bund, Ländern und Kommunen",
+              description: "Über das Portal können interessierte Nutzende öffentlich bereitgestellte Geodaten von Bund, Ländern und Kommunen über das Geoportal.de suchen, finden und nutzen."
             }
           },
           footer: {

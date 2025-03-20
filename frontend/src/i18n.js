@@ -60,6 +60,7 @@ i18n
             numericCorrelationAnalysis: "Numeric correlation analysis",
             numericAnomalyAnalysis: "Numeric anomaly analysis",
             dataSeasonality: "Data seasonality",
+            edpStructure: "EDP Structure",
             languages: "Languages",
             tags: "TAGS",
             version: "Version",
@@ -69,6 +70,8 @@ i18n
             tabs: {
               attributeList: "Attribute List",
               attributeIntegrity: "Attribute Integrity",
+              embeddedImages: "Embedded images",
+              embeddedTables: "Embedded tables",
               temporalConsistency: "Temporal Consistency",
               numericValueDistribution: "Numeric Value Distribution",
               stringValueDistribution: "String Value Distribution",
@@ -207,6 +210,7 @@ i18n
             numericCorrelationAnalysis: "Numerische Korrelationsanalyse",
             numericAnomalyAnalysis: "Numerische Anomalieanalyse",
             dataSeasonality: "Daten-Saisonalität",
+            edpStructure: "EDP Struktur",
             languages: "Sprachen",
             tags: "STICHWORTE",
             version: "Version",
@@ -216,6 +220,8 @@ i18n
             tabs: {
               attributeList: "Attribut- liste",
               attributeIntegrity: "Vollständigkeit",
+              embeddedImages: "Embedded images",
+              embeddedTables: "Embedded tables",
               temporalConsistency: "Zeitliche Konsistenz",
               numericValueDistribution: "Numerische Wertever- Teilung",
               stringValueDistribution: "String-Wertever- Teilung",

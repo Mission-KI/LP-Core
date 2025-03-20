@@ -23,6 +23,8 @@ import DatasetActions from "../../components/DatasetActions";
 import { truncateString } from "../../../common/utils/format_utils";
 import { ArrowLeft } from "react-bootstrap-icons";
 import AttributeIntegrity from "../../components/AttributeIntegrity";
+import EmbeddedImages from "../../components/EmbeddedImages";
+import EmbeddedTables from "../../components/EmbeddedTables";
 
 function Details() {
   const { id } = useParams();
@@ -100,31 +102,33 @@ function Details() {
             target="_blank"
             className="small text-decoration-underline txt-primary pe-3"
           >
-            {datasetDetails._source?.dataSpace?.name}
+            {datasetDetails._source?.assetRefs?.[0]?.dataSpace?.name}
           </a>
 
           <a
-            href={`https://${datasetDetails._source?.publisher?.url}`}
+            href={`https://${datasetDetails._source?.assetRefs?.[0]?.publisher?.url}`}
             target="_blank"
             rel='noopener noreferrer'
             className="small text-decoration-underline txt-primary pe-3"
           >
-            {datasetDetails._source?.publisher?.name}
+            {datasetDetails._source?.assetRefs?.[0]?.publisher?.name}
           </a>
 
           <a
-            href={datasetDetails._source?.license?.url}
+            href={datasetDetails._source?.assetRefs?.[0]?.publisher?.url}
             target="_blank"
             className="small text-decoration-underline txt-primary pe-3"
           >
-            {datasetDetails?._source?.license?.name}
+            {datasetDetails._source?.assetRefs?.[0]?.license?.name}
           </a>
 
           <span className="small pe-3">
-            {t("dataset.version")} {(parseInt(datasetDetails?._source?.version) ?? 1).toFixed(1)}
+            {t("dataset.version")} {(parseInt(datasetDetails._source?.assetRefs?.[0]?.assetVersion) ?? 1).toFixed(1)}
           </span>
           <span className="small pe-3">
-            {t('dataset.assetUploaded')} {new Date(datasetDetails?._source?.publishDate).toLocaleDateString()} ({moment(datasetDetails?._source?.publishDate).fromNow()})
+            {t('dataset.assetUploaded')}
+            {new Date(datasetDetails._source?.assetRefs?.[0]?.publishDate).toLocaleDateString()}
+            ({moment(datasetDetails._source?.assetRefs?.[0]?.publishDate).fromNow()})
           </span>
         </div>
 
@@ -166,6 +170,28 @@ function Details() {
                 className={styles.tab}
               >
                 <AttributeList datasetDetails={datasetDetails} />
+              </Tab>
+              <Tab
+                eventKey="embedded_tables"
+                title={
+                  <span className="small text-uppercase">
+                    {t('dataset.tabs.embeddedTables')}
+                  </span>
+                }
+                className={styles.tab}
+              >
+                <EmbeddedTables datasetDetails={datasetDetails} />
+              </Tab>
+              <Tab
+                eventKey="embedded_images"
+                title={
+                  <span className="small text-uppercase">
+                    {t('dataset.tabs.embeddedImages')}
+                  </span>
+                }
+                className={styles.tab}
+              >
+                <EmbeddedImages datasetDetails={datasetDetails} />
               </Tab>
               <Tab
                 eventKey="attribute_consistency"

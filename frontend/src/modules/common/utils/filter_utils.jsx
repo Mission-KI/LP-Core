@@ -17,11 +17,11 @@ export const useFilterSections = () => {
         const fetchFilterValues = async () => {
             try {
                 const response = await getFilterValues();
-                setDataSpaces(response?.aggregations?.distinct_dataSpace_names?.buckets);
-                setLicenses(response?.aggregations?.distinct_license_names?.buckets);
-                setPublishers(response?.aggregations?.distinct_publisher_names?.buckets);
-                setMaxRowCount(response?.aggregations?.max_row_count?.value);
-                setMaxColumnCount(response?.aggregations?.max_column_count?.value);
+                setDataSpaces(response?.aggregations?.nested_asset_refs?.distinct_dataSpace_names?.buckets || []);
+                setLicenses(response?.aggregations?.nested_asset_refs?.distinct_license_names?.buckets || []);
+                setPublishers(response?.aggregations?.nested_asset_refs?.distinct_publisher_names?.buckets || []);
+                setMaxRowCount(response?.aggregations?.max_row_count?.value || 0);
+                setMaxColumnCount(response?.aggregations?.max_column_count?.value || 0);
             } catch (error) {
                 console.error("Error fetching dataSpaces and licenses:", error);
             }
@@ -37,7 +37,7 @@ export const useFilterSections = () => {
         {
             title: "dataspaces",
             type: "checkboxes",
-            filters: dataSpaces.map(dataSpace => ({
+            filters: dataSpaces?.map(dataSpace => ({
                 label: dataSpace.key,
                 value: dataSpace.key,
                 name: "dataSpace.name",
@@ -47,7 +47,7 @@ export const useFilterSections = () => {
         {
             title: "publisher",
             type: "checkboxes",
-            filters: publishers.map(publisher => ({
+            filters: publishers?.map(publisher => ({
                 label: publisher.key,
                 value: publisher.key,
                 name: "publisher.name",
@@ -87,7 +87,7 @@ export const useFilterSections = () => {
         {
             title: "licenses",
             type: "checkboxes",
-            filters: licenses.map(license => ({
+            filters: licenses?.map(license => ({
                 label: license.key,
                 value: license.key,
                 name: "license.name",
