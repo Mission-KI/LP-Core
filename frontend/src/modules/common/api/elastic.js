@@ -17,7 +17,7 @@ export const getDatasets = async (from = 0, size = 10) => {
                 filters.push({
                     multi_match: {
                         query: values[0],
-                        fields: ["name", "description", "dataSpace.name", "publisher.name", "license.name"],
+                        fields: ["name"],
                         type: "best_fields"
                     }
                 });
@@ -126,11 +126,14 @@ export const getDatasets = async (from = 0, size = 10) => {
         const query = {
             "from": from,
             "size": size,
-            "query": {
-                "bool": {
-                    "filter": filters
+            ...(filters.length > 0 ? {
+                "query": {
+                    "bool": {
+                        "filter": filters
+                    }
                 }
-            },
+            } : {})
+            ,
             "sort": [
                 "_score",
                 {
@@ -174,33 +177,34 @@ export const getFilterValues = async () => {
         const query = {
             "size": 0,
             "aggs": {
-                "distinct_dataSpace_names": {
-                    "terms": {
-                        "field": "dataSpace.name.keyword",
-                        "size": 10000
-                    }
-                },
-                "distinct_license_names": {
-                    "terms": {
-                        "field": "license.name.keyword",
-                        "size": 10000
-                    }
-                },
-                "distinct_publisher_names": {
-                    "terms": {
-                        "field": "publisher.name.keyword",
-                        "size": 10000
+                "nested_asset_refs": {
+                    "nested": { "path": "assetRefs" },
+                    "aggs": {
+                        "distinct_dataSpace_names": {
+                            "terms": {
+                                "field": "assetRefs.dataSpace.name.keyword",
+                                "size": 10000
+                            }
+                        },
+                        "distinct_license_names": {
+                            "terms": {
+                                "field": "assetRefs.license.name.keyword",
+                                "size": 10000
+                            }
+                        },
+                        "distinct_publisher_names": {
+                            "terms": {
+                                "field": "assetRefs.publisher.name.keyword",
+                                "size": 10000
+                            }
+                        }
                     }
                 },
                 "max_row_count": {
-                    "max": {
-                        "field": "structuredDatasets.rowCount"
-                    }
+                    "max": { "field": "structuredDatasets.rowCount" }
                 },
                 "max_column_count": {
-                    "max": {
-                        "field": "structuredDatasets.columnCount"
-                    }
+                    "max": { "field": "structuredDatasets.columnCount" }
                 }
             }
         };

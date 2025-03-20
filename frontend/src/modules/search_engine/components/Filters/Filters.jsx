@@ -76,7 +76,7 @@ function Filters() {
         console.log(filterSections);
 
         filterSections?.forEach((filterSection) => {
-            filterSection.filters.forEach((filter) => {
+            filterSection?.filters?.forEach((filter) => {
                 if (filter.type === 'checkbox') {
                     newCheckedOptions[filter.label] = queryParams[filter.name]?.includes(filter.value) || false;
                 }
@@ -224,7 +224,7 @@ function Filters() {
 
                                         <Dropdown.Menu className='border-0 shadow rounded'>
                                             {
-                                                filterSection.filters.map((filter) => (
+                                                filterSection?.filters?.map((filter) => (
                                                     <Dropdown.Item key={filter.value} as="div" className="d-flex align-items-center">
                                                         <input
                                                             type="checkbox"
