@@ -276,12 +276,6 @@ def test_upload_user_edp_dataspace_mismatch(monkeypatch: MonkeyPatch):
     auth_client.force_authenticate(user=user)
 
     id = ResourceStatus.objects.create().id
-    monkeypatch.setattr(
-        search_views,
-        "elasticsearch_request",
-        Mock(return_value=Response({"hits": {"total": 1, "hits": [{"_id": str(id)}]}})),
-    )
-
     url = edp_detail_url(id)
     response = auth_client.put(
         url,
@@ -294,6 +288,44 @@ def test_upload_user_edp_dataspace_mismatch(monkeypatch: MonkeyPatch):
     check_event_log(
         url=url, status="fail", message="EDP upload failed: User not allowed to upload to dataspace Pontus-X"
     )
+
+
+@mock_aws
+@pytest.mark.django_db()
+def test_upload_user_edp_superuser(monkeypatch: MonkeyPatch):
+    auth_client = APIClient()
+    user = User.objects.create_user(username="test", password="test")  # no dataspace assigned
+    user.is_superuser = True
+    user.is_connector_user = True
+    auth_client.force_authenticate(user=user)
+
+    mock_index = mkmock(monkeypatch, Elasticsearch, "index")
+    conn = boto3.resource("s3")
+    conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
+    id = ResourceStatus.objects.create().id
+    monkeypatch.setattr(
+        search_views, "elasticsearch_request", Mock(return_value=Response({"hits": {"total": 0, "hits": []}}))
+    )
+
+    url = edp_detail_url(id)
+    edp = mini_edp()
+    response = auth_client.put(
+        url,
+        {"file": create_upload_zip_file({"dummy_edp.json": edp.model_dump_json(), "image.png": ""})},
+        format="multipart",
+    )
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_200_OK, response.json()
+    assert Matcher.matches(
+        response.data,
+        {
+            "message": "EDP uploaded successfully",
+            "edp": edp.model_dump(mode="json"),
+            "id": str(id),
+        },
+    )
+    check_event_log(url=url, status="success", message="EDP upload done")
+    mock_index.assert_called_once()
 
 
 @mock_aws
