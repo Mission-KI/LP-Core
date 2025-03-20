@@ -26,7 +26,62 @@ export const getDatasets = async (from = 0, size = 10) => {
                 filters.push({
                     terms: { 'dataTypes': values }
                 });
-            } else if (key === 'min_size') {
+            }
+            else if (key === 'dataSpace.name') {
+                filters.push({
+                    nested: {
+                        path: "assetRefs",
+                        query: {
+                            bool: {
+                                must: [
+                                    {
+                                        term: {
+                                            "assetRefs.dataSpace.name.keyword": values[0]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                });
+            }
+            else if (key === 'publisher.name') {
+                filters.push({
+                    nested: {
+                        path: "assetRefs",
+                        query: {
+                            bool: {
+                                must: [
+                                    {
+                                        term: {
+                                            "assetRefs.publisher.name.keyword": values[0]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                });
+            }
+            else if (key === 'license.name') {
+                filters.push({
+                    nested: {
+                        path: "assetRefs",
+                        query: {
+                            bool: {
+                                must: [
+                                    {
+                                        term: {
+                                            "assetRefs.license.name.keyword": values[0]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                });
+            }
+            else if (key === 'min_size') {
                 const min_percentage = parseFloat(values[0]);
                 const min_bytes = percentageToBytes(min_percentage);
                 filters.push({

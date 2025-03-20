@@ -15,7 +15,7 @@ class MonitoringAnalyticsView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        dataSpaceName = request.user.username
+        dataSpaceName = request.user.dataspace.name
 
         try:
             elastic_counts = get_elastic_monitoring_analytics(dataSpaceName)

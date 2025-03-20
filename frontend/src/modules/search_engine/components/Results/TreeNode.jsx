@@ -16,7 +16,7 @@ const TreeNode = ({ node, childrenMap, dataset }) => {
             <div className="d-flex">
                 {hasChildren && (
                     <div className="pe-3">
-                        <button className="btn border px-1 p-0" onClick={toggleExpand} style={{ cursor: "pointer" }}>
+                        <button className="btn txt-regular border px-1 p-0" onClick={toggleExpand} style={{ cursor: "pointer" }}>
                             {hasChildren && (isExpanded ? <Dash /> : <Plus />)}
                         </button>
                     </div>
