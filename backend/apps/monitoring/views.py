@@ -23,21 +23,11 @@ class MonitoringAnalyticsView(APIView):
 
             analytics_data = {
                 "edp_count": elastic_counts["aggregations"]["total_items"]["doc_count"],
-                "publishers_count": elastic_counts["aggregations"]["unique_publishers"]["unique_publishers_count"][
-                    "value"
-                ],
-                "original_data_count": elastic_counts["aggregations"]["total_original_data_assets"]["filtered"][
-                    "count"
-                ]["value"],
-                "processed_data_count": elastic_counts["aggregations"]["total_processed_data_assets"]["filtered"][
-                    "count"
-                ]["value"],
-                "refined_data_count": elastic_counts["aggregations"]["total_refined_data_assets"]["filtered"]["count"][
-                    "value"
-                ],
-                "aiml_result_data_count": elastic_counts["aggregations"]["total_aiml_result_data_assets"]["filtered"][
-                    "count"
-                ]["value"],
+                "publishers_count": elastic_counts["aggregations"]["unique_publishers"]["unique_publishers_count"]["value"],
+                "original_data_count": elastic_counts["aggregations"]["total_original_data_assets"]["count"]["value"],
+                "processed_data_count": elastic_counts["aggregations"]["total_processed_data_assets"]["count"]["value"],
+                "refined_data_count": elastic_counts["aggregations"]["total_refined_data_assets"]["count"]["value"],
+                "aiml_result_data_count": elastic_counts["aggregations"]["total_aiml_result_data_assets"]["count"]["value"],
                 "publishers": elastic_counts["aggregations"]["publishers_list"]["publishers"]["buckets"],
                 "edp_event_counts": edp_event_counts,
             }
