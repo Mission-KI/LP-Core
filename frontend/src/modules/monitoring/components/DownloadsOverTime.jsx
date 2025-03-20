@@ -31,7 +31,7 @@ const DownloadsOverTime = ({ analytics }) => {
     const options = {
         responsive: true,
         plugins: {
-            legend: { display: true },
+            legend: { display: false },
             tooltip: { enabled: true },
         },
         scales: {
@@ -43,11 +43,16 @@ const DownloadsOverTime = ({ analytics }) => {
             },
             y: { title: { display: true }, beginAtZero: true },
         },
+        layout: {
+            padding: {
+                left: -24
+            }
+        },
     };
 
     return (
         <div style={{ width: "100%", maxWidth: "1200px", margin: "auto" }}>
-            <h4 className='bold mt-4 mb-4'>EDP Downloads</h4>
+            <h4 className='bold mt-4 mb-4'>EDP Downloads Over Time</h4>
             <Line data={data} options={options} />
         </div>
     );
