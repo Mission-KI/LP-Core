@@ -2,7 +2,6 @@ import json
 import typing
 from logging import getLogger
 from pathlib import Path
-from tempfile import TemporaryDirectory
 from typing import IO, Any
 from zipfile import BadZipFile, ZipFile
 
@@ -48,45 +47,44 @@ class EdpUploader:
         self._s3.delete(edp_id)
         self._elastic.delete(edp_id)
 
-    def upload_edp_zip(self, edp_zip: Path | IO[Any], edp_id: str):
+    def extract_edp_zip(self, temp_dir: Path, edp_zip: Path | IO[Any]):
         try:
-            with (
-                ZipFile(edp_zip, "r") as zip_file,
-                TemporaryDirectory() as temp_dir,
-            ):
-                temp_path = Path(temp_dir)
+            with ZipFile(edp_zip, "r") as zip_file:
                 logger.info("Unzipping '%s'...", edp_zip)
-                zip_file.extractall(temp_path)
-                return self.upload_edp_directory(temp_path, edp_id)
+                zip_file.extractall(temp_dir)
+                edp_file, resource_files = self._split_edp_json_and_additional_files(temp_dir)
+                return edp_model_from_file(edp_file)
         except BadZipFile:
             raise DRFValidationError("Uploaded file is not a valid ZIP archive.")
 
-    def upload_edp_directory(self, edp_dir: Path, edp_id: str):
+    def upload_edp_directory(self, edp_model: CURRENT_SCHEMA, edp_dir: Path, edp_id: str):
         logger.info("Uploading EDP directory '%s'...", edp_dir)
-        # Find EDP JSON file and additional resources
-        edp_file, resource_files = self._split_edp_json_and_additional_files(edp_dir)
-        # Upload JSON to Elastic Search with document id edp_id
 
-        edp_model = edp_model_from_file(edp_file)
+        found_existing_asset = self.validate_edp_upload(edp_id, edp_model)
 
+        self._elastic.upload(edp_model, edp_id)
+
+        if found_existing_asset:
+            logger.info("%s: Deleting existing EDP from S3 for update...", edp_id)
+            self._s3.delete(edp_id)
+
+        self._s3.upload(edp_dir, edp_id)
+
+    def validate_edp_upload(self, edp_id, edp_model):
         # Loop through all asset references to check for an existing assetId
+        all_hits = []
         for asset_ref in edp_model.assetRefs:
             hits = _find_resource_id(asset_ref.assetId, asset_ref.dataSpace.name)
             if len(hits) > 0 and edp_id not in hits:
                 raise DRFValidationError(
                     f"Asset ID {asset_ref.assetId} already exists in the data space {asset_ref.dataSpace.name}: {', '.join(hits)}"
                 )
+            all_hits.extend(hits)
 
-        self._elastic.upload(edp_model, edp_id)
-        if len(hits) > 0:
-            self._s3.delete(edp_id)
-
-        # Upload all other files to S3 using upload key edp_id/filename
-        self._s3.upload(resource_files, edp_dir, edp_id)
-        return edp_model
+        return len(all_hits) > 0
 
     def _split_edp_json_and_additional_files(self, edp_dir: Path) -> tuple[Path, list[Path]]:
-        dir_contents = edp_dir.rglob("**/*")
+        dir_contents = edp_dir.rglob("*")
         all_paths = [f for f in dir_contents if f.is_file()]
         json_paths = [f for f in all_paths if f.suffix == ".json" and f.parent == edp_dir]
         resource_paths = [f for f in all_paths if f.suffix != ".json"]

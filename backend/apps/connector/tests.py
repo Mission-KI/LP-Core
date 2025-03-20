@@ -32,7 +32,7 @@ from rest_framework import status
 from rest_framework.exceptions import ErrorDetail
 from rest_framework.response import Response
 from rest_framework.test import APIClient
-from user.models import User
+from user.models import Dataspace, User
 
 
 @pytest.fixture
@@ -43,7 +43,8 @@ def client():
 @pytest.fixture
 def auth_client():
     client = APIClient()
-    user = User.objects.create_user(username="test", password="test")
+    dataspace = Dataspace.objects.create(name="Pontus-X")
+    user = User.objects.create_user(username="test", password="test", dataspace=dataspace)
     user.is_connector_user = True
     client.force_authenticate(user=user)
     return client
@@ -262,8 +263,37 @@ def test_upload_edp_file_zip_success(auth_client: APIClient, monkeypatch: Monkey
             "id": str(id),
         },
     )
-    check_event_log(url=url, status="success", message=f"EDP {id} upload done")
+    check_event_log(url=url, status="success", message="EDP upload done")
     mock_index.assert_called_once()
+
+
+@pytest.mark.django_db()
+def test_upload_user_edp_dataspace_mismatch(monkeypatch: MonkeyPatch):
+    auth_client = APIClient()
+    dataspace = Dataspace.objects.create(name="Another dataspace")
+    user = User.objects.create_user(username="test", password="test", dataspace=dataspace)
+    user.is_connector_user = True
+    auth_client.force_authenticate(user=user)
+
+    id = ResourceStatus.objects.create().id
+    monkeypatch.setattr(
+        search_views,
+        "elasticsearch_request",
+        Mock(return_value=Response({"hits": {"total": 1, "hits": [{"_id": str(id)}]}})),
+    )
+
+    url = edp_detail_url(id)
+    response = auth_client.put(
+        url,
+        {"file": create_upload_zip_file({"dummy_edp.json": mini_edp().model_dump_json(), "image.png": ""})},
+        format="multipart",
+    )
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_403_FORBIDDEN, response.json()
+    assert response.json() == {"detail": "User not allowed to upload to dataspace Pontus-X"}
+    check_event_log(
+        url=url, status="fail", message="EDP upload failed: User not allowed to upload to dataspace Pontus-X"
+    )
 
 
 @mock_aws

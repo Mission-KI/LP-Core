@@ -1,6 +1,8 @@
 import io
 import zipfile
 from logging import getLogger
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils.logging import create_log
@@ -12,7 +14,7 @@ from extended_dataset_profile import CURRENT_SCHEMA
 from pydantic import HttpUrl
 from rest_framework import parsers, status, views
 from rest_framework.decorators import api_view
-from rest_framework.exceptions import APIException, UnsupportedMediaType
+from rest_framework.exceptions import APIException, PermissionDenied, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.request import Request
@@ -48,19 +50,16 @@ def _create_uploader():
 
 def _do_upload(request: Request, id: str, zip_file):
     uploader = _create_uploader()
-    edp = uploader.upload_edp_zip(zip_file, edp_id=id)
-    create_log(
-        request.get_full_path(),
-        f"EDP {id} upload done",
-        EventLog.STATUS_SUCCESS,
-        metadata={"id": id},
-    )
+    with TemporaryDirectory() as temp_dir:
+        edp_dir = Path(temp_dir)
+        edp_model = uploader.extract_edp_zip(edp_dir, zip_file)
+        edp_dataspace = edp_model.assetRefs[0].dataSpace.name
+        if request.user.dataspace.name != edp_dataspace:
+            raise PermissionDenied(f"User not allowed to upload to dataspace {edp_dataspace}")
+        uploader.upload_edp_directory(edp_model, edp_id=id, edp_dir=edp_dir)
+    create_log(request.get_full_path(), "EDP upload done", EventLog.STATUS_SUCCESS, metadata={"id": id})
     return Response(
-        {
-            "message": "EDP uploaded successfully",
-            "edp": edp.model_dump(mode="json"),
-            "id": id,
-        },
+        {"message": "EDP uploaded successfully", "edp": edp_model.model_dump(mode="json"), "id": id},
         status=status.HTTP_200_OK,
     )
 
@@ -107,7 +106,7 @@ class RawZipUploadView(views.APIView):
             resource.status = "uploaded"
             resource.save()
             return result
-        except (DRFValidationError, UnsupportedMediaType, APIException) as e:
+        except APIException as e:
             create_log(
                 request.get_full_path(),
                 f"EDP upload failed: {e}",
@@ -115,9 +114,6 @@ class RawZipUploadView(views.APIView):
                 metadata={"id": id},
             )
             raise e
-        except zipfile.BadZipFile:
-            create_log(request.get_full_path(), "Invalid zip file.", EventLog.STATUS_FAIL, metadata={"id": id})
-            return Response({"error": "Invalid zip file."}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
             create_log(
@@ -181,7 +177,7 @@ class EDPViewSet(ViewSet):
             resource.status = "uploaded"
             resource.save()
             return result
-        except (DRFValidationError, UnsupportedMediaType, APIException) as e:
+        except APIException as e:
             create_log(
                 request.get_full_path(),
                 f"EDP upload failed: {e}",
@@ -189,14 +185,6 @@ class EDPViewSet(ViewSet):
                 metadata={"id": id},
             )
             raise e
-        except zipfile.BadZipFile:
-            create_log(
-                request.get_full_path(),
-                "Invalid zip file.",
-                EventLog.STATUS_FAIL,
-                metadata={"id": id},
-            )
-            return Response({"error": "Invalid zip file."}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             message = f"An unknown error occurred ({type(e)}): {str(e)}"
             create_log(
