@@ -64,7 +64,7 @@ function Dashboard() {
                     <div className="card d-flex justify-content-center flex-column w-100 h-100">
                         <div className="card-body">
                             <h6 className="mb-2 txt-regular">Asset downloads</h6>
-                            <h3 className="bold txt-primary-lighter">{analytics?.edp_event_counts?.downloads}</h3>
+                            <h3 className="bold txt-primary-lighter">{analytics?.edp_event_counts?.downloads?.toLocaleString()}</h3>
                         </div>
                     </div>
                 </div>
@@ -87,31 +87,31 @@ function Dashboard() {
                         <tbody>
                             <tr>
                                 <th><CloudArrowUp className='me-2 text-success' /> Successful EDP uploads</th>
-                                <td className='text-end'>{analytics.edp_event_counts.uploads.successfull}</td>
+                                <td className='text-end'>{analytics.edp_event_counts.uploads.successfull?.toLocaleString()}</td>
                             </tr>
                             <tr>
                                 <th><CloudArrowUp className='me-2 txt-danger' /> Failed EDP uploads</th>
-                                <td className='text-end'>{analytics.edp_event_counts.uploads.failed}</td>
+                                <td className='text-end'>{analytics.edp_event_counts.uploads.failed?.toLocaleString()}</td>
                             </tr>
                             <tr>
                                 <th><Pencil className='me-2 text-success' /> Successful EDP updates</th>
-                                <td className='text-end'>{analytics.edp_event_counts.edits.successfull}</td>
+                                <td className='text-end'>{analytics.edp_event_counts.edits.successfull?.toLocaleString()}</td>
                             </tr>
                             <tr>
                                 <th><Pencil className='me-2 txt-danger' /> Failed EDP updates</th>
-                                <td className='text-end'>{analytics.edp_event_counts.edits.failed}</td>
+                                <td className='text-end'>{analytics.edp_event_counts.edits.failed?.toLocaleString()}</td>
                             </tr>
                             <tr>
                                 <th><Trash3 className='me-2 text-success' /> Successful EDP deletions</th>
-                                <td className='text-end'>{analytics.edp_event_counts.deletions.successfull}</td>
+                                <td className='text-end'>{analytics.edp_event_counts.deletions.successfull?.toLocaleString()}</td>
                             </tr>
                             <tr>
                                 <th><Trash3 className='me-2 txt-danger' /> Failed EDP deletions</th>
-                                <td className='text-end'>{analytics.edp_event_counts.deletions.failed}</td>
+                                <td className='text-end'>{analytics.edp_event_counts.deletions.failed?.toLocaleString()}</td>
                             </tr>
                             <tr>
                                 <th><Download className='me-2' /> Asset downloads</th>
-                                <td className='text-end'>{analytics?.edp_event_counts?.downloads}</td>
+                                <td className='text-end'>{analytics?.edp_event_counts?.downloads?.toLocaleString()}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -150,7 +150,7 @@ function Dashboard() {
                             {analytics?.publishers?.map(publisher => (
                                 <tr key={publisher.key}>
                                     <td>{publisher.key}</td>
-                                    <td className='text-end'>{publisher.doc_count}</td>
+                                    <td className='text-end'>{publisher?.doc_count?.toLocaleString()}</td>
                                 </tr>
                             ))}
                         </tbody>

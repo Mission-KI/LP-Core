@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
-  --color-primary: #009efd;
+  --color-primary: #006aac;
   --color-primary-hover: #005b93 !important;
   --color-primary-lighter: #0063a1d1;
   --color-primary-darker: #0065a4;
@@ -13,7 +13,7 @@
   --color-darker-gray: #D9D9D9;
   --color-danger: #da5778;
   --color-success: #20c996aa !important;
-  --toastify-color-success: #009efd !important;
+  --toastify-color-success: #006aac !important;
 }
 
 a {

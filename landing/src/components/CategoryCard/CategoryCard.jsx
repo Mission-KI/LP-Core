@@ -31,9 +31,8 @@ const CategoryCard = ({ category }) => {
                 />
                 <div className='pb-2 w-100 px-3 pt-3'>
                     <a
-                        href="#"
                         onClick={handleClick}
-                        className={`${styles.title} h5`}
+                        className={`${styles.title} pointer h5`}
                     >
                         {category.title}
                     </a>

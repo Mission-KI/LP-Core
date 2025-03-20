@@ -47,7 +47,7 @@ const DownloadsOverTime = ({ analytics }) => {
 
     return (
         <div style={{ width: "100%", maxWidth: "1200px", margin: "auto" }}>
-            <h4 className='bold mt-4 mb-4'>Downloads Over Time</h4>
+            <h4 className='bold mt-4 mb-4'>EDP Downloads</h4>
             <Line data={data} options={options} />
         </div>
     );
