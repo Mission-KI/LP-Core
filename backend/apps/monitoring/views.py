@@ -48,5 +48,5 @@ class MonitoringAnalyticsView(APIView):
 @api_view(["POST"])
 @permission_classes([permissions.AllowAny])
 def log_edp_download(request):
-    create_log(request.get_full_path(), "edp download", EventLog.STATUS_SUCCESS, None, EventLog.TYPE_DOWNLOAD)
+    create_log(request, "edp download", EventLog.STATUS_SUCCESS, None, EventLog.TYPE_DOWNLOAD)
     return Response({"message": "success"})
