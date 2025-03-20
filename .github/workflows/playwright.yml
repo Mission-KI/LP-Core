@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      VITE_ELASTIC_URL: https://daseen-staging.de/search
+      VITE_ELASTIC_URL: https://api.daseen-staging.de/search
       VITE_IMAGE_BASE_PATH: https://d2xfg3kfb5x390.cloudfront.net/
       VITE_LANDING_URL: http://localhost:3000
       VITE_MAIN_URL: http://localhost:3001
