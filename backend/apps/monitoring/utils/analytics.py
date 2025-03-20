@@ -27,40 +27,20 @@ def get_elastic_monitoring_analytics(dataSpaceName: str):
                 "aggs": {"count": {"value_count": {"field": "assetRefs.dataSpace.name.keyword"}}},
             },
             "total_original_data_assets": {
-                "nested": {"path": "assetRefs"},
-                "aggs": {
-                    "filtered": {
-                        "filter": {"term": {"assetRefs.assetProcessingStatus.keyword": "Original Data"}},
-                        "aggs": {"count": {"value_count": {"field": "assetRefs.assetProcessingStatus.keyword"}}},
-                    }
-                },
+                "filter": {"term": {"assetProcessingStatus.keyword": "Original Data"}},
+                "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
             },
             "total_processed_data_assets": {
-                "nested": {"path": "assetRefs"},
-                "aggs": {
-                    "filtered": {
-                        "filter": {"term": {"assetRefs.assetProcessingStatus.keyword": "Processed Data"}},
-                        "aggs": {"count": {"value_count": {"field": "assetRefs.assetProcessingStatus.keyword"}}},
-                    }
-                },
+                "filter": {"term": {"assetProcessingStatus.keyword": "Processed Data"}},
+                "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
             },
             "total_refined_data_assets": {
-                "nested": {"path": "assetRefs"},
-                "aggs": {
-                    "filtered": {
-                        "filter": {"term": {"assetRefs.assetProcessingStatus.keyword": "Refined Data"}},
-                        "aggs": {"count": {"value_count": {"field": "assetRefs.assetProcessingStatus.keyword"}}},
-                    }
-                },
+                "filter": {"term": {"assetProcessingStatus.keyword": "Refined Data"}},
+                "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
             },
             "total_aiml_result_data_assets": {
-                "nested": {"path": "assetRefs"},
-                "aggs": {
-                    "filtered": {
-                        "filter": {"term": {"assetRefs.assetProcessingStatus.keyword": "AI/ML Result Data"}},
-                        "aggs": {"count": {"value_count": {"field": "assetRefs.assetProcessingStatus.keyword"}}},
-                    }
-                },
+                "filter": {"term": {"assetProcessingStatus.keyword": "AI/ML Result Data"}},
+                "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
             },
             "publishers_list": {
                 "nested": {"path": "assetRefs"},
