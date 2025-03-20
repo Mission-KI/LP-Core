@@ -138,5 +138,5 @@ def get_edp_event_counts(dataSpaceName: str):
         "deletions": {"successfull": edp_successfull_deletions, "failed": edp_failed_deletions},
         "downloads": edp_downloads,
         "downloads_per_month": downloads_by_month,
-        "uploads_per_month": uploads_by_month
+        "uploads_per_month": uploads_by_month,
     }
