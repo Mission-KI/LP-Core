@@ -15,12 +15,10 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile.prod
+      context: .
+      dockerfile: backend/Dockerfile.prod
       secrets:
         - github_token
-    volumes:
-      - "./backend:/backend"
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
