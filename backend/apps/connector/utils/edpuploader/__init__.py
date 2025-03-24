@@ -1,12 +1,12 @@
 import json
-import typing
 from logging import getLogger
 from pathlib import Path
 from typing import IO, Any
 from zipfile import BadZipFile, ZipFile
 
 from apps.search.views import _find_resource_id
-from extended_dataset_profile import CURRENT_SCHEMA, SchemaVersion, schema_versions
+from extended_dataset_profile import CURRENT_SCHEMA, schema_versions
+from packaging.version import InvalidVersion, Version
 from pydantic import ValidationError as PydanticValidationError
 from rest_framework.exceptions import ValidationError as DRFValidationError
 
@@ -18,15 +18,21 @@ logger = getLogger(__name__)
 
 
 def edp_dict_to_model(edp_dict: dict):
-    version_str = edp_dict.get("schema_version", "v0")
-    if version_str not in SchemaVersion:
-        raise DRFValidationError("Unknown EDP schema version")
-    schema_version = SchemaVersion(version_str)
+    version_str = edp_dict.get("schemaVersion", "0.0.0+dirty")
     try:
-        edp_model = typing.cast(CURRENT_SCHEMA, schema_versions[schema_version].model_validate(edp_dict))
+        major_version = Version(version_str).major
+    except InvalidVersion:
+        raise DRFValidationError(
+            f"Invalid EDP schema version '{version_str}' (available: {list(schema_versions.keys())}) "
+        )
+    if major_version not in schema_versions:
+        raise DRFValidationError(
+            f"Unknown EDP major schema version {major_version} (available: {list(schema_versions.keys())}) "
+        )
+    try:
+        return schema_versions[major_version].model_validate(edp_dict)
     except PydanticValidationError as e:
         raise DRFValidationError(str(e))
-    return edp_model
 
 
 def edp_model_from_file(edp_file):

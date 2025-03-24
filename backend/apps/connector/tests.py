@@ -10,6 +10,7 @@ import boto3
 import pytest
 import requests
 from apps.connector.models import ResourceStatus
+from apps.connector.utils.edpuploader import edp_dict_to_model
 from apps.connector.utils.edpuploader.elastic_edp import ElasticDBWrapper
 from apps.connector.utils.edpuploader.s3_edp_storage import S3EDPStorage
 from apps.monitoring.models import EventLog
@@ -17,7 +18,8 @@ from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.urls import reverse
 from elasticsearch import Elasticsearch
-from extended_dataset_profile import CURRENT_SCHEMA, SchemaVersion
+from extended_dataset_profile import CURRENT_SCHEMA
+from extended_dataset_profile import __version__ as current_schema_version
 from extended_dataset_profile.models.v0.edp import (
     AssetReference,
     DataSpace,
@@ -29,7 +31,7 @@ from moto import mock_aws
 from pytest import MonkeyPatch
 from requests import Response as RequestResponse
 from rest_framework import status
-from rest_framework.exceptions import ErrorDetail
+from rest_framework.exceptions import ErrorDetail, ValidationError
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 from user.models import Dataspace, User
@@ -112,7 +114,7 @@ def mini_edp():
     )
 
     return ExtendedDatasetProfile(
-        schema_version=SchemaVersion.V0,
+        schemaVersion=current_schema_version,
         volume=4307,
         dataTypes=set(),
         name="Sample asset",
@@ -562,3 +564,18 @@ class Matcher:
             except ValueError:
                 return False
         return actual == expected
+
+
+def test_edp_dict_to_model():
+    edp = mini_edp()
+
+    edp.schemaVersion = "invalid"
+    with pytest.raises(ValidationError, match="Invalid EDP schema version 'invalid'"):
+        edp_dict_to_model(edp.model_dump())
+
+    edp.schemaVersion = "100.200.300"
+    with pytest.raises(ValidationError, match="Unknown EDP major schema version 100"):
+        edp_dict_to_model(edp.model_dump())
+
+    edp.schemaVersion = current_schema_version
+    assert edp_dict_to_model(edp.model_dump()).schemaVersion == current_schema_version
