@@ -1,4 +1,6 @@
 from apps.monitoring.utils.logging import create_log
+from drf_spectacular.types import OpenApiTypes
+from drf_spectacular.utils import extend_schema
 from rest_framework import permissions
 from rest_framework.decorators import (
     api_view,
@@ -14,6 +16,11 @@ from .utils.analytics import get_edp_event_counts, get_elastic_monitoring_analyt
 class MonitoringAnalyticsView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
+    @extend_schema(
+        summary="Get Monitoring Analytics",
+        request=None,
+        responses={200: OpenApiTypes.OBJECT},
+    )
     def get(self, request):
         dataSpaceName = request.user.dataspace.name
 
@@ -45,6 +52,11 @@ class MonitoringAnalyticsView(APIView):
             )
 
 
+@extend_schema(
+    summary="Log EDP Download",
+    request=None,
+    responses={200: OpenApiTypes.OBJECT},
+)
 @api_view(["POST"])
 @permission_classes([permissions.AllowAny])
 def log_edp_download(request):

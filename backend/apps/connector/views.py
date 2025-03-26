@@ -13,15 +13,15 @@ from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from extended_dataset_profile import CURRENT_SCHEMA
 from pydantic import HttpUrl
-from rest_framework import parsers, status, views
+from rest_framework import parsers, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException, PermissionDenied, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
-from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework.viewsets import ViewSet
+from rest_framework.views import APIView
 
 from .models import ResourceStatus
 from .serializers import MultipartFormDataUploadSerializer
@@ -77,7 +77,7 @@ class RawZipParser(parsers.BaseParser):
         return stream.read()
 
 
-class RawZipUploadView(views.APIView):
+class RawZipUploadView(APIView):
     parser_classes = [RawZipParser]
 
     @extend_schema(
@@ -96,6 +96,7 @@ class RawZipUploadView(views.APIView):
             500: {"type": "object", "properties": {"error": {"type": "string"}}},
         },
         summary="Upload a raw zip file.",
+        operation_id="raw_zip_upload",
     )
     def put(self, request: Request, id: str, file_name: str):
         if not request.user.is_connector_user:
@@ -117,43 +118,45 @@ class RawZipUploadView(views.APIView):
             return Response({"error": f"An error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-class EDPViewSet(ViewSet):
-    parser_classes = [MultiPartParser, FormParser]
+@extend_schema(summary="create EDP resource", request=None, responses={201: OpenApiTypes.OBJECT})
+@api_view(["POST"])
+def create_resource_id(request: Request):
+    if not request.user.is_connector_user:
+        create_log(request, "Resource ID create failed: Permission denied", EventLog.STATUS_FAIL)
+        return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
+    try:
+        resource = ResourceStatus.objects.create()
+        create_log(request, "EDP resource created", EventLog.STATUS_SUCCESS, metadata={"id": str(resource.id)})
+        return Response({"id": resource.id}, status=status.HTTP_201_CREATED)
+    except Exception as e:
+        message = f"An unknown error occurred ({type(e)}): {str(e)}"
+        create_log(request, f"EDP resource create failed: {message}", EventLog.STATUS_FAIL)
+        raise APIException(message)
 
-    @extend_schema(summary="create EDP resource")
-    def create(self, request: Request):
-        if not request.user.is_connector_user:
-            create_log(request, "Resource ID create failed: Permission denied", EventLog.STATUS_FAIL)
-            return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
-        try:
-            resource = ResourceStatus.objects.create()
-            create_log(request, "EDP resource created", EventLog.STATUS_SUCCESS, metadata={"id": str(resource.id)})
-            return Response({"id": resource.id}, status=status.HTTP_201_CREATED)
-        except Exception as e:
-            message = f"An unknown error occurred ({type(e)}): {str(e)}"
-            create_log(request, f"EDP resource create failed: {message}", EventLog.STATUS_FAIL)
-            raise APIException(message)
+
+class EDPUploadDeleteView(APIView):
+    parser_classes = [MultiPartParser]
+    serializer_classes = [MultipartFormDataUploadSerializer]
 
     @extend_schema(
-        summary="upload a EDP ZIP file",
-        request=MultipartFormDataUploadSerializer,
+        summary="Upload an EDP by resource id",
+        request={"multipart/form-data": MultipartFormDataUploadSerializer},
         parameters=[
-            OpenApiParameter(
-                "id",
-                location=OpenApiParameter.PATH,
-                type=OpenApiTypes.UUID,
-                description="Resource ID",
-            )
+            OpenApiParameter("id", location=OpenApiParameter.PATH, type=OpenApiTypes.UUID, description="Resource ID")
         ],
         responses={200: OpenApiTypes.OBJECT},
     )
-    def upload(self, request: Request, id: str):
+    def put(self, request: Request, id: str):
         if not request.user.is_connector_user:
             create_log(request, "EDP upload failed: Permission denied", EventLog.STATUS_FAIL, metadata={"id": id})
             return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
         resource = get_object_or_404(ResourceStatus, pk=id)
         try:
-            zip_file = self._file_from_request(request)
+            serializer = MultipartFormDataUploadSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            zip_file = serializer.validated_data.get("file")
+            logger.info(f"Received {zip_file.name}")
+
             result = _do_upload(request, id, zip_file)
             resource.status = "uploaded"
             resource.save()
@@ -167,15 +170,12 @@ class EDPViewSet(ViewSet):
             raise APIException(message)
 
     @extend_schema(
-        summary="delete an EDP by resource id",
+        summary="Delete an EDP by resource id",
+        request=None,
         parameters=[
-            OpenApiParameter(
-                "id",
-                location=OpenApiParameter.PATH,
-                type=OpenApiTypes.UUID,
-                description="Resource ID",
-            )
+            OpenApiParameter("id", location=OpenApiParameter.PATH, type=OpenApiTypes.UUID, description="Resource ID")
         ],
+        responses={200: OpenApiTypes.OBJECT},
     )
     def delete(self, request: Request, id: str):
         if not request.user.is_connector_user:
@@ -203,17 +203,13 @@ class EDPViewSet(ViewSet):
             create_log(request, f"EDP delete failed: {message}", EventLog.STATUS_FAIL, metadata={"id": id})
             raise APIException(message)
 
-    def _file_from_request(self, request: Request):
-        serializer = MultipartFormDataUploadSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        input_file = serializer.validated_data.get("file")
 
-        logger.info(f"Received {input_file.name}")
-
-        return input_file
-
-
-@extend_schema(methods=["GET"], summary="Download the current JSON schema of an EDP")
+@extend_schema(
+    methods=["GET"],
+    request=None,
+    responses={status.HTTP_200_OK: OpenApiTypes.OBJECT},
+    summary="Download the current JSON schema of an EDP",
+)
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def get_schema(request: Request):

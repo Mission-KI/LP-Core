@@ -81,10 +81,6 @@ def edp_base_url():
     return reverse("edp-base")
 
 
-def edp_detail_url(id: uuid.UUID):
-    return reverse("edp-detail", kwargs={"id": id})
-
-
 def create_zip_from_file_list(file_list: Dict[str, str]):
     zip_buf = BytesIO()
     with ZipFile(zip_buf, "w") as zip_file:
@@ -138,7 +134,7 @@ def check_event_log(url, status, message, expect_id=True):
 @pytest.mark.django_db()
 def test_upload_edp_rejects_json(auth_client: APIClient):
     id = ResourceStatus.objects.create().id
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     response = auth_client.put(url, {}, format="json")
 
     assert (
@@ -154,7 +150,7 @@ def test_upload_edp_rejects_json(auth_client: APIClient):
 @pytest.mark.django_db()
 def test_upload_edp_no_file(auth_client: APIClient):
     id = ResourceStatus.objects.create().id
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     response = auth_client.put(url, {}, format="multipart")
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
@@ -169,7 +165,7 @@ def test_upload_edp_no_file(auth_client: APIClient):
 @pytest.mark.django_db()
 def test_upload_edp_file_not_a_file(auth_client: APIClient):
     id = ResourceStatus.objects.create().id
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     response = auth_client.put(url, {"file": "not-a-file"}, format="multipart")
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
@@ -191,7 +187,7 @@ def test_upload_edp_file_not_a_file(auth_client: APIClient):
 @pytest.mark.django_db()
 def test_upload_edp_file_invalid_zip_file(auth_client: APIClient, invalid_zip_file):
     id = ResourceStatus.objects.create().id
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     response = auth_client.put(url, {"file": invalid_zip_file}, format="multipart")
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
@@ -206,7 +202,7 @@ def test_upload_edp_file_invalid_zip_file(auth_client: APIClient, invalid_zip_fi
 @pytest.mark.django_db()
 def test_create_edp_file_zip_missing_json(auth_client: APIClient):
     id = ResourceStatus.objects.create().id
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     response = auth_client.put(
         url,
         {"file": create_upload_zip_file({"not-a-json.txt": "{}"})},
@@ -225,7 +221,7 @@ def test_create_edp_file_zip_missing_json(auth_client: APIClient):
 @pytest.mark.django_db()
 def test_create_edp_file_zip_validation_error(auth_client: APIClient):
     id = ResourceStatus.objects.create().id
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     response = auth_client.put(
         url,
         {"file": create_upload_zip_file({"dummy_edp.json": '{"volume": "world"}', "image.png": ""})},
@@ -250,7 +246,7 @@ def test_upload_edp_file_zip_success(auth_client: APIClient, monkeypatch: Monkey
         Mock(return_value=Response({"hits": {"total": 1, "hits": [{"_id": str(id)}]}})),
     )
 
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     edp = mini_edp()
     response = auth_client.put(
         url,
@@ -281,7 +277,7 @@ def test_upload_user_edp_dataspace_mismatch(dataspace: None | str):
     auth_client.force_authenticate(user=user)
 
     id = ResourceStatus.objects.create().id
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     response = auth_client.put(
         url,
         {"file": create_upload_zip_file({"dummy_edp.json": mini_edp().model_dump_json(), "image.png": ""})},
@@ -312,7 +308,7 @@ def test_upload_user_edp_superuser(monkeypatch: MonkeyPatch):
         search_views, "elasticsearch_request", Mock(return_value=Response({"hits": {"total": 0, "hits": []}}))
     )
 
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     edp = mini_edp()
     response = auth_client.put(
         url,
@@ -367,7 +363,7 @@ def test_upload_edp_file_already_exists_with_different_resource_id(auth_client: 
     monkeypatch.setattr(requests, "request", lambda method, es_url, json, headers, timeout: resp)
 
     id = ResourceStatus.objects.create().id
-    url = edp_detail_url(id)
+    url = reverse("edp-detail", kwargs={"id": id})
     response = auth_client.put(
         url,
         {"file": create_upload_zip_file({"dummy_edp.json": mini_edp().model_dump_json(), "image.png": ""})},
@@ -394,7 +390,7 @@ def test_delete_edp_file_zip_success(auth_client: APIClient, monkeypatch: Monkey
     conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
 
     id = ResourceStatus.objects.create().id
-    url = edp_detail_url(id)
+    url = reverse(viewname="edp-detail", kwargs={"id": id})
     response = auth_client.delete(
         url,
         {},
