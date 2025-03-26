@@ -18,7 +18,7 @@ dependencies = [
     "elasticsearch>=8.17.1",
     "extended-dataset-profile", # version specified in tool.uv.sources
     "gunicorn>=23.0.0",
-    "psycopg>=3.2.4",
+    "psycopg[binary]>=3.2.4",
     "pymemcache>=4.0.0",
     "python-dotenv>=1.0.1",
     "requests>=2.32.3",
@@ -70,4 +70,4 @@ omit = [
 ]
 
 [tool.uv.sources]
-extended-dataset-profile = { git = "https://github.com/Beebucket/extended_dataset_profile", tag = "0.16.0" }
+extended-dataset-profile = { git = "https://github.com/Beebucket/extended_dataset_profile", tag = "0.18.0" }

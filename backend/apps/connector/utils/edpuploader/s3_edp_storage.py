@@ -21,12 +21,13 @@ class S3EDPStorage:
         )
         self._bucket = self._client.Bucket(config.s3_bucket_name)
 
-    def upload(self, resource_files: list[Path], edp_dir: Path, edp_id: str):
-        logger.info("Uploading %d resource files to S3...", len(resource_files))
-        if len(resource_files) == 0:
-            return
-
-        for resource_file in resource_files:
+    def upload(self, edp_dir: Path, edp_id: str):
+        logger.info("%s: Uploading resource files to S3...", edp_id)
+        for resource_file in edp_dir.rglob("*"):
+            if not resource_file.is_file():
+                continue
+            if resource_file.suffix == ".json":
+                continue
             resource_file_relative = resource_file.relative_to(edp_dir)
             upload_key = f"{edp_id}/{resource_file_relative}"
             try:

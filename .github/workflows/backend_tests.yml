@@ -28,7 +28,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           tags: beebucket/daseen-backend:latest
           file: backend/Dockerfile.prod
-          context: backend/
+          context: .
           push: False
           secrets: |
             "github_token=${{ secrets.GIT_HUB_API_KEY }}"
