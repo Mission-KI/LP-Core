@@ -10,7 +10,7 @@ import boto3
 import pytest
 import requests
 from apps.connector.models import ResourceStatus
-from apps.connector.utils.edpuploader import edp_dict_to_model
+from apps.connector.utils.edpuploader import edp_json_to_model
 from apps.connector.utils.edpuploader.elastic_edp import ElasticDBWrapper
 from apps.connector.utils.edpuploader.s3_edp_storage import S3EDPStorage
 from apps.monitoring.models import EventLog
@@ -232,7 +232,7 @@ def test_create_edp_file_zip_validation_error(auth_client: APIClient):
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
     assert len(response.json()) >= 1
-    assert "validation errors for ExtendedDatasetProfile" in response.json()[0]
+    assert "Cannot read schemaVersion from EDP: 1 validation error for" in response.json()[0]
 
 
 @mock_aws
@@ -566,16 +566,16 @@ class Matcher:
         return actual == expected
 
 
-def test_edp_dict_to_model():
+def test_edp_json_to_model():
     edp = mini_edp()
 
     edp.schemaVersion = "invalid"
     with pytest.raises(ValidationError, match="Invalid EDP schema version 'invalid'"):
-        edp_dict_to_model(edp.model_dump())
+        edp_json_to_model(edp.model_dump_json())
 
     edp.schemaVersion = "100.200.300"
     with pytest.raises(ValidationError, match="Unknown EDP major schema version 100"):
-        edp_dict_to_model(edp.model_dump())
+        edp_json_to_model(edp.model_dump_json())
 
     edp.schemaVersion = current_schema_version
-    assert edp_dict_to_model(edp.model_dump()).schemaVersion == current_schema_version
+    assert edp_json_to_model(edp.model_dump_json()).schemaVersion == current_schema_version
