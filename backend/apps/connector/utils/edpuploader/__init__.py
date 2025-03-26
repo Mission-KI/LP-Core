@@ -1,4 +1,3 @@
-import json
 from logging import getLogger
 from pathlib import Path
 from typing import IO, Any
@@ -7,6 +6,7 @@ from zipfile import BadZipFile, ZipFile
 from apps.search.views import _find_resource_id
 from extended_dataset_profile import CURRENT_SCHEMA, schema_versions
 from packaging.version import InvalidVersion, Version
+from pydantic import BaseModel, ConfigDict
 from pydantic import ValidationError as PydanticValidationError
 from rest_framework.exceptions import ValidationError as DRFValidationError
 
@@ -17,8 +17,18 @@ from .s3_edp_storage import S3EDPStorage
 logger = getLogger(__name__)
 
 
-def edp_dict_to_model(edp_dict: dict):
-    version_str = edp_dict.get("schemaVersion", "0.0.0+dirty")
+class VersionEvaluate(BaseModel):
+    schemaVersion: str
+
+    model_config = ConfigDict(extra="ignore")
+
+
+def edp_json_to_model(edp_file_content: str | bytes):
+    try:
+        version_model = VersionEvaluate.model_validate_json(edp_file_content)
+    except PydanticValidationError as e:
+        raise DRFValidationError(f"Cannot read schemaVersion from EDP: {e}")
+    version_str = version_model.schemaVersion
     try:
         major_version = Version(version_str).major
     except InvalidVersion:
@@ -30,16 +40,13 @@ def edp_dict_to_model(edp_dict: dict):
             f"Unknown EDP major schema version {major_version} (available: {list(schema_versions.keys())}) "
         )
     try:
-        return schema_versions[major_version].model_validate(edp_dict)
+        return schema_versions[major_version].model_validate_json(edp_file_content)
     except PydanticValidationError as e:
         raise DRFValidationError(str(e))
 
 
-def edp_model_from_file(edp_file):
-    with edp_file.open("r") as json_file:
-        edp_dict: dict = json.load(json_file)
-
-    edp_model = edp_dict_to_model(edp_dict)
+def edp_model_from_file(edp_file: Path):
+    edp_model = edp_json_to_model(edp_file.read_bytes())
     return edp_model
 
 
