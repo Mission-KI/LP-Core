@@ -286,7 +286,7 @@ requires-dist = [
     { name = "drf-nested-routers", specifier = ">=0.94.1" },
     { name = "drf-spectacular", specifier = ">=0.28.0" },
     { name = "elasticsearch", specifier = ">=8.17.1" },
-    { name = "extended-dataset-profile", git = "https://github.com/Beebucket/extended_dataset_profile?tag=0.18.0" },
+    { name = "extended-dataset-profile", git = "https://github.com/Beebucket/extended_dataset_profile?tag=0.20.0" },
     { name = "gunicorn", specifier = ">=23.0.0" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.2.4" },
     { name = "pymemcache", specifier = ">=4.0.0" },
@@ -422,8 +422,8 @@ wheels = [
 
 [[package]]
 name = "extended-dataset-profile"
-version = "0.18.0"
-source = { git = "https://github.com/Beebucket/extended_dataset_profile?tag=0.18.0#810300e512556b930841178d9b1a9f3242341fd9" }
+version = "0.20.0"
+source = { git = "https://github.com/Beebucket/extended_dataset_profile?tag=0.20.0#44b12bbef42e61d433f14092f989ebb3277b0c4d" }
 dependencies = [
     { name = "packaging" },
     { name = "pydantic" },
