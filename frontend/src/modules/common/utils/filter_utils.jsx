@@ -9,6 +9,7 @@ export const useFilterSections = () => {
     const [dataSpaces, setDataSpaces] = useState([]);
     const [licenses, setLicenses] = useState([]);
     const [publishers, setPublishers] = useState([]);
+    const [dataTypes, setDataTypes] = useState([]);
     const [maxRowCount, setMaxRowCount] = useState(0);
     const [maxColumnCount, setMaxColumnCount] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -20,6 +21,7 @@ export const useFilterSections = () => {
                 setDataSpaces(response?.aggregations?.nested_asset_refs?.distinct_dataSpace_names?.buckets || []);
                 setLicenses(response?.aggregations?.nested_asset_refs?.distinct_license_names?.buckets || []);
                 setPublishers(response?.aggregations?.nested_asset_refs?.distinct_publisher_names?.buckets || []);
+                setDataTypes(response?.aggregations?.distinct_dataTypes?.buckets || []);
                 setMaxRowCount(response?.aggregations?.max_row_count?.value || 0);
                 setMaxColumnCount(response?.aggregations?.max_column_count?.value || 0);
             } catch (error) {
@@ -97,14 +99,12 @@ export const useFilterSections = () => {
         {
             title: "dataFormat",
             type: "checkboxes",
-            filters: [
-                {
-                    label: "Structured",
-                    value: "structured",
-                    name: "dataTypes",
-                    type: "checkbox",
-                },
-            ],
+            filters: dataTypes?.map(dataType => ({
+                label: dataType.key,
+                value: dataType.key,
+                name: "dataType",
+                type: "checkbox"
+            })),
         },
         {
             title: "accessibility",
