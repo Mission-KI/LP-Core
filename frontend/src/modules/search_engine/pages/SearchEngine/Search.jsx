@@ -38,9 +38,13 @@ function Search() {
     const fetchDatasets = async () => {
       setLoading(true);
       try {
-        const from = (currentPage - 1) * resultsPerPage;
+        const queryParams = new URLSearchParams(location.search);
+        const page = parseInt(queryParams.get('page')) || 1;
+        const from = (page - 1) * resultsPerPage;
         const fetchedDatasets = await getDatasets(from, resultsPerPage);
+
         setDatasets(fetchedDatasets);
+        setCurrentPage(page);
       } catch (error) {
         console.error('Error fetching datasets:', error);
       } finally {
@@ -52,7 +56,8 @@ function Search() {
 
     fetchDatasets();
 
-  }, [searchParams, currentPage]);
+  }, [location.search]);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,12 +78,12 @@ function Search() {
   const handlePageChange = (selectedItem) => {
     const newPage = selectedItem.selected + 1;
     const updatedParams = new URLSearchParams(searchParams);
-  
+
     updatedParams.set("page", newPage);
-  
+
     navigate(`?${updatedParams.toString()}`);
   };
-  
+
   return (
     <>
 
