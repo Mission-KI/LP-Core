@@ -169,7 +169,7 @@ const DataScienceInfo = ({ datasetDetails }) => {
                             placement="top"
                             overlay={
                                 <Tooltip id="tooltip-outlier">
-                                    Average proportion of outliers across percentile, zScore, and interquartile range
+                                    {t("dataset.numericOutlierAnalysisTooltipText")}
                                 </Tooltip>
                             }
                         >
