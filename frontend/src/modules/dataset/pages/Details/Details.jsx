@@ -18,19 +18,21 @@ import NumericAnomalyAnalysis from "../../components/NumericAnomalyAnalysis";
 import DataSeasonality from "../../components/DataSeasonality";
 import PageNotFound from "../../../common/pages/PageNotFound";
 import QualityMetrics from "../../../search_engine/components/Results/QualityMetrics";
-import DataScienceInfo from "../../components/DataScienceInfo";
+import DataScienceInfo from "../../components/DataScienceInfo/DataScienceInfo";
 import DatasetActions from "../../components/DatasetActions";
-import { truncateString } from "../../../common/utils/format_utils";
-import { ArrowLeft } from "react-bootstrap-icons";
+import { ArrowLeft, ChevronDown, ChevronUp } from "react-bootstrap-icons";
 import AttributeIntegrity from "../../components/AttributeIntegrity";
 import EmbeddedImages from "../../components/EmbeddedImages";
 import EmbeddedTables from "../../components/EmbeddedTables";
+import { truncateString } from "../../../common/utils/format_utils";
 
 function Details() {
   const { id } = useParams();
   const [datasetDetails, setDatasetDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeKey, setActiveKey] = useState("attributes");
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,6 +51,10 @@ function Details() {
 
     fetchDatasets();
   }, [id]);
+
+  const toggleDescriptionExpanded = () => {
+    setIsDescriptionExpanded((prev) => !prev);
+  };
 
   useEffect(() => {
     if (location.hash) {
@@ -90,9 +96,16 @@ function Details() {
           <DatasetActions datasetDetails={datasetDetails} />
         </div>
 
-        <p className="txt-lighter mt-3 mb-5">
-          {truncateString(datasetDetails?._source?.description, 450)}
-        </p>
+        <div>
+          <p className="txt-lighter mt-3 mb-2">
+            {isDescriptionExpanded ? datasetDetails?._source?.description : truncateString(datasetDetails?._source?.description, 450)}
+          </p>
+          {datasetDetails?._source?.description?.length > 450 && (
+            <button className="btn btn-link txt-lighter medium p-0" onClick={toggleDescriptionExpanded}>
+              {isDescriptionExpanded ? "Show Less" : "Show More"} {isDescriptionExpanded ? <ChevronUp className="ms-1" /> : <ChevronDown className="ms-1" />}
+            </button>
+          )}
+        </div>
 
         <div
           className="d-flex mt-4 flex-wrap"

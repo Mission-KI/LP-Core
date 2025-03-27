@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Dash, Plus } from "react-bootstrap-icons";
+import { ChevronDown, ChevronRight, ChevronUp, Dash, Plus } from "react-bootstrap-icons";
 import ParentNodeView from "./ParentNodeView";
 
 const TreeNode = ({ node, childrenMap, dataset }) => {
@@ -16,21 +16,21 @@ const TreeNode = ({ node, childrenMap, dataset }) => {
             <div className="d-flex">
                 {hasChildren && (
                     <div className="pe-3">
-                        <button className="btn txt-regular border px-1 p-0" onClick={toggleExpand} style={{ cursor: "pointer" }}>
-                            {hasChildren && (isExpanded ? <Dash /> : <Plus />)}
+                        <button className="btn btn-hover txt-regular px-1 p-0" onClick={toggleExpand} style={{ cursor: "pointer" }}>
+                            {hasChildren && (isExpanded ? <ChevronDown /> : <ChevronRight />)}
                         </button>
                     </div>
                 )}
 
                 <div>
-                    <div>
+                    <div className="pb-3">
                         {node.parent == null ? (
                             <div className="pb-2">
                                 <ParentNodeView dataset={dataset} />
                             </div>
                         ) : (
                             <div>
-                                <p className="txt-primary h6 pt-3">{node.name}</p>
+                                <span className="txt-primary h6">{node.name}</span>
                             </div>
                         )}
                     </div>
