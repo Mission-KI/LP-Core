@@ -6,7 +6,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { QuestionCircle } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router'
 import EdpStructure from '../EdpStructure/EdpStructure'
-import GeneralEdpScienceOverfiew from './GeneralEdpScienceOverfiew';
+import GeneralEdpScienceOverview from './GeneralEdpScienceOverview';
 
 const DataScienceInfo = ({ datasetDetails }) => {
 
@@ -24,7 +24,7 @@ const DataScienceInfo = ({ datasetDetails }) => {
     return (
         <div>
             <div className="row w-100">
-                <GeneralEdpScienceOverfiew
+                <GeneralEdpScienceOverview
                     datasetDetails={datasetDetails}
                 />
                 <div className="col-6 mt-3">

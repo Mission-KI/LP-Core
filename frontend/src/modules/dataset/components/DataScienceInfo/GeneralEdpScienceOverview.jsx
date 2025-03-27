@@ -4,7 +4,7 @@ import { filesize } from 'filesize';
 import { calculateDataTypesAttribute } from '../../utils/calculations';
 import { useTranslation } from 'react-i18next';
 
-const GeneralEdpScienceOverfiew = ({ datasetDetails }) => {
+const GeneralEdpScienceOverview = ({ datasetDetails }) => {
 
     const { t } = useTranslation();
 
@@ -56,4 +56,4 @@ const GeneralEdpScienceOverfiew = ({ datasetDetails }) => {
     );
 }
 
-export default GeneralEdpScienceOverfiew;
+export default GeneralEdpScienceOverview;
