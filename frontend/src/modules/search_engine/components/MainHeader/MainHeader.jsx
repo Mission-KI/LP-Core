@@ -10,7 +10,6 @@ import { List } from 'react-bootstrap-icons';
 import Toolbar from '../Toolbar'
 import { Button } from 'react-bootstrap';
 import MobileHeaderDropdown from './MobileHeaderDropdown';
-import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
 
 const MainHeader = () => {
 
@@ -64,9 +63,6 @@ const MainHeader = () => {
                         <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/help" className="d-none d-md-block">
                             {t('header.help')}
                         </Nav.Link>
-                        <div className='d-none d-md-block'>
-                            <LanguageSelector />
-                        </div>
                     </Nav>
                 </div>
 

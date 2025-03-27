@@ -1,8 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { NavLink, Link } from 'react-router-dom';
-import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { landingUrl } from '../../../common/api/config';
 import Toolbar from '../Toolbar'
@@ -38,9 +37,6 @@ const HomeHeader = () => {
                     <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/help" className="d-none d-md-block">
                         {t('header.help')}
                     </Nav.Link>
-                    <div className='d-none d-md-block'>
-                        <LanguageSelector />
-                    </div>
                     <Nav.Link className='d-flex align-items-center d-none d-md-block ms-2'>
                         <span className="badge badge-primary bgc-danger" style={{ fontSize: '10pt' }}>Alpha</span>
                     </Nav.Link>

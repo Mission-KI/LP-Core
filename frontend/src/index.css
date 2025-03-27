@@ -638,7 +638,7 @@ input:checked+.slider:before {
   position: absolute;
   top: -10px;
   left: 50%;
-  transform: translateX(-5px);
+  transform: translateX(-50%);
   border-width: 0 10px 10px 10px;
   border-style: solid;
   border-color: transparent transparent var(--color-light-gray) transparent;

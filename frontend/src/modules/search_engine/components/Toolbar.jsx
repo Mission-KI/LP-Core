@@ -3,6 +3,7 @@ import { Gear, Star, StarFill } from 'react-bootstrap-icons';
 import { getBookmarks } from '../../common/utils/bookmarks';
 import { Link } from 'react-router-dom';
 import SettingsModal from '../../common/components/SettingsModal/SettingsModal'
+import LanguageSelector from '../../common/components/widgets/LanguageSelector';
 
 const Toolbar = () => {
 
@@ -10,14 +11,17 @@ const Toolbar = () => {
 
     return (
         <>
-            <div className='pe-1 d-none d-md-block'>
+            <div className='d-none d-md-flex align-items-center position-relative'>
+                <LanguageSelector />
+            </div>
+            <div className='px-1 d-none d-md-block'>
                 <span onClick={() => setShowSettingsModal(true)}
                     className="btn-hover px-1 h-100 d-flex align-items-center pointer"
                 >
                     <Gear className='h5 m-0' />
                 </span>
             </div>
-            <div className='ps-1 d-none d-md-block'>
+            <div className='d-none d-md-block'>
                 <Link to="/bookmarks"
                     className="btn-hover px-1 h-100 d-flex align-items-center"
                 >
