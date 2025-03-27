@@ -4,6 +4,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+try:
+    from ._version import __version__
+except ImportError:
+    __version__ = "0.0.0+dirty"
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -175,7 +180,7 @@ TESTS_IN_REAL_DB = True
 SPECTACULAR_SETTINGS = {
     "TITLE": "Daseen REST API",
     "DESCRIPTION": "Daseen API documentation",
-    "VERSION": "1.0.0",
+    "VERSION": __version__,
     "SERVE_INCLUDE_SCHEMA": False,
     "COMPONENT_SPLIT_REQUEST": True,
 }

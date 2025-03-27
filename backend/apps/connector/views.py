@@ -53,7 +53,9 @@ def _do_upload(request: Request, id: str, zip_file):
         edp_dir = Path(temp_dir)
         edp_model = uploader.extract_edp_zip(edp_dir, zip_file)
         edp_dataspace = edp_model.assetRefs[0].dataSpace.name
-        if not request.user.is_superuser and request.user.dataspace.name != edp_dataspace:
+        if not request.user.is_superuser and (
+            request.user.dataspace is None or request.user.dataspace.name != edp_dataspace
+        ):
             raise PermissionDenied(f"User not allowed to upload to dataspace {edp_dataspace}")
         uploader.upload_edp_directory(edp_model, edp_id=id, edp_dir=edp_dir)
     create_log(request.get_full_path(), "EDP upload done", EventLog.STATUS_SUCCESS, metadata={"id": id})

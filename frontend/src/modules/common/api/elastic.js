@@ -63,6 +63,16 @@ export const getDatasets = async (from = 0, size = 10) => {
                     }
                 });
             }
+            else if (key === 'dataType') {
+                filters.push({
+                    bool: {
+                        should: values.map(value => ({
+                            match: { "dataTypes": value }
+                        })),
+                        minimum_should_match: 1
+                    }
+                });
+            }            
             else if (key === 'license.name') {
                 filters.push({
                     nested: {
@@ -260,6 +270,12 @@ export const getFilterValues = async () => {
                 },
                 "max_column_count": {
                     "max": { "field": "structuredDatasets.columnCount" }
+                },
+                "distinct_dataTypes": {
+                    "terms": {
+                        "field": "dataTypes.keyword",
+                        "size": 10000
+                    }
                 }
             }
         };

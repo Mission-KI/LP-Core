@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { ChevronDown } from 'react-bootstrap-icons';
+import { ChevronDown, Globe2 } from 'react-bootstrap-icons';
 
 function LanguageSelector() {
     const { i18n } = useTranslation();
@@ -18,12 +18,14 @@ function LanguageSelector() {
     };
 
     return (
-        <Dropdown className="ps-md-3 ps-lg-3 ps-0">
-            <Dropdown.Toggle variant="" className="bg-transparent ps-md-3 nav-link ps-lg-3 ps-0" id="language-dropdown">
-                {i18n.language} <ChevronDown />
+        <Dropdown className="">
+            <Dropdown.Toggle variant="" className="btn-hover txt-regular px-1 h-100 d-flex align-items-center" id="language-dropdown">
+                <Globe2 className='h5 mb-0' />
             </Dropdown.Toggle>
 
-            <Dropdown.Menu className='border-0 shadow-sm mt-3 pointy-dropdown' style={{ end: 0 }}>
+            <Dropdown.Menu
+                className='border-0 shadow-sm mt-3 pointy-dropdown'
+                style={{ left: '50%', transform: 'translateX(-50%)' }}>
                 {Object.keys(lngs).map((lng) => (
                     <Dropdown.Item
                         key={lng}
