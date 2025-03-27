@@ -18,7 +18,7 @@ import NumericAnomalyAnalysis from "../../components/NumericAnomalyAnalysis";
 import DataSeasonality from "../../components/DataSeasonality";
 import PageNotFound from "../../../common/pages/PageNotFound";
 import QualityMetrics from "../../../search_engine/components/Results/QualityMetrics";
-import DataScienceInfo from "../../components/DataScienceInfo";
+import DataScienceInfo from "../../components/DataScienceInfo/DataScienceInfo";
 import DatasetActions from "../../components/DatasetActions";
 import { truncateString } from "../../../common/utils/format_utils";
 import { ArrowLeft } from "react-bootstrap-icons";
