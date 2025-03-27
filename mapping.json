@@ -1,0 +1,901 @@
+{
+  "mappings": {
+    "properties": {
+      "archiveDatasets": {
+        "properties": {
+          "algorithm": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "extractedSize": {
+            "type": "long"
+          }
+        }
+      },
+      "assetProcessingStatus": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "assetRefs": {
+        "type": "nested",
+        "properties": {
+          "assetId": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword"
+              }
+            }
+          },
+          "assetUrl": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "assetVersion": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "dataSpace": {
+            "properties": {
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "url": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          },
+          "dataspace": {
+            "properties": {
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              }
+            }
+          },
+          "license": {
+            "properties": {
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "url": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          },
+          "publishDate": {
+            "type": "date"
+          },
+          "publisher": {
+            "properties": {
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword"
+                  }
+                }
+              },
+              "url": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "assetSha256Hash": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "assetTypeInfo": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "dataCategory": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "dataLog": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "dataSubCategory": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "dataTypes": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "datasetTree": {
+        "properties": {
+          "dataset": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          },
+          "fileProperties": {
+            "properties": {
+              "fileType": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "size": {
+                "type": "long"
+              }
+            }
+          },
+          "name": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "parent": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "description": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "documentDatasets": {
+        "properties": {
+          "creationDate": {
+            "type": "date"
+          },
+          "docType": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "encrypted": {
+            "type": "boolean"
+          },
+          "modified": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "numImages": {
+            "type": "long"
+          },
+          "numPages": {
+            "type": "long"
+          },
+          "title": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "toolchain": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          }
+        }
+      },
+      "dpa": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "freely_available": {
+        "type": "boolean"
+      },
+      "generatedBy": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "growthFlag": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "imageDatasets": {
+        "properties": {
+          "blurriness": {
+            "type": "float"
+          },
+          "brightness": {
+            "type": "float"
+          },
+          "brisque": {
+            "type": "float"
+          },
+          "codec": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "colorMode": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "dpi": {
+            "properties": {
+              "x": {
+                "type": "float"
+              },
+              "y": {
+                "type": "float"
+              }
+            }
+          },
+          "elaScore": {
+            "type": "float"
+          },
+          "lowContrast": {
+            "type": "boolean"
+          },
+          "noise": {
+            "type": "float"
+          },
+          "resolution": {
+            "properties": {
+              "height": {
+                "type": "long"
+              },
+              "width": {
+                "type": "long"
+              }
+            }
+          },
+          "sharpness": {
+            "type": "float"
+          }
+        }
+      },
+      "immutabilityFlag": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "licenses": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword"
+          }
+        }
+      },
+      "name": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "nda": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "periodicity": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "schema_version": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "structuredDatasets": {
+        "properties": {
+          "columnCount": {
+            "type": "long"
+          },
+          "correlationGraph": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "correlationSummary": {
+            "properties": {
+              "no": {
+                "type": "long"
+              },
+              "partial": {
+                "type": "long"
+              },
+              "strong": {
+                "type": "long"
+              }
+            }
+          },
+          "datetimeColumnCount": {
+            "type": "long"
+          },
+          "datetimeColumns": {
+            "properties": {
+              "all_entries_are_unique": {
+                "type": "boolean"
+              },
+              "format": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "inconsistentCount": {
+                "type": "long"
+              },
+              "interpretableCount": {
+                "type": "long"
+              },
+              "monotonically_decreasing": {
+                "type": "boolean"
+              },
+              "monotonically_increasing": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "nullCount": {
+                "type": "long"
+              },
+              "numberUnique": {
+                "type": "long"
+              },
+              "periodicity": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "temporalConsistencies": {
+                "properties": {
+                  "differentAbundancies": {
+                    "type": "long"
+                  },
+                  "numberOfGaps": {
+                    "type": "long"
+                  },
+                  "stable": {
+                    "type": "boolean"
+                  },
+                  "timeScale": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  }
+                }
+              },
+              "temporalCover": {
+                "properties": {
+                  "earliest": {
+                    "type": "date"
+                  },
+                  "latest": {
+                    "type": "date"
+                  }
+                }
+              }
+            }
+          },
+          "numericColumnCount": {
+            "type": "long"
+          },
+          "numericColumns": {
+            "properties": {
+              "boxPlot": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "dataType": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "distribution": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "distributionGraph": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "inconsistentCount": {
+                "type": "long"
+              },
+              "interpretableCount": {
+                "type": "long"
+              },
+              "iqr": {
+                "type": "float"
+              },
+              "iqrOutlierCount": {
+                "type": "long"
+              },
+              "lowerIQR": {
+                "type": "float"
+              },
+              "lowerPercentile": {
+                "type": "float"
+              },
+              "lowerQuantile": {
+                "type": "float"
+              },
+              "lowerZScore": {
+                "type": "float"
+              },
+              "max": {
+                "type": "float"
+              },
+              "mean": {
+                "type": "float"
+              },
+              "median": {
+                "type": "float"
+              },
+              "min": {
+                "type": "float"
+              },
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "nullCount": {
+                "type": "long"
+              },
+              "numberUnique": {
+                "type": "long"
+              },
+              "original_series": {
+                "properties": {
+                  "file": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "timeBaseColumn": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  }
+                }
+              },
+              "percentileOutlierCount": {
+                "type": "long"
+              },
+              "relativeOutlierCount": {
+                "type": "float"
+              },
+              "residuals": {
+                "properties": {
+                  "file": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "timeBaseColumn": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  }
+                }
+              },
+              "seasonalities": {
+                "properties": {
+                  "file": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "timeBaseColumn": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  }
+                }
+              },
+              "stddev": {
+                "type": "float"
+              },
+              "trends": {
+                "properties": {
+                  "file": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  },
+                  "timeBaseColumn": {
+                    "type": "text",
+                    "fields": {
+                      "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                      }
+                    }
+                  }
+                }
+              },
+              "upperIQR": {
+                "type": "float"
+              },
+              "upperPercentile": {
+                "type": "float"
+              },
+              "upperQuantile": {
+                "type": "float"
+              },
+              "upperZScore": {
+                "type": "float"
+              },
+              "variance": {
+                "type": "float"
+              },
+              "zScoreOutlierCount": {
+                "type": "long"
+              }
+            }
+          },
+          "rowCount": {
+            "type": "long"
+          },
+          "stringColumnCount": {
+            "type": "long"
+          },
+          "stringColumns": {
+            "properties": {
+              "distributionGraph": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "inconsistentCount": {
+                "type": "long"
+              },
+              "interpretableCount": {
+                "type": "long"
+              },
+              "name": {
+                "type": "text",
+                "fields": {
+                  "keyword": {
+                    "type": "keyword",
+                    "ignore_above": 256
+                  }
+                }
+              },
+              "nullCount": {
+                "type": "long"
+              },
+              "numberUnique": {
+                "type": "long"
+              }
+            }
+          }
+        }
+      },
+      "tags": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "temporalCover": {
+        "properties": {
+          "earliest": {
+            "type": "date"
+          },
+          "latest": {
+            "type": "date"
+          }
+        }
+      },
+      "transferTypeFlag": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "transferTypeFrequency": {
+        "type": "text",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "unstructuredTextDatasets": {
+        "properties": {
+          "languages": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "lineCount": {
+            "type": "long"
+          },
+          "wordCloud": {
+            "type": "nested",
+            "properties": {
+              "count": {
+                "type": "integer"
+              },
+              "word": {
+                "type": "keyword"
+              }
+            }
+          },
+          "wordCount": {
+            "type": "long"
+          }
+        }
+      },
+      "volume": {
+        "type": "long"
+      }
+    }
+  }
+}
