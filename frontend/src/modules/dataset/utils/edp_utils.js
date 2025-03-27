@@ -3,26 +3,28 @@ export const getEdpLanguagesList = (dataset) => {
 };
 
 export const getNumericOutlierAnalysis = (dataset) => {
-    let totalRows = 0;
-    let totalOutliers = 0;
+    let totalColumns = 0;
+    let totalOutlierPercentage = 0;
 
     dataset?._source?.structuredDatasets?.[0]?.numericColumns.forEach(column => {
         if (column.interpretableCount > 0) {
-            totalRows += column.interpretableCount;
             let outlierCount = (column.percentileOutlierCount || 0) + (column.zScoreOutlierCount || 0) + (column.iqrOutlierCount || 0);
-            totalOutliers += outlierCount;
+            let outlierPercentage = (outlierCount / column.interpretableCount) * 100;
+
+            totalOutlierPercentage += outlierPercentage;
+            totalColumns++;
         }
     });
 
-    if (totalRows === 0) return "no outliers";
+    if (totalColumns === 0) return "no outliers";
 
-    let outlierPercentage = (totalOutliers / totalRows) * 100;
+    let averageOutlierPercentage = totalOutlierPercentage / totalColumns;
 
-    if (outlierPercentage === 0) {
+    if (averageOutlierPercentage === 0) {
         return "no outliers";
-    } else if (outlierPercentage <= 5) {
-        return `few outliers (${outlierPercentage.toFixed(2)}%)`;
+    } else if (averageOutlierPercentage <= 5) {
+        return `few outliers (${averageOutlierPercentage.toFixed(2)}%)`;
     } else {
-        return `many outliers (${outlierPercentage.toFixed(2)}%)`;
+        return `many outliers (${averageOutlierPercentage.toFixed(2)}%)`;
     }
-}
+};
