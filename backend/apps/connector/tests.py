@@ -269,11 +269,12 @@ def test_upload_edp_file_zip_success(auth_client: APIClient, monkeypatch: Monkey
     mock_index.assert_called_once()
 
 
+@pytest.mark.parametrize("dataspace", [None, "Another dataspace"])
 @pytest.mark.django_db()
-def test_upload_user_edp_dataspace_mismatch(monkeypatch: MonkeyPatch):
+def test_upload_user_edp_dataspace_mismatch(dataspace: None | str):
+    dataspace_obj = Dataspace.objects.create(name=dataspace) if dataspace else None
     auth_client = APIClient()
-    dataspace = Dataspace.objects.create(name="Another dataspace")
-    user = User.objects.create_user(username="test", password="test", dataspace=dataspace)
+    user = User.objects.create_user(username="test", password="test", dataspace=dataspace_obj)
     user.is_connector_user = True
     auth_client.force_authenticate(user=user)
 
