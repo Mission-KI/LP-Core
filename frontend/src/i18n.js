@@ -58,7 +58,7 @@ i18n
             numericValueDistribution: "Top 3 numeric distributions",
             stringValueDistribution: "String value distribution",
             numericCorrelationAnalysis: "Numeric correlation analysis",
-            numericAnomalyAnalysis: "Numeric anomaly analysis",
+            numericOutlierAnalysis: "Numeric outlier analysis",
             dataSeasonality: "Data seasonality",
             edpStructure: "EDP Structure",
             languages: "Languages",
@@ -76,7 +76,7 @@ i18n
               numericValueDistribution: "Numeric Value Distribution",
               stringValueDistribution: "String Value Distribution",
               numericCorrelationAnalysis: "Numeric Correlation Analysis",
-              numericAnomalyAnalysis: "Numeric Anomaly Analysis",
+              numericOutlierAnalysis: "Numeric Outlier Analysis",
               dataSeasonality: "Data Seasonality"
             }
           },
@@ -208,7 +208,7 @@ i18n
             numericValueDistribution: "Top 3 numerische Verteilungen",
             stringValueDistribution: "String-Werteverteilung",
             numericCorrelationAnalysis: "Numerische Korrelationsanalyse",
-            numericAnomalyAnalysis: "Numerische Anomalieanalyse",
+            numericOutlierAnalysis: "Numerische Anomalieanalyse",
             dataSeasonality: "Daten-Saisonalität",
             edpStructure: "EDP Struktur",
             languages: "Sprachen",
@@ -226,7 +226,7 @@ i18n
               numericValueDistribution: "Numerische Wertever- Teilung",
               stringValueDistribution: "String-Wertever- Teilung",
               numericCorrelationAnalysis: "Numerische Korrelations- Analyse",
-              numericAnomalyAnalysis: "Numerische Anomalie- Analyse",
+              numericOutlierAnalysis: "Numerische Anomalie- Analyse",
               dataSeasonality: "Daten- Saisonalität"
             }
           },

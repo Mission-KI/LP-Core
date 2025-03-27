@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import NumericValueDistribution from "../../components/NumericValueDistribution";
 import StringValueDistribution from "../../components/StringValueDistribution";
 import NumericCorrelationAnalysis from "../../components/NumericCorrelationAnalysis";
-import NumericAnomalyAnalysis from "../../components/NumericAnomalyAnalysis";
+import NumericOutlierAnalysis from "../../components/NumericOutlierAnalysis";
 import DataSeasonality from "../../components/DataSeasonality";
 import PageNotFound from "../../../common/pages/PageNotFound";
 import QualityMetrics from "../../../search_engine/components/Results/QualityMetrics";
@@ -252,12 +252,12 @@ function Details() {
                 eventKey="anomaly_analysis"
                 title={
                   <span className="small text-uppercase">
-                    {t('dataset.tabs.numericAnomalyAnalysis')}
+                    {t('dataset.tabs.numericOutlierAnalysis')}
                   </span>
                 }
                 className={styles.tab}
               >
-                <NumericAnomalyAnalysis datasetDetails={datasetDetails} />
+                <NumericOutlierAnalysis datasetDetails={datasetDetails} />
               </Tab>
               <Tab
                 eventKey="data_seasonality"

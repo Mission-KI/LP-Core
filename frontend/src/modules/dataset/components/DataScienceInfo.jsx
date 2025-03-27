@@ -6,7 +6,7 @@ import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { QuestionCircle } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router'
 import EdpStructure from './EdpStructure/EdpStructure'
-import { getEdpLanguagesList } from '../utils/edp_utils';
+import { getEdpLanguagesList, getNumericOutlierAnalysis } from '../utils/edp_utils';
 
 const DataScienceInfo = ({ datasetDetails }) => {
 
@@ -159,11 +159,13 @@ const DataScienceInfo = ({ datasetDetails }) => {
                     <p
                         onClick={() => scienceInfoTabNavigate('anomaly_analysis')}
                         className="small mb-1 fw-500 text-uppercase pointer">
-                        {t("dataset.numericAnomalyAnalysis")}
+                        {t("dataset.numericOutlierAnalysis")}
                     </p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1">anomaly exists</p>
+                    <p className="small mb-1">
+                        {getNumericOutlierAnalysis(datasetDetails)}
+                    </p>
                 </div>
                 <div className="col-6">
                     <p
