@@ -238,7 +238,7 @@ def test_create_edp_file_zip_validation_error(auth_client: APIClient):
 def test_upload_edp_file_zip_success(auth_client: APIClient, monkeypatch: MonkeyPatch):
     mock_index = mkmock(monkeypatch, Elasticsearch, "index")
     conn = boto3.resource("s3")
-    conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
+    bucket = conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
     id = ResourceStatus.objects.create().id
     monkeypatch.setattr(
         search_views,
@@ -265,6 +265,11 @@ def test_upload_edp_file_zip_success(auth_client: APIClient, monkeypatch: Monkey
     )
     check_event_log(url=url, status="success", message="EDP upload done")
     mock_index.assert_called_once()
+    all_objects = bucket.objects.all()
+    all_objects = list(all_objects)
+    assert len(all_objects) == 2
+    assert all_objects[0].key == f"{id}/dummy_edp.json"
+    assert all_objects[1].key == f"{id}/image.png"
 
 
 @pytest.mark.parametrize("dataspace", [None, "Another dataspace"])
