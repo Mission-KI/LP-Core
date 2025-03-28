@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { notifyEdpDownloadEvent } from "../api/dataset";
+import { imageBasePath } from "../../common/api/config";
 
 const DatasetActions = ({ datasetDetails }) => {
 
@@ -33,6 +34,7 @@ const DatasetActions = ({ datasetDetails }) => {
     };
 
     const isHomePage = location.pathname === '/';
+    const reportDownloadUrl = imageBasePath + datasetDetails?._source?.datasetTree?.[0]?.fileProperties.name;
 
     return (
         <div className='d-flex'>
@@ -53,9 +55,9 @@ const DatasetActions = ({ datasetDetails }) => {
                     </span>
                 </div>
                 <div className='pe-2 pt-1'>
-                    <span className='btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
+                    <a href={reportDownloadUrl} className='btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
                         <Download className='me-1' /> {t('header.reportPdf')}
-                    </span>
+                    </a>
                 </div>
                 <div className='pe-2 pt-1'>
                     <button
