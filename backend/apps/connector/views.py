@@ -1,4 +1,5 @@
 import io
+import json
 from logging import getLogger
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -6,16 +7,18 @@ from tempfile import TemporaryDirectory
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils.logging import create_log
 from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from extended_dataset_profile import CURRENT_SCHEMA
 from pydantic import HttpUrl
 from rest_framework import parsers, status, views
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException, PermissionDenied, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
@@ -263,11 +266,14 @@ class EDPViewSet(ViewSet):
         return input_file
 
 
-@extend_schema(methods=["GET"], summary="get the current JSON schema of an EDP")
+@extend_schema(methods=["GET"], summary="Download the current JSON schema of an EDP")
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def get_schema(request: Request):
-    if not request.user.is_connector_user:
-        create_log(request.get_full_path(), "EDP schema failed: Permission denied", EventLog.STATUS_FAIL)
-        return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
     schema = CURRENT_SCHEMA.model_json_schema()
-    return Response(schema, status=status.HTTP_200_OK)
+    schema_json = json.dumps(schema, indent=4)
+
+    response = HttpResponse(schema_json, content_type="application/json")
+    response["Content-Disposition"] = 'attachment; filename="schema.json"'
+
+    return response
