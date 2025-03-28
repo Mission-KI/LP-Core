@@ -8,7 +8,7 @@ function NumericCorrelationAnalysis({ datasetDetails }) {
     return (
         <>
             {correlationGraphUrl ? (
-                <ImageView url={imageBasePath + correlationGraphUrl} />
+                <ImageView url={imageBasePath + datasetDetails?._id + '/' + correlationGraphUrl} />
             ) : ''}
         </>
     );

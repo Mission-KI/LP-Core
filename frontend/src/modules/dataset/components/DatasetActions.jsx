@@ -34,7 +34,7 @@ const DatasetActions = ({ datasetDetails }) => {
     };
 
     const isHomePage = location.pathname === '/';
-    const reportDownloadUrl = imageBasePath + datasetDetails?._source?.datasetTree?.[0]?.fileProperties.name;
+    const reportDownloadUrl = imageBasePath + datasetDetails?._id + '/report.pdf';
 
     return (
         <div className='d-flex'>
