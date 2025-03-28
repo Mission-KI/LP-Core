@@ -58,7 +58,9 @@ const ParentNodeView = ({ dataset }) => {
                     </a>
 
 
-                    <span className="small txt-lighter pe-3">Files (CSV)</span>
+                    <span className="small txt-lighter pe-3">
+                        {dataset?._source?.dataTypes?.join(", ")} ({dataset?._source?.datasetTree[0]?.fileProperties?.fileType?.toUpperCase()})
+                        </span>
                     <span className="small txt-lighter pe-3">
                         {filesize(dataset?._source?.volume)}
                     </span>
