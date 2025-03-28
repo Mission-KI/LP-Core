@@ -1,3 +1,4 @@
+import json
 import uuid
 from datetime import datetime
 from io import BytesIO
@@ -16,6 +17,7 @@ from apps.connector.utils.edpuploader.s3_edp_storage import S3EDPStorage
 from apps.monitoring.models import EventLog
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.http import HttpResponse
 from django.urls import reverse
 from elasticsearch import Elasticsearch
 from extended_dataset_profile import CURRENT_SCHEMA
@@ -405,13 +407,19 @@ def test_delete_edp_file_zip_success(auth_client: APIClient, monkeypatch: Monkey
     elastic_delete.assert_called_once_with(index="edp-data", id=str(id))
 
 
-@pytest.mark.django_db()
-def test_get_schema(auth_client: APIClient):
+@pytest.mark.django_db
+def test_get_schema(auth_client):
     response = auth_client.get(reverse("edp-schema"))
-    assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_200_OK, response.json()
-    assert response.data == CURRENT_SCHEMA.model_json_schema()
 
+    assert isinstance(response, HttpResponse)
+    assert response.status_code == status.HTTP_200_OK
+
+    assert response["Content-Type"] == "application/json"
+    assert response["Content-Disposition"] == 'attachment; filename="schema.json"'
+
+    response_json = json.loads(response.content.decode("utf-8"))
+
+    assert response_json == CURRENT_SCHEMA.model_json_schema()
 
 @pytest.mark.django_db
 def test_raw_zip_upload_success(auth_client: APIClient, valid_zip_file: BytesIO, monkeypatch: MonkeyPatch):
