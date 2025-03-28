@@ -1,4 +1,5 @@
 import io
+import json
 from logging import getLogger
 from pathlib import Path
 from tempfile import TemporaryDirectory
@@ -6,6 +7,7 @@ from tempfile import TemporaryDirectory
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils.logging import create_log
 from django.conf import settings
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
@@ -264,9 +266,14 @@ class EDPViewSet(ViewSet):
         return input_file
 
 
-@extend_schema(methods=["GET"], summary="get the current JSON schema of an EDP")
+@extend_schema(methods=["GET"], summary="Download the current JSON schema of an EDP")
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def get_schema(request: Request):
     schema = CURRENT_SCHEMA.model_json_schema()
-    return Response(schema, status=status.HTTP_200_OK)
+    schema_json = json.dumps(schema, indent=4)
+
+    response = HttpResponse(schema_json, content_type="application/json")
+    response["Content-Disposition"] = 'attachment; filename="schema.json"'
+    
+    return response
