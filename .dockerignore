@@ -1,0 +1,19 @@
+# Ignore environment files
+.env.*
+.vscode/
+
+# Ignore Python build and cache files
+*.egg*
+*.whl
+**/__pycache__/
+**/.DS_Store
+**/.pytest_cache/
+**/.ruff_cache/
+**/.venv/
+
+# Ignore backend-specific files
+backend/.coverage
+backend/daseen/_version.py
+
+# Ignore distribution files
+dist/
