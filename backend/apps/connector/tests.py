@@ -514,17 +514,10 @@ def test_delete_permission_denied(no_perm_client: APIClient):
 
 
 @pytest.mark.django_db()
-def test_status_permission_denied(no_perm_client: APIClient):
+def test_schema_allow_any(no_perm_client: APIClient):
     response = no_perm_client.get(reverse("edp-schema"))
     assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_403_FORBIDDEN, response.json()
-    assert response.data == {"message": "Permission denied"}
-    check_event_log(
-        url=response.request["PATH_INFO"],
-        status="fail",
-        message="EDP schema failed: Permission denied",
-        expect_id=False,
-    )
+    assert response.status_code == status.HTTP_200_OK, response.json()
 
 
 def mkmock(monkeypatch, t, mod, **kwargs):

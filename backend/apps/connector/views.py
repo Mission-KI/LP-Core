@@ -12,10 +12,11 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from extended_dataset_profile import CURRENT_SCHEMA
 from pydantic import HttpUrl
 from rest_framework import parsers, status, views
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.exceptions import APIException, PermissionDenied, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.parsers import FormParser, MultiPartParser
+from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
@@ -265,9 +266,7 @@ class EDPViewSet(ViewSet):
 
 @extend_schema(methods=["GET"], summary="get the current JSON schema of an EDP")
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def get_schema(request: Request):
-    if not request.user.is_connector_user:
-        create_log(request.get_full_path(), "EDP schema failed: Permission denied", EventLog.STATUS_FAIL)
-        return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
     schema = CURRENT_SCHEMA.model_json_schema()
     return Response(schema, status=status.HTTP_200_OK)
