@@ -421,6 +421,7 @@ def test_get_schema(auth_client):
 
     assert response_json == CURRENT_SCHEMA.model_json_schema()
 
+
 @pytest.mark.django_db
 def test_raw_zip_upload_success(auth_client: APIClient, valid_zip_file: BytesIO, monkeypatch: MonkeyPatch):
     resource = ResourceStatus.objects.create()
@@ -521,11 +522,19 @@ def test_delete_permission_denied(no_perm_client: APIClient):
     )
 
 
-@pytest.mark.django_db()
-def test_schema_allow_any(no_perm_client: APIClient):
+@pytest.mark.django_db
+def test_schema_allow_any(no_perm_client):
     response = no_perm_client.get(reverse("edp-schema"))
-    assert isinstance(response, Response)
-    assert response.status_code == status.HTTP_200_OK, response.json()
+
+    assert isinstance(response, HttpResponse)
+    assert response.status_code == status.HTTP_200_OK
+
+    assert response["Content-Type"] == "application/json"
+    assert response["Content-Disposition"] == 'attachment; filename="schema.json"'
+
+    response_json = json.loads(response.content.decode("utf-8"))
+
+    assert response_json == CURRENT_SCHEMA.model_json_schema()
 
 
 def mkmock(monkeypatch, t, mod, **kwargs):
