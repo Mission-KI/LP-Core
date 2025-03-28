@@ -275,5 +275,5 @@ def get_schema(request: Request):
 
     response = HttpResponse(schema_json, content_type="application/json")
     response["Content-Disposition"] = 'attachment; filename="schema.json"'
-    
+
     return response
