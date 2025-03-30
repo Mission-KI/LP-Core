@@ -1,12 +1,12 @@
 import React from 'react';
-import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 import { calculateAttributeIntegrity, calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from "../../utils/calculations";
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { QuestionCircle } from 'react-bootstrap-icons';
+import { InfoCircleFill, QuestionCircle } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router'
 import EdpStructure from '../EdpStructure/EdpStructure'
 import GeneralEdpScienceOverview from './GeneralEdpScienceOverview';
+import { getNumericOutlierAnalysis } from '../../utils/edp_utils';
 
 const DataScienceInfo = ({ datasetDetails }) => {
 
@@ -120,11 +120,25 @@ const DataScienceInfo = ({ datasetDetails }) => {
                     <p
                         onClick={() => scienceInfoTabNavigate('anomaly_analysis')}
                         className="small mb-1 fw-500 text-uppercase pointer">
-                        {t("dataset.numericAnomalyAnalysis")}
+                        {t("dataset.numericOutlierAnalysis")}
                     </p>
                 </div>
                 <div className="col-6">
-                    <p className="small mb-1">anomaly exists</p>
+                    <p className="small mb-1">
+                        {getNumericOutlierAnalysis(datasetDetails)}
+                        <OverlayTrigger
+                            placement="top"
+                            overlay={
+                                <Tooltip id="tooltip-outlier">
+                                    {t("dataset.numericOutlierAnalysisTooltipText")}
+                                </Tooltip>
+                            }
+                        >
+                            <span className="ms-2">
+                                <InfoCircleFill size={14} className="cursor-pointer" />
+                            </span>
+                        </OverlayTrigger>
+                    </p>
                 </div>
                 <div className="col-6">
                     <p
