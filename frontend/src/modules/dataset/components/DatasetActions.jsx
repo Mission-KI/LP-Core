@@ -19,12 +19,12 @@ const DatasetActions = ({ datasetDetails }) => {
 
     const handleAddBookmark = (id) => {
         addBookmark(id);
-        setBookmarked(true);
+        window.location.reload();
     }
 
     const handleRemoveBookmark = (id) => {
         removeBookmark(id);
-        setBookmarked(false);
+        window.location.reload();
     }
 
     const handleDownload = async (url) => {
