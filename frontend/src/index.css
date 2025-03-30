@@ -638,7 +638,7 @@ input:checked+.slider:before {
   position: absolute;
   top: -10px;
   left: 50%;
-  transform: translateX(-5px);
+  transform: translateX(-50%);
   border-width: 0 10px 10px 10px;
   border-style: solid;
   border-color: transparent transparent var(--color-light-gray) transparent;
@@ -691,4 +691,12 @@ input:checked+.slider:before {
 .breadcrumb-item{
   font-size: 10pt !important;
   color: var(--color-text-lighter) !important;
+}
+
+#custom-nav-dropdown{
+  position: fixed;
+  background-color: var(--color-body-background);
+  top: 0;
+  transform: translateY(30%);
+  z-index: 1;
 }

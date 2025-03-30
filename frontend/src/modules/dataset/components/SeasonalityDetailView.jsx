@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { imageBasePath } from '../../common/api/config';
 
-const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, selectedAttribute }) => {
+const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, selectedAttribute, datasetDetails }) => {
 
     const handleOpen = () => setShowDetailViewModal(true);
     const handleClose = () => setShowDetailViewModal(false);
@@ -19,7 +19,7 @@ const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, se
                         <div>
                             <div className="row mb-3">
                                 <div className='col-md-12'>
-                                    <img src={imageBasePath + graph.file} className='w-100 pointer' />
+                                    <img src={imageBasePath + datasetDetails?._id + '/' + graph.file} className='w-100 pointer' />
                                 </div>
                             </div>
                         </div>
@@ -29,7 +29,7 @@ const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, se
                         <div>
                             <div className="row mb-3">
                                 <div className='col-md-12'>
-                                    <img src={imageBasePath + graph.file} className='w-100 pointer' />
+                                    <img src={imageBasePath + datasetDetails?._id + '/' + graph.file} className='w-100 pointer' />
                                 </div>
                             </div>
                         </div>
@@ -39,7 +39,7 @@ const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, se
                         <div>
                             <div className="row mb-3">
                                 <div className='col-md-12'>
-                                    <img src={imageBasePath + graph.file} className='w-100 pointer' />
+                                    <img src={imageBasePath + datasetDetails?._id + '/' + graph.file} className='w-100 pointer' />
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@ const SeasonalityDetailView = ({ showDetailViewModal, setShowDetailViewModal, se
                         <div>
                             <div className="row mb-3">
                                 <div className='col-md-12'>
-                                    <img src={imageBasePath + graph.file} className='w-100 pointer' />
+                                    <img src={imageBasePath + datasetDetails?._id + '/' + graph.file} className='w-100 pointer' />
                                 </div>
                             </div>
                         </div>

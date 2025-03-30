@@ -37,3 +37,4 @@ backend/staticfiles/
 .ruff_cache/
 .pytest_cache/
 frontend/playwright-report/index.html
+backend/daseen/_version.py

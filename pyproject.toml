@@ -28,6 +28,7 @@ dependencies = [
 dev = [
     "boto3-stubs[s3]>=1.37.0",
     "moto[s3]>=5.1.0",
+    "pre-commit>=4.2.0",
     "pytest-cov>=6.0.0",
     "pytest-django>=4.9.0",
     "ruff>=0.9.3",
@@ -39,6 +40,9 @@ build-backend = "hatchling.build"
 
 [tool.hatch.version]
 source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "backend/daseen/_version.py"
 
 [tool.hatch.metadata]
 allow-direct-references = true

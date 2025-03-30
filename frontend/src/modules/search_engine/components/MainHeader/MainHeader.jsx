@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -10,7 +10,6 @@ import { List } from 'react-bootstrap-icons';
 import Toolbar from '../Toolbar'
 import { Button } from 'react-bootstrap';
 import MobileHeaderDropdown from './MobileHeaderDropdown';
-import LanguageSelector from '../../../common/components/widgets/LanguageSelector';
 
 const MainHeader = () => {
 
@@ -28,6 +27,16 @@ const MainHeader = () => {
 
     const [showDropdown, setShowDropdown] = useState(false);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (showDropdown) {
+                setShowDropdown(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [showDropdown]);
 
     return (
         <Navbar
@@ -64,9 +73,6 @@ const MainHeader = () => {
                         <Nav.Link style={{ whiteSpace: 'nowrap' }} as={NavLink} to="/help" className="d-none d-md-block">
                             {t('header.help')}
                         </Nav.Link>
-                        <div className='d-none d-md-block'>
-                            <LanguageSelector />
-                        </div>
                     </Nav>
                 </div>
 

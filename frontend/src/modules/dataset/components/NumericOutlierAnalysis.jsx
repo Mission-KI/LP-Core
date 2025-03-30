@@ -37,7 +37,7 @@ function NumericOutlierAnalysis({ datasetDetails }) {
                         {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map((column) => (
                             column.boxPlot && (
                                 <div className='col-md-3 mb-3' key={column.name}>
-                                    <ImageView url={imageBasePath + column.boxPlot} />
+                                    <ImageView url={imageBasePath + datasetDetails?._id + '/' + column.boxPlot} />
                                 </div>
                             )))}
                     </div>
