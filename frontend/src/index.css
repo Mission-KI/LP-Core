@@ -692,3 +692,11 @@ input:checked+.slider:before {
   font-size: 10pt !important;
   color: var(--color-text-lighter) !important;
 }
+
+#custom-nav-dropdown{
+  position: fixed;
+  background-color: var(--color-body-background);
+  top: 0;
+  transform: translateY(30%);
+  z-index: 1;
+}

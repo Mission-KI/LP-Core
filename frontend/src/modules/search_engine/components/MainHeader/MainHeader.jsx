@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -27,6 +27,16 @@ const MainHeader = () => {
 
     const [showDropdown, setShowDropdown] = useState(false);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (showDropdown) {
+                setShowDropdown(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [showDropdown]);
 
     return (
         <Navbar
