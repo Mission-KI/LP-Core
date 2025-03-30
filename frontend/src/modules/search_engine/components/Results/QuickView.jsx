@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Dropdown } from "react-bootstrap";
-import { InfoCircleFill, Download, StarFill, Star, } from "react-bootstrap-icons";
+import { InfoCircleFill } from "react-bootstrap-icons";
 import styles from "./QuickView.module.css";
-import { t } from "i18next";
-import { addBookmark, isBookmarked, removeBookmark } from "../../../common/utils/bookmarks";
 import DataScienceInfo from "../../../dataset/components/DataScienceInfo/DataScienceInfo";
 import DatasetActions from "../../../dataset/components/DatasetActions";
 
 function QuickView({ dataset }) {
   const [show, setShow] = useState(false);
-  const [bookmarked, setBookmarked] = useState(false);
-
   const dropdownRef = useRef(null);
-
+  
   const toggleDropdown = () => {
     setShow((prevShow) => !prevShow);
   };
