@@ -95,6 +95,10 @@ i18n
             geoportal: {
               title: "Geodata from federal, state and local authorities",
               description: "Via this portal interested users can search, find and use publicly available geodata from federal, state and local authorities."
+            },
+            konstanz: {
+              title: "Central platform for open data in the city of Konstanz",
+              description: "The Konstanz Data Portal contributes to the development of an urban data space and promotes the transparent provision of municipal data."
             }
           },
           footer: {
@@ -191,6 +195,10 @@ i18n
             geoportal: {
               title: "Geodaten von Bund, Ländern und Kommunen",
               description: "Über das Portal können interessierte Nutzende öffentlich bereitgestellte Geodaten von Bund, Ländern und Kommunen über das Geoportal.de suchen, finden und nutzen."
+            },
+            konstanz: {
+              title: "Zentrale Plattform für Open Data in der Stadt Konstanz",
+              description: "Das Datenportal Konstanz trägt zum Aufbau eines urbanen Datenraums bei und fördert die transparente Bereitstellung kommunaler Daten."
             }
           },
           footer: {
