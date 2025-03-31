@@ -17,6 +17,7 @@ import mobilithek from '../assets/img/dataspace_logos/logo_mobilithek.png';
 import mobility from '../assets/img/dataspace_logos/logo_mobility-data-space.png';
 import collect from '../assets/img/dataspace_logos/logo_toll-collect.png';
 import geoportal from '../assets/img/dataspace_logos/geoportal.png';
+import konstanz from '../assets/img/dataspace_logos/konstanz.jpg';
 
 export const useCategories = () => {
     const { t } = useTranslation();
@@ -142,6 +143,15 @@ export const useCategories = () => {
                 },
                 {
                     "id": 2,
+                    "name": "Offene Daten Konstanz",
+                    "image": konstanz,
+                    "amount_of_publishers": 1,
+                    "amount_of_assets": 430,
+                    "dataspace_filters": [],
+                    "publisher_filters": ["Stadt Konstanz"]
+                },
+                {
+                    "id": 3,
                     "name": "BASt",
                     "image": bast,
                     "amount_of_publishers": 1,
