@@ -1,5 +1,6 @@
 from common.models import BaseModel
 from django.db import models
+from user.models import Dataspace
 
 
 class EventLog(BaseModel):
@@ -15,6 +16,7 @@ class EventLog(BaseModel):
     status = models.CharField(max_length=50, default="success")
     type = models.CharField(max_length=50, null=True)
     message = models.TextField()
+    dataspace = models.ForeignKey(Dataspace, on_delete=models.SET_NULL, null=True, blank=True)
     metadata = models.JSONField(null=True, blank=True)
 
     def __str__(self):

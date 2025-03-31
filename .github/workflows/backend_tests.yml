@@ -69,7 +69,7 @@ jobs:
             name: python-coverage-comment-action
             path: backend/python-coverage-comment-action.txt
 
-  ruff:
+  additional-checks:
     runs-on: ubuntu-24.04
 
     steps:
@@ -88,7 +88,15 @@ jobs:
           uv sync --all-extras
 
       - name: ruff check
+        working-directory: ./backend
         run: ruff check --output-format=github .
 
       - name: run format
+        working-directory: ./backend
         run: ruff format --check .
+
+      - name: validate OpenAPI specification
+        working-directory: ./backend
+        run: |
+          export DJANGO_SECRET_KEY=$(python -c 'from django.core.management.utils import get_random_secret_key;print(get_random_secret_key())')
+          python manage.py spectacular --validate --fail-on-warn

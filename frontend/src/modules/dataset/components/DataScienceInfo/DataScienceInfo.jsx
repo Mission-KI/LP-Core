@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from "react-i18next";
-import { calculateAttributeIntegrity, calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from "../../utils/calculations";
+import { calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from "../../utils/calculations";
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { InfoCircleFill, QuestionCircle } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router'
@@ -59,22 +59,12 @@ const DataScienceInfo = ({ datasetDetails }) => {
                     </p>
                 </div>
                 <div className="col-6 mt-3">
-                    <p
-                        onClick={() => scienceInfoTabNavigate('attribute_consistency')}
-                        className="small mb-1 fw-500 text-uppercase pointer">
-                        {t("dataset.attributeIntegrity")}
-                    </p>
-                </div>
-                <div className="col-6 mt-3">
-                    <p className="small mb-1">{calculateAttributeIntegrity(datasetDetails)}</p>
-                </div>
-                <div className="col-6">
                     <p onClick={() => scienceInfoTabNavigate('numeric_value_distribution')}
                         className="small mb-1 fw-500 text-uppercase pointer">
                         {t("dataset.numericValueDistribution")}
                     </p>
                 </div>
-                <div className="col-6 d-flex align-items-center">
+                <div className="col-6 mt-3 d-flex align-items-center">
                     <p className="small mb-1">{topDistributions}</p>
                     <OverlayTrigger
                         placement="top"
