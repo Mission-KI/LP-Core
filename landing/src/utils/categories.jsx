@@ -19,6 +19,7 @@ import { useState, useEffect } from "react";
 import { getPublisherAssetCounts } from '../api/elastic';
 import pangaea from '../assets/img/dataspace_logos/pangaea.png';
 import geoportal from '../assets/img/dataspace_logos/geoportal.png';
+import konstanz from '../assets/img/dataspace_logos/konstanz.jpg';
 
 export const useCategories = () => {
     const { t } = useTranslation();
@@ -196,6 +197,16 @@ export const useCategories = () => {
                     },
                     {
                         "id": 2,
+                        "title": t('dataSpaces.konstanz.title'),
+                        "description": t('dataSpaces.konstanz.description'),
+                        "image": konstanz,
+                        "amount_of_publishers": 1,
+                        "amount_of_assets": getAssetCount("Stadt Konstanz", "Offene Daten Konstanz"),
+                        "dataspace_filters": [],
+                        "publisher_filters": ["Stadt Konstanz"]
+                    },
+                    {
+                        "id": 3,
                         "title": t('publishers.bast.title'),
                         "description": t('publishers.bast.description'),
                         "image": bast,
