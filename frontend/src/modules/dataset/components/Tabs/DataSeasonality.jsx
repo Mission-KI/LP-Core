@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ImageView from '../../common/components/ImageView/ImageView';
-import SeasonalityDetailView from './SeasonalityDetailView';
-import { imageBasePath } from '../../common/api/config';
+import ImageView from '../../../common/components/ImageView/ImageView';
+import SeasonalityDetailView from '../SeasonalityDetailView';
+import { imageBasePath } from '../../../common/api/config';
 
 function DataSeasonality({ datasetDetails }) {
     const [selectedTab, setSelectedTab] = useState('Original Timeseries');

@@ -158,7 +158,7 @@ const DataScienceInfo = ({ datasetDetails }) => {
                 </div>
                 <div className="col-6">
                     <EdpStructure
-                        dataset={datasetDetails}
+                        datasetDetails={datasetDetails}
                         datasetTree={datasetDetails?._source?.datasetTree}
                     />
                 </div>

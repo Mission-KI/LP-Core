@@ -14,7 +14,10 @@ const GeneralEdpScienceOverview = ({ datasetDetails }) => {
                 <p className="small mb-1 fw-500 text-uppercase">{t("dataset.structure")}</p>
             </div>
             <div className="col-6">
-                <p className="small mb-1">Text (CSV)</p>
+                <p className="small mb-1">
+                    {datasetDetails?._source?.dataTypes?.join(", ")}
+                    &nbsp; ({datasetDetails?._source?.datasetTree[0]?.fileProperties?.fileType?.toUpperCase()})
+                </p>
             </div>
             <div className="col-6">
                 <p className="small mb-1 fw-500 text-uppercase">{t("dataset.volume")}</p>

@@ -1,6 +1,6 @@
 import TreeNode from "./TreeNode";
 
-const EdpStructure = ({ dataset, datasetTree }) => {
+const EdpStructure = ({ datasetDetails, datasetTree, expandedByDefault=false }) => {
     if (!datasetTree) return null;
 
     const childrenMap = {};
@@ -24,9 +24,10 @@ const EdpStructure = ({ dataset, datasetTree }) => {
             {rootNodes.map((node) => (
                 <TreeNode
                     key={node.name}
+                    datasetDetails={datasetDetails}
                     node={node}
                     childrenMap={childrenMap}
-                    dataset={dataset}
+                    expandedByDefault={expandedByDefault}
                 />
             ))}
         </div>

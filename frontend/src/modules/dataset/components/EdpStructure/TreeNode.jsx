@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, ChevronUp, Dash, Plus } from "react-bootstrap-icons";
+import { ChevronDown, ChevronRight, FileEarmarkFill, Folder2Open, FolderFill } from "react-bootstrap-icons";
 import { truncateString } from "../../../common/utils/format_utils";
+import { Link } from "react-router-dom";
 
-const TreeNode = ({ node, childrenMap, dataset }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+const TreeNode = ({ node, datasetDetails, childrenMap, expandedByDefault }) => {
+    const [isExpanded, setIsExpanded] = useState(expandedByDefault);
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
@@ -22,15 +23,21 @@ const TreeNode = ({ node, childrenMap, dataset }) => {
                     </div>
                 )}
 
-                <div>
+                <div className="nowrap">
                     <div>
-                        {childrenMap?.[node?.name]?.length > 0 ? (isExpanded ? "📂 " : "📁 ") : "📄 "} 
-                        {truncateString(node.name, 15)}
+                        {childrenMap?.[node?.name]?.length > 0 ? <FolderFill className="text-warning me-2" /> : <FileEarmarkFill className="me-2 txt-danger" />}
+                        <Link to={`/details/${datasetDetails?._id}/${node?.name}`} className="hover-underline">{truncateString(node.name, 12)}</Link>
                     </div>
                     {isExpanded && hasChildren && (
                         <div>
                             {childrenMap[node.name].map((child) => (
-                                <TreeNode key={child.name} node={child} childrenMap={childrenMap} />
+                                <TreeNode
+                                    key={child.name}
+                                    datasetDetails={datasetDetails}
+                                    node={child}
+                                    childrenMap={childrenMap}
+                                    expandedByDefault={expandedByDefault}
+                                />
                             ))}
                         </div>
                     )}

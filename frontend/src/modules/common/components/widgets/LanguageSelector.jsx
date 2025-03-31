@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { ChevronDown, Globe2 } from 'react-bootstrap-icons';
+import { Globe2 } from 'react-bootstrap-icons';
 
 function LanguageSelector() {
     const { i18n } = useTranslation();
@@ -19,7 +19,7 @@ function LanguageSelector() {
 
     return (
         <Dropdown className="">
-            <Dropdown.Toggle variant="" className="btn-hover txt-regular px-1 h-100 d-flex align-items-center" id="language-dropdown">
+            <Dropdown.Toggle variant="" className="btn-hover txt-regular px-2 h-100 d-flex align-items-center" id="language-dropdown">
                 <Globe2 className='h5 mb-0' />
             </Dropdown.Toggle>
 
