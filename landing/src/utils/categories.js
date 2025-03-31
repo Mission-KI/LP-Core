@@ -146,7 +146,7 @@ export const useCategories = () => {
                     "name": "Offene Daten Konstanz",
                     "image": konstanz,
                     "amount_of_publishers": 1,
-                    "amount_of_assets": 0,
+                    "amount_of_assets": 430,
                     "dataspace_filters": [],
                     "publisher_filters": ["Stadt Konstanz"]
                 },
