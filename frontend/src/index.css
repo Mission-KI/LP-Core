@@ -390,7 +390,6 @@ div.dt-container div.dt-search label {
 
 .dataset-attribute-tabs {
   display: flex;
-  justify-content: space-between;
 }
 
 .dataset-attribute-tabs .nav-item {

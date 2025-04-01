@@ -4,7 +4,6 @@ import { calculateDataTypesAttribute, calculateTemporalCover, getStringValueDist
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { InfoCircleFill, QuestionCircle } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router'
-import EdpStructure from '../EdpStructure/EdpStructure'
 import GeneralEdpScienceOverview from './GeneralEdpScienceOverview';
 import { getNumericOutlierAnalysis } from '../../utils/edp_utils';
 
@@ -139,18 +138,6 @@ const DataScienceInfo = ({ datasetDetails }) => {
                 </div>
                 <div className="col-6">
                     <p className="small mb-1">seasonal, no trend</p>
-                </div>
-                <div className="col-6">
-                    <p
-                        className="small mb-1 fw-500 text-uppercase pt-3">
-                        {t("dataset.edpStructure")}
-                    </p>
-                </div>
-                <div className="col-6">
-                    <EdpStructure
-                        datasetDetails={datasetDetails}
-                        datasetTree={datasetDetails?._source?.datasetTree}
-                    />
                 </div>
             </div>
         </div>

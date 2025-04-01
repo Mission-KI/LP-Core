@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, FileEarmarkFill, Folder2Open, FolderFill } from "react-bootstrap-icons";
-import { truncateString } from "../../../common/utils/format_utils";
+import { ChevronDown, ChevronRight, FileEarmarkFill, FolderFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
 const TreeNode = ({ node, datasetDetails, childrenMap, expandedByDefault }) => {
@@ -26,7 +25,7 @@ const TreeNode = ({ node, datasetDetails, childrenMap, expandedByDefault }) => {
                 <div className="nowrap">
                     <div>
                         {childrenMap?.[node?.name]?.length > 0 ? <FolderFill className="text-warning me-2" /> : <FileEarmarkFill className="me-2 txt-danger" />}
-                        <Link to={`/details/${datasetDetails?._id}/${node?.name}`} className="hover-underline">{truncateString(node.name, 12)}</Link>
+                        <Link to={`/details/${datasetDetails?._id}/${node?.name}`} className="hover-underline">{node.name}</Link>
                     </div>
                     {isExpanded && hasChildren && (
                         <div>

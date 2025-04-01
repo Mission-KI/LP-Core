@@ -7,7 +7,7 @@ const datasetRoutes = [
     element: <Details />,
   },
   {
-    path: '/details/:id/:dataset_name',
+    path: '/details/:id/:datasetName',
     element: <Dataset />,
   },
 ];

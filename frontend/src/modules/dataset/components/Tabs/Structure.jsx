@@ -6,7 +6,7 @@ function Structure({ datasetDetails }) {
     return (
         <EdpStructure
             datasetDetails={datasetDetails}
-            datasetTree={datasetDetails?._source?.datasetTree}
+            datasetId="#/documentDatasets/0"
             expandedByDefault={true}
         />
     )

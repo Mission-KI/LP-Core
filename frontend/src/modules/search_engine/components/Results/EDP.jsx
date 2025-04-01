@@ -1,6 +1,6 @@
-import TreeNode from "./TreeNode";
+import TreeNode from "./Dataset";
 
-const TreeView = ({ dataset, datasetTree }) => {
+const EDP = ({ dataset, datasetTree }) => {
     if (!datasetTree) return null;
 
     // Build the tree structure (mapping parents to children)
@@ -34,4 +34,4 @@ const TreeView = ({ dataset, datasetTree }) => {
     );
 };
 
-export default TreeView;
+export default EDP;
