@@ -71,7 +71,7 @@ const EDPInfoSection = ({ datasetDetails }) => {
                     {t("dataset.version")} {(parseInt(datasetDetails._source?.assetRefs?.[0]?.assetVersion) ?? 1).toFixed(1)}
                 </span>
                 <span className="small pe-3">
-                    {t('dataset.assetUploaded')}
+                    {t('dataset.assetUploaded')} &nbsp;
                     {new Date(datasetDetails._source?.assetRefs?.[0]?.publishDate).toLocaleDateString()}
                     &nbsp; ({moment(datasetDetails._source?.assetRefs?.[0]?.publishDate).fromNow()})
                 </span>
