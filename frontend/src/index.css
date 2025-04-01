@@ -444,6 +444,10 @@ table.dataTable thead>tr>td.dt-ordering-desc {
   padding-right: 30px !important;
 }
 
+.table.dataTable th.dt-type-numeric{
+  text-align: left !important;
+}
+
 .form-control-sm {
   padding: .4rem .5rem !important;
 }

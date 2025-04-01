@@ -1,17 +1,49 @@
 import React, { useEffect } from 'react';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
-import ImageView from '../../../common/components/ImageView/ImageView';
 import $ from 'jquery';
-import { useTranslation } from 'react-i18next';
-import { imageBasePath } from '../../../common/api/config';
 
-function EmbeddedTables({ datasetDetails }) {
+function EmbeddedTables({ datasetDetails, datasetRef }) {
+    useEffect(() => {
+        const table = $('#embeddedTablesTable').DataTable({
+            paging: false,
+            searching: true,
+            info: true,
+            lengthChange: false,
+            pageLength: 20,
+            order: [],
+            responsive: true,
+            destroy: true,
+        });
 
-    const { t } = useTranslation();
+        return () => {
+            table.destroy();
+        };
+    }, []);
+
+    const embeddedTables = datasetDetails?._source?.unstructuredTextDatasets[0]?.embeddedTables;
 
     return (
-        <p>No data available for this table.</p>
+        <div className='m-auto d-block w-100' style={{ maxWidth: 1000, overflowX: 'auto' }}>
+            <div className="table-responsive">
+                <table id="embeddedTablesTable" className='table table-bordered table-hover'>
+                    <thead>
+                        <tr>
+                            <th className='py-2'>start line</th>
+                            <th className='py-2'>end line</th>
+                            <th className='py-2'>structured dataset name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {embeddedTables?.map((table, index) => (
+                            <tr key={index}>
+                                <td className='txt-lighter'>{table.startLine}</td>
+                                <td className='txt-lighter'>{table.endLine}</td>
+                                <td className='txt-lighter'>{table.structuredDatasetName}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 }
 

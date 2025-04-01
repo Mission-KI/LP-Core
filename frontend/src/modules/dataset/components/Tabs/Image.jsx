@@ -1,14 +1,11 @@
 import React from 'react';
 
 const Image = ({ datasetDetails, datasetRef }) => {
-    // Extract the index from datasetRef (e.g., #/imageDatasets/0 -> 0)
     const imageIndex = datasetRef ? parseInt(datasetRef.split('/')[2], 10) : null;
 
-    // Get the image dataset from datasetDetails based on the extracted index
     const imageDatasets = datasetDetails?._source?.imageDatasets || [];
     const image = imageDatasets[imageIndex] || {};
 
-    // If no image found for the reference, return a placeholder or error message
     if (!image) {
         return <div>Image not found!</div>;
     }
