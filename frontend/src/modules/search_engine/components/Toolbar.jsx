@@ -14,16 +14,16 @@ const Toolbar = () => {
             <div className='d-none d-md-flex align-items-center position-relative'>
                 <LanguageSelector />
             </div>
-            <div className='px-1 d-none d-md-block'>
+            <div className='px-2 d-none d-md-block'>
                 <span onClick={() => setShowSettingsModal(true)}
-                    className="btn-hover px-1 h-100 d-flex align-items-center pointer"
+                    className="btn-hover px-2 h-100 d-flex align-items-center pointer"
                 >
                     <Gear className='h5 m-0' />
                 </span>
             </div>
             <div className='d-none d-md-block'>
                 <Link to="/bookmarks"
-                    className="btn-hover px-1 h-100 d-flex align-items-center"
+                    className="btn-hover px-2 h-100 d-flex align-items-center"
                 >
                     {getBookmarks().length > 0 ? (
                         <StarFill className='h5 m-0' />
