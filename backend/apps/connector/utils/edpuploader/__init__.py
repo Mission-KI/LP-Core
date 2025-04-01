@@ -87,7 +87,7 @@ class EdpUploader:
         # Loop through all asset references to check for an existing assetId
         all_hits = []
         for asset_ref in edp_model.assetRefs:
-            hits = _find_resource_id(asset_ref.assetId, asset_ref.dataSpace.name)
+            hits = _find_resource_id(asset_ref.assetId, asset_ref.dataSpace.name, edp_model.assetSha256Hash)
             if len(hits) > 0 and edp_id not in hits:
                 raise DRFValidationError(
                     f"Asset ID {asset_ref.assetId} already exists in the data space {asset_ref.dataSpace.name}: {', '.join(hits)}"
