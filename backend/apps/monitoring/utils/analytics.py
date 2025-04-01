@@ -8,13 +8,13 @@ from django.utils.timezone import now
 from ..models import EventLog
 
 
-def get_elastic_monitoring_analytics(dataSpaceName: str):
+def get_elastic_monitoring_analytics(data_space_name: str):
     query = {
         "size": 0,
         "query": {
             "nested": {
                 "path": "assetRefs",
-                "query": {"bool": {"filter": [{"term": {"assetRefs.dataSpace.name.keyword": dataSpaceName}}]}},
+                "query": {"bool": {"filter": [{"term": {"assetRefs.dataSpace.name.keyword": data_space_name}}]}},
             }
         },
         "aggs": {
@@ -54,17 +54,11 @@ def get_elastic_monitoring_analytics(dataSpaceName: str):
         },
     }
 
-    response = elasticsearch_request(
-        "POST",
-        "_search",
-        query,
-    )
-
-    return response.data
+    return elasticsearch_request("POST", "_search", query)
 
 
-def get_edp_event_counts(dataSpaceName: str):
-    edp_events = EventLog.objects
+def get_edp_event_counts(data_space_name: str):
+    edp_events = EventLog.objects.filter(dataspace__name=data_space_name)
 
     edp_successful_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_SUCCESS).count()
     edp_failed_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_FAIL).count()

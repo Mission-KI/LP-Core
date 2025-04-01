@@ -1,11 +1,12 @@
 from apps.monitoring.utils.logging import create_log
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema
-from rest_framework import permissions
+from rest_framework import permissions, status
 from rest_framework.decorators import (
     api_view,
     permission_classes,
 )
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -22,10 +23,16 @@ class MonitoringAnalyticsView(APIView):
         responses={200: OpenApiTypes.OBJECT},
     )
     def get(self, request):
+        if request.user.dataspace is None:
+            raise ValidationError("User is not assigned to dataspace")
         dataSpaceName = request.user.dataspace.name
 
         try:
-            elastic_counts = get_elastic_monitoring_analytics(dataSpaceName)
+            response = get_elastic_monitoring_analytics(dataSpaceName)
+            if response.status_code != status.HTTP_200_OK:
+                return response
+            elastic_counts = response.data
+
             edp_event_counts = get_edp_event_counts(dataSpaceName)
 
             analytics_data = {
