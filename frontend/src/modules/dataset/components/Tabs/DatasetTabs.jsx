@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import AttributeList from "../../components/Tabs/AttributeList";
-import TemporalConsistency from "../../components/Tabs/TemporalConsistency";
-import NumericValueDistribution from "../../components/Tabs/NumericValueDistribution";
-import StringValueDistribution from "../../components/Tabs/StringValueDistribution";
-import NumericCorrelationAnalysis from "../../components/Tabs/NumericCorrelationAnalysis";
-import NumericOutlierAnalysis from "../../components/Tabs/NumericOutlierAnalysis";
-import DataSeasonality from "../../components/Tabs/DataSeasonality";
-import AttributeIntegrity from "../../components/Tabs/AttributeIntegrity";
-import EmbeddedImages from "../../components/Tabs/EmbeddedImages";
-import EmbeddedTables from "../../components/Tabs/EmbeddedTables";
+import AttributeList from "./AttributeList";
+import TemporalConsistency from "./TemporalConsistency";
+import NumericValueDistribution from "./NumericValueDistribution";
+import StringValueDistribution from "./StringValueDistribution";
+import NumericCorrelationAnalysis from "./NumericCorrelationAnalysis";
+import NumericOutlierAnalysis from "./NumericOutlierAnalysis";
+import DataSeasonality from "./DataSeasonality";
+import AttributeIntegrity from "./AttributeIntegrity";
+import EmbeddedImages from "./EmbeddedImages";
+import EmbeddedTables from "./EmbeddedTables";
 import styles from "../../layouts/Details.module.css";
-import Structure from "../../components/Tabs/Structure";
-import Document from "../../components/Tabs/Document";
+import Document from "./Document";
 import { useTranslation } from "react-i18next";
 import Schema from "./Schema";
 import UnstructuredText from "./UnstructuredText";
 import Image from "./Image";
-import EdpStructure from "../EdpStructure/EdpStructure";
+import DatasetStructure from "../DatasetStructure/DatasetStructure";
+import { useNavigate } from "react-router";
 
-const RootDatasetTabs = ({ datasetDetails, datasetRef }) => {
+const DatasetTabs = ({ datasetDetails, datasetRef }) => {
 
     const [activeKey, setActiveKey] = useState("structure");
     const datasetTree = datasetDetails?._source?.datasetTree;
@@ -31,12 +31,13 @@ const RootDatasetTabs = ({ datasetDetails, datasetRef }) => {
     const isImageDataset = datasetTree[0]?.dataset?.$ref === "#/imageDatasets/0";
 
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const tabs = [
         {
             eventKey: "structure",
             title: "ASSET STRUCTURE",
-            component: <EdpStructure
+            component: <DatasetStructure
                 datasetDetails={datasetDetails}
                 datasetRef={datasetRef}
             />,
@@ -57,7 +58,10 @@ const RootDatasetTabs = ({ datasetDetails, datasetRef }) => {
                     {
                         eventKey: "embedded_images",
                         title: t("dataset.tabs.embeddedImages"),
-                        component: <EmbeddedImages datasetDetails={datasetDetails} />,
+                        component: <EmbeddedImages
+                            datasetDetails={datasetDetails}
+                            datasetRef={datasetRef}
+                        />,
                     },
                 ] : []
         ),
@@ -125,4 +129,4 @@ const RootDatasetTabs = ({ datasetDetails, datasetRef }) => {
     );
 }
 
-export default RootDatasetTabs;
+export default DatasetTabs;

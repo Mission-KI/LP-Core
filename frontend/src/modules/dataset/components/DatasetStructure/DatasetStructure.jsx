@@ -1,6 +1,6 @@
 import TreeNode from "./TreeNode";
 
-const EdpStructure = ({ datasetDetails, datasetRef, expandedByDefault = true }) => {
+const DatasetStructure = ({ datasetDetails, datasetRef, expandedByDefault = true }) => {
     const datasetTree = datasetDetails?._source?.datasetTree || [];
 
     const rootNode = datasetTree.find(item => item.dataset["$ref"] === datasetRef);
@@ -37,4 +37,4 @@ const EdpStructure = ({ datasetDetails, datasetRef, expandedByDefault = true }) 
     );
 };
 
-export default EdpStructure;
+export default DatasetStructure;

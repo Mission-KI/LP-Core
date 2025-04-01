@@ -1,5 +1,5 @@
 import { truncateString } from "../../common/utils/format_utils";
-import RootDatasetTabs from "./Tabs/RootDatasetTabs";
+import DatasetTabs from "./Tabs/DatasetTabs";
 import DataScienceInfo from "./DataScienceInfo/DataScienceInfo";
 import { useTranslation } from "react-i18next";
 
@@ -30,7 +30,7 @@ const DatasetAnalyticsSection = ({ datasetDetails, datasetRef }) => {
             </div>
 
             <div className="col-md-8">
-                <RootDatasetTabs
+                <DatasetTabs
                     datasetDetails={datasetDetails}
                     datasetRef={datasetRef}
                 />
