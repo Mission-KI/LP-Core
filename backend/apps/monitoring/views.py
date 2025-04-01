@@ -1,12 +1,14 @@
 from apps.monitoring.utils.logging import create_log
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema
-from rest_framework import permissions, status
+from rest_framework import status
 from rest_framework.decorators import (
     api_view,
+    authentication_classes,
     permission_classes,
 )
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -15,7 +17,7 @@ from .utils.analytics import get_edp_event_counts, get_elastic_monitoring_analyt
 
 
 class MonitoringAnalyticsView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     @extend_schema(
         summary="Get Monitoring Analytics",
@@ -65,7 +67,8 @@ class MonitoringAnalyticsView(APIView):
     responses={200: OpenApiTypes.OBJECT},
 )
 @api_view(["POST"])
-@permission_classes([permissions.AllowAny])
+@permission_classes([AllowAny])
+@authentication_classes([])
 def log_edp_download(request):
     create_log(request, "edp download", EventLog.STATUS_SUCCESS, None, EventLog.TYPE_DOWNLOAD)
     return Response({"message": "success"})

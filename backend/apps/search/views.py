@@ -1,7 +1,7 @@
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.exceptions import APIException, NotFound
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -11,12 +11,15 @@ from .utils.elasticsearch import elasticsearch_request
 
 
 @extend_schema(
+    summary="Query the EDP Database",
     methods=["POST"],
     request=SearchSerializer,
     responses={200: OpenApiTypes.OBJECT},
+    auth=None,
 )
 @api_view(["POST"])
 @permission_classes([AllowAny])
+@authentication_classes([])
 def search(request):
     """Sends a raw query to Elasticsearch"""
     query = request.data
@@ -24,6 +27,7 @@ def search(request):
 
 
 @extend_schema(
+    summary="Retrieve an EDP from the Database",
     methods=["GET"],
     parameters=[
         OpenApiParameter(
@@ -36,34 +40,40 @@ def search(request):
     ],
     request=None,
     responses={200: OpenApiTypes.OBJECT},
+    auth=None,
 )
 @api_view(["GET"])
 @permission_classes([AllowAny])
+@authentication_classes([])
 def find(request, uuid):
     """Retrieve an EDP from Elasticsearch"""
     return elasticsearch_request("GET", f"_doc/{uuid}")
 
 
 @extend_schema(
+    summary="Count the number of EDPs in the Database",
     methods=["GET"],
     request=None,
     responses={200: OpenApiTypes.OBJECT},
+    auth=None,
 )
 @api_view(["GET"])
 @permission_classes([AllowAny])
+@authentication_classes([])
 def count(request):
     """Gets the total count of assets in Elasticsearch"""
     return elasticsearch_request("GET", "_count")
 
 
 @extend_schema(
+    summary="Find the resource ID of an EDP in the Database",
     methods=["POST"],
     request=FindResourceIDSerializer,
     responses={200: OpenApiTypes.STR},
-    summary="Find the resource ID of an EDP in the Database",
 )
 @api_view(["POST"])
 @permission_classes([AllowAny])
+@authentication_classes([])
 def find_resource_id(request):
     serializer = FindResourceIDSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)

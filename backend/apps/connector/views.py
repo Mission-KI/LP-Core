@@ -14,7 +14,7 @@ from drf_spectacular.utils import OpenApiParameter, extend_schema
 from extended_dataset_profile import CURRENT_SCHEMA
 from pydantic import HttpUrl
 from rest_framework import parsers, status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.exceptions import APIException, PermissionDenied, UnsupportedMediaType
 from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.parsers import MultiPartParser
@@ -217,13 +217,14 @@ class EDPUploadDeleteView(APIView):
 
 
 @extend_schema(
+    summary="Download the current JSON schema of an EDP",
     methods=["GET"],
     request=None,
     responses={status.HTTP_200_OK: OpenApiTypes.OBJECT},
-    summary="Download the current JSON schema of an EDP",
 )
 @api_view(["GET"])
 @permission_classes([AllowAny])
+@authentication_classes([])
 def get_schema(request: Request):
     schema = CURRENT_SCHEMA.model_json_schema()
     schema_json = json.dumps(schema, indent=4)
