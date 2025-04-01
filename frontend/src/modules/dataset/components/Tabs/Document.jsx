@@ -2,7 +2,6 @@ import React from 'react';
 
 const Document = ({ datasetDetails, datasetRef }) => {
     const documentIndex = parseInt(datasetRef.split('/')[2], 10);
-    console.log(documentIndex)
 
     const documentDatasets = datasetDetails?._source?.documentDatasets || [];
     const document = documentDatasets[documentIndex] || {};

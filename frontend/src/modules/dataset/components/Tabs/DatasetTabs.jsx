@@ -71,6 +71,46 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
             isStructuredDataset
                 ? [
                     {
+                        eventKey: "attribute_list",
+                        title: t('dataset.tabs.attributeList'),
+                        component: <AttributeList datasetDetails={datasetDetails} />,
+                    },
+                    {
+                        eventKey: "temporal_consistency",
+                        title: t('dataset.tabs.temporalConsistency'),
+                        component: <TemporalConsistency datasetDetails={datasetDetails} />,
+                    },
+                    {
+                        eventKey: "numeric_value_distribution",
+                        title: t('dataset.tabs.numericValueDistribution'),
+                        component: <NumericValueDistribution datasetDetails={datasetDetails} />,
+                    },
+                    {
+                        eventKey: "string_value_distribution",
+                        title: t('dataset.tabs.stringValueDistribution'),
+                        component: <StringValueDistribution datasetDetails={datasetDetails} />,
+                    },
+                    {
+                        eventKey: "numeric_correlation_analysis",
+                        title: t('dataset.tabs.numericCorrelationAnalysis'),
+                        component: <NumericCorrelationAnalysis datasetDetails={datasetDetails} />,
+                    },
+                    {
+                        eventKey: "numeric_outlier_analysis",
+                        title: t('dataset.tabs.numericOutlierAnalysis'),
+                        component: <NumericOutlierAnalysis datasetDetails={datasetDetails} />,
+                    },
+                    {
+                        eventKey: "attribute_integrity",
+                        title: t('dataset.tabs.attributeIntegrity'),
+                        component: <AttributeIntegrity datasetDetails={datasetDetails} />,
+                    },
+                    {
+                        eventKey: "data_seasonality",
+                        title: t('dataset.tabs.dataSeasonality'),
+                        component: <DataSeasonality datasetDetails={datasetDetails} />,
+                    },
+                    {
                         eventKey: "schema",
                         title: "Schema",
                         component: <Schema datasetDetails={datasetDetails} />,
