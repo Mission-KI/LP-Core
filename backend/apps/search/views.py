@@ -34,6 +34,8 @@ def search(request):
             required=True,
         )
     ],
+    request=None,
+    responses={200: OpenApiTypes.OBJECT},
 )
 @api_view(["GET"])
 @permission_classes([AllowAny])
@@ -42,6 +44,11 @@ def find(request, uuid):
     return elasticsearch_request("GET", f"_doc/{uuid}")
 
 
+@extend_schema(
+    methods=["GET"],
+    request=None,
+    responses={200: OpenApiTypes.OBJECT},
+)
 @api_view(["GET"])
 @permission_classes([AllowAny])
 def count(request):
@@ -52,10 +59,8 @@ def count(request):
 @extend_schema(
     methods=["POST"],
     request=FindResourceIDSerializer,
-    responses={200: OpenApiTypes.STR, 404: "Not found"},
-    summary="Find the resource ID(s) of an EDP in Elasticsearch",
-    description="This endpoint can be used to find the resource ID(s) of an EDP in Elasticsearch. "
-    "The result is ordered by oldest to newest EDP.",
+    responses={200: OpenApiTypes.STR},
+    summary="Find the resource ID of an EDP in the Database",
 )
 @api_view(["POST"])
 @permission_classes([AllowAny])

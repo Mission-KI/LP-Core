@@ -6,7 +6,7 @@ import $ from 'jquery';
 import { useTranslation } from 'react-i18next';
 import { imageBasePath } from '../../common/api/config';
 
-function NumericAnomalyAnalysis({ datasetDetails }) {
+function NumericOutlierAnalysis({ datasetDetails }) {
     useEffect(() => {
         const table = $('#anomalyTable').DataTable({
             paging: false,
@@ -87,4 +87,4 @@ function NumericAnomalyAnalysis({ datasetDetails }) {
     );
 }
 
-export default NumericAnomalyAnalysis;
+export default NumericOutlierAnalysis;

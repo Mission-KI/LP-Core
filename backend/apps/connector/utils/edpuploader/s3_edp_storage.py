@@ -26,8 +26,6 @@ class S3EDPStorage:
         for resource_file in edp_dir.rglob("*"):
             if not resource_file.is_file():
                 continue
-            if resource_file.suffix == ".json":
-                continue
             resource_file_relative = resource_file.relative_to(edp_dir)
             upload_key = f"{edp_id}/{resource_file_relative}"
             try:

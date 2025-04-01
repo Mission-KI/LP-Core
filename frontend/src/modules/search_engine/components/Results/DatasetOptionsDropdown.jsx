@@ -28,12 +28,20 @@ function DatasetOptionsDropdown({ dataset }) {
                     <Download className='me-2' /> {t('dataset.getDataset')}
                 </Dropdown.Item>
                 {isBookmarked(dataset._id) ? (
-                    <Dropdown.Item className='d-flex align-items-center' onClick={handleRemoveBookmark}>
+                    <Dropdown.Item
+                        as="button"
+                        className='d-flex align-items-center'
+                        onClick={handleRemoveBookmark}
+                    >
                         <StarFill className='me-2' />
                         {t('bookmarks.removeBookmark')}
                     </Dropdown.Item>
                 ) : (
-                    <Dropdown.Item className='d-flex align-items-center' onClick={handleAddBookmark}>
+                    <Dropdown.Item
+                        as="button"
+                        className='d-flex align-items-center'
+                        onClick={handleAddBookmark}
+                    >
                         <Star className='me-2' />
                         {t('bookmarks.bookmark')}
                     </Dropdown.Item>

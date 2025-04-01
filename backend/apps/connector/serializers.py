@@ -1,9 +1,9 @@
 from django.core.validators import FileExtensionValidator
-from rest_framework import serializers
+from rest_framework.serializers import FileField, Serializer
 
 
-class MultipartFormDataUploadSerializer(serializers.Serializer):
-    file = serializers.FileField(
+class MultipartFormDataUploadSerializer(Serializer):
+    file = FileField(
         required=True,
         help_text="EDP ZIP file",
         use_url=False,
