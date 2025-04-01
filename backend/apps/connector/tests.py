@@ -77,10 +77,6 @@ def raw_zip_upload_url(id):
     return reverse("edp-raw-zip-upload", kwargs={"id": id, "file_name": "test.zip"})
 
 
-def edp_base_url():
-    return reverse("edp-base")
-
-
 def create_zip_from_file_list(file_list: Dict[str, str]):
     zip_buf = BytesIO()
     with ZipFile(zip_buf, "w") as zip_file:
@@ -481,6 +477,17 @@ def test_raw_zip_upload_general_exception(mock_do_upload, auth_client, valid_zip
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
     assert "An error occurred" in response.data["error"]
     assert EventLog.objects.filter(metadata__id=str(resource.id)).exists()
+
+
+@pytest.mark.django_db()
+def test_create_success(auth_client: APIClient):
+    response = auth_client.post(reverse("edp-base"))
+    assert isinstance(response, Response)
+    assert response.status_code == status.HTTP_201_CREATED, response.json()
+    assert isinstance(response.data, dict) and "id" in response.data and isinstance(response.data["id"], uuid.UUID)
+    check_event_log(
+        url=response.request["PATH_INFO"], status="success", message="EDP resource created", expect_id=False
+    )
 
 
 @pytest.mark.django_db()
