@@ -1,144 +1,34 @@
-import React from 'react';
-import { useTranslation } from "react-i18next";
-import { calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from "../../utils/calculations";
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { InfoCircleFill, QuestionCircle } from 'react-bootstrap-icons';
-import { useNavigate } from 'react-router'
 import GeneralEdpScienceOverview from './GeneralEdpScienceOverview';
-import { getNumericOutlierAnalysis } from '../../utils/edp_utils';
+import AdditionalArchiveAttributes from './AdditionalArchiveAttributes';
+import AdditionalStructuredDataAttributes from './AdditionalStructuredDataAttributes';
 
 const DataScienceInfo = ({ datasetDetails }) => {
 
-    const { t } = useTranslation();
+    const datasetRef = datasetDetails?._source?.datasetTree[0]?.dataset?.$ref; 
 
-    const topDistributions = getTopNumericDistributions(datasetDetails);
-    const allDistributions = getUniqueNumericDistributions(datasetDetails);
-    const navigate = useNavigate();
-    const detailViewPath = `/details/${datasetDetails._id}`
-
-    const scienceInfoTabNavigate = (hash) => {
-        navigate(detailViewPath + '#' + hash);
-    }
+    const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
+    const isArchiveDataset = datasetRef.includes("#/archiveDatasets");
 
     return (
         <div>
             <div className="row w-100">
+                
                 <GeneralEdpScienceOverview
                     datasetDetails={datasetDetails}
                 />
-                <div className="col-6 mt-3">
-                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.temporalCover")}</p>
-                </div>
-                <div className="col-6 mt-3">
-                    <p className="small mb-1">{calculateTemporalCover(datasetDetails)}</p>
-                </div>
-                <div className="col-6">
-                    <p onClick={() => scienceInfoTabNavigate('temporal_consistency')}
-                        className="small mb-1 fw-500 text-uppercase pointer">
-                        {t("dataset.temporalConsistency")}
-                    </p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1">{datasetDetails?._source?.periodicity ?? "N/A"}</p>
-                </div>
-                <div className="col-6 mt-3">
-                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.noOfColumns")}</p>
-                </div>
-                <div className="col-6 mt-3">
-                    <p className="small mb-1">
-                        {datasetDetails?._source?.structuredDatasets?.[0]?.columnCount ?? "unknown"}
-                    </p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1 fw-500 text-uppercase">{t("dataset.noOfLines")}</p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1">
-                        {datasetDetails?._source?.structuredDatasets[0]?.rowCount ?? "unknown"}
-                    </p>
-                </div>
-                <div className="col-6 mt-3">
-                    <p onClick={() => scienceInfoTabNavigate('numeric_value_distribution')}
-                        className="small mb-1 fw-500 text-uppercase pointer">
-                        {t("dataset.numericValueDistribution")}
-                    </p>
-                </div>
-                <div className="col-6 mt-3 d-flex align-items-center">
-                    <p className="small mb-1">{topDistributions}</p>
-                    <OverlayTrigger
-                        placement="top"
-                        overlay={
-                            <Tooltip id="tooltip-numeric-distributions">
-                                <div className="text-start">
-                                    <ul className="list-unstyled mb-0">
-                                        {allDistributions.length > 0 ? (
-                                            allDistributions.map((dist, index) => (
-                                                <li key={index}>{dist}</li>
-                                            ))
-                                        ) : (
-                                            <li>N/A</li>
-                                        )}
-                                    </ul>
-                                </div>
-                            </Tooltip>
-                        }
-                    >
-                        <QuestionCircle className="ms-2 text-muted" style={{ cursor: 'pointer' }} />
-                    </OverlayTrigger>
-                </div>
-                <div className="col-6">
-                    <p
-                        onClick={() => scienceInfoTabNavigate('string_value_distribution')}
-                        className="small mb-1 fw-500 text-uppercase pointer">
-                        {t("dataset.stringValueDistribution")}
-                    </p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1">{getStringValueDistributionOverview(datasetDetails)}</p>
-                </div>
-                <div className="col-6">
-                    <p onClick={() => scienceInfoTabNavigate('correlation_analysis')}
-                        className="small mb-1 fw-500 text-uppercase pointer">
-                        {t("dataset.numericCorrelationAnalysis")}
-                    </p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1">partial correlation</p>
-                </div>
-                <div className="col-6">
-                    <p
-                        onClick={() => scienceInfoTabNavigate('anomaly_analysis')}
-                        className="small mb-1 fw-500 text-uppercase pointer">
-                        {t("dataset.numericOutlierAnalysis")}
-                    </p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1">
-                        {getNumericOutlierAnalysis(datasetDetails)}
-                        <OverlayTrigger
-                            placement="top"
-                            overlay={
-                                <Tooltip id="tooltip-outlier">
-                                    {t("dataset.numericOutlierAnalysisTooltipText")}
-                                </Tooltip>
-                            }
-                        >
-                            <span className="ms-2">
-                                <InfoCircleFill size={14} className="cursor-pointer" />
-                            </span>
-                        </OverlayTrigger>
-                    </p>
-                </div>
-                <div className="col-6">
-                    <p
-                        onClick={() => scienceInfoTabNavigate('data_seasonality')}
-                        className="small mb-1 fw-500 text-uppercase pointer">
-                        {t("dataset.dataSeasonality")}
-                    </p>
-                </div>
-                <div className="col-6">
-                    <p className="small mb-1">seasonal, no trend</p>
-                </div>
+
+                {isArchiveDataset && (
+                    <AdditionalArchiveAttributes
+                        datasetDetails={datasetDetails}
+                    />
+                )}
+
+                {isStructuredDataset && (
+                    <AdditionalStructuredDataAttributes
+                        datasetDetails={datasetDetails}
+                    />
+                )}
+
             </div>
         </div>
     );

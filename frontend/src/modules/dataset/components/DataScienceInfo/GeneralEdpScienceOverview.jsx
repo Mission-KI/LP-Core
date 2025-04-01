@@ -20,17 +20,20 @@ const GeneralEdpScienceOverview = ({ datasetDetails }) => {
                 </p>
             </div>
             <div className="col-6">
+                <p className="small mb-1 fw-500 text-uppercase">File type</p>
+            </div>
+            <div className="col-6">
+                <p className="small mb-1">
+                    TBA
+                </p>
+            </div>
+            <div className="col-6">
                 <p className="small mb-1 fw-500 text-uppercase">{t("dataset.volume")}</p>
             </div>
             <div className="col-6">
                 <p className="small mb-1">{filesize(datasetDetails?._source?.volume)}</p>
             </div>
-            <div className="col-6">
-                <p className="small mb-1 fw-500 text-uppercase">{t("dataset.compression")}</p>
-            </div>
-            <div className="col-6">
-                <p className="small mb-1">{datasetDetails?._source?.compression ?? "None"}</p>
-            </div>
+          
             <div className="col-6">
                 <p className="small mb-1 fw-500 text-uppercase">{t("dataset.languages")}</p>
             </div>
@@ -48,12 +51,6 @@ const GeneralEdpScienceOverview = ({ datasetDetails }) => {
             </div>
             <div className="col-6">
                 <p className="small mb-1">{datasetDetails?._source?.immutabilityFlag ?? "unknown"}</p>
-            </div>
-            <div className="col-6">
-                <p className="small mb-1 fw-500 text-uppercase">{t("dataset.dataTypes")}</p>
-            </div>
-            <div className="col-6">
-                <p className="small mb-1">{calculateDataTypesAttribute(datasetDetails)}</p>
             </div>
         </>
     );
