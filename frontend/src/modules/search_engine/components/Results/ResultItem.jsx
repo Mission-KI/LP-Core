@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Results.module.css";
-import TreeView from "./TreeView";
+import EDP from "./EDP";
 
 function ResultItem({ dataset }) {
 
@@ -8,7 +8,7 @@ function ResultItem({ dataset }) {
     <div className={styles.resultItem}>
       <div className="w-md-100 pe-3">
 
-        <TreeView
+        <EDP
           dataset={dataset}
           datasetTree={dataset?._source?.datasetTree}
         />

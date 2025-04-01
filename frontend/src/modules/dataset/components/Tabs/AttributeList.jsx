@@ -12,6 +12,7 @@ function AttributeList({ datasetDetails }) {
             pageLength: 20,
             order: [],
             responsive: true,
+            "bDestroy": true
         });
 
         return () => {

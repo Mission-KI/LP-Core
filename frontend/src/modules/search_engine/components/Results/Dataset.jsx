@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronRight, ChevronUp, Dash, Plus } from "react-bootstrap-icons";
 import ParentNodeView from "./ParentNodeView";
 
-const TreeNode = ({ node, childrenMap, dataset }) => {
+const Dataset = ({ node, childrenMap, dataset }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleExpand = () => {
@@ -37,7 +37,7 @@ const TreeNode = ({ node, childrenMap, dataset }) => {
                     {isExpanded && hasChildren && (
                         <div>
                             {childrenMap[node.name].map((child) => (
-                                <TreeNode key={child.name} node={child} childrenMap={childrenMap} />
+                                <Dataset key={child.name} node={child} childrenMap={childrenMap} />
                             ))}
                         </div>
                     )}
@@ -48,4 +48,4 @@ const TreeNode = ({ node, childrenMap, dataset }) => {
     );
 };
 
-export default TreeNode
+export default Dataset

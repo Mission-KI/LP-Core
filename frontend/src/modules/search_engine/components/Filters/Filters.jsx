@@ -73,7 +73,6 @@ function Filters() {
         const newCheckedOptions = {};
         const newRangeValues = {};
         const newCheckedRadios = {};
-        console.log(filterSections);
 
         filterSections?.forEach((filterSection) => {
             filterSection?.filters?.forEach((filter) => {

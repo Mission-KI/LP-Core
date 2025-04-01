@@ -13,7 +13,7 @@ const Breadcrumbs = () => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>
-        Home
+        Search
       </Breadcrumb.Item>
 
       {pathnames.map((name, index) => {

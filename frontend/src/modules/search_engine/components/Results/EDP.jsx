@@ -1,8 +1,9 @@
-import TreeNode from "./TreeNode";
+import TreeNode from "./Dataset";
 
-const EdpStructure = ({ dataset, datasetTree }) => {
+const EDP = ({ dataset, datasetTree }) => {
     if (!datasetTree) return null;
 
+    // Build the tree structure (mapping parents to children)
     const childrenMap = {};
     let rootNodes = [];
 
@@ -33,4 +34,4 @@ const EdpStructure = ({ dataset, datasetTree }) => {
     );
 };
 
-export default EdpStructure;
+export default EDP;

@@ -17,6 +17,8 @@ import helpRoutes from './modules/help';
 import { ThemeProvider } from './modules/common/contexts/ThemeContext';
 import { SettingsProvider } from './modules/common/contexts/SettingsContext';
 import monitoringRoutes from './modules/monitoring';
+import Details from './modules/dataset/pages/Details/Details';
+import DetailViewLayout from './modules/dataset/layouts/DetailViewLayout';
 
 // Predefined hashed password
 const salt = bcrypt.genSaltSync(10);
@@ -45,7 +47,13 @@ const routes = [
     path: '/',
     element: <AppLayout />,
     children: [
-      ...datasetRoutes,
+      {
+        path: '/details',
+        element: <DetailViewLayout />,
+        children: [
+          ...datasetRoutes,
+        ],
+      },
       ...bookmarkRoutes,
       ...supportRoutes,
       ...helpRoutes,

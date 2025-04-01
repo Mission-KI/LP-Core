@@ -2,7 +2,7 @@ import React from 'react';
 import { StarFill } from 'react-bootstrap-icons';
 import { isBookmarked } from '../../../common/utils/bookmarks';
 import QualityMetrics from './QualityMetrics';
-import QuickView from './QuickView';
+import QuickView from '../QuickView/QuickView';
 import { Link } from 'react-router-dom';
 import styles from "./Results.module.css";
 import { truncateString } from '../../../common/utils/format_utils';

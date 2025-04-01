@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import $ from 'jquery';
 
-function EmbeddedImages({ datasetDetails }) {
+function EmbeddedImages({ datasetDetails, datasetRef }) {
     useEffect(() => {
         const table = $('#embeddedImagesTable').DataTable({
             paging: false,
@@ -18,6 +18,33 @@ function EmbeddedImages({ datasetDetails }) {
             table.destroy();
         };
     }, []);
+
+    const datasetTree = datasetDetails?._source?.datasetTree || [];
+    const imageDatasets = datasetDetails?._source?.imageDatasets || [];
+
+
+    const treeDatasetRef = datasetTree
+        .map((item, index) => ({ ...item, index }))
+        .find(item => item.dataset?.["$ref"] === datasetRef)?.index;
+
+    const fullTreeDatasetRef = treeDatasetRef !== undefined ? `#/datasetTree/${treeDatasetRef}` : null;
+
+    const imageReferences = datasetTree.filter(item =>
+        item.parent?.["$ref"] === fullTreeDatasetRef &&
+        item.dataset?.["$ref"]?.includes("imageDataset")
+    );
+
+    const imageDatasetIndices = imageReferences.map(item => {
+        const match = item.dataset?.["$ref"]?.match(/#\/imageDatasets\/(\d+)/);
+        if (!match) {
+            console.log("No match for:", item.dataset?.["$ref"]);
+        }
+        return match ? parseInt(match[1], 10) : null;
+    }).filter(index => index !== null);
+
+    const filteredImageDatasets = imageDatasets.filter((_, index) =>
+        imageDatasetIndices.includes(index)
+    );
 
     return (
         <div className='m-auto d-block w-100' style={{ maxWidth: 1000, overflowX: 'auto' }}>
@@ -41,7 +68,7 @@ function EmbeddedImages({ datasetDetails }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {datasetDetails?._source?.imageDatasets?.map((image, index) => (
+                        {filteredImageDatasets.map((image, index) => (
                             <tr key={index}>
                                 <td className='txt-lighter'>{image.codec}</td>
                                 <td className='txt-lighter'>{image.colorMode}</td>
