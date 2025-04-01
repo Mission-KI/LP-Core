@@ -47,7 +47,10 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
                     {
                         eventKey: "document",
                         title: "Document",
-                        component: <Document datasetDetails={datasetDetails} />,
+                        component: <Document
+                            datasetDetails={datasetDetails}
+                            datasetRef={datasetRef}
+                        />,
                     },
                     {
                         eventKey: "embedded_tables",
