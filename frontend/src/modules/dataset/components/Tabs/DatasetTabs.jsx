@@ -23,12 +23,11 @@ import { useNavigate } from "react-router";
 const DatasetTabs = ({ datasetDetails, datasetRef }) => {
 
     const [activeKey, setActiveKey] = useState("structure");
-    const datasetTree = datasetDetails?._source?.datasetTree;
 
-    const isDocumentDataset = datasetTree[0]?.dataset?.$ref === "#/documentDatasets/0";
-    const isStructuredDataset = datasetTree[0]?.dataset?.$ref === "#/structuredDatasets/0";
-    const isUnstructuredDataset = datasetTree[0]?.dataset?.$ref === "#/unstructuredTextDatasets/0";
-    const isImageDataset = datasetTree[0]?.dataset?.$ref === "#/imageDatasets/0";
+    const isDocumentDataset = datasetRef.includes("#/documentDatasets");
+    const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
+    const isUnstructuredDataset = datasetRef.includes("#/unstructuredTextDatasets");
+    const isImageDataset = datasetRef.includes("#/imageDatasets");
 
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -96,7 +95,10 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
                     {
                         eventKey: "image",
                         title: "Image",
-                        component: <Image datasetDetails={datasetDetails} />,
+                        component: <Image
+                            datasetDetails={datasetDetails}
+                            datasetRef={datasetRef}
+                        />,
                     },
                 ] : []
         )
