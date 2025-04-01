@@ -25,7 +25,9 @@ const TreeNode = ({ node, datasetDetails, childrenMap, expandedByDefault }) => {
                 <div className="nowrap">
                     <div>
                         {childrenMap?.[node?.name]?.length > 0 ? <FolderFill className="text-warning me-2" /> : <FileEarmarkFill className="me-2 txt-danger" />}
-                        <Link to={`/details/${datasetDetails?._id}/${node?.name}`} className="hover-underline">{node.name}</Link>
+                        <Link to={`/details/${datasetDetails?._id}/${encodeURIComponent(node?.name)}`} className="hover-underline">
+                            {node.name}
+                        </Link>
                     </div>
                     {isExpanded && hasChildren && (
                         <div>
