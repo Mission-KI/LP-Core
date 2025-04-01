@@ -1,9 +1,10 @@
-const expertModeHelpText = {
+const functionsHelpText = {
     en: {
         fullContent:
             `
             <div class="col-md-10">
-                <h6 class="bold mb-3">What is Expert Mode?</h6>
+                More content for English help pages will follow soon.
+                <h6 class="bold mb-3" id="expert-mode">What is Expert Mode?</h6>
                 <p>Expert Mode is an advanced search feature in Daseen that enhances your search experience by providing autocomplete suggestions for writing natural language queries in Elasticsearch. This allows you to construct complex queries more efficiently and retrieve precise results based on structured search logic.</p>
 
                 <h6 class="bold mt-3 mb-3">How to Use Expert Mode</h6>
@@ -33,7 +34,7 @@ const expertModeHelpText = {
         fullContent:
             `
               <div class="col-md-10">
-                <h6 class="bold mb-3">Was ist der Expertenmodus?</h6>
+                <h6 class="bold mb-3" id="expert-mode">Was ist der Expertenmodus?</h6>
                 <p>Der Expertenmodus ist eine erweiterte Suchfunktion in Daseen, die Ihr Sucherlebnis verbessert, indem sie Autovervollständigungsvorschläge für das Schreiben natürlicher Sprachabfragen in Elasticsearch bietet. Dadurch können Sie komplexe Abfragen effizienter erstellen und präzise Ergebnisse basierend auf einer strukturierten Suchlogik abrufen.</p>
 
                 <h6 class="bold mt-3 mb-3">So verwenden Sie den Expertenmodus</h6>
@@ -61,4 +62,4 @@ const expertModeHelpText = {
     }
 };
 
-export default expertModeHelpText;
+export default functionsHelpText;

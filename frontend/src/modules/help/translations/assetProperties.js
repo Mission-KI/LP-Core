@@ -1,8 +1,9 @@
-const assetPropertiesHelpText = {
+const formatsHelpText = {
     en: {
         fullContent:
             `
-                <div class="col-md-10">
+                <div class="col-md-10" id="asset-properties-topic">
+                    More content for English help pages will follow soon.
                     Essential asset properties are displayed via the EDP asset properties. These include the following elements:
                     <ul>
                     <li class="py-2">
@@ -51,7 +52,7 @@ const assetPropertiesHelpText = {
     de: {
         fullContent:
             `
-                <div class="col-md-10">
+                <div class="col-md-10" id="asset-properties-topic">
 
                     Über die EDP Asset Eigenschaften werden wesentliche Asset Eigenschaften angezeigt. Dazu gehören folgende Elemente:
                     
@@ -83,7 +84,7 @@ const assetPropertiesHelpText = {
                         Geo Location Attribute: Dieses Icon zeigt an, ob ein Asset Geolokationsinformationen enthält. 
                     </li>
                     <li class="py-2" id="personal-data-section">
-                        Personal Data: Dieses Icon zeigt an, ob ein Asset Personenbezogene Daten beinhaltet. Falls ja, wird die vom Datenanbieter bereitgestellte Auftragsdatenvereinbarung verlinkt, sofern diese vorliegt. 
+                        Personal Data: Dieses Icon zeigt an, ob ein Asset personenbezogene Daten beinhaltet. Falls ja, wird die vom Datenanbieter bereitgestellte Auftragsdatenvereinbarung verlinkt, sofern diese vorliegt. 
                     </li>
 
                     <li class="py-2" id="asset-processing-status-section">
@@ -101,4 +102,4 @@ const assetPropertiesHelpText = {
     }
 };
 
-export default assetPropertiesHelpText;
+export default formatsHelpText;

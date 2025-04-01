@@ -163,6 +163,11 @@ i18n
           expertMode: expertModeHelpText.en.fullContent,
           help: {
             alert: "Welcome to the Help Center! This page provides detailed explanations and guides about various features, functionalities, and widgets available on our website. If you're unsure about how something works or need clarification, this is the perfect place to find answers.",
+            topics: "Topics",
+            topicAbout: "About daseen",
+            topicBasics: "Motivation and basics",
+            topicFunctions: "Functions",
+            topicFormats: "Data Formats and Analysis"
           }
         },
       },
@@ -309,6 +314,11 @@ i18n
           expertMode: expertModeHelpText.de.fullContent,
           help: {
             alert: "Willkommen im Hilfe-Center! Diese Seite bietet detaillierte Erklärungen und Anleitungen zu den verschiedenen Funktionen, Features und Widgets auf unserer Website. Wenn Sie sich nicht sicher sind, wie etwas funktioniert, oder eine Klärung benötigen, finden Sie hier die passenden Antworten.",
+            topics: "Themen",
+            topicAbout: "Über daseen",
+            topicBasics: "Motivation und Grundlagen",
+            topicFunctions: "Funktionen",
+            topicFormats: "Datenformate und Analysen"
           }
         }
       },
