@@ -14,11 +14,7 @@ services:
       retries: 10
 
   backend:
-    build:
-      context: .
-      dockerfile: backend/Dockerfile.prod
-      secrets:
-        - github_token
+    image: beebucket/backend:staging
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
@@ -28,9 +24,7 @@ services:
       - .env
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.prod
+    image: beebucket/frontend:staging
     env_file:
       - .env
     volumes:
