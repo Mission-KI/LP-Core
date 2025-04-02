@@ -10,23 +10,10 @@ WORKDIR /app
 RUN --mount=type=secret,id=github_token \
     git config --global url."https://$(cat /run/secrets/github_token):x-oauth-basic@github.com/".insteadOf "https://github.com/"
 
-RUN --mount=type=cache,target=/root/.cache/uv \
---mount=type=bind,source=uv.lock,target=uv.lock \
---mount=type=bind,source=pyproject.toml,target=pyproject.toml \
---mount=type=bind,source=.python-version,target=.python-version \
-uv sync --frozen --no-install-project --no-dev
-
-RUN --mount=type=secret,id=github_token \
-git config --global --unset url."https://$(cat /run/secrets/github_token):x-oauth-basic@github.com/".insteadOf
-
-COPY backend backend
+COPY . .
+COPY .git .git
 
 RUN --mount=type=cache,target=/root/.cache/uv \
-    --mount=type=bind,source=uv.lock,target=uv.lock \
-    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    --mount=type=bind,source=.python-version,target=.python-version \
-    --mount=type=bind,source=.git,target=.git \
-    --mount=type=bind,source=README.md,target=README.md \
     uv sync --frozen --no-dev
 
 FROM python:3.12-slim-bookworm
@@ -38,4 +25,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app/backend
 
-CMD ["sh", "-c", "python manage.py collectstatic --no-input && python manage.py migrate && exec gunicorn --bind 0.0.0.0:8000 --workers 1 daseen.wsgi:application --timeout 120"]
+CMD ["sh", "-c", "daseen collectstatic --no-input && daseen migrate && exec gunicorn --bind 0.0.0.0:8000 --workers 1 daseen.wsgi:application --timeout 120"]

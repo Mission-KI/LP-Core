@@ -47,6 +47,9 @@ version-file = "backend/daseen/_version.py"
 [tool.hatch.metadata]
 allow-direct-references = true
 
+[project.scripts]
+daseen = "backend.manage:main"
+
 [tool.ruff]
 line-length = 120
 extend-exclude = [
