@@ -27,10 +27,9 @@ const basicsHelpText = {
                     <li>Bildung, Forschung und Wissenschaft</li>
                     <li>Immobilien und Finanzen</li>
                 </ul>
-                <p>Über den Link <a href="https://app.daseen.de/" target="_blank"> kann die Suche direkt aufgerufen werden.</p>
+                <p>Über den Link <a href="https://app.daseen.de/" target="_blank">app.daseen.de</a> kann die Suche direkt aufgerufen werden.</p>
                 <p>Nachfolgende Grafik illustriert die zugrundeliegende Zielarchitektur. </p>
-                
-                TO DO: ADD IMAGE HERE (see Confluence)
+                <img src="target_architecture.png" alt="Zielarchitektur"> 
 
                 <h4 class="bold mt-4">Zielgruppen und Anwendungsfälle</h4>
                 <p>Nachfolgender Absatz beschreibt die unterschiedlichen Zielgruppen und Anwendungsfälle. </p>

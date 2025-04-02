@@ -67,9 +67,7 @@ const formatsHelpText = {
                     <li>Graphen (noch nicht unterstützt, Roadmap)</li>
                 </ul>
                 <p>Die Analyse eines Data Assets erfolgt im EDPS auf Basis der in der nachfolgenden Illustration dargestellten Analyseverfahren:</p>
-                
-                TO DO: BILD EINFÜGEN
-
+                <img src="analysis.png" alt="Analyseverfahren"> 
                 <h4 class="bold mt-4">Datenstrukturen</h4>
                 <p>Archive und Dokumente können weitere Elemente jedes oben gelisteten Formats beinhalten.</p>
                 <p>Semi-strukturierter Text kann weitere strukturierte Text-Elemente beinhalten. Text kann weitere strukturierte Text-Elemente beinhalten.</p>
