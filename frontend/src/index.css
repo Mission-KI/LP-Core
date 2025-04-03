@@ -43,7 +43,7 @@
 
 a {
   text-decoration: none !important;
-  color: var(--color-text) !important;
+  color: var(--color-primary);
 }
 
 .btn-check:checked+.btn,
@@ -60,6 +60,10 @@ a {
 
 .fw-500 {
   font-weight: 500 !important;
+}
+
+.w-fit {
+  width: fit-content !important;
 }
 
 .main-content-wrapper {
@@ -80,7 +84,9 @@ body {
   font-style: normal;
 }
 
-p, li{
+p,
+.large,
+.regular {
   line-height: 1.85rem !important;
 }
 
@@ -126,6 +132,14 @@ p, li{
 
 .btn-contrast:hover {
   background-color: var(--color-oposite-lighter) !important;
+}
+
+.large {
+  font-size: 13pt !important;
+}
+
+.regular {
+  font-size: 12pt !important;
 }
 
 .medium {
@@ -371,16 +385,13 @@ li.selected .pagination-btn,
 
 .dropdown-item {
   color: var(--color-text) !important;
+  padding: .48rem 1rem;
 }
 
 
-.dropdown-item:hover {
-  background-color: var(--color-light-gray) !important;
-}
-
+.dropdown-item:hover,
 .dropdown-item:active {
-  background-color: var(--color-primary) !important;
-  color: white !important;
+  background-color: var(--color-light-gray) !important;
 }
 
 div.dt-container div.dt-search input {
@@ -448,7 +459,7 @@ table.dataTable thead>tr>td.dt-ordering-desc {
   padding-right: 30px !important;
 }
 
-.table.dataTable th.dt-type-numeric{
+.table.dataTable th.dt-type-numeric {
   text-align: left !important;
 }
 
@@ -639,6 +650,7 @@ input:checked+.slider:before {
   left: 50% !important;
   transform: translateX(-50%) !important;
   border: 1px solid var(--color-light-gray) !important;
+  font-size: 12pt !important;
 }
 
 .pointy-dropdown::before {
@@ -698,7 +710,7 @@ input:checked+.slider:before {
 
 .breadcrumb-item {
   font-size: 10pt !important;
-  color: var(--color-text-lighter) !important;
+  color: var(--color-primary) !important;
 }
 
 #custom-nav-dropdown {
@@ -722,9 +734,13 @@ input:checked+.slider:before {
 }
 
 .breadcrumb-item {
-  font-size: 10pt !important;
+  font-size: 11pt !important;
 }
 
 .hover-underline:hover {
   text-decoration: underline !important;
+}
+
+.text-justify {
+  text-align: justify !important;
 }
