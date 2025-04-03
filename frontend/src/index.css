@@ -67,7 +67,17 @@ a {
 }
 
 .main-content-wrapper {
-  margin-top: 110px;
+  margin-top: 75.7px;
+  padding-top: 45px;
+  max-height: calc(100vh - 75.7px);
+  overflow: auto;
+}
+
+.content-scrollable {
+  max-height: calc(100vh - 75.7px);
+  overflow: auto;
+  margin-top: 75.7px;
+  padding-top: 45px;
 }
 
 *:focus {
@@ -321,6 +331,7 @@ p.two-words::after {
 
 .btn-basic {
   background-color: var(--color-light-gray) !important;
+  color: var(--color-text) !important;
 }
 
 .btn-basic:hover {
@@ -743,4 +754,11 @@ input:checked+.slider:before {
 
 .text-justify {
   text-align: justify !important;
+}
+
+.sidebar {
+  max-height: calc(100vh - 75.7) !important;
+  height: 100%;
+  border-right: 1px solid var(--color-light-gray);
+  padding-top: 120.7px;
 }

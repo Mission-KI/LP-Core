@@ -132,7 +132,7 @@ const MotivationAndBasics = () => {
 
     return (
         <div className="col-md-10">
-            <h2 className="bold mb-5">Motivation and Basics</h2>
+            <h2 className="bold mb-3">Motivation and Basics</h2>
             <InfoAlert text="More content for English help pages will follow soon." />
         </div>
     );

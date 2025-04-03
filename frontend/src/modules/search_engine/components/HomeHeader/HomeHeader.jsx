@@ -64,7 +64,7 @@ const HomeHeader = () => {
                         <Toolbar />
                     </div>
                     <div className="ps-2">
-                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-contrast">{t('auth.register')}</a>
+                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-basic shadow-sm">{t('auth.register')}</a>
                     </div>
                 </Nav>
             </Container>

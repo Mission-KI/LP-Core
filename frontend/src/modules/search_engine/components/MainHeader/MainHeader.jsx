@@ -48,7 +48,7 @@ const MainHeader = () => {
                 borderBottom: ".5px solid var(--color-light-gray)"
             }}
         >
-            <Container className="d-flex px-3" style={{ whiteSpace: "nowrap", flexWrap: "nowrap" }}>
+            <div className="container-fluid d-flex px-5" style={{ whiteSpace: "nowrap", flexWrap: "nowrap" }}>
                 <Button
                     id="custom-nav-toggle"
                     className="btn-basic mx-2 txt-regular bgc-body border-0 d-md-none"
@@ -88,12 +88,12 @@ const MainHeader = () => {
                     <div className="ps-2 ps-md-0">
                         <a
                             href="https://beebucket.ai/kontakt/"
-                            className="btn fw-500 rounded-lg medium py-2 px-3 btn-contrast">
+                            className="btn fw-500 rounded-lg medium py-2 px-3 btn-basic shadow-sm">
                             {t("auth.register")}
                         </a>
                     </div>
                 </Nav>
-            </Container>
+            </div>
 
             {showDropdown && (
                 <MobileHeaderDropdown
