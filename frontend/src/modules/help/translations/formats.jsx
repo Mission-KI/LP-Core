@@ -87,7 +87,9 @@ const formatsHelpText = {
                     <li><strong>Processed Data:</strong> Der Inhalt des Assets wurde nach der Erzeugung ganz oder in Teilen re-definiert, konvertiert, semantisch bereinigt und/oder transformiert, um die Asset-Struktur zu verbessern und/oder die -Konsistenz zu erhöhen.</li>
                     <li><strong>Refined Data:</strong> Bei Assets mit dem Reifegrad Refined Data handelt es sich um optimierte KI-Trainingsdatensätze, die Daten aus einem oder mehreren Assets zusammenfassen.</li>
                     <li><strong>AI/ML Result Data:</strong> Bei Assets mit dem Reifegrad AI/ML Result Data handelt es sich um Daten, die durch eine KI bzw. durch einen ML Algorithmus erzeugt wurden.</li>
-                </ul>            
+                </ul>  
+                <h7 class="bold mt-3" id="allowed-for-ai-section">Allowed for AI Training</h7> 
+                <p>Dieses Icon zeigt an, ob das Asset für AI Training genutzt werden darf. Für das AI/KI-Training mit öffentlich bereitgestellten Daten (eGov-Daten) werden Lizenzen wie Deutschland 2.0-Zero, PDDL und cc-zero empfohlen, da sie die notwendige Analyse und Bearbeitung der Daten erlauben, um die KI-Compliance sicherzustellen. Dafür sind qualitativ-validierte / kuratierte Daten nötig: Für einfache KI-Systeme nach ErwG 27 der KI-VO; bzw. für Hoch-Risiko nach Art. 10 KI-VO. </p>          
                 <h7 class="bold mt-3">Versionsangaben</h7>
                 <p>Es sind unterschiedliche Versionsinformationen zu einem Asset zu unterscheiden:</p>
                 <ul>
@@ -160,8 +162,6 @@ const formatsHelpText = {
                 <p>Dieses Icon zeigt an, ob in einem strukturierten Textdaten Asset für jede Spalte und Reihe ein Wert existiert. Falls nicht, kann über den entsprechenden Tab in der Detailansicht eingesehen werden, wie viele Werte für welche Spalte fehlen.</p> 
                 <h7 class="bold mt-3" id="significant-variance-section">Significant Variance</h7> 
                 <p>Dieses Icon zeigt an, ob eine signifikante Varianz in den Daten des Asset gefunden werden konnte. Falls ja, wird das Asset auf unterschiedliche Verteilungen untersucht. Die Ergebnisse werden im entsprechenden Tab in der EDP Detailansicht in grafischer und tabellarischer Form dokumentiert. </p>
-                <h7 class="bold mt-3" id="allowed-for-ai-section">Allowed for AI Training</h7> 
-                <p>Dieses Icon zeigt an, ob das Asset für AI Training genutzt werden darf. Für das AI/KI-Training mit öffentlich bereitgestellten Daten (eGov-Daten) werden Lizenzen wie Deutschland 2.0-Zero, PDDL und cc-zero empfohlen, da sie die notwendige Analyse und Bearbeitung der Daten erlauben, um die KI-Compliance sicherzustellen. Dafür sind qualitativ-validierte / kuratierte Daten nötig: Für einfache KI-Systeme nach ErwG 27 der KI-VO; bzw. für Hoch-Risiko nach Art. 10 KI-VO. </p>
                 <h6 class="bold mt-4" id="data-science-info-structured">Bereich Data Science Info</h6>
                 <p>Neben den generellen Angaben im Bereich Data Science Info für alle Datenformate, werden im Fall strukturierter Daten noch weitere Informationen hervorgehoben. </p>
                 <h7 class="bold mt-3">Datentypen</h7>
