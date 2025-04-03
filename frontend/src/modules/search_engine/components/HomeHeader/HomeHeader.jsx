@@ -39,7 +39,7 @@ const HomeHeader = () => {
             <Container>
                 <Button
                     id="custom-nav-toggle"
-                    className="btn-basic mx-2 txt-regular bgc-body border-0 d-md-none"
+                    className="btn-basic me-2 txt-regular bgc-body border-0 d-md-none"
                     onClick={() => setShowDropdown(!showDropdown)}
                 >
                     <List size={24} />
@@ -60,7 +60,7 @@ const HomeHeader = () => {
                 </Nav>
 
                 <Nav className="ms-auto">
-                    <div className="pe-3 d-flex">
+                    <div className="pe-3 d-none d-md-flex">
                         <Toolbar />
                     </div>
                     <div className="ps-2">

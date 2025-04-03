@@ -48,10 +48,10 @@ const MainHeader = () => {
                 borderBottom: ".5px solid var(--color-light-gray)"
             }}
         >
-            <div className="container-fluid d-flex px-5" style={{ whiteSpace: "nowrap", flexWrap: "nowrap" }}>
+            <div className="container-fluid d-flex px-md-5" style={{ whiteSpace: "nowrap", flexWrap: "nowrap" }}>
                 <Button
                     id="custom-nav-toggle"
-                    className="btn-basic mx-2 txt-regular bgc-body border-0 d-md-none"
+                    className="btn-basic me-2 txt-regular bgc-body border-0 d-md-none"
                     onClick={() => setShowDropdown(!showDropdown)}
                 >
                     <List size={24} />
@@ -76,11 +76,11 @@ const MainHeader = () => {
                     </Nav>
                 </div>
 
-                <div className="px-md-3 w-100">
+                <div className="px-md-5 w-100">
                     <MainSearchBar />
                 </div>
 
-                <Nav className="ms-md-auto pe-4">
+                <Nav className="ms-md-auto d-md-flex pe-4">
                     <Toolbar />
                 </Nav>
 
