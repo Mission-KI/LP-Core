@@ -2,7 +2,7 @@ from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.exceptions import APIException, NotFound, ValidationError
+from rest_framework.exceptions import APIException, NotFound
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
@@ -66,37 +66,42 @@ def count(request):
 @permission_classes([AllowAny])
 def find_resource_id(request):
     serializer = FindResourceIDSerializer(data=request.data)
-    if not serializer.is_valid():
-        raise ValidationError(serializer.errors)
+    serializer.is_valid(raise_exception=True)
 
-    asset_id = serializer.validated_data.get("assetId")
-    data_space_name = serializer.validated_data.get("dataSpaceName")
-    data = _find_resource_id(asset_id, data_space_name)
+    asset_id: str = serializer.validated_data.get("assetId")  # type: ignore
+    data_space_name: str = serializer.validated_data.get("dataSpaceName")  # type: ignore
+    asset_sha256_hash: str | None = serializer.validated_data.get("assetSha256Hash")  # type: ignore
+    data = _find_resource_id(asset_id, data_space_name, asset_sha256_hash)
     if len(data) != 1:
         raise NotFound("Resource not found")
 
     return Response(data, status=status.HTTP_200_OK)
 
 
-def _find_resource_id(asset_id: str, data_space_name: str):
+def _find_resource_id(asset_id: str, data_space_name: str, asset_sha256_hash: str | None):
+    must = [
+        {
+            "nested": {
+                "path": "assetRefs",
+                "query": {
+                    "bool": {
+                        "must": [
+                            {"match": {"assetRefs.assetId.keyword": asset_id}},
+                            {"match": {"assetRefs.dataSpace.name.keyword": data_space_name}},
+                        ]
+                    }
+                },
+            }
+        }
+    ]
+
+    if asset_sha256_hash is not None:
+        must.append({"match": {"assetSha256Hash.keyword": asset_sha256_hash}})
+
     resp = elasticsearch_request(
         "POST",
         "_search",
-        {
-            "query": {
-                "nested": {
-                    "path": "assetRefs",
-                    "query": {
-                        "bool": {
-                            "must": [
-                                {"match": {"assetRefs.assetId.keyword": asset_id}},
-                                {"match": {"assetRefs.dataSpace.name.keyword": data_space_name}},
-                            ]
-                        }
-                    },
-                }
-            }
-        },
+        {"query": {"bool": {"must": must}}},
     )
     if resp.status_code != status.HTTP_200_OK:
         raise APIException(f"Failed to query Elasticsearch: {resp.data}")

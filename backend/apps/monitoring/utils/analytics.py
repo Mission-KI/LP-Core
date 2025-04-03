@@ -8,13 +8,13 @@ from django.utils.timezone import now
 from ..models import EventLog
 
 
-def get_elastic_monitoring_analytics(dataSpaceName: str):
+def get_elastic_monitoring_analytics(data_space_name: str):
     query = {
         "size": 0,
         "query": {
             "nested": {
                 "path": "assetRefs",
-                "query": {"bool": {"filter": [{"term": {"assetRefs.dataSpace.name.keyword": dataSpaceName}}]}},
+                "query": {"bool": {"filter": [{"term": {"assetRefs.dataSpace.name.keyword": data_space_name}}]}},
             }
         },
         "aggs": {
@@ -54,25 +54,19 @@ def get_elastic_monitoring_analytics(dataSpaceName: str):
         },
     }
 
-    response = elasticsearch_request(
-        "POST",
-        "_search",
-        query,
-    )
-
-    return response.data
+    return elasticsearch_request("POST", "_search", query)
 
 
-def get_edp_event_counts(dataSpaceName: str):
-    edp_events = EventLog.objects
+def get_edp_event_counts(data_space_name: str):
+    edp_events = EventLog.objects.filter(dataspace__name=data_space_name)
 
-    edp_successfull_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_SUCCESS).count()
+    edp_successful_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_SUCCESS).count()
     edp_failed_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_FAIL).count()
 
-    edp_successfull_edits = edp_events.filter(type=EventLog.TYPE_EDIT, status=EventLog.STATUS_SUCCESS).count()
+    edp_successful_edits = edp_events.filter(type=EventLog.TYPE_EDIT, status=EventLog.STATUS_SUCCESS).count()
     edp_failed_edits = edp_events.filter(type=EventLog.TYPE_EDIT, status=EventLog.STATUS_FAIL).count()
 
-    edp_successfull_deletions = edp_events.filter(type=EventLog.TYPE_DELETE, status=EventLog.STATUS_SUCCESS).count()
+    edp_successful_deletions = edp_events.filter(type=EventLog.TYPE_DELETE, status=EventLog.STATUS_SUCCESS).count()
     edp_failed_deletions = edp_events.filter(type=EventLog.TYPE_DELETE, status=EventLog.STATUS_FAIL).count()
 
     edp_downloads = EventLog.objects.filter(type=EventLog.TYPE_DOWNLOAD).count()
@@ -110,12 +104,9 @@ def get_edp_event_counts(dataSpaceName: str):
         uploads_by_month[month_str] = entry["count"]
 
     return {
-        "uploads": {
-            "successfull": edp_successfull_uploads,
-            "failed": edp_failed_uploads,
-        },
-        "edits": {"successfull": edp_successfull_edits, "failed": edp_failed_edits},
-        "deletions": {"successfull": edp_successfull_deletions, "failed": edp_failed_deletions},
+        "uploads": {"successful": edp_successful_uploads, "failed": edp_failed_uploads},
+        "edits": {"successful": edp_successful_edits, "failed": edp_failed_edits},
+        "deletions": {"successful": edp_successful_deletions, "failed": edp_failed_deletions},
         "downloads": edp_downloads,
         "downloads_per_month": downloads_by_month,
         "uploads_per_month": uploads_by_month,

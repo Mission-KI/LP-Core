@@ -137,6 +137,49 @@ def test_count_elasticsearch_failure(mock_request, client, count_url):
 
 
 @patch("requests.request")
+def test_find_resource_id_successful_with_hash(mock_request, client: APIClient, find_resource_id_url: str):
+    mock_request.return_value.status_code = 200
+    mock_request.return_value.json.return_value = {"hits": {"total": 1, "hits": [{"_id": "dummy-resource-id"}]}}
+
+    response = client.post(
+        find_resource_id_url,
+        data={"assetId": "asset-id", "dataSpaceName": "dPName", "assetSha256Hash": "dummy-hash"},
+        format="json",
+    )
+    assert response.status_code == status.HTTP_200_OK, response.data
+    assert response.data == ["dummy-resource-id"]
+    mock_request.assert_called_once()
+    assert mock_request.call_args[0][0] == "POST"
+    assert mock_request.call_args[0][1] == f"{settings.ELASTICSEARCH_URL}/_search"
+    assert mock_request.call_args[1] == {
+        "json": {
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                            "nested": {
+                                "path": "assetRefs",
+                                "query": {
+                                    "bool": {
+                                        "must": [
+                                            {"match": {"assetRefs.assetId.keyword": "asset-id"}},
+                                            {"match": {"assetRefs.dataSpace.name.keyword": "dPName"}},
+                                        ]
+                                    }
+                                },
+                            }
+                        },
+                        {"match": {"assetSha256Hash.keyword": "dummy-hash"}},
+                    ]
+                }
+            }
+        },
+        "headers": {"Content-Type": "application/json", "Authorization": "ApiKey dummy"},
+        "timeout": 10,
+    }
+
+
+@patch("requests.request")
 def test_find_resource_id_successful(mock_request, client: APIClient, find_resource_id_url: str):
     mock_request.return_value.status_code = 200
     mock_request.return_value.json.return_value = {"hits": {"total": 1, "hits": [{"_id": "dummy-resource-id"}]}}
@@ -154,16 +197,22 @@ def test_find_resource_id_successful(mock_request, client: APIClient, find_resou
     assert mock_request.call_args[1] == {
         "json": {
             "query": {
-                "nested": {
-                    "path": "assetRefs",
-                    "query": {
-                        "bool": {
-                            "must": [
-                                {"match": {"assetRefs.assetId.keyword": "asset-id"}},
-                                {"match": {"assetRefs.dataSpace.name.keyword": "dPName"}},
-                            ]
+                "bool": {
+                    "must": [
+                        {
+                            "nested": {
+                                "path": "assetRefs",
+                                "query": {
+                                    "bool": {
+                                        "must": [
+                                            {"match": {"assetRefs.assetId.keyword": "asset-id"}},
+                                            {"match": {"assetRefs.dataSpace.name.keyword": "dPName"}},
+                                        ]
+                                    }
+                                },
+                            }
                         }
-                    },
+                    ]
                 }
             }
         },
