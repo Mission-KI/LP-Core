@@ -1,3 +1,4 @@
+import dataclasses
 from logging import getLogger
 from pathlib import Path
 from typing import IO, Any
@@ -5,22 +6,15 @@ from zipfile import BadZipFile, ZipFile
 
 from apps.search.views import _find_resource_id
 from extended_dataset_profile import CURRENT_SCHEMA, schema_versions
-from packaging.version import InvalidVersion, Version
-from pydantic import BaseModel, ConfigDict
 from pydantic import ValidationError as PydanticValidationError
 from rest_framework.exceptions import ValidationError as DRFValidationError
 
 from .config import UploadConfig
 from .elastic_edp import ElasticDBWrapper
 from .s3_edp_storage import S3EDPStorage
+from .version_evaluate import VersionEvaluate
 
 logger = getLogger(__name__)
-
-
-class VersionEvaluate(BaseModel):
-    schemaVersion: str
-
-    model_config = ConfigDict(extra="ignore")
 
 
 def edp_json_to_model(edp_file_content: str | bytes):
@@ -28,13 +22,8 @@ def edp_json_to_model(edp_file_content: str | bytes):
         version_model = VersionEvaluate.model_validate_json(edp_file_content)
     except PydanticValidationError as e:
         raise DRFValidationError(f"Cannot read schemaVersion from EDP: {e}")
-    version_str = version_model.schemaVersion
-    try:
-        major_version = Version(version_str).major
-    except InvalidVersion:
-        raise DRFValidationError(
-            f"Invalid EDP schema version '{version_str}' (available: {list(schema_versions.keys())}) "
-        )
+    version = version_model.schemaVersion
+    major_version = version.major
     if major_version not in schema_versions:
         raise DRFValidationError(
             f"Unknown EDP major schema version {major_version} (available: {list(schema_versions.keys())}) "
@@ -51,8 +40,15 @@ def edp_model_from_file(edp_file: Path):
 
 
 class EdpUploader:
-    def __init__(self, config: UploadConfig):
-        self._config = config
+    @staticmethod
+    def create_config():
+        elastic_config = ElasticDBWrapper.create_config()
+        s3_config = S3EDPStorage.create_config()
+        return UploadConfig(**dataclasses.asdict(elastic_config), **dataclasses.asdict(s3_config))
+
+    def __init__(self, config: UploadConfig | None = None):
+        if config is None:
+            config = self.create_config()
         self._elastic = ElasticDBWrapper(config=config)
         self._s3 = S3EDPStorage(config)
 
@@ -95,6 +91,10 @@ class EdpUploader:
             all_hits.extend(hits)
 
         return len(all_hits) > 0
+
+    def get_schema_for_edp(self, edp_id: str):
+        schema_version = self._elastic.get_edp_schema_version(edp_id)
+        return self._elastic.get_schema(schema_version)
 
     def _split_edp_json_and_additional_files(self, edp_dir: Path) -> tuple[Path, list[Path]]:
         dir_contents = edp_dir.rglob("*")

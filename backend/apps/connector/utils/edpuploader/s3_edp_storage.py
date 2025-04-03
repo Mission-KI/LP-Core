@@ -4,6 +4,7 @@ from pathlib import Path
 import boto3
 from boto3.exceptions import S3UploadFailedError
 from botocore.exceptions import ClientError
+from django.conf import settings
 from pydantic import HttpUrl
 from rest_framework.exceptions import APIException
 
@@ -13,6 +14,16 @@ logger = getLogger(__name__)
 
 
 class S3EDPStorage:
+    @staticmethod
+    def create_config():
+        if not settings.S3_BUCKET_NAME:
+            raise APIException(detail="Missing S3 configuration")
+        return S3Config(
+            s3_access_key_id=settings.S3_ACCESS_KEY_ID,
+            s3_secret_access_key=settings.S3_SECRET_ACCESS_KEY,
+            s3_bucket_name=settings.S3_BUCKET_NAME,
+        )
+
     def __init__(self, config: S3Config):
         self._client = boto3.resource(
             "s3",

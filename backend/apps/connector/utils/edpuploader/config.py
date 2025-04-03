@@ -5,6 +5,7 @@ from dataclasses import dataclass
 class ElasticConfig:
     elastic_url: str
     elastic_index: str
+    elastic_schema_index: str
     elastic_apikey: str
     elastic_timeout: float = 10
 

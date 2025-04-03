@@ -19,8 +19,9 @@ from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.http import HttpResponse
 from django.urls import reverse
-from elasticsearch import Elasticsearch
-from extended_dataset_profile import CURRENT_SCHEMA
+from elastic_transport import ApiResponseMeta, HttpHeaders, NodeConfig, TlsError
+from elasticsearch import AuthenticationException, ConflictError, Elasticsearch
+from extended_dataset_profile import CURRENT_SCHEMA, Version
 from extended_dataset_profile import __version__ as current_schema_version
 from extended_dataset_profile.models.v0.edp import (
     AssetReference,
@@ -30,6 +31,7 @@ from extended_dataset_profile.models.v0.edp import (
     Publisher,
 )
 from moto import mock_aws
+from pydantic import AnyUrl
 from pytest import MonkeyPatch
 from requests import Response as RequestResponse
 from rest_framework import status
@@ -46,6 +48,8 @@ def client():
 
 @pytest.fixture
 def auth_client():
+    # prevent schema from being added to the DB by default
+    ElasticDBWrapper.SCHEMA_ADDED_TO_DB = True
     client = APIClient()
     dataspace = Dataspace.objects.create(name="Pontus-X")
     user = User.objects.create_user(username="test", password="test", dataspace=dataspace)
@@ -100,7 +104,7 @@ def create_upload_zip_file(file_list: Dict[str, str]):
 def mini_edp():
     asset_ref = AssetReference(
         assetId="did:op:ACce37394eD2848dd383c651Dsb7sf823b7dd123",
-        assetUrl="https://portal.pontus-x.eu/asset/did:op:ACce37394eD2848dd383c651Dsb7sf823b7dd123",
+        assetUrl=AnyUrl("https://portal.pontus-x.eu/asset/did:op:ACce37394eD2848dd383c651Dsb7sf823b7dd123"),
         dataSpace=DataSpace(name="Pontus-X", url="https://portal.pontus-x.eu"),
         publisher=Publisher(name="OPF", url=None),
         publishDate=datetime(year=2026, month=12, day=1),
@@ -108,7 +112,7 @@ def mini_edp():
     )
 
     return ExtendedDatasetProfile(
-        schemaVersion=current_schema_version,
+        schemaVersion=Version(current_schema_version),
         volume=4307,
         dataTypes=set(),
         name="Sample asset",
@@ -232,6 +236,7 @@ def test_create_edp_file_zip_validation_error(auth_client: APIClient):
 @mock_aws
 @pytest.mark.django_db()
 def test_upload_edp_file_zip_success(auth_client: APIClient, monkeypatch: MonkeyPatch):
+    ElasticDBWrapper.SCHEMA_ADDED_TO_DB = False
     mock_index = mkmock(monkeypatch, Elasticsearch, "index")
     conn = boto3.resource("s3")
     bucket = conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
@@ -260,7 +265,12 @@ def test_upload_edp_file_zip_success(auth_client: APIClient, monkeypatch: Monkey
         },
     )
     check_event_log(url=url, status="success", message="EDP upload done")
-    mock_index.assert_called_once()
+    assert mock_index.call_count == 2
+    assert mock_index.call_args_list[0][1]["id"] == current_schema_version
+    assert mock_index.call_args_list[0][1]["index"] == "edp-data-schema"
+    assert mock_index.call_args_list[1][1]["id"] == str(id)
+    assert mock_index.call_args_list[1][1]["index"] == "edp-data"
+
     all_objects = bucket.objects.all()
     all_objects = list(all_objects)
     assert len(all_objects) == 2
@@ -405,7 +415,7 @@ def test_delete_edp_file_zip_success(auth_client: APIClient, monkeypatch: Monkey
 
 
 @pytest.mark.django_db
-def test_get_schema(auth_client):
+def test_get_current_schema(auth_client):
     response = auth_client.get(reverse("edp-schema"))
 
     assert isinstance(response, HttpResponse)
@@ -415,6 +425,42 @@ def test_get_schema(auth_client):
     assert response["Content-Disposition"] == 'attachment; filename="schema.json"'
 
     response_json = json.loads(response.content.decode("utf-8"))
+
+    assert response_json == CURRENT_SCHEMA.model_json_schema()
+
+
+@pytest.mark.django_db
+def test_get_edp_schema(auth_client: APIClient, monkeypatch: MonkeyPatch):
+    ElasticDBWrapper.SCHEMA_ADDED_TO_DB = False
+
+    def elastic_get_cb(*args, **kwargs):
+        if kwargs["index"] == "edp-data":
+            return {"_source": mini_edp().model_dump(mode="json")}
+        if kwargs["index"] == "edp-data-schema":
+            return {"_source": {"schema": CURRENT_SCHEMA.model_json_schema()}}
+        raise ValueError("Invalid index")
+
+    elastic_get = Mock(side_effect=elastic_get_cb)
+
+    # elastic_get = Mock(return_value={"_source": {"schema": CURRENT_SCHEMA.model_json_schema()}})
+    monkeypatch.setattr(Elasticsearch, "get", elastic_get)
+    elastic_index = Mock()
+    monkeypatch.setattr(Elasticsearch, "index", elastic_index)
+
+    id = ResourceStatus.objects.create().id
+    response = auth_client.get(reverse("edp-schema-by-id", kwargs={"id": str(id)}))
+
+    elastic_index.assert_called_once()
+    assert elastic_get.call_count == 2
+
+    assert isinstance(response, HttpResponse)
+    assert response.status_code == status.HTTP_200_OK
+
+    assert response["Content-Type"] == "application/json"
+    assert response["Content-Disposition"] == 'attachment; filename="schema.json"'
+
+    content = response.content.decode("utf-8")
+    response_json = json.loads(content)
 
     assert response_json == CURRENT_SCHEMA.model_json_schema()
 
@@ -587,14 +633,101 @@ class Matcher:
 
 def test_edp_json_to_model():
     edp = mini_edp()
+    edp_json = edp.model_dump(mode="json")
 
-    edp.schemaVersion = "invalid"
-    with pytest.raises(ValidationError, match="Invalid EDP schema version 'invalid'"):
-        edp_json_to_model(edp.model_dump_json())
+    edp_json["schemaVersion"] = "invalid"
+    with pytest.raises(ValidationError, match="Cannot read schemaVersion from EDP:"):
+        edp_json_to_model(json.dumps(edp_json))
 
-    edp.schemaVersion = "100.200.300"
+    edp_json["schemaVersion"] = "100.200.300"
     with pytest.raises(ValidationError, match="Unknown EDP major schema version 100"):
-        edp_json_to_model(edp.model_dump_json())
+        edp_json_to_model(json.dumps(edp_json))
 
-    edp.schemaVersion = current_schema_version
-    assert edp_json_to_model(edp.model_dump_json()).schemaVersion == current_schema_version
+    edp_json["schemaVersion"] = current_schema_version
+    assert edp_json_to_model(json.dumps(edp_json)).schemaVersion == Version(current_schema_version)
+
+
+@pytest.mark.django_db
+@patch("apps.connector.utils.edpuploader.elastic_edp.Elasticsearch.index")
+def test_index_current_schema_conflict_error(mock_index, caplog):
+    """Test that ConflictError is handled gracefully in index_current_schema."""
+    ElasticDBWrapper.SCHEMA_ADDED_TO_DB = False
+    mock_index.side_effect = ConflictError(
+        message="Conflict occurred",
+        meta=ApiResponseMeta(
+            status=409,
+            headers=HttpHeaders({}),
+            http_version="1.1",
+            duration=0.0,
+            node=NodeConfig("tcp", "test-node", 9200, "pre"),
+        ),
+        body={},
+    )
+
+    ElasticDBWrapper(config=ElasticDBWrapper.create_config())
+
+    assert ElasticDBWrapper.SCHEMA_ADDED_TO_DB is True
+    assert f"Schema version {current_schema_version} already added to Elastic Search." in caplog.text
+
+
+@pytest.mark.django_db
+@patch("apps.connector.utils.edpuploader.elastic_edp.Elasticsearch.index")
+def test_index_current_schema_authentication_error(mock_index, caplog):
+    """Test that AuthenticationException is logged and handled in index_current_schema."""
+    ElasticDBWrapper.SCHEMA_ADDED_TO_DB = False
+    mock_index.side_effect = AuthenticationException(
+        message="Authentication failed",
+        meta=ApiResponseMeta(
+            status=409,
+            headers=HttpHeaders({}),
+            http_version="1.1",
+            duration=0.0,
+            node=NodeConfig("tcp", "test-node", 9200, "pre"),
+        ),
+        body={},
+    )
+
+    ElasticDBWrapper(config=ElasticDBWrapper.create_config())
+
+    # Ensure the schema is not marked as added
+    assert ElasticDBWrapper.SCHEMA_ADDED_TO_DB is False
+
+    # Check that the error was logged
+    assert "Could not add schema to Elastic Search: Authentication" in caplog.text
+
+
+@pytest.mark.django_db
+@patch("apps.connector.utils.edpuploader.elastic_edp.Elasticsearch.index")
+def test_index_current_schema_tls_error(mock_index, caplog):
+    """Test that TlsError is logged and handled in index_current_schema."""
+    ElasticDBWrapper.SCHEMA_ADDED_TO_DB = False
+    mock_index.side_effect = TlsError(message="TLS handshake failed")
+
+    ElasticDBWrapper(config=ElasticDBWrapper.create_config())
+
+    # Ensure the schema is not marked as added
+    assert ElasticDBWrapper.SCHEMA_ADDED_TO_DB is False
+
+    # Check that the error was logged
+    assert "Could not add schema to Elastic Search: TLS" in caplog.text
+
+
+@pytest.mark.django_db
+@patch("apps.connector.utils.edpuploader.elastic_edp.Elasticsearch.index")
+def test_index_current_schema_success(mock_index):
+    """Test that index_current_schema works successfully."""
+    ElasticDBWrapper.SCHEMA_ADDED_TO_DB = False
+    mock_index.return_value = {"_id": current_schema_version}
+
+    ElasticDBWrapper(config=ElasticDBWrapper.create_config())
+
+    # Ensure the schema is marked as added
+    assert ElasticDBWrapper.SCHEMA_ADDED_TO_DB is True
+
+    # Ensure the index method was called with the correct arguments
+    mock_index.assert_called_once_with(
+        index="edp-data-schema",
+        id=current_schema_version,
+        document={"schema": CURRENT_SCHEMA.model_json_schema(by_alias=True)},
+        op_type="create",
+    )

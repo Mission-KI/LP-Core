@@ -6,13 +6,11 @@ from tempfile import TemporaryDirectory
 
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils.logging import create_log
-from django.conf import settings
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from extended_dataset_profile import CURRENT_SCHEMA
-from pydantic import HttpUrl
 from rest_framework import parsers, status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.exceptions import APIException, PermissionDenied, UnsupportedMediaType
@@ -25,33 +23,13 @@ from rest_framework.views import APIView
 
 from .models import ResourceStatus
 from .serializers import MultipartFormDataUploadSerializer
-from .utils.edpuploader import EdpUploader, UploadConfig
+from .utils.edpuploader import EdpUploader
 
 logger = getLogger(__name__)
 
 
-def _create_uploader():
-    if settings.ELASTICSEARCH_URL is None:
-        raise APIException(detail="Missing elastic configuration")
-    url_data = HttpUrl(settings.ELASTICSEARCH_URL)
-    host_url = f"{url_data.scheme}://{url_data.host}"
-    if url_data.path is None or url_data.path.count("/") != 1:
-        raise APIException("Invalid elasticsearch url configured")
-    elastic_index = url_data.path[1:]
-    config = UploadConfig(
-        s3_access_key_id=settings.S3_ACCESS_KEY_ID,
-        s3_secret_access_key=settings.S3_SECRET_ACCESS_KEY,
-        s3_bucket_name=settings.S3_BUCKET_NAME,
-        elastic_url=host_url,
-        elastic_apikey=settings.ELASTICSEARCH_API_KEY,
-        elastic_index=elastic_index,
-    )
-
-    return EdpUploader(config)
-
-
 def _do_upload(request: Request, id: str, zip_file):
-    uploader = _create_uploader()
+    uploader = EdpUploader()
     with TemporaryDirectory() as temp_dir:
         edp_dir = Path(temp_dir)
         edp_model = uploader.extract_edp_zip(edp_dir, zip_file)
@@ -197,7 +175,7 @@ class EDPUploadDeleteView(APIView):
         resource = get_object_or_404(ResourceStatus, pk=id)
 
         try:
-            uploader = _create_uploader()
+            uploader = EdpUploader()
             uploader.delete_edp(id)
 
             resource.delete()
@@ -217,7 +195,7 @@ class EDPUploadDeleteView(APIView):
 
 
 @extend_schema(
-    summary="Download the current JSON schema of an EDP",
+    summary="Download the current JSON schema of the EDP model",
     methods=["GET"],
     request=None,
     responses={status.HTTP_200_OK: OpenApiTypes.OBJECT},
@@ -225,11 +203,30 @@ class EDPUploadDeleteView(APIView):
 @api_view(["GET"])
 @permission_classes([AllowAny])
 @authentication_classes([])
-def get_schema(request: Request):
+def get_current_schema(request: Request):
     schema = CURRENT_SCHEMA.model_json_schema()
     schema_json = json.dumps(schema, indent=4)
 
     response = HttpResponse(schema_json, content_type="application/json")
     response["Content-Disposition"] = 'attachment; filename="schema.json"'
 
+    return response
+
+
+@extend_schema(
+    summary="Download the current JSON schema of a specific EDP",
+    methods=["GET"],
+    request=None,
+    responses={status.HTTP_200_OK: OpenApiTypes.OBJECT},
+    operation_id="connector_edp_schema_retrieve_by_id",
+)
+@api_view(["GET"])
+@permission_classes([AllowAny])
+@authentication_classes([])
+def get_edp_schema(request: Request, id: str):
+    get_object_or_404(ResourceStatus, pk=id)
+    uploader = EdpUploader()
+    schema = uploader.get_schema_for_edp(id)
+    response = HttpResponse(json.dumps(schema), content_type="application/json")
+    response["Content-Disposition"] = 'attachment; filename="schema.json"'
     return response
