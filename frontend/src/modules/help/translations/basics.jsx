@@ -29,7 +29,7 @@ const basicsHelpText = {
                 </ul>
                 <p>Über den Link <a href="https://app.daseen.de/" target="_blank">app.daseen.de</a> kann die Suche direkt aufgerufen werden.</p>
                 <p>Nachfolgende Grafik illustriert die zugrundeliegende Zielarchitektur. </p>
-                <img src="target_architecture.png" alt="Zielarchitektur"> 
+                <img src="/target_architecture.png" alt="Zielarchitektur" style="max-width: 100vw"> 
 
                 <h4 class="bold mt-4">Zielgruppen und Anwendungsfälle</h4>
                 <p>Nachfolgender Absatz beschreibt die unterschiedlichen Zielgruppen und Anwendungsfälle. </p>

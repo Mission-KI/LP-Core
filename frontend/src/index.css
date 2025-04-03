@@ -80,6 +80,10 @@ body {
   font-style: normal;
 }
 
+p, li{
+  line-height: 1.85rem !important;
+}
+
 .navbar .nav-link {
   /* color: var(--color-text-lighter) !important; */
   font-size: 14px !important;

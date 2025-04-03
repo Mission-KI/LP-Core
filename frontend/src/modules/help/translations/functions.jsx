@@ -3,8 +3,8 @@ const functionsHelpText = {
         fullContent:
             `
             <div class="col-md-10">
-                More content for English help pages will follow soon.
-                <h6 class="bold mb-3" id="expert-mode">What is Expert Mode?</h6>
+                <p>More content for English help pages will follow soon.</p> 
+                <h6 class="bold mt-3 mb-3" id="expert-mode">What is Expert Mode?</h6>
                 <p>Expert Mode is an advanced search feature in Daseen that enhances your search experience by providing autocomplete suggestions for writing natural language queries in Elasticsearch. This allows you to construct complex queries more efficiently and retrieve precise results based on structured search logic.</p>
 
                 <h6 class="bold mt-3">How to Use Expert Mode</h6>
