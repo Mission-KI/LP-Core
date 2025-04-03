@@ -17,7 +17,7 @@ function HelpLayout() {
                 <div className="d-flex w-100">
 
                     {!isHelpPage && (
-                        <aside style={{ minWidth: 300 }}>
+                        <aside style={{ minWidth: 300 }} className='d-none d-md-block'>
                             <TopicsSidebarNav />
                         </aside>
                     )}
