@@ -1,6 +1,10 @@
+.footer{
+    border-top: .5px solid var(--color-light-gray);
+}
+
 .footerLink{
     font-size: 13px !important;
-    color: var(--color-text-lighter) !important;
+    color: var(--color-text) !important;
     /* padding-right: 2rem; */
     padding-top: .7rem;
     padding-bottom: .7rem;
