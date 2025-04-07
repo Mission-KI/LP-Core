@@ -49,5 +49,5 @@ jobs:
             username: ${{ secrets.STAGING_SERVER_USERNAME }}
             key: ${{ secrets.STAGING_SSH_PRIVATE_KEY }}
             script: |
-                cd /daseen-deploy
+                cd ~/daseen-deploy
                 ./deploy.sh

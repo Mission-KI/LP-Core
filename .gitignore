@@ -12,6 +12,7 @@
 # production
 /frontend/build
 /landing/build
+/nginx/certs/
 
 # misc
 .DS_Store
@@ -38,3 +39,4 @@ backend/staticfiles/
 .pytest_cache/
 frontend/playwright-report/index.html
 backend/daseen/_version.py
+compose.yml
