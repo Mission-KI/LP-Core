@@ -38,3 +38,4 @@ backend/staticfiles/
 .pytest_cache/
 frontend/playwright-report/index.html
 backend/daseen/_version.py
+compose.yml
