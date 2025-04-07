@@ -1,5 +1,5 @@
 import DatasetActions from "./DatasetActions";
-import QualityMetrics from "../../search_engine/components/Results/QualityMetrics";
+import QualityMetrics from "../../search/components/Results/QualityMetrics";
 import moment from "moment";
 import { ChevronDown, ChevronUp } from "react-bootstrap-icons";
 import { useState } from "react";

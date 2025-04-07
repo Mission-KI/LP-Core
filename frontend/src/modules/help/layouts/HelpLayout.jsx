@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import MainHeader from '../../search_engine/components/MainHeader/MainHeader';
+import MainHeader from '../../search/components/MainHeader/MainHeader';
 import Breadcrumbs from '../../common/components/Breadcrumbs';
 import TopicsSidebarNav from '../components/TopicsSidebarNav';
 

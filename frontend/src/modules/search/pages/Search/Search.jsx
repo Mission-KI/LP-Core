@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Results from '../../components/Results/Results';
 import { getDatasets } from '../../../common/api/elastic';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import HeroSection from '../../components/HeroSection/HeroSection';
 import HomeHeader from '../../components/HomeHeader/HomeHeader';
 import MainHeader from '../../components/MainHeader/MainHeader';
 import Footer from '../../../common/components/Footer/Footer';
 
 function Search() {
-
-  const { t } = useTranslation();
 
   const [datasets, setDatasets] = useState({});
   const [searchParams, setSearchParams] = useState({});

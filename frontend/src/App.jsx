@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-
 import LandingLayout from "./modules/common/layouts/LandingLayout";
 import AppLayout from "./modules/common/layouts/AppLayout";
 import bcrypt from 'bcryptjs';
-import searchEngineRoutes from "./modules/search_engine";
+import searchEngineRoutes from "./modules/search";
 import datasetRoutes from "./modules/dataset";
-import HealthCheck from './modules/search_engine/pages/HealthCheck';
+import HealthCheck from './modules/search/pages/HealthCheck';
 import ScrollToTop from './modules/common/components/ScrollToTop';
 import PageNotFound from './modules/common/pages/PageNotFound';
 import authRoutes from './modules/authentication';
