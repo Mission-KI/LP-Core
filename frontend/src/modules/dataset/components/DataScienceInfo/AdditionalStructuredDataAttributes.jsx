@@ -1,5 +1,5 @@
 import React from 'react';
-import { calculateDataTypesAttribute, calculateTemporalCover, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from '../../utils/calculations';
+import { calculateDataTypesAttribute, calculateTemporalCover, getNumericCorrelationSummary, getStringValueDistributionOverview, getTopNumericDistributions, getUniqueNumericDistributions } from '../../utils/calculations';
 import { InfoCircleFill, QuestionCircle } from 'react-bootstrap-icons';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -106,7 +106,7 @@ const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
                 </p>
             </div>
             <div className="col-6">
-                <p className="small mb-1">partial correlation</p>
+                <p className="small mb-1">{getNumericCorrelationSummary(datasetDetails)}</p>
             </div>
             <div className="col-6">
                 <p
