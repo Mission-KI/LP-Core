@@ -156,3 +156,19 @@ export const getNumericCorrelationSummary = (dataset) => {
 
     return 'Unknown';
 };
+
+export const isDataTypeConsistent = (dataset) => {
+    if (!dataset || !dataset.structuredDatasets || dataset.structuredDatasets.length === 0) {
+        return false;
+    }
+
+    const numericColumns = dataset.structuredDatasets[0].numericColumns;
+    
+    if (!numericColumns || numericColumns.length === 0) {
+        return true;
+    }
+
+    const firstDataType = numericColumns[0].dataType;
+
+    return numericColumns.every(column => column.dataType === firstDataType);
+};
