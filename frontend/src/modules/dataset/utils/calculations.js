@@ -158,17 +158,18 @@ export const getNumericCorrelationSummary = (dataset) => {
 };
 
 export const isDataTypeConsistent = (dataset) => {
-    if (!dataset || !dataset.structuredDatasets || dataset.structuredDatasets.length === 0) {
+    if (!dataset || !dataset._source.structuredDatasets || dataset._source.structuredDatasets.length === 0) {
         return false;
     }
 
-    const numericColumns = dataset.structuredDatasets[0].numericColumns;
+    const numericColumns = dataset._source.structuredDatasets[0].numericColumns;
     
     if (!numericColumns || numericColumns.length === 0) {
         return true;
     }
 
     const firstDataType = numericColumns[0].dataType;
+    console.log(firstDataType);
 
     return numericColumns.every(column => column.dataType === firstDataType);
 };
