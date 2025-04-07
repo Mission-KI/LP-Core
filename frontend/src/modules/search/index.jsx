@@ -1,8 +1,8 @@
-import Search from "./pages/SearchEngine/Search";
+import Search from "./pages/Search/Search";
 import ToggleEnglishAndRedirect from "./pages/ToggleEnglishAndRedirect";
 import ToggleGermanAndRedirect from "./pages/ToggleGermanAndRedirect";
 
-const searchEngineRoutes = [
+const searchRoutes = [
   {
     path: '/',
     element: <Search />,
@@ -17,4 +17,4 @@ const searchEngineRoutes = [
   }
 ];
 
-export default searchEngineRoutes;
+export default searchRoutes;

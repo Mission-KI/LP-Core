@@ -128,3 +128,31 @@ export const getUniqueNumericDistributions = (dataset) => {
 
     return uniqueDistributions;
 };
+
+export const getNumericCorrelationSummary = (dataset) => {
+    if (!dataset?._source?.structuredDatasets?.[0]?.numericColumns?.length) {
+        return [];
+    }
+
+    const correlationSummary = dataset._source.structuredDatasets[0].correlationSummary;
+
+    const { partial, strong } = correlationSummary;
+
+    if (partial === 0 && strong === 0) {
+        return ["no correlations"];
+    }
+
+    if (partial === 0 && strong > 0) {
+        return ["strong correlations"];
+    }
+
+    if (partial > 0 && strong === 0) {
+        return ["partial correlations"];
+    }
+
+    if (partial > 0 && strong > 0) {
+        return ["partial and strong correlations"];
+    }
+
+    return 'Unknown';
+};

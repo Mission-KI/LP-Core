@@ -3,7 +3,7 @@ import { Dropdown } from 'react-bootstrap';
 import { useNavigate } from 'react-router';
 import { getAutocompleteSuggestions } from '../../api/elastic';
 import { useSettings } from '../../contexts/SettingsContext';
-import { getQuerySuggestions } from '../../../search_engine/utils/query_suggestions';
+import { getQuerySuggestions } from '../../../search/utils/query_suggestions';
 
 function SearchSuggestions({ localSearchTerm, setLocalSearchTerm, showSuggestions, setShowSuggestions }) {
     const [suggestions, setSuggestions] = useState([]);

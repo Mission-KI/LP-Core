@@ -43,28 +43,28 @@ const DatasetActions = ({ datasetDetails }) => {
                     <div className='pe-2 pt-1'>
                         <Link
                             to={`/details/${datasetDetails._id}`}
-                            className='btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'
+                            className='btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center'
                         >
-                            <Link45deg className='me-1' /> {t('dataset.details')}
+                            <Link45deg className='me-2' /> {t('dataset.details')}
                         </Link>
                     </div>
                 )}
                 <form method="GET" action={apiUrl + '/connector/edp/schema/'} className='pe-2 pt-1'>
-                    <button type="submit" className='btn btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
-                        <Download className='me-1' /> {t('header.schemaJson')}
+                    <button type="submit" className='btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center'>
+                        <Download className='me-2' /> {t('header.schemaJson')}
                     </button>
                 </form>
                 <div className='pe-2 pt-1'>
-                    <a href={reportDownloadUrl} className='btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
-                        <Download className='me-1' /> {t('header.reportPdf')}
+                    <a href={reportDownloadUrl} className='btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center'>
+                        <Download className='me-2' /> {t('header.reportPdf')}
                     </a>
                 </div>
                 <div className='pe-2 pt-1'>
                     <button
-                        className='btn btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'
+                        className='btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center'
                         onClick={() => handleDownload(datasetDetails?._source?.url)}
                     >
-                        <Download className='me-1' /> {t('header.getDataset')}
+                        <Download className='me-2' /> {t('header.getDataset')}
                     </button>
                 </div>
                 {!bookmarked ? (
@@ -72,15 +72,16 @@ const DatasetActions = ({ datasetDetails }) => {
                         <span
                             onClick={() => handleAddBookmark(datasetDetails?._id)}
                             data-test-id="bookmark-button"
-                            className='btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
-                            {t('header.bookmark')} <Star className='txt-white ms-2' />
+                            className='btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center'>
+                            <Star className='txt-white me-2' />
+                            {t('header.bookmark')}
                         </span>
                     </div>
 
                 ) : (
                     <div className='pe-2 pt-1'>
-                        <span onClick={() => handleRemoveBookmark(datasetDetails?._id)} className='btn-hover px-2 py-2 txt-primary fw-500 pointer small d-flex align-items-center'>
-                            <StarFill className='me-1' />
+                        <span onClick={() => handleRemoveBookmark(datasetDetails?._id)} className='btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center'>
+                            <StarFill className='me-2' />
                             {t('header.removeBookmark')}
                         </span>
                     </div>

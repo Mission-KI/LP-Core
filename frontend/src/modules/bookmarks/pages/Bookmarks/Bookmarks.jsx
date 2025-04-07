@@ -3,7 +3,7 @@ import { getBookmarkedDatasets } from '../../../common/api/elastic';
 import { useTranslation } from 'react-i18next';
 import { Spinner } from 'react-bootstrap';
 import { StarHalf } from 'react-bootstrap-icons';
-import ResultItem from '../../../search_engine/components/Results/ResultItem';
+import ResultItem from '../../../search/components/Results/ResultItem';
 
 const Bookmarks = () => {
 
