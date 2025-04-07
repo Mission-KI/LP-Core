@@ -19,6 +19,7 @@ import { SettingsProvider } from './modules/common/contexts/SettingsContext';
 import monitoringRoutes from './modules/monitoring';
 import Details from './modules/dataset/pages/Details/Details';
 import DetailViewLayout from './modules/dataset/layouts/DetailViewLayout';
+import HelpLayout from './modules/help/layouts/HelpLayout';
 
 // Predefined hashed password
 const salt = bcrypt.genSaltSync(10);
@@ -56,6 +57,12 @@ const routes = [
       },
       ...bookmarkRoutes,
       ...supportRoutes,
+    ],
+  },
+  {
+    path: '/',
+    element: <HelpLayout />,
+    children: [
       ...helpRoutes,
     ],
   },

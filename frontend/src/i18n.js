@@ -1,11 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import aboutHelpText from './modules/help/translations/about';
-import basicsHelpText from './modules/help/translations/basics';
-import formatsHelpText from './modules/help/translations/formats';
-import functionsHelpText from './modules/help/translations/functions';
-
 
 i18n
   .use(LanguageDetector)
@@ -162,10 +157,6 @@ i18n
             dev: "Authentication feature is currently in development."
           },
           maintenance: "Daseen is under maintenance and will be back at 5 pm",
-          about: aboutHelpText.en.fullContent,
-          basics: basicsHelpText.en.fullContent,
-          formats: formatsHelpText.en.fullContent,
-          functions: functionsHelpText.en.fullContent,
           help: {
             alert: "Welcome to the Help Center! This page provides detailed explanations and guides about various features, functionalities, and widgets available on our website. If you're unsure about how something works or need clarification, this is the perfect place to find answers.",
             topics: "Topics",
@@ -315,10 +306,6 @@ i18n
             dev: "Die Authentifizierungsfunktion befindet sich derzeit in Entwicklung."
           },
           maintenance: "Daseen befindet sich in Wartung und wird ab 17 Uhr wieder verfügbar sein.",
-          about: aboutHelpText.de.fullContent,
-          basics: basicsHelpText.de.fullContent,
-          formats: formatsHelpText.de.fullContent,
-          functions: functionsHelpText.de.fullContent,
           help: {
             alert: "Willkommen im Hilfe-Center! Diese Seite bietet detaillierte Erklärungen und Anleitungen zu den verschiedenen Funktionen, Features und Widgets auf unserer Website. Wenn Sie sich nicht sicher sind, wie etwas funktioniert, oder eine Klärung benötigen, finden Sie hier die passenden Antworten.",
             topics: "Themen",

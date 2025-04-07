@@ -46,7 +46,7 @@ function DetailViewLayout() {
 
     return (
         <>
-            <div className="container px-3 pb-5">
+            <div className="container-fluid px-5 pb-5">
 
                 <Breadcrumbs />
                 <Outlet />

@@ -39,7 +39,7 @@ const HomeHeader = () => {
             <Container>
                 <Button
                     id="custom-nav-toggle"
-                    className="btn-basic mx-2 txt-regular bgc-body border-0 d-md-none"
+                    className="btn-basic me-2 txt-regular bgc-body border-0 d-md-none"
                     onClick={() => setShowDropdown(!showDropdown)}
                 >
                     <List size={24} />
@@ -60,11 +60,11 @@ const HomeHeader = () => {
                 </Nav>
 
                 <Nav className="ms-auto">
-                    <div className="pe-3 d-flex">
+                    <div className="pe-3 d-none d-md-flex">
                         <Toolbar />
                     </div>
                     <div className="ps-2">
-                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-contrast">{t('auth.register')}</a>
+                        <a href="https://beebucket.ai/kontakt/" className="btn fw-500 rounded-lg medium py-2 px-3 btn-basic shadow-sm">{t('auth.register')}</a>
                     </div>
                 </Nav>
             </Container>
