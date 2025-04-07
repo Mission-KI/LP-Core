@@ -17,12 +17,13 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile.prod
-      platforms:
-        - "linux/amd64"
-        - "linux/arm64"
       secrets:
         - github_token
-    image: docker.io/beebucket/daseen-backend:latest
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-backend:${IMAGE_TAG:-latest}
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
@@ -35,10 +36,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
-      platforms:
-        - "linux/amd64"
-        - "linux/arm64"
-    image: docker.io/beebucket/daseen-frontend:latest
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-frontend:${IMAGE_TAG:-latest}
     env_file:
       - .env
     volumes:
@@ -49,10 +51,11 @@ services:
     build:
       context: ./landing
       dockerfile: Dockerfile.prod
-      platforms:
-        - "linux/amd64"
-        - "linux/arm64"
-    image: docker.io/beebucket/daseen-landing:latest
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-landing:${IMAGE_TAG:-latest}
     env_file:
       - .env
     volumes:
