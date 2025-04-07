@@ -12,11 +12,10 @@ const About = () => {
                 <p className="fw-500 mt-3">Versionsinformationen</p>
                 <p className="regular text-justify">31.03.2025</p>
                 <p className="fw-500 mt-3">Neueste Änderungen</p>
-                <ul className="regular text-justify">
-                    <li>Erweiterter Hilfebereich</li>
-                </ul>
+                <p> - Erweiterter Hilfebereich</p>
                 <p className="fw-500 mt-3" id="registration-section">Registrierung</p>
                 Datenanbieter sowie Datenraum- und Datenportalbetreiber können sich über den folgenden Kontakt verbinden:
+                &nbsp;
                 <a href="https://beebucket.ai/en/contact/" target="_blank">Beebucket</a>
             </div>
         );
