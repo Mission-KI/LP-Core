@@ -48,10 +48,10 @@ const MainHeader = () => {
                 borderBottom: ".5px solid var(--color-light-gray)"
             }}
         >
-            <Container className="d-flex px-3" style={{ whiteSpace: "nowrap", flexWrap: "nowrap" }}>
+            <div className="container-fluid d-flex px-md-5" style={{ whiteSpace: "nowrap", flexWrap: "nowrap" }}>
                 <Button
                     id="custom-nav-toggle"
-                    className="btn-basic mx-2 txt-regular bgc-body border-0 d-md-none"
+                    className="btn-basic me-2 txt-regular bgc-body border-0 d-md-none"
                     onClick={() => setShowDropdown(!showDropdown)}
                 >
                     <List size={24} />
@@ -76,11 +76,11 @@ const MainHeader = () => {
                     </Nav>
                 </div>
 
-                <div className="px-md-3 w-100">
+                <div className="px-md-5 w-100">
                     <MainSearchBar />
                 </div>
 
-                <Nav className="ms-md-auto pe-4">
+                <Nav className="ms-md-auto d-md-flex pe-4">
                     <Toolbar />
                 </Nav>
 
@@ -88,12 +88,12 @@ const MainHeader = () => {
                     <div className="ps-2 ps-md-0">
                         <a
                             href="https://beebucket.ai/kontakt/"
-                            className="btn fw-500 rounded-lg medium py-2 px-3 btn-contrast">
+                            className="btn fw-500 rounded-lg medium py-2 px-3 btn-basic shadow-sm">
                             {t("auth.register")}
                         </a>
                     </div>
                 </Nav>
-            </Container>
+            </div>
 
             {showDropdown && (
                 <MobileHeaderDropdown

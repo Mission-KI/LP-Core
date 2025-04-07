@@ -23,7 +23,7 @@ const Toolbar = () => {
             </div>
             <div className='d-none d-md-block'>
                 <Link to="/bookmarks"
-                    className="btn-hover px-2 h-100 d-flex align-items-center"
+                    className="btn-hover px-2 h-100 d-flex align-items-center txt-regular"
                 >
                     {getBookmarks().length > 0 ? (
                         <StarFill className='h5 m-0' />
