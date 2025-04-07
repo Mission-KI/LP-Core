@@ -28,13 +28,13 @@ const PublisherSelectorDropdown = ({ analytics }) => {
     };
 
     return (
-        <div className="mb-3 d-flex align-items-center gap-2">
+        <div className="d-flex align-items-center gap-2">
             <Dropdown onSelect={handleSelect}>
                 <Dropdown.Toggle variant="basic" id="dropdown-basic">
                     {selectedPublisher} <ChevronDown className="ms-2" />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu className="dropdown-menu-end w-100">
+                <Dropdown.Menu className="dropdown-menu-end" style={{ minWidth: '100%' }}>
                     {analytics?.publishers?.map((publisher) => (
                         <Dropdown.Item key={publisher.key} eventKey={publisher.key}>
                             {publisher.key}
@@ -43,14 +43,13 @@ const PublisherSelectorDropdown = ({ analytics }) => {
                 </Dropdown.Menu>
             </Dropdown>
 
-            {selectedPublisher !== "Select Publisher" && (
-                <button
-                    className="btn btn-danger d-flex align-items-center"
-                    onClick={clearSelection}
-                >
-                    <XLg className="me-2" /> Clear
-                </button>
-            )}
+            <button
+                className={`btn d-flex align-items-center border-0 ${selectedPublisher == 'Select Publisher' ? 'btn-basic': 'btn-danger'}`}
+                onClick={clearSelection}
+                disabled={selectedPublisher == 'Select Publisher' ?? true}
+            >
+                <XLg className="me-2" /> Clear
+            </button>
         </div>
     );
 };
