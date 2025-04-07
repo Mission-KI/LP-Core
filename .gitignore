@@ -12,6 +12,7 @@
 # production
 /frontend/build
 /landing/build
+/nginx/certs/
 
 # misc
 .DS_Store
