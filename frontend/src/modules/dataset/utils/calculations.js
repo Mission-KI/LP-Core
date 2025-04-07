@@ -169,6 +169,7 @@ export const isDataTypeConsistent = (dataset) => {
     }
 
     const firstDataType = numericColumns[0].dataType;
+    console.log(firstDataType);
 
     return numericColumns.every(column => column.dataType === firstDataType);
 };
