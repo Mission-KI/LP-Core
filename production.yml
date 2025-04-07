@@ -23,7 +23,7 @@ services:
         platforms:
           - linux/amd64
           - linux/arm64
-    image: docker.io/beebucket/daseen-backend:latest
+    image: docker.io/beebucket/daseen-backend:${IMAGE_TAG:-latest}
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
@@ -40,7 +40,7 @@ services:
         platforms:
           - linux/amd64
           - linux/arm64
-    image: docker.io/beebucket/daseen-frontend:latest
+    image: docker.io/beebucket/daseen-frontend:${IMAGE_TAG:-latest}
     env_file:
       - .env
     volumes:
@@ -55,7 +55,7 @@ services:
         platforms:
           - linux/amd64
           - linux/arm64
-    image: docker.io/beebucket/daseen-landing:latest
+    image: docker.io/beebucket/daseen-landing:${IMAGE_TAG:-latest}
     env_file:
       - .env
     volumes:
