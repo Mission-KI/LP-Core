@@ -4,19 +4,23 @@ import { Container, Spinner } from 'react-bootstrap';
 import { useAuth } from "../../common/contexts/AuthContext";
 import Header from "../components/Header";
 import { getAnalytics } from '../monitoring';
-import { CloudArrowUp, Download, Pencil, PencilFill, Trash3 } from 'react-bootstrap-icons';
+import { CloudArrowUp, Download, Pencil, Trash3 } from 'react-bootstrap-icons';
 import DownloadsOverTime from '../components/DownloadsOverTime';
 import UploadsOverTime from '../components/UploadsOverTime';
+import PublisherSelectorDropdown from '../components/PublisherSelectorDropdown';
+import { useSearchParams } from "react-router-dom";
 
 function Dashboard() {
 
     const { username } = useAuth();
     const [analytics, setAnalytics] = useState(null);
+    const [searchParams] = useSearchParams();
 
     useEffect(() => {
         const fetchAnalytics = async () => {
             try {
-                const fetchedAnalytics = await getAnalytics();
+                const publisher = searchParams.get("publisher");
+                const fetchedAnalytics = await getAnalytics(publisher);
                 setAnalytics(fetchedAnalytics);
             } catch (error) {
                 toast.error(error.message || "Failed to fetch analytics");
@@ -24,7 +28,7 @@ function Dashboard() {
         };
 
         fetchAnalytics();
-    }, []);
+    }, [searchParams]);
 
     if (!analytics) {
         return (
@@ -41,6 +45,7 @@ function Dashboard() {
 
             <div className="d-flex justify-content-between align-items-center mt-4 mb-3 ps-1">
                 <h2 className="bold">{username} - Monitoring Dashboard</h2>
+                <PublisherSelectorDropdown analytics={analytics} />
             </div>
 
             <div className="row">
