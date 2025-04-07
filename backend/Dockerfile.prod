@@ -25,4 +25,4 @@ ENV PATH="/app/.venv/bin:$PATH"
 
 WORKDIR /app/backend
 
-CMD ["sh", "-c", "daseen collectstatic --no-input && daseen migrate && exec gunicorn --bind 0.0.0.0:8000 --workers 1 daseen.wsgi:application --timeout 120"]
+CMD ["sh", "-c", "python3 manage.py collectstatic --no-input && python3 manage.py migrate && exec gunicorn --bind 0.0.0.0:8000 --workers 1 daseen.wsgi:application --timeout 120"]
