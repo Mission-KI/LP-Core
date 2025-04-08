@@ -1,4 +1,5 @@
 from datetime import timedelta
+from typing import Optional
 
 from apps.search.utils.elasticsearch import elasticsearch_request
 from django.db.models import Count
@@ -8,13 +9,20 @@ from django.utils.timezone import now
 from ..models import EventLog
 
 
-def get_elastic_monitoring_analytics(data_space_name: str):
+def get_elastic_monitoring_analytics(data_space_name: str, publisher: Optional[str] = None):
+    filters = [{"term": {"assetRefs.dataSpace.name.keyword": data_space_name}}]
+
+    if publisher:
+        filters.append({"term": {"assetRefs.publisher.name.keyword": publisher}})
+
     query = {
         "size": 0,
         "query": {
             "nested": {
                 "path": "assetRefs",
-                "query": {"bool": {"filter": [{"term": {"assetRefs.dataSpace.name.keyword": data_space_name}}]}},
+                "query": {
+                    "bool": {"filter": filters},
+                },
             }
         },
         "aggs": {

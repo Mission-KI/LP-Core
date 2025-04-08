@@ -1,7 +1,7 @@
 const PublishersList = ({ publishers }) => {
     return (
         <>
-            <h4 className='bold mt-4 mb-4'>Publishers</h4>
+            <h4 className='bold mt-5 mb-4'>Publishers</h4>
             <table className="table table-bordered table-hover">
                 <thead>
                     <tr>
