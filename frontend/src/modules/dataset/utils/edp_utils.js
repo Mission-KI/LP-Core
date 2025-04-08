@@ -31,16 +31,42 @@ export const getNumericOutlierAnalysis = (dataset) => {
 
 export const resolveDataset = (datasetDetails, datasetRef) => {
     const match = datasetRef.match(/^#\/([^/]+)\/(\d+)$/);
-    
+
     if (match) {
         const [, arrayName, index] = match;
-        
+
         const datasetsArray = datasetDetails?._source?.[arrayName];
-        
+
         if (datasetsArray && Array.isArray(datasetsArray)) {
             return datasetsArray[parseInt(index, 10)] || null;
         }
     }
 
     return null;
+};
+export const datasetHasChildren = (datasetDetails, datasetRef) => {
+    const datasetTree = datasetDetails?._source?.datasetTree || [];
+
+    const rootNode = datasetTree.find(item => item.dataset["$ref"] === datasetRef);
+
+    if (!rootNode) {
+        return false;
+    }
+
+    const childrenMap = {};
+    datasetTree.forEach((item) => {
+        const parentRef = item.parent?.["$ref"];
+        if (parentRef === rootNode.dataset["$ref"]) {
+            childrenMap[rootNode.name] = childrenMap[rootNode.name] || [];
+            childrenMap[rootNode.name].push(item);
+        } else {
+            const parentNode = datasetTree.find(d => `#/datasetTree/${datasetTree.indexOf(d)}` === parentRef);
+            if (parentNode) {
+                childrenMap[parentNode.name] = childrenMap[parentNode.name] || [];
+                childrenMap[parentNode.name].push(item);
+            }
+        }
+    });
+
+    return Object.keys(childrenMap).length > 0;
 };
