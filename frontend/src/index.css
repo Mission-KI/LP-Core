@@ -636,6 +636,10 @@ input:checked+.slider:before {
   border-right-color: transparent !important
 }
 
+.spinner-border.text-light {
+  border: var(--bs-spinner-border-width) solid #fff !important;
+}
+
 .dropdown-menu {
   background-color: var(--content-over-widget-color) !important;
   color: var(--color-text) !important;

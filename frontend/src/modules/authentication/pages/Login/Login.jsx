@@ -30,11 +30,12 @@ export default function Login() {
   return (
     <div className={styles.loginPageWrapper}>
       <div style={{ maxWidth: 470 }} className="w-100">
-        <h2 className="mb-4 bold">Log in</h2>
+        <h1 className="mb-2 bold">Log in</h1>
+        <p className="txt-lighter mb-4">Enter your user details to log in and access our private tools.</p>
         {error && <span className="text-danger small">{error}</span>} { }
         <form onSubmit={handleSubmit}>
           <div className="py-2">
-            <label className="mb-1">Username</label>
+            <label className="mb-2 ms-1">Username <span className="txt-danger">*</span></label>
             <input
               type="text"
               name="username"
@@ -43,16 +44,16 @@ export default function Login() {
             />
           </div>
           <div className="py-2">
-            <label className="mb-1">Password</label>
+            <label className="mb-2 ms-1">Password <span className="txt-danger">*</span></label>
             <input
               type="password"
               name="password"
               className="form-control py-3"
-              placeholder="••••••••"
+              placeholder="• • • • • • • •"
             />
           </div>
 
-          <div className="py-2 mt-3">
+          <div className="py-2 mt-4">
             <Button variant="primary" size="lg" type="submit" loading={loading}>
               Log In
             </Button>
