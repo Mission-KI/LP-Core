@@ -19,28 +19,48 @@ import UnstructuredText from "./UnstructuredText";
 import Image from "./Image";
 import DatasetStructure from "../DatasetStructure/DatasetStructure";
 import { useNavigate } from "react-router";
+import { datasetHasChildren } from "../../utils/edp_utils";
 
 const DatasetTabs = ({ datasetDetails, datasetRef }) => {
 
-    const [activeKey, setActiveKey] = useState("structure");
-
+    const doesDatasetHaveChildren = datasetHasChildren(datasetDetails, datasetRef);
     const isDocumentDataset = datasetRef.includes("#/documentDatasets");
     const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
     const isUnstructuredDataset = datasetRef.includes("#/unstructuredTextDatasets");
     const isImageDataset = datasetRef.includes("#/imageDatasets");
 
+    const getDefaultActiveKey = () => {
+        if (doesDatasetHaveChildren) {
+            return "structure";  // Default to "structure" if the dataset has children
+        }
+
+        // If no children, select the first tab for the dataset type
+        if (isDocumentDataset) return "document";
+        if (isStructuredDataset) return "attribute_list";
+        if (isUnstructuredDataset) return "unstructured_text";
+        if (isImageDataset) return "image";
+
+        return "structure";
+    };
+
+    const [activeKey, setActiveKey] = useState(getDefaultActiveKey);
+
     const { t } = useTranslation();
     const navigate = useNavigate();
 
     const tabs = [
-        {
-            eventKey: "structure",
-            title: "ASSET STRUCTURE",
-            component: <DatasetStructure
-                datasetDetails={datasetDetails}
-                datasetRef={datasetRef}
-            />,
-        },
+        ...(
+            doesDatasetHaveChildren
+                ? [{
+                    eventKey: "structure",
+                    title: "ASSET STRUCTURE",
+                    component: <DatasetStructure
+                        datasetDetails={datasetDetails}
+                        datasetRef={datasetRef}
+                    />,
+                }]
+                : []
+        ),
         ...(
             isDocumentDataset
                 ? [
