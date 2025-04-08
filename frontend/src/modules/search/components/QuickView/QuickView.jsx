@@ -8,7 +8,8 @@ import DatasetActions from "../../../dataset/components/DatasetActions";
 function QuickView({ dataset }) {
   const [show, setShow] = useState(false);
   const dropdownRef = useRef(null);
-  
+  const datasetRef = dataset?._source?.datasetTree[0]?.dataset?.$ref;
+
   const toggleDropdown = () => {
     setShow((prevShow) => !prevShow);
   };
@@ -49,7 +50,10 @@ function QuickView({ dataset }) {
             <div className="pb-4">
               <DatasetActions datasetDetails={dataset} />
             </div>
-            <DataScienceInfo datasetDetails={dataset} />
+            <DataScienceInfo
+              datasetDetails={dataset}
+              datasetRef={datasetRef}
+            />
           </div>
         </div>
       </Dropdown.Menu>
