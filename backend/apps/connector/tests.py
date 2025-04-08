@@ -395,12 +395,24 @@ def test_upload_edp_file_already_exists_with_different_resource_id(auth_client: 
 
 @mock_aws
 @pytest.mark.django_db()
-def test_delete_edp_file_zip_success(auth_client: APIClient, monkeypatch: MonkeyPatch):
+def test_delete_edp_by_id_success(auth_client: APIClient, monkeypatch: MonkeyPatch):
     elastic_delete = mkmock(monkeypatch, Elasticsearch, "delete")
+    id = ResourceStatus.objects.create().id
+    upload_event = EventLog.objects.create(
+        requested_url="",
+        status="success",
+        type=EventLog.TYPE_UPLOAD,
+        message="upload done",
+        dataspace=Dataspace.objects.create(name="Pontus-X"),
+        metadata={
+            "id": str(id),
+            "assetRefs": [mini_edp().assetRefs[0].model_dump(mode="json")],
+            "schemaVersion": str(mini_edp().schemaVersion),
+        },
+    )
     conn = boto3.resource("s3")
     conn.create_bucket(Bucket=settings.S3_BUCKET_NAME)
 
-    id = ResourceStatus.objects.create().id
     url = reverse(viewname="edp-detail", kwargs={"id": id})
     response = auth_client.delete(
         url,
@@ -410,7 +422,12 @@ def test_delete_edp_file_zip_success(auth_client: APIClient, monkeypatch: Monkey
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_200_OK, response.json()
     assert response.data == {"message": "EDP deleted successfully", "id": str(id)}
-    check_event_log(url=url, status="success", message="EDP delete done")
+    assert EventLog.objects.count() == 2
+    event_log = EventLog.objects.filter(type=EventLog.TYPE_DELETE).first()
+    assert event_log is not None
+    assert event_log.requested_url == url and event_log.message == "EDP delete done" and event_log.status == "success"
+    assert event_log.metadata == upload_event.metadata
+    assert event_log.type == EventLog.TYPE_DELETE
     elastic_delete.assert_called_once_with(index="edp-data", id=str(id))
 
 
@@ -481,7 +498,15 @@ def test_raw_zip_upload_success(auth_client: APIClient, valid_zip_file: BytesIO,
 
     assert response.status_code == status.HTTP_200_OK, response.data
     assert response.data["message"] == "EDP uploaded successfully"
-    assert EventLog.objects.filter(metadata__id=str(resource.id)).exists()
+    event_log_query = EventLog.objects.filter(metadata__id=str(resource.id))
+    assert event_log_query.count() == 1
+    assert event_log_query.first() is not None
+    edp = mini_edp()
+    assert event_log_query.first().metadata == {
+        "id": str(resource.id),
+        "assetRefs": [edp.assetRefs[0].model_dump(mode="json")],
+        "schemaVersion": str(edp.schemaVersion),
+    }
 
 
 @pytest.mark.django_db
