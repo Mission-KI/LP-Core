@@ -29,8 +29,10 @@ class MonitoringAnalyticsView(APIView):
             raise ValidationError("User is not assigned to dataspace")
         dataSpaceName = request.user.dataspace.name
 
+        publisher = request.query_params.get("publisher")
+
         try:
-            response = get_elastic_monitoring_analytics(dataSpaceName)
+            response = get_elastic_monitoring_analytics(dataSpaceName, publisher)
             if response.status_code != status.HTTP_200_OK:
                 return response
             elastic_counts = response.data
