@@ -10,22 +10,15 @@ export const getEdpLanguagesList = (dataset) => {
 };
 
 export const getNumericOutlierAnalysis = (dataset) => {
-    let totalColumns = 0;
-    let totalOutlierPercentage = 0;
+    const numericColumns = dataset?._source?.structuredDatasets?.[0]?.numericColumns || [];
 
-    dataset?._source?.structuredDatasets?.[0]?.numericColumns.forEach(column => {
-        if (column.interpretableCount > 0) {
-            let outlierCount = (column.percentileOutlierCount || 0) + (column.zScoreOutlierCount || 0) + (column.iqrOutlierCount || 0);
-            let outlierPercentage = (outlierCount / column.interpretableCount) * 100;
+    const outlierPercentages = numericColumns
+        .map(col => col.relativeOutlierCount)
+        .filter(val => typeof val === "number");
 
-            totalOutlierPercentage += outlierPercentage;
-            totalColumns++;
-        }
-    });
+    if (outlierPercentages.length === 0) return "no outliers";
 
-    if (totalColumns === 0) return "no outliers";
-
-    let averageOutlierPercentage = totalOutlierPercentage / totalColumns;
+    const averageOutlierPercentage = outlierPercentages.reduce((sum, val) => sum + val, 0) / outlierPercentages.length;
 
     if (averageOutlierPercentage === 0) {
         return "no outliers";
