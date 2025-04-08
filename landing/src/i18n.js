@@ -59,7 +59,8 @@ i18n
             culture: "Culture and media",
             education: "Education, research and science",
             realestate: "Real estate and finance",
-            noItems: "Unfortunately there is no data available for this category yet."
+            noItems: "Unfortunately there is no data available for this category yet.",
+            publishersInTheCategory: "publishers in the category"
           },
           publishers: {
             bast: {
@@ -159,7 +160,8 @@ i18n
             culture: "Kultur und Medien",
             education: "Bildung, Forschung und Wissenschaft",
             realestate: "Immobilien und Finanzen",
-            noItems: "Es sind leider noch keine Daten für diese Kategorie vorhanden."
+            noItems: "Es sind leider noch keine Daten für diese Kategorie vorhanden.",
+            publishersInTheCategory: "datenanbieter in der Kategorie"
           },
           publishers: {
             bast: {
