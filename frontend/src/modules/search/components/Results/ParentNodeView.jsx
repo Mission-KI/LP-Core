@@ -60,9 +60,12 @@ const ParentNodeView = ({ dataset }) => {
 
                     <span className="small txt-lighter pe-3">
                         {dataset?._source?.dataTypes?.join(", ")} ({dataset?._source?.datasetTree[0]?.fileProperties?.fileType?.toUpperCase()})
-                        </span>
+                    </span>
                     <span className="small txt-lighter pe-3">
                         {filesize(dataset?._source?.volume)}
+                    </span>
+                    <span className="small txt-lighter pe-3">
+                        {t("dataset.edpVersion")} {(parseInt(dataset._version) ?? 1).toFixed(1)}
                     </span>
                     <a href={dataset._source?.assetRefs?.[0]?.license?.url} target='_blank'
                         className='small txt-primary pe-3'>

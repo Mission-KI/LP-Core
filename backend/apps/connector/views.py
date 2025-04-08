@@ -3,6 +3,7 @@ import json
 from logging import getLogger
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from typing import Any
 
 from apps.monitoring.models import EventLog
 from apps.monitoring.utils.logging import create_log
@@ -10,7 +11,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
-from extended_dataset_profile import CURRENT_SCHEMA
+from extended_dataset_profile import CURRENT_SCHEMA, ExtendedDatasetProfile
 from rest_framework import parsers, status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.exceptions import APIException, PermissionDenied, UnsupportedMediaType
@@ -39,7 +40,10 @@ def _do_upload(request: Request, id: str, zip_file):
         ):
             raise PermissionDenied(f"User not allowed to upload to dataspace {edp_dataspace}")
         uploader.upload_edp_directory(edp_model, edp_id=id, edp_dir=edp_dir)
-    create_log(request, "EDP upload done", EventLog.STATUS_SUCCESS, {"id": id}, EventLog.TYPE_UPLOAD)
+    metadata: dict[str, Any] = {"id": id, "schemaVersion": str(edp_model.schemaVersion)}
+    if isinstance(edp_model, ExtendedDatasetProfile) and len(edp_model.assetRefs) > 0:
+        metadata["assetRefs"] = [ref.model_dump(mode="json") for ref in edp_model.assetRefs]
+    create_log(request, "EDP upload done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_UPLOAD)
     return Response(
         {"message": "EDP uploaded successfully", "edp": edp_model.model_dump(mode="json"), "id": id},
         status=status.HTTP_200_OK,
@@ -179,7 +183,14 @@ class EDPUploadDeleteView(APIView):
             uploader.delete_edp(id)
 
             resource.delete()
-            create_log(request, "EDP delete done", EventLog.STATUS_SUCCESS, {"id": id}, EventLog.TYPE_DELETE)
+            upload_event_query = EventLog.objects.filter(
+                metadata__id=id, status=EventLog.STATUS_SUCCESS, type=EventLog.TYPE_UPLOAD
+            )
+
+            metadata = {"id": id}
+            if upload_event_query.count() > 0:
+                metadata = upload_event_query.last().metadata.copy()
+            create_log(request, "EDP delete done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_DELETE)
 
             return Response(
                 {"message": "EDP deleted successfully", "id": id},

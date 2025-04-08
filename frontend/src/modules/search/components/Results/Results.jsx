@@ -12,10 +12,6 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('list');
 
-    const handleTabChange = (tab) => {
-        setActiveTab(tab);
-    };
-
     return (
         <div className='mt-3 pt-3'>
             <div className="w-100 mb-2">

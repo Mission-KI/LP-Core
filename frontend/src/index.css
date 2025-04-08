@@ -641,6 +641,13 @@ input:checked+.slider:before {
   color: var(--color-text) !important;
 }
 
+.dropdown-menu-end{
+  right: 0 !important;
+  left: unset !important;
+  border: none !important;
+  box-shadow: var(--bs-box-shadow);
+}
+
 /* 
 ::-webkit-scrollbar {
   width: 11px;
@@ -721,6 +728,9 @@ input:checked+.slider:before {
 
 .breadcrumb-item {
   font-size: 10pt !important;
+}
+
+.breadcrumb-item[href] {
   color: var(--color-primary) !important;
 }
 

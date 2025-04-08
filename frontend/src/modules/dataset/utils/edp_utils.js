@@ -10,22 +10,15 @@ export const getEdpLanguagesList = (dataset) => {
 };
 
 export const getNumericOutlierAnalysis = (dataset) => {
-    let totalColumns = 0;
-    let totalOutlierPercentage = 0;
+    const numericColumns = dataset?._source?.structuredDatasets?.[0]?.numericColumns || [];
 
-    dataset?._source?.structuredDatasets?.[0]?.numericColumns.forEach(column => {
-        if (column.interpretableCount > 0) {
-            let outlierCount = (column.percentileOutlierCount || 0) + (column.zScoreOutlierCount || 0) + (column.iqrOutlierCount || 0);
-            let outlierPercentage = (outlierCount / column.interpretableCount) * 100;
+    const outlierPercentages = numericColumns
+        .map(col => col.relativeOutlierCount)
+        .filter(val => typeof val === "number");
 
-            totalOutlierPercentage += outlierPercentage;
-            totalColumns++;
-        }
-    });
+    if (outlierPercentages.length === 0) return "no outliers";
 
-    if (totalColumns === 0) return "no outliers";
-
-    let averageOutlierPercentage = totalOutlierPercentage / totalColumns;
+    const averageOutlierPercentage = outlierPercentages.reduce((sum, val) => sum + val, 0) / outlierPercentages.length;
 
     if (averageOutlierPercentage === 0) {
         return "no outliers";
@@ -34,4 +27,46 @@ export const getNumericOutlierAnalysis = (dataset) => {
     } else {
         return `many outliers (${averageOutlierPercentage.toFixed(2)}%)`;
     }
+};
+
+export const resolveDataset = (datasetDetails, datasetRef) => {
+    const match = datasetRef.match(/^#\/([^/]+)\/(\d+)$/);
+
+    if (match) {
+        const [, arrayName, index] = match;
+
+        const datasetsArray = datasetDetails?._source?.[arrayName];
+
+        if (datasetsArray && Array.isArray(datasetsArray)) {
+            return datasetsArray[parseInt(index, 10)] || null;
+        }
+    }
+
+    return null;
+};
+export const datasetHasChildren = (datasetDetails, datasetRef) => {
+    const datasetTree = datasetDetails?._source?.datasetTree || [];
+
+    const rootNode = datasetTree.find(item => item.dataset["$ref"] === datasetRef);
+
+    if (!rootNode) {
+        return false;
+    }
+
+    const childrenMap = {};
+    datasetTree.forEach((item) => {
+        const parentRef = item.parent?.["$ref"];
+        if (parentRef === rootNode.dataset["$ref"]) {
+            childrenMap[rootNode.name] = childrenMap[rootNode.name] || [];
+            childrenMap[rootNode.name].push(item);
+        } else {
+            const parentNode = datasetTree.find(d => `#/datasetTree/${datasetTree.indexOf(d)}` === parentRef);
+            if (parentNode) {
+                childrenMap[parentNode.name] = childrenMap[parentNode.name] || [];
+                childrenMap[parentNode.name].push(item);
+            }
+        }
+    });
+
+    return Object.keys(childrenMap).length > 0;
 };

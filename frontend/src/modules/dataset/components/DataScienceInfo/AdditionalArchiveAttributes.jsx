@@ -1,6 +1,7 @@
+import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 
-const AdditionalArchiveAttributes = ({ datasetDetails }) => {
+const AdditionalArchiveAttributes = ({ dataset, datasetDetails }) => {
 
     const { t } = useTranslation();
 
@@ -10,13 +11,13 @@ const AdditionalArchiveAttributes = ({ datasetDetails }) => {
                 <p className="small mb-1 fw-500 text-uppercase">{t("dataset.compression")}</p>
             </div>
             <div className="col-6">
-                <p className="small mb-1">{datasetDetails?._source?.compression ?? "None"}</p>
+                <p className="small mb-1">{dataset?.algorithm}</p>
             </div>
             <div className="col-6">
-                <p className="small mb-1 fw-500 text-uppercase">Uncompressed volume</p>
+                <p className="small mb-1 fw-500 text-uppercase">{t("dataset.uncompressedVolume")}</p>
             </div>
             <div className="col-6">
-                <p className="small mb-1">TBA</p>
+                <p className="small mb-1">{filesize(dataset?.extractedSize)}</p>
             </div>
         </>
     );

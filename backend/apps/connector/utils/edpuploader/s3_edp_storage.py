@@ -56,13 +56,9 @@ class S3EDPStorage:
             if isinstance(result, list) and len(result) == 1 and "Deleted" in result[0]:
                 num_deleted = len(result[0]["Deleted"])
                 full_download_url = HttpUrl(f"https://{self._bucket.name}.s3.amazonaws.com/{edp_id}")
-                logger.info(
-                    "Deleted '%s' from S3: %s (num items: %d)",
-                    edp_id,
-                    full_download_url,
-                    num_deleted,
-                )
-            logger.warning("Got unexpected response from S3 storage %s", result)
+                logger.info("Deleted '%s' from S3: %s (num items: %d)", edp_id, full_download_url, num_deleted)
+            else:
+                logger.warning("Got unexpected response from S3 storage %s", result)
         except ClientError as e:
             logger.error(e)
             raise APIException(f"Unable to delete edp {edp_id} to S3: {e}")

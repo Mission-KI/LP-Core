@@ -1,9 +1,22 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
 version: 2
+registries:
+  edp-repo:
+    type: python-index
+    url: https://github.com/Beebucket/extended_dataset_profile
+    username: git
+    password: ${{secrets.GIT_HUB_API_KEY}}
+    replaces-base: true
+
 updates:
   - package-ecosystem: "uv"
     directory: "/"
     schedule:
-      interval: "weekly" # or "daily"?
+      interval: "weekly"
     commit-message:
       prefix: "build(deps):"
       include: "scope"
@@ -14,3 +27,5 @@ updates:
       - "nenadblagov"
       - "kb-beebucket"
     target-branch: "dev"
+    registries:
+      - edp-repo

@@ -9,7 +9,7 @@ import Footer from '../../../common/components/Footer/Footer';
 
 function Search() {
 
-  const [datasets, setDatasets] = useState({});
+  const [datasets, setDatasets] = useState([]);
   const [searchParams, setSearchParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 12;
@@ -32,6 +32,7 @@ function Search() {
   }, [location]);
 
   useEffect(() => {
+    setDatasets([])
     const fetchDatasets = async () => {
       setLoading(true);
       try {
