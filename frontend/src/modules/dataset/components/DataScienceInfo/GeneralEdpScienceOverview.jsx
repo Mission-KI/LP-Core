@@ -1,10 +1,9 @@
 import React from 'react';
 import { getEdpLanguagesList } from '../../utils/edp_utils';
 import { filesize } from 'filesize';
-import { calculateDataTypesAttribute } from '../../utils/calculations';
 import { useTranslation } from 'react-i18next';
 
-const GeneralEdpScienceOverview = ({ datasetDetails }) => {
+const GeneralEdpScienceOverview = ({ datasetTreeItem, datasetDetails }) => {
 
     const { t } = useTranslation();
 
@@ -24,7 +23,7 @@ const GeneralEdpScienceOverview = ({ datasetDetails }) => {
             </div>
             <div className="col-6">
                 <p className="small mb-1">
-                    TBA
+                    {datasetTreeItem?.fileProperties.fileType}
                 </p>
             </div>
             <div className="col-6">
@@ -33,7 +32,7 @@ const GeneralEdpScienceOverview = ({ datasetDetails }) => {
             <div className="col-6">
                 <p className="small mb-1">{filesize(datasetDetails?._source?.volume)}</p>
             </div>
-          
+
             <div className="col-6">
                 <p className="small mb-1 fw-500 text-uppercase">{t("dataset.languages")}</p>
             </div>

@@ -28,3 +28,19 @@ export const getNumericOutlierAnalysis = (dataset) => {
         return `many outliers (${averageOutlierPercentage.toFixed(2)}%)`;
     }
 };
+
+export const resolveDataset = (datasetDetails, datasetRef) => {
+    const match = datasetRef.match(/^#\/([^/]+)\/(\d+)$/);
+    
+    if (match) {
+        const [, arrayName, index] = match;
+        
+        const datasetsArray = datasetDetails?._source?.[arrayName];
+        
+        if (datasetsArray && Array.isArray(datasetsArray)) {
+            return datasetsArray[parseInt(index, 10)] || null;
+        }
+    }
+
+    return null;
+};
