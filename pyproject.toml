@@ -1,7 +1,6 @@
 [project]
 name = "daseen"
 description = "Daseen"
-readme = "README.md"
 dynamic = ["version"]
 authors = [
     { name = "Kai Buschulte", email = "kb@beebucket.de" }
