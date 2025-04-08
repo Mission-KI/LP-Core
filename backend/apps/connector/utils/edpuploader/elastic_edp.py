@@ -99,10 +99,7 @@ class ElasticDBWrapper:
     def delete(self, edp_id: str):
         logger.info("Deleting EDP with ID '%s' to Elastic Search", edp_id)
         try:
-            self._elastic_client.delete(
-                index=self._config.elastic_index,
-                id=edp_id,
-            )
+            self._elastic_client.delete(index=self._config.elastic_index, id=edp_id)
         except NotFoundError:
             logger.warning(f"No EDP with id {edp_id} found for deletion")
             return
