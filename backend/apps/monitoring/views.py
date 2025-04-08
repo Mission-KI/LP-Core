@@ -37,7 +37,7 @@ class MonitoringAnalyticsView(APIView):
                 return response
             elastic_counts = response.data
 
-            edp_event_counts = get_edp_event_counts(dataSpaceName)
+            edp_event_counts = get_edp_event_counts(dataSpaceName, publisher)
 
             analytics_data = {
                 "edp_count": elastic_counts["aggregations"]["total_items"]["doc_count"],

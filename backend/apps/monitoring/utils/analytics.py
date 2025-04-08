@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import Optional
 
 from apps.search.utils.elasticsearch import elasticsearch_request
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.db.models.functions import TruncMonth
 from django.utils.timezone import now
 
@@ -65,8 +65,12 @@ def get_elastic_monitoring_analytics(data_space_name: str, publisher: Optional[s
     return elasticsearch_request("POST", "_search", query)
 
 
-def get_edp_event_counts(data_space_name: str):
+def get_edp_event_counts(data_space_name: str, publisher: Optional[str] = None):
     edp_events = EventLog.objects.filter(dataspace__name=data_space_name)
+    if publisher:
+        edp_events = edp_events.filter(
+            Q(metadata__contains={"assetRefs": [{"publisher__name": publisher}]})
+        )
 
     edp_successful_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_SUCCESS).count()
     edp_failed_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_FAIL).count()
