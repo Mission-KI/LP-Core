@@ -721,6 +721,9 @@ input:checked+.slider:before {
 
 .breadcrumb-item {
   font-size: 10pt !important;
+}
+
+.breadcrumb-item[href] {
   color: var(--color-primary) !important;
 }
 
