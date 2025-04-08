@@ -12,7 +12,10 @@ const DatasetAnalyticsSection = ({ datasetDetails, datasetRef }) => {
             <div className="col-md-4">
                 <div className="border-lighter shadow rounded bgc-body p-3 mt-4">
                     <p className="bold h5 mb-3 pb-4">{t("dataset.dataScienceInfo")}</p>
-                    <DataScienceInfo datasetDetails={datasetDetails} />
+                    <DataScienceInfo
+                        datasetDetails={datasetDetails}
+                        datasetRef={datasetRef}
+                    />
                 </div>
                 {datasetDetails?._source?.tags?.length > 0 && (
                     <div className="d-flex align-items-center flex-wrap mt-5">
