@@ -5,6 +5,8 @@ const Breadcrumbs = () => {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
+  const nonLinkPaths = ['details'];
+
   const formatName = (name) =>
     name
       .replace(/[-_]/g, ' ')
@@ -20,11 +22,14 @@ const Breadcrumbs = () => {
         const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
         const isLast = index === pathnames.length - 1;
 
+        const isLink = !nonLinkPaths.includes(name.toLowerCase());
+
         return (
           <Breadcrumb.Item
             key={index}
-            linkAs={!isLast ? Link : undefined}
-            linkProps={!isLast ? { to: routeTo } : undefined}
+            linkAs={isLink ? Link : 'span'}
+            linkProps={isLink ? { to: routeTo } : undefined}
+            className={!isLink ? 'txt-lighter' : ''}
           >
             {formatName(name)}
           </Breadcrumb.Item>
