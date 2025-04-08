@@ -191,6 +191,7 @@ export const getDatasets = async (from = 0, size = 10) => {
         const query = {
             "from": from,
             "size": size,
+            "version": true,
             ...(filters.length > 0 ? {
                 "query": {
                     "bool": {

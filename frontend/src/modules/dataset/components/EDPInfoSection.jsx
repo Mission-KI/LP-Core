@@ -70,6 +70,11 @@ const EDPInfoSection = ({ datasetDetails }) => {
                 <span className="small pe-3">
                     {t("dataset.version")} {(parseInt(datasetDetails._source?.assetRefs?.[0]?.assetVersion) ?? 1).toFixed(1)}
                 </span>
+
+                <span className="small pe-3">
+                    {t("dataset.edpVersion")} {(parseInt(datasetDetails._version) ?? 1).toFixed(1)}
+                </span>
+
                 <span className="small pe-3">
                     {t('dataset.assetUploaded')} &nbsp;
                     {new Date(datasetDetails._source?.assetRefs?.[0]?.publishDate).toLocaleDateString()}
