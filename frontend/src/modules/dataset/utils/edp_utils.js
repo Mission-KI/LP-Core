@@ -48,7 +48,6 @@ export const datasetHasChildren = (datasetDetails, datasetRef) => {
     const datasetTree = datasetDetails?._source?.datasetTree || [];
 
     const rootNode = datasetTree.find(item => item.dataset["$ref"] === datasetRef);
-    console.log(rootNode);
 
     if (!rootNode) {
         return false;
