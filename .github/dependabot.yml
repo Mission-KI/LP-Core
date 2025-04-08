@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "uv"
+    directory: "/"
+    schedule:
+      interval: "weekly" # or "daily"?
+    commit-message:
+      prefix: "build(deps):"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "automated updates"
+    reviewers:
+      - "nenadblagov"
+      - "kb-beebucket"
