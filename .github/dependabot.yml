@@ -13,3 +13,4 @@ updates:
     reviewers:
       - "nenadblagov"
       - "kb-beebucket"
+    target-branch: "dev"
