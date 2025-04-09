@@ -23,7 +23,7 @@ const GeneralEdpScienceOverview = ({ datasetTreeItem, datasetDetails }) => {
             </div>
             <div className="col-6">
                 <p className="small mb-1">
-                    {datasetTreeItem?.fileProperties.fileType}
+                    {datasetTreeItem?.fileProperties?.fileType}
                 </p>
             </div>
             <div className="col-6">

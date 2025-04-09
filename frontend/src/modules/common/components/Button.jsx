@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Spinner } from 'react-bootstrap';
 
 const Button = ({ variant, size, children, onClick, disabled, type, loading }) => {
 
@@ -11,7 +11,7 @@ const Button = ({ variant, size, children, onClick, disabled, type, loading }) =
             onClick={onClick}
             disabled={disabled || loading}
         >
-            {loading && <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>}
+            {loading && <Spinner size="sm" variant="light" className="me-3" />}
             {children}
         </button>
     );

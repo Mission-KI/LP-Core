@@ -51,11 +51,25 @@ def get_elastic_monitoring_analytics(data_space_name: str, publisher: Optional[s
                 "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
             },
             "publishers_list": {
-                "nested": {"path": "assetRefs"},
+                "global": {},
                 "aggs": {
-                    "publishers": {
-                        "terms": {"field": "assetRefs.publisher.name.keyword", "size": 100},
-                        "aggs": {"asset_count": {"value_count": {"field": "assetRefs.publisher.name.keyword"}}},
+                    "filtered_by_dataspace": {
+                        "nested": {"path": "assetRefs"},
+                        "aggs": {
+                            "filtered": {
+                                "filter": {"term": {"assetRefs.dataSpace.name.keyword": data_space_name}},
+                                "aggs": {
+                                    "publishers": {
+                                        "terms": {"field": "assetRefs.publisher.name.keyword", "size": 100},
+                                        "aggs": {
+                                            "asset_count": {
+                                                "value_count": {"field": "assetRefs.publisher.name.keyword"}
+                                            }
+                                        },
+                                    }
+                                },
+                            }
+                        },
                     }
                 },
             },
@@ -65,8 +79,10 @@ def get_elastic_monitoring_analytics(data_space_name: str, publisher: Optional[s
     return elasticsearch_request("POST", "_search", query)
 
 
-def get_edp_event_counts(data_space_name: str):
+def get_edp_event_counts(data_space_name: str, publisher: Optional[str] = None):
     edp_events = EventLog.objects.filter(dataspace__name=data_space_name)
+    if publisher:
+        edp_events = edp_events.filter(metadata__assetRefs__0__publisher__name=publisher)
 
     edp_successful_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_SUCCESS).count()
     edp_failed_uploads = edp_events.filter(type=EventLog.TYPE_UPLOAD, status=EventLog.STATUS_FAIL).count()
@@ -88,7 +104,7 @@ def get_edp_event_counts(data_space_name: str):
     twelve_months_ago = current_month - timedelta(days=365)
 
     downloads_per_month = (
-        EventLog.objects.filter(type=EventLog.TYPE_DOWNLOAD, created_at__gte=twelve_months_ago)
+        edp_events.filter(type=EventLog.TYPE_DOWNLOAD, created_at__gte=twelve_months_ago)
         .annotate(month=TruncMonth("created_at"))
         .values("month")
         .annotate(count=Count("id"))
@@ -100,7 +116,7 @@ def get_edp_event_counts(data_space_name: str):
         downloads_by_month[month_str] = entry["count"]
 
     uploads_per_month = (
-        EventLog.objects.filter(type=EventLog.TYPE_UPLOAD, created_at__gte=twelve_months_ago)
+        edp_events.filter(type=EventLog.TYPE_UPLOAD, created_at__gte=twelve_months_ago)
         .annotate(month=TruncMonth("created_at"))
         .values("month")
         .annotate(count=Count("id"))
