@@ -13,9 +13,9 @@ const TreeNode = ({ node, datasetDetails, childrenMap, expandedByDefault }) => {
 
     return (
         <div>
-            <div className="d-flex pt-3">
+            <div className="d-flex pt-4">
                 {hasChildren && (
-                    <div className="pe-3">
+                    <div className="pe-4">
                         <button className="btn btn-hover txt-regular px-1 p-0" onClick={toggleExpand} style={{ cursor: "pointer" }}>
                             {hasChildren && (isExpanded ? <ChevronDown /> : <ChevronRight />)}
                         </button>
