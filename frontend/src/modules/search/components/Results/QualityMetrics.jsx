@@ -67,7 +67,7 @@ const QualityMetrics = ({ dataset }) => {
                     </div>
                 </OverlayTrigger>
             </div>
-            {dataset?._source?.allowed_for_ai_training && (
+            {dataset?._source?.allowedForAiTraining && (
                 <div className="ps-2">
                     <OverlayTrigger
                         placement="top"
