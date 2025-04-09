@@ -50,7 +50,9 @@ class MonitoringAnalyticsView(APIView):
                 "aiml_result_data_count": elastic_counts["aggregations"]["total_aiml_result_data_assets"]["count"][
                     "value"
                 ],
-                "publishers": elastic_counts["aggregations"]["publishers_list"]["publishers"]["buckets"],
+                "publishers": elastic_counts["aggregations"]["publishers_list"]["filtered_by_dataspace"]["filtered"][
+                    "publishers"
+                ]["buckets"],
                 "edp_event_counts": edp_event_counts,
             }
 
