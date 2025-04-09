@@ -2,7 +2,7 @@ from datetime import timedelta
 from typing import Optional
 
 from apps.search.utils.elasticsearch import elasticsearch_request
-from django.db.models import Count, Q
+from django.db.models import Count
 from django.db.models.functions import TruncMonth
 from django.utils.timezone import now
 
