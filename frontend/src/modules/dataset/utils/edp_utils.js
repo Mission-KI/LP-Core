@@ -68,5 +68,5 @@ export const datasetHasChildren = (datasetDetails, datasetRef) => {
         }
     });
 
-    return Object.keys(childrenMap).length > 0;
+    return childrenMap[rootNode.name]?.length > 0;
 };
