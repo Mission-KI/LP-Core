@@ -1,5 +1,3 @@
-# Create your tests here.
-
 from unittest.mock import MagicMock
 
 import pytest
@@ -39,7 +37,18 @@ def test_analytics(monkeypatch):
                     "total_processed_data_assets": {"count": {"value": 30}},
                     "total_refined_data_assets": {"count": {"value": 40}},
                     "total_aiml_result_data_assets": {"count": {"value": 50}},
-                    "publishers_list": {"publishers": {"buckets": [{"key": "publisher1"}, {"key": "publisher2"}]}},
+                    "publishers_list": {
+                        "filtered_by_dataspace": {
+                            "filtered": {
+                                "publishers": {
+                                    "buckets": [
+                                        {"key": "publisher1"},
+                                        {"key": "publisher2"},
+                                    ]
+                                }
+                            }
+                        }
+                    },
                 }
             },
         )
