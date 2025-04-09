@@ -1,4 +1,4 @@
-import TreeNode from "./Dataset";
+import Dataset from "./Dataset";
 
 const EDP = ({ dataset, datasetTree }) => {
     if (!datasetTree) return null;
@@ -23,7 +23,7 @@ const EDP = ({ dataset, datasetTree }) => {
     return (
         <div className="w-100 d-flex flew-column">
             {rootNodes.map((node) => (
-                <TreeNode
+                <Dataset
                     key={node.name}
                     node={node}
                     childrenMap={childrenMap}
