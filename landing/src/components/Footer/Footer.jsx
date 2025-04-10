@@ -23,10 +23,8 @@ const Footer = () => {
             <Link to="/use-policy" className={styles.footerLink}>
               {t("footer.usePolicy")}
             </Link>
+            <span className={styles.footerLink}>{t("footer.c")}</span>
           </div>
-          <span className={`${styles.footerLink}`}>
-            <span className="txt-primary h6 fw-400 mb-0">{t("footer.c")}</span>
-          </span>
         </div>
       </div>
     </div>

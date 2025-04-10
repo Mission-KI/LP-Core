@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router"; // Added useLocation
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import AttributeList from "./AttributeList";
@@ -18,18 +19,17 @@ import Schema from "./Schema";
 import UnstructuredText from "./UnstructuredText";
 import Image from "./Image";
 import DatasetStructure from "../DatasetStructure/DatasetStructure";
-import { useNavigate } from "react-router";
 import { datasetHasChildren } from "../../utils/edp_utils";
 
 const DatasetTabs = ({ datasetDetails, datasetRef }) => {
   const doesDatasetHaveChildren = datasetHasChildren(
     datasetDetails,
-    datasetRef,
+    datasetRef
   );
   const isDocumentDataset = datasetRef.includes("#/documentDatasets");
   const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
   const isUnstructuredDataset = datasetRef.includes(
-    "#/unstructuredTextDatasets",
+    "#/unstructuredTextDatasets"
   );
   const isImageDataset = datasetRef.includes("#/imageDatasets");
 
@@ -51,6 +51,7 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const tabs = [
     ...(doesDatasetHaveChildren
@@ -184,7 +185,7 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
     if (location.hash) {
       setActiveKey(location.hash.replace("#", ""));
     }
-  }, [location.hash]);
+  }, [location]);
 
   const toggleTab = (key) => {
     setActiveKey(key);

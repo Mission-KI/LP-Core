@@ -6,13 +6,14 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import { getDataset } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const Dataset = () => {
   const { id } = useParams();
   const [datasetDetails, setDatasetDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
-
+  const navigate = useNavigate();
   const { datasetName } = useParams();
   const datasetTree = datasetDetails?._source?.datasetTree;
   const dataset = datasetTree?.find((item) => item.name === datasetName);
