@@ -14,7 +14,7 @@
   --color-darker-gray: #d9d9d9;
   --color-danger: #da5778;
   --color-success: #20c996aa !important;
-  --toastify-color-success: #43acff !important;
+  --toastify-color-success: #20c996 !important;
   --search-bar-color: #ecedef;
   --search-bar-hover-color: #e8e9ea;
   --header-color: #fff;
@@ -359,6 +359,7 @@ li.selected .pagination-btn,
 }
 
 .modal-content {
+  color: unset !important;
   border: none !important;
   background-color: var(--content-over-widget-color) !important;
 }

@@ -41,7 +41,7 @@ const HomeHeader = () => {
       className="bg-transparent py-3 m-auto"
       style={{ maxWidth: 1100 }}
     >
-      <Container>
+      <div className="container-fluid">
         <Button
           id="custom-nav-toggle"
           className="btn-basic me-2 txt-regular bgc-body border-0 d-md-none"
@@ -95,7 +95,7 @@ const HomeHeader = () => {
             </a>
           </div>
         </Nav>
-      </Container>
+      </div>
       {showDropdown && (
         <MobileHeaderDropdown landingRedirectUrl={landingRedirectUrl} />
       )}
