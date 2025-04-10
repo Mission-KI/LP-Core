@@ -372,17 +372,15 @@ export const getTotalCount = async () => {
   }
 };
 
-export const getBookmarkedDatasets = async (from = 0, size = 10) => {
+export const getBookmarkedDatasets = async (bookmarks) => {
   try {
-    const bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
-
     if (bookmarks.length === 0) {
       return { hits: { hits: [] } };
     }
 
     const query = {
-      from: from,
-      size: size,
+      from: 0,
+      size: 10,
       query: {
         terms: {
           _id: bookmarks,

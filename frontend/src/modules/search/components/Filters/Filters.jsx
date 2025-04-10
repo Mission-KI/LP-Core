@@ -15,6 +15,22 @@ import { useCallback } from "react";
 function Filters() {
   const { filterSections, loading } = useFilterSections();
   const { alwaysExpandFilters } = useSettings();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { t } = useTranslation();
+  const dropdownRef = useRef(null);
+
+  const getQueryParams = useCallback(() => {
+    const params = new URLSearchParams(location.search);
+    const queryObj = {};
+    params.forEach((value, key) => {
+      if (!queryObj[key]) {
+        queryObj[key] = [];
+      }
+      queryObj[key].push(value);
+    });
+    return queryObj;
+  }, [location.search]);
 
   useEffect(() => {
     if (alwaysExpandFilters) {
@@ -22,16 +38,16 @@ function Filters() {
     }
   }, [alwaysExpandFilters]);
 
+  useEffect(() => {
+    const queryParams = getQueryParams();
+    setSelectedFilters(queryParams);
+  }, [location, getQueryParams]);
+
   const [filtersDropdownVisible, setFiltersDropdownVisible] =
     useState(alwaysExpandFilters);
   const [checkedOptions, setCheckedOptions] = useState({});
   const [checkedRadios, setCheckedRadios] = useState({});
   const [rangeValues, setRangeValues] = useState({});
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { t } = useTranslation();
-  const dropdownRef = useRef(null);
 
   const handleClearFilters = () => {
     navigate(location.pathname, { replace: true });
@@ -47,25 +63,8 @@ function Filters() {
     setFiltersDropdownVisible(!filtersDropdownVisible);
   };
 
-  const getQueryParams = useCallback(() => {
-    const params = new URLSearchParams(location.search);
-    const queryObj = {};
-    params.forEach((value, key) => {
-      if (!queryObj[key]) {
-        queryObj[key] = [];
-      }
-      queryObj[key].push(value);
-    });
-    return queryObj;
-  }, [location.search]);
-
   const [selectedFilters, setSelectedFilters] = useState({});
   const ignoredKeys = ["q", "page"];
-
-  useEffect(() => {
-    const queryParams = getQueryParams();
-    setSelectedFilters(queryParams);
-  }, [location, getQueryParams]);
 
   useEffect(() => {
     const queryParams = getQueryParams();
@@ -98,7 +97,8 @@ function Filters() {
     setCheckedOptions(newCheckedOptions);
     setRangeValues(newRangeValues);
     setCheckedRadios(newCheckedRadios);
-  }, [location, loading, filterSections, getQueryParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search]);
 
   const updateQueryParams = (name, value, checked) => {
     const params = new URLSearchParams(location.search);
@@ -223,9 +223,9 @@ function Filters() {
           className={`${styles.filtersWrapper} row`}
           style={{ maxWidth: 900 }}
         >
-          {filterSections?.map((filterSection) => (
+          {filterSections?.map((filterSection, key) => (
             <FormGroup
-              key={filterSection.title}
+              key={key}
               className={`mb-2 ${
                 filterSection.type === "checkboxes" ||
                 filterSection.type === "radio"
@@ -250,9 +250,9 @@ function Filters() {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu className="border-0 shadow rounded">
-                      {filterSection?.filters?.map((filter) => (
+                      {filterSection?.filters?.map((filter, key) => (
                         <Dropdown.Item
-                          key={filter.value}
+                          key={key}
                           as="div"
                           className="d-flex align-items-center"
                         >
@@ -278,9 +278,9 @@ function Filters() {
                   </Dropdown>
                 ) : filterSection.type == "single_icon" ? (
                   <div>
-                    {filterSection.filters.map((filter) => (
+                    {filterSection.filters.map((filter, key) => (
                       <button
-                        key={filter.value}
+                        key={key}
                         type="button"
                         className={`btn ps-0 ${checkedOptions[filter.label] ? "txt-primary bold" : "txt-lighter"}`}
                         id={`checkbox-${filter.value}`}
@@ -296,8 +296,8 @@ function Filters() {
                   </div>
                 ) : filterSection.type == "doublerange" ? (
                   <div className="d-flex w-100">
-                    {filterSection.filters.map((filter) => (
-                      <div className="col-md-6">
+                    {filterSection.filters.map((filter, key) => (
+                      <div className="col-md-6" key={key}>
                         <label className="small mb-2">
                           {t(`filters.${filter.label}`)}
                         </label>
@@ -340,8 +340,8 @@ function Filters() {
                   </div>
                 ) : filterSection.type == "filesize" ? (
                   <>
-                    {filterSection.filters.map((filter) => (
-                      <div style={{ width: "100%" }}>
+                    {filterSection.filters.map((filter, key) => (
+                      <div style={{ width: "100%" }} key={key}>
                         <div className="d-flex flex-column w-100">
                           <label className="small mb-2">
                             {t("filters.sizeRange")}
@@ -403,9 +403,9 @@ function Filters() {
                   <>
                     {
                       <div className="d-flex">
-                        {filterSection.filters.map((filter) => (
+                        {filterSection.filters.map((filter, key) => (
                           <button
-                            key={filter.value}
+                            key={key}
                             type="button"
                             className={`btn ${checkedRadios[filter.name] === filter.value ? "bold txt-primary" : "txt-lighter"}`}
                             onClick={() => handleRadioChange(filter)}

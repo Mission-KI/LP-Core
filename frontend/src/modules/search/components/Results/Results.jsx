@@ -1,16 +1,6 @@
-import React, { useEffect, useState } from "react";
-import {
-  CardText,
-  Grid,
-  List,
-  ListColumns,
-  ListTask,
-  Star,
-  StarFill,
-  TicketFill,
-} from "react-bootstrap-icons";
+import { useState } from "react";
+import { Grid, ListTask } from "react-bootstrap-icons";
 import ResultItem from "./ResultItem";
-import { Spinner } from "react-bootstrap";
 import styles from "./Results.module.css";
 import { useTranslation } from "react-i18next";
 import Paginator from "../../../common/components/widgets/Paginator";

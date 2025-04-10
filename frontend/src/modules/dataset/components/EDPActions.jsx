@@ -1,34 +1,15 @@
-import React, { useEffect, useState } from "react";
 import { Download, Link45deg, Star, StarFill } from "react-bootstrap-icons";
-import {
-  addBookmark,
-  isBookmarked,
-  removeBookmark,
-} from "../../common/utils/bookmarks";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { notifyEdpDownloadEvent } from "../api/dataset";
 import { apiUrl, imageBasePath } from "../../common/api/config";
+import { useBookmarks } from "../../bookmarks/contexts/BookmarksContext";
 
-const DatasetActions = ({ datasetDetails }) => {
-  const [bookmarked, setBookmarked] = useState(false);
+const EDPActions = ({ datasetDetails }) => {
+  const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
   const { t } = useTranslation();
   const location = useLocation();
-
-  useEffect(() => {
-    setBookmarked(isBookmarked(datasetDetails?._id));
-  }, [datasetDetails]);
-
-  const handleAddBookmark = (id) => {
-    addBookmark(id);
-    window.location.reload();
-  };
-
-  const handleRemoveBookmark = (id) => {
-    removeBookmark(id);
-    window.location.reload();
-  };
 
   const handleDownload = async (url) => {
     if (!url) return;
@@ -80,10 +61,10 @@ const DatasetActions = ({ datasetDetails }) => {
             <Download className="me-2" /> {t("header.getDataset")}
           </button>
         </div>
-        {!bookmarked ? (
+        {!isBookmarked(datasetDetails?._id) ? (
           <div className="pe-2 pt-1">
             <span
-              onClick={() => handleAddBookmark(datasetDetails?._id)}
+              onClick={() => addBookmark(datasetDetails?._id)}
               data-test-id="bookmark-button"
               className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
@@ -94,7 +75,7 @@ const DatasetActions = ({ datasetDetails }) => {
         ) : (
           <div className="pe-2 pt-1">
             <span
-              onClick={() => handleRemoveBookmark(datasetDetails?._id)}
+              onClick={() => removeBookmark(datasetDetails?._id)}
               className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
               <StarFill className="me-2" />
@@ -107,4 +88,4 @@ const DatasetActions = ({ datasetDetails }) => {
   );
 };
 
-export default DatasetActions;
+export default EDPActions;

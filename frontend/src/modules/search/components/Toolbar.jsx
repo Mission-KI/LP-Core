@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Gear, Star, StarFill } from "react-bootstrap-icons";
-import { getBookmarks } from "../../common/utils/bookmarks";
 import { Link } from "react-router-dom";
 import SettingsModal from "../../common/components/SettingsModal/SettingsModal";
 import LanguageSelector from "../../common/components/widgets/LanguageSelector";
+import { useBookmarks } from "../../bookmarks/contexts/BookmarksContext";
 
 const Toolbar = () => {
+  const { bookmarks } = useBookmarks();
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   return (
@@ -26,7 +27,7 @@ const Toolbar = () => {
           to="/bookmarks"
           className="btn-hover px-2 h-100 d-flex align-items-center txt-regular"
         >
-          {getBookmarks().length > 0 ? (
+          {bookmarks.length > 0 ? (
             <StarFill className="h5 m-0" />
           ) : (
             <Star className="h5 m-0" />

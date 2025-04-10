@@ -1,4 +1,4 @@
-import DatasetActions from "./DatasetActions";
+import EDPActions from "./EDPActions";
 import QualityMetrics from "../../search/components/Results/QualityMetrics";
 import moment from "moment";
 import { ChevronDown, ChevronUp } from "react-bootstrap-icons";
@@ -25,7 +25,7 @@ const EDPInfoSection = ({ datasetDetails }) => {
             <QualityMetrics dataset={datasetDetails} />
           </div>
         </div>
-        <DatasetActions datasetDetails={datasetDetails} />
+        <EDPActions datasetDetails={datasetDetails} />
       </div>
 
       <div>
