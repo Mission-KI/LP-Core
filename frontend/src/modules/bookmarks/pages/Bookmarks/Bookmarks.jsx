@@ -4,9 +4,11 @@ import { useTranslation } from "react-i18next";
 import { Spinner } from "react-bootstrap";
 import { StarHalf } from "react-bootstrap-icons";
 import ResultItem from "../../../search/components/Results/ResultItem";
+import { useBookmarks } from "../../contexts/BookmarksContext";
 
 const Bookmarks = () => {
-  const [bookmarks, setBookmarks] = useState({});
+  const { bookmarks } = useBookmarks();
+  const [bookmarkedItems, setBookmarkedItems] = useState({});
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
 
@@ -14,8 +16,8 @@ const Bookmarks = () => {
     const fetchBookmarks = async () => {
       setLoading(true);
       try {
-        const fetchedBookmarks = await getBookmarkedDatasets();
-        setBookmarks(fetchedBookmarks);
+        const fetchedBookmarks = await getBookmarkedDatasets(bookmarks);
+        setBookmarkedItems(fetchedBookmarks);
       } catch (error) {
         console.error("Error fetching bookmarks:", error);
       } finally {
@@ -24,7 +26,7 @@ const Bookmarks = () => {
     };
 
     fetchBookmarks();
-  }, []);
+  }, [bookmarks]);
 
   if (loading) {
     return (
@@ -37,20 +39,32 @@ const Bookmarks = () => {
     );
   }
 
-  return (
-    <div className="container pb-4">
-      <h2 className="bold mb-5">{t("bookmarks.bookmarks")}</h2>
+  const hasBookmarks = bookmarkedItems?.hits?.hits?.length > 0;
 
-      {bookmarks?.hits?.hits?.length > 0 ? (
-        bookmarks.hits.hits.map((dataset) => (
+  return (
+    <div className="container">
+      {hasBookmarks && (
+        <h2 className="bold mb-5">{t("bookmarks.bookmarks")}</h2>
+      )}
+
+      {hasBookmarks ? (
+        bookmarkedItems.hits.hits.map((dataset) => (
           <ResultItem dataset={dataset} key={dataset._id} />
         ))
       ) : (
-        <div className="d-flex flex-column align-items-center justify-content-center mt-5 pt-5">
-          <StarHalf className="txt-lighter mt-5" style={{ fontSize: "50pt" }} />
-          <h5 className="mt-4 txt-lighter" style={{ fontWeight: "400" }}>
-            {t("bookmarks.noBookmarks")}
-          </h5>
+        <div
+          className="d-flex align-items-center justify-content-center"
+          style={{ height: "calc(100vh - 120.5px)" }}
+        >
+          <div
+            className="d-flex flex-column align-items-center"
+            style={{ transform: "translateY(-50%)" }}
+          >
+            <StarHalf className="txt-lighter" style={{ fontSize: "50pt" }} />
+            <h5 className="pt-4 txt-lighter" style={{ fontWeight: "400" }}>
+              {t("bookmarks.noBookmarks")}
+            </h5>
+          </div>
         </div>
       )}
     </div>

@@ -1,25 +1,15 @@
-import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Results.module.css";
 import QuickView from "../QuickView/QuickView";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
-import { isBookmarked } from "../../../common/utils/bookmarks";
 import { StarFill } from "react-bootstrap-icons";
-import { useTranslation } from "react-i18next";
 import { Card } from "react-bootstrap";
 import { truncateString } from "../../../common/utils/format_utils";
 import QualityMetrics from "./QualityMetrics";
+import { useBookmarks } from "../../../bookmarks/contexts/BookmarksContext";
 
 function ResultItemCard({ dataset }) {
-  const [isBookmarkedState, setIsBookmarkedState] = useState(false);
-
-  const { t } = useTranslation();
-
-  useEffect(() => {
-    if (dataset?._id) {
-      setIsBookmarkedState(isBookmarked(dataset._id));
-    }
-  }, [dataset]);
+  const { isBookmarked } = useBookmarks();
 
   return (
     <div className="col-md-4 pb-4">
@@ -33,16 +23,12 @@ function ResultItemCard({ dataset }) {
               <QuickView dataset={dataset} />
             </div>
             <div className="d-flex align-items-center ms-auto">
-              {isBookmarkedState && (
+              {isBookmarked(dataset._id) && (
                 <span className="py-1">
                   <StarFill />
                 </span>
               )}
-              <DatasetOptionsDropdown
-                dataset={dataset}
-                isBookmarkedState={isBookmarkedState}
-                setIsBookmarkedState={setIsBookmarkedState}
-              />
+              <DatasetOptionsDropdown dataset={dataset} />
             </div>
           </div>
 

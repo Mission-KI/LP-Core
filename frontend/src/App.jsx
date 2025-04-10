@@ -22,9 +22,9 @@ import helpRoutes from "./modules/help";
 import { ThemeProvider } from "./modules/common/contexts/ThemeContext";
 import { SettingsProvider } from "./modules/common/contexts/SettingsContext";
 import monitoringRoutes from "./modules/monitoring";
-import Details from "./modules/dataset/pages/Details/Details";
 import DetailViewLayout from "./modules/dataset/layouts/DetailViewLayout";
 import HelpLayout from "./modules/help/layouts/HelpLayout";
+import { BookmarksProvider } from "./modules/bookmarks/contexts/BookmarksContext";
 
 // Predefined hashed password
 const salt = bcrypt.genSaltSync(10);
@@ -105,14 +105,16 @@ const renderRoutes = (routes) => {
 function App() {
   return (
     <Router>
-      <ThemeProvider>
-        <SettingsProvider>
-          <AuthProvider>
-            <ScrollToTop />
-            <Routes>{renderRoutes(routes)}</Routes>
-          </AuthProvider>
-        </SettingsProvider>
-      </ThemeProvider>
+      <BookmarksProvider>
+        <ThemeProvider>
+          <SettingsProvider>
+            <AuthProvider>
+              <ScrollToTop />
+              <Routes>{renderRoutes(routes)}</Routes>
+            </AuthProvider>
+          </SettingsProvider>
+        </ThemeProvider>
+      </BookmarksProvider>
     </Router>
   );
 }

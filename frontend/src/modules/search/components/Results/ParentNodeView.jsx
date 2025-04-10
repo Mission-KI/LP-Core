@@ -1,6 +1,5 @@
 import React from "react";
 import { StarFill } from "react-bootstrap-icons";
-import { isBookmarked } from "../../../common/utils/bookmarks";
 import QualityMetrics from "./QualityMetrics";
 import QuickView from "../QuickView/QuickView";
 import { Link } from "react-router-dom";
@@ -10,9 +9,11 @@ import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
+import { useBookmarks } from "../../../bookmarks/contexts/BookmarksContext";
 
 const ParentNodeView = ({ dataset }) => {
   const { t } = useTranslation();
+  const { isBookmarked } = useBookmarks();
 
   return (
     <div className="d-flex">
@@ -89,10 +90,7 @@ const ParentNodeView = ({ dataset }) => {
           </span>
         </div>
       </div>
-
-      <div className={`d-md-block d-none ${styles.optionsDropdownWrapper}`}>
-        <DatasetOptionsDropdown dataset={dataset} />
-      </div>
+      <DatasetOptionsDropdown dataset={dataset} />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { Dropdown } from "react-bootstrap";
 import {
   Download,
@@ -6,23 +5,11 @@ import {
   StarFill,
   ThreeDotsVertical,
 } from "react-bootstrap-icons";
-import {
-  addBookmark,
-  removeBookmark,
-  isBookmarked,
-} from "../../../common/utils/bookmarks";
 import { t } from "i18next";
+import { useBookmarks } from "../../../bookmarks/contexts/BookmarksContext";
 
 function DatasetOptionsDropdown({ dataset }) {
-  const handleAddBookmark = () => {
-    addBookmark(dataset._id);
-    window.location.reload();
-  };
-
-  const handleRemoveBookmark = () => {
-    removeBookmark(dataset._id);
-    window.location.reload();
-  };
+  const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
 
   return (
     <Dropdown className="mt-1">
@@ -45,7 +32,9 @@ function DatasetOptionsDropdown({ dataset }) {
           <Dropdown.Item
             as="button"
             className="d-flex align-items-center"
-            onClick={handleRemoveBookmark}
+            onClick={() => {
+              removeBookmark(dataset._id);
+            }}
           >
             <StarFill className="me-2" />
             {t("bookmarks.removeBookmark")}
@@ -54,7 +43,9 @@ function DatasetOptionsDropdown({ dataset }) {
           <Dropdown.Item
             as="button"
             className="d-flex align-items-center"
-            onClick={handleAddBookmark}
+            onClick={() => {
+              addBookmark(dataset._id);
+            }}
           >
             <Star className="me-2" />
             {t("bookmarks.bookmark")}

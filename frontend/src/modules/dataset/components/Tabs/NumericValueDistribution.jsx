@@ -3,7 +3,6 @@ import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import $ from "jquery";
 import ImageView from "../../../common/components/ImageView/ImageView";
-import { useTranslation } from "react-i18next";
 import { imageBasePath } from "../../../common/api/config";
 
 function NumericValueDistribution({ datasetDetails }) {
@@ -22,8 +21,6 @@ function NumericValueDistribution({ datasetDetails }) {
       table.destroy();
     };
   }, []);
-
-  const { t } = useTranslation();
 
   return (
     <Tabs

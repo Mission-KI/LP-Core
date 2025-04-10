@@ -3,7 +3,7 @@ import { Dropdown } from "react-bootstrap";
 import { InfoCircleFill } from "react-bootstrap-icons";
 import styles from "./QuickView.module.css";
 import DataScienceInfo from "../../../dataset/components/DataScienceInfo/DataScienceInfo";
-import DatasetActions from "../../../dataset/components/DatasetActions";
+import EDPActions from "../../../dataset/components/EDPActions";
 
 function QuickView({ dataset }) {
   const [show, setShow] = useState(false);
@@ -48,7 +48,7 @@ function QuickView({ dataset }) {
         <div className="container">
           <div>
             <div className="pb-4">
-              <DatasetActions datasetDetails={dataset} />
+              <EDPActions datasetDetails={dataset} />
             </div>
             <DataScienceInfo datasetDetails={dataset} datasetRef={datasetRef} />
           </div>
