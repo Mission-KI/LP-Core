@@ -665,13 +665,6 @@ input:checked + .slider:before {
   border-radius: 1rem;
 }
 
-*/ .dropdown-menu[data-bs-popper] {
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  border: 1px solid var(--color-light-gray) !important;
-  font-size: 12pt !important;
-}
-
 .pointy-dropdown::before {
   content: "";
   position: absolute;

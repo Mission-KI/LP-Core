@@ -1,5 +1,3 @@
-import React from "react";
-
 function SkeletonLoader() {
   return (
     <div className="col-md-8">

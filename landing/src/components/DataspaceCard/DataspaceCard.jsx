@@ -1,4 +1,3 @@
-import React from "react";
 import Card from "react-bootstrap/Card";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { InfoCircleFill } from "react-bootstrap-icons";

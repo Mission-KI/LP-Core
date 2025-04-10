@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import Dropdown from "react-bootstrap/Dropdown";
 import { ChevronDown } from "react-bootstrap-icons";
