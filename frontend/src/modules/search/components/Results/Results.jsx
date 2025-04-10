@@ -17,8 +17,8 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
             <div className="w-100 mb-2">
                 <div className='mb-4'>
 
-                    <div className='d-flex align-items-center justify-content-between pb-3'>
-                        <span className='bold d-flex' style={{ whiteSpace: 'nowrap' }}>
+                    <div className='d-flex align-items-center pb-3'>
+                        <span className='bold d-flex pe-4' style={{ whiteSpace: 'nowrap' }}>
                             {datasets.hits?.total?.value >= 10000
                                 ? `> ${datasets.hits.total.value.toLocaleString()}`
                                 : datasets.hits?.total?.value?.toLocaleString()}
@@ -30,15 +30,15 @@ function Results({ datasets, loading, pageCount, handlePageChange, currentPage }
                         <div className={styles.resultViewTypeTabs}>
                             <span
                                 onClick={() => setActiveTab('list')}
-                                className={`pointer medium d-flex align-items-center py-1 me-3 px-1 ${activeTab === 'list' ? styles.active : ''}`}
+                                className={`pointer medium d-flex align-items-center py-1 px-1 ${activeTab === 'list' ? styles.active : ''}`}
                             >
-                                <ListTask className="me-1" /> List
+                                <ListTask className="me-1 small" /> List
                             </span>
                             <span
                                 onClick={() => setActiveTab('tiles')}
                                 className={`pointer medium d-flex align-items-center py-1 px-1 ${activeTab === 'tiles' ? styles.active : ''}`}
                             >
-                                <Grid className="me-1" /> Tiles
+                                <Grid className="me-1 small" /> Tiles
                             </span>
                         </div>
                     </div>

@@ -46,7 +46,7 @@ function ResultItemCard({ dataset }) {
                         </div>
                     </div>
 
-                    <p className="medium pt-1 txt-lighter overflow-hidden" style={{ height: 48 }}>
+                    <p className="medium pt-1 txt-lighter overflow-hidden" style={{ height: 68 }}>
                         {dataset._source.description ? (
                             <>{truncateString(dataset._source.description, 70)}</>
                         ) : 'No description provided'}
