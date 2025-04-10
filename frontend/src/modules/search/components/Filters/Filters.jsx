@@ -169,7 +169,7 @@ function Filters() {
         setFiltersDropdownVisible(false);
       }
     },
-    [filtersDropdownVisible, dropdownRef]
+    [filtersDropdownVisible, dropdownRef],
   );
 
   useEffect(() => {
