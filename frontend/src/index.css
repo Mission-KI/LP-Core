@@ -492,6 +492,7 @@ table.dataTable thead>tr>td.dt-ordering-desc {
   border-radius: 1.2rem !important;
   border: 1.5px solid var(--color-light-gray) !important;
   background-color: transparent !important;
+  color: unset !important;
 }
 
 .card-img-top {
@@ -630,6 +631,9 @@ input:checked+.slider:before {
   transform: translateX(14px);
 }
 
+.card-body {
+  color: unset !important;
+}
 
 .spinner-border {
   border: var(--bs-spinner-border-width) solid var(--color-text) !important;

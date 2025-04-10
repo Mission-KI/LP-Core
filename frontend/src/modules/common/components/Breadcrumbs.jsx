@@ -14,14 +14,8 @@ const Breadcrumbs = () => {
 
   return (
     <Breadcrumb>
-      <Breadcrumb.Item linkAs={Link} linkProps={{ to: '/' }}>
-        Search
-      </Breadcrumb.Item>
-
       {pathnames.map((name, index) => {
         const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;
-        const isLast = index === pathnames.length - 1;
-
         const isLink = !nonLinkPaths.includes(name.toLowerCase());
 
         return (

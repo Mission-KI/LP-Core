@@ -21,7 +21,7 @@ const DataspaceCard = ({ dataSpace, category }) => {
         <Tooltip id="publisher-tooltip" {...props}>
             {dataSpace.publisher_filters.length > 0 ? (
                 <>
-                    {dataSpace.name} {t('categories.publishersInTheCategory')} {category.title}:
+                    {dataSpace.name}-{t('categories.publishersInTheCategory')} {category.title}:
                     <ul className="list-unstyled m-0">
                         {dataSpace.publisher_filters.map((index) => (
                             <li key={index}>{index}</li>

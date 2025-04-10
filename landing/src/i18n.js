@@ -161,7 +161,7 @@ i18n
             education: "Bildung, Forschung und Wissenschaft",
             realestate: "Immobilien und Finanzen",
             noItems: "Es sind leider noch keine Daten für diese Kategorie vorhanden.",
-            publishersInTheCategory: "datenanbieter in der Kategorie"
+            publishersInTheCategory: "Datenanbieter in der Kategorie"
           },
           publishers: {
             bast: {

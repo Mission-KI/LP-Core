@@ -24,7 +24,7 @@ function DatasetOptionsDropdown({ dataset }) {
             </Dropdown.Toggle>
 
             <Dropdown.Menu className='border-0 shadow bgc-body'>
-                <Dropdown.Item className='d-flex align-items-center' href={dataset?._source?.url} target='_blank'>
+                <Dropdown.Item className='d-flex align-items-center' href={dataset?._source?.assetUrl} target='_blank'>
                     <Download className='me-2' /> {t('dataset.getDataset')}
                 </Dropdown.Item>
                 {isBookmarked(dataset._id) ? (

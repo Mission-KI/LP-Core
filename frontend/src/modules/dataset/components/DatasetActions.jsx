@@ -62,7 +62,7 @@ const DatasetActions = ({ datasetDetails }) => {
                 <div className='pe-2 pt-1'>
                     <button
                         className='btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center'
-                        onClick={() => handleDownload(datasetDetails?._source?.url)}
+                        onClick={() => handleDownload(datasetDetails?._source?.assetUrl)}
                     >
                         <Download className='me-2' /> {t('header.getDataset')}
                     </button>

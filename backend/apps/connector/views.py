@@ -15,7 +15,6 @@ from extended_dataset_profile import CURRENT_SCHEMA, ExtendedDatasetProfile
 from rest_framework import parsers, status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.exceptions import APIException, PermissionDenied, UnsupportedMediaType
-from rest_framework.exceptions import ValidationError as DRFValidationError
 from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
@@ -24,7 +23,9 @@ from rest_framework.views import APIView
 
 from .models import ResourceStatus
 from .serializers import MultipartFormDataUploadSerializer
+from .utils.decorator import check_connector_user_permission
 from .utils.edpuploader import EdpUploader
+from .utils.error_handler import handle_request_error
 
 logger = getLogger(__name__)
 
@@ -80,16 +81,8 @@ class RawZipUploadView(APIView):
         summary="Upload a raw zip file.",
         operation_id="raw_zip_upload",
     )
+    @check_connector_user_permission(EventLog.TYPE_UPLOAD)
     def put(self, request: Request, id: str, file_name: str):
-        if not request.user.is_connector_user:
-            create_log(
-                request,
-                "Resource ID raw upload failed: Permission denied",
-                EventLog.STATUS_FAIL,
-                {"id": id},
-                EventLog.TYPE_UPLOAD,
-            )
-            return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
         resource = get_object_or_404(ResourceStatus, pk=id)
         try:
             file_io = io.BytesIO(request.data)
@@ -97,21 +90,14 @@ class RawZipUploadView(APIView):
             resource.status = "uploaded"
             resource.save()
             return result
-        except APIException as e:
-            create_log(request, f"EDP upload failed: {e}", EventLog.STATUS_FAIL, {"id": id}, EventLog.TYPE_UPLOAD)
-            raise e
         except Exception as e:
-            message = f"An unknown error occurred ({type(e)}): {str(e)}"
-            create_log(request, f"EDP upload failed: {message}", EventLog.STATUS_FAIL, {"id": id}, EventLog.TYPE_UPLOAD)
-            return Response({"error": f"An error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            handle_request_error(logger, request, e, id, EventLog.TYPE_UPLOAD)
 
 
 @extend_schema(summary="create EDP resource", request=None, responses={201: OpenApiTypes.OBJECT})
 @api_view(["POST"])
+@check_connector_user_permission(EventLog.TYPE_UPLOAD, "Resource ID create failed")
 def create_resource_id(request: Request):
-    if not request.user.is_connector_user:
-        create_log(request, "Resource ID create failed: Permission denied", EventLog.STATUS_FAIL, EventLog.TYPE_UPLOAD)
-        return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
     try:
         resource = ResourceStatus.objects.create()
         create_log(
@@ -136,12 +122,8 @@ class EDPUploadDeleteView(APIView):
         ],
         responses={200: OpenApiTypes.OBJECT},
     )
+    @check_connector_user_permission(EventLog.TYPE_UPLOAD)
     def put(self, request: Request, id: str):
-        if not request.user.is_connector_user:
-            create_log(
-                request, "EDP upload failed: Permission denied", EventLog.STATUS_FAIL, {"id": id}, EventLog.TYPE_UPLOAD
-            )
-            return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
         resource = get_object_or_404(ResourceStatus, pk=id)
         try:
             serializer = MultipartFormDataUploadSerializer(data=request.data)
@@ -153,13 +135,8 @@ class EDPUploadDeleteView(APIView):
             resource.status = "uploaded"
             resource.save()
             return result
-        except APIException as e:
-            create_log(request, f"EDP upload failed: {e}", EventLog.STATUS_FAIL, {"id": id}, EventLog.TYPE_UPLOAD)
-            raise e
         except Exception as e:
-            message = f"An unknown error occurred ({type(e)}): {str(e)}"
-            create_log(request, f"EDP upload failed: {message}", EventLog.STATUS_FAIL, {"id": id}, EventLog.TYPE_UPLOAD)
-            raise APIException(message)
+            handle_request_error(logger, request, e, id, EventLog.TYPE_UPLOAD)
 
     @extend_schema(
         summary="Delete an EDP by resource id",
@@ -169,15 +146,9 @@ class EDPUploadDeleteView(APIView):
         ],
         responses={200: OpenApiTypes.OBJECT},
     )
+    @check_connector_user_permission(EventLog.TYPE_DELETE)
     def delete(self, request: Request, id: str):
-        if not request.user.is_connector_user:
-            create_log(
-                request, "EDP delete failed: Permission denied", EventLog.STATUS_FAIL, {"id": id}, EventLog.TYPE_DELETE
-            )
-            return Response({"message": "Permission denied"}, status=status.HTTP_403_FORBIDDEN)
-
         resource = get_object_or_404(ResourceStatus, pk=id)
-
         try:
             uploader = EdpUploader()
             uploader.delete_edp(id)
@@ -196,13 +167,8 @@ class EDPUploadDeleteView(APIView):
                 {"message": "EDP deleted successfully", "id": id},
                 status=status.HTTP_200_OK,
             )
-        except (DRFValidationError, UnsupportedMediaType, APIException) as e:
-            create_log(request, f"EDP delete failed: {e}", EventLog.STATUS_FAIL, {"id": id}, EventLog.TYPE_DELETE)
-            raise e
         except Exception as e:
-            message = f"An unknown error occurred ({type(e)}): {str(e)}"
-            create_log(request, f"EDP delete failed: {message}", EventLog.STATUS_FAIL, {"id": id}, EventLog.TYPE_DELETE)
-            raise APIException(message)
+            handle_request_error(logger, request, e, id, EventLog.TYPE_DELETE)
 
 
 @extend_schema(
