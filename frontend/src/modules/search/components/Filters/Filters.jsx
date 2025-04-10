@@ -10,6 +10,7 @@ import { ChevronDown, X } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
 import { useSettings } from "../../../common/contexts/SettingsContext";
 import { Spinner } from "react-bootstrap";
+import { useCallback } from "react";
 
 function Filters() {
   const { filterSections, loading } = useFilterSections();
@@ -46,7 +47,7 @@ function Filters() {
     setFiltersDropdownVisible(!filtersDropdownVisible);
   };
 
-  const getQueryParams = () => {
+  const getQueryParams = useCallback(() => {
     const params = new URLSearchParams(location.search);
     const queryObj = {};
     params.forEach((value, key) => {
@@ -56,7 +57,7 @@ function Filters() {
       queryObj[key].push(value);
     });
     return queryObj;
-  };
+  }, [location.search]);
 
   const [selectedFilters, setSelectedFilters] = useState({});
   const ignoredKeys = ["q", "page"];
@@ -64,7 +65,7 @@ function Filters() {
   useEffect(() => {
     const queryParams = getQueryParams();
     setSelectedFilters(queryParams);
-  }, [location]);
+  }, [location, getQueryParams]);
 
   useEffect(() => {
     const queryParams = getQueryParams();
@@ -97,7 +98,7 @@ function Filters() {
     setCheckedOptions(newCheckedOptions);
     setRangeValues(newRangeValues);
     setCheckedRadios(newCheckedRadios);
-  }, [location, loading]);
+  }, [location, loading, filterSections, getQueryParams]);
 
   const updateQueryParams = (name, value, checked) => {
     const params = new URLSearchParams(location.search);
@@ -158,15 +159,18 @@ function Filters() {
     navigate(`/?${params.toString()}`, { replace: true });
   };
 
-  const handleClickOutside = (event) => {
-    if (
-      filtersDropdownVisible &&
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target)
-    ) {
-      setFiltersDropdownVisible(false);
-    }
-  };
+  const handleClickOutside = useCallback(
+    (event) => {
+      if (
+        filtersDropdownVisible &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setFiltersDropdownVisible(false);
+      }
+    },
+    [filtersDropdownVisible, dropdownRef]
+  );
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -174,7 +178,7 @@ function Filters() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [filtersDropdownVisible]);
+  }, [handleClickOutside]);
 
   if (loading) {
     return (

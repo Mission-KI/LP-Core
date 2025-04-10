@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router";
 import { TilesContainer } from "react-tiles-dnd";
 import { useCategories } from "../utils/categories";
@@ -28,7 +28,7 @@ const Categories = () => {
         setCategoriesState(categories);
       }
     }
-  }, [loading, location]);
+  }, [loading, location, categories]);
 
   if (loading) {
     return (

@@ -6,7 +6,6 @@ import LanguageSelector from "../LanguageSelector";
 import { useTranslation } from "react-i18next";
 import { appUrl } from "../../api/config";
 import { List } from "react-bootstrap-icons";
-import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const { t, i18n } = useTranslation();

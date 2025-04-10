@@ -35,7 +35,7 @@ const Category = () => {
     } else {
       setDataSpaces(initialDataSpaces);
     }
-  }, [location, loading]);
+  }, [location, loading, category_slug, getCategoryBySlug, LOCAL_STORAGE_KEY]);
 
   if (loading)
     return (

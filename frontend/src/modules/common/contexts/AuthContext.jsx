@@ -1,6 +1,12 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+} from "react";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import jwtDecode from "jwt-decode";
 import { login } from "../../authentication/api/auth";
 
 const AuthContext = createContext();
@@ -34,20 +40,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     setAuthenticated(false);
     setUsername("");
     setToken("");
     localStorage.removeItem("accessToken");
     navigate("/");
-  };
+  }, [navigate]);
 
-  const checkTokenExpiration = (token) => {
-    const decodedToken = jwtDecode(token);
-    if (decodedToken.exp * 1000 < Date.now()) {
-      handleLogout();
-    }
-  };
+  const checkTokenExpiration = useCallback(
+    (token) => {
+      const decodedToken = jwtDecode(token);
+      if (decodedToken.exp * 1000 < Date.now()) {
+        handleLogout();
+      }
+    },
+    [handleLogout]
+  );
 
   useEffect(() => {
     const storedToken = localStorage.getItem("accessToken");
@@ -58,7 +67,7 @@ export const AuthProvider = ({ children }) => {
       setToken(storedToken);
     }
     setLoading(false);
-  }, []);
+  }, [checkTokenExpiration]);
 
   const value = {
     authenticated,

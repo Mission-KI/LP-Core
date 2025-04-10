@@ -24,12 +24,12 @@ import { datasetHasChildren } from "../../utils/edp_utils";
 const DatasetTabs = ({ datasetDetails, datasetRef }) => {
   const doesDatasetHaveChildren = datasetHasChildren(
     datasetDetails,
-    datasetRef
+    datasetRef,
   );
   const isDocumentDataset = datasetRef.includes("#/documentDatasets");
   const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
   const isUnstructuredDataset = datasetRef.includes(
-    "#/unstructuredTextDatasets"
+    "#/unstructuredTextDatasets",
   );
   const isImageDataset = datasetRef.includes("#/imageDatasets");
 
