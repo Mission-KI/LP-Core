@@ -15,6 +15,22 @@ import { useCallback } from "react";
 function Filters() {
   const { filterSections, loading } = useFilterSections();
   const { alwaysExpandFilters } = useSettings();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { t } = useTranslation();
+  const dropdownRef = useRef(null);
+
+  const getQueryParams = useCallback(() => {
+    const params = new URLSearchParams(location.search);
+    const queryObj = {};
+    params.forEach((value, key) => {
+      if (!queryObj[key]) {
+        queryObj[key] = [];
+      }
+      queryObj[key].push(value);
+    });
+    return queryObj;
+  }, [location.search]);
 
   useEffect(() => {
     if (alwaysExpandFilters) {
@@ -22,16 +38,16 @@ function Filters() {
     }
   }, [alwaysExpandFilters]);
 
+  useEffect(() => {
+    const queryParams = getQueryParams();
+    setSelectedFilters(queryParams);
+  }, [location, getQueryParams]);
+
   const [filtersDropdownVisible, setFiltersDropdownVisible] =
     useState(alwaysExpandFilters);
   const [checkedOptions, setCheckedOptions] = useState({});
   const [checkedRadios, setCheckedRadios] = useState({});
   const [rangeValues, setRangeValues] = useState({});
-
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { t } = useTranslation();
-  const dropdownRef = useRef(null);
 
   const handleClearFilters = () => {
     navigate(location.pathname, { replace: true });
@@ -47,25 +63,8 @@ function Filters() {
     setFiltersDropdownVisible(!filtersDropdownVisible);
   };
 
-  function getQueryParams() {
-    const params = new URLSearchParams(location.search);
-    const queryObj = {};
-    params.forEach((value, key) => {
-      if (!queryObj[key]) {
-        queryObj[key] = [];
-      }
-      queryObj[key].push(value);
-    });
-    return queryObj;
-  }
-
   const [selectedFilters, setSelectedFilters] = useState({});
   const ignoredKeys = ["q", "page"];
-
-  useEffect(() => {
-    const queryParams = getQueryParams();
-    setSelectedFilters(queryParams);
-  }, [location]);
 
   useEffect(() => {
     const queryParams = getQueryParams();
@@ -98,7 +97,8 @@ function Filters() {
     setCheckedOptions(newCheckedOptions);
     setRangeValues(newRangeValues);
     setCheckedRadios(newCheckedRadios);
-  }, [location]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search]);
 
   const updateQueryParams = (name, value, checked) => {
     const params = new URLSearchParams(location.search);
@@ -169,7 +169,7 @@ function Filters() {
         setFiltersDropdownVisible(false);
       }
     },
-    [filtersDropdownVisible, dropdownRef],
+    [filtersDropdownVisible, dropdownRef]
   );
 
   useEffect(() => {

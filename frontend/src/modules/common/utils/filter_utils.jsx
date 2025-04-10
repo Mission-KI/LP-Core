@@ -9,6 +9,7 @@ import {
 import { OverlayTrigger } from "react-bootstrap";
 import { UnlockFill, Soundwave } from "react-bootstrap-icons";
 import { renderTooltip } from "./tooltip";
+import { useLocation } from "react-router";
 
 export const useFilterSections = () => {
   const [dataSpaces, setDataSpaces] = useState([]);
@@ -18,6 +19,7 @@ export const useFilterSections = () => {
   const [maxRowCount, setMaxRowCount] = useState(0);
   const [maxColumnCount, setMaxColumnCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
 
   useEffect(() => {
     const fetchFilterValues = async () => {
@@ -46,7 +48,7 @@ export const useFilterSections = () => {
     };
 
     fetchFilterValues();
-  }, []);
+  }, [location.search]);
 
   const filterSections = [
     {
