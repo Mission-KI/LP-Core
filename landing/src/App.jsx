@@ -1,14 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Landing from './pages/Landing';
-import Category from './pages/Category/Category';
-import AppLayout from './layouts/AppLayout';
-import PrivacyPolicy from './pages/legal/pages/PrivacyPolicy';
-import About from './pages/About';
-import ScrollToTop from './components/ScrollToTop';
-import Imprint from './pages/legal/pages/Imprint';
-import AcceptablePolicy from './pages/legal/pages/AcceptablePolicy';
-import ToggleEnglishAndRedirect from './pages/ToggleEnglishAndRedirect';
-import ToggleGermanAndRedirect from './pages/ToggleGermanAndRedirect';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Landing from "./pages/Landing";
+import Category from "./pages/Category/Category";
+import AppLayout from "./layouts/AppLayout";
+import PrivacyPolicy from "./pages/legal/pages/PrivacyPolicy";
+import About from "./pages/About";
+import ScrollToTop from "./components/ScrollToTop";
+import Imprint from "./pages/legal/pages/Imprint";
+import AcceptablePolicy from "./pages/legal/pages/AcceptablePolicy";
+import ToggleEnglishAndRedirect from "./pages/ToggleEnglishAndRedirect";
+import ToggleGermanAndRedirect from "./pages/ToggleGermanAndRedirect";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path='/' element={<AppLayout />}>
+        <Route path="/" element={<AppLayout />}>
           <Route path="/categories/:category_slug" element={<Category />} />
 
           {/* Legal */}
@@ -28,7 +28,6 @@ function App() {
 
           <Route path="/en" element={<ToggleEnglishAndRedirect />} />
           <Route path="/de" element={<ToggleGermanAndRedirect />} />
-
         </Route>
       </Routes>
     </Router>

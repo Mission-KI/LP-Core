@@ -3,11 +3,11 @@ import Dashboard from "./pages/Dashboard";
 
 const monitoringRoutes = [
   {
-    path: '/monitoring',
+    path: "/monitoring",
     element: <Navigate to="/monitoring/dashboard" />,
   },
   {
-    path: '/monitoring/dashboard',
+    path: "/monitoring/dashboard",
     element: <Dashboard />,
   },
 ];

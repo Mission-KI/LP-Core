@@ -2,7 +2,7 @@ import Bookmarks from "./pages/Bookmarks/Bookmarks";
 
 const bookmarkRoutes = [
   {
-    path: '/bookmarks',
+    path: "/bookmarks",
     element: <Bookmarks />,
   },
 ];

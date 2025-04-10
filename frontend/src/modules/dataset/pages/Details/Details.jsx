@@ -16,7 +16,6 @@ function Details() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const fetchDatasets = async () => {
       try {
@@ -31,8 +30,6 @@ function Details() {
 
     fetchDatasets();
   }, [id]);
-
-
 
   if (loading) {
     return (
@@ -50,10 +47,12 @@ function Details() {
   }
   return (
     <>
-
-      <span onClick={() => navigate(-1)} className="pointer d-flex align-items-center txt-lighter medium mt-4 pb-2">
+      <span
+        onClick={() => navigate(-1)}
+        className="pointer d-flex align-items-center txt-lighter medium mt-4 pb-2"
+      >
         <ArrowLeft className="me-2" />
-        {t('header.return')}
+        {t("header.return")}
       </span>
 
       <EDPInfoSection datasetDetails={datasetDetails} />

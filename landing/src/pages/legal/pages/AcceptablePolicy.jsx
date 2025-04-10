@@ -1,12 +1,16 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useTranslation } from "react-i18next";
 
 function AcceptablePolicy() {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
 
   return (
-    <div className='container pt-5'>
-      <div dangerouslySetInnerHTML={{ __html: t('acceptableUsePolicy.fullContent') }} />
+    <div className="container pt-5">
+      <div
+        dangerouslySetInnerHTML={{
+          __html: t("acceptableUsePolicy.fullContent"),
+        }}
+      />
     </div>
   );
 }

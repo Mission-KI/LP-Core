@@ -50,10 +50,7 @@ function QuickView({ dataset }) {
             <div className="pb-4">
               <DatasetActions datasetDetails={dataset} />
             </div>
-            <DataScienceInfo
-              datasetDetails={dataset}
-              datasetRef={datasetRef}
-            />
+            <DataScienceInfo datasetDetails={dataset} datasetRef={datasetRef} />
           </div>
         </div>
       </Dropdown.Menu>

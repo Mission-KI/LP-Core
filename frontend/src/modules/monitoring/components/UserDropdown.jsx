@@ -8,11 +8,10 @@ import {
   Search,
   UiChecksGrid,
 } from "react-bootstrap-icons";
-import placeholderProfileImage from "../../common/assets/img/vectors/profile.svg"
+import placeholderProfileImage from "../../common/assets/img/vectors/profile.svg";
 import { useAuth } from "../../common/contexts/AuthContext";
 
 function UserDropdown() {
-
   const { username } = useAuth();
 
   return (
@@ -57,7 +56,11 @@ function UserDropdown() {
 
         <Dropdown.Divider />
 
-        <Dropdown.Item className="rounded text-danger" as={Link} to="/auth/logout">
+        <Dropdown.Item
+          className="rounded text-danger"
+          as={Link}
+          to="/auth/logout"
+        >
           <BoxArrowRight className="text-danger" />{" "}
           <span className="ps-3 medium text-danger">Logout</span>
         </Dropdown.Item>

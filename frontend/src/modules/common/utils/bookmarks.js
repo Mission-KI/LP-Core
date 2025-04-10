@@ -5,8 +5,8 @@ import { toast } from "react-toastify";
  * @returns {Array} The list of bookmark IDs.
  */
 export const getBookmarks = () => {
-    const bookmarks = localStorage.getItem('bookmarks');
-    return bookmarks ? JSON.parse(bookmarks) : [];
+  const bookmarks = localStorage.getItem("bookmarks");
+  return bookmarks ? JSON.parse(bookmarks) : [];
 };
 
 /**
@@ -14,12 +14,13 @@ export const getBookmarks = () => {
  * @param {string} bookmarkId The ID of the bookmark to add.
  */
 export const addBookmark = (bookmarkId) => {
-    const bookmarks = getBookmarks();
-    if (!bookmarks.includes(bookmarkId)) { // Prevent duplicates
-        bookmarks.push(bookmarkId);
-        localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
-        toast.success("Bookmark saved!");
-    }
+  const bookmarks = getBookmarks();
+  if (!bookmarks.includes(bookmarkId)) {
+    // Prevent duplicates
+    bookmarks.push(bookmarkId);
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    toast.success("Bookmark saved!");
+  }
 };
 
 /**
@@ -27,12 +28,11 @@ export const addBookmark = (bookmarkId) => {
  * @param {string} bookmarkId The ID of the bookmark to remove.
  */
 export const removeBookmark = (bookmarkId) => {
-    const bookmarks = getBookmarks();
-    const updatedBookmarks = bookmarks.filter(id => id !== bookmarkId);
-    localStorage.setItem('bookmarks', JSON.stringify(updatedBookmarks));
-    toast.success("Bookmark removed!");
+  const bookmarks = getBookmarks();
+  const updatedBookmarks = bookmarks.filter((id) => id !== bookmarkId);
+  localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
+  toast.success("Bookmark removed!");
 };
-
 
 /**
  * Check if a bookmark ID is already in the list of bookmarks.
@@ -40,6 +40,6 @@ export const removeBookmark = (bookmarkId) => {
  * @returns {boolean} True if the bookmark exists, false otherwise.
  */
 export const isBookmarked = (bookmarkId) => {
-    const bookmarks = getBookmarks();
-    return bookmarks.includes(bookmarkId);
+  const bookmarks = getBookmarks();
+  return bookmarks.includes(bookmarkId);
 };

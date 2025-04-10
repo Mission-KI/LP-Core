@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  ChevronDown,
-  ChevronRight,
-} from "react-bootstrap-icons";
+import { ChevronDown, ChevronRight } from "react-bootstrap-icons";
 import ParentNodeView from "./ParentNodeView";
 import { Link } from "react-router-dom";
 
@@ -39,7 +36,7 @@ const Dataset = ({ node, childrenMap, dataset }) => {
             ) : (
               <Link
                 to={`/details/${dataset?._id}/${encodeURIComponent(
-                  node?.name
+                  node?.name,
                 )}`}
                 className="txt-primary hover-underline"
               >

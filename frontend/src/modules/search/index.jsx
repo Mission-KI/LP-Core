@@ -4,17 +4,17 @@ import ToggleGermanAndRedirect from "./pages/ToggleGermanAndRedirect";
 
 const searchRoutes = [
   {
-    path: '/',
+    path: "/",
     element: <Search />,
   },
   {
-    path: '/en',
+    path: "/en",
     element: <ToggleEnglishAndRedirect />,
   },
   {
-    path: '/de',
+    path: "/de",
     element: <ToggleGermanAndRedirect />,
-  }
+  },
 ];
 
 export default searchRoutes;
