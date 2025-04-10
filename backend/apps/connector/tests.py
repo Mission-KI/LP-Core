@@ -23,19 +23,13 @@ from elastic_transport import ApiResponseMeta, HttpHeaders, NodeConfig, TlsError
 from elasticsearch import AuthenticationException, ConflictError, Elasticsearch
 from extended_dataset_profile import CURRENT_SCHEMA, Version
 from extended_dataset_profile import __version__ as current_schema_version
-from extended_dataset_profile.models.v0.edp import (
-    AssetReference,
-    DataSpace,
-    ExtendedDatasetProfile,
-    License,
-    Publisher,
-)
+from extended_dataset_profile.models.v0.edp import AssetReference, DataSpace, ExtendedDatasetProfile, License, Publisher
 from moto import mock_aws
 from pydantic import AnyUrl
 from pytest import MonkeyPatch
 from requests import Response as RequestResponse
 from rest_framework import status
-from rest_framework.exceptions import ErrorDetail, ValidationError
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.test import APIClient
 from user.models import Dataspace, User
@@ -169,14 +163,7 @@ def test_upload_edp_file_not_a_file(auth_client: APIClient):
     response = auth_client.put(url, {"file": "not-a-file"}, format="multipart")
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_400_BAD_REQUEST, response.json()
-    assert response.data == {
-        "file": [
-            ErrorDetail(
-                string="The submitted data was not a file. Check the encoding type on the form.",
-                code="invalid",
-            )
-        ]
-    }
+    assert response.json() == {"file": ["The submitted data was not a file. Check the encoding type on the form."]}
     check_event_log(
         url=url,
         status="fail",
@@ -546,7 +533,9 @@ def test_raw_zip_upload_general_exception(mock_do_upload, auth_client, valid_zip
     url = raw_zip_upload_url(resource.id)
     response = auth_client.put(url, data=valid_zip_file.getvalue(), content_type="application/zip")
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-    assert "An error occurred" in response.data["error"]
+    assert response.json() == {
+        "detail": "EDP upload failed: An unknown error occurred (<class 'Exception'>): Test exception"
+    }
     assert EventLog.objects.filter(metadata__id=str(resource.id)).exists()
 
 

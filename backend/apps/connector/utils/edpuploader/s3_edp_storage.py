@@ -2,7 +2,7 @@ from logging import getLogger
 from pathlib import Path
 
 import boto3
-from boto3.exceptions import S3UploadFailedError
+from boto3.exceptions import Boto3Error
 from botocore.exceptions import ClientError
 from django.conf import settings
 from pydantic import HttpUrl
@@ -42,7 +42,7 @@ class S3EDPStorage:
             try:
                 response = self._bucket.upload_file(str(resource_file), upload_key)
                 logger.info(f"S3 upload response: {response}")
-            except S3UploadFailedError as e:
+            except (ClientError, Boto3Error) as e:
                 logger.error(e)
                 raise APIException(f"Unable to upload edp {edp_id} to S3: {e}")
             full_download_url = HttpUrl(f"https://{self._bucket.name}.s3.amazonaws.com/{upload_key}")
@@ -59,6 +59,6 @@ class S3EDPStorage:
                 logger.info("Deleted '%s' from S3: %s (num items: %d)", edp_id, full_download_url, num_deleted)
             else:
                 logger.warning("Got unexpected response from S3 storage %s", result)
-        except ClientError as e:
+        except (ClientError, Boto3Error) as e:
             logger.error(e)
-            raise APIException(f"Unable to delete edp {edp_id} to S3: {e}")
+            raise APIException(f"Unable to delete edp {edp_id} from S3: {e}")
