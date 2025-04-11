@@ -84,7 +84,7 @@ function Sidebar() {
               className={`nav-item px-2 rounded my-1 ${currentPage === "/monitoring/dashboard" ? "active" : ""}`}
             >
               <Link
-                to="/"
+                to="/monitoring/dashboard"
                 className="nav-link"
                 onClick={() => handlePageChange("/monitoring/dashboard")}
               >
