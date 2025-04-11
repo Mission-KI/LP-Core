@@ -7,7 +7,7 @@ import SearchSuggestions from "./SearchSuggestions";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-function MainSearchBar() {
+function SearchBar() {
   const { t } = useTranslation();
 
   const [localSearchTerm, setLocalSearchTerm] = useState("");
@@ -112,4 +112,4 @@ function MainSearchBar() {
   );
 }
 
-export default MainSearchBar;
+export default SearchBar;

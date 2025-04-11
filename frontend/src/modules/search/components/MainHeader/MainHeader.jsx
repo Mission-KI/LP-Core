@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink, useLocation } from "react-router-dom";
-import MainSearchBar from "../../../common/components/Search/MainSearchBar";
+import SearchBar from "../../../common/components/Search/SearchBar";
 import { useTranslation } from "react-i18next";
 import { landingUrl } from "../../../common/api/config";
 import { List } from "react-bootstrap-icons";
@@ -88,7 +88,7 @@ const MainHeader = () => {
         </div>
 
         <div className="px-md-5 w-100">
-          <MainSearchBar />
+          <SearchBar />
         </div>
 
         <Nav className="ms-md-auto d-md-flex pe-4">

@@ -9,7 +9,7 @@ export const getEdps = async (from = 0, size = 10) => {
     for (const key of urlParams.keys()) {
       const values = urlParams.getAll(key);
 
-      if (key === "page") continue;
+      if (key === "page" || key === "sorting") continue;
 
       if (key === "q") {
         if (values[0] === "") continue;
@@ -179,6 +179,37 @@ export const getEdps = async (from = 0, size = 10) => {
       }
     }
 
+    let sort = [
+      "_score",
+      {
+        _script: {
+          type: "number",
+          script: {
+            source: "doc['description.keyword'].size() > 0 ? 1 : 0",
+            lang: "painless",
+          },
+          order: "desc",
+        },
+      },
+      { "description.keyword": "desc" },
+    ];
+
+    const sorting = urlParams.get("sorting");
+    if (sorting === "newest" || sorting === "oldest") {
+      sort = [
+        {
+          "assetRefs.publishDate": {
+            order: sorting === "newest" ? "desc" : "asc",
+            nested: {
+              path: "assetRefs",
+            },
+            mode: "max",
+          },
+        },
+        ...sort,
+      ];
+    }
+
     const query = {
       from: from,
       size: size,
@@ -192,20 +223,7 @@ export const getEdps = async (from = 0, size = 10) => {
             },
           }
         : {}),
-      sort: [
-        "_score",
-        {
-          _script: {
-            type: "number",
-            script: {
-              source: "doc['description.keyword'].size() > 0 ? 1 : 0",
-              lang: "painless",
-            },
-            order: "desc",
-          },
-        },
-        { "description.keyword": "desc" },
-      ],
+      sort: sort,
     };
 
     const response = await fetch(elasticURL + "/_search", {
