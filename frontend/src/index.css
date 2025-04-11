@@ -406,7 +406,7 @@ li.selected .pagination-btn,
 }
 
 .dropdown-item:hover,
-.dropdown-item:active {
+.dropdown-item.active {
   background-color: var(--color-light-gray) !important;
 }
 

@@ -8,13 +8,11 @@ import styles from "./Filters.module.css";
 import { Dropdown } from "react-bootstrap";
 import { ChevronDown, X } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
-import { useSettings } from "../../../common/contexts/SettingsContext";
 import { Spinner } from "react-bootstrap";
 import { useCallback } from "react";
 
-function Filters() {
+function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
   const { filterSections, loading } = useFilterSections();
-  const { alwaysExpandFilters } = useSettings();
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
@@ -32,19 +30,6 @@ function Filters() {
     return queryObj;
   }, [location.search]);
 
-  useEffect(() => {
-    if (alwaysExpandFilters) {
-      setFiltersDropdownVisible(alwaysExpandFilters);
-    }
-  }, [alwaysExpandFilters]);
-
-  useEffect(() => {
-    const queryParams = getQueryParams();
-    setSelectedFilters(queryParams);
-  }, [location, getQueryParams]);
-
-  const [filtersDropdownVisible, setFiltersDropdownVisible] =
-    useState(alwaysExpandFilters);
   const [checkedOptions, setCheckedOptions] = useState({});
   const [checkedRadios, setCheckedRadios] = useState({});
   const [rangeValues, setRangeValues] = useState({});
@@ -59,12 +44,13 @@ function Filters() {
     navigate(`${location.pathname}?${params.toString()}`);
   };
 
-  const toggleFiltersDropdown = () => {
-    setFiltersDropdownVisible(!filtersDropdownVisible);
-  };
-
   const [selectedFilters, setSelectedFilters] = useState({});
-  const ignoredKeys = ["q", "page"];
+  const ignoredKeys = ["q", "page", "sorting"];
+
+  useEffect(() => {
+    const queryParams = getQueryParams();
+    setSelectedFilters(queryParams);
+  }, [location, getQueryParams]);
 
   useEffect(() => {
     const queryParams = getQueryParams();
@@ -169,7 +155,7 @@ function Filters() {
         setFiltersDropdownVisible(false);
       }
     },
-    [filtersDropdownVisible, dropdownRef],
+    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef],
   );
 
   useEffect(() => {
@@ -189,16 +175,8 @@ function Filters() {
   }
 
   return (
-    <div>
-      <div className="d-flex align-items-center mt-2 mb-3">
-        <button
-          onClick={toggleFiltersDropdown}
-          className="btn rounded-lg px-0 me-3 mb-1"
-        >
-          <span className="medium txt-lighter">
-            {t("header.filters")} <ChevronDown className="small ms-1" />
-          </span>
-        </button>
+    <div className="ps-md-4">
+      <div className="d-flex align-items-center">
         <div className="d-flex flex-wrap">
           {Object.entries(selectedFilters)
             .filter(([key]) => !ignoredKeys.includes(key))
