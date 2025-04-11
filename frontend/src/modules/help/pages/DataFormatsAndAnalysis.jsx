@@ -210,7 +210,7 @@ const DataFormatsAndAnalysis = () => {
           Dieser Tab bietet eine Übersicht über die Struktur des Archivs. Über
           einen Klick auf die eingebetteten Dateien springt man in die
           jeweiligen Details zum ausgewählten Element (Sicht entsprechend des
-          jeweiligen Datenformats). Über die Breadcrumb-Navigation kann der 
+          jeweiligen Datenformats). Über die Breadcrumb-Navigation kann der
           Nutzer zum übergeordneten Element zurückkehren.
         </p>
         <h5 className="mt-5 mb-3">Zusätzliche Analysen für Dokumente</h5>
@@ -459,14 +459,14 @@ const DataFormatsAndAnalysis = () => {
         <h6 className="bold mt-4">Tab: Daten-Saisonalität</h6>
         <p className="regular text-justify">
           Dieser Tab bietet Grafiken, welche den zeitlichen Verlauf numerischer
-          Attribute visualisieren (Original Data). Des Weiteren werden 
-          periodische Aktivitäten innerhalb dieser Daten analysiert und 
-          visualisiert (Seasonality). Dies sind Schwankungen eines Attributes, 
-          welche in zeitlich regelmäßigen Abständen wiederkehren. Der grobe 
-          Verlauf eines Attributes ohne die periodischen Einflüsse, wird als 
-          Trend bezeichnet und ist ebenso einsehbar. Alle Anteile eines 
-          Attributes, welche nicht von Trend und Saisonalität hergeleitet 
-          werden können, sind die so genannten “Residuals”.
+          Attribute visualisieren (Original Data). Des Weiteren werden
+          periodische Aktivitäten innerhalb dieser Daten analysiert und
+          visualisiert (Seasonality). Dies sind Schwankungen eines Attributes,
+          welche in zeitlich regelmäßigen Abständen wiederkehren. Der grobe
+          Verlauf eines Attributes ohne die periodischen Einflüsse, wird als
+          Trend bezeichnet und ist ebenso einsehbar. Alle Anteile eines
+          Attributes, welche nicht von Trend und Saisonalität hergeleitet werden
+          können, sind die so genannten “Residuals”.
         </p>
         <h5 className="mt-5 mb-3">
           Zusätzliche Analysen für semi-strukturierte Texte
@@ -492,8 +492,10 @@ const DataFormatsAndAnalysis = () => {
             <li>Sprachen</li>
             <li>Anzahl Zeilen</li>
             <li>Anzahl Wörter</li>
-            <li>Word-Cloud - Grafische Darstellung der Häufigkeit von 
-              Schlagwörtern im Text</li>
+            <li>
+              Word-Cloud - Grafische Darstellung der Häufigkeit von
+              Schlagwörtern im Text
+            </li>
           </ul>
         </p>
         <h6 className="bold mt-4">Tab: Eingebettete Tabellen</h6>
@@ -524,9 +526,7 @@ const DataFormatsAndAnalysis = () => {
             <li>elaScore</li>
           </ul>
         </p>
-        <h5 className="mt-5 mb-3">
-          Zusätzliche Analysen für Videos
-        </h5>
+        <h5 className="mt-5 mb-3">Zusätzliche Analysen für Videos</h5>
         <h6 className="bold mt-4">Tab: Video</h6>
         <p className="regular text-justify">
           Dieser Tab bietet eine Übersicht mit den folgenden Details:
@@ -538,9 +538,7 @@ const DataFormatsAndAnalysis = () => {
             <li>Video Pixel Format (PixelFormat)</li>
           </ul>
         </p>
-        <h5 className="mt-5 mb-3">
-          Zusätzliche Analysen für Audiodaten
-        </h5>
+        <h5 className="mt-5 mb-3">Zusätzliche Analysen für Audiodaten</h5>
         <h6 className="bold mt-4">Tab: Audio</h6>
         <p className="regular text-justify">
           Dieser Tab bietet eine Übersicht mit den folgenden Details:

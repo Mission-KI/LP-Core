@@ -316,9 +316,9 @@ const Functions = () => {
         <h5 className="mt-4">Detailansicht</h5>
         <p className="regular text-justify">
           Die Detailansicht eines EDPs liefert je nach Datentyp unterschiedliche
-          Informationen. Neben einigen generischen Metadaten, die für jeden 
+          Informationen. Neben einigen generischen Metadaten, die für jeden
           Datentyp einheitlich vorhanden sind, werden je nach Struktur und Typ
-          weitere Analysen durchgeführt und entsprechend optimierte Sichten 
+          weitere Analysen durchgeführt und entsprechend optimierte Sichten
           bereitgestellt <a href="/help#formats">mehr erfahren</a>].
         </p>
         <h5 className="mt-4" id="get-asset">
@@ -353,7 +353,7 @@ const Functions = () => {
         Über den Button “Bericht(pdf)” kann eine Zusammenfassung der EDP Daten
         heruntergeladen werden.
         <h5 className="mt-4"> Ähnliche EDP finden</h5>
-        Diese Funktion liefert weitere EDP, die ähnliche Charakteristika 
+        Diese Funktion liefert weitere EDP, die ähnliche Charakteristika
         aufweisen, wie das aktuell ausgewählte EDP.
         <h5 className="mt-4"> Einstellungen</h5>
         <h5 className="mt-4">Spracheinstellungen</h5>
