@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import EventLog
+from .serializers import EventLogSerializer
 from .utils.analytics import get_edp_event_counts, get_elastic_monitoring_analytics
 
 
@@ -63,6 +64,24 @@ class MonitoringAnalyticsView(APIView):
                 {"error": f"An unexpected error occurred {e}"},
                 status=500,
             )
+
+
+class EventLogListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @extend_schema(
+        summary="Get Logs",
+        request=None,
+        responses={200: OpenApiTypes.OBJECT},
+    )
+    def get(self, request):
+        dataspace = request.user.dataspace
+        if dataspace is None:
+            raise ValidationError("User is not assigned to dataspace")
+
+        event_logs = EventLog.objects.filter(dataspace=dataspace)
+        serializer = EventLogSerializer(event_logs, many=True)
+        return Response(serializer.data)
 
 
 @extend_schema(

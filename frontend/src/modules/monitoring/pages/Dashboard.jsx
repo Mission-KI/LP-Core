@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container, Spinner } from "react-bootstrap";
 import { useAuth } from "../../common/contexts/AuthContext";
-import Header from "../components/Header";
-import { getAnalytics } from "../monitoring";
-import { CloudArrowUp, Download, Pencil, Trash3 } from "react-bootstrap-icons";
+import { getAnalytics } from "../api/analytics";
 import DownloadsOverTime from "../components/DownloadsOverTime";
 import UploadsOverTime from "../components/UploadsOverTime";
 import PublisherSelectorDropdown from "../components/PublisherSelectorDropdown";
 import { useSearchParams } from "react-router-dom";
 import PublishersList from "../components/PublishersList";
 import AssetProcessingStateStats from "../components/AssetProcessingStateStats";
+import EDPActions from "../components/EDPActions";
 
 function Dashboard() {
   const { username } = useAuth();
@@ -44,11 +43,9 @@ function Dashboard() {
   const publisherSelected = !!searchParams.get("publisher");
 
   return (
-    <div className="container px-5 pb-5 mb-4">
-      <Header />
-
+    <>
       <div className="d-flex justify-content-between flex-wrap align-items-center mt-4 mb-3 ps-1">
-        <h2 className="bold">{username} - Monitoring Dashboard</h2>
+        <h2 className="bold">Welcome, {username}</h2>
         <PublisherSelectorDropdown analytics={analytics} />
       </div>
 
@@ -98,6 +95,7 @@ function Dashboard() {
 
       <div className="row">
         <div className="col-md-6">
+          <EDPActions analytics={analytics} />
           <AssetProcessingStateStats analytics={analytics} />
         </div>
         {!publisherSelected && (
@@ -106,7 +104,7 @@ function Dashboard() {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
 
