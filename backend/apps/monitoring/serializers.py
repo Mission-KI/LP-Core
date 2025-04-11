@@ -6,4 +6,4 @@ from .models import EventLog
 class EventLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = EventLog
-        fields = '__all__'
+        fields = "__all__"

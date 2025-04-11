@@ -837,7 +837,7 @@ input:checked + .slider:before {
   color: var(--color-text-lighter);
 }
 
-.__json-pretty__{
+.__json-pretty__ {
   color: var(--color-text) !important;
   background: var(--color-body-background) !important;
 }

@@ -83,6 +83,7 @@ class EventLogListView(APIView):
         serializer = EventLogSerializer(event_logs, many=True)
         return Response(serializer.data)
 
+
 @extend_schema(
     summary="Log EDP Download",
     request=None,
