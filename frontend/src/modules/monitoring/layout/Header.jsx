@@ -11,7 +11,7 @@ function Header() {
   return (
     <>
       <nav className={`container px-5 ${styles.navbar}`}>
-        <div className="ps-2 d-flex align-items-center">
+        <div className="d-flex align-items-center">
           <Breadcrumbs />
         </div>
         <div className="ms-auto d-flex align-items-center pe-2">

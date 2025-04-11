@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getLogs } from "../api/logs";
 import { toast } from "react-toastify";
+import JSONPretty from "react-json-pretty";
+import "react-json-pretty/themes/monikai.css";
 
 export const Logs = () => {
   const [logs, setLogs] = useState(null);
@@ -21,13 +23,13 @@ export const Logs = () => {
   return (
     <>
       <h2 className="bold mt-3">Logs</h2>
-      <p>
+      <p className="mb-5">
         Here you can see the audit logs of certain events like edp uploads,
         deletions and more.
       </p>
 
       <div className="table-responsive">
-        <table className="table table-bordered table-hover">
+        <table className="table table-bordered">
           <thead>
             <tr>
               <th>Requested URL</th>
@@ -45,8 +47,20 @@ export const Logs = () => {
                 <td>{log.status}</td>
                 <td>{log.type}</td>
                 <td>{log.message}</td>
-                <td>{JSON.stringify(log.metadata, null, 2)}</td>
-                <td>{log.created_at}</td>
+                <td>
+                  <JSONPretty
+                    id="json-pretty"
+                    data={log.metadata}
+                    style={{ overflow: "auto", maxHeight: "100px" }}
+                  ></JSONPretty>
+                </td>
+                <td>
+                  {new Intl.DateTimeFormat("en-GB", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  }).format(new Date(log.created_at))}
+                </td>
               </tr>
             ))}
           </tbody>

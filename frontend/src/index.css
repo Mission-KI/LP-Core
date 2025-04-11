@@ -836,3 +836,8 @@ input:checked + .slider:before {
   padding-bottom: 0.42rem;
   color: var(--color-text-lighter);
 }
+
+.__json-pretty__{
+  color: var(--color-text) !important;
+  background: var(--color-body-background) !important;
+}
