@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container, Spinner } from "react-bootstrap";
 import { useAuth } from "../../common/contexts/AuthContext";
-import { getAnalytics } from "../monitoring";
+import { getAnalytics } from "../api/analytics";
 import DownloadsOverTime from "../components/DownloadsOverTime";
 import UploadsOverTime from "../components/UploadsOverTime";
 import PublisherSelectorDropdown from "../components/PublisherSelectorDropdown";
