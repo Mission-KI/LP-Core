@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import $ from "jquery";
 import { useTranslation } from "react-i18next";
 
-function AttributeIntegrity({ datasetDetails }) {
+function AttributeIntegrity({ edp }) {
   useEffect(() => {
     const table = $("#consistencyTable").DataTable({
       paging: false,
@@ -43,7 +43,7 @@ function AttributeIntegrity({ datasetDetails }) {
             </tr>
           </thead>
           <tbody>
-            {datasetDetails?._source?.structuredDatasets[0]?.numericColumns?.map(
+            {edp?._source?.structuredDatasets[0]?.numericColumns?.map(
               (column, index) => (
                 <tr key={index}>
                   <td className="w-33">{column.name}</td>
@@ -52,7 +52,7 @@ function AttributeIntegrity({ datasetDetails }) {
                 </tr>
               ),
             )}
-            {datasetDetails?._source?.structuredDatasets[0]?.stringColumns?.map(
+            {edp?._source?.structuredDatasets[0]?.stringColumns?.map(
               (column, index) => (
                 <tr key={index}>
                   <td className="w-33">{column.name}</td>
@@ -61,7 +61,7 @@ function AttributeIntegrity({ datasetDetails }) {
                 </tr>
               ),
             )}
-            {datasetDetails?._source?.structuredDatasets?.[0]?.datetimeColumns?.map(
+            {edp?._source?.structuredDatasets?.[0]?.datetimeColumns?.map(
               (column, index) => (
                 <tr key={index}>
                   <td className="w-33">{column.name}</td>

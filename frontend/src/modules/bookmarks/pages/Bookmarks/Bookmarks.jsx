@@ -48,8 +48,8 @@ const Bookmarks = () => {
       )}
 
       {hasBookmarks ? (
-        bookmarkedItems.hits.hits.map((dataset) => (
-          <ResultItem dataset={dataset} key={dataset._id} />
+        bookmarkedItems.hits.hits.map((edp) => (
+          <ResultItem edp={edp} key={edp._id} />
         ))
       ) : (
         <div

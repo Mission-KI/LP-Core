@@ -1,11 +1,7 @@
 import TreeNode from "./TreeNode";
 
-const DatasetStructure = ({
-  datasetDetails,
-  datasetRef,
-  expandedByDefault = true,
-}) => {
-  const datasetTree = datasetDetails?._source?.datasetTree || [];
+const DatasetStructure = ({ edp, datasetRef, expandedByDefault = true }) => {
+  const datasetTree = edp?._source?.datasetTree || [];
 
   const rootNode = datasetTree.find(
     (item) => item.dataset["$ref"] === datasetRef,
@@ -36,7 +32,7 @@ const DatasetStructure = ({
     <div className="w-100 d-flex flex-column">
       <TreeNode
         key={rootNode.name}
-        datasetDetails={datasetDetails}
+        edp={edp}
         node={rootNode}
         childrenMap={childrenMap}
         expandedByDefault={expandedByDefault}

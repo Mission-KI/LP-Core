@@ -6,24 +6,20 @@ import {
 } from "../../../dataset/utils/calculations";
 import {
   Unlock,
-  Gear,
-  ClipboardCheck,
   Soundwave,
   Calendar,
-  Broadcast,
   Activity,
   Sliders2,
   Sliders2Vertical,
   Lock,
   Robot,
-  QuestionCircle,
 } from "react-bootstrap-icons";
 import { renderTooltip } from "../../../common/utils/tooltip";
 
-const QualityMetrics = ({ dataset }) => {
+const QualityMetrics = ({ edp }) => {
   return (
     <div className="d-flex">
-      {dataset?._source?.freely_available ? (
+      {edp?._source?.freely_available ? (
         <div>
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
@@ -48,7 +44,7 @@ const QualityMetrics = ({ dataset }) => {
           </OverlayTrigger>
         </div>
       )}
-      {dataset?._source?.structuredDatasets[0]?.datetimeColumnCount > 0 && (
+      {edp?._source?.structuredDatasets[0]?.datetimeColumnCount > 0 && (
         <div className="ps-2">
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
@@ -64,7 +60,7 @@ const QualityMetrics = ({ dataset }) => {
           </OverlayTrigger>
         </div>
       )}
-      {dataset?._source?.periodicity && (
+      {edp?._source?.periodicity && (
         <div className="ps-2">
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
@@ -80,7 +76,7 @@ const QualityMetrics = ({ dataset }) => {
           </OverlayTrigger>
         </div>
       )}
-      {isDataTypeConsistent(dataset) && (
+      {isDataTypeConsistent(edp) && (
         <div className="ps-2">
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
@@ -96,7 +92,7 @@ const QualityMetrics = ({ dataset }) => {
           </OverlayTrigger>
         </div>
       )}
-      {calculateAttributeIntegrity(dataset) === "consistent" && (
+      {calculateAttributeIntegrity(edp) === "consistent" && (
         <div className="ps-2">
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
@@ -126,7 +122,7 @@ const QualityMetrics = ({ dataset }) => {
           </div>
         </OverlayTrigger>
       </div>
-      {dataset?._source?.allowedForAiTraining && (
+      {edp?._source?.allowedForAiTraining && (
         <div className="ps-2">
           <OverlayTrigger
             placement="top"
@@ -145,13 +141,13 @@ const QualityMetrics = ({ dataset }) => {
           className="small"
           overlay={renderTooltip(
             <span style={{ fontSize: 10 }}>
-              {dataset._source.assetProcessingStatus === "Original Data"
+              {edp._source.assetProcessingStatus === "Original Data"
                 ? "Unverarbeitete, direkt aus den Quellen stammende Daten"
-                : dataset._source.assetProcessingStatus === "Processed Data"
+                : edp._source.assetProcessingStatus === "Processed Data"
                   ? "Redefinierte, konvertierte und semantisch bereinigte sowie transformierte Daten, die eine verbesserte Struktur und höhere Konsistenz aufweisen"
-                  : dataset._source.assetProcessingStatus === "Refined Data"
+                  : edp._source.assetProcessingStatus === "Refined Data"
                     ? "Feature Engineered und aggregierte Daten. Optimierte und zusammengefasste Datensätze für KI-Training"
-                    : dataset._source.assetProcessingStatus === "KI/ML Data"
+                    : edp._source.assetProcessingStatus === "KI/ML Data"
                       ? "KI/ML generierte Ergebnisdatensätze"
                       : "Unbekannter Datenstatus"}
             </span>,
@@ -159,16 +155,16 @@ const QualityMetrics = ({ dataset }) => {
         >
           <span
             className={`asset-processing-status ${
-              dataset._source.assetProcessingStatus === "Original Data"
+              edp._source.assetProcessingStatus === "Original Data"
                 ? "danger"
-                : dataset._source.assetProcessingStatus === "Processed Data"
+                : edp._source.assetProcessingStatus === "Processed Data"
                   ? "warning"
-                  : dataset._source.assetProcessingStatus === "Refined Data"
+                  : edp._source.assetProcessingStatus === "Refined Data"
                     ? "success"
                     : "primary"
             }`}
           >
-            {dataset._source.assetProcessingStatus}
+            {edp._source.assetProcessingStatus}
           </span>
         </OverlayTrigger>
       </div>

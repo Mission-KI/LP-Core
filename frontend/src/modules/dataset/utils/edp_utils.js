@@ -1,7 +1,7 @@
-export const getEdpLanguagesList = (dataset) => {
-  if (!dataset?._source?.unstructuredTextDatasets) return "";
+export const getEdpLanguagesList = (edp) => {
+  if (!edp?._source?.unstructuredTextDatasets) return "";
 
-  const allLanguages = dataset._source.unstructuredTextDatasets.flatMap(
+  const allLanguages = edp._source.unstructuredTextDatasets.flatMap(
     (ds) => ds.languages || [],
   );
 
@@ -10,9 +10,9 @@ export const getEdpLanguagesList = (dataset) => {
   return uniqueLanguages.length > 0 ? uniqueLanguages.join(", ") : "None";
 };
 
-export const getNumericOutlierAnalysis = (dataset) => {
+export const getNumericOutlierAnalysis = (edp) => {
   const numericColumns =
-    dataset?._source?.structuredDatasets?.[0]?.numericColumns || [];
+    edp?._source?.structuredDatasets?.[0]?.numericColumns || [];
 
   const outlierPercentages = numericColumns
     .map((col) => col.relativeOutlierCount)
@@ -33,13 +33,13 @@ export const getNumericOutlierAnalysis = (dataset) => {
   }
 };
 
-export const resolveDataset = (datasetDetails, datasetRef) => {
+export const resolveDataset = (edp, datasetRef) => {
   const match = datasetRef.match(/^#\/([^/]+)\/(\d+)$/);
 
   if (match) {
     const [, arrayName, index] = match;
 
-    const datasetsArray = datasetDetails?._source?.[arrayName];
+    const datasetsArray = edp?._source?.[arrayName];
 
     if (datasetsArray && Array.isArray(datasetsArray)) {
       return datasetsArray[parseInt(index, 10)] || null;
@@ -48,8 +48,8 @@ export const resolveDataset = (datasetDetails, datasetRef) => {
 
   return null;
 };
-export const datasetHasChildren = (datasetDetails, datasetRef) => {
-  const datasetTree = datasetDetails?._source?.datasetTree || [];
+export const datasetHasChildren = (edp, datasetRef) => {
+  const datasetTree = edp?._source?.datasetTree || [];
 
   const rootNode = datasetTree.find(
     (item) => item.dataset["$ref"] === datasetRef,

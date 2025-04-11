@@ -5,7 +5,7 @@ import $ from "jquery";
 import ImageView from "../../../common/components/ImageView/ImageView";
 import { imageBasePath } from "../../../common/api/config";
 
-function NumericValueDistribution({ datasetDetails }) {
+function NumericValueDistribution({ edp }) {
   useEffect(() => {
     const table = $("#distributionTable").DataTable({
       paging: false,
@@ -31,14 +31,14 @@ function NumericValueDistribution({ datasetDetails }) {
       <Tab eventKey="graphics" title="Graphics">
         <div className="container">
           <div className="row">
-            {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map(
+            {edp?._source?.structuredDatasets[0]?.numericColumns.map(
               (column) =>
                 column.distributionGraph && (
                   <div className="col-md-3 mb-3" key={column.name}>
                     <ImageView
                       url={
                         imageBasePath +
-                        datasetDetails?._id +
+                        edp?._id +
                         "/" +
                         column.distributionGraph
                       }
@@ -69,7 +69,7 @@ function NumericValueDistribution({ datasetDetails }) {
                 </tr>
               </thead>
               <tbody>
-                {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map(
+                {edp?._source?.structuredDatasets[0]?.numericColumns.map(
                   (column, index) => (
                     <tr key={index} className="hover">
                       <td className="w-33">{column.name}</td>

@@ -2,16 +2,14 @@ import React from "react";
 import ImageView from "../../../common/components/ImageView/ImageView";
 import { imageBasePath } from "../../../common/api/config";
 
-function NumericCorrelationAnalysis({ datasetDetails }) {
+function NumericCorrelationAnalysis({ edp }) {
   const correlationGraphUrl =
-    datasetDetails?._source?.structuredDatasets[0]?.correlationGraph;
+    edp?._source?.structuredDatasets[0]?.correlationGraph;
 
   return (
     <>
       {correlationGraphUrl ? (
-        <ImageView
-          url={imageBasePath + datasetDetails?._id + "/" + correlationGraphUrl}
-        />
+        <ImageView url={imageBasePath + edp?._id + "/" + correlationGraphUrl} />
       ) : (
         ""
       )}

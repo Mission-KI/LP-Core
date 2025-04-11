@@ -6,7 +6,7 @@ import $ from "jquery";
 import { useTranslation } from "react-i18next";
 import { imageBasePath } from "../../../common/api/config";
 
-function NumericOutlierAnalysis({ datasetDetails }) {
+function NumericOutlierAnalysis({ edp }) {
   useEffect(() => {
     const table = $("#anomalyTable").DataTable({
       paging: false,
@@ -34,17 +34,12 @@ function NumericOutlierAnalysis({ datasetDetails }) {
       <Tab eventKey="graphics" title="Graphics">
         <div className="container">
           <div className="row">
-            {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map(
+            {edp?._source?.structuredDatasets[0]?.numericColumns.map(
               (column) =>
                 column.boxPlot && (
                   <div className="col-md-3 mb-3" key={column.name}>
                     <ImageView
-                      url={
-                        imageBasePath +
-                        datasetDetails?._id +
-                        "/" +
-                        column.boxPlot
-                      }
+                      url={imageBasePath + edp?._id + "/" + column.boxPlot}
                     />
                   </div>
                 ),
@@ -100,7 +95,7 @@ function NumericOutlierAnalysis({ datasetDetails }) {
                 </tr>
               </thead>
               <tbody>
-                {datasetDetails?._source?.structuredDatasets[0]?.numericColumns.map(
+                {edp?._source?.structuredDatasets[0]?.numericColumns.map(
                   (column, index) => (
                     <tr key={index} className="hover">
                       <td className="small">{column.name}</td>

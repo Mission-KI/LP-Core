@@ -1,24 +1,24 @@
 import moment from "moment";
 
-export const calculateAttributeIntegrity = (dataset) => {
+export const calculateAttributeIntegrity = (edp) => {
   var sumOfMissingValueCounts = 0;
   var countWithMissingValues = 0;
 
-  dataset?._source?.structuredDatasets[0]?.numericColumns?.map((column) => {
+  edp?._source?.structuredDatasets[0]?.numericColumns?.map((column) => {
     sumOfMissingValueCounts = sumOfMissingValueCounts + column.nullCount;
     if (column.nullCount) {
       countWithMissingValues++;
     }
   });
 
-  dataset?._source?.structuredDatasets[0]?.stringColumns?.map((column) => {
+  edp?._source?.structuredDatasets[0]?.stringColumns?.map((column) => {
     sumOfMissingValueCounts = sumOfMissingValueCounts + column.nullCount;
     if (column.nullCount) {
       countWithMissingValues++;
     }
   });
 
-  dataset?._source?.structuredDatasets[0]?.datetimeColumns?.map((column) => {
+  edp?._source?.structuredDatasets[0]?.datetimeColumns?.map((column) => {
     sumOfMissingValueCounts = sumOfMissingValueCounts + column.nullCount;
     if (column.nullCount) {
       countWithMissingValues++;
@@ -28,8 +28,7 @@ export const calculateAttributeIntegrity = (dataset) => {
   if (sumOfMissingValueCounts == 0) {
     return "consistent";
   } else if (
-    countWithMissingValues ==
-    dataset?._source?.structuredDatasets?.[0]?.columnCount
+    countWithMissingValues == edp?._source?.structuredDatasets?.[0]?.columnCount
   ) {
     return "inconsistent";
   } else {
@@ -37,20 +36,20 @@ export const calculateAttributeIntegrity = (dataset) => {
   }
 };
 
-export const calculateDataTypesAttribute = (dataset) => {
+export const calculateDataTypesAttribute = (edp) => {
   const numericColumnCount =
-    dataset?._source?.structuredDatasets?.[0]?.numericColumns?.length;
+    edp?._source?.structuredDatasets?.[0]?.numericColumns?.length;
   const datetimeColumnCount =
-    dataset?._source?.structuredDatasets?.[0]?.datetimeColumns?.length;
+    edp?._source?.structuredDatasets?.[0]?.datetimeColumns?.length;
   const stringColumnCount =
-    dataset?._source?.structuredDatasets?.[0]?.stringColumns?.length;
+    edp?._source?.structuredDatasets?.[0]?.stringColumns?.length;
 
   return `date (${datetimeColumnCount}), string (${stringColumnCount}), numeric (${numericColumnCount})`;
 };
 
-export const calculateTemporalCover = (dataset) => {
-  const earliest = dataset?._source?.temporalCover?.earliest;
-  const latest = dataset?._source?.temporalCover?.latest;
+export const calculateTemporalCover = (edp) => {
+  const earliest = edp?._source?.temporalCover?.earliest;
+  const latest = edp?._source?.temporalCover?.latest;
 
   if (!earliest || !latest) return "N/A";
 
@@ -62,12 +61,12 @@ export const calculateTemporalCover = (dataset) => {
   return `${earliestFormatted} - ${latestFormatted} (${durationText})`;
 };
 
-export const getStringValueDistributionOverview = (dataset) => {
-  if (!dataset?._source?.structuredDatasets?.[0]?.stringColumns?.length) {
+export const getStringValueDistributionOverview = (edp) => {
+  if (!edp?._source?.structuredDatasets?.[0]?.stringColumns?.length) {
     return "N/A";
   }
 
-  const stringColumns = dataset._source.structuredDatasets[0].stringColumns;
+  const stringColumns = edp._source.structuredDatasets[0].stringColumns;
 
   let homogenCount = 0;
   let heterogenCount = 0;
@@ -90,12 +89,12 @@ export const getStringValueDistributionOverview = (dataset) => {
   return "N/A";
 };
 
-export const getTopNumericDistributions = (dataset, topN = 3) => {
-  if (!dataset?._source?.structuredDatasets?.[0]?.numericColumns?.length) {
+export const getTopNumericDistributions = (edp, topN = 3) => {
+  if (!edp?._source?.structuredDatasets?.[0]?.numericColumns?.length) {
     return "N/A";
   }
 
-  const numericColumns = dataset._source.structuredDatasets[0].numericColumns;
+  const numericColumns = edp._source.structuredDatasets[0].numericColumns;
 
   // Collect unique distributions
   const distributionCounts = numericColumns.reduce((acc, column) => {
@@ -116,12 +115,12 @@ export const getTopNumericDistributions = (dataset, topN = 3) => {
   return topDistributions.length ? `${topDistributions.join(", ")}` : "N/A";
 };
 
-export const getUniqueNumericDistributions = (dataset) => {
-  if (!dataset?._source?.structuredDatasets?.[0]?.numericColumns?.length) {
+export const getUniqueNumericDistributions = (edp) => {
+  if (!edp?._source?.structuredDatasets?.[0]?.numericColumns?.length) {
     return [];
   }
 
-  const numericColumns = dataset._source.structuredDatasets[0].numericColumns;
+  const numericColumns = edp._source.structuredDatasets[0].numericColumns;
 
   // Extract unique distribution names
   const uniqueDistributions = [
@@ -133,13 +132,13 @@ export const getUniqueNumericDistributions = (dataset) => {
   return uniqueDistributions;
 };
 
-export const getNumericCorrelationSummary = (dataset) => {
-  if (!dataset?._source?.structuredDatasets?.[0]?.numericColumns?.length) {
+export const getNumericCorrelationSummary = (edp) => {
+  if (!edp?._source?.structuredDatasets?.[0]?.numericColumns?.length) {
     return [];
   }
 
   const correlationSummary =
-    dataset._source.structuredDatasets[0].correlationSummary;
+    edp._source.structuredDatasets[0].correlationSummary;
 
   const { partial, strong } = correlationSummary;
 
@@ -162,16 +161,16 @@ export const getNumericCorrelationSummary = (dataset) => {
   return "Unknown";
 };
 
-export const isDataTypeConsistent = (dataset) => {
+export const isDataTypeConsistent = (edp) => {
   if (
-    !dataset ||
-    !dataset._source.structuredDatasets ||
-    dataset._source.structuredDatasets.length === 0
+    !edp ||
+    !edp._source.structuredDatasets ||
+    edp._source.structuredDatasets.length === 0
   ) {
     return false;
   }
 
-  const numericColumns = dataset._source.structuredDatasets[0].numericColumns;
+  const numericColumns = edp._source.structuredDatasets[0].numericColumns;
 
   if (!numericColumns || numericColumns.length === 0) {
     return true;

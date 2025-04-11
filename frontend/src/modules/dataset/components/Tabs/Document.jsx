@@ -1,9 +1,9 @@
 import React from "react";
 
-const Document = ({ datasetDetails, datasetRef }) => {
+const Document = ({ edp, datasetRef }) => {
   const documentIndex = parseInt(datasetRef.split("/")[2], 10);
 
-  const documentDatasets = datasetDetails?._source?.documentDatasets || [];
+  const documentDatasets = edp?._source?.documentDatasets || [];
   const document = documentDatasets[documentIndex] || {};
 
   if (!document) {

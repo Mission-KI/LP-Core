@@ -6,7 +6,7 @@ const SeasonalityDetailView = ({
   showDetailViewModal,
   setShowDetailViewModal,
   selectedAttribute,
-  datasetDetails,
+  edp,
 }) => {
   const handleOpen = () => setShowDetailViewModal(true);
   const handleClose = () => setShowDetailViewModal(false);
@@ -26,7 +26,7 @@ const SeasonalityDetailView = ({
               <div className="row mb-3">
                 <div className="col-md-12">
                   <img
-                    src={imageBasePath + datasetDetails?._id + "/" + graph.file}
+                    src={imageBasePath + edp?._id + "/" + graph.file}
                     className="w-100 pointer"
                   />
                 </div>
@@ -41,7 +41,7 @@ const SeasonalityDetailView = ({
               <div className="row mb-3">
                 <div className="col-md-12">
                   <img
-                    src={imageBasePath + datasetDetails?._id + "/" + graph.file}
+                    src={imageBasePath + edp?._id + "/" + graph.file}
                     className="w-100 pointer"
                   />
                 </div>
@@ -56,7 +56,7 @@ const SeasonalityDetailView = ({
               <div className="row mb-3">
                 <div className="col-md-12">
                   <img
-                    src={imageBasePath + datasetDetails?._id + "/" + graph.file}
+                    src={imageBasePath + edp?._id + "/" + graph.file}
                     className="w-100 pointer"
                   />
                 </div>
@@ -71,7 +71,7 @@ const SeasonalityDetailView = ({
               <div className="row mb-3">
                 <div className="col-md-12">
                   <img
-                    src={imageBasePath + datasetDetails?._id + "/" + graph.file}
+                    src={imageBasePath + edp?._id + "/" + graph.file}
                     className="w-100 pointer"
                   />
                 </div>

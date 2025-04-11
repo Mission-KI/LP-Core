@@ -8,7 +8,7 @@ import {
 import { t } from "i18next";
 import { useBookmarks } from "../../../bookmarks/contexts/BookmarksContext";
 
-function DatasetOptionsDropdown({ dataset }) {
+function DatasetOptionsDropdown({ edp }) {
   const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
 
   return (
@@ -23,17 +23,17 @@ function DatasetOptionsDropdown({ dataset }) {
       <Dropdown.Menu className="border-0 shadow bgc-body">
         <Dropdown.Item
           className="d-flex align-items-center"
-          href={dataset?._source?.assetUrl}
+          href={edp?._source?.assetUrl}
           target="_blank"
         >
           <Download className="me-2" /> {t("dataset.getDataset")}
         </Dropdown.Item>
-        {isBookmarked(dataset._id) ? (
+        {isBookmarked(edp._id) ? (
           <Dropdown.Item
             as="button"
             className="d-flex align-items-center"
             onClick={() => {
-              removeBookmark(dataset._id);
+              removeBookmark(edp._id);
             }}
           >
             <StarFill className="me-2" />
@@ -44,7 +44,7 @@ function DatasetOptionsDropdown({ dataset }) {
             as="button"
             className="d-flex align-items-center"
             onClick={() => {
-              addBookmark(dataset._id);
+              addBookmark(edp._id);
             }}
           >
             <Star className="me-2" />

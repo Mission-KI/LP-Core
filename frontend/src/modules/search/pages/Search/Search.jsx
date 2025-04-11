@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Results from "../../components/Results/Results";
-import { getDatasets } from "../../../common/api/elastic";
+import { getEdps } from "../../../common/api/elastic";
 import { useLocation, useNavigate } from "react-router-dom";
 import HeroSection from "../../components/HeroSection/HeroSection";
 import HomeHeader from "../../components/HomeHeader/HomeHeader";
@@ -8,15 +8,14 @@ import MainHeader from "../../components/MainHeader/MainHeader";
 import Footer from "../../../common/components/Footer/Footer";
 
 function Search() {
-  const [datasets, setDatasets] = useState([]);
+  const [edps, setDatasets] = useState([]);
   const [searchParams, setSearchParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 12;
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const navigate = useNavigate();
-  const pageCount =
-    Math.ceil(datasets.hits?.total?.value / resultsPerPage) || 0;
+  const pageCount = Math.ceil(edps.hits?.total?.value / resultsPerPage) || 0;
   const [showMainHeader, setShowMainHeader] = useState(false);
 
   useEffect(() => {
@@ -39,12 +38,12 @@ function Search() {
         const queryParams = new URLSearchParams(location.search);
         const page = parseInt(queryParams.get("page")) || 1;
         const from = (page - 1) * resultsPerPage;
-        const fetchedDatasets = await getDatasets(from, resultsPerPage);
+        const fetchedDatasets = await getEdps(from, resultsPerPage);
 
         setDatasets(fetchedDatasets);
         setCurrentPage(page);
       } catch (error) {
-        console.error("Error fetching datasets:", error);
+        console.error("Error fetching edp's:", error);
       } finally {
         setTimeout(() => {
           setLoading(false);
@@ -89,11 +88,11 @@ function Search() {
       <div>
         <div>
           <HomeHeader />
-          <HeroSection datasets={datasets} />
+          <HeroSection edps={edps} />
         </div>
         <div className="container pb-4" style={{ maxWidth: 1100 }}>
           <Results
-            datasets={datasets}
+            edps={edps}
             loading={loading}
             pageCount={pageCount}
             handlePageChange={handlePageChange}

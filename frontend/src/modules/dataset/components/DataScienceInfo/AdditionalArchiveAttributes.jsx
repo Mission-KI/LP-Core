@@ -1,7 +1,7 @@
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 
-const AdditionalArchiveAttributes = ({ dataset, datasetDetails }) => {
+const AdditionalArchiveAttributes = ({ dataset, edp }) => {
   const { t } = useTranslation();
 
   return (

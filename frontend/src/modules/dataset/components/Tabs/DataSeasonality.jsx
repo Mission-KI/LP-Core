@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import ImageView from "../../../common/components/ImageView/ImageView";
 import SeasonalityDetailView from "../SeasonalityDetailView";
 import { imageBasePath } from "../../../common/api/config";
 
-function DataSeasonality({ datasetDetails }) {
+function DataSeasonality({ edp }) {
   const [selectedTab, setSelectedTab] = useState("Original Timeseries");
   const [searchQuery, setSearchQuery] = useState("");
   const [showDetailViewModal, setShowDetailViewModal] = useState(false);
@@ -17,8 +16,8 @@ function DataSeasonality({ datasetDetails }) {
   ];
 
   const filteredColumns =
-    datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns?.filter(
-      (column) => column.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    edp?._source?.structuredDatasets?.[0]?.numericColumns?.filter((column) =>
+      column.name.toLowerCase().includes(searchQuery.toLowerCase()),
     ) || [];
 
   const handleOpenSeasonalityDetailView = (attribute) => {
@@ -78,7 +77,7 @@ function DataSeasonality({ datasetDetails }) {
                           <img
                             src={
                               imageBasePath +
-                              datasetDetails?._id +
+                              edp?._id +
                               "/" +
                               column?.original_series?.[0]?.file
                             }
@@ -117,7 +116,7 @@ function DataSeasonality({ datasetDetails }) {
                           <img
                             src={
                               imageBasePath +
-                              datasetDetails?._id +
+                              edp?._id +
                               "/" +
                               column?.trends?.[0]?.file
                             }
@@ -158,7 +157,7 @@ function DataSeasonality({ datasetDetails }) {
                           <img
                             src={
                               imageBasePath +
-                              datasetDetails?._id +
+                              edp?._id +
                               "/" +
                               column?.seasonalities?.[0]?.file
                             }
@@ -197,7 +196,7 @@ function DataSeasonality({ datasetDetails }) {
                           <img
                             src={
                               imageBasePath +
-                              datasetDetails?._id +
+                              edp?._id +
                               "/" +
                               column?.residuals?.[0]?.file
                             }
@@ -226,7 +225,7 @@ function DataSeasonality({ datasetDetails }) {
         showDetailViewModal={showDetailViewModal}
         setShowDetailViewModal={setShowDetailViewModal}
         selectedAttribute={selectedAttribute}
-        datasetDetails={datasetDetails}
+        edp={edp}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import $ from "jquery";
 
-function EmbeddedImages({ datasetDetails, datasetRef }) {
+function EmbeddedImages({ edp, datasetRef }) {
   useEffect(() => {
     const table = $("#embeddedImagesTable").DataTable({
       paging: false,
@@ -19,8 +19,8 @@ function EmbeddedImages({ datasetDetails, datasetRef }) {
     };
   }, []);
 
-  const datasetTree = datasetDetails?._source?.datasetTree || [];
-  const imageDatasets = datasetDetails?._source?.imageDatasets || [];
+  const datasetTree = edp?._source?.datasetTree || [];
+  const imageDatasets = edp?._source?.imageDatasets || [];
 
   const treeDatasetRef = datasetTree
     .map((item, index) => ({ ...item, index }))

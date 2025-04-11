@@ -1,6 +1,6 @@
 import { elasticURL } from "./config";
 
-export const getDatasets = async (from = 0, size = 10) => {
+export const getEdps = async (from = 0, size = 10) => {
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const filters = [];
@@ -293,7 +293,7 @@ export const getFilterValues = async () => {
   }
 };
 
-export const getDataset = async (id) => {
+export const getEdp = async (id) => {
   try {
     const response = await fetch(`${elasticURL}/_doc/${id}`, {
       method: "GET",

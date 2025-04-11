@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import $ from "jquery";
 import { useTranslation } from "react-i18next";
 
-function AttributeList({ datasetDetails }) {
+function AttributeList({ edp }) {
   useEffect(() => {
     const table = $("#attributeTable").DataTable({
       paging: false,
@@ -40,7 +40,7 @@ function AttributeList({ datasetDetails }) {
             </tr>
           </thead>
           <tbody>
-            {datasetDetails?._source?.structuredDatasets?.[0]?.numericColumns.map(
+            {edp?._source?.structuredDatasets?.[0]?.numericColumns.map(
               (column, index) => (
                 <tr key={index}>
                   <td className="txt-lighter w-25">{column.name}</td>
@@ -50,7 +50,7 @@ function AttributeList({ datasetDetails }) {
                 </tr>
               ),
             )}
-            {datasetDetails?._source?.structuredDatasets?.[0]?.stringColumns.map(
+            {edp?._source?.structuredDatasets?.[0]?.stringColumns.map(
               (column, index) => (
                 <tr key={index}>
                   <td className="txt-lighter w-25">{column.name}</td>
@@ -60,7 +60,7 @@ function AttributeList({ datasetDetails }) {
                 </tr>
               ),
             )}
-            {datasetDetails?._source?.structuredDatasets?.[0]?.datetimeColumns.map(
+            {edp?._source?.structuredDatasets?.[0]?.datetimeColumns.map(
               (column, index) => (
                 <tr key={index}>
                   <td className="txt-lighter w-25">{column.name}</td>

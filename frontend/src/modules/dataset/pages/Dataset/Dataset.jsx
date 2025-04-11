@@ -3,27 +3,27 @@ import { useParams } from "react-router";
 import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
 import PageNotFound from "../../../common/pages/PageNotFound";
 import { ArrowLeft } from "react-bootstrap-icons";
-import { getDataset } from "../../../common/api/elastic";
+import { getEdp } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const Dataset = () => {
   const { id } = useParams();
-  const [datasetDetails, setDatasetDetails] = useState(null);
+  const [edp, setEdp] = useState(null);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { datasetName } = useParams();
-  const datasetTree = datasetDetails?._source?.datasetTree;
+  const datasetTree = edp?._source?.datasetTree;
   const dataset = datasetTree?.find((item) => item.name === datasetName);
   const datasetRef = dataset ? dataset.dataset["$ref"] : null;
 
   useEffect(() => {
-    const fetchDatasets = async () => {
+    const fetchEdp = async () => {
       try {
-        const fetchedDataset = await getDataset(id);
-        setDatasetDetails(fetchedDataset);
+        const fetchedEdp = await getEdp(id);
+        setEdp(fetchedEdp);
       } catch (error) {
         console.error("Error fetching :", error);
       } finally {
@@ -31,7 +31,7 @@ const Dataset = () => {
       }
     };
 
-    fetchDatasets();
+    fetchEdp();
   }, [id]);
 
   if (loading) {
@@ -45,7 +45,7 @@ const Dataset = () => {
     );
   }
 
-  if (!datasetDetails) {
+  if (!edp) {
     return <PageNotFound />;
   }
 
@@ -61,10 +61,7 @@ const Dataset = () => {
 
       <h3 className="mt-4 bold">{datasetName}</h3>
 
-      <DatasetAnalyticsSection
-        datasetDetails={datasetDetails}
-        datasetRef={datasetRef}
-      />
+      <DatasetAnalyticsSection edp={edp} datasetRef={datasetRef} />
     </div>
   );
 };

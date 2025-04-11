@@ -6,7 +6,7 @@ import { notifyEdpDownloadEvent } from "../api/dataset";
 import { apiUrl, imageBasePath } from "../../common/api/config";
 import { useBookmarks } from "../../bookmarks/contexts/BookmarksContext";
 
-const EDPActions = ({ datasetDetails }) => {
+const EDPActions = ({ edp }) => {
   const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
   const { t } = useTranslation();
   const location = useLocation();
@@ -18,7 +18,7 @@ const EDPActions = ({ datasetDetails }) => {
   };
 
   const isHomePage = location.pathname === "/";
-  const reportDownloadUrl = imageBasePath + datasetDetails?._id + "/report.pdf";
+  const reportDownloadUrl = imageBasePath + edp?._id + "/report.pdf";
 
   return (
     <div className="d-flex">
@@ -26,7 +26,7 @@ const EDPActions = ({ datasetDetails }) => {
         {isHomePage && (
           <div className="pe-2 pt-1">
             <Link
-              to={`/details/${datasetDetails._id}`}
+              to={`/details/${edp._id}`}
               className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
               <Link45deg className="me-2" /> {t("dataset.details")}
@@ -56,15 +56,15 @@ const EDPActions = ({ datasetDetails }) => {
         <div className="pe-2 pt-1">
           <button
             className="btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
-            onClick={() => handleDownload(datasetDetails?._source?.assetUrl)}
+            onClick={() => handleDownload(edp?._source?.assetUrl)}
           >
             <Download className="me-2" /> {t("header.getDataset")}
           </button>
         </div>
-        {!isBookmarked(datasetDetails?._id) ? (
+        {!isBookmarked(edp?._id) ? (
           <div className="pe-2 pt-1">
             <span
-              onClick={() => addBookmark(datasetDetails?._id)}
+              onClick={() => addBookmark(edp?._id)}
               data-test-id="bookmark-button"
               className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
@@ -75,7 +75,7 @@ const EDPActions = ({ datasetDetails }) => {
         ) : (
           <div className="pe-2 pt-1">
             <span
-              onClick={() => removeBookmark(datasetDetails?._id)}
+              onClick={() => removeBookmark(edp?._id)}
               className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
               <StarFill className="me-2" />

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import $ from "jquery";
 import { useTranslation } from "react-i18next";
 
-function TemporalConsistency({ datasetDetails }) {
+function TemporalConsistency({ edp }) {
   useEffect(() => {
     const table = $("#temporalConsistencyTable").DataTable({
       paging: false,
@@ -41,7 +41,7 @@ function TemporalConsistency({ datasetDetails }) {
             </tr>
           </thead>
           <tbody>
-            {datasetDetails?._source?.structuredDatasets[0]?.datetimeColumns.map(
+            {edp?._source?.structuredDatasets[0]?.datetimeColumns.map(
               (column) =>
                 column?.temporalConsistencies.map(
                   (temporalConsistency, index) => (

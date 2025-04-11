@@ -5,10 +5,10 @@ import styles from "./QuickView.module.css";
 import DataScienceInfo from "../../../dataset/components/DataScienceInfo/DataScienceInfo";
 import EDPActions from "../../../dataset/components/EDPActions";
 
-function QuickView({ dataset }) {
+function QuickView({ edp }) {
   const [show, setShow] = useState(false);
   const dropdownRef = useRef(null);
-  const datasetRef = dataset?._source?.datasetTree[0]?.dataset?.$ref;
+  const datasetRef = edp?._source?.datasetTree[0]?.dataset?.$ref;
 
   const toggleDropdown = () => {
     setShow((prevShow) => !prevShow);
@@ -48,9 +48,9 @@ function QuickView({ dataset }) {
         <div className="container">
           <div>
             <div className="pb-4">
-              <EDPActions datasetDetails={dataset} />
+              <EDPActions edp={edp} />
             </div>
-            <DataScienceInfo datasetDetails={dataset} datasetRef={datasetRef} />
+            <DataScienceInfo edp={edp} datasetRef={datasetRef} />
           </div>
         </div>
       </Dropdown.Menu>

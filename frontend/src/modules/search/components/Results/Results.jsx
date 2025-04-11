@@ -7,13 +7,7 @@ import Paginator from "../../../common/components/widgets/Paginator";
 import ResultItemCard from "./ResultItemCard";
 import SkeletonLoader from "../../../common/animations/SkeletonAnimation";
 
-function Results({
-  datasets,
-  loading,
-  pageCount,
-  handlePageChange,
-  currentPage,
-}) {
+function Results({ edps, loading, pageCount, handlePageChange, currentPage }) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("list");
 
@@ -23,11 +17,11 @@ function Results({
         <div className="mb-4">
           <div className="d-flex align-items-center pb-3">
             <span className="bold d-flex pe-4" style={{ whiteSpace: "nowrap" }}>
-              {datasets.hits?.total?.value >= 10000
-                ? `> ${datasets.hits.total.value.toLocaleString()}`
-                : datasets.hits?.total?.value?.toLocaleString()}
+              {edps.hits?.total?.value >= 10000
+                ? `> ${edps.hits.total.value.toLocaleString()}`
+                : edps.hits?.total?.value?.toLocaleString()}
               &nbsp;
-              {datasets.hits?.total?.value === 1
+              {edps.hits?.total?.value === 1
                 ? t("dataset.dataset")
                 : t("dataset.datasets")}
             </span>
@@ -51,8 +45,8 @@ function Results({
 
           {activeTab == "list" ? (
             <div className="col-md-9">
-              {datasets?.hits?.hits?.map((dataset) => (
-                <ResultItem dataset={dataset} key={dataset._id} />
+              {edps?.hits?.hits?.map((edp) => (
+                <ResultItem edp={edp} key={edp._id} />
               ))}
               <div className="col-md-10">
                 <Paginator
@@ -65,8 +59,8 @@ function Results({
           ) : activeTab == "tiles" ? (
             <>
               <div className="row">
-                {datasets?.hits?.hits?.map((dataset) => (
-                  <ResultItemCard dataset={dataset} key={dataset._id} />
+                {edps?.hits?.hits?.map((edp) => (
+                  <ResultItemCard edp={edp} key={edp._id} />
                 ))}
               </div>
               <Paginator

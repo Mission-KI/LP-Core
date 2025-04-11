@@ -1,4 +1,4 @@
-const Schema = ({ datasetDetails }) => {
+const Schema = ({ edp }) => {
   return (
     <div>
       <p>No data available for this table.</p>

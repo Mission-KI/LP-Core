@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getDataset } from "../../../common/api/elastic";
+import { getEdp } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import PageNotFound from "../../../common/pages/PageNotFound";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,7 @@ import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
 
 function Details() {
   const { id } = useParams();
-  const [datasetDetails, setDatasetDetails] = useState(null);
+  const [edp, setEdp] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const { t } = useTranslation();
@@ -19,8 +19,8 @@ function Details() {
   useEffect(() => {
     const fetchDatasets = async () => {
       try {
-        const fetchedDataset = await getDataset(id);
-        setDatasetDetails(fetchedDataset);
+        const fetchedDataset = await getEdp(id);
+        setEdp(fetchedDataset);
       } catch (error) {
         console.error("Error fetching :", error);
       } finally {
@@ -42,7 +42,7 @@ function Details() {
     );
   }
 
-  if (!datasetDetails) {
+  if (!edp) {
     return <PageNotFound />;
   }
   return (
@@ -55,10 +55,10 @@ function Details() {
         {t("header.return")}
       </span>
 
-      <EDPInfoSection datasetDetails={datasetDetails} />
+      <EDPInfoSection edp={edp} />
       <DatasetAnalyticsSection
-        datasetDetails={datasetDetails}
-        datasetRef={datasetDetails?._source?.datasetTree[0]?.dataset?.$ref}
+        edp={edp}
+        datasetRef={edp?._source?.datasetTree[0]?.dataset?.$ref}
       />
     </>
   );

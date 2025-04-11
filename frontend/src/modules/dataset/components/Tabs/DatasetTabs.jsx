@@ -21,11 +21,8 @@ import Image from "./Image";
 import DatasetStructure from "../DatasetStructure/DatasetStructure";
 import { datasetHasChildren } from "../../utils/edp_utils";
 
-const DatasetTabs = ({ datasetDetails, datasetRef }) => {
-  const doesDatasetHaveChildren = datasetHasChildren(
-    datasetDetails,
-    datasetRef,
-  );
+const DatasetTabs = ({ edp, datasetRef }) => {
+  const doesDatasetHaveChildren = datasetHasChildren(edp, datasetRef);
   const isDocumentDataset = datasetRef.includes("#/documentDatasets");
   const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
   const isUnstructuredDataset = datasetRef.includes(
@@ -59,12 +56,7 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
           {
             eventKey: "structure",
             title: "ASSET STRUCTURE",
-            component: (
-              <DatasetStructure
-                datasetDetails={datasetDetails}
-                datasetRef={datasetRef}
-              />
-            ),
+            component: <DatasetStructure edp={edp} datasetRef={datasetRef} />,
           },
         ]
       : []),
@@ -73,27 +65,17 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
           {
             eventKey: "document",
             title: "Document",
-            component: (
-              <Document
-                datasetDetails={datasetDetails}
-                datasetRef={datasetRef}
-              />
-            ),
+            component: <Document edp={edp} datasetRef={datasetRef} />,
           },
           {
             eventKey: "embedded_tables",
             title: t("dataset.tabs.embeddedTables"),
-            component: <EmbeddedTables datasetDetails={datasetDetails} />,
+            component: <EmbeddedTables edp={edp} />,
           },
           {
             eventKey: "embedded_images",
             title: t("dataset.tabs.embeddedImages"),
-            component: (
-              <EmbeddedImages
-                datasetDetails={datasetDetails}
-                datasetRef={datasetRef}
-              />
-            ),
+            component: <EmbeddedImages edp={edp} datasetRef={datasetRef} />,
           },
         ]
       : []),
@@ -102,55 +84,47 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
           {
             eventKey: "attribute_list",
             title: t("dataset.tabs.attributeList"),
-            component: <AttributeList datasetDetails={datasetDetails} />,
+            component: <AttributeList edp={edp} />,
           },
           {
             eventKey: "temporal_consistency",
             title: t("dataset.tabs.temporalConsistency"),
-            component: <TemporalConsistency datasetDetails={datasetDetails} />,
+            component: <TemporalConsistency edp={edp} />,
           },
           {
             eventKey: "numeric_value_distribution",
             title: t("dataset.tabs.numericValueDistribution"),
-            component: (
-              <NumericValueDistribution datasetDetails={datasetDetails} />
-            ),
+            component: <NumericValueDistribution edp={edp} />,
           },
           {
             eventKey: "string_value_distribution",
             title: t("dataset.tabs.stringValueDistribution"),
-            component: (
-              <StringValueDistribution datasetDetails={datasetDetails} />
-            ),
+            component: <StringValueDistribution edp={edp} />,
           },
           {
             eventKey: "numeric_correlation_analysis",
             title: t("dataset.tabs.numericCorrelationAnalysis"),
-            component: (
-              <NumericCorrelationAnalysis datasetDetails={datasetDetails} />
-            ),
+            component: <NumericCorrelationAnalysis edp={edp} />,
           },
           {
             eventKey: "numeric_outlier_analysis",
             title: t("dataset.tabs.numericOutlierAnalysis"),
-            component: (
-              <NumericOutlierAnalysis datasetDetails={datasetDetails} />
-            ),
+            component: <NumericOutlierAnalysis edp={edp} />,
           },
           {
             eventKey: "attribute_integrity",
             title: t("dataset.tabs.attributeIntegrity"),
-            component: <AttributeIntegrity datasetDetails={datasetDetails} />,
+            component: <AttributeIntegrity edp={edp} />,
           },
           {
             eventKey: "data_seasonality",
             title: t("dataset.tabs.dataSeasonality"),
-            component: <DataSeasonality datasetDetails={datasetDetails} />,
+            component: <DataSeasonality edp={edp} />,
           },
           {
             eventKey: "schema",
             title: "Schema",
-            component: <Schema datasetDetails={datasetDetails} />,
+            component: <Schema edp={edp} />,
           },
         ]
       : []),
@@ -159,12 +133,12 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
           {
             eventKey: "unstructured_text",
             title: "Unstructured Text",
-            component: <UnstructuredText datasetDetails={datasetDetails} />,
+            component: <UnstructuredText edp={edp} />,
           },
           {
             eventKey: "embedded_tables",
             title: t("dataset.tabs.embeddedTables"),
-            component: <EmbeddedTables datasetDetails={datasetDetails} />,
+            component: <EmbeddedTables edp={edp} />,
           },
         ]
       : []),
@@ -173,9 +147,7 @@ const DatasetTabs = ({ datasetDetails, datasetRef }) => {
           {
             eventKey: "image",
             title: "Image",
-            component: (
-              <Image datasetDetails={datasetDetails} datasetRef={datasetRef} />
-            ),
+            component: <Image edp={edp} datasetRef={datasetRef} />,
           },
         ]
       : []),

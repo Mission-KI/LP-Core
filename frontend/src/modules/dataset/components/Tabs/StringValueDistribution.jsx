@@ -5,19 +5,19 @@ import ImageView from "../../../common/components/ImageView/ImageView";
 import $ from "jquery";
 import { imageBasePath } from "../../../common/api/config";
 
-function StringValueDistribution({ datasetDetails }) {
+function StringValueDistribution({ edp }) {
   const [defaultTab, setDefaultTab] = useState("graphics");
 
   useEffect(() => {
     const hasDistributionGraph =
-      datasetDetails?._source?.structuredDatasets[0]?.stringColumns.some(
+      edp?._source?.structuredDatasets[0]?.stringColumns.some(
         (column) => column.distributionGraph,
       );
 
     if (!hasDistributionGraph) {
       setDefaultTab("table");
     }
-  }, [datasetDetails]);
+  }, [edp]);
 
   useEffect(() => {
     const table = $("#stringValueDistributionTable").DataTable({
@@ -33,7 +33,7 @@ function StringValueDistribution({ datasetDetails }) {
     return () => {
       table.destroy();
     };
-  }, [datasetDetails]);
+  }, [edp]);
 
   const getUniqueValueText = (num) => {
     if (num === 1) return "homogen";
@@ -51,14 +51,14 @@ function StringValueDistribution({ datasetDetails }) {
       <Tab eventKey="graphics" title="Graphics">
         <div className="container">
           <div className="row">
-            {datasetDetails?._source?.structuredDatasets[0]?.stringColumns.map(
+            {edp?._source?.structuredDatasets[0]?.stringColumns.map(
               (column, index) =>
                 column.distributionGraph && (
                   <div className="col-md-3 mb-3" key={index}>
                     <ImageView
                       url={
                         imageBasePath +
-                        datasetDetails?._id +
+                        edp?._id +
                         "/" +
                         column.distributionGraph
                       }
@@ -89,7 +89,7 @@ function StringValueDistribution({ datasetDetails }) {
                 </tr>
               </thead>
               <tbody>
-                {datasetDetails?._source?.structuredDatasets[0]?.stringColumns.map(
+                {edp?._source?.structuredDatasets[0]?.stringColumns.map(
                   (column, index) => (
                     <tr key={index} className="hover">
                       <td className="w-33">{column.name}</td>

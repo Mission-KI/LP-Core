@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import $ from "jquery";
 
-function EmbeddedTables({ datasetDetails, datasetRef }) {
+function EmbeddedTables({ edp, datasetRef }) {
   useEffect(() => {
     const table = $("#embeddedTablesTable").DataTable({
       paging: false,
@@ -20,7 +20,7 @@ function EmbeddedTables({ datasetDetails, datasetRef }) {
   }, []);
 
   const embeddedTables =
-    datasetDetails?._source?.unstructuredTextDatasets[0]?.embeddedTables;
+    edp?._source?.unstructuredTextDatasets[0]?.embeddedTables;
 
   return (
     <div

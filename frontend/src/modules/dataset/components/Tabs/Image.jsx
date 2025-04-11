@@ -1,9 +1,9 @@
 import React from "react";
 
-const Image = ({ datasetDetails, datasetRef }) => {
+const Image = ({ edp, datasetRef }) => {
   const imageIndex = datasetRef ? parseInt(datasetRef.split("/")[2], 10) : null;
 
-  const imageDatasets = datasetDetails?._source?.imageDatasets || [];
+  const imageDatasets = edp?._source?.imageDatasets || [];
   const image = imageDatasets[imageIndex] || {};
 
   if (!image) {

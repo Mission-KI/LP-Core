@@ -1,6 +1,6 @@
 import Dataset from "./Dataset";
 
-const EDP = ({ dataset, datasetTree }) => {
+const EDP = ({ edp, datasetTree }) => {
   if (!datasetTree) return null;
 
   // Build the tree structure (mapping parents to children)
@@ -29,7 +29,7 @@ const EDP = ({ dataset, datasetTree }) => {
           key={node.name}
           node={node}
           childrenMap={childrenMap}
-          dataset={dataset}
+          edp={edp}
         />
       ))}
     </div>

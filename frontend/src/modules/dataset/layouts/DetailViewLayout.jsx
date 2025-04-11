@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, useLocation, Outlet } from "react-router";
-import { getDataset } from "../../common/api/elastic";
+import { useParams, Outlet } from "react-router";
+import { getEdp } from "../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 import "datatables.net-bs5";
-import { useTranslation } from "react-i18next";
 import PageNotFound from "../../common/pages/PageNotFound";
 import Breadcrumbs from "../../common/components/Breadcrumbs";
 
 function DetailViewLayout() {
   const { id } = useParams();
-  const [datasetDetails, setDatasetDetails] = useState(null);
+  const [edp, setEdp] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchDatasets = async () => {
+    const fetchEdp = async () => {
       try {
-        const fetchedDataset = await getDataset(id);
-        setDatasetDetails(fetchedDataset);
+        const fetchedEdp = await getEdp(id);
+        setEdp(fetchedEdp);
       } catch (error) {
         console.error("Error fetching :", error);
       } finally {
@@ -25,7 +24,7 @@ function DetailViewLayout() {
       }
     };
 
-    fetchDatasets();
+    fetchEdp();
   }, [id]);
 
   if (loading) {
@@ -39,7 +38,7 @@ function DetailViewLayout() {
     );
   }
 
-  if (!datasetDetails) {
+  if (!edp) {
     return <PageNotFound />;
   }
 

@@ -13,12 +13,12 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { getNumericOutlierAnalysis } from "../../utils/edp_utils";
 
-const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
+const AdditionalStructuredDataAttributes = ({ edp }) => {
   const navigate = useNavigate();
-  const detailViewPath = `/details/${datasetDetails._id}`;
+  const detailViewPath = `/details/${edp._id}`;
 
-  const topDistributions = getTopNumericDistributions(datasetDetails);
-  const allDistributions = getUniqueNumericDistributions(datasetDetails);
+  const topDistributions = getTopNumericDistributions(edp);
+  const allDistributions = getUniqueNumericDistributions(edp);
 
   const { t } = useTranslation();
 
@@ -34,9 +34,7 @@ const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1">
-          {calculateDataTypesAttribute(datasetDetails)}
-        </p>
+        <p className="small mb-1">{calculateDataTypesAttribute(edp)}</p>
       </div>
       <div className="col-6 mt-3">
         <p className="small mb-1 fw-500 text-uppercase">
@@ -44,7 +42,7 @@ const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
         </p>
       </div>
       <div className="col-6 mt-3">
-        <p className="small mb-1">{calculateTemporalCover(datasetDetails)}</p>
+        <p className="small mb-1">{calculateTemporalCover(edp)}</p>
       </div>
       <div className="col-6">
         <p
@@ -55,9 +53,7 @@ const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1">
-          {datasetDetails?._source?.periodicity ?? "N/A"}
-        </p>
+        <p className="small mb-1">{edp?._source?.periodicity ?? "N/A"}</p>
       </div>
       <div className="col-6 mt-3">
         <p className="small mb-1 fw-500 text-uppercase">
@@ -66,8 +62,7 @@ const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
       </div>
       <div className="col-6 mt-3">
         <p className="small mb-1">
-          {datasetDetails?._source?.structuredDatasets?.[0]?.columnCount ??
-            "unknown"}
+          {edp?._source?.structuredDatasets?.[0]?.columnCount ?? "unknown"}
         </p>
       </div>
       <div className="col-6">
@@ -77,8 +72,7 @@ const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
       </div>
       <div className="col-6">
         <p className="small mb-1">
-          {datasetDetails?._source?.structuredDatasets[0]?.rowCount ??
-            "unknown"}
+          {edp?._source?.structuredDatasets[0]?.rowCount ?? "unknown"}
         </p>
       </div>
       <div className="col-6 mt-3">
@@ -125,9 +119,7 @@ const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
       </div>
 
       <div className="col-6">
-        <p className="small mb-1">
-          {getStringValueDistributionOverview(datasetDetails)}
-        </p>
+        <p className="small mb-1">{getStringValueDistributionOverview(edp)}</p>
       </div>
       <div className="col-6">
         <p
@@ -138,9 +130,7 @@ const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1">
-          {getNumericCorrelationSummary(datasetDetails)}
-        </p>
+        <p className="small mb-1">{getNumericCorrelationSummary(edp)}</p>
       </div>
       <div className="col-6">
         <p
@@ -152,7 +142,7 @@ const AdditionalStructuredDataAttributes = ({ datasetDetails }) => {
       </div>
       <div className="col-6">
         <p className="small mb-1">
-          {getNumericOutlierAnalysis(datasetDetails)}
+          {getNumericOutlierAnalysis(edp)}
           <OverlayTrigger
             placement="top"
             overlay={

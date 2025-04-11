@@ -7,7 +7,7 @@ import {
 } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
-const TreeNode = ({ node, datasetDetails, childrenMap, expandedByDefault }) => {
+const TreeNode = ({ node, edp, childrenMap, expandedByDefault }) => {
   const [isExpanded, setIsExpanded] = useState(expandedByDefault);
 
   const toggleExpand = () => {
@@ -39,7 +39,7 @@ const TreeNode = ({ node, datasetDetails, childrenMap, expandedByDefault }) => {
               <FileEarmarkFill className="me-2 txt-danger" />
             )}
             <Link
-              to={`/details/${datasetDetails?._id}/${encodeURIComponent(node?.name)}`}
+              to={`/details/${edp?._id}/${encodeURIComponent(node?.name)}`}
               className="txt-regular hover-underline"
             >
               {node.name}
@@ -50,7 +50,7 @@ const TreeNode = ({ node, datasetDetails, childrenMap, expandedByDefault }) => {
               {childrenMap[node.name].map((child) => (
                 <TreeNode
                   key={child.name}
-                  datasetDetails={datasetDetails}
+                  edp={edp}
                   node={child}
                   childrenMap={childrenMap}
                   expandedByDefault={expandedByDefault}
