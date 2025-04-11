@@ -155,7 +155,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
         setFiltersDropdownVisible(false);
       }
     },
-    [filtersDropdownVisible, dropdownRef],
+    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef],
   );
 
   useEffect(() => {
