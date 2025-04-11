@@ -3,7 +3,7 @@ import DataScienceInfo from "./DataScienceInfo/DataScienceInfo";
 import { useTranslation } from "react-i18next";
 import { Tags } from "./Tags";
 
-const DatasetAnalyticsSection = ({ datasetDetails, datasetRef }) => {
+const DatasetAnalyticsSection = ({ edp, datasetRef }) => {
   const { t } = useTranslation();
 
   return (
@@ -11,16 +11,13 @@ const DatasetAnalyticsSection = ({ datasetDetails, datasetRef }) => {
       <div className="col-md-4">
         <div className="border-lighter shadow rounded bgc-body p-3 mt-4">
           <p className="bold h5 mb-3 pb-4">{t("dataset.dataScienceInfo")}</p>
-          <DataScienceInfo
-            datasetDetails={datasetDetails}
-            datasetRef={datasetRef}
-          />
+          <DataScienceInfo edp={edp} datasetRef={datasetRef} />
         </div>
-        <Tags datasetDetails={datasetDetails} />
+        <Tags edp={edp} />
       </div>
 
       <div className="col-md-8">
-        <DatasetTabs datasetDetails={datasetDetails} datasetRef={datasetRef} />
+        <DatasetTabs edp={edp} datasetRef={datasetRef} />
       </div>
     </div>
   );

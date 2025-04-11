@@ -3,11 +3,11 @@ import Details from "./pages/Details/Details";
 
 const datasetRoutes = [
   {
-    path: '/details/:id',
+    path: "/details/:id",
     element: <Details />,
   },
   {
-    path: '/details/:id/:datasetName',
+    path: "/details/:id/:datasetName",
     element: <Dataset />,
   },
 ];

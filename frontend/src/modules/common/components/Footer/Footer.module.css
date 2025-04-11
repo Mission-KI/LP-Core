@@ -1,11 +1,12 @@
-.footer{
-    border-top: .5px solid var(--color-light-gray);
+.footer {
+  border-top: 0.5px solid var(--color-light-gray);
 }
 
-.footerLink{
-    font-size: 13px !important;
-    color: var(--color-text) !important;
-    /* padding-right: 2rem; */
-    padding-top: .7rem;
-    padding-bottom: .7rem;
+.footerLink {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: var(--color-text-lighter) !important;
+  /* padding-right: 2rem; */
+  padding-top: 0.7rem;
+  padding-bottom: 0.7rem;
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { getDataset } from "../../../common/api/elastic";
+import { getEdp } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import PageNotFound from "../../../common/pages/PageNotFound";
 import { useTranslation } from "react-i18next";
@@ -10,18 +10,17 @@ import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
 
 function Details() {
   const { id } = useParams();
-  const [datasetDetails, setDatasetDetails] = useState(null);
+  const [edp, setEdp] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const fetchDatasets = async () => {
       try {
-        const fetchedDataset = await getDataset(id);
-        setDatasetDetails(fetchedDataset);
+        const fetchedDataset = await getEdp(id);
+        setEdp(fetchedDataset);
       } catch (error) {
         console.error("Error fetching :", error);
       } finally {
@@ -31,8 +30,6 @@ function Details() {
 
     fetchDatasets();
   }, [id]);
-
-
 
   if (loading) {
     return (
@@ -45,21 +42,23 @@ function Details() {
     );
   }
 
-  if (!datasetDetails) {
+  if (!edp) {
     return <PageNotFound />;
   }
   return (
     <>
-
-      <span onClick={() => navigate(-1)} className="pointer d-flex align-items-center txt-lighter medium mt-4 pb-2">
+      <span
+        onClick={() => navigate(-1)}
+        className="pointer d-flex align-items-center txt-lighter medium mt-4 pb-2"
+      >
         <ArrowLeft className="me-2" />
-        {t('header.return')}
+        {t("header.return")}
       </span>
 
-      <EDPInfoSection datasetDetails={datasetDetails} />
+      <EDPInfoSection edp={edp} />
       <DatasetAnalyticsSection
-        datasetDetails={datasetDetails}
-        datasetRef={datasetDetails?._source?.datasetTree[0]?.dataset?.$ref}
+        edp={edp}
+        datasetRef={edp?._source?.datasetTree[0]?.dataset?.$ref}
       />
     </>
   );

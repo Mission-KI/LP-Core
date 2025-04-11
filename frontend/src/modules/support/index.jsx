@@ -2,7 +2,7 @@ import Support from "./pages/Support";
 
 const supportRoutes = [
   {
-    path: '/support',
+    path: "/support",
     element: <Support />,
   },
 ];

@@ -1,17 +1,20 @@
-import React from 'react'
-import ImageView from '../../../common/components/ImageView/ImageView'
-import { imageBasePath } from '../../../common/api/config';
+import React from "react";
+import ImageView from "../../../common/components/ImageView/ImageView";
+import { imageBasePath } from "../../../common/api/config";
 
-function NumericCorrelationAnalysis({ datasetDetails }) {
-    const correlationGraphUrl = datasetDetails?._source?.structuredDatasets[0]?.correlationGraph;
+function NumericCorrelationAnalysis({ edp }) {
+  const correlationGraphUrl =
+    edp?._source?.structuredDatasets[0]?.correlationGraph;
 
-    return (
-        <>
-            {correlationGraphUrl ? (
-                <ImageView url={imageBasePath + datasetDetails?._id + '/' + correlationGraphUrl} />
-            ) : ''}
-        </>
-    );
+  return (
+    <>
+      {correlationGraphUrl ? (
+        <ImageView url={imageBasePath + edp?._id + "/" + correlationGraphUrl} />
+      ) : (
+        ""
+      )}
+    </>
+  );
 }
 
-export default NumericCorrelationAnalysis
+export default NumericCorrelationAnalysis;

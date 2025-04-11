@@ -1,4 +1,3 @@
-import React from "react";
 import Card from "react-bootstrap/Card";
 import { useNavigate } from "react-router";
 import styles from "./CategoryCard.module.css";

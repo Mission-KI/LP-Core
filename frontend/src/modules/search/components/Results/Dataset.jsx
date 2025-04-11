@@ -1,12 +1,9 @@
 import { useState } from "react";
-import {
-  ChevronDown,
-  ChevronRight,
-} from "react-bootstrap-icons";
+import { ChevronDown, ChevronRight } from "react-bootstrap-icons";
 import ParentNodeView from "./ParentNodeView";
 import { Link } from "react-router-dom";
 
-const Dataset = ({ node, childrenMap, dataset }) => {
+const Dataset = ({ node, childrenMap, edp }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -34,13 +31,11 @@ const Dataset = ({ node, childrenMap, dataset }) => {
           <div className="pb-3">
             {node.parent == null ? (
               <div className="pb-2">
-                <ParentNodeView dataset={dataset} />
+                <ParentNodeView edp={edp} />
               </div>
             ) : (
               <Link
-                to={`/details/${dataset?._id}/${encodeURIComponent(
-                  node?.name
-                )}`}
+                to={`/details/${edp?._id}/${encodeURIComponent(node?.name)}`}
                 className="txt-primary hover-underline"
               >
                 {node.name}
@@ -54,7 +49,7 @@ const Dataset = ({ node, childrenMap, dataset }) => {
                   key={child.name}
                   node={child}
                   childrenMap={childrenMap}
-                  dataset={dataset}
+                  edp={edp}
                 />
               ))}
             </div>

@@ -6,23 +6,23 @@ import MotivationAndBasics from "./pages/MotivationAndBasics";
 
 const helpRoutes = [
   {
-    path: '/help',
+    path: "/help",
     element: <Help />,
   },
   {
-    path: '/help/about',
+    path: "/help/about",
     element: <About />,
   },
   {
-    path: '/help/data-formats-and-analysis',
+    path: "/help/data-formats-and-analysis",
     element: <DataFormatsAndAnalysis />,
   },
   {
-    path: '/help/functions',
+    path: "/help/functions",
     element: <Functions />,
   },
   {
-    path: '/help/motivation-and-basics',
+    path: "/help/motivation-and-basics",
     element: <MotivationAndBasics />,
   },
 ];

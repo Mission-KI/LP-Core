@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSpring, animated } from '@react-spring/web';
+import React from "react";
+import { useSpring, animated } from "@react-spring/web";
 
 const AnimatedNumber = ({ value, duration = 2000 }) => {
   const { number } = useSpring({
