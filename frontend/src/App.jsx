@@ -25,6 +25,7 @@ import monitoringRoutes from "./modules/monitoring";
 import DetailViewLayout from "./modules/dataset/layouts/DetailViewLayout";
 import HelpLayout from "./modules/help/layouts/HelpLayout";
 import { BookmarksProvider } from "./modules/bookmarks/contexts/BookmarksContext";
+import MonitoringLayout from "./modules/monitoring/layout/MonitoringLayout";
 
 // Predefined hashed password
 const salt = bcrypt.genSaltSync(10);
@@ -69,7 +70,13 @@ const routes = [
   {
     path: "/",
     element: <PrivateRoutes />,
-    children: [...monitoringRoutes],
+    children: [
+      {
+        path: "/",
+        element: <MonitoringLayout />,
+        children: [...monitoringRoutes],
+      },
+    ],
   },
   {
     path: "/health_check",

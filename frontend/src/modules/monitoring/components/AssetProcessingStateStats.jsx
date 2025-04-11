@@ -1,7 +1,7 @@
 const AssetProcessingStateStats = ({ analytics }) => {
   return (
     <>
-      <h4 className="bold mt-5 mb-4">Assets Per Processing State</h4>
+      <h5 className="bold mt-5 mb-4">Assets Per Processing State</h5>
       <table className="table table-bordered table-hover">
         <tbody>
           <tr>
