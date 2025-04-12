@@ -1,13 +1,10 @@
-import { apiUrl } from "../common/api/config";
+import { apiUrl } from "../../common/api/config";
 
-export const getAnalytics = async (publisher = null) => {
+export const getLogs = async () => {
   try {
     const token = localStorage.getItem("accessToken");
 
-    let url = `${apiUrl}/monitoring/analytics/`;
-    if (publisher) {
-      url += `?publisher=${encodeURIComponent(publisher)}`;
-    }
+    let url = `${apiUrl}/monitoring/logs/`;
 
     const response = await fetch(url, {
       method: "GET",

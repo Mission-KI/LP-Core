@@ -3,15 +3,15 @@ import styles from "./Header.module.css";
 import { Gear } from "react-bootstrap-icons";
 import SettingsModal from "../../common/components/SettingsModal/SettingsModal";
 import Breadcrumbs from "../../common/components/Breadcrumbs";
-import UserDropdown from "./UserDropdown";
+import UserDropdown from "../components/UserDropdown";
 
 function Header() {
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   return (
     <>
-      <nav className={`${styles.navbar}`}>
-        <div className="ps-2 d-flex align-items-center">
+      <nav className={`container px-5 ${styles.navbar}`}>
+        <div className="d-flex align-items-center">
           <Breadcrumbs />
         </div>
         <div className="ms-auto d-flex align-items-center pe-2">
