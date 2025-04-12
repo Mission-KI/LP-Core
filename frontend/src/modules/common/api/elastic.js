@@ -158,7 +158,13 @@ export const getEdps = async (from = 0, size = 10) => {
       } else if (key === "dataTypeConsistency") {
         continue;
       } else if (key === "significantVariance") {
-        continue;
+        filters.push({
+          range: {
+            "structuredDatasets.numericColumns.variance": {
+              gt: 0,
+            },
+          },
+        });
       } else {
         if (!groupedFilters[key]) {
           groupedFilters[key] = [];
