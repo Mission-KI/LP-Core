@@ -72,12 +72,12 @@ const HomeHeader = () => {
           >
             {t("header.help")}
           </Nav.Link>
-          <Nav.Link className="d-flex align-items-center d-none d-md-block ms-2">
+          <Nav.Link className="d-flex align-items-center d-none d-md-block ms-3">
             <span
               className="badge badge-primary bgc-danger"
               style={{ fontSize: "10pt" }}
             >
-              Alpha
+              Beta
             </span>
           </Nav.Link>
         </Nav>

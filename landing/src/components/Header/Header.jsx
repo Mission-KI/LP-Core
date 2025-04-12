@@ -74,7 +74,7 @@ const Header = () => {
                 className="badge badge-primary bgc-danger py-2"
                 style={{ fontSize: "10pt" }}
               >
-                Alpha
+                Beta
               </span>
             </div>
           </Nav>
