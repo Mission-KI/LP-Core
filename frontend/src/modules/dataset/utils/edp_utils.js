@@ -2,7 +2,7 @@ export const getEdpLanguagesList = (edp) => {
   if (!edp?._source?.unstructuredTextDatasets) return "";
 
   const allLanguages = edp._source.unstructuredTextDatasets.flatMap(
-    (ds) => ds.languages || []
+    (ds) => ds.languages || [],
   );
 
   const uniqueLanguages = [...new Set(allLanguages)];
@@ -52,7 +52,7 @@ export const datasetHasChildren = (edp, datasetRef) => {
   const datasetTree = edp?._source?.datasetTree || [];
 
   const rootNode = datasetTree.find(
-    (item) => item.dataset["$ref"] === datasetRef
+    (item) => item.dataset["$ref"] === datasetRef,
   );
 
   if (!rootNode) {
@@ -67,7 +67,7 @@ export const datasetHasChildren = (edp, datasetRef) => {
       childrenMap[rootNode.name].push(item);
     } else {
       const parentNode = datasetTree.find(
-        (d) => `#/datasetTree/${datasetTree.indexOf(d)}` === parentRef
+        (d) => `#/datasetTree/${datasetTree.indexOf(d)}` === parentRef,
       );
       if (parentNode) {
         childrenMap[parentNode.name] = childrenMap[parentNode.name] || [];

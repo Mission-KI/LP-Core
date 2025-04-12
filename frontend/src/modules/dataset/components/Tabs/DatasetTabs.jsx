@@ -50,7 +50,6 @@ const DatasetTabs = ({ edp, datasetRef }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dataset = resolveDataset(edp, datasetRef);
-  
 
   const tabs = [
     ...(doesDatasetHaveChildren

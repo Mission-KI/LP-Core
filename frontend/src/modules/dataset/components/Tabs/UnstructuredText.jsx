@@ -8,7 +8,7 @@ const UnstructuredText = ({ dataset }) => {
     })) || [];
 
   const allSame = wordCloudData.every(
-    (w) => w.value === wordCloudData[0]?.value
+    (w) => w.value === wordCloudData[0]?.value,
   );
   const fontSize = allSame
     ? () => 25
