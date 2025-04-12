@@ -20,9 +20,7 @@ export const Audio = ({ dataset }) => {
               <td className="py-2">
                 <strong>Channels</strong>
               </td>
-              <td className="txt-lighter">
-                {dataset.channels}
-              </td>
+              <td className="txt-lighter">{dataset.channels}</td>
             </tr>
             <tr>
               <td className="py-2">

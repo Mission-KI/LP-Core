@@ -30,7 +30,7 @@ const DatasetTabs = ({ edp, datasetRef }) => {
   const isVideoDataset = datasetRef.includes("#/videoDatasets");
   const isAudioDataset = datasetRef.includes("#/audioDatasets");
   const isUnstructuredDataset = datasetRef.includes(
-    "#/unstructuredTextDatasets"
+    "#/unstructuredTextDatasets",
   );
   const isImageDataset = datasetRef.includes("#/imageDatasets");
 
