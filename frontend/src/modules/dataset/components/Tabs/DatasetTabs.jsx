@@ -17,16 +17,18 @@ import Document from "./Document";
 import { useTranslation } from "react-i18next";
 import Schema from "./Schema";
 import UnstructuredText from "./UnstructuredText";
-import Image from "./Image";
 import DatasetStructure from "../DatasetStructure/DatasetStructure";
 import { datasetHasChildren, resolveDataset } from "../../utils/edp_utils";
+import { Image } from "./Image";
 import { Video } from "./Video";
+import { Audio } from "./Audio";
 
 const DatasetTabs = ({ edp, datasetRef }) => {
   const doesDatasetHaveChildren = datasetHasChildren(edp, datasetRef);
   const isDocumentDataset = datasetRef.includes("#/documentDatasets");
   const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
   const isVideoDataset = datasetRef.includes("#/videoDatasets");
+  const isAudioDataset = datasetRef.includes("#/audioDatasets");
   const isUnstructuredDataset = datasetRef.includes(
     "#/unstructuredTextDatasets",
   );
@@ -42,6 +44,8 @@ const DatasetTabs = ({ edp, datasetRef }) => {
     if (isStructuredDataset) return "attribute_list";
     if (isUnstructuredDataset) return "unstructured_text";
     if (isImageDataset) return "image";
+    if (isVideoDataset) return "video";
+    if (isAudioDataset) return "audio";
 
     return "structure";
   };
@@ -160,6 +164,15 @@ const DatasetTabs = ({ edp, datasetRef }) => {
             eventKey: "video",
             title: "Video",
             component: <Video dataset={dataset} />,
+          },
+        ]
+      : []),
+    ...(isAudioDataset
+      ? [
+          {
+            eventKey: "audio",
+            title: "Audio",
+            component: <Audio dataset={dataset} />,
           },
         ]
       : []),
