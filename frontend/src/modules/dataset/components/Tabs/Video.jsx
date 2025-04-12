@@ -21,7 +21,7 @@ export const Video = ({ dataset }) => {
                 <strong>Resolution</strong>
               </td>
               <td className="txt-lighter">
-                {dataset.width}x{dataset.width}
+                {dataset?.resolution?.width} x {dataset?.resolution?.height}
               </td>
             </tr>
             <tr>
