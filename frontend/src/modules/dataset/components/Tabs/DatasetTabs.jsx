@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router"; // Added useLocation
+import { useNavigate, useLocation } from "react-router";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import AttributeList from "./AttributeList";
@@ -20,11 +20,13 @@ import UnstructuredText from "./UnstructuredText";
 import Image from "./Image";
 import DatasetStructure from "../DatasetStructure/DatasetStructure";
 import { datasetHasChildren, resolveDataset } from "../../utils/edp_utils";
+import { Video } from "./Video";
 
 const DatasetTabs = ({ edp, datasetRef }) => {
   const doesDatasetHaveChildren = datasetHasChildren(edp, datasetRef);
   const isDocumentDataset = datasetRef.includes("#/documentDatasets");
   const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
+  const isVideoDataset = datasetRef.includes("#/videoDatasets");
   const isUnstructuredDataset = datasetRef.includes(
     "#/unstructuredTextDatasets",
   );
@@ -149,6 +151,15 @@ const DatasetTabs = ({ edp, datasetRef }) => {
             eventKey: "image",
             title: "Image",
             component: <Image edp={edp} datasetRef={datasetRef} />,
+          },
+        ]
+      : []),
+    ...(isVideoDataset
+      ? [
+          {
+            eventKey: "video",
+            title: "Video",
+            component: <Video dataset={dataset} />,
           },
         ]
       : []),
