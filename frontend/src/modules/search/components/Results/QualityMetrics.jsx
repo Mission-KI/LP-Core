@@ -2,6 +2,7 @@ import React from "react";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import {
   calculateAttributeIntegrity,
+  getSignificantVariance,
   isDataTypeConsistent,
 } from "../../../dataset/utils/calculations";
 import {
@@ -108,20 +109,22 @@ const QualityMetrics = ({ edp }) => {
           </OverlayTrigger>
         </div>
       )}
-      <div className="ps-2">
-        <OverlayTrigger
-          delay={{ show: 100, hide: 700 }}
-          placement="top"
-          overlay={renderTooltip(
-            "Significant variance",
-            "significant-variance-section",
-          )}
-        >
-          <div>
-            <Activity />
-          </div>
-        </OverlayTrigger>
-      </div>
+      {getSignificantVariance(edp) && (
+        <div className="ps-2">
+          <OverlayTrigger
+            delay={{ show: 100, hide: 700 }}
+            placement="top"
+            overlay={renderTooltip(
+              "Significant variance",
+              "significant-variance-section",
+            )}
+          >
+            <div>
+              <Activity />
+            </div>
+          </OverlayTrigger>
+        </div>
+      )}
       {edp?._source?.allowedForAiTraining && (
         <div className="ps-2">
           <OverlayTrigger
