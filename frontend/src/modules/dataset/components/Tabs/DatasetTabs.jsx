@@ -19,7 +19,7 @@ import Schema from "./Schema";
 import UnstructuredText from "./UnstructuredText";
 import Image from "./Image";
 import DatasetStructure from "../DatasetStructure/DatasetStructure";
-import { datasetHasChildren } from "../../utils/edp_utils";
+import { datasetHasChildren, resolveDataset } from "../../utils/edp_utils";
 
 const DatasetTabs = ({ edp, datasetRef }) => {
   const doesDatasetHaveChildren = datasetHasChildren(edp, datasetRef);
@@ -49,6 +49,7 @@ const DatasetTabs = ({ edp, datasetRef }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const dataset = resolveDataset(edp, datasetRef);
 
   const tabs = [
     ...(doesDatasetHaveChildren
@@ -133,7 +134,7 @@ const DatasetTabs = ({ edp, datasetRef }) => {
           {
             eventKey: "unstructured_text",
             title: "Unstructured Text",
-            component: <UnstructuredText edp={edp} />,
+            component: <UnstructuredText dataset={dataset} />,
           },
           {
             eventKey: "embedded_tables",
