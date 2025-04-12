@@ -1,6 +1,4 @@
-import React from "react";
-
-const Image = ({ edp, datasetRef }) => {
+export const Image = ({ edp, datasetRef }) => {
   const imageIndex = datasetRef ? parseInt(datasetRef.split("/")[2], 10) : null;
 
   const imageDatasets = edp?._source?.imageDatasets || [];
@@ -119,5 +117,3 @@ const Image = ({ edp, datasetRef }) => {
     </div>
   );
 };
-
-export default Image;
