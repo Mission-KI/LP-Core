@@ -59,7 +59,7 @@ const EDPInfoSection = ({ edp }) => {
         </a>
 
         <a
-          href={`https://${edp._source?.assetRefs?.[0]?.publisher?.url}`}
+          href={edp._source?.assetRefs?.[0]?.publisher?.url}
           target="_blank"
           rel="noopener noreferrer"
           className="small text-decoration-underline txt-primary pe-3"

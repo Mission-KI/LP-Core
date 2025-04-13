@@ -53,7 +53,7 @@ const ParentNodeView = ({ edp }) => {
             {edp._source?.assetRefs?.[0]?.dataSpace?.name}
           </a>
           <a
-            href={`https://${edp._source?.assetRefs?.[0]?.publisher?.url}`}
+            href={edp._source?.assetRefs?.[0]?.publisher?.url}
             target="_blank"
             rel="noopener noreferrer"
             className="small txt-primary pe-3"

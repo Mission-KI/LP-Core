@@ -22,15 +22,17 @@ const GeneralEdpScienceOverview = ({ datasetTreeItem, edp }) => {
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1 fw-500 text-uppercase">{t("dataset.dataFormat")}</p>
-      </div>
-      <div className="col-6">
-        <p className="small mb-1">
-          {datasetTreeItem?.datasetType}
+        <p className="small mb-1 fw-500 text-uppercase">
+          {t("dataset.dataFormat")}
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1 fw-500 text-uppercase">{t("dataset.fileType")}</p>
+        <p className="small mb-1">{datasetTreeItem?.datasetType}</p>
+      </div>
+      <div className="col-6">
+        <p className="small mb-1 fw-500 text-uppercase">
+          {t("dataset.fileType")}
+        </p>
       </div>
       <div className="col-6">
         <p className="small mb-1">

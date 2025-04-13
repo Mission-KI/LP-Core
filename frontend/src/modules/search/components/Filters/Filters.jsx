@@ -175,7 +175,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
   }
 
   return (
-    <div className="ps-md-4">
+    <div>
       <div className="d-flex align-items-center">
         <div className="d-flex flex-wrap">
           {Object.entries(selectedFilters)
