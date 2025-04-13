@@ -173,7 +173,7 @@ export const isDataTypeConsistent = (edp) => {
   const numericColumns = edp._source.structuredDatasets[0].numericColumns;
 
   if (!numericColumns || numericColumns.length === 0) {
-    return true;
+    return false;
   }
 
   const firstDataType = numericColumns[0].dataType;
