@@ -16,7 +16,7 @@ const ParentNodeView = ({ edp }) => {
   const { isBookmarked } = useBookmarks();
 
   return (
-    <div className="d-flex">
+    <div className="d-flex justify-content-between">
       <div>
         <div className="d-flex align-items-center flex-wrap">
           <Link
