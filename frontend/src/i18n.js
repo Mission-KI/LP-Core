@@ -40,6 +40,8 @@ i18n
             datasets: "Datasets",
             dataset: "Dataset",
             details: "Details",
+            dataFormat: "Data format",
+            fileType: "File type",
             dataScienceInfo: "Data Science Info",
             structure: "Structure",
             volume: "Volume",
@@ -202,6 +204,8 @@ i18n
           dataset: {
             datasets: "Datensätze",
             dataset: "Datensatz",
+            dataFormat: "Datenformat",
+            fileType: "Dateityp",
             structure: "Struktur",
             volume: "Volumen",
             compression: "Komprimierung",
