@@ -51,26 +51,35 @@ const EDPInfoSection = ({ edp }) => {
 
       <div className="d-flex mt-4 flex-wrap">
         <a
-          href={edp._source?.dataSpace?.url}
+          href={
+            edp._source?.assetRefs?.[0]?.dataSpace?.url?.startsWith("http")
+              ? edp._source.assetRefs[0].dataSpace.url
+              : `https://${edp._source.assetRefs[0].dataSpace.url}`
+          }
           target="_blank"
-          className="small text-decoration-underline txt-primary pe-3"
+          rel="noopener noreferrer"
+          className="small txt-primary pe-3"
         >
           {edp._source?.assetRefs?.[0]?.dataSpace?.name}
         </a>
 
         <a
-          href={edp._source?.assetRefs?.[0]?.publisher?.url}
+          href={
+            edp._source?.assetRefs?.[0]?.publisher?.url?.startsWith("http")
+              ? edp._source.assetRefs[0].publisher.url
+              : `https://${edp._source.assetRefs[0].publisher.url}`
+          }
           target="_blank"
           rel="noopener noreferrer"
-          className="small text-decoration-underline txt-primary pe-3"
+          className="small txt-primary pe-3"
         >
           {edp._source?.assetRefs?.[0]?.publisher?.name}
         </a>
 
         <a
-          href={edp._source?.assetRefs?.[0]?.publisher?.url}
+          href={edp._source?.assetRefs?.[0]?.license?.url}
           target="_blank"
-          className="small text-decoration-underline txt-primary pe-3"
+          className="small txt-primary pe-3"
         >
           {edp._source?.assetRefs?.[0]?.license?.name}
         </a>
@@ -78,7 +87,7 @@ const EDPInfoSection = ({ edp }) => {
         <span className="small pe-3">
           {t("dataset.version")}{" "}
           {(parseInt(edp._source?.assetRefs?.[0]?.assetVersion) ?? 1).toFixed(
-            1,
+            1
           )}
         </span>
 
@@ -89,7 +98,7 @@ const EDPInfoSection = ({ edp }) => {
         <span className="small pe-3">
           {t("dataset.assetUploaded")} &nbsp;
           {new Date(
-            edp._source?.assetRefs?.[0]?.publishDate,
+            edp._source?.assetRefs?.[0]?.publishDate
           ).toLocaleDateString()}
           &nbsp; ({moment(edp._source?.assetRefs?.[0]?.publishDate).fromNow()})
         </span>
