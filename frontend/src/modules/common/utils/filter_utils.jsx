@@ -50,7 +50,7 @@ export const useFilterSections = () => {
     fetchFilterValues();
   }, [location.search]);
 
-  if(loading) {
+  if (loading) {
     return { filterSections: [], loading };
   }
 

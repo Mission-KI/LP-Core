@@ -87,7 +87,7 @@ const EDPInfoSection = ({ edp }) => {
         <span className="small pe-3">
           {t("dataset.version")}{" "}
           {(parseInt(edp._source?.assetRefs?.[0]?.assetVersion) ?? 1).toFixed(
-            1
+            1,
           )}
         </span>
 
@@ -98,7 +98,7 @@ const EDPInfoSection = ({ edp }) => {
         <span className="small pe-3">
           {t("dataset.assetUploaded")} &nbsp;
           {new Date(
-            edp._source?.assetRefs?.[0]?.publishDate
+            edp._source?.assetRefs?.[0]?.publishDate,
           ).toLocaleDateString()}
           &nbsp; ({moment(edp._source?.assetRefs?.[0]?.publishDate).fromNow()})
         </span>

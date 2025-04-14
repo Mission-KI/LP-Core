@@ -91,7 +91,7 @@ const ParentNodeView = ({ edp }) => {
           <span className="small txt-lighter pe-3">
             {t("dataset.assetUploaded")}{" "}
             {new Date(
-              edp._source?.assetRefs?.[0]?.publishDate
+              edp._source?.assetRefs?.[0]?.publishDate,
             ).toLocaleDateString()}{" "}
             ({moment(edp._source?.assetRefs?.[0]?.publishDate).fromNow()})
           </span>

@@ -121,7 +121,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
         setFiltersDropdownVisible(false);
       }
     },
-    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef]
+    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef],
   );
 
   useEffect(() => {
@@ -174,7 +174,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
   if (dataTypes.length > 0) {
     filteredFilterSections = filterSections.filter(
       (section) =>
-        section.forDataType === null || dataTypes.includes(section.forDataType)
+        section.forDataType === null || dataTypes.includes(section.forDataType),
     );
   } else {
     filteredFilterSections = filterSections;
