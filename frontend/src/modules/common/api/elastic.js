@@ -1,3 +1,4 @@
+import { escapeElasticQueryString } from "../../search/utils/elastic_utils";
 import { useSettings } from "../contexts/SettingsContext";
 import { elasticURL } from "./config";
 
@@ -24,9 +25,9 @@ export const getEdps = async (from = 0, size = 10, expertMode) => {
         } else {
           filters.push({
             multi_match: {
-              query: values[0],
+              query: escapeElasticQueryString(values[0]),
               fields: ["name", "description"],
-              type: "best_fields",
+              type: "phrase",
             },
           });
         }
