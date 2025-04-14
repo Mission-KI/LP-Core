@@ -42,7 +42,7 @@ export const TableOfContents = ({ content }) => {
 
   return (
     <div className="mb-5">
-      <h5 className="bold mt-3 mb-3">Table of Contents</h5>
+      <h5 className="bold mt-3 mb-3">Content</h5>
       <div className="row">
         <div className="col-md-6">
           <ul className="toc">{leftColumn}</ul>
