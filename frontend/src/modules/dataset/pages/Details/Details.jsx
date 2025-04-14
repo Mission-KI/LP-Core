@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { getEdp } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "react-bootstrap-icons";
 import EDPInfoSection from "../../components/EDPInfoSection";
 import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
+import { SimilarEdps } from "../../components/SimilarEdps";
 
 function Details() {
   const { id } = useParams();
@@ -17,10 +18,10 @@ function Details() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchDatasets = async () => {
+    const fetchEdp = async () => {
       try {
-        const fetchedDataset = await getEdp(id);
-        setEdp(fetchedDataset);
+        const fetchedEdp = await getEdp(id);
+        setEdp(fetchedEdp);
       } catch (error) {
         console.error("Error fetching :", error);
       } finally {
@@ -28,7 +29,7 @@ function Details() {
       }
     };
 
-    fetchDatasets();
+    fetchEdp();
   }, [id]);
 
   if (loading) {
@@ -60,6 +61,7 @@ function Details() {
         edp={edp}
         datasetRef={edp?._source?.datasetTree[0]?.dataset?.$ref}
       />
+      <SimilarEdps />
     </>
   );
 }

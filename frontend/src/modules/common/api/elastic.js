@@ -1,6 +1,10 @@
+import {
+  escapeElasticQueryString,
+  formatQueryForNestedObjects,
+} from "../../search/utils/elastic_utils";
 import { elasticURL } from "./config";
 
-export const getEdps = async (from = 0, size = 10) => {
+export const getEdps = async (from = 0, size = 10, expertMode) => {
   try {
     const urlParams = new URLSearchParams(window.location.search);
     const filters = [];
@@ -13,14 +17,17 @@ export const getEdps = async (from = 0, size = 10) => {
 
       if (key === "q") {
         if (values[0] === "") continue;
-
-        filters.push({
-          multi_match: {
-            query: values[0],
-            fields: ["name"],
-            type: "best_fields",
-          },
-        });
+        if (expertMode) {
+          filters.push(formatQueryForNestedObjects(values[0]));
+        } else {
+          filters.push({
+            multi_match: {
+              query: escapeElasticQueryString(values[0]),
+              fields: ["name", "description"],
+              type: "phrase",
+            },
+          });
+        }
       } else if (key === "dataTypes") {
         filters.push({
           terms: { dataTypes: values },
@@ -356,6 +363,46 @@ export const getEdp = async (id) => {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+    });
+
+    const responseData = await response.json();
+
+    if (response.ok) {
+      return responseData;
+    } else {
+      throw new Error(responseData.errors);
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
+export const getSimilarEdps = async (id) => {
+  const query = {
+    size: 9,
+    query: {
+      more_like_this: {
+        fields: ["name", "description"],
+        like: [
+          {
+            _index: "edp-data",
+            _id: id,
+          },
+        ],
+        min_term_freq: 1,
+        min_doc_freq: 1,
+      },
+    },
+  };
+
+  try {
+    const response = await fetch(elasticURL + "/_search", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(query),
     });
 
     const responseData = await response.json();

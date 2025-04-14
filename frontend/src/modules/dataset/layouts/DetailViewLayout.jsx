@@ -6,6 +6,7 @@ import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 import "datatables.net-bs5";
 import PageNotFound from "../../common/pages/PageNotFound";
 import Breadcrumbs from "../../common/components/Breadcrumbs";
+import Footer from "../../common/components/Footer/Footer";
 
 function DetailViewLayout() {
   const { id } = useParams();
@@ -44,9 +45,10 @@ function DetailViewLayout() {
 
   return (
     <>
-      <div className="container-fluid px-5 pb-5">
+      <div className="container-fluid px-5">
         <Breadcrumbs />
         <Outlet />
+        <Footer />
       </div>
     </>
   );

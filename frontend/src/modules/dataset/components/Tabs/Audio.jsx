@@ -1,4 +1,6 @@
-export const Audio = ({ dataset }) => {
+import { imageBasePath } from "../../../common/api/config";
+
+export const Audio = ({ dataset, edp }) => {
   return (
     <div
       className="m-auto d-block w-100"
@@ -26,7 +28,7 @@ export const Audio = ({ dataset }) => {
               <td className="py-2">
                 <strong>Duration</strong>
               </td>
-              <td className="txt-lighter">{dataset.duration}</td>
+              <td className="txt-lighter">{dataset.duration} s</td>
             </tr>
             <tr>
               <td className="py-2">
@@ -46,14 +48,14 @@ export const Audio = ({ dataset }) => {
               </td>
               <td className="txt-lighter">{dataset.bitsPerSample}</td>
             </tr>
-            <tr>
-              <td className="py-2">
-                <strong>Spectrogram</strong>
-              </td>
-              <td className="txt-lighter">{dataset.spectrogram}</td>
-            </tr>
           </tbody>
         </table>
+
+        <h6 className="bold mt-5">Spectrogram</h6>
+        <img
+          className="img-fluid mb-4"
+          src={`${imageBasePath}${edp._id}/${dataset.spectrogram}`}
+        />
       </div>
     </div>
   );

@@ -34,7 +34,7 @@ export const Video = ({ dataset }) => {
               <td className="py-2">
                 <strong>Duration</strong>
               </td>
-              <td className="txt-lighter">{dataset.duration}</td>
+              <td className="txt-lighter">{dataset.duration} s</td>
             </tr>
             <tr>
               <td className="py-2">
