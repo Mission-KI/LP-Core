@@ -50,41 +50,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
   useEffect(() => {
     const queryParams = getQueryParams();
     setSelectedFilters(queryParams);
-  }, [location, getQueryParams]);
-
-  useEffect(() => {
-    const queryParams = getQueryParams();
-    const newCheckedOptions = {};
-    const newRangeValues = {};
-    const newCheckedRadios = {};
-
-    filterSections?.forEach((filterSection) => {
-      filterSection?.filters?.forEach((filter) => {
-        if (filter.type === "checkbox") {
-          newCheckedOptions[filter.label] =
-            queryParams[filter.name]?.includes(filter.value) || false;
-        }
-        if (filter.type === "doublerange") {
-          newRangeValues[filter.name_1] = [
-            queryParams[filter.name_1]?.[0] || filter.minValue,
-            queryParams[filter.name_2]?.[0] || filter.maxValue,
-          ];
-        } else if (filter.type === "range") {
-          newRangeValues[filter.name] =
-            queryParams[filter.name]?.[0] || filter.minValue;
-        }
-
-        if (filter.type === "radio") {
-          newCheckedRadios[filter.name] = queryParams[filter.name]?.[0];
-        }
-      });
-    });
-
-    setCheckedOptions(newCheckedOptions);
-    setRangeValues(newRangeValues);
-    setCheckedRadios(newCheckedRadios);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.search]);
+  }, [location.search, getQueryParams]);
 
   const updateQueryParams = (name, value, checked) => {
     const params = new URLSearchParams(location.search);
@@ -155,7 +121,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
         setFiltersDropdownVisible(false);
       }
     },
-    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef],
+    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef]
   );
 
   useEffect(() => {
@@ -166,6 +132,53 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
     };
   }, [handleClickOutside]);
 
+  useEffect(() => {
+    const queryParams = getQueryParams();
+    const newCheckedOptions = {};
+    const newRangeValues = {};
+    const newCheckedRadios = {};
+
+    filterSections?.forEach((filterSection) => {
+      filterSection?.filters?.forEach((filter) => {
+        if (filter.type === "checkbox") {
+          newCheckedOptions[filter.label] =
+            queryParams[filter.name]?.includes(filter.value) || false;
+        }
+        if (filter.type === "doublerange") {
+          newRangeValues[filter.name_1] = [
+            queryParams[filter.name_1]?.[0] || filter.minValue,
+            queryParams[filter.name_2]?.[0] || filter.maxValue,
+          ];
+        } else if (filter.type === "range") {
+          newRangeValues[filter.name] =
+            queryParams[filter.name]?.[0] || filter.minValue;
+        }
+
+        if (filter.type === "radio") {
+          newCheckedRadios[filter.name] = queryParams[filter.name]?.[0];
+        }
+      });
+    });
+
+    setCheckedOptions(newCheckedOptions);
+    setRangeValues(newRangeValues);
+    setCheckedRadios(newCheckedRadios);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search, loading]);
+
+  let filteredFilterSections = filterSections;
+
+  const urlParams = new URLSearchParams(location.search);
+  const dataTypes = urlParams.getAll("dataType");
+
+  if (dataTypes.length > 0) {
+    filteredFilterSections = filterSections.filter(
+      (section) =>
+        section.forDataType === null || dataTypes.includes(section.forDataType)
+    );
+  } else {
+    filteredFilterSections = filterSections;
+  }
   if (loading) {
     return (
       <div className="py-5 d-flex justify-content-center">
@@ -201,7 +214,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
           className={`${styles.filtersWrapper} row`}
           style={{ maxWidth: 900 }}
         >
-          {filterSections?.map((filterSection, key) => (
+          {filteredFilterSections?.map((filterSection, key) => (
             <FormGroup
               key={key}
               className={`mb-2 ${
