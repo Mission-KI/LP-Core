@@ -111,7 +111,7 @@ const MotivationAndBasics = () => {
           <li>
             Die Landing Page bietet einen einfachen Einstieg in die Welt von
             daseen mittels Filterung über Kategorien [
-            <a href="/help#landingpage">mehr erfahren</a>].
+            <a href="/help/functions#landingpage">mehr erfahren</a>].
           </li>
           <li>
             Über daseen kann der Nutzer datenraum- und datenportalübergreifend
@@ -120,7 +120,7 @@ const MotivationAndBasics = () => {
             diese selber laden und analysieren zu müssen. Dabei stehen ihm eine
             einfache Freitextsuche, filterbasierte Suchen sowie ein
             Expertenmodus zur Verfügung [
-            <a href="/help#search">mehr erfahren</a>].
+            <a href="/help/functions#search">mehr erfahren</a>].
           </li>
           <li>
             Der EDP liefern neben typischen beschreibenden Meta-Informationen
@@ -128,10 +128,10 @@ const MotivationAndBasics = () => {
             Verteilungsfunktion, potenziellen Datenlücken sowie Zeitreihen und
             Varianzen. So kann der Nutzer evaluieren, ob die Daten für seinen
             Anwendungsfall geeignet sind, ohne die Daten vorab abrufen zu müssen
-            [<a href="/help#formats">mehr erfahren</a>]. Über den integrierten
-            Data-Log werden alle rechtlich notwendigen Informationen zu
-            Provenienz, Lizenz und Verarbeitungsstands eines Datensatzes
-            dokumentiert.
+            [<a href="/help/data-formats-and-analysis#formats">mehr erfahren</a>
+            ]. Über den integrierten Data-Log werden alle rechtlich notwendigen
+            Informationen zu Provenienz, Lizenz und Verarbeitungsstands eines
+            Datensatzes dokumentiert.
           </li>
         </ul>
         <h5 className="mt-4">Zielgruppe Datenanbieter</h5>
@@ -139,7 +139,10 @@ const MotivationAndBasics = () => {
           Ein Datenanbieter (“Data Publisher“) oder Veröffentlicher ist eine
           Person, Organisation oder Institution, die Daten in einem Datenraum
           bereitstellt oder in über ein Datenportal veröffentlicht [
-          <a href="/help#dataspace-dataportal">mehr erfahren</a>].
+          <a href="/help/motivation-and-basics#dataspace-dataportal">
+            mehr erfahren
+          </a>
+          ].
         </p>
         <p className="regular text-justify">
           Bei einer Veröffentlichung über einen Datenraum, ist der Zugriff auf
@@ -179,7 +182,10 @@ const MotivationAndBasics = () => {
             Überzeugende Verkaufsargumente Kunden ziehen gut strukturierte und
             interpretierbare Daten vor, da diese ihnen wertvolle Einblicke
             bieten [
-            <a href="/help#formats">mehr zu den umfangreichen Analysen</a>].
+            <a href="/help/data-formats-and-analysis#formats">
+              mehr zu den umfangreichen Analysen
+            </a>
+            ].
           </li>
           <li>
             Innovative Produkte und Dienstleistungen Die Ergebnisse aus der
@@ -195,8 +201,9 @@ const MotivationAndBasics = () => {
         <h5 className="mt-4">Zielgruppe Betreiber</h5>
         <p className="regular text-justify">
           Ein Betreiber verfügt über geschlossene Datenräume [
-          <a href="/help#dataspace">mehr erfahren</a>] oder offene Datenportale
-          [<a href="/help#dataportal">mehr erfahren</a>].
+          <a href="/help/motivation-and-basics#dataspace">mehr erfahren</a>]
+          oder offene Datenportale [
+          <a href="/help/motivation-and-basics#dataportal">mehr erfahren</a>].
         </p>
         <h5 className="mt-4">Vorteile für den Betreiber</h5>
         <ul className="regular text-justify">
