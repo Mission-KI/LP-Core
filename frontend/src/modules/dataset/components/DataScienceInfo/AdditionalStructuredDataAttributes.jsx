@@ -157,17 +157,6 @@ const AdditionalStructuredDataAttributes = ({ edp }) => {
           </OverlayTrigger>
         </p>
       </div>
-      <div className="col-6">
-        <p
-          onClick={() => scienceInfoTabNavigate("data_seasonality")}
-          className="small mb-1 fw-500 text-uppercase pointer"
-        >
-          {t("dataset.dataSeasonality")}
-        </p>
-      </div>
-      <div className="col-6">
-        <p className="small mb-1">seasonal, no trend</p>
-      </div>
     </>
   );
 };
