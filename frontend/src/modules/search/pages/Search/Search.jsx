@@ -54,7 +54,7 @@ function Search() {
     };
 
     fetchDatasets();
-  }, [location.search]);
+  }, [location.search, expertMode]);
 
   useEffect(() => {
     const handleScroll = () => {
