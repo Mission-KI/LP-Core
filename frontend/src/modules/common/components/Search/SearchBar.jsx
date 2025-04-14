@@ -101,7 +101,10 @@ function SearchBar() {
         ) : (
           <InputGroup.Text className="pe-4">
             {expertMode ? (
-              <BracesAsterisk style={{ fontSize: "13pt" }} className="txt-lighter" />
+              <BracesAsterisk
+                style={{ fontSize: "13pt" }}
+                className="txt-lighter"
+              />
             ) : (
               <Search style={{ fontSize: "13pt" }} className="txt-lighter" />
             )}
