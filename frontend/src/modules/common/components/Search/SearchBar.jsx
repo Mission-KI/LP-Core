@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Search, X } from "react-bootstrap-icons";
+import { BracesAsterisk, Search, X } from "react-bootstrap-icons";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import styles from "./SearchBar.module.css";
 import SearchSuggestions from "./SearchSuggestions";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useSettings } from "../../contexts/SettingsContext";
 
 function SearchBar() {
   const { t } = useTranslation();
+  const { expertMode } = useSettings();
 
   const [localSearchTerm, setLocalSearchTerm] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -85,7 +87,7 @@ function SearchBar() {
           name="query"
           autoComplete="off"
           id={styles.searchBar}
-          placeholder={t("header.search_placeholder")}
+          placeholder={expertMode ? "Advanced search" : "Search datasets"}
           value={localSearchTerm}
         />
         {localSearchTerm ? (
@@ -98,7 +100,14 @@ function SearchBar() {
           </InputGroup.Text>
         ) : (
           <InputGroup.Text className="pe-4">
-            <Search style={{ fontSize: "13pt" }} className="txt-lighter" />
+            {expertMode ? (
+              <BracesAsterisk
+                style={{ fontSize: "13pt" }}
+                className="txt-lighter"
+              />
+            ) : (
+              <Search style={{ fontSize: "13pt" }} className="txt-lighter" />
+            )}
           </InputGroup.Text>
         )}
         <SearchSuggestions

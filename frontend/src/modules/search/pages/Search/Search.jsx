@@ -6,6 +6,7 @@ import HeroSection from "../../components/HeroSection/HeroSection";
 import HomeHeader from "../../components/HomeHeader/HomeHeader";
 import MainHeader from "../../components/MainHeader/MainHeader";
 import Footer from "../../../common/components/Footer/Footer";
+import { useSettings } from "../../../common/contexts/SettingsContext";
 
 function Search() {
   const [edps, setDatasets] = useState([]);
@@ -17,6 +18,7 @@ function Search() {
   const navigate = useNavigate();
   const pageCount = Math.ceil(edps.hits?.total?.value / resultsPerPage) || 0;
   const [showMainHeader, setShowMainHeader] = useState(false);
+  const { expertMode } = useSettings();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -38,7 +40,7 @@ function Search() {
         const queryParams = new URLSearchParams(location.search);
         const page = parseInt(queryParams.get("page")) || 1;
         const from = (page - 1) * resultsPerPage;
-        const fetchedDatasets = await getEdps(from, resultsPerPage);
+        const fetchedDatasets = await getEdps(from, resultsPerPage, expertMode);
 
         setDatasets(fetchedDatasets);
         setCurrentPage(page);
@@ -52,7 +54,7 @@ function Search() {
     };
 
     fetchDatasets();
-  }, [location.search]);
+  }, [location.search, expertMode]);
 
   useEffect(() => {
     const handleScroll = () => {
