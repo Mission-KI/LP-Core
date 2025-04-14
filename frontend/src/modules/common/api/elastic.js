@@ -370,6 +370,46 @@ export const getEdp = async (id) => {
   }
 };
 
+export const getSimilarEdps = async (id) => {
+  const query = {
+    size: 9,
+    query: {
+      more_like_this: {
+        fields: ["name", "description"],
+        like: [
+          {
+            _index: "edp-data",
+            _id: id,
+          },
+        ],
+        min_term_freq: 1,
+        min_doc_freq: 1,
+      },
+    },
+  };
+
+  try {
+    const response = await fetch(elasticURL + "/_search", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(query),
+    });
+
+    const responseData = await response.json();
+
+    if (response.ok) {
+      return responseData;
+    } else {
+      throw new Error(responseData.errors);
+    }
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 export const getAutocompleteSuggestions = async (searchTerm) => {
   try {
     const query = {
