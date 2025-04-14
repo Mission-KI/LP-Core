@@ -139,7 +139,10 @@ const DataFormatsAndAnalysis = () => {
         <p className="regular text-justify">
           Für strukturierte Daten werden zusätzliche Asset Eigenschaften
           ermittelt [
-          <a href="/help#asset-properties-structured">mehr erfahren</a>].
+          <a href="/help/data-formats-and-analysis#asset-properties-structured">
+            mehr erfahren
+          </a>
+          ].
         </p>
         <h6 className="bold mt-4" id="data-science-info-general">
           Bereich Data Science Info
@@ -182,10 +185,12 @@ const DataFormatsAndAnalysis = () => {
           Science Info:
           <ul className="regular text-justify">
             <li>
-              <a href="/help#data-science-info-archive">Archive</a>
+              <a href="/help/data-formats-and-analysis#data-science-info-archive">
+                Archive
+              </a>
             </li>
             <li>
-              <a href="/help#data-science-info-structured">
+              <a href="/help/data-formats-and-analysis#data-science-info-structured">
                 Strukturierte Daten
               </a>
             </li>
@@ -249,7 +254,10 @@ const DataFormatsAndAnalysis = () => {
         <p className="regular text-justify">
           Falls vorhanden, bietet dieser Tab weitere Details zu den im Dokument
           enthaltenen Bildern (Daten analog zu{" "}
-          <a href="/help#tab-image">Datentyp Bilder -{">"} Tab: Bild</a>).
+          <a href="/help/data-formats-and-analysis#tab-image">
+            Datentyp Bilder -{">"} Tab: Bild
+          </a>
+          ).
         </p>
         <h5 className="mt-5 mb-3">
           Zusätzliche Analysen für strukturierte Daten

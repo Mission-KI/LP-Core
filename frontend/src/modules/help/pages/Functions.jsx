@@ -33,7 +33,10 @@ const Functions = () => {
           über ein Datenportal bzw. einen Datenraum (Data Source) angebotenen
           Datensatzes (Asset). Ein Asset besteht aus einer oder mehreren
           komprimierten Dateien eines Formates und einer Datenstruktur [
-          <a href="/help#formats">mehr zu Datenformaten und -strukturen</a>].
+          <a href="/help/data-formats-and-analysis#formats">
+            mehr zu Datenformaten und -strukturen
+          </a>
+          ].
         </p>
         <p className="regular text-justify">
           daseen verweist dabei in den Suchergebnissen typischerweise immer auf
@@ -73,7 +76,7 @@ const Functions = () => {
           Standardmäßig ist der Expertenmodus deaktiviert, um den Einstieg in
           daseen zu erleichtern. Nutzer mit Kenntnissen in der Elasticsearch
           Query Language können den Modus über die Sucheinstellungen aktivieren
-          [<a href="/help#expert-mode">mehr erfahren</a>].
+          [<a href="/help/functions#expert-mode">mehr erfahren</a>].
         </p>
         <h5 className="mt-4" id="query-language">
           Hilfestellungen zur Query Language
@@ -119,7 +122,7 @@ const Functions = () => {
             Verarbeitungszustand: Über die Drop-Down Liste können ein oder
             mehrere Verarbeitungszustände ausgewählt werden, auf die die Suche
             beschränkt werden soll. [
-            <a href="/help#asset-processing-status-section">
+            <a href="/help/data-formats-and-analysis#asset-processing-status-section">
               mehr zu Verarbeitungszuständen
             </a>
             ]
@@ -160,7 +163,7 @@ const Functions = () => {
           <li>
             Date Time Attribute: Über das Icon kann die Suche auf Assets
             beschränkt werden, in denen eine Zeitangabe erkannt wurde. [
-            <a href="/help#date-time-attribute-section">
+            <a href="/help/data-formats-and-analysis#date-time-attribute-section">
               mehr zum Date Time Attribute
             </a>
             ]
@@ -169,7 +172,7 @@ const Functions = () => {
             Temporal Frequency: Über das Icon kann die Suche auf Assets
             beschränkt werden, bei denen eine Frequenz ermittelt werden konnte,
             in der die Datenpunkte im Asset erzeugt wurden. [
-            <a href="/help#temporal-frequency-section">
+            <a href="/help/data-formats-and-analysis#temporal-frequency-section">
               mehr zur Temporal Frequency
             </a>
             ]{" "}
@@ -178,7 +181,7 @@ const Functions = () => {
             Data Type Consistency: Über das Icon kann die Suche auf Assets
             beschränkt werden, in denen alle Werte einer Spalte vom gleichen Typ
             sind. [
-            <a href="/help#data-type-consistency-section">
+            <a href="/help/data-formats-and-analysis#data-type-consistency-section">
               mehr zur Data Type Consistency
             </a>
             ]
@@ -187,7 +190,7 @@ const Functions = () => {
             Significant Variance: Über das Icon kann die Suche auf Assets
             beschränkt werden, in denen eine signifikante Varianz erkannt wurde.
             [
-            <a href="/help#significant-variance-section">
+            <a href="/help/data-formats-and-analysis#significant-variance-section">
               mehr zur Significant Variance
             </a>
             ]
@@ -260,10 +263,11 @@ const Functions = () => {
             <ul className="regular">
               <li>
                 Lesezeichen setzen/Lesezeichen entfernen [
-                <a href="/help#bookmarks">mehr erfahren</a>]
+                <a href="/help/functions#bookmarks">mehr erfahren</a>]
               </li>
               <li>
-                Datensatz abrufen [<a href="/help#get-asset">mehr erfahren</a>]
+                Datensatz abrufen [
+                <a href="/help/functions#get-asset">mehr erfahren</a>]
               </li>
             </ul>
           </li>
@@ -271,7 +275,7 @@ const Functions = () => {
             EDP Quick-View: Mit Klick auf dieses Icon öffnet sich der EDP-Quick
             View, der alle wesentlichen Data Science Informationen zu einem
             Asset beinhaltet. [
-            <a href="/help#formats">
+            <a href="/help/data-formats-and-analysis#formats">
               mehr zu den enthaltenen Informationen und Analysen
             </a>
             ]{" "}
@@ -279,11 +283,11 @@ const Functions = () => {
           <li>
             EDP Asset Eigenschaften: Über die EDP Asset Eigenschaften werden
             wesentliche Asset Eigenschaften angezeigt [
-            <a href="/help#asset-properties-general">
+            <a href="/help/data-formats-and-analysis#asset-properties-general">
               mehr zu generellen Asset Eigenschaften
             </a>{" "}
             /{" "}
-            <a href="/help#asset-properties-structured">
+            <a href="/help/data-formats-and-analysis#asset-properties-structured">
               mehr zu spezifischen Asset Eigenschaften für strukturierte Daten
             </a>
             ].
@@ -319,7 +323,8 @@ const Functions = () => {
           Informationen. Neben einigen generischen Metadaten, die für jeden
           Datentyp einheitlich vorhanden sind, werden je nach Struktur und Typ
           weitere Analysen durchgeführt und entsprechend optimierte Sichten
-          bereitgestellt <a href="/help#formats">mehr erfahren</a>].
+          bereitgestellt{" "}
+          <a href="/help/data-formats-and-analysis#formats">mehr erfahren</a>].
         </p>
         <h5 className="mt-4" id="get-asset">
           Datensatz abrufen
@@ -403,9 +408,9 @@ const Functions = () => {
             Wenn Sie sich nicht sicher sind, wie Sie Ihre Abfrage strukturieren
             sollen, können Sie unsere{" "}
             <strong>Hilfestellungen zur Query Language</strong> [
-            <a href="/help#query-language">mehr erfahren</a>] konsultieren oder
-            den Expertenmodus deaktivieren, um eine einfachere Suche zu
-            ermöglichen.
+            <a href="/help/functions#query-language">mehr erfahren</a>]
+            konsultieren oder den Expertenmodus deaktivieren, um eine einfachere
+            Suche zu ermöglichen.
           </li>
         </ul>
         <h5 className="mb-3 mt-5">
