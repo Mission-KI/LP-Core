@@ -841,3 +841,8 @@ input:checked + .slider:before {
   color: var(--color-text) !important;
   background: var(--color-body-background) !important;
 }
+
+.tab-content {
+  max-height: 700px;
+  overflow: auto;
+}
