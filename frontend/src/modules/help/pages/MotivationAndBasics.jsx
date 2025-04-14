@@ -228,8 +228,11 @@ const MotivationAndBasics = () => {
         <h5 className="mt-4">Was ist ein Datensatz?</h5>
         Ein Data Asset kann aus einem oder mehreren Datensätzen bestehen. Ein
         Datensatz (“Dataset”) ist ein Objekt, dem eine eindeutige Datenformat
-        zugeordnet werden kann [mehr zu den in daseen unterstützten
-        Datenformaten].
+        zugeordnet werden kann [
+        <a href="/help/data-formats-and-analysis#formats">
+          mehr zu den in daseen unterstützten Datenformaten
+        </a>
+        ].
         <h5 className="mt-4">Was ist ein EDP?</h5>
         <p className="regular text-justify">
           Ein erweitertes Datensatzprofil (“Extended Dataset Profile“) verwenden
@@ -246,7 +249,8 @@ const MotivationAndBasics = () => {
           zahlreiche zusätzliche Informationen, die es ermöglichen, das Asset
           und die darin enthaltenen Datensätze einfacher zu finden und deren
           Inhalte besser zu verstehen. Je nach Datenformat der Datensätze werden
-          unterschiedliche Analysen durchgeführt [mehr erfahren].
+          unterschiedliche Analysen durchgeführt [
+          <a href="/help/data-formats-and-analysis#formats">mehr erfahren</a>].
         </p>
         <p className="regular text-justify">
           Welche Informationen sind üblicherweise enthalten?
@@ -463,10 +467,10 @@ const MotivationAndBasics = () => {
           AI models or other data services.
         </li>
         <li>
-          Data provider: Automated and standardized creation of a comprehensive
-          metadata description for your own data sets ensures better findability
-          and evaluation - without the data user having to access the actual
-          data set.
+          Data publishers/providers: Automated and standardized creation of a
+          comprehensive metadata description for your own data sets ensures
+          better findability and evaluation - without the data user having to
+          access the actual data set.
         </li>
         <li>
           For operators: Listings on daseen increase reach and attract new
@@ -485,275 +489,258 @@ const MotivationAndBasics = () => {
       <h5 className="mt-4">Advantages for the data user</h5>
       <ul className="regular text-justify">
         <li>
-          FURTHER TRANSLATE UP FROM HERE: Die Landing Page bietet einen
-          einfachen Einstieg in die Welt von daseen mittels Filterung über
-          Kategorien [<a href="/help/functions#landingpage">mehr erfahren</a>].
+          The landing page offers an easy access to the world of daseen by
+          filtering via categories () [
+          <a href="/help/functions#landingpage">learn more</a>].
         </li>
         <li>
-          Über daseen kann der Nutzer datenraum- und datenportalübergreifend
-          effizient anhand beschreibender, analytischer, kommerzieller und
-          rechtlicher Eigenschaften tief in die Datensätze eintauchen ohne diese
-          selber laden und analysieren zu müssen. Dabei stehen ihm eine einfache
-          Freitextsuche, filterbasierte Suchen sowie ein Expertenmodus zur
-          Verfügung [<a href="/help/functions#search">mehr erfahren</a>].
+          With daseen, the user can efficiently search across data spaces and
+          data portals by means of descriptive, analytical, commercial and legal
+          properties to dive deep into the data sets without having to load and
+          analyze them themselves. The user has the choice between a simple free
+          text search, filter-based searches and an expert mode [
+          <a href="/help/functions#search">learn more</a>].
         </li>
         <li>
-          Der EDP liefern neben typischen beschreibenden Meta-Informationen
-          komplexe analytische Eigenschaften, beispielsweise zur statistischen
-          Verteilungsfunktion, potenziellen Datenlücken sowie Zeitreihen und
-          Varianzen. So kann der Nutzer evaluieren, ob die Daten für seinen
-          Anwendungsfall geeignet sind, ohne die Daten vorab abrufen zu müssen [
-          <a href="/help/data-formats-and-analysis#formats">mehr erfahren</a>
-          ]. Über den integrierten Data-Log werden alle rechtlich notwendigen
-          Informationen zu Provenienz, Lizenz und Verarbeitungsstands eines
-          Datensatzes dokumentiert.
+          In addition to typical descriptive meta-information, the EDP provides
+          complex analytical properties, for example on the statistical
+          distribution function, potential data gaps, time series and variances.
+          This allows users to evaluate whether the data is suitable for their
+          application without having to retrieve the data in advance [
+          <a href="/help/data-formats-and-analysis#formats">learn more</a>
+          ]. With the integrated data log all legally required information on
+          the provenance, license and processing status of a data record are
+          stored.
         </li>
       </ul>
-      <h5 className="mt-4">Zielgruppe Datenanbieter</h5>
+      <h5 className="mt-4">Target group data publisher</h5>
       <p className="regular text-justify">
-        Ein Datenanbieter (“Data Publisher“) oder Veröffentlicher ist eine
-        Person, Organisation oder Institution, die Daten in einem Datenraum
-        bereitstellt oder in über ein Datenportal veröffentlicht [
+        A data publisher or provider is a person, organization or institution
+        that makes data available in a data space or publishes it via a data
+        portal [
         <a href="/help/motivation-and-basics#dataspace-dataportal">
-          mehr erfahren
+          learn more
         </a>
         ].
       </p>
       <p className="regular text-justify">
-        Bei einer Veröffentlichung über einen Datenraum, ist der Zugriff auf die
-        Daten und den Datenkatalog in der Regel Zugriffsbeschränkt. Der
-        Datenanbieter kontrolliert über die im Datenraum implementierten
-        Sicherheitsmechanismen sowohl den Umfang des Zugriffs sowie die Nutzung
-        der angebotenen Daten durch einen Datennutzer.
+        When publishing via a data space, access to the data and the data
+        catalog is usually restricted. The data provider controls both the scope
+        of access and the use of the data offered by a data user.
       </p>
       <p className="regular text-justify">
-        daseen und EPDS unterstützen in der aktuellen Version die Integration in
-        EDC und Gaia-X basierte Datenräume.
+        daseen and EPDS in the current version support integration in EDC and
+        Gaia-X based data rooms.
       </p>
       <p className="regular text-justify">
-        Im offenen Datenportal veröffentlicht der Datenanbieter die Daten über
-        das Portal, sodass andere Nutzer die Möglichkeit haben, diese zu suchen,
-        anzusehen und abzurufen.
+        In an open data portal, the data provider publishes the data via the
+        portal so that other users can search, view and retrieve it.
       </p>
-      <h5 className="mt-4">Vorteile für den Datenanbieter</h5>
+      <h5 className="mt-4">Advantages for the data publisher</h5>
       <ul className="regular text-justify">
         <li>
-          Datenportal- und Datenraum-übergreifende Sichtbarkeit von
-          Datenangeboten, ohne die Datensätze herausgeben zu müssen.
+          Visibility of data offerings across data portals and data spaces
+          without having to release the data sets.
         </li>
         <li>
-          Feedback zur Datenqualität und dem analytischen Wert der eigenen
-          Datenangebote Die Datensatz-Steckbriefe geben auch dem Datenanbieter
-          wertvolle Informationen, anhand derer er seine Daten weiter optimieren
-          kann.
+          Feedback on the data quality and the analytical value of your own data
+          offerings. The data set profiles also provide the data provider with
+          valuable information that they can use to further optimize their data.
         </li>
         <li>
-          Wertsteigerung und Monetarisierung Die Veredelung (Erstellung von
-          Steckbriefen) von Daten erhöht deren Wert: Sorgfältig analysierte und
-          aufbereitete Daten besitzen einen deutlich höheren Marktwert als
-          unstrukturierte Rohdaten.
+          Value enhancement and monetization - The refinement (creation of EDPS)
+          increases their value. Carefully analyzed and prepared data has a
+          significantly higher market value than unstructured raw data.
         </li>
         <li>
-          Überzeugende Verkaufsargumente Kunden ziehen gut strukturierte und
-          interpretierbare Daten vor, da diese ihnen wertvolle Einblicke bieten
-          [
+          Convincing sales arguments - Customers prefer well-structured and
+          interpretable data as it provides them with valuable insights [
           <a href="/help/data-formats-and-analysis#formats">
-            mehr zu den umfangreichen Analysen
+            more about the comprehensive analysis
           </a>
           ].
         </li>
         <li>
-          Innovative Produkte und Dienstleistungen Die Ergebnisse aus der
-          Datenanalyse können in Form von Berichten, Dashboards oder
-          KI-gestützten Prognosen vermarktet werden.
+          Innovative products and services - The results of the data analysis
+          can be marketed in the form of reports, dashboards or AI-supported
+          forecasts.
         </li>
         <li>
-          Lizenzierung und Partnerschaften Unternehmen sowie
-          Forschungseinrichtungen sind bereit, für den Zugang zu bereits
-          analysierten Daten zu bezahlen.
-        </li>
-      </ul>
-      <h5 className="mt-4">Zielgruppe Betreiber</h5>
-      <p className="regular text-justify">
-        Ein Betreiber verfügt über geschlossene Datenräume [
-        <a href="/help/motivation-and-basics#dataspace">mehr erfahren</a>] oder
-        offene Datenportale [
-        <a href="/help/motivation-and-basics#dataportal">mehr erfahren</a>].
-      </p>
-      <h5 className="mt-4">Vorteile für den Betreiber</h5>
-      <ul className="regular text-justify">
-        <li>
-          Sichtbarkeit, Bekanntheit und Reputation seiner Plattform werden
-          erhöht.
-        </li>
-        <li>
-          Der Betreiber kann die Voraussetzungen schaffen, damit Datenanbieter
-          ihre Daten (Asset) analysieren lassen können um die Ergebnisse in
-          daseen zu veröffentlichen.
-        </li>
-        <li>
-          Indem er Teil von daseen wird, gehört er zu einem wachsenden
-          Daten-Ökosystem.
+          Licensing and partnerships - Companies and research institutions are
+          ready to pay for access to data that has already been analyzed.
         </li>
       </ul>
-      <h5 className="mt-4">Begrifflichkeiten kurz erklärt</h5>
-      <h5 className="mt-4">Was ist ein Asset?</h5>
-      Ein Asset (“Data Asset“) bezeichnet ein im Datenraum oder Datenportal
-      bereitgestelltes Datenangebot.
-      <h5 className="mt-4">Was ist ein Datensatz?</h5>
-      Ein Data Asset kann aus einem oder mehreren Datensätzen bestehen. Ein
-      Datensatz (“Dataset”) ist ein Objekt, dem eine eindeutige Datenformat
-      zugeordnet werden kann [mehr zu den in daseen unterstützten
-      Datenformaten].
-      <h5 className="mt-4">Was ist ein EDP?</h5>
+      <h5 className="mt-4">Target group operators</h5>
       <p className="regular text-justify">
-        Ein erweitertes Datensatzprofil (“Extended Dataset Profile“) verwenden
-        Sie im Kontext von Datenräumen, Datenkatalogen oder
-        Dateninfrastrukturen.
+        An operator has closed data spaces [
+        <a href="/help/motivation-and-basics#dataspace">learn more</a>] or open
+        data portals [
+        <a href="/help/motivation-and-basics#dataportal">learn more</a>].
       </p>
-      <p className="regular text-justify">
-        Ein EDP stellt dabei eine maschinenlesbare, umfassende und erweiterbare
-        Beschreibung eines Assets auf Metadatenbasis dar.{" "}
-      </p>
-      <p className="regular text-justify">
-        Es beinhaltet nicht nur den Namen des Assets und klassische
-        Meta-Informationen wie dessen Ersteller, sondern bietet zudem zahlreiche
-        zusätzliche Informationen, die es ermöglichen, das Asset und die darin
-        enthaltenen Datensätze einfacher zu finden und deren Inhalte besser zu
-        verstehen. Je nach Datenformat der Datensätze werden unterschiedliche
-        Analysen durchgeführt [mehr erfahren].
-      </p>
-      <p className="regular text-justify">
-        Welche Informationen sind üblicherweise enthalten?
-      </p>
+      <h5 className="mt-4">Advantages for the operators</h5>
       <ul className="regular text-justify">
         <li>
-          Grundinformationen: Der Name des Assets, der Inhalt, der Ersteller
-          sowie die geltenden Nutzungsbedingungen (Datenlizenz sowie optional
-          eine Geheimhaltungsvereinbarung und/oder Auftragsdatenverarbeitung).
+          The visibility, awareness and reputation of its platform are
+          increased.
         </li>
         <li>
-          Qualitätsaspekte: Informationen über analytischen Wert, Umfang,
-          Aktualität und Vollständigkeit der Daten.
+          The operator can create the prerequisites so that data providers can
+          have their data (asset) analyzed in order to publish the results.
         </li>
         <li>
-          Technische Informationen: Das Dateiformat, in dem die Daten vorliegen,
-          die Struktur der Daten und die Zugriffsmodalitäten.
-        </li>
-        <li>
-          Schlagwörter oder Kategorien zur besseren Klassifizierung des
-          Datensatzes.
-        </li>
-        <li>
-          Verarbeitungsstand der Daten und welche Vorverarbeitungsschritte ggf.
-          bereits durchgeführt wurden.
+          By becoming part of daseen, he is part of a growing data ecosystem.
         </li>
       </ul>
-      Warum ist das wichtig?
+      <h5 className="mt-4">Terminology briefly explained</h5>
+      <h5 className="mt-4">What is an asset?</h5>
+      An asset (“data asset”) refers to a data offering provided in the data
+      space or data portal.
+      <h5 className="mt-4">What is a data set?</h5>A data asset can consist of
+      one or more data records. A dataset is an object to which a unique data
+      format can be assigned [
+      <a href="/help/data-formats-and-analysis#formats">
+        more on the data formats supported in daseen
+      </a>
+      ].
+      <h5 className="mt-4">What is an EDP?</h5>
+      <p className="regular text-justify">
+        An EDP ("Extended Dataset Profile“) you use in the context of data
+        spaces, data catalogs or data infrastructures.
+      </p>
+      <p className="regular text-justify">
+        An EDP is a machine-readable, comprehensive and expandable description
+        of an asset based on metadata.{" "}
+      </p>
+      <p className="regular text-justify">
+        It not only contains the name of the asset and classic meta information
+        such as its creator, but also offers a wealth of additional information
+        that makes it easier to find the asset and the records it contains and
+        to better understand their content. Depending on the data format of the
+        data records, different analyses are carried out [
+        <a href="/help/data-formats-and-analysis#formats">learn more</a>].
+      </p>
+      <p className="regular text-justify">
+        What information is usually included?
+      </p>
       <ul className="regular text-justify">
         <li>
-          Anbieter von Daten können demonstrieren, welche Möglichkeiten ihr
-          Datensatz bietet.
+          Basic information: The name of the asset, the content, the creator as
+          well as the applicable terms of use (data license and optionally a
+          non-disclosure agreement and/or commissioned data processing).
         </li>
         <li>
-          Personen, die nach Daten suchen, können rascher feststellen, ob die
-          Daten analytisch, rechtlich und kommerziell für ihre Projekte,
-          beispielsweise im Bereich der Künstlichen Intelligenz, geeignet sind.
+          Quality aspects: Information on analytical value, scope, timeliness
+          and completeness of the data.
         </li>
         <li>
-          Es fördert die Auffindbarkeit von Daten auf umfangreichen
-          Datenplattformen und erleichtert deren integrierte Nutzung.
+          Technical information: The file format in which the data is available,
+          the structure of the data and the access modalities.
+        </li>
+        <li>
+          Keywords or categories for better classification of the data set.
+        </li>
+        <li>
+          Processing status of the data and which pre-processing steps, if any,
+          have have already been carried out.
+        </li>
+      </ul>
+      Why is this important?
+      <ul className="regular text-justify">
+        <li>
+          Data providers can demonstrate the possibilities offered by their data
+          set offers.
+        </li>
+        <li>
+          People searching for data can more quickly determine whether the data
+          is analytically, legally and commercially suitable for their projects,
+          for example in the field of artificial intelligence.
+        </li>
+        <li>
+          It promotes the findability of data on extensive data platforms and
+          facilitates their integrated use.
         </li>
       </ul>
       <h5 className="mt-4" id="dataspace-dataportal">
-        Was ist ein Datenraum bzw ein Datenportal?
+        What is a data space or data portal?
       </h5>
       <h5 className="mt-4" id="dataspace">
-        Datenraum
+        Data space
       </h5>
       <p className="regular text-justify">
-        Ein geschlossener Datenraum (“Data Space”) kann als ein gemeinsamer
-        digitaler Raum betrachtet werden, in dem verschiedene Organisationen
-        oder Individuen Daten Assets austauschen können – jedoch auf eine
-        sichere, gerechte und kontrollierte Weise. Man könnte sich diesen Raum
-        wie einen Marktplatz für Daten vorstellen: Jeder Teilnehmer bringt seine
-        eigenen Assets ein, und es bestehen klare Regelungen hinsichtlich der
-        Berechtigungen, wer welche Informationen einsehen, nutzen und
-        weitergeben darf. Die Assets verbleiben an ihrem Ursprungsort, sind
-        jedoch zugänglich, sofern der entsprechende digitale Vertrag vorliegt.
+        A closed data space can be regarded as a shared digital space in which
+        different organizations or individuals can exchange data assets - but in
+        a secure, fair and controlled way. You could think of this space like a
+        marketplace for data: Each participant brings their own assets, and
+        there are clear rules regarding who can view, use and share which
+        information. The assets remain at their place of origin, but are
+        accessible as long as the corresponding digital contract is available.
       </p>
-      Wesentliche Merkmale eines Datenraums sind:
+      The key features of a data space are:
       <ul className="regular text-justify">
         <li>
-          Vertrauen: Alle Beteiligten sind sich der Tatsache bewusst, dass ihre
-          Daten geschützt sind und gerecht verwendet werden.
+          Trust: All parties involved are aware of the fact that their data is
+          protected and used fairly.
         </li>
         <li>
-          Interoperabilität: Die Daten sind so beschrieben und technisch
-          vorbereitet, dass sie in unterschiedlichen Systemen verwendet werden
-          können.
+          Interoperability: The data is described and technically prepared so
+          that it can be used in different systems.
         </li>
         <li>
-          Selbstbestimmung: Jeder Datenanbieter hat die Freiheit, zu
-          entscheiden, welche Nutzung seiner Daten für wen gestattet ist.
+          Self-determination: Every data provider has the freedom to decide what
+          use of their data is permitted and for whom.
         </li>
         <li>
-          Standardisierte Metadaten: Diese ermöglichen ein leichteres
-          Verständnis darüber, worum es sich bei den Daten handelt und wie sie
-          genutzt werden können.
+          Standardized metadata: Ths makes it easier to understand what the data
+          is about and how it can be used.
         </li>
       </ul>
-      Welche Bedeutung hat ein Datenraum?
+      What is the significance of a data space?
       <ul className="regular text-justify">
         <li>
-          Er unterstützt Unternehmen, Behörden oder Forschende dabei, Daten zu
-          teilen und gemeinsam zu nutzen, und zwar ohne dabei die Kontrolle über
-          ihre Daten zu verlieren.{" "}
+          It supports companies, public authorities and researchers in sharing
+          and and collaboratively using data without losing control over their
+          data.{" "}
         </li>
         <li>
-          Zudem ermöglicht er Innovationen, beispielsweise im Bereich der
-          Künstlichen Intelligenz, bei smarten Städten oder in der
-          Gesundheitsforschung.{" "}
+          It also enables innovations, for example in the field of artificial
+          intelligence, smart cities and health research.{" "}
         </li>
-        <li>
-          Darüber hinaus fördert er Zusammenarbeit, Vertrauen und Transparenz.
-        </li>
+        <li>It also promotes cooperation, trust and transparency.</li>
       </ul>
       <h5 className="mt-4" id="dataportal">
-        Datenportal
+        Data portal
       </h5>
       <p className="regular text-justify">
-        Ein offenes Datenportal (“Data Portal“) ist eine Webseite oder
-        Plattform, die es ermöglicht, Daten zu finden, einzusehen und
-        herunterzuladen. Man kann es sich als eine Art Katalog oder Online-Shop
-        für Daten vorstellen, wobei hier nicht Produkte erworben werden, sondern
-        Informationen und Datensätze gesucht und genutzt werden.
+        An open data portal is a website or platform that makes it possible to
+        find, view and download data. It can be thought of as a kind of catalog
+        or online store for data, whereby products are not purchased here, but
+        information and data sets are searched for and used.
       </p>
-      <p className="regular text-justify">Was zeichnet ein Datenportal aus?</p>
+      <p className="regular text-justify">What characterizes a data portal?</p>
       <ul className="regular text-justify">
-        <li>Es präsentiert eine Übersicht der verfügbaren Assets. </li>
+        <li>It presents an overview of the available assets. </li>
         <li>
-          Darüber hinaus beinhaltet es Suchfunktionen und Filter, die eine
-          schnelle Auffindbarkeit der relevanten Daten ermöglichen.
+          In addition, it contains search functions and filters that enable the
+          relevant data to be found quickly.
         </li>
         <li>
-          Des Weiteren informiert es darüber, ob und unter welchen Bedingungen
-          die Daten verwendet werden dürfen.
+          It also provides information on whether and under what conditions the
+          data may be used.
         </li>
         <li>
-          Häufig besteht die Möglichkeit, die Daten direkt von der Plattform
-          herunterzuladen oder über Schnittstellen (APIs) zu beziehen.
+          It is often possible to download the data directly from the platform
+          or obtain it via interfaces (APIs).
         </li>
       </ul>
-      Wozu dient ein Datenportal?
+      What is the purpose of a data portal?
       <ul className="regular text-justify">
         <li>
-          Ein Datenportal ermöglicht es Einzelpersonen oder Unternehmen, zügig
-          die benötigten Daten zu finden, beispielsweise für Forschungszwecke,
-          die Entwicklung neuer Produkte oder für analytische Zwecke.{" "}
+          A data portal enables individuals or companies to quickly find the
+          data they need, for example for research purposes, the development of
+          new products or for analytical purposes.{" "}
         </li>
-        <li>Zudem fördert es die Sichtbarkeit und Zugänglichkeit von Daten</li>
-        <li>und unterstützt Transparenz sowie offene Dateninitiativen.</li>
+        <li>It also promotes the visibility and accessibility of data</li>
+        <li>and supports transparency and open data initiatives.</li>
       </ul>
     </div>
   );
