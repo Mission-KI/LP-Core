@@ -44,7 +44,7 @@ const HeroSection = () => {
 
       <SearchBar />
 
-      <div className="d-flex align-items-center mt-2 mb-3 ps-md-4">
+      <div className="d-flex align-items-center mt-2 mb-3">
         <button
           onClick={toggleFiltersDropdown}
           className="btn rounded-lg px-0 me-3 mb-1"

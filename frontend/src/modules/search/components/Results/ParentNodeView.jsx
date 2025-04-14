@@ -16,7 +16,7 @@ const ParentNodeView = ({ edp }) => {
   const { isBookmarked } = useBookmarks();
 
   return (
-    <div className="d-flex">
+    <div className="d-flex justify-content-between">
       <div>
         <div className="d-flex align-items-center flex-wrap">
           <Link
@@ -46,14 +46,23 @@ const ParentNodeView = ({ edp }) => {
 
         <div className="d-flex mt-3 flex-wrap">
           <a
-            href={edp._source?.dataSpace?.url}
+            href={
+              edp._source?.assetRefs?.[0]?.dataSpace?.url?.startsWith("http")
+                ? edp._source.assetRefs[0].dataSpace.url
+                : `https://${edp._source.assetRefs[0].dataSpace.url}`
+            }
             target="_blank"
-            className="small txt-primary me-3"
+            rel="noopener noreferrer"
+            className="small txt-primary pe-3"
           >
             {edp._source?.assetRefs?.[0]?.dataSpace?.name}
           </a>
           <a
-            href={`https://${edp._source?.assetRefs?.[0]?.publisher?.url}`}
+            href={
+              edp._source?.assetRefs?.[0]?.publisher?.url?.startsWith("http")
+                ? edp._source.assetRefs[0].publisher.url
+                : `https://${edp._source.assetRefs[0].publisher.url}`
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="small txt-primary pe-3"

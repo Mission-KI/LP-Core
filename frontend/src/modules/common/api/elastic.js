@@ -156,9 +156,46 @@ export const getEdps = async (from = 0, size = 10) => {
           },
         });
       } else if (key === "dataTypeConsistency") {
-        continue;
+        filters.push({
+          script: {
+            script: {
+              source: `
+                if (params._source != null &&
+                    params._source.containsKey('structuredDatasets') &&
+                    params._source.structuredDatasets != null &&
+                    params._source.structuredDatasets.length > 0) {
+      
+                  def firstDataset = params._source.structuredDatasets[0];
+      
+                  if (firstDataset.containsKey('numericColumns') &&
+                      firstDataset.numericColumns != null &&
+                      firstDataset.numericColumns.length > 0) {
+      
+                    def firstType = firstDataset.numericColumns[0].dataType;
+      
+                    for (col in firstDataset.numericColumns) {
+                      if (col.dataType != firstType) {
+                        return false;
+                      }
+                    }
+                  }
+                  return true;
+                }
+      
+                return false;
+              `,
+              lang: "painless",
+            },
+          },
+        });
       } else if (key === "significantVariance") {
-        continue;
+        filters.push({
+          range: {
+            "structuredDatasets.numericColumns.variance": {
+              gt: 0,
+            },
+          },
+        });
       } else {
         if (!groupedFilters[key]) {
           groupedFilters[key] = [];

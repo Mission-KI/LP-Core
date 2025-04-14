@@ -11,14 +11,17 @@ const EDPActions = ({ edp }) => {
   const { t } = useTranslation();
   const location = useLocation();
 
-  const handleDownload = async (url) => {
-    if (!url) return;
-    window.open(url, "_blank");
-    await notifyEdpDownloadEvent();
-  };
-
   const isHomePage = location.pathname === "/";
   const reportDownloadUrl = imageBasePath + edp?._id + "/report.pdf";
+  const assetUrl = edp?._source?.assetRefs[0].assetUrl;
+  const downloadUrl = assetUrl.startsWith("http")
+    ? assetUrl
+    : imageBasePath + edp?._id + "/" + edp?._source?.assetRefs[0].assetUrl;
+
+  const handleDownload = async () => {
+    window.open(downloadUrl, "_blank");
+    await notifyEdpDownloadEvent();
+  };
 
   return (
     <div className="d-flex">
@@ -56,7 +59,7 @@ const EDPActions = ({ edp }) => {
         <div className="pe-2 pt-1">
           <button
             className="btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
-            onClick={() => handleDownload(edp?._source?.assetUrl)}
+            onClick={() => handleDownload()}
           >
             <Download className="me-2" /> {t("header.getDataset")}
           </button>

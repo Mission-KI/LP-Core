@@ -51,26 +51,35 @@ const EDPInfoSection = ({ edp }) => {
 
       <div className="d-flex mt-4 flex-wrap">
         <a
-          href={edp._source?.dataSpace?.url}
+          href={
+            edp._source?.assetRefs?.[0]?.dataSpace?.url?.startsWith("http")
+              ? edp._source.assetRefs[0].dataSpace.url
+              : `https://${edp._source.assetRefs[0].dataSpace.url}`
+          }
           target="_blank"
-          className="small text-decoration-underline txt-primary pe-3"
+          rel="noopener noreferrer"
+          className="small txt-primary pe-3"
         >
           {edp._source?.assetRefs?.[0]?.dataSpace?.name}
         </a>
 
         <a
-          href={`https://${edp._source?.assetRefs?.[0]?.publisher?.url}`}
+          href={
+            edp._source?.assetRefs?.[0]?.publisher?.url?.startsWith("http")
+              ? edp._source.assetRefs[0].publisher.url
+              : `https://${edp._source.assetRefs[0].publisher.url}`
+          }
           target="_blank"
           rel="noopener noreferrer"
-          className="small text-decoration-underline txt-primary pe-3"
+          className="small txt-primary pe-3"
         >
           {edp._source?.assetRefs?.[0]?.publisher?.name}
         </a>
 
         <a
-          href={edp._source?.assetRefs?.[0]?.publisher?.url}
+          href={edp._source?.assetRefs?.[0]?.license?.url}
           target="_blank"
-          className="small text-decoration-underline txt-primary pe-3"
+          className="small txt-primary pe-3"
         >
           {edp._source?.assetRefs?.[0]?.license?.name}
         </a>

@@ -173,9 +173,19 @@ export const isDataTypeConsistent = (edp) => {
   const numericColumns = edp._source.structuredDatasets[0].numericColumns;
 
   if (!numericColumns || numericColumns.length === 0) {
-    return true;
+    return false;
   }
 
   const firstDataType = numericColumns[0].dataType;
   return numericColumns.every((column) => column.dataType === firstDataType);
+};
+
+export const getSignificantVariance = (edp) => {
+  if (!edp?._source?.structuredDatasets?.[0]?.numericColumns?.length) {
+    return false;
+  }
+
+  const numericColumns = edp._source.structuredDatasets[0].numericColumns;
+
+  return numericColumns.some((column) => column.variance > 0);
 };

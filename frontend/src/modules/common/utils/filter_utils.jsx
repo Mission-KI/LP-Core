@@ -50,10 +50,15 @@ export const useFilterSections = () => {
     fetchFilterValues();
   }, [location.search]);
 
+  if (loading) {
+    return { filterSections: [], loading };
+  }
+
   const filterSections = [
     {
       title: "dataspaces",
       type: "checkboxes",
+      forDataType: null,
       filters: dataSpaces?.map((dataSpace) => ({
         label: dataSpace.key,
         value: dataSpace.key,
@@ -64,6 +69,7 @@ export const useFilterSections = () => {
     {
       title: "publisher",
       type: "checkboxes",
+      forDataType: null,
       filters: publishers?.map((publisher) => ({
         label: publisher.key,
         value: publisher.key,
@@ -74,6 +80,7 @@ export const useFilterSections = () => {
     {
       title: "assetProcessingStatus",
       type: "checkboxes",
+      forDataType: null,
       filters: [
         {
           label: "Original Data",
@@ -104,6 +111,7 @@ export const useFilterSections = () => {
     {
       title: "licenses",
       type: "checkboxes",
+      forDataType: null,
       filters: licenses?.map((license) => ({
         label: license.key,
         value: license.key,
@@ -114,6 +122,7 @@ export const useFilterSections = () => {
     {
       title: "dataFormat",
       type: "checkboxes",
+      forDataType: null,
       filters: dataTypes?.map((dataType) => ({
         label: dataType.key,
         value: dataType.key,
@@ -124,6 +133,7 @@ export const useFilterSections = () => {
     {
       title: "accessibility",
       type: "radio",
+      forDataType: null,
       filters: [
         {
           label: (
@@ -162,6 +172,7 @@ export const useFilterSections = () => {
     {
       title: "attributes",
       type: "doublerange",
+      forDataType: "structured",
       filters: [
         {
           label: "lines",
@@ -184,6 +195,7 @@ export const useFilterSections = () => {
     {
       title: "fileSize",
       type: "filesize",
+      forDataType: null,
       filters: [
         {
           label: "Size range",
@@ -198,6 +210,7 @@ export const useFilterSections = () => {
     {
       title: "",
       type: "single_icon",
+      forDataType: "structured",
       filters: [
         {
           label: "hasDatetimeAttribute",
@@ -224,6 +237,7 @@ export const useFilterSections = () => {
     {
       title: "",
       type: "single_icon",
+      forDataType: "structured",
       filters: [
         {
           label: "hasTemporalFrequency",
@@ -250,6 +264,7 @@ export const useFilterSections = () => {
     {
       title: "",
       type: "single_icon",
+      forDataType: "structured",
       filters: [
         {
           label: "dataTypeConsistency",
@@ -276,6 +291,7 @@ export const useFilterSections = () => {
     {
       title: "",
       type: "single_icon",
+      forDataType: "structured",
       filters: [
         {
           label: "significantVariance",
