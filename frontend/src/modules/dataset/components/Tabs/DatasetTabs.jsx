@@ -172,7 +172,7 @@ const DatasetTabs = ({ edp, datasetRef }) => {
           {
             eventKey: "audio",
             title: "Audio",
-            component: <Audio dataset={dataset} />,
+            component: <Audio dataset={dataset} edp={edp} />,
           },
         ]
       : []),
