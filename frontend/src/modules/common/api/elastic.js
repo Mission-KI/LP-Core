@@ -1,5 +1,7 @@
-import { escapeElasticQueryString } from "../../search/utils/elastic_utils";
-import { useSettings } from "../contexts/SettingsContext";
+import {
+  escapeElasticQueryString,
+  formatQueryForNestedObjects,
+} from "../../search/utils/elastic_utils";
 import { elasticURL } from "./config";
 
 export const getEdps = async (from = 0, size = 10, expertMode) => {
@@ -16,12 +18,7 @@ export const getEdps = async (from = 0, size = 10, expertMode) => {
       if (key === "q") {
         if (values[0] === "") continue;
         if (expertMode) {
-          filters.push({
-            query_string: {
-              query: values[0],
-              default_field: "name",
-            },
-          });
+          filters.push(formatQueryForNestedObjects(values[0]));
         } else {
           filters.push({
             multi_match: {
