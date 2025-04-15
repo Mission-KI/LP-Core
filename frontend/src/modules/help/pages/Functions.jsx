@@ -4,7 +4,7 @@ import { Functions_De } from "../components/TopicsContent/Functions_De";
 import { renderToStaticMarkup } from "react-dom/server";
 import { TableOfContents } from "../components/TableOfContents";
 
-const Functions = () => {
+export const Functions = () => {
   const { i18n } = useTranslation();
   const currentLanguage = i18n.language;
 
@@ -28,5 +28,3 @@ const Functions = () => {
     );
   }
 };
-
-export default Functions;

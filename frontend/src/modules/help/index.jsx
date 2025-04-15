@@ -1,8 +1,8 @@
 import About from "./pages/About";
-import DataFormatsAndAnalysis from "./pages/DataFormatsAndAnalysis";
-import Functions from "./pages/Functions";
+import { DataFormatsAndAnalysis } from "./pages/DataFormatsAndAnalysis";
+import { Functions } from "./pages/Functions";
 import Help from "./pages/Help";
-import MotivationAndBasics from "./pages/MotivationAndBasics";
+import { MotivationAndBasics } from "./pages/MotivationAndBasics";
 
 const helpRoutes = [
   {
