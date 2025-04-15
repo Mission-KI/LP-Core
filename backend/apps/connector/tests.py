@@ -21,9 +21,16 @@ from django.http import HttpResponse
 from django.urls import reverse
 from elastic_transport import ApiResponseMeta, HttpHeaders, NodeConfig, TlsError
 from elasticsearch import AuthenticationException, ConflictError, Elasticsearch
-from extended_dataset_profile import CURRENT_SCHEMA, Version
+from extended_dataset_profile import (
+    CURRENT_SCHEMA,
+    AssetReference,
+    DataSpace,
+    ExtendedDatasetProfile,
+    License,
+    Publisher,
+    Version,
+)
 from extended_dataset_profile import __version__ as current_schema_version
-from extended_dataset_profile.models.v0.edp import AssetReference, DataSpace, ExtendedDatasetProfile, License, Publisher
 from moto import mock_aws
 from pydantic import AnyUrl
 from pytest import MonkeyPatch
