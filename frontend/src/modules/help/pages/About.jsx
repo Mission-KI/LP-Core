@@ -18,7 +18,7 @@ const About = () => {
         <About_De />
       </>
     );
-  } else if (currentLanguage === "en") {
+  } else {
     const htmlContent = renderToStaticMarkup(<About_En />);
 
     return (

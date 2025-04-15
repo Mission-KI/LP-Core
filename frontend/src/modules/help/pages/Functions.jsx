@@ -17,7 +17,7 @@ export const Functions = () => {
         <Functions_De />
       </>
     );
-  } else if (currentLanguage === "en") {
+  } else {
     const htmlContent = renderToStaticMarkup(<Functions_En />);
 
     return (
