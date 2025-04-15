@@ -29,7 +29,7 @@ const EDPInfoSection = ({ edp }) => {
       </div>
 
       <div>
-        <p className="txt-lighter mt-3 mb-2">
+        <p className="mt-3 mb-2">
           {isDescriptionExpanded
             ? edp?._source?.description
             : truncateString(edp?._source?.description, 450)}
