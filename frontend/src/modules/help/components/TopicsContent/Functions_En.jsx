@@ -17,7 +17,9 @@ export const Functions_En = () => {
         structured search logic.
       </p>
 
-      <h5 className="mt-5" id="how-to-use-expert-mode">How to Use Expert Mode</h5>
+      <h5 className="mt-5" id="how-to-use-expert-mode">
+        How to Use Expert Mode
+      </h5>
       <ul className="regular">
         <li>
           You can enable or disable Expert Mode in the <strong>Settings</strong>{" "}
