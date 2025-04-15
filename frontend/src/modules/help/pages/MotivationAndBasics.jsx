@@ -17,7 +17,7 @@ export const MotivationAndBasics = () => {
         <MotivationAndBasics_De />
       </>
     );
-  } else if (currentLanguage === "en") {
+  } else {
     const htmlContent = renderToStaticMarkup(<MotivationAndBasics_En />);
 
     return (

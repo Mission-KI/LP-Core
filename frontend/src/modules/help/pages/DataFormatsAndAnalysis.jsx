@@ -17,7 +17,7 @@ export const DataFormatsAndAnalysis = () => {
         <DataFormatsAndAnalysis_De />
       </>
     );
-  } else if (currentLanguage === "en") {
+  } else {
     const htmlContent = renderToStaticMarkup(<DataFormatsAndAnalysis_En />);
 
     return (
