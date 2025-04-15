@@ -73,9 +73,32 @@ export const Functions_De = () => {
       <h5 className="mt-4" id="query-language">
         Hilfestellungen zur Query Language
       </h5>
+      <p>
+        Der Expertenmodus verwendet die Elasticsearch Query Language. Eine
+        umfangreiche Dokumentation ist unter [
+        <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/esql.html">
+          Elasticsearch Guide
+        </a>
+        ] zu finden.{" "}
+      </p>
+      <h6 className="bold mt-4">Escaping</h6>
+      <p>
+        Bei Verwendung der Standardsuche wird das Escapen automatisch
+        angewendet. Im Expertenmodus muss der Benutzer für ein ordnungsgemäßes
+        Escapen sorgen. Die folgenden Zeichen müssen entsprechend escaped oder
+        vermieden werden, wenn sie nicht absichtlich als Operatoren verwendet
+        werden: &#43; &#45; = && || &#62; &#60; ! &#40; &#41; &#123; &#125;
+        &#91; &#93; ^ " ~ * ? : &#92; &#47;
+      </p>
+      <h6 className="bold mt-4">Feld-spezifische Hinweise</h6>
       <ul className="regular">
         <li>
-          Zur Suche nach Tags müssen diese in Anführungszeichen gesetzt werden
+          Zur Suche nach Tags müssen diese in Anführungszeichen gesetzt werden,
+          z.B.: <i>tags:'BSRN'</i>
+        </li>
+        <li>
+          Datumsangaben folgen dem Format YYYY-MM-DD, eine entsprechende Abfrage
+          wäre z.B. <i>publishDate: [2024-06-01 TO 2024-12-31]</i>
         </li>
       </ul>
       Weitere Hilfestellungen folgen in Kürze.
