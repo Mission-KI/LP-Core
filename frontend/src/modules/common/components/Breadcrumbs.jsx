@@ -5,7 +5,7 @@ const Breadcrumbs = () => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
 
-  const nonLinkPaths = ["details"];
+  const nonLinkPaths = ["details", "monitoring"];
 
   const formatName = (name) =>
     name.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
