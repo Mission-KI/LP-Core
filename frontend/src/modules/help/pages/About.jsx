@@ -23,7 +23,7 @@ const About = () => {
     return (
       <>
         <TableOfContents content={htmlContent} />
-        <About_En />;
+        <About_En />
       </>
     );
   }
