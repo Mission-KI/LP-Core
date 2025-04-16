@@ -1,10 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-  Outlet,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes } from "react-router-dom";
 import LandingLayout from "./modules/common/layouts/LandingLayout";
 import AppLayout from "./modules/common/layouts/AppLayout";
 import searchEngineRoutes from "./modules/search";
@@ -23,16 +17,8 @@ import DetailViewLayout from "./modules/dataset/layouts/DetailViewLayout";
 import HelpLayout from "./modules/help/layouts/HelpLayout";
 import { BookmarksProvider } from "./modules/bookmarks/contexts/BookmarksContext";
 import MonitoringLayout from "./modules/monitoring/layout/MonitoringLayout";
-
-const PrivateRoutes = () => {
-  const { authenticated, loading } = useAuth();
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  return authenticated ? <Outlet /> : <Navigate to="/auth/login" />;
-};
+import { PrivateRoutes } from "./modules/common/components/PrivateRoutes";
+import { renderRoutes } from "./modules/common/utils/route_utils";
 
 const routes = [
   {
@@ -78,27 +64,6 @@ const routes = [
     element: <PageNotFound />,
   },
 ];
-
-const renderRoutes = (routes) => {
-  return routes.map((route, index) => {
-    if (route.children) {
-      return (
-        <Route key={index} path={route.path} element={route.element}>
-          {renderRoutes(route.children)}
-        </Route>
-      );
-    } else {
-      return (
-        <Route
-          key={index}
-          path={route.path}
-          element={route.element}
-          index={route.index}
-        />
-      );
-    }
-  });
-};
 
 function App() {
   return (
