@@ -3,7 +3,7 @@ export const TableOfContents = ({ content }) => {
   const doc = parser.parseFromString(content, "text/html");
 
   const headings = Array.from(
-    doc.body.querySelectorAll("h1, h2, h3, h4, h5, h6"),
+    doc.body.querySelectorAll("h1, h2, h3, h4, h5, h6, h7"),
   ).map((el) => ({
     id: el.id || el.textContent.trim().toLowerCase().replace(/\s+/g, "-"),
     text: el.textContent,
