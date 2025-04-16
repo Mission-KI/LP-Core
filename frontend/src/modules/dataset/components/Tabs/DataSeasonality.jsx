@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SeasonalityDetailView from "../SeasonalityDetailView";
 import { imageBasePath } from "../../../common/api/config";
 

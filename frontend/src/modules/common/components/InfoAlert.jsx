@@ -1,4 +1,3 @@
-import React from "react";
 import { InfoCircleFill } from "react-bootstrap-icons";
 
 const InfoAlert = ({ text }) => {

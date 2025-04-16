@@ -1,4 +1,3 @@
-import React from "react";
 import { useSettings } from "../../contexts/SettingsContext";
 import { useTranslation } from "react-i18next";
 

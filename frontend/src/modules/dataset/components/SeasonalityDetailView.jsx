@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { imageBasePath } from "../../common/api/config";
 
 const SeasonalityDetailView = ({
@@ -8,7 +7,6 @@ const SeasonalityDetailView = ({
   selectedAttribute,
   edp,
 }) => {
-  const handleOpen = () => setShowDetailViewModal(true);
   const handleClose = () => setShowDetailViewModal(false);
 
   return (

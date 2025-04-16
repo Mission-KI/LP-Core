@@ -23,7 +23,7 @@ export const MotivationAndBasics = () => {
     return (
       <>
         <TableOfContents content={htmlContent} />
-        <MotivationAndBasics_En />;
+        <MotivationAndBasics_En />
       </>
     );
   }

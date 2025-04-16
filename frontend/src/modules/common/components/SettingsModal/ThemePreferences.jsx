@@ -1,4 +1,3 @@
-import React from "react";
 import { useTheme } from "../../contexts/ThemeContext";
 import { MoonFill, SunFill } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";

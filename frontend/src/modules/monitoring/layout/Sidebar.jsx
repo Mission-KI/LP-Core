@@ -1,30 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import {
-  UiChecksGrid,
-  People,
-  List,
-  Gear,
-  Speedometer,
-  FileEarmarkPdf,
-  FilePdf,
-  Box2Heart,
-  Person,
-  QuestionCircle,
-  InfoSquare,
-} from "react-bootstrap-icons";
+import { UiChecksGrid, InfoSquare, LayoutSidebar } from "react-bootstrap-icons";
 
 function Sidebar() {
-  const [sidebarActive] = useState(true);
+  const [sidebarActive, setSidebarActive] = useState(true);
   const [currentPage, setCurrentPage] = useState(window.location.pathname);
 
   useEffect(() => {
     function handleResize() {
       if (window.innerWidth < 855) {
-        const sidebar = document.getElementById("sidebar");
-        if (!sidebar.classList.contains("active")) {
-          sidebar.classList.toggle("active");
-        }
+        setSidebarActive(false);
         document.documentElement.style.setProperty("--sidebar-width", "0");
       }
     }
@@ -36,50 +21,28 @@ function Sidebar() {
     };
   }, []);
 
-  // const toggleModal = () => {
-  //   const sidebar = document.getElementById("sidebar");
-  //   sidebar.classList.toggle("active");
-  //   if (sidebar.classList.contains("active")) {
-  //     document.documentElement.style.setProperty("--sidebar-width", "0");
-  //   } else {
-  //     document.documentElement.style.setProperty("--sidebar-width", "236px");
-  //   }
-  // };
+  useEffect(() => {
+    document.documentElement.style.setProperty(
+      "--sidebar-width",
+      sidebarActive ? "236px" : "0",
+    );
+  }, [sidebarActive]);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
   const toggleSidebar = () => {
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("active");
-    if (sidebar.classList.contains("active")) {
-      document.documentElement.style.setProperty("--sidebar-width", "0");
-    } else {
-      document.documentElement.style.setProperty("--sidebar-width", "236px");
-    }
+    setSidebarActive((prev) => !prev);
   };
 
   return (
     <>
       <nav id="sidebar" className={!sidebarActive ? "active" : ""}>
         <ul className="list-unstyled">
-          <div className="sidebar-link-group">
-            <div className="d-flex justify-content-between align-items-center">
-              <span
-                className={`d-flex justify-content-end align-items-center rounded`}
-              >
-                <div
-                  className="w-fit pointer rounded-lg"
-                  onClick={toggleSidebar}
-                >
-                  <List className="h5 mb-0" />
-                </div>
-              </span>
-            </div>
-          </div>
+          <div className="sidebar-link-group"></div>
 
-          <div className="sidebar-link-group">
+          <div className="sidebar-link-group mt-5">
             <li
               className={`nav-item px-2 rounded my-1 ${currentPage === "/monitoring/dashboard" ? "active" : ""}`}
             >
@@ -107,6 +70,14 @@ function Sidebar() {
           </div>
         </ul>
       </nav>
+      <button
+        onClick={toggleSidebar}
+        id="sidebar-toggle-btn"
+        style={{ top: "2rem", left: "1rem" }}
+        className={`btn btn-basic rounded position-fixed ${!sidebarActive ? "shadow" : ""}`}
+      >
+        <LayoutSidebar className="h5 mb-0" />
+      </button>
     </>
   );
 }

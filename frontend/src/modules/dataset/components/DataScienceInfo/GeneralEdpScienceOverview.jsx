@@ -1,4 +1,3 @@
-import React from "react";
 import { getEdpLanguagesList } from "../../utils/edp_utils";
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Dropdown } from "react-bootstrap";
 import { InfoCircleFill } from "react-bootstrap-icons";
 import styles from "./QuickView.module.css";

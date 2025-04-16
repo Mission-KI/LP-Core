@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useFilterSections } from "../../../common/utils/filter_utils";
 import { FormGroup } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";

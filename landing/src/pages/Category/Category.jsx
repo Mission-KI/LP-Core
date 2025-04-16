@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import DataspaceCard from "../../components/DataspaceCard/DataspaceCard";
 import { useParams } from "react-router";
 import { TilesContainer } from "react-tiles-dnd";

@@ -10,6 +10,8 @@ const Breadcrumbs = () => {
   const formatName = (name) =>
     name.replace(/[-_]/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 
+  if (pathnames.length <= 1) return null;
+
   return (
     <Breadcrumb>
       {pathnames.map((name, index) => {

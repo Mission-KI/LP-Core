@@ -43,7 +43,7 @@
   --content-over-widget-color: #2a2e32;
   --skeleton-loader-color-0: #ffffff11;
   --skeleton-loader-color-100: #ffffff19;
-  --sidebar-background: #202123;
+  --sidebar-background: #323336;
   --nav-link-hover-background: #ffffff11;
 }
 
@@ -808,10 +808,22 @@ input:checked + .slider:before {
   padding-right: 1rem;
 }
 
+#sidebar-toggle-btn {
+  z-index: 9999;
+}
+
 @media only screen and (max-width: 855px) {
   #sidebar {
     position: fixed !important;
+    top: 0 !important;
     z-index: 9999 !important;
+  }
+  .monitoring-content-wrapper {
+    padding-left: 0 !important;
+  }
+  #sidebar-toggle-btn {
+    top: unset !important;
+    bottom: 2rem;
   }
 }
 

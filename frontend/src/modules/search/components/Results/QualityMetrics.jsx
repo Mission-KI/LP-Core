@@ -1,4 +1,3 @@
-import React from "react";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
 import {
   calculateAttributeIntegrity,
@@ -25,7 +24,10 @@ const QualityMetrics = ({ edp }) => {
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
             placement="top"
-            overlay={renderTooltip("Open access", "open-access-section")}
+            overlay={renderTooltip(
+              "Open access",
+              "/data-formats-and-analysis#open-access-section",
+            )}
           >
             <div>
               <Unlock />
@@ -37,7 +39,10 @@ const QualityMetrics = ({ edp }) => {
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
             placement="top"
-            overlay={renderTooltip("Closed access", "closed-access-section")}
+            overlay={renderTooltip(
+              "Closed access",
+              "/data-formats-and-analysis#closed-access-section",
+            )}
           >
             <div>
               <Lock />
@@ -52,7 +57,7 @@ const QualityMetrics = ({ edp }) => {
             placement="top"
             overlay={renderTooltip(
               "Date time attribute",
-              "date-time-attribute-section",
+              "/data-formats-and-analysis#date-time-attribute-section",
             )}
           >
             <div>
@@ -68,7 +73,7 @@ const QualityMetrics = ({ edp }) => {
             placement="top"
             overlay={renderTooltip(
               "Temporal frequency",
-              "temporal-frequency-section",
+              "/data-formats-and-analysis#temporal-frequency-section",
             )}
           >
             <div>
@@ -84,7 +89,7 @@ const QualityMetrics = ({ edp }) => {
             placement="top"
             overlay={renderTooltip(
               "Data type consistency",
-              "data-type-consistency-section",
+              "/data-formats-and-analysis#data-type-consistency-section",
             )}
           >
             <div>
@@ -100,7 +105,7 @@ const QualityMetrics = ({ edp }) => {
             placement="top"
             overlay={renderTooltip(
               "Attribute integrity",
-              "attribute-integrity-section",
+              "/data-formats-and-analysis#attribute-integrity-section",
             )}
           >
             <div>
@@ -116,7 +121,7 @@ const QualityMetrics = ({ edp }) => {
             placement="top"
             overlay={renderTooltip(
               "Significant variance",
-              "significant-variance-section",
+              "/data-formats-and-analysis#significant-variance-section",
             )}
           >
             <div>
@@ -128,8 +133,12 @@ const QualityMetrics = ({ edp }) => {
       {edp?._source?.allowedForAiTraining && (
         <div className="ps-2">
           <OverlayTrigger
+            delay={{ show: 100, hide: 700 }}
             placement="top"
-            overlay={<Tooltip>Allowed for AI training</Tooltip>}
+            overlay={renderTooltip(
+              "Allowed for AI training",
+              "/data-formats-and-analysis#allowed-for-ai-section",
+            )}
           >
             <div>
               <Robot />
