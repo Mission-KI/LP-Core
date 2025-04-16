@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./ImageView.module.css";
 import { ZoomIn, ZoomOut } from "react-bootstrap-icons";
 

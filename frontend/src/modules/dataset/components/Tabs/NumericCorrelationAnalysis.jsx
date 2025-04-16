@@ -1,4 +1,3 @@
-import React from "react";
 import ImageView from "../../../common/components/ImageView/ImageView";
 import { imageBasePath } from "../../../common/api/config";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Outlet } from "react-router";
 import { getEdp } from "../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";

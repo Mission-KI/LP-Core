@@ -8,7 +8,7 @@ import ScrollToTop from "./modules/common/components/ScrollToTop";
 import PageNotFound from "./modules/common/pages/PageNotFound";
 import authRoutes from "./modules/authentication";
 import bookmarkRoutes from "./modules/bookmarks";
-import { AuthProvider, useAuth } from "./modules/common/contexts/AuthContext";
+import { AuthProvider } from "./modules/common/contexts/AuthContext";
 import helpRoutes from "./modules/help";
 import { ThemeProvider } from "./modules/common/contexts/ThemeContext";
 import { SettingsProvider } from "./modules/common/contexts/SettingsContext";

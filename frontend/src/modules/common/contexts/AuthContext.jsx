@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   useState,
   useContext,
@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
         handleLogout();
       }
     },
-    [handleLogout],
+    [handleLogout]
   );
 
   useEffect(() => {

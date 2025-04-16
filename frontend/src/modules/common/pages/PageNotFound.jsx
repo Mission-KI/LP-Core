@@ -1,4 +1,3 @@
-import React from "react";
 import { ExclamationCircleFill } from "react-bootstrap-icons";
 
 function PageNotFound() {

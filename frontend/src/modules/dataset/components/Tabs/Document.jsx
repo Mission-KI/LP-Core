@@ -1,5 +1,3 @@
-import React from "react";
-
 const Document = ({ edp, datasetRef }) => {
   const documentIndex = parseInt(datasetRef.split("/")[2], 10);
 

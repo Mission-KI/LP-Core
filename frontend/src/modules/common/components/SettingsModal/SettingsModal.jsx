@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-import {
-  X,
-  Palette,
-  ExclamationCircle,
-  Translate,
-  Search,
-} from "react-bootstrap-icons";
+import { useState } from "react";
+import { X, Palette, Translate, Search } from "react-bootstrap-icons";
 import Modal from "react-bootstrap/Modal";
 import LanguageSettings from "./LanguagePreferences";
 import ThemeSettings from "./ThemePreferences";

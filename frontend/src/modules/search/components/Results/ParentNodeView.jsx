@@ -1,4 +1,3 @@
-import React from "react";
 import { StarFill } from "react-bootstrap-icons";
 import QualityMetrics from "./QualityMetrics";
 import QuickView from "../QuickView/QuickView";
