@@ -140,7 +140,10 @@ export const useFilterSections = () => {
             <OverlayTrigger
               delay={{ show: 100, hide: 700 }}
               placement="top"
-              overlay={renderTooltip("Open access", "open-access-section")}
+              overlay={renderTooltip(
+                "Open access",
+                "/data-formats-and-analysis#open-access-section",
+              )}
             >
               <div>
                 <UnlockFill />
@@ -156,7 +159,10 @@ export const useFilterSections = () => {
             <OverlayTrigger
               delay={{ show: 100, hide: 700 }}
               placement="top"
-              overlay={renderTooltip("Closed access", "closed-access-section")}
+              overlay={renderTooltip(
+                "Closed access",
+                "/data-formats-and-analysis#closed-access-section",
+              )}
             >
               <div>
                 <LockFill />
@@ -220,7 +226,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Date time attribute",
-                "date-time-attribute-section",
+                "/data-formats-and-analysis#date-time-attribute-section",
               )}
             >
               <div>
@@ -247,7 +253,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Temporal frequency",
-                "temporal-frequency-section",
+                "/data-formats-and-analysis#temporal-frequency-section",
               )}
             >
               <div>
@@ -274,7 +280,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Data type consistency",
-                "data-type-consistency-section",
+                "/data-formats-and-analysis#data-type-consistency-section",
               )}
             >
               <div>
@@ -301,7 +307,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Significant variance",
-                "significant-variance-section",
+                "/data-formats-and-analysis#significant-variance-section",
               )}
             >
               <div>

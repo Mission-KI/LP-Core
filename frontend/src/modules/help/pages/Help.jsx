@@ -7,19 +7,40 @@ import { useLocation } from "react-router";
 const Help = () => {
   const { t } = useTranslation();
   const location = useLocation();
+  console.log("asdasd");
 
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash) {
-      setTimeout(() => {
-        const id = hash.substring(1);
+    window.scrollTo(0, 0);
+
+    const handleLoad = () => {
+      window.scrollTo(0, 0);
+
+      console.log("asdasd");
+      const hash = window.location.hash;
+      console.log(hash);
+      if (hash) {
+        const id = hash.replace("#", "");
         const element = document.getElementById(id);
         if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
+          const headerHeight =
+            document.querySelector(".navbar")?.offsetHeight || 0;
+          const topOffset = element.offsetTop - headerHeight;
+
+          window.scrollTo({
+            top: topOffset,
+            behavior: "smooth",
+          });
         }
-      }, 0);
-    }
-  }, [location]);
+      }
+    };
+
+    window.addEventListener("load", handleLoad);
+    window.scrollTo(0, 0);
+
+    return () => {
+      window.removeEventListener("load", handleLoad);
+    };
+  }, []);
 
   return (
     <>
