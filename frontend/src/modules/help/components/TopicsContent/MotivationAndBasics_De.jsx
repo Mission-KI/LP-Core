@@ -4,9 +4,9 @@ export const MotivationAndBasics_De = () => {
   return (
     <div className="col-md-10">
       <h1 className="bold mb-5">Motivation und Grundlagen</h1>
-      <h5 className="mt-5 mb-3" id="motivation">
+      <h4 className="mt-5 mb-3" id="motivation">
         Motivation
-      </h5>
+      </h4>
       <p className="regular text-justify">
         Vertrauenswürdige künstliche Intelligenz (“KI”) benötigt für effektives
         Training und präzise Vorhersagen vor allem qualitativ hochwertige Daten.
@@ -64,9 +64,9 @@ export const MotivationAndBasics_De = () => {
         alt="Zielarchitektur"
         className="w-100 my-4"
       />
-      <h5 className="mt-5 mb-3" id="target-groups">
+      <h4 className="mt-5 mb-3" id="target-groups">
         Zielgruppen und Anwendungsfälle
-      </h5>
+      </h4>
       <p className="regular text-justify">
         Nachfolgender Absatz beschreibt die unterschiedlichen Zielgruppen und
         Anwendungsfälle.{" "}
@@ -95,18 +95,18 @@ export const MotivationAndBasics_De = () => {
           und die Datensouveränität des Datenanbieters verletzt wird.
         </li>
       </ul>
-      <h6 className="bold mt-4" id="target-group-user">
+      <h5 className="mt-4" id="target-group-user">
         Zielgruppe Datennutzer
-      </h6>
+      </h5>
       <p className="regular text-justify">
         Der Datennutzer (“Data User”) ist eine Person, Organisation oder
         Software, die aktiv nach Daten sucht um diese für das Trainieren eines
         KI-Modells, eine Datenanalyse oder das Bereitstellen eines anderen
         Datendienstes zu nutzen.
       </p>
-      <h7 className="bold mt-4" id="advantages-user">
+      <h6 className="bold mt-4" id="advantages-user">
         Vorteile für den Datennutzer
-      </h7>
+      </h6>
       <ul className="regular text-justify">
         <li>
           Die Landing Page bietet einen einfachen Einstieg in die Welt von
@@ -133,9 +133,9 @@ export const MotivationAndBasics_De = () => {
           Datensatzes dokumentiert.
         </li>
       </ul>
-      <h6 className="bold mt-4" id="target-group-publisher">
+      <h5 className="mt-4" id="target-group-publisher">
         Zielgruppe Datenanbieter
-      </h6>
+      </h5>
       <p className="regular text-justify">
         Ein Datenanbieter (“Data Publisher“) oder Veröffentlicher ist eine
         Person, Organisation oder Institution, die Daten in einem Datenraum
@@ -161,9 +161,9 @@ export const MotivationAndBasics_De = () => {
         das Portal, sodass andere Nutzer die Möglichkeit haben, diese zu suchen,
         anzusehen und abzurufen.
       </p>
-      <h7 className="bold mt-4" id="advantages-publisher">
+      <h6 className="bold mt-4" id="advantages-publisher">
         Vorteile für den Datenanbieter
-      </h7>
+      </h6>
       <ul className="regular text-justify">
         <li>
           Datenportal- und Datenraum-übergreifende Sichtbarkeit von
@@ -201,18 +201,18 @@ export const MotivationAndBasics_De = () => {
           analysierten Daten zu bezahlen.
         </li>
       </ul>
-      <h6 className="bold mt-4" id="target-group-operator">
+      <h5 className="mt-4" id="target-group-operator">
         Zielgruppe Betreiber
-      </h6>
+      </h5>
       <p className="regular text-justify">
         Ein Betreiber verfügt über geschlossene Datenräume [
         <a href="/help/motivation-and-basics#dataspace">mehr erfahren</a>] oder
         offene Datenportale [
         <a href="/help/motivation-and-basics#dataportal">mehr erfahren</a>].
       </p>
-      <h7 className="bold mt-4" id="advantages-operator">
+      <h6 className="bold mt-4" id="advantages-operator">
         Vorteile für den Betreiber
-      </h7>
+      </h6>
       <ul className="regular text-justify">
         <li>
           Sichtbarkeit, Bekanntheit und Reputation seiner Plattform werden
@@ -228,17 +228,17 @@ export const MotivationAndBasics_De = () => {
           Daten-Ökosystem.
         </li>
       </ul>
-      <h5 className="mt-5 mb-3" id="terminology">
+      <h4 className="mt-5 mb-3" id="terminology">
         Begrifflichkeiten kurz erklärt
-      </h5>
-      <h6 className="bold mt-4" id="what-is-an-asset">
+      </h4>
+      <h5 className="mt-4" id="what-is-an-asset">
         Was ist ein Asset?
-      </h6>
+      </h5>
       Ein Asset (“Data Asset“) bezeichnet ein im Datenraum oder Datenportal
       bereitgestelltes Datenangebot.
-      <h6 className="bold mt-4" id="what-is-a-dataset">
+      <h5 className="mt-4" id="what-is-a-dataset">
         Was ist ein Datensatz?
-      </h6>
+      </h5>
       Ein Data Asset kann aus einem oder mehreren Datensätzen bestehen. Ein
       Datensatz (“Dataset”) ist ein Objekt, dem eine eindeutige Datenformat
       zugeordnet werden kann [
@@ -246,9 +246,9 @@ export const MotivationAndBasics_De = () => {
         mehr zu den in daseen unterstützten Datenformaten
       </a>
       ].
-      <h6 className="bold mt-4" id="what-is-an-edp">
+      <h5 className="mt-4" id="what-is-an-edp">
         Was ist ein EDP?
-      </h6>
+      </h5>
       <p className="regular text-justify">
         Ein erweitertes Datensatzprofil (“Extended Dataset Profile“) verwenden
         Sie im Kontext von Datenräumen, Datenkatalogen oder
@@ -309,12 +309,12 @@ export const MotivationAndBasics_De = () => {
           Datenplattformen und erleichtert deren integrierte Nutzung.
         </li>
       </ul>
-      <h6 className="bold mt-4" id="dataspace-dataportal">
+      <h5 className="mt-4" id="dataspace-dataportal">
         Was ist ein Datenraum bzw ein Datenportal?
-      </h6>
-      <h7 className="bold mt-4" id="dataspace">
+      </h5>
+      <h6 className="bold mt-4" id="dataspace">
         Datenraum
-      </h7>
+      </h6>
       <p className="regular text-justify">
         Ein geschlossener Datenraum (“Data Space”) kann als ein gemeinsamer
         digitaler Raum betrachtet werden, in dem verschiedene Organisationen
@@ -363,9 +363,9 @@ export const MotivationAndBasics_De = () => {
           Darüber hinaus fördert er Zusammenarbeit, Vertrauen und Transparenz.
         </li>
       </ul>
-      <h7 className="bold mt-4" id="dataportal">
+      <h6 className="bold mt-4" id="dataportal">
         Datenportal
-      </h7>
+      </h6>
       <p className="regular text-justify">
         Ein offenes Datenportal (“Data Portal“) ist eine Webseite oder
         Plattform, die es ermöglicht, Daten zu finden, einzusehen und

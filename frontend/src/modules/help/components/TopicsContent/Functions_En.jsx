@@ -2,9 +2,9 @@ export const Functions_En = () => {
   return (
     <div className="col-md-10">
       <h1 className="bold mb-5">Functions</h1>
-      <h5 className="mt-5 mb-3" id="landingpage">
+      <h4 className="mt-5 mb-3" id="landingpage">
         Landing Page
-      </h5>
+      </h4>
       <p className="regular text-justify">
         The landing page offers an easy introduction to the world of
         daseen.{" "}
@@ -14,9 +14,9 @@ export const Functions_En = () => {
         space or data publisher that provides data in this category. After this
         selection, the user ends up in the corresponding pre-filtered search.
       </p>
-      <h5 className="mt-5 mb-3" id="search">
+      <h4 className="mt-5 mb-3" id="search">
         Search
-      </h5>
+      </h4>
       <p className="regular text-justify">
         You can search for so-called Extended Dataset Profiles (EDP) on daseen.
         An EDP is a standardized metadata description of a data set (asset)
@@ -35,9 +35,9 @@ export const Functions_En = () => {
         only contains a direct download link. For such assets, the EDP refers to
         the direct download link of the asset.
       </p>
-      <h6 className="bold mt-4" id="free-text-search">
+      <h5 className="mt-4" id="free-text-search">
         Free text search (simple)
-      </h6>
+      </h5>
       <p className="regular text-justify">
         You can search for EDP by typing any keywords into the search box. The
         entered search term is compared with the following meta information and
@@ -55,9 +55,9 @@ export const Functions_En = () => {
           been specified, the EDP description is empty.{" "}
         </li>
       </ul>
-      <h6 className="bold mt-4" id="search-in-expert-mode">
+      <h5 className="mt-4" id="search-in-expert-mode">
         Search in Expert Mode (Query Language)
-      </h6>
+      </h5>
       <p className="regular text-justify">
         Expert Mode is an advanced search feature in daseen that enhances your
         search experience by providing autocomplete suggestions for writing
@@ -71,9 +71,9 @@ export const Functions_En = () => {
         can activate the mode via the search settings [
         <a href="/help/functions#expert-mode">learn more</a>].
       </p>
-      <h7 className="bold mt-4" id="query-language">
+      <h6 className="bold mt-4" id="query-language">
         Query Language Assistance
-      </h7>
+      </h6>
       <p>
         Expert mode uses the Elasticsearch Query Language. Extensive
         documentation can be found at{" "}
@@ -100,9 +100,9 @@ export const Functions_En = () => {
           <i>publishDate: [2024-06-01 TO 2024-12-31]</i>
         </li>
       </ul>
-      <h6 className="bold mt-4" id="filter-based-search">
+      <h5 className="mt-4" id="filter-based-search">
         Filter based search
-      </h6>
+      </h5>
       <p className="regular text-justify">
         In addition to the free text search, daseen also offers a filter-based
         search. This can be used either alone or in combination with the free
@@ -120,9 +120,9 @@ export const Functions_En = () => {
       <p className="regular text-justify">
         The following filters are currently available:
       </p>
-      <h7 className="bold mt-4" id="general-filters">
+      <h6 className="bold mt-4" id="general-filters">
         General filters
-      </h7>
+      </h6>
       <ul className="regular">
         <li>
           Data Space/Data Portals: The drop-down list can be used to select one
@@ -161,9 +161,9 @@ export const Functions_En = () => {
           archives, this refers to the compressed size of the asset.{" "}
         </li>
       </ul>
-      <h7 className="bold mt-4" id="filters-for-structured-data">
+      <h6 className="bold mt-4" id="filters-for-structured-data">
         Filters for structured data
-      </h7>
+      </h6>
       <ul className="regular">
         <li>
           Lines: The sliders can be used to set the minimum and/or maximum
@@ -209,9 +209,9 @@ export const Functions_En = () => {
           ]
         </li>
       </ul>
-      <h6 className="bold mt-4" id="search-results">
+      <h5 className="mt-4" id="search-results">
         Search results
-      </h6>
+      </h5>
       <p className="regular text-justify">
         All EDP shared by a data publisher can be found on daseen using the EDP
         metadata collected. Each EDP is displayed as an EDP entry in the EDP
@@ -225,9 +225,9 @@ export const Functions_En = () => {
         can also be selected. This also contains a maximum of 12 EDP entries per
         page.{" "}
       </p>
-      <h7 className="bold mt-4" id="edp-list-view">
+      <h6 className="bold mt-4" id="edp-list-view">
         EDP list view
-      </h7>
+      </h6>
       In the EDP list view, each EDP entry consists of the following searchable
       information:
       <ul className="regular">
@@ -306,9 +306,9 @@ export const Functions_En = () => {
           ].
         </li>
       </ul>
-      <h7 className="bold mt-4" id="edp-tile-view">
+      <h6 className="bold mt-4" id="edp-tile-view">
         EDP tile view
-      </h7>
+      </h6>
       In the EDP tile view, each EDP entry consists of the following searchable
       information (see EDP list view for details):
       <ul className="regular">
@@ -321,9 +321,9 @@ export const Functions_En = () => {
         <li>EDP Asset Properties</li>
         <li>Extended Menu</li>
       </ul>
-      <h5 className="mt-5 mb-3" id="bookmarks">
+      <h4 className="mt-5 mb-3" id="bookmarks">
         Bookmarks
-      </h5>
+      </h4>
       <p className="regular text-justify">
         By clicking on "Bookmark" an EDP can be selected and saved in the
         bookmark list. If an EDP entry is marked with a bookmark, this is
@@ -331,12 +331,12 @@ export const Functions_En = () => {
         Bookmarks page (see Bookmarks page). By clicking on Remove bookmark, a
         bookmark for an EDP entry can be deleted.
       </p>
-      <h5 className="mt-5 mb-3" id="functions-per-edp">
+      <h4 className="mt-5 mb-3" id="functions-per-edp">
         Functions per EDP
-      </h5>
-      <h6 className="bold mt-4" id="detail-view">
+      </h4>
+      <h5 className="mt-4" id="detail-view">
         Detail View
-      </h6>
+      </h5>
       <p className="regular text-justify">
         The detailed view of an EDP provides different information depending on
         the data type. In addition to some generic metadata, which is uniformly
@@ -345,9 +345,9 @@ export const Functions_En = () => {
         provided{" "}
         <a href="/help/data-formats-and-analysis#formats">learn more</a>].
       </p>
-      <h6 className="bold mt-4" id="get-asset">
+      <h5 className="mt-4" id="get-asset">
         Get dataset
-      </h6>
+      </h5>
       <p className="regular text-justify">
         By clicking on Get Dataset, there is a redirect (referral) to the
         download page where the asset can be loaded. The following applies:{" "}
@@ -368,42 +368,42 @@ export const Functions_En = () => {
           URL of the data source.
         </li>
       </ul>
-      <h6 className="bold mt-4" id="get-schema">
+      <h5 className="mt-4" id="get-schema">
         Get Schema
-      </h6>
+      </h5>
       This button can be used to download the version of the EDP schema used to
       create the EDP.
-      <h6 className="bold mt-4" id="get-report">
+      <h5 className="mt-4" id="get-report">
         {" "}
         Get Report (pdf)
-      </h6>
+      </h5>
       A summary of the EDP data can be downloaded via the button "Report (pdf)".
-      <h6 className="bold mt-4" id="similar-edp">
+      <h5 className="mt-4" id="similar-edp">
         Silimar EDP
-      </h6>
+      </h5>
       This function provides additional EDP that have similar characteristics to
       the currently selected EDP.
-      <h5 className="mt-5 mb-3" id="settings">
+      <h4 className="mt-5 mb-3" id="settings">
         {" "}
         Settings
-      </h5>
-      <h6 className="bold mt-4" id="language">
+      </h4>
+      <h5 className="mt-4" id="language">
         Language
-      </h6>
+      </h5>
       In the language settings, you can switch between the German and English
       languages of the interface. Some EDP-specific content will continue to be
       displayed in the original English term of metadata in the German version.
-      <h6 className="bold mt-4" id="theme">
+      <h5 className="mt-4" id="theme">
         {" "}
         Theme
-      </h6>
+      </h5>
       Here, the user can choose between a light and a dark mode.
-      <h6 className="bold mt-4" id="expert-mode">
+      <h5 className="mt-4" id="expert-mode">
         Search settings: Expert Mode
-      </h6>
-      <h7 className="bold mt-4" id="how-to-use-expert-mode">
+      </h5>
+      <h6 className="bold mt-4" id="how-to-use-expert-mode">
         How to use Expert Mode
-      </h7>
+      </h6>
       <ul className="regular">
         <li>
           You can enable or disable Expert Mode in the <strong>Settings</strong>{" "}
@@ -420,9 +420,9 @@ export const Functions_En = () => {
           data assets without needing advanced query syntax.
         </li>
       </ul>
-      <h7 className="bold mt-4" id="what-happens-if-you-use-wrong-syntax">
+      <h6 className="bold mt-4" id="what-happens-if-you-use-wrong-syntax">
         What happens if you use the wrong syntax?
-      </h7>
+      </h6>
       <ul className="regular">
         <li>
           If your query is incorrectly formatted, Elasticsearch may return an
@@ -438,9 +438,9 @@ export const Functions_En = () => {
           ] or disable Expert Mode for a simpler search experience.
         </li>
       </ul>
-      <h7 className="bold mt-4" id="when-should-you-use-expert-mode">
+      <h6 className="bold mt-4" id="when-should-you-use-expert-mode">
         When should you use Expert Mode?
-      </h7>
+      </h6>
       <ul className="regular">
         <li>
           If you are familiar with Elasticsearch query syntax and want more
@@ -455,9 +455,9 @@ export const Functions_En = () => {
           simple asset name lookups.
         </li>
       </ul>
-      <h6 className="bold mt-4" id="always-expand-filters">
+      <h5 className="mt-4" id="always-expand-filters">
         Search settings: Always expand filters
-      </h6>
+      </h5>
       <p className="regular text-justify">
         If the option is deactivated, the filters can be shown and hidden using
         the filter button below the search field.

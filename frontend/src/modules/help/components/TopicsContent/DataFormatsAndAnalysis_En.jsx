@@ -4,9 +4,9 @@ export const DataFormatsAndAnalysis_En = () => {
   return (
     <div className="col-md-10">
       <h1 className="bold mb-5">Data Formats and Analyses</h1>
-      <h5 className="mt-5 mb-3" id="supported-data-formats">
+      <h4 className="mt-5 mb-3" id="supported-data-formats">
         Supported data formats
-      </h5>
+      </h4>
       A distinction is made between the following data formats:
       <ul className="regular text-justify">
         <li>Archive</li>
@@ -24,9 +24,9 @@ export const DataFormatsAndAnalysis_En = () => {
         shown in the following illustration:
       </p>
       <img src={analysisImg} className="w-100" alt="Analysis procedures" />
-      <h5 className="mt-5 mb-3" id="data-structures">
+      <h4 className="mt-5 mb-3" id="data-structures">
         Data structures
-      </h5>
+      </h4>
       <p className="regular text-justify">
         Archives and documents can contain additional elements of any of the
         formats listed above.
@@ -35,20 +35,20 @@ export const DataFormatsAndAnalysis_En = () => {
         Semi-structured text can contain further structured text elements. Text
         can contain further structured text elements.
       </p>
-      <h5 className="mt-5 mb-3" id="analyses">
+      <h4 className="mt-5 mb-3" id="analyses">
         Analyses
-      </h5>
+      </h4>
       <p className="regular text-justify">
         For all data formats the corresponding EDP contains a basis of
         standardized. There are also additional analyses and information
         provided depending on the data format.
       </p>
-      <h6 className="bold mt-4" id="general-analyses">
+      <h5 className="mt-4" id="general-analyses">
         General analyses for all data formats
-      </h6>
-      <h7 className="bold mt-4" id="asset-properties-general">
+      </h5>
+      <h6 className="bold mt-4" id="asset-properties-general">
         Asset Properties
-      </h7>
+      </h6>
       <p className="fw-500 regular mt-3" id="open-access-section">
         Open Access
       </p>
@@ -143,9 +143,9 @@ export const DataFormatsAndAnalysis_En = () => {
         </a>
         ].
       </p>
-      <h7 className="bold mt-4" id="data-science-info-general">
+      <h6 className="bold mt-4" id="data-science-info-general">
         Data Science Info
-      </h7>
+      </h6>
       <p className="fw-500 regular mt-3">Data format</p>
       <p className="regular text-justify">
         The data format of the EDP or, in the case of nested structures, the
@@ -194,12 +194,12 @@ export const DataFormatsAndAnalysis_En = () => {
           </li>
         </ul>
       </p>
-      <h6 className="bold mt-4" id="additonal-analyes-archives">
+      <h5 className="mt-4" id="additonal-analyes-archives">
         Additional Analyses for Archives
-      </h6>
-      <h7 className="bold mt-4" id="data-science-info-archive">
+      </h5>
+      <h6 className="bold mt-4" id="data-science-info-archive">
         Data Science Info
-      </h7>
+      </h6>
       <p className="fw-500 regular mt-3">Compression</p>
       <p className="regular text-justify">
         Here you can see the algorithm applied for compression.
@@ -209,21 +209,21 @@ export const DataFormatsAndAnalysis_En = () => {
         In addition to the volume shown above, which shows the compressed size,
         the size of the unzipped archive is visible at this point.
       </p>
-      <h7 className="bold mt-4" id="tab-asset-structure-archive">
+      <h6 className="bold mt-4" id="tab-asset-structure-archive">
         Tab: Asset Structure
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab provides an overview of the structure of the archive. By
         clicking on the embedded files, you jump to the respective details of
         the selected element (view according to the respective data format). The
         breadcrumb navigation allows the user to return to the parent element.
       </p>
-      <h6 className="bold mt-4" id="additonal-analyes-documents">
+      <h5 className="mt-4" id="additonal-analyes-documents">
         Additional Analyses for Documents
-      </h6>
-      <h7 className="bold mt-4" id="tab-document">
+      </h5>
+      <h6 className="bold mt-4" id="tab-document">
         Tab: Document
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab provides an overview with the following details:
         <ul className="regular text-justify">
@@ -241,9 +241,9 @@ export const DataFormatsAndAnalysis_En = () => {
           <li>Encrypted</li>
         </ul>
       </p>
-      <h7 className="bold mt-4" id="tab-asset-structure-documents">
+      <h6 className="bold mt-4" id="tab-asset-structure-documents">
         Tab: Asset Structure
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab provides an overview of the structure of the document. By
         clicking on the embedded tables and images, you jump to the respective
@@ -251,16 +251,16 @@ export const DataFormatsAndAnalysis_En = () => {
         elements, you jump to the respective detail view of the selected
         element.
       </p>
-      <h7 className="bold mt-4" id="tab-embedded-tables-documents">
+      <h6 className="bold mt-4" id="tab-embedded-tables-documents">
         Tab: Embedded Tables
-      </h7>
+      </h6>
       <p className="regular text-justify">
         If available, this tab provides more details about the tables contained
         in the document.
       </p>
-      <h7 className="bold mt-4" id="tab-embedded-images-documents">
+      <h6 className="bold mt-4" id="tab-embedded-images-documents">
         Tab: Embedded Images
-      </h7>
+      </h6>
       <p className="regular text-justify">
         If available, this tab provides further details about the images
         contained in the document (data analogous to
@@ -269,12 +269,12 @@ export const DataFormatsAndAnalysis_En = () => {
         </a>
         ).
       </p>
-      <h6 className="bold mt-4" id="additonal-analyes-structured">
+      <h5 className="mt-4" id="additonal-analyes-structured">
         Additional Analyses for Structured Data
-      </h6>
-      <h7 className="bold mt-4" id="asset-properties-structured">
+      </h5>
+      <h6 className="bold mt-4" id="asset-properties-structured">
         Asset Properties
-      </h7>
+      </h6>
       <p className="fw-500 regular mt-3" id="date-time-attribute-section">
         Date Time Attribute
       </p>
@@ -317,9 +317,9 @@ export const DataFormatsAndAnalysis_En = () => {
         The results are documented in the corresponding tab in the detail view
         in graphical and tabular form.{" "}
       </p>
-      <h7 className="bold mt-4" id="data-science-info-structured">
+      <h6 className="bold mt-4" id="data-science-info-structured">
         Data Science Info
-      </h7>
+      </h6>
       <p className="regular text-justify">
         In addition to the general information in the Data Science Info section
         for all data formats, further information is highlighted in the case of
@@ -398,9 +398,9 @@ export const DataFormatsAndAnalysis_En = () => {
           “many outliers”: The average proportion of anomalies is more than 5%.
         </li>
       </ul>
-      <h7 className="bold mt-4" id="tab-attribute-list">
+      <h6 className="bold mt-4" id="tab-attribute-list">
         Tab: Attribute List
-      </h7>
+      </h6>
       <p className="regular text-justify">
         The attribute list specifies the name, type (
         <i>numeric, string, date/time</i>), the specification, and any
@@ -408,23 +408,23 @@ export const DataFormatsAndAnalysis_En = () => {
         Periodicity describes an interval determined for date/time columns in
         which data is collected.
       </p>
-      <h7 className="bold mt-4" id="tab-attribute-integrity">
+      <h6 className="bold mt-4" id="tab-attribute-integrity">
         Tab: Attribute Integrity
-      </h7>
+      </h6>
       <p className="regular text-justify">
         The attribute integrity table indicates whether and how many values are
         missing for each column contained in the asset.
       </p>
-      <h7 className="bold mt-4" id="tab-temporal-consistency">
+      <h6 className="bold mt-4" id="tab-temporal-consistency">
         Tab: Temporal Consistency
-      </h7>
+      </h6>
       <p className="regular text-justify">
         The temporal consistency table provides gap-free information per unit of
         time for all date/time columns contained in the asset.
       </p>
-      <h7 className="bold mt-4" id="tab-numeric-value-distribution">
+      <h6 className="bold mt-4" id="tab-numeric-value-distribution">
         Tab: Numeric Value Distribution
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab contains graphs and a table for the statistical distribution of
         values per numeric attribute. In each case, the determined statistical
@@ -446,9 +446,9 @@ export const DataFormatsAndAnalysis_En = () => {
           <li>Maxwell</li>
         </ul>
       </p>
-      <h7 className="bold mt-4" id="tab-string-value-distribuion">
+      <h6 className="bold mt-4" id="tab-string-value-distribuion">
         Tab: String Value Distribution
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab contains graphs and a table of the categorical frequency of
         values per string-based attribute in an asset. A distinction is made
@@ -456,9 +456,9 @@ export const DataFormatsAndAnalysis_En = () => {
         information on the prevailing value distribution in the entire asset is
         also highlighted in the Data Science Info.
       </p>
-      <h7 className="bold mt-4" id="tab-numeric-correlation-analysis">
+      <h6 className="bold mt-4" id="tab-numeric-correlation-analysis">
         Tab: Numeric Correlation Analysis
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab contains a graph for determining pairwise correlations between
         numeric attributes in an asset. A pink tint indicates a strong positive
@@ -467,9 +467,9 @@ export const DataFormatsAndAnalysis_En = () => {
         values of the attributes move in opposite directions. In the case of
         gray coloration, there is no or hardly any correlation.
       </p>
-      <h7 className="bold mt-4" id="tab-numeric-outlier-analysis">
+      <h6 className="bold mt-4" id="tab-numeric-outlier-analysis">
         Tab: Numeric Outlier Analysis
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab contains graphs as well as a table for detecting anomalies in
         the values of the asset's numeric attributes. Several methods were
@@ -478,9 +478,9 @@ export const DataFormatsAndAnalysis_En = () => {
         anomaly distributions per procedure as well as the number of anomalies
         detected per attribute in an asset.
       </p>
-      <h7 className="bold mt-4" id="tab-data-seasonality">
+      <h6 className="bold mt-4" id="tab-data-seasonality">
         Tab: Data Seasonality
-      </h7>
+      </h6>
       <p className="regular text-justify">
         Dieser Tab bietet Grafiken, welche den zeitlichen Verlauf numerischer
         Attribute visuallisieren (Original Data). Des Weiteren werden
@@ -492,30 +492,30 @@ export const DataFormatsAndAnalysis_En = () => {
         welche nicht von Trend und Saisonalität hergeleitet werden können, sind
         die so genannten “Residuals”.
       </p>
-      <h6 className="bold mt-4" id="additional-analyses-semi-structured">
+      <h5 className="mt-4" id="additional-analyses-semi-structured">
         Additional Analyses for semi-structured Texts
-      </h6>
-      <h7 className="bold mt-4" id="tab-asset-structure-semi-structured">
+      </h5>
+      <h6 className="bold mt-4" id="tab-asset-structure-semi-structured">
         Tab: Asset Structure
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab provides an overview of the structure of the asset. A
         semi-structured text can contain any number of structured texts. By
         clicking on one of these embedded structured elements, you jump to the
         respective detailed view.
       </p>
-      <h7 className="bold mt-4" id="tab-schema-semi-structured">
+      <h6 className="bold mt-4" id="tab-schema-semi-structured">
         Tab: Schema
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab provides an overview of the schema of the asset.{" "}
       </p>
-      <h6 className="bold mt-4" id="additional-analyses-unstructured">
+      <h5 className="mt-4" id="additional-analyses-unstructured">
         Additional Analyses for unstructured Texts
-      </h6>
-      <h7 className="bold mt-4" id="tab-unstructured">
+      </h5>
+      <h6 className="bold mt-4" id="tab-unstructured">
         Tab: Unstructured Text
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab provides an overview with the following details:
         <ul className="regular text-justify">
@@ -528,19 +528,19 @@ export const DataFormatsAndAnalysis_En = () => {
           </li>
         </ul>
       </p>
-      <h7 className="bold mt-4" id="tab-embedded-tables-unstructured">
+      <h6 className="bold mt-4" id="tab-embedded-tables-unstructured">
         Tab: Embedded Tables
-      </h7>
+      </h6>
       <p className="regular text-justify">
         If available, this tab provides more details about the tables contained
         in the document.
       </p>
-      <h6 className="bold mt-4" id="additional-analyses-images">
+      <h5 className="mt-4" id="additional-analyses-images">
         Additional Analyses for Images
-      </h6>
-      <h7 className="bold mt-4" id="tab-image">
+      </h5>
+      <h6 className="bold mt-4" id="tab-image">
         Tab: Image
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab provides an overview with the following details:
         <ul className="regular text-justify">
@@ -559,12 +559,12 @@ export const DataFormatsAndAnalysis_En = () => {
           <li>elaScore</li>
         </ul>
       </p>
-      <h6 className="bold mt-4" id="additional-analyses-videos">
+      <h5 className="mt-4" id="additional-analyses-videos">
         Additional Analyses for Videos
-      </h6>
-      <h7 className="bold mt-4" id="tab-video">
+      </h5>
+      <h6 className="bold mt-4" id="tab-video">
         Tab: Video
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab provides an overview with the following details:
         <ul className="regular text-justify">
@@ -575,12 +575,12 @@ export const DataFormatsAndAnalysis_En = () => {
           <li>Pixel Format</li>
         </ul>
       </p>
-      <h6 className="bold mt-4" id="additional-analyses-audio">
+      <h5 className="mt-4" id="additional-analyses-audio">
         Additional Analyses for Audio Data
-      </h6>
-      <h7 className="bold mt-4" id="tab-audio">
+      </h5>
+      <h6 className="bold mt-4" id="tab-audio">
         Tab: Audio
-      </h7>
+      </h6>
       <p className="regular text-justify">
         This tab provides an overview with the following details:
         <ul className="regular text-justify">

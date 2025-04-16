@@ -133,6 +133,7 @@ const QualityMetrics = ({ edp }) => {
       {edp?._source?.allowedForAiTraining && (
         <div className="ps-2">
           <OverlayTrigger
+            delay={{ show: 100, hide: 700 }}
             placement="top"
             overlay={renderTooltip(
               "Allowed for AI training",

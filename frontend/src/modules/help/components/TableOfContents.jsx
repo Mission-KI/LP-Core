@@ -1,9 +1,11 @@
+import { Link } from "react-router-dom";
+
 export const TableOfContents = ({ content }) => {
   const parser = new DOMParser();
   const doc = parser.parseFromString(content, "text/html");
 
   const headings = Array.from(
-    doc.body.querySelectorAll("h1, h2, h3, h4, h5, h6, h7"),
+    doc.body.querySelectorAll("h1, h2, h3, h4, h5, h6"),
   ).map((el) => ({
     id: el.id || el.textContent.trim().toLowerCase().replace(/\s+/g, "-"),
     text: el.textContent,
@@ -31,7 +33,7 @@ export const TableOfContents = ({ content }) => {
       style={{ marginLeft: `${(h.level - firstLevel) * 13}px` }}
       className="mb-2"
     >
-      <a href={`#${h.id}`}>{h.text}</a>
+      <Link to={`#${h.id}`}>{h.text}</Link>
     </li>
   ));
 
