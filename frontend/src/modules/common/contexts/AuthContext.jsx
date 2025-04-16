@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }) => {
         handleLogout();
       }
     },
-    [handleLogout],
+    [handleLogout]
   );
 
   useEffect(() => {
