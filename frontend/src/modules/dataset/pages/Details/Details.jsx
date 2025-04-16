@@ -32,6 +32,15 @@ function Details() {
     fetchEdp();
   }, [id]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      const container = document.querySelector(".main-content-wrapper");
+      if (container) {
+        container.scrollTo(0, 0);
+      }
+    }, 50);
+  }, [id]);
+
   if (loading) {
     return (
       <div
