@@ -3,11 +3,15 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../../common/contexts/AuthContext";
 import Button from "../../../common/components/Button";
 import styles from "./Login.module.css";
+import { useLocation, useNavigate } from "react-router";
 
 export default function Login() {
   const [error, setError] = useState("");
   const { login } = useAuth();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +24,7 @@ export default function Login() {
     const response = await login(user);
     if (response.success) {
       toast.success("Successfully logged in!");
+      navigate(from, { replace: true });
     } else {
       setError(response.message);
     }
