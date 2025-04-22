@@ -299,6 +299,7 @@ def test_upload_user_edp_dataspace_mismatch(dataspace: None | str):
 @mock_aws
 @pytest.mark.django_db()
 def test_upload_user_edp_superuser(monkeypatch: MonkeyPatch):
+    ElasticDBWrapper.SCHEMA_ADDED_TO_DB = True
     auth_client = APIClient()
     user = User.objects.create_user(username="test", password="test")  # no dataspace assigned
     user.is_superuser = True
@@ -397,7 +398,7 @@ def test_delete_edp_by_id_success(auth_client: APIClient, monkeypatch: MonkeyPat
         status="success",
         type=EventLog.TYPE_UPLOAD,
         message="upload done",
-        dataspace=Dataspace.objects.create(name="Pontus-X"),
+        dataspace=Dataspace.objects.get_or_create(name="Pontus-X")[0],
         metadata={
             "id": str(id),
             "assetRefs": [mini_edp().assetRefs[0].model_dump(mode="json")],

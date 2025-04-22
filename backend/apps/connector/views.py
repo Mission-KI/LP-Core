@@ -44,7 +44,7 @@ def _do_upload(request: Request, id: str, zip_file):
     metadata: dict[str, Any] = {"id": id, "schemaVersion": str(edp_model.schemaVersion)}
     if isinstance(edp_model, ExtendedDatasetProfile) and len(edp_model.assetRefs) > 0:
         metadata["assetRefs"] = [ref.model_dump(mode="json") for ref in edp_model.assetRefs]
-    create_log(request, "EDP upload done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_UPLOAD)
+    create_log(request, "EDP upload done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_UPLOAD, edp_dataspace)
     return Response(
         {"message": "EDP uploaded successfully", "edp": edp_model.model_dump(mode="json"), "id": id},
         status=status.HTTP_200_OK,
@@ -159,9 +159,12 @@ class EDPUploadDeleteView(APIView):
             )
 
             metadata = {"id": id}
-            if upload_event_query.count() > 0:
-                metadata = upload_event_query.last().metadata.copy()
-            create_log(request, "EDP delete done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_DELETE)
+            last_filtered_event = upload_event_query.last()
+            data_space = None
+            if last_filtered_event is not None:
+                metadata = last_filtered_event.metadata.copy()
+                data_space = last_filtered_event.dataspace.name
+            create_log(request, "EDP delete done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_DELETE, data_space)
 
             return Response(
                 {"message": "EDP deleted successfully", "id": id},
