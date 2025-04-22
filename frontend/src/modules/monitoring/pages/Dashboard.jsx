@@ -9,7 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import PublishersList from "../components/PublishersList";
 import AssetProcessingStateStats from "../components/AssetProcessingStateStats";
 import EDPActions from "../components/EDPActions";
-import { getAnalytics } from "../../admin_panel/api/analytics";
+import { getAnalytics } from "../api/analytics";
 
 function Dashboard() {
   const { username, dataspaceName } = useAuth();
