@@ -16,7 +16,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token["username"] = user.username
         token["is_superuser"] = user.is_superuser
         token["is_monitoring_user"] = user.is_monitoring_user
-        token["dataspace_name"] = user.dataspace.name if hasattr(user, 'dataspace') and user.dataspace else ""
+        token["dataspace_name"] = user.dataspace.name if hasattr(user, "dataspace") and user.dataspace else ""
 
         return token
 
