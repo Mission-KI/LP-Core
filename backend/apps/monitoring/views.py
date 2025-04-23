@@ -28,6 +28,17 @@ class MonitoringAnalyticsView(APIView):
     def get(self, request):
         dataspace = request.query_params.get("dataspace")
         publisher = request.query_params.get("publisher")
+        user = request.user
+
+        if user.is_superuser:
+            pass
+        elif getattr(user, "is_monitoring_user", False):
+            if not dataspace:
+                raise ValidationError("Monitoring users must provide a dataspace.")
+            if not hasattr(user, "dataspace") or user.dataspace.name != dataspace:
+                raise ValidationError("You are not authorized to access this dataspace.")
+        else:
+            raise ValidationError("You do not have permission to access this endpoint.")
 
         try:
             response = get_elastic_monitoring_analytics(dataspace, publisher)
