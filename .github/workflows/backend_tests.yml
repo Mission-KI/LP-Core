@@ -14,7 +14,7 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@v5
         with:
-          python-version: 3.12
+          python-version: 3.13
           enable-cache: false
 
       - name: Install depdencies
@@ -50,7 +50,7 @@ jobs:
       - name: Setup uv
         uses: astral-sh/setup-uv@v5
         with:
-          python-version: 3.12
+          python-version: 3.13
           enable-cache: false
 
       - name: Install depdencies
