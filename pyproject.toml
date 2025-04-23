@@ -70,8 +70,9 @@ extend-select = [
 log_cli = true
 log_cli_level = "INFO"
 DJANGO_SETTINGS_MODULE = "daseen.test_settings"
-testpaths = ["backend/**/"]
+testpaths = ["backend"]
 python_files = ["tests.py", "test_*.py", "*_test.py"]
+pythonpath = ["backend"]
 
 [tool.coverage.run]
 relative_files = true
