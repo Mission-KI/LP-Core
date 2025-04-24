@@ -12,10 +12,11 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      VITE_ELASTIC_URL: https://api.daseen-staging.de/search
-      VITE_IMAGE_BASE_PATH: https://d2xfg3kfb5x390.cloudfront.net/
+      VITE_ELASTIC_URL: http://localhost:8000/search
+      VITE_IMAGE_BASE_PATH: https://d1q3gdh9qqr3rb.cloudfront.net/
       VITE_LANDING_URL: http://localhost:3000
       VITE_MAIN_URL: http://localhost:3001
+      VITE_API_URL: http://localhost:8000
 
     steps:
       - name: Checkout code
@@ -34,14 +35,19 @@ jobs:
         run: npx playwright install --with-deps
         working-directory: ./frontend
 
-      - name: Start Local Dev Server
-        run: npm run dev &
-        working-directory: ./frontend
+      - name: Set up Docker
+        run: |
+          docker compose -f local.yml up -d
+        working-directory: .
 
-      - name: Wait for Local Dev Server
+      - name: Wait for services to be ready
         run: npx wait-on http://localhost:3001
         working-directory: ./frontend
 
       - name: Run Playwright Tests
         run: npx playwright test
         working-directory: ./frontend
+
+      - name: Shutdown Docker containers
+        run: docker compose -f local.yml down
+        working-directory: .
