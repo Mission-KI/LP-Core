@@ -26,19 +26,32 @@ class MonitoringAnalyticsView(APIView):
         responses={200: OpenApiTypes.OBJECT},
     )
     def get(self, request):
-        if request.user.dataspace is None:
-            raise ValidationError("User is not assigned to dataspace")
-        dataSpaceName = request.user.dataspace.name
-
+        dataspace = request.query_params.get("dataspace")
         publisher = request.query_params.get("publisher")
+        user = request.user
+
+        if user.is_superuser:
+            pass
+        elif getattr(user, "is_monitoring_user", False):
+            if not dataspace:
+                raise ValidationError("Monitoring users must provide a dataspace.")
+            if not hasattr(user, "dataspace") or user.dataspace.name != dataspace:
+                raise ValidationError("You are not authorized to access this dataspace.")
+        else:
+            raise ValidationError("You do not have permission to access this endpoint.")
 
         try:
-            response = get_elastic_monitoring_analytics(dataSpaceName, publisher)
+            response = get_elastic_monitoring_analytics(dataspace, publisher)
             if response.status_code != status.HTTP_200_OK:
                 return response
             elastic_counts = response.data
 
-            edp_event_counts = get_edp_event_counts(dataSpaceName, publisher)
+            edp_event_counts = get_edp_event_counts(dataspace, publisher)
+            filtered_by_dataspace = elastic_counts["aggregations"]["publishers_list"]["filtered_by_dataspace"]
+            if dataspace:
+                publishers = filtered_by_dataspace["filtered"]["publishers"]["buckets"]
+            else:
+                publishers = filtered_by_dataspace["publishers"]["buckets"]
 
             analytics_data = {
                 "edp_count": elastic_counts["aggregations"]["total_items"]["doc_count"],
@@ -51,9 +64,7 @@ class MonitoringAnalyticsView(APIView):
                 "aiml_result_data_count": elastic_counts["aggregations"]["total_aiml_result_data_assets"]["count"][
                     "value"
                 ],
-                "publishers": elastic_counts["aggregations"]["publishers_list"]["filtered_by_dataspace"]["filtered"][
-                    "publishers"
-                ]["buckets"],
+                "publishers": publishers,
                 "edp_event_counts": edp_event_counts,
             }
 

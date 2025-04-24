@@ -19,6 +19,10 @@ import { BookmarksProvider } from "./modules/bookmarks/contexts/BookmarksContext
 import MonitoringLayout from "./modules/monitoring/layout/MonitoringLayout";
 import { PrivateRoutes } from "./modules/common/components/PrivateRoutes";
 import { renderRoutes } from "./modules/common/utils/route_utils";
+import AdminPanelLayout from "./modules/admin_panel/layout/AdminPanelLayout";
+import adminPanelRoutes from "./modules/admin_panel";
+import { AdminRoutes } from "./modules/common/components/AdminRoutes";
+import { MonitoringUserRoutes } from "./modules/common/components/MonitoringUserRoutes";
 
 const routes = [
   {
@@ -50,8 +54,25 @@ const routes = [
     children: [
       {
         path: "/",
-        element: <MonitoringLayout />,
-        children: [...monitoringRoutes],
+        element: <MonitoringUserRoutes />,
+        children: [
+          {
+            path: "/",
+            element: <MonitoringLayout />,
+            children: [...monitoringRoutes],
+          },
+        ],
+      },
+      {
+        path: "/",
+        element: <AdminRoutes />,
+        children: [
+          {
+            path: "/",
+            element: <AdminPanelLayout />,
+            children: [...adminPanelRoutes],
+          },
+        ],
       },
     ],
   },
