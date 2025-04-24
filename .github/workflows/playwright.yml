@@ -47,3 +47,8 @@ jobs:
       - name: Run Playwright Tests
         run: npx playwright test
         working-directory: ./frontend
+
+      - name: Stop Dev Server
+        if: always()
+        run: |
+          pkill -f "npm run dev"
