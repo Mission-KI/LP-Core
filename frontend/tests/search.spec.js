@@ -88,8 +88,9 @@ test("get schema via quick view", async ({ page, baseURL }) => {
   const quickView = page.locator(quickViewSelector);
   await expect(quickView).toBeVisible();
 
+  const downloadPromise = page.waitForEvent("download");
   await page.getByText("Schema").click();
-  await page.waitForEvent("download");
+  const download = await downloadPromise;  
 });
 
 test("get report via quick view", async ({ page, baseURL }) => {
