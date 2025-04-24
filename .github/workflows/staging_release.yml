@@ -32,8 +32,12 @@ jobs:
             backend.tags=docker.io/beebucket/daseen-backend:staging
             frontend.tags=docker.io/beebucket/daseen-frontend:staging
             landing.tags=docker.io/beebucket/daseen-landing:staging
-            *.cache-from=type=gha
-            *.cache-to=type=gha,mode=max
+            frontend.cache-from=type=gha,scope=frontend
+            frontend.cache-to=type=gha,mode=max,scope=frontend
+            landing.cache-from=type=gha,scope=landing
+            landing.cache-to=type=gha,mode=max,scope=landing
+            backend.cache-from=type=gha,scope=backend
+            backend.cache-to=type=gha,mode=max,scope=backend
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_HUB_API_KEY }}
 

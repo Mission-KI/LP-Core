@@ -180,11 +180,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
     filteredFilterSections = filterSections;
   }
   if (loading) {
-    return (
-      <div className="py-5 d-flex justify-content-center">
-        <Spinner variant="dark" />
-      </div>
-    );
+    return "";
   }
 
   return (

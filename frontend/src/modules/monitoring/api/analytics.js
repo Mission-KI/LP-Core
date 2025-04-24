@@ -1,10 +1,13 @@
 import { apiUrl } from "../../common/api/config";
 
-export const getAnalytics = async (publisher = null) => {
+export const getAnalytics = async (dataspaceName = null, publisher = null) => {
   try {
     const token = localStorage.getItem("accessToken");
 
     let url = `${apiUrl}/monitoring/analytics/`;
+    if (dataspaceName) {
+      url += `?dataspace=${encodeURIComponent(dataspaceName)}`;
+    }
     if (publisher) {
       url += `?publisher=${encodeURIComponent(publisher)}`;
     }

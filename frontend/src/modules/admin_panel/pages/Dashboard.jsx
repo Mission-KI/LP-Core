@@ -2,25 +2,26 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Container, Spinner } from "react-bootstrap";
 import { useAuth } from "../../common/contexts/AuthContext";
-import DownloadsOverTime from "../components/DownloadsOverTime";
-import UploadsOverTime from "../components/UploadsOverTime";
-import PublisherSelectorDropdown from "../components/PublisherSelectorDropdown";
+import { getAnalytics } from "../../monitoring/api/analytics";
+import DownloadsOverTime from "../../monitoring/components/DownloadsOverTime";
+import UploadsOverTime from "../../monitoring/components/UploadsOverTime";
+import PublisherSelectorDropdown from "../../monitoring/components/PublisherSelectorDropdown";
 import { useSearchParams } from "react-router-dom";
-import PublishersList from "../components/PublishersList";
-import AssetProcessingStateStats from "../components/AssetProcessingStateStats";
-import EDPActions from "../components/EDPActions";
-import { getAnalytics } from "../api/analytics";
+import PublishersList from "../../monitoring/components/PublishersList";
+import AssetProcessingStateStats from "../../monitoring/components/AssetProcessingStateStats";
+import EDPActions from "../../monitoring/components/EDPActions";
 
 function Dashboard() {
-  const { username, dataspaceName } = useAuth();
+  const { username } = useAuth();
   const [analytics, setAnalytics] = useState(null);
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
     const fetchAnalytics = async () => {
       try {
+        const dataspace = searchParams.get("dataspace");
         const publisher = searchParams.get("publisher");
-        const fetchedAnalytics = await getAnalytics(dataspaceName, publisher);
+        const fetchedAnalytics = await getAnalytics(dataspace, publisher);
         setAnalytics(fetchedAnalytics);
       } catch (error) {
         toast.error(error.message || "Failed to fetch analytics");
@@ -28,7 +29,7 @@ function Dashboard() {
     };
 
     fetchAnalytics();
-  }, [searchParams, dataspaceName]);
+  }, [searchParams]);
 
   if (!analytics) {
     return (
