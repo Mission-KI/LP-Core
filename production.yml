@@ -4,7 +4,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"
     env_file:
       - .env
     healthcheck:
@@ -15,14 +15,17 @@ services:
 
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile.prod
+      context: .
+      dockerfile: backend/Dockerfile.prod
       secrets:
         - github_token
-    volumes:
-      - "./backend:/backend"
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-backend:${IMAGE_TAG:-latest}
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     depends_on:
       postgres:
         condition: service_healthy
@@ -33,6 +36,11 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile.prod
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-frontend:${IMAGE_TAG:-latest}
     env_file:
       - .env
     volumes:
@@ -43,6 +51,11 @@ services:
     build:
       context: ./landing
       dockerfile: Dockerfile.prod
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-landing:${IMAGE_TAG:-latest}
     env_file:
       - .env
     volumes:
@@ -50,27 +63,28 @@ services:
       - "/landing/node_modules"
 
   nautilus:
-    image: beebucket/nautilus:latest
+    image: docker.io/beebucket/nautilus:latest
     ports:
       - "4000:4000"
     env_file:
       - .env
     environment:
       - NODE_ENV=development
-    restart: always                 
-
+    restart: always
 
   nginx:
+    image: nginx:latest
     depends_on:
       - backend
       - frontend
       - landing
     restart: always
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
     ports:
       - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
 
 volumes:
   frontend-build:

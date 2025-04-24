@@ -1,6 +1,5 @@
 from django.contrib.auth.hashers import check_password
 from rest_framework import status
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -15,12 +14,14 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token["email"] = user.email
         token["username"] = user.username
+        token["is_superuser"] = user.is_superuser
+        token["is_monitoring_user"] = user.is_monitoring_user
+        token["dataspace_name"] = user.dataspace.name if hasattr(user, "dataspace") and user.dataspace else ""
 
         return token
 
 
 class ChangePasswordView(APIView):
-    permission_classes = [IsAuthenticated]
     serializer_class = ChangePasswordSerializer
 
     def post(self, request):

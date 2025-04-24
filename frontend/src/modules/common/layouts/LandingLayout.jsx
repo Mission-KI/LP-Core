@@ -1,15 +1,13 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Footer from '../components/Footer/Footer'
+import { Outlet } from "react-router-dom";
 
 function LandingLayout() {
-    return (
-        <>
-            <div>
-                <Outlet />
-            </div>
-        </>
-    )
+  return (
+    <>
+      <div>
+        <Outlet />
+      </div>
+    </>
+  );
 }
 
-export default LandingLayout
+export default LandingLayout;

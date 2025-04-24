@@ -1,15 +1,13 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import assetPropertiesHelpText from './modules/help/translations/assetProperties';
-import expertModeHelpText from './modules/help/translations/expertMode';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     debug: true,
-    fallbackLng: 'en',
+    fallbackLng: "en",
     interpolation: {
       escapeValue: false,
     },
@@ -18,7 +16,8 @@ i18n
         translation: {
           page: {
             title: "Dataset Search Engine",
-            shortDescription: "Discover, analyze, compare and manage data offerings."
+            shortDescription:
+              "Discover, analyze, compare and manage data offerings.",
           },
           header: {
             home: "Home",
@@ -35,16 +34,20 @@ i18n
             bookmarks: "Bookmarks",
             bookmark: "Bookmark",
             removeBookmark: "Remove Bookmark",
-            help: "Help"
+            help: "Help",
           },
           dataset: {
             datasets: "Datasets",
             dataset: "Dataset",
             details: "Details",
+            similarEdps: "Similar EDP",
+            dataFormat: "Data format",
+            fileType: "File type",
             dataScienceInfo: "Data Science Info",
             structure: "Structure",
             volume: "Volume",
             compression: "Compression",
+            uncompressedVolume: "Uncompressed volume",
             transferType: "Transfer type",
             immutability: "Immutability",
             growth: "Growth",
@@ -53,29 +56,36 @@ i18n
             temporalConsistency: "Temporal consistency",
             noOfColumns: "Number of columns",
             noOfLines: "Number of lines",
+            noOfWords: "Number of words",
             dataTypes: "Data types",
-            attributeConsistency: "Attribute consistency",
+            attributeIntegrity: "Attribute integrity",
             numericValueDistribution: "Top 3 numeric distributions",
             stringValueDistribution: "String value distribution",
             numericCorrelationAnalysis: "Numeric correlation analysis",
-            numericAnomalyAnalysis: "Numeric anomaly analysis",
+            numericOutlierAnalysis: "Numeric outlier analysis",
+            numericOutlierAnalysisTooltipText:
+              "Average proportion of outliers across percentile, zScore, and interquartile range",
             dataSeasonality: "Data seasonality",
+            edpStructure: "EDP Structure",
             languages: "Languages",
             tags: "TAGS",
             version: "Version",
+            edpVersion: "EDP Version:",
             getDataset: "Get Dataset",
             license: "License",
             assetUploaded: "Published",
             tabs: {
               attributeList: "Attribute List",
-              attributeConsistency: "Attribute Constistency",
-              temporalConsistency: "Temporal Constistency",
+              attributeIntegrity: "Attribute Integrity",
+              embeddedImages: "Embedded images",
+              embeddedTables: "Embedded tables",
+              temporalConsistency: "Temporal Consistency",
               numericValueDistribution: "Numeric Value Distribution",
               stringValueDistribution: "String Value Distribution",
               numericCorrelationAnalysis: "Numeric Correlation Analysis",
-              numericAnomalyAnalysis: "Numeric Anomaly Analysis",
-              dataSeasonality: "Data Seasonality"
-            }
+              numericOutlierAnalysis: "Numeric Outlier Analysis",
+              dataSeasonality: "Data Seasonality",
+            },
           },
           table: {
             attributes: {
@@ -97,19 +107,19 @@ i18n
               upperIqr: "upper iqr",
               lowerIqr: "lower iqr",
               iqr: "iqr",
-            }
+            },
           },
           bookmarks: {
             bookmarks: "Bookmarks",
             bookmark: "Bookmark",
             removeBookmark: "Remove Bookmark",
-            noBookmarks: "No bookmarks available"
+            noBookmarks: "No bookmarks available",
           },
           filters: {
-            dataspace: 'Dataspace',
-            dataspaces: 'Dataspaces',
-            publisher: 'Publisher',
-            publishers: 'Publishers',
+            dataspace: "Dataspace",
+            dataspaces: "Dataspaces",
+            publisher: "Publisher",
+            publishers: "Publishers",
             assetProcessingStatus: "Asset processing",
             licenses: "Licenses",
             accessibility: "Accessibility",
@@ -121,15 +131,17 @@ i18n
             select: "select",
             lines: "Lines",
             columns: "Columns",
-            clear: "Clear"
+            clear: "Clear",
           },
           settings: {
             settings: "SETTINGS",
             searchSettings: "Search Settings",
             expertMode: "Expert Mode",
-            expertModeDescription: "This will enable complex filters and support in writing sophisticated search queries.",
+            expertModeDescription:
+              "This will enable complex filters and support in writing sophisticated search queries.",
             alwaysExpandFilters: "Always expand filters",
-            alwaysExpandFiltersDescription: "This will make the filters shown by default without having to toggle them to the view.",
+            alwaysExpandFiltersDescription:
+              "This will make the filters shown by default without having to toggle them to the view.",
             language: "Language",
             theme: "Theme",
             lightTheme: "Light Theme",
@@ -137,13 +149,13 @@ i18n
           },
           common: {
             all: "All",
-            bookmarks: "Bookmarks"
+            bookmarks: "Bookmarks",
           },
           footer: {
             c: "© beebucket 2024",
             imprint: "Imprint",
             privacyPolicy: "Data Privacy Policy",
-            usePolicy: "Acceptable Use Policy"
+            usePolicy: "Acceptable Use Policy",
           },
           auth: {
             register: "Register",
@@ -152,21 +164,26 @@ i18n
             email: "Email",
             emailPlaceholder: "Enter your email",
             password: "Password",
-            dev: "Authentication feature is currently in development."
+            dev: "Authentication feature is currently in development.",
           },
           maintenance: "Daseen is under maintenance and will be back at 5 pm",
-          assetProperties: assetPropertiesHelpText.en.fullContent,
-          expertMode: expertModeHelpText.en.fullContent,
           help: {
-            alert: "Welcome to the Help Center! This page provides detailed explanations and guides about various features, functionalities, and widgets available on our website. If you're unsure about how something works or need clarification, this is the perfect place to find answers.",
-          }
+            alert:
+              "Welcome to the Help Center! This page provides detailed explanations and guides about various features, functionalities, and widgets available on our website. If you're unsure about how something works or need clarification, this is the perfect place to find answers.",
+            topics: "Topics",
+            topicAbout: "About daseen",
+            topicBasics: "Motivation and basics",
+            topicFunctions: "Functions",
+            topicFormats: "Data Formats and Analysis",
+          },
         },
       },
       de: {
         translation: {
           page: {
             title: "Datensatz-Suchmaschine",
-            shortDescription: "Entdecken, analysieren, vergleichen und verwalten Sie Datenangebote."
+            shortDescription:
+              "Entdecken, analysieren, vergleichen und verwalten Sie Datenangebote.",
           },
           header: {
             home: "Startseite",
@@ -184,14 +201,18 @@ i18n
             bookmark: "Lesezeichen",
             removeBookmark: "Lesezeichen entfernen",
             noBookmarks: "Keine Lesezeichen verfügbar",
-            help: "Hilfe"
+            help: "Hilfe",
           },
           dataset: {
             datasets: "Datensätze",
             dataset: "Datensatz",
+            dataFormat: "Datenformat",
+            similarEdps: "Ähnliche EDP",
+            fileType: "Dateityp",
             structure: "Struktur",
             volume: "Volumen",
             compression: "Komprimierung",
+            uncompressedVolume: "Unkomprimiertes volumen",
             transferType: "Übertragungsart",
             immutability: "Unveränderlichkeit",
             growth: "Wachstum",
@@ -200,29 +221,36 @@ i18n
             temporalConsistency: "Zeitliche Konsistenz",
             noOfColumns: "Anzahl der Spalten",
             noOfLines: "Anzahl der Zeilen",
+            noOfWords: "Anzahl Wörter",
             dataTypes: "Datentypen",
-            attributeConsistency: "Attributkonsistenz",
+            attributeIntegrity: "Vollständigkeit",
             numericValueDistribution: "Top 3 numerische Verteilungen",
             stringValueDistribution: "String-Werteverteilung",
             numericCorrelationAnalysis: "Numerische Korrelationsanalyse",
-            numericAnomalyAnalysis: "Numerische Anomalieanalyse",
+            numericOutlierAnalysis: "Numerische Anomalieanalyse",
+            numericOutlierAnalysisTooltipText:
+              "Durchschnittlicher Anteil der Anomalien über Perzentil, zScore und IQR",
             dataSeasonality: "Daten-Saisonalität",
+            edpStructure: "EDP Struktur",
             languages: "Sprachen",
             tags: "STICHWORTE",
             version: "Version",
+            edpVersion: "EDP Version:",
             getDataset: "Datensatz abrufen",
             license: "Lizenz",
             assetUploaded: "Veröffentlicht",
             tabs: {
               attributeList: "Attribut- liste",
-              attributeConsistency: "Attribut- Konsistenz",
+              attributeIntegrity: "Vollständigkeit",
+              embeddedImages: "Embedded images",
+              embeddedTables: "Embedded tables",
               temporalConsistency: "Zeitliche Konsistenz",
               numericValueDistribution: "Numerische Wertever- Teilung",
               stringValueDistribution: "String-Wertever- Teilung",
               numericCorrelationAnalysis: "Numerische Korrelations- Analyse",
-              numericAnomalyAnalysis: "Numerische Anomalie- Analyse",
-              dataSeasonality: "Daten- Saisonalität"
-            }
+              numericOutlierAnalysis: "Numerische Anomalie- Analyse",
+              dataSeasonality: "Daten- Saisonalität",
+            },
           },
           table: {
             attributes: {
@@ -244,16 +272,16 @@ i18n
               upperIqr: "oberes IQR",
               lowerIqr: "unteres IQR",
               iqr: "IQR",
-            }
+            },
           },
           bookmarks: {
             bookmarks: "Lesezeichen",
             bookmark: "Lesezeichen",
-            removeBookmark: "Lesezeichen entfernen"
+            removeBookmark: "Lesezeichen entfernen",
           },
           filters: {
-            dataspace: 'Datenraum',
-            dataspaces: 'Datenräume',
+            dataspace: "Datenraum",
+            dataspaces: "Datenräume",
             licenses: "Lizenzen",
             dataFormat: "Datenformat",
             assetProcessingStatus: "Verarbeitungszustand",
@@ -263,15 +291,17 @@ i18n
             select: "wählen",
             lines: "Zeilen",
             columns: "Spalten",
-            clear: "Zurücksetzen"
+            clear: "Zurücksetzen",
           },
           settings: {
             settings: "EINSTELLUNGEN",
             searchSettings: "Sucheinstellungen",
             expertMode: "Expertenmodus",
-            expertModeDescription: "Dies aktiviert komplexe Filter und unterstützt das Schreiben ausgefeilter Suchanfragen.",
+            expertModeDescription:
+              "Dies aktiviert komplexe Filter und unterstützt das Schreiben ausgefeilter Suchanfragen.",
             alwaysExpandFilters: "Filter immer ausklappen",
-            alwaysExpandFiltersDescription: "Dadurch werden die Filter standardmäßig angezeigt, ohne dass sie umgeschaltet werden müssen.",
+            alwaysExpandFiltersDescription:
+              "Dadurch werden die Filter standardmäßig angezeigt, ohne dass sie umgeschaltet werden müssen.",
             language: "Sprache",
             theme: "Modus",
             lightTheme: "Heller Modus",
@@ -279,13 +309,13 @@ i18n
           },
           common: {
             all: "Alle",
-            bookmarks: "Lesezeichen"
+            bookmarks: "Lesezeichen",
           },
           footer: {
             c: "© beebucket 2024",
             imprint: "Impressum",
             privacyPolicy: "Datenschutzerklärung",
-            usePolicy: "Nutzungsrichtlinien"
+            usePolicy: "Nutzungsrichtlinien",
           },
           auth: {
             register: "Registrieren",
@@ -294,17 +324,22 @@ i18n
             email: "E-Mail",
             emailPlaceholder: "Geben Sie Ihre E-Mail-Adresse ein",
             password: "Passwort",
-            dev: "Die Authentifizierungsfunktion befindet sich derzeit in Entwicklung."
+            dev: "Die Authentifizierungsfunktion befindet sich derzeit in Entwicklung.",
           },
-          maintenance: "Daseen befindet sich in Wartung und wird ab 17 Uhr wieder verfügbar sein.",
-          assetProperties: assetPropertiesHelpText.de.fullContent,
-          expertMode: expertModeHelpText.de.fullContent,
+          maintenance:
+            "Daseen befindet sich in Wartung und wird ab 17 Uhr wieder verfügbar sein.",
           help: {
-            alert: "Willkommen im Hilfe-Center! Diese Seite bietet detaillierte Erklärungen und Anleitungen zu den verschiedenen Funktionen, Features und Widgets auf unserer Website. Wenn Sie sich nicht sicher sind, wie etwas funktioniert, oder eine Klärung benötigen, finden Sie hier die passenden Antworten.",
-          }
-        }
+            alert:
+              "Willkommen im Hilfe-Center! Diese Seite bietet detaillierte Erklärungen und Anleitungen zu den verschiedenen Funktionen, Features und Widgets auf unserer Website. Wenn Sie sich nicht sicher sind, wie etwas funktioniert, oder eine Klärung benötigen, finden Sie hier die passenden Antworten.",
+            topics: "Themen",
+            topicAbout: "Über daseen",
+            topicBasics: "Motivation und Grundlagen",
+            topicFunctions: "Funktionen",
+            topicFormats: "Datenformate und Analysen",
+          },
+        },
       },
-    }
+    },
   });
 
 export default i18n;

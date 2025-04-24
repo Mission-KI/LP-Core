@@ -137,11 +137,15 @@ def test_count_elasticsearch_failure(mock_request, client, count_url):
 
 
 @patch("requests.request")
-def test_find_resource_id_successful(mock_request, client: APIClient, find_resource_id_url: str):
+def test_find_resource_id_successful_with_hash(mock_request, client: APIClient, find_resource_id_url: str):
     mock_request.return_value.status_code = 200
     mock_request.return_value.json.return_value = {"hits": {"total": 1, "hits": [{"_id": "dummy-resource-id"}]}}
 
-    response = client.post(find_resource_id_url, data={"assetId": "asset-id", "dataSpaceName": "dPName"}, format="json")
+    response = client.post(
+        find_resource_id_url,
+        data={"assetId": "asset-id", "dataSpaceName": "dPName", "assetSha256Hash": "dummy-hash"},
+        format="json",
+    )
     assert response.status_code == status.HTTP_200_OK, response.data
     assert response.data == ["dummy-resource-id"]
     mock_request.assert_called_once()
@@ -149,9 +153,70 @@ def test_find_resource_id_successful(mock_request, client: APIClient, find_resou
     assert mock_request.call_args[0][1] == f"{settings.ELASTICSEARCH_URL}/_search"
     assert mock_request.call_args[1] == {
         "json": {
-            "query": {"bool": {"must": [{"match": {"assetId": "asset-id"}}, {"match": {"dataSpace.name": "dPName"}}]}}
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                            "nested": {
+                                "path": "assetRefs",
+                                "query": {
+                                    "bool": {
+                                        "must": [
+                                            {"match": {"assetRefs.assetId.keyword": "asset-id"}},
+                                            {"match": {"assetRefs.dataSpace.name.keyword": "dPName"}},
+                                        ]
+                                    }
+                                },
+                            }
+                        },
+                        {"match": {"assetSha256Hash.keyword": "dummy-hash"}},
+                    ]
+                }
+            }
         },
-        "headers": {"Content-Type": "application/json", "Authorization": f"ApiKey {settings.ELASTICSEARCH_API_KEY}"},
+        "headers": {"Content-Type": "application/json", "Authorization": "ApiKey dummy"},
+        "timeout": 10,
+    }
+
+
+@patch("requests.request")
+def test_find_resource_id_successful(mock_request, client: APIClient, find_resource_id_url: str):
+    mock_request.return_value.status_code = 200
+    mock_request.return_value.json.return_value = {"hits": {"total": 1, "hits": [{"_id": "dummy-resource-id"}]}}
+
+    response = client.post(
+        find_resource_id_url,
+        data={"assetId": "asset-id", "dataSpaceName": "dPName"},
+        format="json",
+    )
+    assert response.status_code == status.HTTP_200_OK, response.data
+    assert response.data == ["dummy-resource-id"]
+    mock_request.assert_called_once()
+    assert mock_request.call_args[0][0] == "POST"
+    assert mock_request.call_args[0][1] == f"{settings.ELASTICSEARCH_URL}/_search"
+    assert mock_request.call_args[1] == {
+        "json": {
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                            "nested": {
+                                "path": "assetRefs",
+                                "query": {
+                                    "bool": {
+                                        "must": [
+                                            {"match": {"assetRefs.assetId.keyword": "asset-id"}},
+                                            {"match": {"assetRefs.dataSpace.name.keyword": "dPName"}},
+                                        ]
+                                    }
+                                },
+                            }
+                        }
+                    ]
+                }
+            }
+        },
+        "headers": {"Content-Type": "application/json", "Authorization": "ApiKey dummy"},
         "timeout": 10,
     }
 
@@ -161,7 +226,11 @@ def test_find_resource_id_not_found(mock_request: MagicMock, client: APIClient, 
     mock_request.return_value.status_code = 200
     mock_request.return_value.json.return_value = {"hits": {"total": 0, "hits": []}}
 
-    response = client.post(find_resource_id_url, data={"assetId": "asset-id", "dataSpaceName": "dPName"}, format="json")
+    response = client.post(
+        find_resource_id_url,
+        data={"assetId": "asset-id", "dataSpaceName": "dPName"},
+        format="json",
+    )
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.data == {"detail": ErrorDetail(string="Resource not found", code="not_found")}
     mock_request.assert_called_once()
@@ -172,7 +241,11 @@ def test_find_resource_id_not_found_multiple(mock_request: MagicMock, client: AP
     mock_request.return_value.status_code = 200
     mock_request.return_value.json.return_value = {"hits": {"total": 2, "hits": [{"_id": "first"}, {"_id": "second"}]}}
 
-    response = client.post(find_resource_id_url, data={"assetId": "asset-id", "dataSpaceName": "dPName"}, format="json")
+    response = client.post(
+        find_resource_id_url,
+        data={"assetId": "asset-id", "dataSpaceName": "dPName"},
+        format="json",
+    )
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.data == {"detail": ErrorDetail(string="Resource not found", code="not_found")}
     mock_request.assert_called_once()
@@ -183,7 +256,11 @@ def test_find_resource_id_api_exception(mock_request: MagicMock, client: APIClie
     mock_request.return_value.status_code = 200
     mock_request.return_value.json.return_value = {}
 
-    response = client.post(find_resource_id_url, data={"assetId": "asset-id", "dataSpaceName": "dPName"}, format="json")
+    response = client.post(
+        find_resource_id_url,
+        data={"assetId": "asset-id", "dataSpaceName": "dPName"},
+        format="json",
+    )
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
     assert response.data == {"detail": ErrorDetail(string="Invalid response from Elasticsearch", code="error")}
     mock_request.assert_called_once()
@@ -192,9 +269,15 @@ def test_find_resource_id_api_exception(mock_request: MagicMock, client: APIClie
 @patch("requests.request")
 def test_find_resource_id_elastic_api_exception(mock_request: MagicMock, client: APIClient, find_resource_id_url: str):
     mock_request.return_value.status_code = 404
-    mock_request.return_value.json.return_value = {}
+    mock_request.return_value.text = "Not Found"
 
-    response = client.post(find_resource_id_url, data={"assetId": "asset-id", "dataSpaceName": "dPName"}, format="json")
+    response = client.post(
+        find_resource_id_url,
+        data={"assetId": "asset-id", "dataSpaceName": "dPName"},
+        format="json",
+    )
     assert response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR
-    assert response.data == {"detail": ErrorDetail(string="Failed to query Elasticsearch", code="error")}
+    assert response.data == {
+        "detail": ErrorDetail(string="Failed to query Elasticsearch: {'error': 'Not Found'}", code="error")
+    }
     mock_request.assert_called_once()

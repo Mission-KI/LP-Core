@@ -4,35 +4,6 @@ on:
   pull_request:
 
 jobs:
-  docker:
-    runs-on: ubuntu-24.04
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - uses: docker/login-action@v3.1.0
-        with:
-            username: cicdcorebeebucket
-            password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
-      - name: Build
-        uses: docker/build-push-action@v6
-        with:
-          platforms: linux/amd64,linux/arm64
-          tags: beebucket/daseen-backend:latest
-          file: backend/Dockerfile.prod
-          context: backend/
-          push: False
-          secrets: |
-            "github_token=${{ secrets.GIT_HUB_API_KEY }}"
-
   test:
     runs-on: ubuntu-24.04
 
@@ -69,7 +40,7 @@ jobs:
             name: python-coverage-comment-action
             path: backend/python-coverage-comment-action.txt
 
-  ruff:
+  additional-checks:
     runs-on: ubuntu-24.04
 
     steps:
@@ -88,7 +59,15 @@ jobs:
           uv sync --all-extras
 
       - name: ruff check
+        working-directory: ./backend
         run: ruff check --output-format=github .
 
       - name: run format
+        working-directory: ./backend
         run: ruff format --check .
+
+      - name: validate OpenAPI specification
+        working-directory: ./backend
+        run: |
+          export DJANGO_SECRET_KEY=$(python -c 'from django.core.management.utils import get_random_secret_key;print(get_random_secret_key())')
+          python manage.py spectacular --validate --fail-on-warn

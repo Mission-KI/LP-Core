@@ -2,6 +2,7 @@
   "name": "daseen",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@appbaseio/react-searchbox": "^1.9.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -26,9 +27,11 @@
     "react-bootstrap-icons": "^1.11.4",
     "react-chartjs-2": "^5.2.0",
     "react-custom-checkbox": "^3.2.0",
+    "react-d3-cloud": "^1.0.6",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.0.2",
     "react-img-zoom": "^0.1.0",
+    "react-json-pretty": "^2.2.0",
     "react-medium-image-zoom": "^5.2.10",
     "react-paginate": "^8.2.0",
     "react-router": "^6.26.2",
@@ -41,7 +44,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "playwright test",
+    "lint": "eslint . --fix",
+    "format": "prettier --write .",
+    "lint:fix": "eslint . --fix && prettier --write ."
   },
   "eslintConfig": {
     "extends": [
@@ -65,7 +72,18 @@
     "@playwright/test": "^1.48.1",
     "@types/node": "^22.7.9",
     "@vitejs/plugin-react": "^4.3.4",
-    "vite": "^6.2.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-config-react-app": "^7.0.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "prettier": "^3.5.3",
+    "prettier-plugin-organize-imports": "^3.1.0",
+    "vite": "^6.2.6",
+    "vite-plugin-eslint": "^1.8.1",
     "wait-on": "^8.0.2"
   }
 }

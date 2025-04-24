@@ -4,6 +4,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+try:
+    from ._version import __version__
+except ImportError:
+    __version__ = "0.0.0+dirty"
+
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,10 +19,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 CSRF_TRUSTED_ORIGINS = (
-    os.environ.get("CSRF_TRUSTED_ORIGINS").split(";") if os.environ.get("CSRF_TRUSTED_ORIGINS") else None
+    os.environ.get("CSRF_TRUSTED_ORIGINS").split(";") if os.environ.get("CSRF_TRUSTED_ORIGINS") else []
 )
 
 AUTHENTICATION_BACKENDS = ("django.contrib.auth.backends.ModelBackend",)
+
+AUTH_USER_MODEL = "user.User"
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -27,6 +34,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "common",
+    "user",
     "apps.authentication",
     "apps.connector",
     "apps.monitoring",
@@ -91,7 +99,12 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
@@ -167,7 +180,7 @@ TESTS_IN_REAL_DB = True
 SPECTACULAR_SETTINGS = {
     "TITLE": "Daseen REST API",
     "DESCRIPTION": "Daseen API documentation",
-    "VERSION": "1.0.0",
+    "VERSION": __version__,
     "SERVE_INCLUDE_SCHEMA": False,
     "COMPONENT_SPLIT_REQUEST": True,
 }
