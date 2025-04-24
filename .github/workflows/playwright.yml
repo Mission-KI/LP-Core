@@ -16,7 +16,7 @@ jobs:
       VITE_IMAGE_BASE_PATH: https://d1q3gdh9qqr3rb.cloudfront.net/
       VITE_LANDING_URL: http://localhost:3000
       VITE_MAIN_URL: http://localhost:3001
-      VITE_API_URL: https://api.daseen-staging.de/search
+      VITE_API_URL: https://api.daseen-staging.de
 
     steps:
       - name: Checkout code
