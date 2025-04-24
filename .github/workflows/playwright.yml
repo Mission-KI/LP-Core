@@ -37,7 +37,7 @@ jobs:
 
       - name: Run The Frontend
         run: |
-          npm run dev
+          nohup npm run dev -- --host > dev.log 2>&1 &
         working-directory: ./frontend
 
       - name: Wait for services to be ready
