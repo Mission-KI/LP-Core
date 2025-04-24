@@ -12,11 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      VITE_ELASTIC_URL: http://localhost:8000/search
+      VITE_ELASTIC_URL: https://api.daseen-staging.de/search # to be replaced after we add the elastic secrets
       VITE_IMAGE_BASE_PATH: https://d1q3gdh9qqr3rb.cloudfront.net/
       VITE_LANDING_URL: http://localhost:3000
       VITE_MAIN_URL: http://localhost:3001
-      VITE_API_URL: http://localhost:8000
+      VITE_API_URL: https://api.daseen-staging.de/search # to be replaced after we add the elastic secrets
+      CSRF_TRUSTED_ORIGINS: 'http://localhost'
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_PORT: 5432
+      ELASTICSEARCH_URL: "" # to be replaced with local url after we add the elastic secrets
+      ELASTICSEARCH_API_KEY: "" # to be replaced with local url after we add the elastic secrets
+      GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
     steps:
       - name: Checkout code
@@ -37,6 +46,7 @@ jobs:
 
       - name: Set up Docker
         run: |
+          export DJANGO_SECRET_KEY=$(python -c 'from django.core.management.utils import get_random_secret_key;print(get_random_secret_key())')
           docker compose -f local.yml up -d
         working-directory: .
 
