@@ -66,13 +66,15 @@ test("go to details via quick view", async ({ page, baseURL }) => {
 
   const quickViewTogglerSelector = '[data-test-id="quick-view-toggle-button"]';
   const quickViewSelector = '[data-test-id="quick-view"]';
+  const quickViewDetailsLink = '[data-test-id="quick-view-details-link"]';
 
   await page.locator(quickViewTogglerSelector).first().click();
 
   const quickView = page.locator(quickViewSelector);
   await expect(quickView).toBeVisible();
-  await page.getByText("Details").click();
-  await expect(page.getByText("Data Science Info")).toBeVisible();
+  await page.locator(quickViewDetailsLink).click();
+  await expect(page).toHaveURL(/\/details\//);
+  await page.getByText("Data Science Info").waitFor({ state: "visible" });
 });
 
 test("get schema via quick view", async ({ page, baseURL }) => {

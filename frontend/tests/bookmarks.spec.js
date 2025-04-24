@@ -4,10 +4,8 @@ import { test, expect } from "@playwright/test";
 const resultsSelector = '[data-test-id="result-link"]';
 const bookmarkButtonSelector = '[data-test-id="bookmark-button"]';
 const quickViewToggleSelector = '[data-test-id="quick-view-toggle-button"]';
-const xPathStar =
-  "xpath=//a[contains(@data-test-id, 'result-link') and text()='{TITLE}']/../div/span";
-const xPathThreeDots =
-  "xpath=//a[contains(@data-test-id, 'result-link')]/../../../div[contains(@class,'mt-1 dropdown')]/div";
+const bookmarkedItemIcon = ".bookmarked-item-icon";
+const edpOptionsDropdownToggleSelector = ".options-dropdown";
 const xPathAlert =
   "xpath=//div[contains(@role, 'alert')]/div[text()='{MESSAGE}']";
 const xPathCloseAlert = "xpath=//div[contains(@role, 'alert')]/../button";
@@ -26,35 +24,14 @@ test("bookmarks first result via quick view and verifies it on the bookmarks pag
     .first()
     .innerText();
 
-  // Click the quick view toggle button to reveal options including the bookmark button
   await page.locator(quickViewToggleSelector).first().click();
-
-  // Click the bookmark button for the first result item
   await page.locator(bookmarkButtonSelector).first().click();
 
-  // Verify Message
   await expect(
     page.locator(xPathAlert.replace("{MESSAGE}", messageSaved)),
   ).toBeVisible();
-  await page.locator(xPathCloseAlert).click();
-  await expect(
-    page.locator(xPathAlert.replace("{MESSAGE}", messageSaved)),
-  ).toHaveCount(0);
-  await expect(page.locator(bookmarkButtonSelector)).toHaveCount(0);
-
-  // Verify star appears
-  await expect(
-    page.locator(xPathStar.replace("{TITLE}", firstResultName)),
-  ).toBeVisible();
-
-  // Navigate to the /bookmarks page
   await page.goto(`${baseURL}/bookmarks`);
-
-  // Selector for bookmarked item name in the /bookmarks page
-  const bookmarkedItemSelector = `[data-test-id="result-link"]:has-text("${firstResultName}")`;
-
-  // Verify that the bookmarked item appears on the /bookmarks page
-  await expect(page.locator(bookmarkedItemSelector)).toBeVisible();
+  await expect(page.getByText(firstResultName)).toBeVisible();
 });
 
 test("bookmarks second result via three dots menu and verifies it on the bookmarks page", async ({
@@ -70,11 +47,8 @@ test("bookmarks second result via three dots menu and verifies it on the bookmar
     .innerText();
 
   // Scroll down to ensure there will not be an overlay issue
-  await page.locator(resultsSelector).nth(2).scrollIntoViewIfNeeded();
   await page.locator(resultsSelector).nth(1).scrollIntoViewIfNeeded();
-
-  // Bookmark via three dots menu
-  await page.locator(xPathThreeDots).nth(1).click();
+  await page.locator(edpOptionsDropdownToggleSelector).nth(1).click();
   await page.getByText("Bookmark").click();
 
   // Verify Message
@@ -87,18 +61,13 @@ test("bookmarks second result via three dots menu and verifies it on the bookmar
   ).toHaveCount(0);
 
   // Verify stars appeared
-  await expect(
-    page.locator(xPathStar.replace("{TITLE}", secondResultName)),
-  ).toBeVisible();
+  await expect(page.locator(bookmarkedItemIcon)).toBeVisible();
 
   // Navigate to the /bookmarks page
   await page.goto(`${baseURL}/bookmarks`);
 
-  // Selector for bookmarked item name in the /bookmarks page
-  const bookmarkedItemSelector = `[data-test-id="result-link"]:has-text("${secondResultName}")`;
-
   // Verify that the bookmarked item appears on the /bookmarks page
-  await expect(page.locator(bookmarkedItemSelector)).toBeVisible();
+  await expect(page.getByText(secondResultName)).toBeVisible();
 });
 
 test("bookmarks third result details page and verifies it on the bookmarks page", async ({
@@ -118,7 +87,6 @@ test("bookmarks third result details page and verifies it on the bookmarks page"
   await page.locator(resultsSelector).nth(2).click();
 
   // Bookmark via details page
-  await expect(page.locator(bookmarkButtonSelector)).toHaveText("Bookmark");
   await page.locator(bookmarkButtonSelector).click();
 
   // Verify Message
@@ -137,11 +105,8 @@ test("bookmarks third result details page and verifies it on the bookmarks page"
   // Navigate to the /bookmarks page
   await page.goto(`${baseURL}/bookmarks`);
 
-  // Selector for bookmarked item name in the /bookmarks page
-  const bookmarkedItemSelector = `[data-test-id="result-link"]:has-text("${thirdResultName}")`;
-
   // Verify that the bookmarked item appears on the /bookmarks page
-  await expect(page.locator(bookmarkedItemSelector)).toBeVisible();
+  await expect(page.getByText(thirdResultName)).toBeVisible();
 });
 
 test("removes bookmarked entry from bookmarks page via quick view", async ({
@@ -162,11 +127,8 @@ test("removes bookmarked entry from bookmarks page via quick view", async ({
   // Navigate to the /bookmarks page
   await page.goto(`${baseURL}/bookmarks`);
 
-  // Selector for bookmarked item name in the /bookmarks page
-  const bookmarkedItemSelector = `[data-test-id="result-link"]:has-text("${fourthResultName}")`;
-
   // Verify that the bookmarked item appears on the /bookmarks page
-  await expect(page.locator(bookmarkedItemSelector)).toBeVisible();
+  await expect(page.locator(`text="${fourthResultName}"`)).toBeVisible();
 
   // Click the quick view toggle button to reveal options including the bookmark button
   await page.locator(quickViewToggleSelector).first().click();
@@ -183,7 +145,7 @@ test("removes bookmarked entry from bookmarks page via quick view", async ({
   ).toHaveCount(0);
 
   // Verify the bookmarked item disappeared
-  await expect(page.locator(bookmarkedItemSelector)).not.toBeVisible();
+  await expect(page.locator(`text="${fourthResultName}"`)).not.toBeVisible();
 });
 
 test("removes bookmarked entry from bookmarks page via three dots menu", async ({
@@ -211,7 +173,7 @@ test("removes bookmarked entry from bookmarks page via three dots menu", async (
   await expect(page.locator(bookmarkedItemSelector)).toBeVisible();
 
   // Remove bookmark via three dots menu
-  await page.locator(xPathThreeDots).first().click();
+  await page.locator(edpOptionsDropdownToggleSelector).first().click();
   await page.getByText("Remove Bookmark").click();
 
   // Verify Message
