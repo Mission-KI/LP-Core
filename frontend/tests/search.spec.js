@@ -90,7 +90,7 @@ test("get schema via quick view", async ({ page, baseURL }) => {
 
   const downloadPromise = page.waitForEvent("download");
   await page.getByText("Schema").click();
-  const download = await downloadPromise;  
+  const download = await downloadPromise;
 });
 
 test("get report via quick view", async ({ page, baseURL }) => {
