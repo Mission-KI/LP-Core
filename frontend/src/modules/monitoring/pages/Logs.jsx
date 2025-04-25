@@ -16,19 +16,6 @@ export const Logs = () => {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const fetchLogs = async () => {
-      try {
-        const fetchedLogs = await getLogs();
-        setLogs(fetchedLogs);
-      } catch (error) {
-        toast.error(error.message || "Failed to fetch.");
-      }
-    };
-
-    fetchLogs();
-  }, []);
-
-  useEffect(() => {
     const fetchAnalytics = async () => {
       try {
         const fetchedAnalytics = await getAnalytics(dataspaceName);
@@ -40,6 +27,20 @@ export const Logs = () => {
 
     fetchAnalytics();
   }, [searchParams, dataspaceName]);
+
+  useEffect(() => {
+    const fetchLogs = async () => {
+      try {
+        const publisher = searchParams.get("publisher");
+        const fetchedLogs = await getLogs(dataspaceName, publisher);
+        setLogs(fetchedLogs);
+      } catch (error) {
+        toast.error(error.message || "Failed to fetch.");
+      }
+    };
+
+    fetchLogs();
+  }, [dataspaceName, searchParams]);
 
   return (
     <>

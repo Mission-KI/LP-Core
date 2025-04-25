@@ -86,11 +86,27 @@ class EventLogListView(APIView):
         responses={200: OpenApiTypes.OBJECT},
     )
     def get(self, request):
-        dataspace = request.user.dataspace
-        if dataspace is None:
-            raise ValidationError("User is not assigned to dataspace")
+        dataspace = request.query_params.get("dataspace")
+        publisher = request.query_params.get("publisher")
+        user = request.user
 
-        event_logs = EventLog.objects.filter(dataspace=dataspace)
+        if user.is_superuser:
+            pass
+        elif getattr(user, "is_monitoring_user", False):
+            if not dataspace:
+                raise ValidationError("Monitoring users must provide a dataspace.")
+            if not hasattr(user, "dataspace") or user.dataspace.name != dataspace:
+                raise ValidationError("You are not authorized to access this dataspace.")
+        else:
+            raise ValidationError("You do not have permission to access this endpoint.")
+
+
+        event_logs = EventLog.objects.order_by("-created_at")
+        if dataspace:
+            event_logs = event_logs.filter(dataspace__name=dataspace)
+        if publisher:
+            event_logs = event_logs.filter(metadata__assetRefs__0__publisher__name=publisher)
+        
         serializer = EventLogSerializer(event_logs, many=True)
         return Response(serializer.data)
 

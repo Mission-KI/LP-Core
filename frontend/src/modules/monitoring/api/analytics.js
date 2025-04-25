@@ -4,13 +4,12 @@ export const getAnalytics = async (dataspaceName = null, publisher = null) => {
   try {
     const token = localStorage.getItem("accessToken");
 
-    let url = `${apiUrl}/monitoring/analytics/`;
-    if (dataspaceName) {
-      url += `?dataspace=${encodeURIComponent(dataspaceName)}`;
-    }
-    if (publisher) {
-      url += `?publisher=${encodeURIComponent(publisher)}`;
-    }
+    const params = new URLSearchParams();
+    if (dataspaceName) params.append("dataspace", dataspaceName);
+    if (publisher) params.append("publisher", publisher);
+
+    const url = `${apiUrl}/monitoring/analytics/${params.toString() ? `?${params.toString()}` : ""}`;
+
 
     const response = await fetch(url, {
       method: "GET",

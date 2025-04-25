@@ -44,24 +44,24 @@ function Sidebar() {
 
           <div className="sidebar-link-group mt-5">
             <li
-              className={`nav-item px-2 rounded my-1 ${currentPage === "/monitoring/dashboard" ? "active" : ""}`}
+              className={`nav-item px-2 rounded my-1 ${currentPage === "/admin/dashboard" ? "active" : ""}`}
             >
               <Link
-                to="/monitoring/dashboard"
+                to="/admin/dashboard"
                 className="nav-link"
-                onClick={() => handlePageChange("/monitoring/dashboard")}
+                onClick={() => handlePageChange("/admin/dashboard")}
               >
                 <UiChecksGrid />
                 <span className="ps-3 medium">Dashboard</span>
               </Link>
             </li>
             <li
-              className={`nav-item px-2 rounded my-1 ${currentPage === "/monitoring/logs" ? "active" : ""}`}
+              className={`nav-item px-2 rounded my-1 ${currentPage === "/admin/logs" ? "active" : ""}`}
             >
               <Link
-                to="/monitoring/logs"
+                to="/admin/logs"
                 className="nav-link"
-                onClick={() => handlePageChange("/monitoring/logs")}
+                onClick={() => handlePageChange("/admin/logs")}
               >
                 <InfoSquare />
                 <span className="ps-3 medium">Logs</span>
