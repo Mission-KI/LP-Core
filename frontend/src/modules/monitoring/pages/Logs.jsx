@@ -4,9 +4,9 @@ import { getLogs } from "../api/logs";
 import { toast } from "react-toastify";
 import JSONPretty from "react-json-pretty";
 import "react-json-pretty/themes/monikai.css";
-import PublisherSelectorDropdown from "../components/PublisherSelectorDropdown";
 import { getAnalytics } from "../api/analytics";
 import { useSearchParams } from "react-router-dom";
+import { PageFilters } from "../components/PageFilters";
 
 export const Logs = () => {
   const { dataspaceName } = useAuth();
@@ -48,7 +48,7 @@ export const Logs = () => {
         <div>
           <h2 className="bold">Logs</h2>
         </div>
-        <PublisherSelectorDropdown publishers={analytics?.publishers} />
+        <PageFilters publishers={analytics?.publishers} />
       </div>
 
       <p className="mb-5">
