@@ -20,6 +20,16 @@ MOCK_ANALYTICS_RESPONSE = {
                 "publishers": {"buckets": [{"key": "Publisher B", "doc_count": 2}]},
             }
         },
+        "dataSpaces_list": {
+            "nested_dataSpaces": {
+                "dataSpaces": {
+                    "buckets": [
+                        {"key": "Dataspace A", "doc_count": 4, "asset_count": {"value": 4}},
+                        {"key": "Dataspace B", "doc_count": 6, "asset_count": {"value": 6}},
+                    ]
+                }
+            }
+        },
     }
 }
 
@@ -101,33 +111,7 @@ def test_analytics_monitoring_user_wrong_dataspace(mock_post):
 
 @pytest.mark.django_db
 def test_analytics(monkeypatch):
-    elastic_mock = MagicMock(
-        return_value=Response(
-            status=200,
-            data={
-                "aggregations": {
-                    "total_items": {"doc_count": 100},
-                    "unique_publishers": {"unique_publishers_count": {"value": 10}},
-                    "total_original_data_assets": {"count": {"value": 20}},
-                    "total_processed_data_assets": {"count": {"value": 30}},
-                    "total_refined_data_assets": {"count": {"value": 40}},
-                    "total_aiml_result_data_assets": {"count": {"value": 50}},
-                    "publishers_list": {
-                        "filtered_by_dataspace": {
-                            "filtered": {
-                                "publishers": {
-                                    "buckets": [
-                                        {"key": "publisher1"},
-                                        {"key": "publisher2"},
-                                    ]
-                                }
-                            }
-                        }
-                    },
-                }
-            },
-        )
-    )
+    elastic_mock = MagicMock(return_value=Response(status=200, data=MOCK_ANALYTICS_RESPONSE))
     monkeypatch.setattr("apps.monitoring.utils.analytics.elasticsearch_request", elastic_mock)
 
     client = APIClient()
@@ -146,13 +130,17 @@ def test_analytics(monkeypatch):
     response.data["edp_event_counts"]["downloads_per_month"] = "already_counted_above"
     response.data["edp_event_counts"]["uploads_per_month"] = "already_counted_above"
     assert response.data == {
-        "edp_count": 100,
-        "publishers_count": 10,
-        "original_data_count": 20,
-        "processed_data_count": 30,
-        "refined_data_count": 40,
-        "aiml_result_data_count": 50,
-        "publishers": [{"key": "publisher1"}, {"key": "publisher2"}],
+        "edp_count": 42,
+        "publishers_count": 5,
+        "original_data_count": 10,
+        "processed_data_count": 15,
+        "refined_data_count": 7,
+        "aiml_result_data_count": 9,
+        "publishers": [{"key": "Publisher A", "doc_count": 3}],
+        "dataspaces": [
+            {"key": "Dataspace A", "doc_count": 4, "asset_count": {"value": 4}},
+            {"key": "Dataspace B", "doc_count": 6, "asset_count": {"value": 6}},
+        ],
         "edp_event_counts": {
             "uploads": {"successful": 0, "failed": 0},
             "edits": {"successful": 0, "failed": 0},
@@ -166,3 +154,78 @@ def test_analytics(monkeypatch):
     assert elastic_mock.call_count == 1
     assert elastic_mock.call_args_list[0][0][0] == "POST"
     assert elastic_mock.call_args_list[0][0][1] == "_search"
+
+
+def test_logs_not_authorized():
+    client = APIClient()
+    response = client.get(reverse("logs"))
+    assert response.status_code == 401 and response.json() == {
+        "detail": "Authentication credentials were not provided."
+    }
+
+
+@pytest.mark.django_db
+@patch("requests.request")
+def test_logs_superuser_access(mock_post):
+    mock_post.return_value.status_code = 200
+    mock_post.return_value.json.return_value = MOCK_ANALYTICS_RESPONSE
+    client = APIClient()
+    superuser = User.objects.create_user(username="admin", password="admin", is_superuser=True)
+    client.force_authenticate(user=superuser)
+    response = client.get(reverse("logs"))
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+@patch("requests.request")
+def test_logs_monitoring_user_valid_dataspace(mock_post):
+    mock_post.return_value.status_code = 200
+    mock_post.return_value.json.return_value = MOCK_ANALYTICS_RESPONSE
+    client = APIClient()
+
+    dataspace = Dataspace.objects.create(name="DataA")
+    user = User.objects.create_user(username="monitor", password="monitor", is_monitoring_user=True)
+    user.dataspace = dataspace
+    user.save()
+
+    client.force_authenticate(user=user)
+    response = client.get(reverse("logs") + f"?dataspace={dataspace.name}")
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+@patch("requests.request")
+def test_logs_monitoring_user_missing_dataspace_param(mock_post):
+    mock_post.return_value.status_code = 200
+    mock_post.return_value.json.return_value = MOCK_ANALYTICS_RESPONSE
+    client = APIClient()
+
+    dataspace = Dataspace.objects.create(name="DataB")
+    user = User.objects.create_user(username="monitor2", password="monitor2", is_monitoring_user=True)
+    user.dataspace = dataspace
+    user.save()
+
+    client.force_authenticate(user=user)
+    response = client.get(reverse("logs"))
+    assert response.status_code == 400
+    assert "Monitoring users must provide a dataspace." in str(response.data)
+
+
+@pytest.mark.django_db
+@patch("requests.request")
+def test_logs_monitoring_user_wrong_dataspace(mock_post):
+    mock_post.return_value.status_code = 200
+    mock_post.return_value.json.return_value = MOCK_ANALYTICS_RESPONSE
+    client = APIClient()
+
+    user_dataspace = Dataspace.objects.create(name="DataC")
+    other_dataspace_name = "OtherData"
+
+    user = User.objects.create_user(username="monitor3", password="monitor3", is_monitoring_user=True)
+    user.dataspace = user_dataspace
+    user.save()
+
+    client.force_authenticate(user=user)
+    response = client.get(reverse("logs") + f"?dataspace={other_dataspace_name}")
+    assert response.status_code == 400
+    assert "You are not authorized to access this dataspace." in str(response.data)

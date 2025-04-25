@@ -65,7 +65,9 @@ class MonitoringAnalyticsView(APIView):
                     "value"
                 ],
                 "publishers": publishers,
-                "dataspaces": elastic_counts["aggregations"]["dataSpaces_list"]["nested_dataSpaces"]["dataSpaces"]["buckets"],
+                "dataspaces": elastic_counts["aggregations"]["dataSpaces_list"]["nested_dataSpaces"]["dataSpaces"][
+                    "buckets"
+                ],
                 "edp_event_counts": edp_event_counts,
             }
 
@@ -101,13 +103,12 @@ class EventLogListView(APIView):
         else:
             raise ValidationError("You do not have permission to access this endpoint.")
 
-
         event_logs = EventLog.objects.order_by("-created_at")
         if dataspace:
             event_logs = event_logs.filter(dataspace__name=dataspace)
         if publisher:
             event_logs = event_logs.filter(metadata__assetRefs__0__publisher__name=publisher)
-        
+
         serializer = EventLogSerializer(event_logs, many=True)
         return Response(serializer.data)
 
