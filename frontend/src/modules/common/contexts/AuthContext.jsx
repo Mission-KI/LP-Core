@@ -71,13 +71,6 @@ export const AuthProvider = ({ children }) => {
     if (storedToken) {
       try {
         const decoded = jwtDecode(storedToken);
-
-        // this snippet can be removed after 15 days since the old tokens will expire
-        if (!decoded.is_monitoring_user && !decoded.is_superuser) {
-          handleLogout();
-          return;
-        }
-
         checkTokenExpiration(storedToken);
         setUsername(decoded.username);
         setDataspaceName(decoded.dataspace_name);

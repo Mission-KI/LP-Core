@@ -47,7 +47,7 @@ function Dashboard() {
     <>
       <div className="d-flex justify-content-between flex-wrap align-items-center mt-4 mb-3 ps-1">
         <h2 className="bold">Welcome, {username}</h2>
-        <PublisherSelectorDropdown analytics={analytics} />
+        <PublisherSelectorDropdown publishers={analytics?.publishers} />
       </div>
 
       <div className="row">
