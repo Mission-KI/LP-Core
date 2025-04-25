@@ -10,7 +10,6 @@ export const getAnalytics = async (dataspaceName = null, publisher = null) => {
 
     const url = `${apiUrl}/monitoring/analytics/${params.toString() ? `?${params.toString()}` : ""}`;
 
-
     const response = await fetch(url, {
       method: "GET",
       headers: {

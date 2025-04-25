@@ -65,6 +65,7 @@ class MonitoringAnalyticsView(APIView):
                     "value"
                 ],
                 "publishers": publishers,
+                "dataspaces": elastic_counts["aggregations"]["dataSpaces_list"]["nested_dataSpaces"]["dataSpaces"]["buckets"],
                 "edp_event_counts": edp_event_counts,
             }
 

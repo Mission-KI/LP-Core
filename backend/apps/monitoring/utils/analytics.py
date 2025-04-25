@@ -79,6 +79,20 @@ def get_elastic_monitoring_analytics(dataspace: Optional[str] = None, publisher:
                 "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
             },
             "publishers_list": {"global": {}, "aggs": {"filtered_by_dataspace": publishers_list_aggs}},
+            "dataSpaces_list": {
+                "global": {},
+                "aggs": {
+                    "nested_dataSpaces": {
+                        "nested": {"path": "assetRefs"},
+                        "aggs": {
+                            "dataSpaces": {
+                                "terms": {"field": "assetRefs.dataSpace.name.keyword", "size": 100},
+                                "aggs": {"asset_count": {"value_count": {"field": "assetRefs.dataSpace.name.keyword"}}},
+                            }
+                        },
+                    }
+                },
+            },
         },
     }
 
@@ -88,7 +102,7 @@ def get_elastic_monitoring_analytics(dataspace: Optional[str] = None, publisher:
 def get_edp_event_counts(dataspace: Optional[str] = None, publisher: Optional[str] = None):
     edp_events = EventLog.objects
     if dataspace:
-        edp_events = edp_events.filter(metadata__assetRefs__0__dataSpace__name=dataspace)
+        edp_events = edp_events.filter(dataspace__name=dataspace)
     if publisher:
         edp_events = edp_events.filter(metadata__assetRefs__0__publisher__name=publisher)
 
