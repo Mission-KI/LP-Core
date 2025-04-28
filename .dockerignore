@@ -1,5 +1,4 @@
 # Ignore environment files
-.env.*
 .vscode/
 
 # Ignore Python build and cache files
