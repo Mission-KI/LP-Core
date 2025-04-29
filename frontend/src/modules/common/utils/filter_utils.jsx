@@ -27,15 +27,15 @@ export const useFilterSections = () => {
         const response = await getFilterValues();
         setDataSpaces(
           response?.aggregations?.nested_asset_refs?.distinct_dataSpace_names
-            ?.buckets || []
+            ?.buckets || [],
         );
         setLicenses(
           response?.aggregations?.nested_asset_refs?.distinct_license_names
-            ?.buckets || []
+            ?.buckets || [],
         );
         setPublishers(
           response?.aggregations?.nested_asset_refs?.distinct_publisher_names
-            ?.buckets || []
+            ?.buckets || [],
         );
         setDataTypes(response?.aggregations?.distinct_dataTypes?.buckets || []);
         setMaxRowCount(response?.aggregations?.max_row_count?.value || 0);
@@ -68,7 +68,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Date time attribute",
-                "/data-formats-and-analysis#date-time-attribute-section"
+                "/data-formats-and-analysis#date-time-attribute-section",
               )}
             >
               <div>
@@ -95,7 +95,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Temporal frequency",
-                "/data-formats-and-analysis#temporal-frequency-section"
+                "/data-formats-and-analysis#temporal-frequency-section",
               )}
             >
               <div>
@@ -122,7 +122,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Data type consistency",
-                "/data-formats-and-analysis#data-type-consistency-section"
+                "/data-formats-and-analysis#data-type-consistency-section",
               )}
             >
               <div>
@@ -149,7 +149,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Significant variance",
-                "/data-formats-and-analysis#significant-variance-section"
+                "/data-formats-and-analysis#significant-variance-section",
               )}
             >
               <div>
