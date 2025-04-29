@@ -121,7 +121,7 @@ i18n
             publisher: "Publisher",
             publishers: "Publishers",
             assetProcessingStatus: "Asset processing",
-            licenses: "Licenses",
+            license: "License",
             accessibility: "Accessibility",
             dataFormat: "Data Format",
             hasDatetimeAttribute: "Has Datetime Attribute",
@@ -282,7 +282,7 @@ i18n
           filters: {
             dataspace: "Datenraum",
             dataspaces: "Datenräume",
-            licenses: "Lizenzen",
+            license: "Lizenz",
             dataFormat: "Datenformat",
             assetProcessingStatus: "Verarbeitungszustand",
             fileSize: "Größenbereich",

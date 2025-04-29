@@ -859,3 +859,11 @@ input:checked + .slider:before {
   max-height: 700px;
   overflow: auto;
 }
+
+.transition-chevron {
+  transition: transform 0.3s ease;
+}
+
+.transition-chevron.rotate {
+  transform: rotate(90deg);
+}

@@ -27,15 +27,15 @@ export const useFilterSections = () => {
         const response = await getFilterValues();
         setDataSpaces(
           response?.aggregations?.nested_asset_refs?.distinct_dataSpace_names
-            ?.buckets || [],
+            ?.buckets || []
         );
         setLicenses(
           response?.aggregations?.nested_asset_refs?.distinct_license_names
-            ?.buckets || [],
+            ?.buckets || []
         );
         setPublishers(
           response?.aggregations?.nested_asset_refs?.distinct_publisher_names
-            ?.buckets || [],
+            ?.buckets || []
         );
         setDataTypes(response?.aggregations?.distinct_dataTypes?.buckets || []);
         setMaxRowCount(response?.aggregations?.max_row_count?.value || 0);
@@ -56,164 +56,6 @@ export const useFilterSections = () => {
 
   const filterSections = [
     {
-      title: "dataspaces",
-      type: "checkboxes",
-      forDataType: null,
-      filters: dataSpaces?.map((dataSpace) => ({
-        label: dataSpace.key,
-        value: dataSpace.key,
-        name: "dataSpace.name",
-        type: "checkbox",
-      })),
-    },
-    {
-      title: "publisher",
-      type: "checkboxes",
-      forDataType: null,
-      filters: publishers?.map((publisher) => ({
-        label: publisher.key,
-        value: publisher.key,
-        name: "publisher.name",
-        type: "checkbox",
-      })),
-    },
-    {
-      title: "assetProcessingStatus",
-      type: "checkboxes",
-      forDataType: null,
-      filters: [
-        {
-          label: "Original Data",
-          value: "Original Data",
-          name: "assetProcessingStatus",
-          type: "checkbox",
-        },
-        {
-          label: "Processed Data",
-          value: "Processed Data",
-          name: "assetProcessingStatus",
-          type: "checkbox",
-        },
-        {
-          label: "Refined Data",
-          value: "Refined Data",
-          name: "assetProcessingStatus",
-          type: "checkbox",
-        },
-        {
-          label: "AI/ML Result Data",
-          value: "AI/ML Result Data",
-          name: "assetProcessingStatus",
-          type: "checkbox",
-        },
-      ],
-    },
-    {
-      title: "licenses",
-      type: "checkboxes",
-      forDataType: null,
-      filters: licenses?.map((license) => ({
-        label: license.key,
-        value: license.key,
-        name: "license.name",
-        type: "checkbox",
-      })),
-    },
-    {
-      title: "dataFormat",
-      type: "checkboxes",
-      forDataType: null,
-      filters: dataTypes?.map((dataType) => ({
-        label: dataType.key,
-        value: dataType.key,
-        name: "dataType",
-        type: "checkbox",
-      })),
-    },
-    {
-      title: "accessibility",
-      type: "radio",
-      forDataType: null,
-      filters: [
-        {
-          label: (
-            <OverlayTrigger
-              delay={{ show: 100, hide: 700 }}
-              placement="top"
-              overlay={renderTooltip(
-                "Open access",
-                "/data-formats-and-analysis#open-access-section",
-              )}
-            >
-              <div>
-                <UnlockFill />
-              </div>
-            </OverlayTrigger>
-          ),
-          value: "true",
-          name: "freely_available",
-          type: "radio",
-        },
-        {
-          label: (
-            <OverlayTrigger
-              delay={{ show: 100, hide: 700 }}
-              placement="top"
-              overlay={renderTooltip(
-                "Closed access",
-                "/data-formats-and-analysis#closed-access-section",
-              )}
-            >
-              <div>
-                <LockFill />
-              </div>
-            </OverlayTrigger>
-          ),
-          value: "false",
-          name: "freely_available",
-          type: "radio",
-        },
-      ],
-    },
-    {
-      title: "attributes",
-      type: "doublerange",
-      forDataType: "structured",
-      filters: [
-        {
-          label: "lines",
-          name_1: "min_lines",
-          name_2: "max_lines",
-          type: "doublerange",
-          minValue: 0,
-          maxValue: maxRowCount,
-        },
-        {
-          label: "columns",
-          name_1: "min_columns",
-          name_2: "max_columns",
-          type: "doublerange",
-          minValue: 0,
-          maxValue: maxColumnCount,
-        },
-      ],
-    },
-    {
-      title: "fileSize",
-      type: "filesize",
-      forDataType: null,
-      filters: [
-        {
-          label: "Size range",
-          name_1: "min_size",
-          name_2: "max_size",
-          type: "doublerange",
-          minValue: 0,
-          maxValue: 100,
-        },
-      ],
-    },
-    {
       title: "",
       type: "single_icon",
       forDataType: "structured",
@@ -226,7 +68,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Date time attribute",
-                "/data-formats-and-analysis#date-time-attribute-section",
+                "/data-formats-and-analysis#date-time-attribute-section"
               )}
             >
               <div>
@@ -253,7 +95,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Temporal frequency",
-                "/data-formats-and-analysis#temporal-frequency-section",
+                "/data-formats-and-analysis#temporal-frequency-section"
               )}
             >
               <div>
@@ -280,7 +122,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Data type consistency",
-                "/data-formats-and-analysis#data-type-consistency-section",
+                "/data-formats-and-analysis#data-type-consistency-section"
               )}
             >
               <div>
@@ -307,7 +149,7 @@ export const useFilterSections = () => {
               placement="top"
               overlay={renderTooltip(
                 "Significant variance",
-                "/data-formats-and-analysis#significant-variance-section",
+                "/data-formats-and-analysis#significant-variance-section"
               )}
             >
               <div>

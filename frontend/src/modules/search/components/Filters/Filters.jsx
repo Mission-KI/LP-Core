@@ -5,11 +5,18 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import styles from "./Filters.module.css";
-import { Dropdown } from "react-bootstrap";
-import { ChevronDown, X } from "react-bootstrap-icons";
+import { X } from "react-bootstrap-icons";
 import { useTranslation } from "react-i18next";
-import { Spinner } from "react-bootstrap";
 import { useCallback } from "react";
+import { DataspaceFilter } from "./DataspaceFilter";
+import { PublisherFilter } from "./PublisherFilter";
+import { AssetProcessingFilter } from "./AssetProcessingFilter";
+import { LicenseFilter } from "./LicenseFilter";
+import { DataFormatFilter } from "./DataFormatFilter";
+import { AccessFilter } from "./AccessFilter";
+import { LinesFilter } from "./LinesFilter";
+import { ColumnsFilter } from "./ColumnsFilter";
+import { FileSizeFilter } from "./FileSizeFilter";
 
 function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
   const { filterSections, loading } = useFilterSections();
@@ -121,7 +128,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
         setFiltersDropdownVisible(false);
       }
     },
-    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef],
+    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef]
   );
 
   useEffect(() => {
@@ -174,7 +181,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
   if (dataTypes.length > 0) {
     filteredFilterSections = filterSections.filter(
       (section) =>
-        section.forDataType === null || dataTypes.includes(section.forDataType),
+        section.forDataType === null || dataTypes.includes(section.forDataType)
     );
   } else {
     filteredFilterSections = filterSections;
@@ -210,6 +217,16 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
           className={`${styles.filtersWrapper} row`}
           style={{ maxWidth: 900 }}
         >
+          <DataspaceFilter />
+          <PublisherFilter />
+          <AssetProcessingFilter />
+          <LicenseFilter />
+          <DataFormatFilter />
+          <AccessFilter />
+          <LinesFilter />
+          <ColumnsFilter />
+          <FileSizeFilter />
+
           {filteredFilterSections?.map((filterSection, key) => (
             <FormGroup
               key={key}
@@ -225,45 +242,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
               }`}
             >
               <div className="d-flex align-items-center py-1 position-relative h-100">
-                {filterSection.type == "checkboxes" ? (
-                  <Dropdown>
-                    <Dropdown.Toggle
-                      variant="link"
-                      id={`dropdown-filters-${filterSection.type}`}
-                      className="small px-0 txt-regular text-decoration-none"
-                    >
-                      {t(`filters.${filterSection.title}`)}{" "}
-                      <ChevronDown className="small ms-2" />
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu className="border-0 shadow rounded">
-                      {filterSection?.filters?.map((filter, key) => (
-                        <Dropdown.Item
-                          key={key}
-                          as="div"
-                          className="d-flex align-items-center"
-                        >
-                          <input
-                            type="checkbox"
-                            className="form-check-input"
-                            id={`checkbox-${filter.value}`}
-                            name={filter.name}
-                            value={filter.value}
-                            checked={checkedOptions[filter.label] || false}
-                            onChange={() => handleCheckboxChange(filter)}
-                            autoComplete="off"
-                          />
-                          <label
-                            htmlFor={`checkbox-${filter.value}`}
-                            className="ms-2 mb-0"
-                          >
-                            {filter.label}
-                          </label>
-                        </Dropdown.Item>
-                      ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
-                ) : filterSection.type == "single_icon" ? (
+                {filterSection.type == "single_icon" ? (
                   <div>
                     {filterSection.filters.map((filter, key) => (
                       <button
@@ -279,50 +258,6 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
                       >
                         {filter.icon}
                       </button>
-                    ))}
-                  </div>
-                ) : filterSection.type == "doublerange" ? (
-                  <div className="d-flex w-100">
-                    {filterSection.filters.map((filter, key) => (
-                      <div className="col-md-6" key={key}>
-                        <label className="small mb-2">
-                          {t(`filters.${filter.label}`)}
-                        </label>
-
-                        <div
-                          className="d-flex flex-column w-100"
-                          style={{ padding: "0 4px" }}
-                        >
-                          <Slider
-                            range
-                            className="w-100"
-                            min={filter.minValue}
-                            max={filter.maxValue}
-                            value={
-                              rangeValues[filter.name_1] || [
-                                filter.minValue,
-                                filter.maxValue,
-                              ]
-                            }
-                            onChange={(values) =>
-                              handleDoubleRangeChange(filter, values)
-                            }
-                            onChangeComplete={(values) =>
-                              handleDoubleRangeComplete(filter, values)
-                            }
-                          />
-                          <div className="d-flex justify-content-between mt-2">
-                            <span className="small txt-lighter">
-                              {rangeValues[filter.name_1]?.[0] ||
-                                filter.minValue}
-                            </span>
-                            <span className="small txt-lighter">
-                              {rangeValues[filter.name_1]?.[1] ||
-                                filter.maxValue}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
                     ))}
                   </div>
                 ) : filterSection.type == "filesize" ? (
@@ -385,23 +320,6 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
                         </div>
                       </div>
                     ))}
-                  </>
-                ) : filterSection.type === "radio" ? (
-                  <>
-                    {
-                      <div className="d-flex">
-                        {filterSection.filters.map((filter, key) => (
-                          <button
-                            key={key}
-                            type="button"
-                            className={`btn ${checkedRadios[filter.name] === filter.value ? "bold txt-primary" : "txt-lighter"}`}
-                            onClick={() => handleRadioChange(filter)}
-                          >
-                            {filter.label}
-                          </button>
-                        ))}
-                      </div>
-                    }
                   </>
                 ) : (
                   ""
