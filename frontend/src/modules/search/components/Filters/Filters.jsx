@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import "rc-slider/assets/index.css";
 import styles from "./Filters.module.css";
 import { X } from "react-bootstrap-icons";
-import { useTranslation } from "react-i18next";
 import { useCallback } from "react";
 import { DataspaceFilter } from "./DataspaceFilter";
 import { PublisherFilter } from "./PublisherFilter";
@@ -16,12 +15,12 @@ import { AccessFilter } from "./AccessFilter";
 import { LinesFilter } from "./LinesFilter";
 import { ColumnsFilter } from "./ColumnsFilter";
 import { FileSizeFilter } from "./FileSizeFilter";
+import { ClearFiltersButton } from "./ClearFiltersButton";
 
 function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
   const { filterSections, loading } = useFilterSections();
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useTranslation();
   const dropdownRef = useRef(null);
 
   const getQueryParams = useCallback(() => {
@@ -37,10 +36,6 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
   }, [location.search]);
 
   const [checkedOptions, setCheckedOptions] = useState({});
-
-  const handleClearFilters = () => {
-    navigate(location.pathname, { replace: true });
-  };
 
   const removeFilter = (key) => {
     const params = new URLSearchParams(location.search);
@@ -93,7 +88,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
         setFiltersDropdownVisible(false);
       }
     },
-    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef],
+    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef]
   );
 
   useEffect(() => {
@@ -112,7 +107,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
   if (dataTypes.length > 0) {
     filteredFilterSections = filterSections.filter(
       (section) =>
-        section.forDataType === null || dataTypes.includes(section.forDataType),
+        section.forDataType === null || dataTypes.includes(section.forDataType)
     );
   } else {
     filteredFilterSections = filterSections;
@@ -162,7 +157,9 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
             <FormGroup
               key={key}
               className={`mb-2 ${
-                filterSection.type === "single_icon" ? "col-1" : ""
+                filterSection.type === "single_icon"
+                    ? "col-1"
+                    : ""
               }`}
             >
               <div className="d-flex align-items-center py-1 position-relative h-100">
@@ -190,14 +187,7 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
               </div>
             </FormGroup>
           ))}
-          <div className="mt-2">
-            <button
-              className="btn btn-contrast medium"
-              onClick={handleClearFilters}
-            >
-              {t("filters.clear")}
-            </button>
-          </div>
+         <ClearFiltersButton />
         </div>
       </div>
     </div>
