@@ -1,28 +1,56 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../../common/contexts/AuthContext";
 import { getLogs } from "../api/logs";
 import { toast } from "react-toastify";
 import JSONPretty from "react-json-pretty";
 import "react-json-pretty/themes/monikai.css";
+import { getAnalytics } from "../api/analytics";
+import { useSearchParams } from "react-router-dom";
+import { PageFilters } from "../components/PageFilters";
 
 export const Logs = () => {
+  const { dataspaceName } = useAuth();
+
   const [logs, setLogs] = useState(null);
+  const [analytics, setAnalytics] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const fetchAnalytics = async () => {
+      try {
+        const fetchedAnalytics = await getAnalytics(dataspaceName);
+        setAnalytics(fetchedAnalytics);
+      } catch (error) {
+        toast.error(error.message || "Failed to fetch analytics");
+      }
+    };
+
+    fetchAnalytics();
+  }, [searchParams, dataspaceName]);
 
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const fetchedAnalytics = await getLogs();
-        setLogs(fetchedAnalytics);
+        const publisher = searchParams.get("publisher");
+        const fetchedLogs = await getLogs(dataspaceName, publisher);
+        setLogs(fetchedLogs);
       } catch (error) {
         toast.error(error.message || "Failed to fetch.");
       }
     };
 
     fetchLogs();
-  }, []);
+  }, [dataspaceName, searchParams]);
 
   return (
     <>
-      <h2 className="bold mt-3">Logs</h2>
+      <div className="d-flex justify-content-between flex-wrap mt-4 mb-3">
+        <div>
+          <h2 className="bold">Logs</h2>
+        </div>
+        <PageFilters publishers={analytics?.publishers} />
+      </div>
+
       <p className="mb-5">
         Here you can see the audit logs of certain events like edp uploads,
         deletions and more.

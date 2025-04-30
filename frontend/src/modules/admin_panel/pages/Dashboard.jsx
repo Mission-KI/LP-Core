@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import PublishersList from "../../monitoring/components/PublishersList";
 import AssetProcessingStateStats from "../../monitoring/components/AssetProcessingStateStats";
 import EDPActions from "../../monitoring/components/EDPActions";
+import { PageFilters } from "../components/PageFilters";
 
 function Dashboard() {
   const { username } = useAuth();
@@ -47,7 +48,10 @@ function Dashboard() {
     <>
       <div className="d-flex justify-content-between flex-wrap align-items-center mt-4 mb-3 ps-1">
         <h2 className="bold">Welcome, {username}</h2>
-        <PublisherSelectorDropdown analytics={analytics} />
+        <PageFilters
+          dataspaces={analytics?.dataspaces}
+          publishers={analytics?.publishers}
+        />
       </div>
 
       <div className="row">

@@ -29,6 +29,7 @@ const EDPActions = ({ edp }) => {
         {isHomePage && (
           <div className="pe-2 pt-1">
             <Link
+              data-test-id="quick-view-details-link"
               to={`/details/${edp._id}`}
               className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >

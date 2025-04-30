@@ -1,28 +1,60 @@
 import { useEffect, useState } from "react";
-import { getLogs } from "../../monitoring/api/logs";
+import { useAuth } from "../../common/contexts/AuthContext";
 import { toast } from "react-toastify";
 import JSONPretty from "react-json-pretty";
 import "react-json-pretty/themes/monikai.css";
+import { useSearchParams } from "react-router-dom";
+import { PageFilters } from "../components/PageFilters";
+import { getAnalytics } from "../../monitoring/api/analytics";
+import { getLogs } from "../../monitoring/api/logs";
 
 export const Logs = () => {
   const [logs, setLogs] = useState(null);
+  const [analytics, setAnalytics] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    const fetchAnalytics = async () => {
+      try {
+        const publisher = searchParams.get("publisher");
+        const dataspace = searchParams.get("dataspace");
+        const fetchedAnalytics = await getAnalytics(dataspace, publisher);
+        setAnalytics(fetchedAnalytics);
+      } catch (error) {
+        toast.error(error.message || "Failed to fetch analytics");
+      }
+    };
+
+    fetchAnalytics();
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const fetchedAnalytics = await getLogs();
-        setLogs(fetchedAnalytics);
+        const publisher = searchParams.get("publisher");
+        const dataspace = searchParams.get("dataspace");
+        const fetchedLogs = await getLogs(dataspace, publisher);
+        setLogs(fetchedLogs);
       } catch (error) {
         toast.error(error.message || "Failed to fetch.");
       }
     };
 
     fetchLogs();
-  }, []);
+  }, [searchParams]);
 
   return (
     <>
-      <h2 className="bold mt-3">Logs</h2>
+      <div className="d-flex justify-content-between flex-wrap mt-4 mb-3">
+        <div>
+          <h2 className="bold">Logs</h2>
+        </div>
+        <PageFilters
+          dataspaces={analytics?.dataspaces}
+          publishers={analytics?.publishers}
+        />
+      </div>
+
       <p className="mb-5">
         Here you can see the audit logs of certain events like edp uploads,
         deletions and more.

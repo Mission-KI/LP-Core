@@ -1,10 +1,14 @@
 import { apiUrl } from "../../common/api/config";
 
-export const getLogs = async () => {
+export const getLogs = async (dataspaceName = null, publisher = null) => {
   try {
     const token = localStorage.getItem("accessToken");
 
-    let url = `${apiUrl}/monitoring/logs/`;
+    const params = new URLSearchParams();
+    if (dataspaceName) params.append("dataspace", dataspaceName);
+    if (publisher) params.append("publisher", publisher);
+
+    const url = `${apiUrl}/monitoring/logs/${params.toString() ? `?${params.toString()}` : ""}`;
 
     const response = await fetch(url, {
       method: "GET",

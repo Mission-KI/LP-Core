@@ -10,6 +10,7 @@ import PublishersList from "../components/PublishersList";
 import AssetProcessingStateStats from "../components/AssetProcessingStateStats";
 import EDPActions from "../components/EDPActions";
 import { getAnalytics } from "../api/analytics";
+import { PageFilters } from "../components/PageFilters";
 
 function Dashboard() {
   const { username, dataspaceName } = useAuth();
@@ -46,7 +47,7 @@ function Dashboard() {
     <>
       <div className="d-flex justify-content-between flex-wrap align-items-center mt-4 mb-3 ps-1">
         <h2 className="bold">Welcome, {username}</h2>
-        <PublisherSelectorDropdown analytics={analytics} />
+        <PageFilters publishers={analytics?.publishers} />
       </div>
 
       <div className="row">

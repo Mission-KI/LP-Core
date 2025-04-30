@@ -5,7 +5,7 @@ dynamic = ["version"]
 authors = [
     { name = "Kai Buschulte", email = "kb@beebucket.de" }
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.13"
 dependencies = [
     "boto3>=1.36.13",
     "django>=5.0.6",
@@ -70,8 +70,9 @@ extend-select = [
 log_cli = true
 log_cli_level = "INFO"
 DJANGO_SETTINGS_MODULE = "daseen.test_settings"
-testpaths = ["backend/**/"]
+testpaths = ["backend"]
 python_files = ["tests.py", "test_*.py", "*_test.py"]
+pythonpath = ["backend"]
 
 [tool.coverage.run]
 relative_files = true

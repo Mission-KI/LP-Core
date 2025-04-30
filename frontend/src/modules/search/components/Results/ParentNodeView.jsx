@@ -32,7 +32,7 @@ const ParentNodeView = ({ edp }) => {
 
           <div>
             {isBookmarked(edp._id) && (
-              <span className="px-2 py-1">
+              <span className="px-2 py-1 bookmarked-item-icon">
                 <StarFill />
               </span>
             )}

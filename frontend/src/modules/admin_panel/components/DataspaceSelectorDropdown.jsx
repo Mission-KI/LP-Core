@@ -3,23 +3,23 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import { ChevronDown } from "react-bootstrap-icons";
 
-const PublisherSelectorDropdown = ({ publishers }) => {
+const DataspaceSelectorDropdown = ({ dataspaces }) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [selectedPublisher, setSelectedPublisher] = useState(
-    searchParams.get("publisher") || "Select Publisher",
+  const [selectedDataspace, setSelectedDataspace] = useState(
+    searchParams.get("dataspace") || "Select Dataspace",
   );
 
   useEffect(() => {
-    const currentPublisher = searchParams.get("publisher");
-    if (!currentPublisher) {
-      setSelectedPublisher("Select Publisher");
+    const currentDataspace = searchParams.get("dataspace");
+    if (!currentDataspace) {
+      setSelectedDataspace("Select Dataspace");
     }
   }, [searchParams]);
 
-  const handleSelect = (publisher) => {
-    setSelectedPublisher(publisher);
-    searchParams.set("publisher", publisher);
+  const handleSelect = (dataspace) => {
+    setSelectedDataspace(dataspace);
+    searchParams.set("dataspace", dataspace);
     navigate(`?${searchParams.toString()}`);
   };
 
@@ -27,16 +27,16 @@ const PublisherSelectorDropdown = ({ publishers }) => {
     <div className="d-flex align-items-center gap-2">
       <Dropdown onSelect={handleSelect}>
         <Dropdown.Toggle variant="basic" id="dropdown-basic">
-          {selectedPublisher} <ChevronDown className="ms-2" />
+          {selectedDataspace} <ChevronDown className="ms-2" />
         </Dropdown.Toggle>
 
         <Dropdown.Menu
           className="dropdown-menu-end"
           style={{ minWidth: "100%" }}
         >
-          {publishers?.map((publisher) => (
-            <Dropdown.Item key={publisher.key} eventKey={publisher.key}>
-              {publisher.key}
+          {dataspaces?.map((dataspace) => (
+            <Dropdown.Item key={dataspace.key} eventKey={dataspace.key}>
+              {dataspace.key}
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>
@@ -45,4 +45,4 @@ const PublisherSelectorDropdown = ({ publishers }) => {
   );
 };
 
-export default PublisherSelectorDropdown;
+export default DataspaceSelectorDropdown;
