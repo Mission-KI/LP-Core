@@ -41,6 +41,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_HUB_API_KEY }}
 
+      - name: Prune Docker Build Cache
+        run: docker buildx prune --all --force --keep-storage=15GB --keep-duration=7d
+
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v1
         with:
