@@ -57,6 +57,7 @@ export const AssetProcessingFilter = () => {
         <Dropdown show={open} onToggle={() => setOpen(!open)}>
           <Dropdown.Toggle
             variant="link"
+            id="assetProcessingStatusDropdown"
             className="small px-0 txt-regular text-decoration-none"
           >
             {t("filters.assetProcessingStatus")}
@@ -70,7 +71,8 @@ export const AssetProcessingFilter = () => {
               <Dropdown.Item
                 key={key}
                 as="div"
-                className="d-flex align-items-center"
+                onClick={() => handleToggle(assetProcessingStatus.key)}
+                className="d-flex align-items-center asset-processing-status-dropdown-item"
               >
                 <input
                   type="checkbox"
