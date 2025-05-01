@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getFilterValues } from "../../../common/api/elastic";
 import { useTranslation } from "react-i18next";
 import { Dropdown, FormGroup } from "react-bootstrap";
 import { ChevronDown } from "react-bootstrap-icons";
 const paramName = "dataType";
 
-export const DataFormatFilter = () => {
-  const [dataFormats, setDataFormats] = useState([]);
+export const DataFormatFilter = ({ dataFormats }) => {
   const [selected, setSelected] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,20 +17,6 @@ export const DataFormatFilter = () => {
     const selectedParams = params.getAll(paramName);
     setSelected(selectedParams);
   }, [location.search]);
-
-  useEffect(() => {
-    const fetchFilterValues = async () => {
-      try {
-        const response = await getFilterValues();
-        const buckets =
-          response?.aggregations?.distinct_dataTypes?.buckets || [];
-        setDataFormats(buckets);
-      } catch (error) {
-        console.error("Error fetching dataFormats:", error);
-      }
-    };
-    fetchFilterValues();
-  }, []);
 
   const handleToggle = (value) => {
     const params = new URLSearchParams(location.search);

@@ -1,30 +1,14 @@
 import { FormGroup } from "react-bootstrap";
 import Slider from "rc-slider";
 import { useEffect, useState } from "react";
-import { getFilterValues } from "../../../common/api/elastic";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const ColumnsFilter = () => {
-  const [maxColumnCount, setMaxColumnCount] = useState(0);
+export const ColumnsFilter = ({ maxColumnCount }) => {
   const [range, setRange] = useState([0, 0]);
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchFilterValues = async () => {
-      try {
-        const response = await getFilterValues();
-        const fetchedMax = response?.aggregations?.max_column_count?.value || 0;
-        setMaxColumnCount(fetchedMax);
-      } catch (error) {
-        console.error("Error fetching max column count:", error);
-      }
-    };
-
-    fetchFilterValues();
-  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);

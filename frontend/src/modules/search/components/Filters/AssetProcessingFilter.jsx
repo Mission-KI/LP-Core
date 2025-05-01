@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getFilterValues } from "../../../common/api/elastic";
 import { useTranslation } from "react-i18next";
 import { Dropdown, FormGroup } from "react-bootstrap";
 import { ChevronDown } from "react-bootstrap-icons";
 const paramName = "assetProcessingStatus";
 
-export const AssetProcessingFilter = () => {
-  const [assetProcessingStatuses, setAssetProcessingStatuses] = useState([]);
+export const AssetProcessingFilter = ({ assetProcessingStatuses }) => {
   const [selected, setSelected] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,20 +17,6 @@ export const AssetProcessingFilter = () => {
     const selectedParams = params.getAll(paramName);
     setSelected(selectedParams);
   }, [location.search]);
-
-  useEffect(() => {
-    const fetchFilterValues = async () => {
-      try {
-        const response = await getFilterValues();
-        const buckets =
-          response?.aggregations?.distinct_assetProcessingStatus?.buckets || [];
-        setAssetProcessingStatuses(buckets);
-      } catch (error) {
-        console.error("Error fetching assetProcessingStatuses:", error);
-      }
-    };
-    fetchFilterValues();
-  }, []);
 
   const handleToggle = (value) => {
     const params = new URLSearchParams(location.search);

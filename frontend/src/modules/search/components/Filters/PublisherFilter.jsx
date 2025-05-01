@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getFilterValues } from "../../../common/api/elastic";
 import { useTranslation } from "react-i18next";
 import { Dropdown, FormGroup } from "react-bootstrap";
 import { ChevronDown } from "react-bootstrap-icons";
 const paramName = "publisher.name";
 
-export const PublisherFilter = () => {
-  const [publishers, setPublishers] = useState([]);
+export const PublisherFilter = ({ publishers }) => {
   const [selected, setSelected] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,21 +17,6 @@ export const PublisherFilter = () => {
     const selectedParams = params.getAll(paramName);
     setSelected(selectedParams);
   }, [location.search]);
-
-  useEffect(() => {
-    const fetchFilterValues = async () => {
-      try {
-        const response = await getFilterValues();
-        const buckets =
-          response?.aggregations?.nested_asset_refs?.distinct_publisher_names
-            ?.buckets || [];
-        setPublishers(buckets);
-      } catch (error) {
-        console.error("Error fetching publishers:", error);
-      }
-    };
-    fetchFilterValues();
-  }, []);
 
   const handleToggle = (value) => {
     const params = new URLSearchParams(location.search);

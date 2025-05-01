@@ -1,30 +1,14 @@
 import { FormGroup } from "react-bootstrap";
 import Slider from "rc-slider";
 import { useEffect, useState } from "react";
-import { getFilterValues } from "../../../common/api/elastic";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const LinesFilter = () => {
-  const [maxRowCount, setMaxRowCount] = useState(0);
+export const LinesFilter = ({ maxRowCount }) => {
   const [range, setRange] = useState([0, 0]);
   const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchFilterValues = async () => {
-      try {
-        const response = await getFilterValues();
-        const fetchedMax = response?.aggregations?.max_row_count?.value || 0;
-        setMaxRowCount(fetchedMax);
-      } catch (error) {
-        console.error("Error fetching max row count:", error);
-      }
-    };
-
-    fetchFilterValues();
-  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);

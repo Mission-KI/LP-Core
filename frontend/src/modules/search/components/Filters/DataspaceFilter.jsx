@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getFilterValues } from "../../../common/api/elastic";
 import { useTranslation } from "react-i18next";
 import { Dropdown, FormGroup } from "react-bootstrap";
 import { ChevronDown } from "react-bootstrap-icons";
 const paramName = "dataSpace.name";
 
-export const DataspaceFilter = () => {
-  const [dataSpaces, setDataSpaces] = useState([]);
+export const DataspaceFilter = ({ dataSpaces }) => {
   const [selected, setSelected] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -20,38 +18,18 @@ export const DataspaceFilter = () => {
     setSelected(selectedParams);
   }, [location.search]);
 
-  useEffect(() => {
-    const fetchFilterValues = async () => {
-      try {
-        const response = await getFilterValues();
-        const buckets =
-          response?.aggregations?.nested_asset_refs?.distinct_dataSpace_names
-            ?.buckets || [];
-        setDataSpaces(buckets);
-      } catch (error) {
-        console.error("Error fetching dataSpaces:", error);
-      }
-    };
-    fetchFilterValues();
-  }, []);
-
-  // Toggle selection
   const handleToggle = (value) => {
     const params = new URLSearchParams(location.search);
     const currentValues = params.getAll(paramName);
 
     let newValues;
     if (currentValues.includes(value)) {
-      // Remove
       newValues = currentValues.filter((v) => v !== value);
     } else {
-      // Add
       newValues = [...currentValues, value];
     }
 
-    // Clear existing dataSpace.name entries
     params.delete(paramName);
-    // Add updated list
     newValues.forEach((val) => params.append(paramName, val));
 
     navigate(`${location.pathname}?${params.toString()}`);

@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getFilterValues } from "../../../common/api/elastic";
 import { useTranslation } from "react-i18next";
 import { Dropdown, FormGroup } from "react-bootstrap";
 import { ChevronDown } from "react-bootstrap-icons";
 const paramName = "license.name";
 
-export const LicenseFilter = () => {
-  const [licenses, setLicenses] = useState([]);
+export const LicenseFilter = ({ licenses }) => {
   const [selected, setSelected] = useState([]);
   const location = useLocation();
   const navigate = useNavigate();
@@ -19,21 +17,6 @@ export const LicenseFilter = () => {
     const selectedParams = params.getAll(paramName);
     setSelected(selectedParams);
   }, [location.search]);
-
-  useEffect(() => {
-    const fetchFilterValues = async () => {
-      try {
-        const response = await getFilterValues();
-        const buckets =
-          response?.aggregations?.nested_asset_refs?.distinct_license_names
-            ?.buckets || [];
-        setLicenses(buckets);
-      } catch (error) {
-        console.error("Error fetching licenses:", error);
-      }
-    };
-    fetchFilterValues();
-  }, []);
 
   const handleToggle = (value) => {
     const params = new URLSearchParams(location.search);
