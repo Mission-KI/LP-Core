@@ -12,7 +12,7 @@ export const ClearFiltersButton = () => {
 
   return (
     <div className="mt-2">
-      <button className="btn btn-contrast medium" onClick={handleClearFilters}>
+      <button className="btn btn-basic medium" onClick={handleClearFilters}>
         {t("filters.clear")}
       </button>
     </div>

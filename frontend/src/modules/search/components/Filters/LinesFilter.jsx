@@ -41,29 +41,24 @@ export const LinesFilter = () => {
   };
 
   return (
-    <FormGroup className="mb-2">
-      <div className="d-flex w-100">
-        <div className="col-md-6">
-          <label className="small mb-2">{t("filters.lines")}</label>
+    <FormGroup className="col-md-6 mb-2">
+      <div className="w-100">
+        <label className="small mb-2">{t("filters.lines")}</label>
 
-          <div
-            className="d-flex flex-column w-100"
-            style={{ padding: "0 4px" }}
-          >
-            <Slider
-              range
-              className="w-100"
-              min={0}
-              max={maxRowCount}
-              value={range}
-              allowCross={false}
-              onChange={(newRange) => setRange(newRange)}
-              onChangeComplete={handleAfterChange}
-            />
-            <div className="d-flex justify-content-between mt-2">
-              <span className="small txt-lighter">{range[0]}</span>
-              <span className="small txt-lighter">{range[1]}</span>
-            </div>
+        <div className="d-flex flex-column w-100" style={{ padding: "0 4px" }}>
+          <Slider
+            range
+            className="w-100"
+            min={0}
+            max={maxRowCount}
+            value={range}
+            allowCross={false}
+            onChange={(newRange) => setRange(newRange)}
+            onChangeComplete={handleAfterChange}
+          />
+          <div className="d-flex justify-content-between mt-2">
+            <span className="small txt-lighter">{range[0]}</span>
+            <span className="small txt-lighter">{range[1]}</span>
           </div>
         </div>
       </div>

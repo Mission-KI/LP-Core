@@ -865,5 +865,5 @@ input:checked + .slider:before {
 }
 
 .transition-chevron.rotate {
-  transform: rotate(90deg);
+  transform: rotate(-180deg);
 }

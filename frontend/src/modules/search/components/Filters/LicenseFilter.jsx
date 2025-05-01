@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getFilterValues } from "../../../common/api/elastic";
 import { useTranslation } from "react-i18next";
 import { Dropdown, FormGroup } from "react-bootstrap";
-import { ChevronRight } from "react-bootstrap-icons";
+import { ChevronDown } from "react-bootstrap-icons";
 const paramName = "license.name";
 
 export const LicenseFilter = () => {
@@ -61,7 +61,7 @@ export const LicenseFilter = () => {
             className="small px-0 txt-regular text-decoration-none"
           >
             {t("filters.license")}
-            <ChevronRight
+            <ChevronDown
               className={`small ms-2 transition-chevron ${open ? "rotate" : ""}`}
             />
           </Dropdown.Toggle>

@@ -1,6 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import { useFilterSections } from "../../../common/utils/filter_utils";
-import { FormGroup } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import "rc-slider/assets/index.css";
 import styles from "./Filters.module.css";
@@ -16,12 +14,11 @@ import { LinesFilter } from "./LinesFilter";
 import { ColumnsFilter } from "./ColumnsFilter";
 import { FileSizeFilter } from "./FileSizeFilter";
 import { ClearFiltersButton } from "./ClearFiltersButton";
+import { ProcessingStatusFilters } from "./ProcessingStatusFilters";
 
-function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
-  const { filterSections, loading } = useFilterSections();
+function Filters({ filtersDropdownVisible }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const dropdownRef = useRef(null);
 
   const getQueryParams = useCallback(() => {
     const params = new URLSearchParams(location.search);
@@ -34,8 +31,6 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
     });
     return queryObj;
   }, [location.search]);
-
-  const [checkedOptions, setCheckedOptions] = useState({});
 
   const removeFilter = (key) => {
     const params = new URLSearchParams(location.search);
@@ -51,70 +46,8 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
     setSelectedFilters(queryParams);
   }, [location.search, getQueryParams]);
 
-  const updateQueryParams = (name, value, checked) => {
-    const params = new URLSearchParams(location.search);
-
-    params.delete("page");
-
-    if (checked) {
-      params.append(name, value);
-    } else {
-      const allValues = params.getAll(name);
-      params.delete(name);
-      allValues
-        .filter((v) => v !== value)
-        .forEach((v) => params.append(name, v));
-    }
-
-    navigate(`/?${params.toString()}`, { replace: true });
-  };
-
-  const handleCheckboxChange = (filter) => {
-    const isChecked = !checkedOptions[filter.label];
-    setCheckedOptions((prev) => ({
-      ...prev,
-      [filter.label]: isChecked,
-    }));
-    updateQueryParams(filter.name, filter.value, isChecked);
-  };
-
-  const handleClickOutside = useCallback(
-    (event) => {
-      if (
-        filtersDropdownVisible &&
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target)
-      ) {
-        setFiltersDropdownVisible(false);
-      }
-    },
-    [filtersDropdownVisible, setFiltersDropdownVisible, dropdownRef]
-  );
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [handleClickOutside]);
-
-  let filteredFilterSections = filterSections;
-
   const urlParams = new URLSearchParams(location.search);
   const dataTypes = urlParams.getAll("dataType");
-
-  if (dataTypes.length > 0) {
-    filteredFilterSections = filterSections.filter(
-      (section) =>
-        section.forDataType === null || dataTypes.includes(section.forDataType)
-    );
-  } else {
-    filteredFilterSections = filterSections;
-  }
-  if (loading) {
-    return "";
-  }
 
   return (
     <div>
@@ -149,45 +82,15 @@ function Filters({ filtersDropdownVisible, setFiltersDropdownVisible }) {
           <LicenseFilter />
           <DataFormatFilter />
           <AccessFilter />
-          <LinesFilter />
-          <ColumnsFilter />
+          {dataTypes.length == 0 || dataTypes.includes("structured") ? (
+            <div className="row">
+              <LinesFilter />
+              <ColumnsFilter />
+            </div>
+          ) : null}
           <FileSizeFilter />
-
-          {filteredFilterSections?.map((filterSection, key) => (
-            <FormGroup
-              key={key}
-              className={`mb-2 ${
-                filterSection.type === "single_icon"
-                    ? "col-1"
-                    : ""
-              }`}
-            >
-              <div className="d-flex align-items-center py-1 position-relative h-100">
-                {filterSection.type == "single_icon" ? (
-                  <div>
-                    {filterSection.filters.map((filter, key) => (
-                      <button
-                        key={key}
-                        type="button"
-                        className={`btn ps-0 ${checkedOptions[filter.label] ? "txt-primary bold" : "txt-lighter"}`}
-                        id={`checkbox-${filter.value}`}
-                        name={filter.name}
-                        value={filter.value}
-                        checked={checkedOptions[filter.label] || false}
-                        onClick={() => handleCheckboxChange(filter)}
-                        autoComplete="off"
-                      >
-                        {filter.icon}
-                      </button>
-                    ))}
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-            </FormGroup>
-          ))}
-         <ClearFiltersButton />
+          <ProcessingStatusFilters />
+          <ClearFiltersButton />
         </div>
       </div>
     </div>
