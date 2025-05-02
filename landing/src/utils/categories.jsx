@@ -56,7 +56,7 @@ export const useCategories = () => {
         amount_of_assets:
           getAssetCount("BASt", "GovData") +
           getAssetCount(
-            "NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH ",
+            "NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH",
             "Mobility Data Space",
           ) +
           getAssetCount("Toll Collect GmbH", "mobilithek") +
@@ -85,12 +85,12 @@ export const useCategories = () => {
             image: mobility,
             amount_of_publishers: 1,
             amount_of_assets: getAssetCount(
-              "NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH ",
+              "NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH",
               "Mobility Data Space",
             ),
             dataspace_filters: ["Mobility Data Space"],
             publisher_filters: [
-              "NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH ",
+              "NVBW - Nahverkehrsgesellschaft Baden-Württemberg mbH",
             ],
             is_publisher: false,
           },
