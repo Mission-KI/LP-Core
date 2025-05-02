@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { getEdp } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import PageNotFound from "../../../common/pages/PageNotFound";
@@ -8,6 +8,7 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import EDPInfoSection from "../../components/EDPInfoSection";
 import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
 import { SimilarEdps } from "../../components/SimilarEdps";
+import classNames from "classnames";
 
 function Details() {
   const { id } = useParams();
@@ -16,6 +17,10 @@ function Details() {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const fromSearch = location.state?.fromSearch;
+  const canGoBack = fromSearch?.pathname === "/";
 
   useEffect(() => {
     const fetchEdp = async () => {
@@ -58,8 +63,17 @@ function Details() {
   return (
     <>
       <span
-        onClick={() => navigate(-1)}
-        className="pointer d-flex align-items-center txt-lighter medium mt-4 pb-2"
+        onClick={() => {
+          if (canGoBack) navigate(fromSearch.pathname + fromSearch.search);
+        }}
+        style={{
+          opacity: canGoBack ? 1 : 0.7,
+          cursor: canGoBack ? "pointer" : "text",
+        }}
+        className={classNames(
+          "d-flex align-items-center txt-lighter medium mt-4 pb-2",
+          { "pointer-events-none": !canGoBack },
+        )}
       >
         <ArrowLeft className="me-2" />
         {t("header.return")}
