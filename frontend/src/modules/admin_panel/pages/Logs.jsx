@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../../common/contexts/AuthContext";
 import { toast } from "react-toastify";
 import JSONPretty from "react-json-pretty";
 import "react-json-pretty/themes/monikai.css";

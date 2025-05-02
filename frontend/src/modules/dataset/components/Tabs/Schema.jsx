@@ -1,7 +1,14 @@
-const Schema = ({ edp }) => {
+import JSONPretty from "react-json-pretty";
+import "react-json-pretty/themes/monikai.css";
+
+const Schema = ({ dataset }) => {
   return (
     <div>
-      <p>No data available for this table.</p>
+      <JSONPretty
+        id="json-pretty"
+        data={dataset?.jsonSchema}
+        style={{ overflow: "auto", maxHeight: "400px" }}
+      ></JSONPretty>
     </div>
   );
 };
