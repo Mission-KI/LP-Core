@@ -27,6 +27,9 @@ const DatasetTabs = ({ edp, datasetRef }) => {
   const doesDatasetHaveChildren = datasetHasChildren(edp, datasetRef);
   const isDocumentDataset = datasetRef.includes("#/documentDatasets");
   const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
+  const isSemiStructuredDataset = datasetRef.includes(
+    "#/semiStructuredDatasets",
+  );
   const isVideoDataset = datasetRef.includes("#/videoDatasets");
   const isAudioDataset = datasetRef.includes("#/audioDatasets");
   const isUnstructuredDataset = datasetRef.includes(
@@ -128,10 +131,14 @@ const DatasetTabs = ({ edp, datasetRef }) => {
             title: t("dataset.tabs.dataSeasonality"),
             component: <DataSeasonality edp={edp} />,
           },
+        ]
+      : []),
+    ...(isSemiStructuredDataset
+      ? [
           {
             eventKey: "schema",
             title: "Schema",
-            component: <Schema edp={edp} />,
+            component: <Schema dataset={dataset} />,
           },
         ]
       : []),
