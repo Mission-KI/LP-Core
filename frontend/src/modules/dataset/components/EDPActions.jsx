@@ -31,6 +31,7 @@ const EDPActions = ({ edp }) => {
             <Link
               data-test-id="quick-view-details-link"
               to={`/details/${edp._id}`}
+              state={{ fromSearch: location }}
               className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
               <Link45deg className="me-2" /> {t("dataset.details")}

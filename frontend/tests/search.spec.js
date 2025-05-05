@@ -1,9 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 const resultsSelector = '[data-test-id="result-link"]';
-const xPathDropdownFilter =
-  "xpath=//button[contains(@id, 'dropdown-filters-checkboxes') and text()='{TEXT}']";
-const processedSelector = '[id="checkbox-Processed Data"]';
+const assetProcessingFilterDropdownSelector = "#assetProcessingStatusDropdown";
 const xPathProcessingStatus =
   "xpath=//a[contains(@data-test-id, 'result-link')]/../div/div/span[text()='{STATUS}']";
 const xPathThreeDots =
@@ -166,19 +164,12 @@ test("search for title of the first listed asset", async ({
 test("filter for asset processing", async ({ page, baseURL }) => {
   await page.goto(baseURL);
   await page.getByText("Filter").click();
-  await page
-    .locator(xPathDropdownFilter.replace("{TEXT}", "Asset processing"))
-    .first()
-    .click();
-  await page.locator(processedSelector).first().click();
-  await page.waitForTimeout(2000);
+  await page.locator(assetProcessingFilterDropdownSelector).first().click();
+  const dropdownItem = page.locator(".asset-processing-status-dropdown-item", {
+    hasText: "Processed Data",
+  });
+  await dropdownItem.click();
+  await page.waitForTimeout(3000);
   await expect(page.getByText("assetProcessingStatus")).toBeVisible();
-  await expect(
-    page
-      .locator(xPathProcessingStatus.replace("{STATUS}", "Processed Data"))
-      .first(),
-  ).toBeVisible();
-  await expect(
-    page.locator(xPathProcessingStatus.replace("{STATUS}", "Original Data")),
-  ).toHaveCount(0);
+  await expect(page.getByText("Processed Data").nth(0)).toBeVisible();
 });

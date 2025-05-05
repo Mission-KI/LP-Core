@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./Results.module.css";
 import QuickView from "../QuickView/QuickView";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
@@ -10,13 +10,18 @@ import { useBookmarks } from "../../../bookmarks/contexts/BookmarksContext";
 
 function ResultItemCard({ edp }) {
   const { isBookmarked } = useBookmarks();
+  const location = useLocation();
 
   return (
     <div className="col-md-4 pb-4">
       <Card className="h-100 border">
         <Card.Body>
           <div className="d-flex align-items-center">
-            <Link to={`/details/${edp._id}`} className={styles.title}>
+            <Link
+              to={`/details/${edp._id}`}
+              className={styles.title}
+              state={{ fromSearch: location }}
+            >
               {truncateString(edp._source.name, 25)}
             </Link>
             <div className="ps-2">

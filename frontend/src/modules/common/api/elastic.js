@@ -331,6 +331,12 @@ export const getFilterValues = async () => {
             size: 10000,
           },
         },
+        distinct_assetProcessingStatus: {
+          terms: {
+            field: "assetProcessingStatus.keyword",
+            size: 10000,
+          },
+        },
       },
     };
 

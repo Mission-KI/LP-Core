@@ -1,7 +1,7 @@
 import { StarFill } from "react-bootstrap-icons";
 import QualityMetrics from "./QualityMetrics";
 import QuickView from "../QuickView/QuickView";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./Results.module.css";
 import { truncateString } from "../../../common/utils/format_utils";
 import { filesize } from "filesize";
@@ -13,6 +13,7 @@ import { useBookmarks } from "../../../bookmarks/contexts/BookmarksContext";
 const ParentNodeView = ({ edp }) => {
   const { t } = useTranslation();
   const { isBookmarked } = useBookmarks();
+  const location = useLocation();
 
   return (
     <div className="d-flex justify-content-between">
@@ -20,6 +21,7 @@ const ParentNodeView = ({ edp }) => {
         <div className="d-flex align-items-center flex-wrap">
           <Link
             to={`/details/${edp._id}`}
+            state={{ fromSearch: location }}
             className={styles.title}
             data-test-id="result-link"
           >

@@ -163,6 +163,7 @@ const QualityMetrics = ({ edp }) => {
                       ? "KI/ML generierte Ergebnisdatensätze"
                       : "Unbekannter Datenstatus"}
             </span>,
+            "/data-formats-and-analysis#asset-properties-general",
           )}
         >
           <span
