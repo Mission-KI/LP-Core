@@ -50,7 +50,10 @@ const HeroSection = () => {
           className="btn rounded-lg px-0 me-3 mb-1"
         >
           <span className="medium txt-lighter">
-            {t("header.filters")} <ChevronDown className="small ms-1" />
+            {t("header.filters")}{" "}
+            <ChevronDown
+              className={`small ms-1 transition-chevron ${filtersDropdownVisible ? "rotate" : ""}`}
+            />
           </span>
         </button>
         <Sorting />
