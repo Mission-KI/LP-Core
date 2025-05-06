@@ -95,7 +95,15 @@ export const Logs = () => {
             {logs?.results?.map((log) => (
               <tr key={log.id}>
                 <td>{log.requested_url}</td>
-                <td>{log.status}</td>
+                <td>
+                  <span
+                    className={`badge ${
+                      log.status === "success" ? "bgc-success" : "bgc-danger"
+                    }`}
+                  >
+                    {log.status}
+                  </span>
+                </td>
                 <td>{log.type}</td>
                 <td>{log.message}</td>
                 <td>
