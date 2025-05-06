@@ -1,4 +1,4 @@
-import { FormGroup } from "react-bootstrap";
+import { FormGroup, FormControl } from "react-bootstrap";
 import Slider from "rc-slider";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,15 +24,44 @@ export const ColumnsFilter = ({ maxColumnCount }) => {
     navigate(`${location.pathname}?${params.toString()}`);
   };
 
+  const handleInputChange = (index, value) => {
+    const newValue = parseInt(value);
+    if (isNaN(newValue)) return;
+
+    const updatedRange = [...range];
+    updatedRange[index] = newValue;
+
+    // Prevent crossing
+    if (index === 0 && newValue > range[1]) updatedRange[0] = range[1];
+    if (index === 1 && newValue < range[0]) updatedRange[1] = range[0];
+
+    // Clamp to bounds
+    updatedRange[0] = Math.max(0, Math.min(updatedRange[0], maxColumnCount));
+    updatedRange[1] = Math.max(0, Math.min(updatedRange[1], maxColumnCount));
+
+    setRange(updatedRange);
+    handleAfterChange(updatedRange);
+  };
+
   return (
-    <FormGroup className="col-md-6 mb-2">
+    <FormGroup className="col-md-12 mb-2">
       <div className="w-100">
         <label className="small mb-2">{t("filters.columns")}</label>
-
-        <div className="d-flex flex-column w-100" style={{ padding: "0 4px" }}>
+        <div
+          className="d-flex align-items-center w-100"
+          style={{ padding: "0 4px" }}
+        >
+          <FormControl
+            type="number"
+            value={range[0]}
+            onChange={(e) => handleInputChange(0, e.target.value)}
+            style={{ width: "min-content", marginRight: "8px" }}
+            min={0}
+            max={range[1]}
+          />
           <Slider
             range
-            className="w-100"
+            className="flex-grow-1"
             min={0}
             max={maxColumnCount}
             value={range}
@@ -40,10 +69,14 @@ export const ColumnsFilter = ({ maxColumnCount }) => {
             onChange={(newRange) => setRange(newRange)}
             onChangeComplete={handleAfterChange}
           />
-          <div className="d-flex justify-content-between mt-2">
-            <span className="small txt-lighter">{range[0]}</span>
-            <span className="small txt-lighter">{range[1]}</span>
-          </div>
+          <FormControl
+            type="number"
+            value={range[1]}
+            onChange={(e) => handleInputChange(1, e.target.value)}
+            style={{ width: "fit-content", marginLeft: "8px" }}
+            min={range[0]}
+            max={maxColumnCount}
+          />
         </div>
       </div>
     </FormGroup>
