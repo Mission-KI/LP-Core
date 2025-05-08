@@ -12,6 +12,7 @@ services:
       interval: 10s
       timeout: 15s
       retries: 10
+    restart: always
 
   backend:
     build:
@@ -31,6 +32,7 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    restart: always
 
   frontend:
     build:
@@ -46,6 +48,7 @@ services:
     volumes:
       - "./frontend:/app"
       - "/app/node_modules"
+    restart: always
 
   landing:
     build:
@@ -61,6 +64,7 @@ services:
     volumes:
       - "./landing:/landing"
       - "/landing/node_modules"
+    restart: always
 
   nautilus:
     image: docker.io/beebucket/nautilus:latest
