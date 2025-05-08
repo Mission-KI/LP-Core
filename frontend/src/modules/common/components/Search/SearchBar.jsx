@@ -79,7 +79,7 @@ function SearchBar() {
 
   return (
     <form onSubmit={handleSubmit} className="d-flex w-100" ref={inputRef}>
-      <InputGroup className={styles.searchBarWrapper}>
+      <InputGroup className={`${styles.searchBarWrapper} shadow-sm`}>
         <Form.Control
           onChange={handleChange}
           onFocus={handleFocus}
