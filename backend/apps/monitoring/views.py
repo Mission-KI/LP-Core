@@ -8,6 +8,7 @@ from rest_framework.decorators import (
     permission_classes,
 )
 from rest_framework.exceptions import ValidationError
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -80,8 +81,15 @@ class MonitoringAnalyticsView(APIView):
             )
 
 
+class EventLogPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = "page_size"
+    max_page_size = 100
+
+
 class EventLogListView(APIView):
     permission_classes = [IsAuthenticated]
+    pagination_class = EventLogPagination
 
     @extend_schema(
         summary="Get Logs",
@@ -109,8 +117,10 @@ class EventLogListView(APIView):
         if publisher:
             event_logs = event_logs.filter(metadata__assetRefs__0__publisher__name=publisher)
 
-        serializer = EventLogSerializer(event_logs, many=True)
-        return Response(serializer.data)
+        paginator = self.pagination_class()
+        paginated_logs = paginator.paginate_queryset(event_logs, request)
+        serializer = EventLogSerializer(paginated_logs, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
 
 @extend_schema(

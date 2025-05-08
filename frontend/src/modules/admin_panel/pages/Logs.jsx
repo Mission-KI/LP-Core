@@ -2,15 +2,25 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import JSONPretty from "react-json-pretty";
 import "react-json-pretty/themes/monikai.css";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { PageFilters } from "../components/PageFilters";
 import { getAnalytics } from "../../monitoring/api/analytics";
 import { getLogs } from "../../monitoring/api/logs";
+import Paginator from "../../common/components/widgets/Paginator";
 
 export const Logs = () => {
   const [logs, setLogs] = useState(null);
   const [analytics, setAnalytics] = useState(null);
   const [searchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const pageCount = Math.ceil(logs?.count / itemsPerPage) || 0;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const page = parseInt(searchParams.get("page")) || 1;
+    setCurrentPage(page);
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchAnalytics = async () => {
@@ -32,7 +42,8 @@ export const Logs = () => {
       try {
         const publisher = searchParams.get("publisher");
         const dataspace = searchParams.get("dataspace");
-        const fetchedLogs = await getLogs(dataspace, publisher);
+        const page = parseInt(searchParams.get("page")) || 1;
+        const fetchedLogs = await getLogs(dataspace, publisher, page);
         setLogs(fetchedLogs);
       } catch (error) {
         toast.error(error.message || "Failed to fetch.");
@@ -41,6 +52,15 @@ export const Logs = () => {
 
     fetchLogs();
   }, [searchParams]);
+
+  const handlePageChange = (selectedItem) => {
+    const newPage = selectedItem.selected + 1;
+    const updatedParams = new URLSearchParams(searchParams);
+
+    updatedParams.set("page", newPage);
+
+    navigate(`?${updatedParams.toString()}`);
+  };
 
   return (
     <>
@@ -72,10 +92,18 @@ export const Logs = () => {
             </tr>
           </thead>
           <tbody>
-            {logs?.map((log) => (
+            {logs?.results?.map((log) => (
               <tr key={log.id}>
                 <td>{log.requested_url}</td>
-                <td>{log.status}</td>
+                <td>
+                  <span
+                    className={`badge ${
+                      log.status === "success" ? "bgc-success" : "bgc-danger"
+                    }`}
+                  >
+                    {log.status}
+                  </span>
+                </td>
                 <td>{log.type}</td>
                 <td>{log.message}</td>
                 <td>
@@ -97,6 +125,11 @@ export const Logs = () => {
           </tbody>
         </table>
       </div>
+      <Paginator
+        pageCount={pageCount}
+        handlePageChange={handlePageChange}
+        currentPage={currentPage}
+      />
     </>
   );
 };
