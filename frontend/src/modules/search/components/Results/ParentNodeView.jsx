@@ -3,7 +3,10 @@ import QualityMetrics from "./QualityMetrics";
 import QuickView from "../QuickView/QuickView";
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Results.module.css";
-import { truncateString } from "../../../common/utils/format_utils";
+import {
+  stripHtmlTags,
+  truncateString,
+} from "../../../common/utils/format_utils";
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
@@ -14,6 +17,7 @@ const ParentNodeView = ({ edp }) => {
   const { t } = useTranslation();
   const { isBookmarked } = useBookmarks();
   const location = useLocation();
+  const description = stripHtmlTags(edp?._source?.description);
 
   return (
     <div className="d-flex justify-content-between">
@@ -41,9 +45,7 @@ const ParentNodeView = ({ edp }) => {
           </div>
         </div>
 
-        <p className={styles.description}>
-          {truncateString(edp._source.description, 350)}
-        </p>
+        <p className={styles.description}>{truncateString(description, 350)}</p>
 
         <div className="d-flex mt-3 flex-wrap">
           <a

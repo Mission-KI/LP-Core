@@ -4,13 +4,17 @@ import QuickView from "../QuickView/QuickView";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
 import { StarFill } from "react-bootstrap-icons";
 import { Card } from "react-bootstrap";
-import { truncateString } from "../../../common/utils/format_utils";
+import {
+  stripHtmlTags,
+  truncateString,
+} from "../../../common/utils/format_utils";
 import QualityMetrics from "./QualityMetrics";
 import { useBookmarks } from "../../../bookmarks/contexts/BookmarksContext";
 
 function ResultItemCard({ edp }) {
   const { isBookmarked } = useBookmarks();
   const location = useLocation();
+  const description = stripHtmlTags(edp?._source?.description);
 
   return (
     <div className="col-md-4 pb-4">
@@ -41,8 +45,8 @@ function ResultItemCard({ edp }) {
             className="medium pt-1 txt-lighter overflow-hidden"
             style={{ height: 68 }}
           >
-            {edp._source.description ? (
-              <>{truncateString(edp._source.description, 70)}</>
+            {description ? (
+              <>{truncateString(description, 70)}</>
             ) : (
               "No description provided"
             )}
