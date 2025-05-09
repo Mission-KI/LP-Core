@@ -14,6 +14,8 @@ function AttributeIntegrity({ edp }) {
       responsive: true,
     });
 
+    $(".dt-search input").attr("placeholder", "Search attributes...");
+
     return () => {
       table.destroy();
     };
