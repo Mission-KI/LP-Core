@@ -6,21 +6,21 @@ const AdditionalArchiveAttributes = ({ dataset, edp }) => {
 
   return (
     <>
-      <div className="col-6">
-        <p className="small mb-1 fw-500 text-uppercase">
+      <div className="col-6 pb-0">
+        <p className="small mb-0 lh-2 text-uppercase">
           {t("dataset.compression")}
         </p>
       </div>
-      <div className="col-6">
-        <p className="small mb-1">{dataset?.algorithm}</p>
+      <div className="col-6 pb-0">
+        <p className="small mb-0 lh-2">{dataset?.algorithm}</p>
       </div>
-      <div className="col-6">
-        <p className="small mb-1 fw-500 text-uppercase">
+      <div className="col-6 pb-0">
+        <p className="small mb-0 lh-2 text-uppercase">
           {t("dataset.uncompressedVolume")}
         </p>
       </div>
-      <div className="col-6">
-        <p className="small mb-1">{filesize(dataset?.extractedSize)}</p>
+      <div className="col-6 pb-0">
+        <p className="small mb-0 lh-2">{filesize(dataset?.extractedSize)}</p>
       </div>
     </>
   );

@@ -872,3 +872,7 @@ input:checked + .slider:before {
 .transition-chevron.rotate {
   transform: rotate(-180deg);
 }
+
+.lh-2 {
+  line-height: 2 !important;
+}
