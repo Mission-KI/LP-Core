@@ -118,7 +118,9 @@ const AdditionalStructuredDataAttributes = ({ edp }) => {
       </div>
 
       <div className="col-6 pb-0">
-        <p className="small mb-0 lh-2">{getStringValueDistributionOverview(edp)}</p>
+        <p className="small mb-0 lh-2">
+          {getStringValueDistributionOverview(edp)}
+        </p>
       </div>
       <div className="col-6 pb-0">
         <p

@@ -39,9 +39,7 @@ const GeneralEdpScienceOverview = ({ datasetTreeItem, edp }) => {
         </p>
       </div>
       <div className="col-6 pb-0">
-        <p className="small mb-0 lh-2 text-uppercase">
-          {t("dataset.volume")}
-        </p>
+        <p className="small mb-0 lh-2 text-uppercase">{t("dataset.volume")}</p>
       </div>
       <div className="col-6 pb-0">
         <p className="small mb-0 lh-2">{filesize(edp?._source?.volume)}</p>
