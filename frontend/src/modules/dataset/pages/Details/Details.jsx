@@ -8,7 +8,7 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import EDPInfoSection from "../../components/EDPInfoSection";
 import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
 import { SimilarEdps } from "../../components/SimilarEdps";
-import classNames from "classnames";
+import { resolveDataset } from "../../utils/edp_utils";
 
 function Details() {
   const { id } = useParams();
@@ -60,6 +60,10 @@ function Details() {
   if (!edp) {
     return <PageNotFound />;
   }
+
+  const datasetRef = edp?._source?.datasetTree[0]?.dataset?.$ref;
+  const dataset = resolveDataset(edp, datasetRef);
+
   return (
     <>
       <span
@@ -76,10 +80,11 @@ function Details() {
         {t("header.return")}
       </span>
 
-      <EDPInfoSection edp={edp} />
+      <EDPInfoSection edp={edp} datasetRef={datasetRef} dataset={dataset} />
       <DatasetAnalyticsSection
         edp={edp}
-        datasetRef={edp?._source?.datasetTree[0]?.dataset?.$ref}
+        datasetRef={datasetRef}
+        dataset={dataset}
       />
       <SimilarEdps />
     </>

@@ -5,8 +5,9 @@ import { useLocation } from "react-router-dom";
 import { notifyEdpDownloadEvent } from "../api/dataset";
 import { apiUrl, imageBasePath } from "../../common/api/config";
 import { useBookmarks } from "../../bookmarks/contexts/BookmarksContext";
+import { datasetHasChildren } from "../utils/edp_utils";
 
-const EDPActions = ({ edp }) => {
+const EDPActions = ({ edp, datasetRef, dataset, node }) => {
   const { addBookmark, removeBookmark, isBookmarked } = useBookmarks();
   const { t } = useTranslation();
   const location = useLocation();
@@ -17,6 +18,13 @@ const EDPActions = ({ edp }) => {
   const downloadUrl = assetUrl.startsWith("http")
     ? assetUrl
     : imageBasePath + edp?._id + "/" + edp?._source?.assetRefs[0].assetUrl;
+
+  const isParentNode = node?.parent == null;
+
+  let detailsUrl = `/details/${edp._id}`;
+  if (!isParentNode) {
+    detailsUrl += `/${encodeURIComponent(node?.name)}`;
+  }
 
   const handleDownload = async () => {
     window.open(downloadUrl, "_blank");
@@ -30,7 +38,7 @@ const EDPActions = ({ edp }) => {
           <div className="pe-2 pt-1">
             <Link
               data-test-id="quick-view-details-link"
-              to={`/details/${edp._id}`}
+              to={detailsUrl}
               state={{ fromSearch: location }}
               className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
