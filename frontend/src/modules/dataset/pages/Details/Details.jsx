@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "react-bootstrap-icons";
 import EDPInfoSection from "../../components/EDPInfoSection";
 import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
-import { SimilarEdps } from "../../components/SimilarEdps";
 import { resolveDataset } from "../../utils/edp_utils";
 
 function Details() {
@@ -65,7 +64,7 @@ function Details() {
   const dataset = resolveDataset(edp, datasetRef);
 
   return (
-    <>
+    <div className="mb-5 pb-3">
       <span
         onClick={() => {
           if (canGoBack) {
@@ -86,8 +85,7 @@ function Details() {
         datasetRef={datasetRef}
         dataset={dataset}
       />
-      <SimilarEdps />
-    </>
+    </div>
   );
 }
 
