@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getSimilarEdps } from "../../common/api/elastic";
 import { useTranslation } from "react-i18next";
-import ResultItemCard from "../../search/components/Results/ResultItemCard";
+import ResultItem from "../../search/components/Results/ResultItem";
 import { Spinner } from "react-bootstrap";
 
-export const SimilarEdps = () => {
+const FindSimilar = () => {
   const { id } = useParams();
   const [edps, setEdps] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -41,11 +41,13 @@ export const SimilarEdps = () => {
   return (
     <div className="py-5">
       <h2 className="bold my-3">{t("dataset.similarEdps")}</h2>
-      <div className="row">
+      <div className="col-md-9">
         {edps?.hits?.hits?.map((edp) => (
-          <ResultItemCard edp={edp} key={edp._id} />
+          <ResultItem edp={edp} key={edp._id} />
         ))}
       </div>
     </div>
   );
 };
+
+export default FindSimilar;
