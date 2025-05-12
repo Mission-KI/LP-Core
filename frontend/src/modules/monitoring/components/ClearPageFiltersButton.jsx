@@ -5,23 +5,35 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 export const ClearPageFiltersButton = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [paramsExist, setParamsExist] = useState(
-    searchParams.has("dataspace") || searchParams.has("publisher"),
-  );
+  const [paramsExist, setParamsExist] = useState(false);
 
   useEffect(() => {
     const checkParams = () => {
-      setParamsExist(
-        searchParams.has("dataspace") || searchParams.has("publisher"),
-      );
+      const keysToCheck = [
+        "dataspace",
+        "publisher",
+        "type",
+        "status",
+        "period_start",
+        "period_end",
+      ];
+      const hasAny = keysToCheck.some((key) => searchParams.has(key));
+      setParamsExist(hasAny);
     };
 
     checkParams();
   }, [searchParams]);
 
   const clearSelection = () => {
-    searchParams.delete("dataspace");
-    searchParams.delete("publisher");
+    const keysToClear = [
+      "dataspace",
+      "publisher",
+      "type",
+      "status",
+      "period_start",
+      "period_end",
+    ];
+    keysToClear.forEach((key) => searchParams.delete(key));
     navigate(`?${searchParams.toString()}`);
   };
 

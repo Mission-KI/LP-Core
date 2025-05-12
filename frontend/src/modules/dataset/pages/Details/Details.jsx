@@ -8,7 +8,7 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import EDPInfoSection from "../../components/EDPInfoSection";
 import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
 import { SimilarEdps } from "../../components/SimilarEdps";
-import classNames from "classnames";
+import { resolveDataset } from "../../utils/edp_utils";
 
 function Details() {
   const { id } = useParams();
@@ -60,29 +60,31 @@ function Details() {
   if (!edp) {
     return <PageNotFound />;
   }
+
+  const datasetRef = edp?._source?.datasetTree[0]?.dataset?.$ref;
+  const dataset = resolveDataset(edp, datasetRef);
+
   return (
     <>
       <span
         onClick={() => {
-          if (canGoBack) navigate(fromSearch.pathname + fromSearch.search);
+          if (canGoBack) {
+            navigate(fromSearch.pathname + fromSearch.search);
+          } else {
+            navigate("/");
+          }
         }}
-        style={{
-          opacity: canGoBack ? 1 : 0.7,
-          cursor: canGoBack ? "pointer" : "text",
-        }}
-        className={classNames(
-          "d-flex align-items-center txt-lighter medium mt-4 pb-2",
-          { "pointer-events-none": !canGoBack },
-        )}
+        className="d-flex align-items-center txt-lighter pointer medium mt-4 pb-2"
       >
         <ArrowLeft className="me-2" />
         {t("header.return")}
       </span>
 
-      <EDPInfoSection edp={edp} />
+      <EDPInfoSection edp={edp} datasetRef={datasetRef} dataset={dataset} />
       <DatasetAnalyticsSection
         edp={edp}
-        datasetRef={edp?._source?.datasetTree[0]?.dataset?.$ref}
+        datasetRef={datasetRef}
+        dataset={dataset}
       />
       <SimilarEdps />
     </>

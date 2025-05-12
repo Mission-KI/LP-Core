@@ -7,6 +7,7 @@ import { PageFilters } from "../components/PageFilters";
 import { getAnalytics } from "../../monitoring/api/analytics";
 import { getLogs } from "../../monitoring/api/logs";
 import Paginator from "../../common/components/widgets/Paginator";
+import { LogFilters } from "../components/LogFilters";
 
 export const Logs = () => {
   const [logs, setLogs] = useState(null);
@@ -42,8 +43,20 @@ export const Logs = () => {
       try {
         const publisher = searchParams.get("publisher");
         const dataspace = searchParams.get("dataspace");
+        const type = searchParams.get("type");
+        const status = searchParams.get("status");
+        const period_start = searchParams.get("period_start");
+        const period_end = searchParams.get("period_end");
         const page = parseInt(searchParams.get("page")) || 1;
-        const fetchedLogs = await getLogs(dataspace, publisher, page);
+        const fetchedLogs = await getLogs(
+          dataspace,
+          publisher,
+          page,
+          type,
+          status,
+          period_start,
+          period_end,
+        );
         setLogs(fetchedLogs);
       } catch (error) {
         toast.error(error.message || "Failed to fetch.");
@@ -68,7 +81,7 @@ export const Logs = () => {
         <div>
           <h2 className="bold">Logs</h2>
         </div>
-        <PageFilters
+        <LogFilters
           dataspaces={analytics?.dataspaces}
           publishers={analytics?.publishers}
         />

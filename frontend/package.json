@@ -28,6 +28,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-custom-checkbox": "^3.2.0",
     "react-d3-cloud": "^1.0.6",
+    "react-datepicker": "^8.3.0",
     "react-dom": "^18.3.1",
     "react-i18next": "^15.0.2",
     "react-img-zoom": "^0.1.0",

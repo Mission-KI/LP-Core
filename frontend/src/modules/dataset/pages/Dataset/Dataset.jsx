@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
 import PageNotFound from "../../../common/pages/PageNotFound";
 import { getEdp } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
+import { useTranslation } from "react-i18next";
+import { ArrowLeft } from "react-bootstrap-icons";
 
 const Dataset = () => {
   const { id } = useParams();
@@ -13,6 +15,8 @@ const Dataset = () => {
   const datasetTree = edp?._source?.datasetTree;
   const dataset = datasetTree?.find((item) => item.name === datasetName);
   const datasetRef = dataset ? dataset.dataset["$ref"] : null;
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEdp = async () => {
@@ -46,6 +50,16 @@ const Dataset = () => {
 
   return (
     <div>
+      <span
+        onClick={() => {
+          navigate("/");
+        }}
+        className="d-flex align-items-center txt-lighter pointer medium mt-4 pb-2"
+      >
+        <ArrowLeft className="me-2" />
+        {t("header.return")}
+      </span>
+
       <h3 className="mt-4 bold">{datasetName}</h3>
 
       <DatasetAnalyticsSection edp={edp} datasetRef={datasetRef} />

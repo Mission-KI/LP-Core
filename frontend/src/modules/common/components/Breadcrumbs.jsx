@@ -1,7 +1,7 @@
 import { Breadcrumb } from "react-bootstrap";
 import { useLocation, Link } from "react-router-dom";
 
-const Breadcrumbs = () => {
+const Breadcrumbs = ({ edp = null }) => {
   const location = useLocation();
   const pathnames = location.pathname.split("/").filter((x) => x);
 
@@ -15,6 +15,11 @@ const Breadcrumbs = () => {
   return (
     <Breadcrumb>
       {pathnames.map((name, index) => {
+        let displayName = name;
+        if (pathnames[index - 1]?.toLowerCase() === "details" && edp) {
+          displayName = edp?._source.name;
+        }
+
         const routeTo = `/${pathnames.slice(0, index + 1).join("/")}`;
         const isLink = !nonLinkPaths.includes(name.toLowerCase());
 
@@ -25,7 +30,7 @@ const Breadcrumbs = () => {
             linkProps={isLink ? { to: routeTo } : undefined}
             className={!isLink ? "txt-lighter" : ""}
           >
-            {formatName(name)}
+            {formatName(displayName)}
           </Breadcrumb.Item>
         );
       })}

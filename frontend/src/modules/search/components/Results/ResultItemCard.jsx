@@ -4,14 +4,20 @@ import QuickView from "../QuickView/QuickView";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
 import { StarFill } from "react-bootstrap-icons";
 import { Card } from "react-bootstrap";
-import { truncateString } from "../../../common/utils/format_utils";
+import {
+  stripHtmlTags,
+  truncateString,
+} from "../../../common/utils/format_utils";
 import QualityMetrics from "./QualityMetrics";
 import { useBookmarks } from "../../../bookmarks/contexts/BookmarksContext";
+import { resolveDataset } from "../../../dataset/utils/edp_utils";
 
 function ResultItemCard({ edp }) {
   const { isBookmarked } = useBookmarks();
   const location = useLocation();
-
+  const description = stripHtmlTags(edp?._source?.description);
+  const datasetRef = edp?._source?.datasetTree[0]?.dataset?.$ref;
+  const dataset = resolveDataset(edp, datasetRef);
   return (
     <div className="col-md-4 pb-4">
       <Card className="h-100 border">
@@ -41,15 +47,19 @@ function ResultItemCard({ edp }) {
             className="medium pt-1 txt-lighter overflow-hidden"
             style={{ height: 68 }}
           >
-            {edp._source.description ? (
-              <>{truncateString(edp._source.description, 70)}</>
+            {description ? (
+              <>{truncateString(description, 70)}</>
             ) : (
               "No description provided"
             )}
           </p>
 
           <div className="pt-2">
-            <QualityMetrics edp={edp} />
+            <QualityMetrics
+              edp={edp}
+              datasetRef={datasetRef}
+              dataset={dataset}
+            />
           </div>
         </Card.Body>
       </Card>
