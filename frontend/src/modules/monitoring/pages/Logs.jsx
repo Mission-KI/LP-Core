@@ -6,8 +6,8 @@ import JSONPretty from "react-json-pretty";
 import "react-json-pretty/themes/monikai.css";
 import { getAnalytics } from "../api/analytics";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { PageFilters } from "../components/PageFilters";
 import Paginator from "../../common/components/widgets/Paginator";
+import { LogFilters } from "../components/LogFilters";
 
 export const Logs = () => {
   const { dataspaceName } = useAuth();
@@ -42,8 +42,20 @@ export const Logs = () => {
     const fetchLogs = async () => {
       try {
         const publisher = searchParams.get("publisher");
+        const type = searchParams.get("type");
+        const status = searchParams.get("status");
+        const period_start = searchParams.get("period_start");
+        const period_end = searchParams.get("period_end");
         const page = parseInt(searchParams.get("page")) || 1;
-        const fetchedLogs = await getLogs(dataspaceName, publisher, page);
+        const fetchedLogs = await getLogs(
+          dataspaceName,
+          publisher,
+          page,
+          type,
+          status,
+          period_start,
+          period_end,
+        );
         setLogs(fetchedLogs);
       } catch (error) {
         toast.error(error.message || "Failed to fetch.");
@@ -68,7 +80,7 @@ export const Logs = () => {
         <div>
           <h2 className="bold">Logs</h2>
         </div>
-        <PageFilters publishers={analytics?.publishers} />
+        <LogFilters publishers={analytics?.publishers} />
       </div>
 
       <p className="mb-5">

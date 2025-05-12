@@ -1,4 +1,5 @@
 from apps.monitoring.utils.logging import create_log
+from django.utils.dateparse import parse_datetime
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
@@ -99,6 +100,11 @@ class EventLogListView(APIView):
     def get(self, request):
         dataspace = request.query_params.get("dataspace")
         publisher = request.query_params.get("publisher")
+        status = request.query_params.get("status")
+        type = request.query_params.get("type")
+        period_start = request.query_params.get("period_start")
+        period_end = request.query_params.get("period_end")
+
         user = request.user
 
         if user.is_superuser:
@@ -116,6 +122,24 @@ class EventLogListView(APIView):
             event_logs = event_logs.filter(dataspace__name=dataspace)
         if publisher:
             event_logs = event_logs.filter(metadata__assetRefs__0__publisher__name=publisher)
+        if status:
+            event_logs = event_logs.filter(status=status)
+        if type:
+            event_logs = event_logs.filter(type=type)
+        if period_start:
+            try:
+                start_dt = parse_datetime(period_start)
+                if start_dt:
+                    event_logs = event_logs.filter(created_at__gte=start_dt)
+            except Exception:
+                raise ValidationError("Invalid format for 'period_start'. Use ISO 8601 format.")
+        if period_end:
+            try:
+                end_dt = parse_datetime(period_end)
+                if end_dt:
+                    event_logs = event_logs.filter(created_at__lte=end_dt)
+            except Exception:
+                raise ValidationError("Invalid format for 'period_end'. Use ISO 8601 format.")
 
         paginator = self.pagination_class()
         paginated_logs = paginator.paginate_queryset(event_logs, request)
