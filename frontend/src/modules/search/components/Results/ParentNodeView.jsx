@@ -18,6 +18,7 @@ const ParentNodeView = ({ edp, node }) => {
   const { t } = useTranslation();
   const { isBookmarked } = useBookmarks();
   const location = useLocation();
+  const name = stripHtmlTags(truncateString(edp._source.name, 165));
   const description = stripHtmlTags(edp?._source?.description);
   const datasetRef = edp?._source?.datasetTree[0]?.dataset?.$ref;
   const dataset = resolveDataset(edp, datasetRef);
@@ -32,7 +33,7 @@ const ParentNodeView = ({ edp, node }) => {
             className={styles.title}
             data-test-id="result-link"
           >
-            {truncateString(edp._source.name, 165)}
+            {name}
           </Link>
           <div className="ps-2 pe-4">
             <QuickView

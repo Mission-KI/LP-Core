@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 const EDPInfoSection = ({ edp, datasetRef, dataset }) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const { t } = useTranslation();
+  const name = stripHtmlTags(edp?._source?.name);
   const description = stripHtmlTags(edp?._source?.description);
 
   const toggleDescriptionExpanded = () => {
@@ -20,7 +21,7 @@ const EDPInfoSection = ({ edp, datasetRef, dataset }) => {
       <div className="d-flex justify-content-between mb-4">
         <div className="d-flex">
           <h2 className="bold d-block pe-3 mb-0" style={{ maxWidth: 600 }}>
-            {edp?._source?.name}
+            {name}
           </h2>
           <div className="pt-2">
             <QualityMetrics
