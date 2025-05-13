@@ -15,6 +15,7 @@ import { resolveDataset } from "../../../dataset/utils/edp_utils";
 function ResultItemCard({ edp }) {
   const { isBookmarked } = useBookmarks();
   const location = useLocation();
+  const name = stripHtmlTags(truncateString(edp._source.name, 25));
   const description = stripHtmlTags(edp?._source?.description);
   const datasetRef = edp?._source?.datasetTree[0]?.dataset?.$ref;
   const dataset = resolveDataset(edp, datasetRef);
@@ -28,7 +29,7 @@ function ResultItemCard({ edp }) {
               className={styles.title}
               state={{ fromSearch: location }}
             >
-              {truncateString(edp._source.name, 25)}
+              {name}
             </Link>
             <div className="ps-2">
               <QuickView edp={edp} />
