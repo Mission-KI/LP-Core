@@ -71,7 +71,18 @@ const FindSimilar = () => {
 
   return (
     <div className="py-5">
-      <h2 className="bold mb-3">{t("dataset.similarEdps")}</h2>
+      <h2 className="bold mb-5">{t("dataset.similarEdps")}</h2>
+
+      <span className="bold d-flex pe-4" style={{ whiteSpace: "nowrap" }}>
+        {edps.hits?.total?.value >= 10000
+          ? `> ${edps.hits.total.value.toLocaleString()}`
+          : edps.hits?.total?.value?.toLocaleString()}
+        &nbsp;
+        {edps.hits?.total?.value === 1
+          ? t("dataset.dataset")
+          : t("dataset.datasets")}
+      </span>
+
       <div className="col-md-9">
         {edps?.hits?.hits?.map((edp) => (
           <ResultItem edp={edp} key={edp._id} />
