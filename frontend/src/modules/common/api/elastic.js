@@ -383,9 +383,10 @@ export const getEdp = async (id) => {
   }
 };
 
-export const getSimilarEdps = async (id) => {
+export const getSimilarEdps = async (id, from = 0, size = 10) => {
   const query = {
-    size: 9,
+    from: from,
+    size: size,
     query: {
       more_like_this: {
         fields: ["name", "description"],

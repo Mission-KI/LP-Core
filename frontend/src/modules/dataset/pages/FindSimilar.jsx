@@ -1,21 +1,43 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { getSimilarEdps } from "../../common/api/elastic";
 import { useTranslation } from "react-i18next";
 import ResultItem from "../../search/components/Results/ResultItem";
 import { Spinner } from "react-bootstrap";
+import Paginator from "../../common/components/widgets/Paginator";
 
 const FindSimilar = () => {
   const { id } = useParams();
   const [edps, setEdps] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const resultsPerPage = 12;
+  const [searchParams, setSearchParams] = useState({});
+  const pageCount = Math.ceil(edps?.hits?.total?.value / resultsPerPage) || 0;
+  const [currentPage, setCurrentPage] = useState(1);
+  const location = useLocation();
+  const navigate = useNavigate();
   const { t } = useTranslation();
 
   useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const page = parseInt(queryParams.get("page")) || 1;
+    const params = {};
+    queryParams.forEach((value, key) => {
+      params[key] = value;
+    });
+
+    setCurrentPage(page);
+    setSearchParams(params);
+  }, [location]);
+
+  useEffect(() => {
+    setEdps([]);
     const fetchSimilarEdps = async () => {
       try {
-        const fetchedEdps = await getSimilarEdps(id);
+        const queryParams = new URLSearchParams(location.search);
+        const page = parseInt(queryParams.get("page")) || 1;
+        const from = (page - 1) * resultsPerPage;
+        const fetchedEdps = await getSimilarEdps(id, from, resultsPerPage);
         setEdps(fetchedEdps);
       } catch (error) {
         console.error("Error fetching :", error);
@@ -25,7 +47,16 @@ const FindSimilar = () => {
     };
 
     fetchSimilarEdps();
-  }, [id]);
+  }, [id, location.search]);
+
+  const handlePageChange = (selectedItem) => {
+    const newPage = selectedItem.selected + 1;
+    const updatedParams = new URLSearchParams(searchParams);
+
+    updatedParams.set("page", newPage);
+
+    navigate(`?${updatedParams.toString()}`);
+  };
 
   if (loading) {
     return (
@@ -40,11 +71,17 @@ const FindSimilar = () => {
 
   return (
     <div className="py-5">
-      <h2 className="bold my-3">{t("dataset.similarEdps")}</h2>
+      <h2 className="bold mb-3">{t("dataset.similarEdps")}</h2>
       <div className="col-md-9">
         {edps?.hits?.hits?.map((edp) => (
           <ResultItem edp={edp} key={edp._id} />
         ))}
+
+        <Paginator
+          pageCount={pageCount}
+          handlePageChange={handlePageChange}
+          currentPage={currentPage}
+        />
       </div>
     </div>
   );

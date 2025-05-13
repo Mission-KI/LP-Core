@@ -9,7 +9,7 @@ import Footer from "../../../common/components/Footer/Footer";
 import { useSettings } from "../../../common/contexts/SettingsContext";
 
 function Search() {
-  const [edps, setDatasets] = useState([]);
+  const [edps, setEdps] = useState([]);
   const [searchParams, setSearchParams] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 12;
@@ -33,7 +33,7 @@ function Search() {
   }, [location]);
 
   useEffect(() => {
-    setDatasets([]);
+    setEdps([]);
     const fetchDatasets = async () => {
       setLoading(true);
       try {
@@ -42,7 +42,7 @@ function Search() {
         const from = (page - 1) * resultsPerPage;
         const fetchedDatasets = await getEdps(from, resultsPerPage, expertMode);
 
-        setDatasets(fetchedDatasets);
+        setEdps(fetchedDatasets);
         setCurrentPage(page);
       } catch (error) {
         console.error("Error fetching edp's:", error);
