@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { UiChecksGrid, InfoSquare, LayoutSidebar } from "react-bootstrap-icons";
 
 function Sidebar() {
   const [sidebarActive, setSidebarActive] = useState(true);
-  const [currentPage, setCurrentPage] = useState(window.location.pathname);
+  const location = useLocation();
 
   useEffect(() => {
     function handleResize() {
@@ -28,13 +28,11 @@ function Sidebar() {
     );
   }, [sidebarActive]);
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
   const toggleSidebar = () => {
     setSidebarActive((prev) => !prev);
   };
+
+  const currentPage = location.pathname;
 
   return (
     <>
@@ -46,11 +44,7 @@ function Sidebar() {
             <li
               className={`nav-item px-2 rounded my-1 ${currentPage === "/monitoring/dashboard" ? "active" : ""}`}
             >
-              <Link
-                to="/monitoring/dashboard"
-                className="nav-link"
-                onClick={() => handlePageChange("/monitoring/dashboard")}
-              >
+              <Link to="/monitoring/dashboard" className="nav-link">
                 <UiChecksGrid />
                 <span className="ps-3 medium">Dashboard</span>
               </Link>
@@ -58,11 +52,7 @@ function Sidebar() {
             <li
               className={`nav-item px-2 rounded my-1 ${currentPage === "/monitoring/logs" ? "active" : ""}`}
             >
-              <Link
-                to="/monitoring/logs"
-                className="nav-link"
-                onClick={() => handlePageChange("/monitoring/logs")}
-              >
+              <Link to="/monitoring/logs" className="nav-link">
                 <InfoSquare />
                 <span className="ps-3 medium">Logs</span>
               </Link>
