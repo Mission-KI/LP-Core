@@ -873,6 +873,6 @@ input:checked + .slider:before {
   transform: rotate(-180deg);
 }
 
-.lh-2 {
-  line-height: 2 !important;
+.lh-sm {
+  line-height: 1.5 !important;
 }
