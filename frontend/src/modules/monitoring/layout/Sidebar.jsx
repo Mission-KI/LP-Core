@@ -1,10 +1,18 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { UiChecksGrid, InfoSquare, LayoutSidebar } from "react-bootstrap-icons";
 
 function Sidebar() {
   const [sidebarActive, setSidebarActive] = useState(true);
-  const location = useLocation();
+  const { pathname, search } = useLocation();
+
+  const queryParams = new URLSearchParams(search);
+  const publisher = queryParams.get("publisher");
+
+  const filteredParams = new URLSearchParams();
+  if (publisher) filteredParams.set("publisher", publisher);
+  const filteredQuery = filteredParams.toString();
+  const querySuffix = filteredQuery ? `?${filteredQuery}` : "";
 
   useEffect(() => {
     function handleResize() {
@@ -32,8 +40,6 @@ function Sidebar() {
     setSidebarActive((prev) => !prev);
   };
 
-  const currentPage = location.pathname;
-
   return (
     <>
       <nav id="sidebar" className={!sidebarActive ? "active" : ""}>
@@ -42,17 +48,24 @@ function Sidebar() {
 
           <div className="sidebar-link-group mt-5">
             <li
-              className={`nav-item px-2 rounded my-1 ${currentPage === "/monitoring/dashboard" ? "active" : ""}`}
+              className={`nav-item px-2 rounded my-1 ${
+                pathname === "/monitoring/dashboard" ? "active" : ""
+              }`}
             >
-              <Link to="/monitoring/dashboard" className="nav-link">
+              <Link
+                to={`/monitoring/dashboard${querySuffix}`}
+                className="nav-link"
+              >
                 <UiChecksGrid />
                 <span className="ps-3 medium">Dashboard</span>
               </Link>
             </li>
             <li
-              className={`nav-item px-2 rounded my-1 ${currentPage === "/monitoring/logs" ? "active" : ""}`}
+              className={`nav-item px-2 rounded my-1 ${
+                pathname === "/monitoring/logs" ? "active" : ""
+              }`}
             >
-              <Link to="/monitoring/logs" className="nav-link">
+              <Link to={`/monitoring/logs${querySuffix}`} className="nav-link">
                 <InfoSquare />
                 <span className="ps-3 medium">Logs</span>
               </Link>
@@ -64,7 +77,9 @@ function Sidebar() {
         onClick={toggleSidebar}
         id="sidebar-toggle-btn"
         style={{ top: "2rem", left: "1rem" }}
-        className={`btn btn-basic rounded position-fixed ${!sidebarActive ? "shadow" : ""}`}
+        className={`btn btn-basic rounded position-fixed ${
+          !sidebarActive ? "shadow" : ""
+        }`}
       >
         <LayoutSidebar className="h5 mb-0" />
       </button>
