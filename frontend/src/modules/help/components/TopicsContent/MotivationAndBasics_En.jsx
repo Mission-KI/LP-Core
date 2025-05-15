@@ -22,13 +22,15 @@ export const MotivationAndBasics_En = () => {
         gets in action. With the help of EDPS, data assets are analyzed as
         closely as possible and as close as necessary to the data provider for
         their analytical properties. These are then standardized and summarized
-        machine-readable in an Extended Dataset Profile (“EDP”). The EDP can be
-        flexibly customized with data providers and ontology specific metadata
-        such as a description, the processing status or data license terms.
-        After approval by the data provider, the EDP can then be published on
-        daseen and the data asset can be found across data portals and data
-        spaces using all metadata stored in the EDP. The actual asset always
-        remains with the provider.
+        machine-readable in an Extended Dataset Profile (“EDP”). In principle,
+        the EDP and the EDPS can be flexibly customized by data providers and
+        onthology specific metadata such as a description, the processing status
+        or data license terms. When interacting with daseen, however, it should
+        be noted that only EDP following an official EDP schema version are
+        supported in daseen. After approval by the data provider, the EDP can
+        then be published on daseen and the data asset can be found across data
+        portals and data spaces using all metadata stored in the EDP. The actual
+        asset always remains with the provider.
       </p>
       <p className="regular text-justify">
         To simplify access to the world of data, the EDP are pre-sorted
