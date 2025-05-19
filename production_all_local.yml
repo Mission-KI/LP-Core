@@ -66,15 +66,22 @@ services:
       - "/landing/node_modules"
     restart: always
 
-  nautilus:
-    image: docker.io/beebucket/nautilus:latest
-    ports:
-      - "4000:4000"
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.1
     env_file:
       - .env
     environment:
-      - NODE_ENV=development
+      - discovery.type=single-node
+    ports:
+      - "127.0.0.1:9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200 || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
 
   nginx:
     image: nginx:latest
@@ -93,6 +100,7 @@ services:
 volumes:
   frontend-build:
   postgres_data:
+  esdata:
 
 secrets:
   github_token:
