@@ -6,9 +6,27 @@ const EDPActions = ({ analytics }) => {
   const location = useLocation();
 
   const navigateToLogs = (type, status) => {
-    navigate(
-      `${location.pathname.includes("/monitoring") ? "/monitoring" : "/admin"}/logs?type=${type}&status=${status}`,
-    );
+    const searchParams = new URLSearchParams(location.search);
+    const publisher = searchParams.get("publisher");
+    const dataspace = searchParams.get("dataspace");
+
+    const newParams = new URLSearchParams({
+      type,
+      status,
+    });
+
+    if (publisher) {
+      newParams.set("publisher", publisher);
+    }
+
+    if (dataspace) {
+      newParams.set("dataspace", dataspace);
+    }
+
+    const basePath = location.pathname.includes("/monitoring")
+      ? "/monitoring"
+      : "/admin";
+    navigate(`${basePath}/logs?${newParams.toString()}`);
   };
 
   return (
