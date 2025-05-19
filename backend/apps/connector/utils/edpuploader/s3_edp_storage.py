@@ -22,6 +22,7 @@ class S3EDPStorage:
             s3_access_key_id=settings.S3_ACCESS_KEY_ID,
             s3_secret_access_key=settings.S3_SECRET_ACCESS_KEY,
             s3_bucket_name=settings.S3_BUCKET_NAME,
+            s3_endpoint_url=settings.S3_ENDPOINT_URL,
         )
 
     def __init__(self, config: S3Config):
@@ -29,6 +30,7 @@ class S3EDPStorage:
             "s3",
             aws_access_key_id=config.s3_access_key_id,
             aws_secret_access_key=config.s3_secret_access_key,
+            endpoint_url=config.s3_endpoint_url,
         )
         self._bucket = self._client.Bucket(config.s3_bucket_name)
 

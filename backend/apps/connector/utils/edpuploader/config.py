@@ -15,6 +15,7 @@ class S3Config:
     s3_access_key_id: str
     s3_secret_access_key: str
     s3_bucket_name: str
+    s3_endpoint_url: str | None = None
 
 
 @dataclass(frozen=True)
