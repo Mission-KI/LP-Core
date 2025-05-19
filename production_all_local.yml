@@ -1,0 +1,99 @@
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      interval: 10s
+      timeout: 15s
+      retries: 10
+    restart: always
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.prod
+      secrets:
+        - github_token
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-backend:${IMAGE_TAG:-latest}
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-frontend:${IMAGE_TAG:-latest}
+    env_file:
+      - .env
+    volumes:
+      - "./frontend:/app"
+      - "/app/node_modules"
+    restart: always
+
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile.prod
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-landing:${IMAGE_TAG:-latest}
+    env_file:
+      - .env
+    volumes:
+      - "./landing:/landing"
+      - "/landing/node_modules"
+    restart: always
+
+  nautilus:
+    image: docker.io/beebucket/nautilus:latest
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    depends_on:
+      - backend
+      - frontend
+      - landing
+    restart: always
+    ports:
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+
+volumes:
+  frontend-build:
+  postgres_data:
+
+secrets:
+  github_token:
+    environment: GITHUB_TOKEN
