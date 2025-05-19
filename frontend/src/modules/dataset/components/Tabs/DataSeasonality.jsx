@@ -45,13 +45,13 @@ function DataSeasonality({ edp }) {
         </div>
         <div className="d-flex align-items-center">
           <div className="pe-1">
-            <span className="small txt-lighter">Search attribute</span>
+            <span className="small txt-lighter">Search attributes</span>
           </div>
           <div>
             <input
               type="text"
-              className="form-control rounded-lg small"
-              placeholder="Search attribute name"
+              className="form-control rounded-lg small shadow-sm"
+              placeholder="Search attributes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />

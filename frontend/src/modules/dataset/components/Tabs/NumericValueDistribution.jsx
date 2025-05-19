@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import $ from "jquery";
@@ -6,6 +6,8 @@ import ImageView from "../../../common/components/ImageView/ImageView";
 import { imageBasePath } from "../../../common/api/config";
 
 function NumericValueDistribution({ edp }) {
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     const table = $("#distributionTable").DataTable({
       paging: false,
@@ -30,22 +32,52 @@ function NumericValueDistribution({ edp }) {
     >
       <Tab eventKey="graphics" title="Graphics">
         <div className="container">
+          <div className="dt-container dt-bootstrap5 dt-empty-footer mb-3">
+            <div className="row">
+              <div className="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto">
+                <div className="dt-search">
+                  <label for="dt-search-8">Search:</label>
+                  <input
+                    type="search"
+                    className="form-control form-control-sm"
+                    id="dt-search-8"
+                    placeholder="Search attributes..."
+                    aria-controls="anomalyTable"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="row">
-            {edp?._source?.structuredDatasets[0]?.numericColumns.map(
-              (column) =>
-                column.distributionGraph && (
-                  <div className="col-md-3 mb-3" key={column.name}>
-                    <ImageView
-                      url={
-                        imageBasePath +
-                        edp?._id +
-                        "/" +
-                        column.distributionGraph
-                      }
-                    />
-                  </div>
-                ),
-            )}
+            {edp?._source?.structuredDatasets[0]?.numericColumns
+              .filter((column) =>
+                column.name.toLowerCase().includes(searchQuery.toLowerCase()),
+              )
+              .map(
+                (column) =>
+                  column.distributionGraph && (
+                    <div
+                      className="col-md-3 mb-3 image-card"
+                      data-name={column.name}
+                      key={column.name}
+                    >
+                      <ImageView
+                        url={
+                          imageBasePath +
+                          edp?._id +
+                          "/" +
+                          column.distributionGraph
+                        }
+                      />
+                      <p className="small text-center txt-lighter">
+                        {column.name}
+                      </p>
+                    </div>
+                  ),
+              )}
           </div>
         </div>
       </Tab>

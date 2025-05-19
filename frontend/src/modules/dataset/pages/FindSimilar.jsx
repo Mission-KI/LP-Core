@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import ResultItem from "../../search/components/Results/ResultItem";
 import { Spinner } from "react-bootstrap";
 import Paginator from "../../common/components/widgets/Paginator";
+import SimilarEdpSearchBar from "../../common/components/Search/SimilarEdpSearchBar";
+import { useSettings } from "../../common/contexts/SettingsContext";
 
 const FindSimilar = () => {
   const { id } = useParams();
@@ -17,6 +19,7 @@ const FindSimilar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { expertMode } = useSettings();
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search);
@@ -37,7 +40,12 @@ const FindSimilar = () => {
         const queryParams = new URLSearchParams(location.search);
         const page = parseInt(queryParams.get("page")) || 1;
         const from = (page - 1) * resultsPerPage;
-        const fetchedEdps = await getSimilarEdps(id, from, resultsPerPage);
+        const fetchedEdps = await getSimilarEdps(
+          id,
+          from,
+          resultsPerPage,
+          expertMode,
+        );
         setEdps(fetchedEdps);
       } catch (error) {
         console.error("Error fetching :", error);
@@ -47,7 +55,7 @@ const FindSimilar = () => {
     };
 
     fetchSimilarEdps();
-  }, [id, location.search]);
+  }, [id, location.search, expertMode]);
 
   const handlePageChange = (selectedItem) => {
     const newPage = selectedItem.selected + 1;
@@ -71,7 +79,17 @@ const FindSimilar = () => {
 
   return (
     <div className="py-5">
-      <h2 className="bold mb-5">{t("dataset.similarEdps")}</h2>
+      <div className="d-flex justify-content-between flex-wrap mb-5">
+        <h2
+          className="bold mb-0"
+          style={{ whiteSpace: "nowrap", lineHeight: "2" }}
+        >
+          {t("dataset.similarEdps")}
+        </h2>
+        <div>
+          <SimilarEdpSearchBar />
+        </div>
+      </div>
 
       <span className="bold d-flex pe-4" style={{ whiteSpace: "nowrap" }}>
         {edps.hits?.total?.value >= 10000
@@ -83,7 +101,7 @@ const FindSimilar = () => {
           : t("dataset.datasets")}
       </span>
 
-      <div className="col-md-9">
+      <div>
         {edps?.hits?.hits?.map((edp) => (
           <ResultItem edp={edp} key={edp._id} />
         ))}

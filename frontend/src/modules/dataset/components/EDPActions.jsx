@@ -46,7 +46,7 @@ const EDPActions = ({ edp, datasetRef, dataset, node }) => {
               data-test-id="quick-view-details-link"
               to={detailsUrl}
               state={{ fromSearch: location }}
-              className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
+              className="btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
               <Link45deg className="me-2" /> {t("dataset.details")}
             </Link>
@@ -55,7 +55,7 @@ const EDPActions = ({ edp, datasetRef, dataset, node }) => {
         <div className="pe-2 pt-1">
           <Link
             to={"/details/" + edp?._id + "/find-similar"}
-            className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
+            className="btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
           >
             <Search className="me-2" /> {t("header.findSimilar")}
           </Link>
@@ -75,7 +75,7 @@ const EDPActions = ({ edp, datasetRef, dataset, node }) => {
         <div className="pe-2 pt-1">
           <a
             href={reportDownloadUrl}
-            className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
+            className="btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
           >
             <Download className="me-2" /> {t("header.reportPdf")}
           </a>
@@ -93,7 +93,7 @@ const EDPActions = ({ edp, datasetRef, dataset, node }) => {
             <span
               onClick={() => addBookmark(edp?._id)}
               data-test-id="bookmark-button"
-              className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
+              className="btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
               <Star className="txt-white me-2" />
               {t("header.bookmark")}
@@ -103,7 +103,7 @@ const EDPActions = ({ edp, datasetRef, dataset, node }) => {
           <div className="pe-2 pt-1">
             <span
               onClick={() => removeBookmark(edp?._id)}
-              className="btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
+              className="btn btn-hover px-2 py-2 txt-primary pointer small d-flex align-items-center"
             >
               <StarFill className="me-2" />
               {t("header.removeBookmark")}

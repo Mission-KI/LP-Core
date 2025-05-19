@@ -6,6 +6,7 @@ import { getEdp } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "react-bootstrap-icons";
+import QualityMetrics from "../../../search/components/Results/QualityMetrics";
 
 const Dataset = () => {
   const { id } = useParams();
@@ -60,7 +61,12 @@ const Dataset = () => {
         {t("header.return")}
       </span>
 
-      <h3 className="mt-4 bold">{datasetName}</h3>
+      <div className="d-flex gap-5 mt-4">
+        <h3 className="bold mb-0" style={{ lineHeight: 1 }}>
+          {datasetName}
+        </h3>
+        <QualityMetrics edp={edp} datasetRef={datasetRef} dataset={dataset} />
+      </div>
 
       <DatasetAnalyticsSection edp={edp} datasetRef={datasetRef} />
     </div>

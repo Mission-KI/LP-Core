@@ -121,13 +121,12 @@ p,
 }
 
 .btn-primary {
-  background-color: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
+  background-color: var(--color-primary-lighter) !important;
+  border-color: var(--color-primary-lighter) !important;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-hover) !important;
-  border-color: var(--color-primary-hover) !important;
+  opacity: 0.9;
 }
 
 .btn-outline-primary {

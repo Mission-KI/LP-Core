@@ -383,24 +383,47 @@ export const getEdp = async (id) => {
   }
 };
 
-export const getSimilarEdps = async (id, from = 0, size = 10) => {
+export const getSimilarEdps = async (id, from = 0, size = 10, expertMode) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const q = urlParams.get("similarEdpQuery");
+
   const query = {
     from: from,
     size: size,
     query: {
-      more_like_this: {
-        fields: ["name", "description"],
-        like: [
+      bool: {
+        must: [
           {
-            _index: "edp-data",
-            _id: id,
+            more_like_this: {
+              fields: ["name", "description"],
+              like: [
+                {
+                  _index: "edp-data",
+                  _id: id,
+                },
+              ],
+              min_term_freq: 1,
+              min_doc_freq: 1,
+            },
           },
         ],
-        min_term_freq: 1,
-        min_doc_freq: 1,
       },
     },
   };
+
+  if (q) {
+    if (expertMode) {
+      query.query.bool.must.push(formatQueryForNestedObjects(q));
+    } else {
+      query.query.bool.must.push({
+        multi_match: {
+          query: escapeElasticQueryString(q),
+          fields: ["name", "description"],
+          type: "phrase",
+        },
+      });
+    }
+  }
 
   try {
     const response = await fetch(elasticURL + "/_search", {
@@ -420,7 +443,7 @@ export const getSimilarEdps = async (id, from = 0, size = 10) => {
       throw new Error(responseData.errors);
     }
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message || error);
   }
 };
 
