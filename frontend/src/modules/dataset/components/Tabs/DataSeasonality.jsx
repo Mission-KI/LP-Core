@@ -51,7 +51,7 @@ function DataSeasonality({ edp }) {
             <input
               type="text"
               className="form-control rounded-lg small shadow-sm"
-              placeholder="Search attributes..."
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />

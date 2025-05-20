@@ -79,16 +79,17 @@ const FindSimilar = () => {
 
   return (
     <div className="py-5">
-      <div className="d-flex justify-content-between flex-wrap mb-5">
+      <div className="mb-2">
         <h2
           className="bold mb-0"
           style={{ whiteSpace: "nowrap", lineHeight: "2" }}
         >
           {t("dataset.similarEdps")}
         </h2>
-        <div>
-          <SimilarEdpSearchBar />
-        </div>
+      </div>
+
+      <div className="mb-5">
+        <SimilarEdpSearchBar />
       </div>
 
       <span className="bold d-flex pe-4" style={{ whiteSpace: "nowrap" }}>

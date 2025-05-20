@@ -15,7 +15,7 @@ const Breadcrumbs = ({ edp = null }) => {
   return (
     <Breadcrumb>
       {pathnames.map((name, index) => {
-        let displayName = name;
+        let displayName = formatName(name);
         if (pathnames[index - 1]?.toLowerCase() === "details" && edp) {
           displayName = edp?._source.name;
         }
@@ -30,7 +30,7 @@ const Breadcrumbs = ({ edp = null }) => {
             linkProps={isLink ? { to: routeTo } : undefined}
             className={!isLink ? "txt-lighter" : ""}
           >
-            {formatName(displayName)}
+            {displayName}
           </Breadcrumb.Item>
         );
       })}
