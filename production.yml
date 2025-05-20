@@ -97,6 +97,7 @@ services:
     volumes:
       - ./nginx/certs:/etc/letsencrypt
       - ./nginx/html:/usr/share/nginx/html
+    restart: always
     entrypoint: >
       sh -c "trap exit TERM;
              while :; do
