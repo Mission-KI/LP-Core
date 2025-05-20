@@ -55,7 +55,7 @@ function NumericOutlierAnalysis({ edp }) {
                     type="search"
                     className="form-control form-control-sm"
                     id="dt-search-8"
-                    placeholder="Search attributes..."
+                    placeholder="Search..."
                     aria-controls="anomalyTable"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
