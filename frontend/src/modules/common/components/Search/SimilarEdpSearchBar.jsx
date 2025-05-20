@@ -3,10 +3,9 @@ import { BracesAsterisk, Search, X } from "react-bootstrap-icons";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import styles from "./SearchBar.module.css";
-import SearchSuggestions from "./SearchSuggestions";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useTranslation } from "react-i18next";
 import { useSettings } from "../../contexts/SettingsContext";
+import SimilarEdpSuggestions from "./SimilarEdpSuggestions";
 
 function SimilarEdpSearchBar() {
   const { expertMode } = useSettings();
@@ -107,7 +106,7 @@ function SimilarEdpSearchBar() {
             )}
           </InputGroup.Text>
         )}
-        <SearchSuggestions
+        <SimilarEdpSuggestions
           localSearchTerm={localSearchTerm}
           setLocalSearchTerm={setLocalSearchTerm}
           showSuggestions={showSuggestions}
