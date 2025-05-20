@@ -82,13 +82,30 @@ services:
       - backend
       - frontend
       - landing
-    restart: always
     ports:
       - "443:443"
+      - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./nginx/certs:/etc/letsencrypt:ro
+      - ./nginx/html:/usr/share/nginx/html
+    restart: always
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./nginx/certs:/etc/letsencrypt
+      - ./nginx/html:/usr/share/nginx/html
+    restart: always
+    entrypoint: >
+      sh -c "trap exit TERM;
+             while :; do
+               certbot renew --webroot -w /usr/share/nginx/html --quiet &&
+               nginx -s reload;
+               sleep 12h;
+             done"
+
 
 volumes:
   frontend-build:
