@@ -17,9 +17,10 @@ export const MotivationAndBasics_En = () => {
         independently of the numerous domain-specific ontologies.
       </p>
       <p className="regular text-justify">
-        This is where the Dataset Search Engine (“daseen”) in conjunction with
-        the distributed microservice Extended Dataset Profile Service (“EDPS”)
-        gets in action. With the help of EDPS, data assets are analyzed as
+        This is where the Federated Data Scout gets in action. The Federated
+        Data Scout consists of the Dataset Search Engine (“daseen”) in
+        conjunction with the distributed microservice Extended Dataset Profile
+        Service (“EDPS”). With the help of EDPS, data assets are analyzed as
         closely as possible and as close as necessary to the data provider for
         their analytical properties. These are then standardized and summarized
         machine-readable in an Extended Dataset Profile (“EDP”). In principle,
