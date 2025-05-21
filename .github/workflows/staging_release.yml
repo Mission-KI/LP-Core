@@ -38,8 +38,22 @@ jobs:
             landing.cache-to=type=gha,mode=max,scope=landing
             backend.cache-from=type=gha,scope=backend
             backend.cache-to=type=gha,mode=max,scope=backend
+            
+            frontend.args.VITE_ELASTIC_URL=${{ secrets.VITE_ELASTIC_URL }}
+            frontend.args.VITE_IMAGE_BASE_PATH=${{ secrets.VITE_IMAGE_BASE_PATH }}
+            frontend.args.VITE_LANDING_URL=${{ secrets.VITE_LANDING_URL }}
+            frontend.args.VITE_MAIN_URL=${{ secrets.VITE_MAIN_URL }}
+            frontend.args.VITE_API_URL=${{ secrets.VITE_API_URL }}
+
+            landing.args.VITE_ELASTIC_URL=${{ secrets.VITE_ELASTIC_URL }}
+            landing.args.VITE_IMAGE_BASE_PATH=${{ secrets.VITE_IMAGE_BASE_PATH }}
+            landing.args.VITE_LANDING_URL=${{ secrets.VITE_LANDING_URL }}
+            landing.args.VITE_MAIN_URL=${{ secrets.VITE_MAIN_URL }}
+            landing.args.VITE_API_URL=${{ secrets.VITE_API_URL }}
+
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_HUB_API_KEY }}
+
 
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@v1
