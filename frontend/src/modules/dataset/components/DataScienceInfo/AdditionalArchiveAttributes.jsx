@@ -1,9 +1,10 @@
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 
-const AdditionalArchiveAttributes = ({ dataset, edp }) => {
+const AdditionalArchiveAttributes = ({ dataset }) => {
   const { t } = useTranslation();
 
+  console.log("dataset", dataset);
   return (
     <>
       <div className="col-6">
