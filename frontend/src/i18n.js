@@ -74,6 +74,7 @@ i18n
             getDataset: "Get Dataset",
             license: "License",
             assetUploaded: "Published",
+            noSupportedType: "No supported data types included",
             tabs: {
               attributeList: "Attribute List",
               attributeIntegrity: "Attribute Integrity",
@@ -239,6 +240,7 @@ i18n
             getDataset: "Datensatz abrufen",
             license: "Lizenz",
             assetUploaded: "Veröffentlicht",
+            noSupportedType: "Keine unterstützten Datenformate enthalten",
             tabs: {
               attributeList: "Attribut- liste",
               attributeIntegrity: "Vollständigkeit",

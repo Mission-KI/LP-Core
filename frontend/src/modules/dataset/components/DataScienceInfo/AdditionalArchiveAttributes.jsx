@@ -20,7 +20,12 @@ const AdditionalArchiveAttributes = ({ dataset, edp }) => {
         </p>
       </div>
       <div className="col-6">
-        <p className="small lh-sm pb-2">{filesize(dataset?.extractedSize)}</p>
+        <p className="small lh-sm pb-2">
+          {typeof dataset?.extractedSize === "number" &&
+          !isNaN(dataset.extractedSize)
+            ? filesize(dataset.extractedSize)
+            : "Unknown size"}
+        </p>
       </div>
     </>
   );
