@@ -1,5 +1,5 @@
 import ReactPaginate from "react-paginate";
-import { ChevronLeft, ChevronRight, ThreeDots } from "react-bootstrap-icons";
+import { ChevronLeft, ChevronRight } from "react-bootstrap-icons";
 
 function Paginator({ pageCount, handlePageChange, currentPage }) {
   return (
@@ -19,7 +19,7 @@ function Paginator({ pageCount, handlePageChange, currentPage }) {
         nextClassName="list-unstyled"
         breakLabel={"⋯"}
         breakClassName="d-flex align-items-center"
-        pageCount={pageCount}
+        pageCount={pageCount - 1}
         marginPagesDisplayed={1}
         pageRangeDisplayed={5}
         onPageChange={handlePageChange}
@@ -27,7 +27,7 @@ function Paginator({ pageCount, handlePageChange, currentPage }) {
         pageClassName="list-unstyled"
         pageLinkClassName="btn btn-hover pagination-btn txt-lighter rounded"
         activeLinkClassName="btn txt-primary medium"
-        forcePage={currentPage - 1}
+        forcePage={currentPage - 3}
       />
     </div>
   );

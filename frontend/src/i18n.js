@@ -74,6 +74,7 @@ i18n
             getDataset: "Get Dataset",
             license: "License",
             assetUploaded: "Published",
+            noSupportedType: "No supported data types included",
             tabs: {
               attributeList: "Attribute List",
               attributeIntegrity: "Attribute Integrity",
@@ -121,7 +122,7 @@ i18n
             publisher: "Publisher",
             publishers: "Publishers",
             assetProcessingStatus: "Asset processing",
-            licenses: "Licenses",
+            license: "License",
             accessibility: "Accessibility",
             dataFormat: "Data Format",
             hasDatetimeAttribute: "Has Datetime Attribute",
@@ -239,6 +240,7 @@ i18n
             getDataset: "Datensatz abrufen",
             license: "Lizenz",
             assetUploaded: "Veröffentlicht",
+            noSupportedType: "Keine unterstützten Datenformate enthalten",
             tabs: {
               attributeList: "Attribut- liste",
               attributeIntegrity: "Vollständigkeit",
@@ -282,7 +284,7 @@ i18n
           filters: {
             dataspace: "Datenraum",
             dataspaces: "Datenräume",
-            licenses: "Lizenzen",
+            license: "Lizenz",
             dataFormat: "Datenformat",
             assetProcessingStatus: "Verarbeitungszustand",
             fileSize: "Größenbereich",

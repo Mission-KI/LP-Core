@@ -5,14 +5,13 @@ const About_De = () => {
       <h5 className="mt-5 mb-3" id="version-info">
         Versionsinformationen
       </h5>
-      <p className="regular text-justify">14.04.2025</p>
+      <p className="regular text-justify">15.05.2025</p>
       <h5 className="mt-5 mb-3" id="latest-changes">
         Neueste Änderungen
       </h5>
-      <p> - Erweiterter Hilfebereich</p>
-      <p> - Unterstützung des Datentyps Audio</p>
-      <p> - Unterstützung des Datentyps Video</p>
-      <p> - Neue Funktion: Ähnliche EDP finden</p>
+      <p> - Umbau der Funktion "Ähnliche EDP finden"</p>
+      <p> - Erweiterte Filtermöglichkeiten für ähnliche EDP</p>
+      <p> - Kosmetische Optimierungen</p>
       <h5 className="mt-5 mb-3" id="registration-section">
         Registrierung
       </h5>

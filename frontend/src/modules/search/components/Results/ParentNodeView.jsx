@@ -1,18 +1,27 @@
 import { StarFill } from "react-bootstrap-icons";
 import QualityMetrics from "./QualityMetrics";
 import QuickView from "../QuickView/QuickView";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./Results.module.css";
-import { truncateString } from "../../../common/utils/format_utils";
+import {
+  stripHtmlTags,
+  truncateString,
+} from "../../../common/utils/format_utils";
 import { filesize } from "filesize";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import DatasetOptionsDropdown from "./DatasetOptionsDropdown";
 import { useBookmarks } from "../../../bookmarks/contexts/BookmarksContext";
+import { resolveDataset } from "../../../dataset/utils/edp_utils";
 
-const ParentNodeView = ({ edp }) => {
+const ParentNodeView = ({ edp, node }) => {
   const { t } = useTranslation();
   const { isBookmarked } = useBookmarks();
+  const location = useLocation();
+  const name = stripHtmlTags(truncateString(edp._source.name, 165));
+  const description = stripHtmlTags(edp?._source?.description);
+  const datasetRef = edp?._source?.datasetTree[0]?.dataset?.$ref;
+  const dataset = resolveDataset(edp, datasetRef);
 
   return (
     <div className="d-flex justify-content-between">
@@ -20,28 +29,32 @@ const ParentNodeView = ({ edp }) => {
         <div className="d-flex align-items-center flex-wrap">
           <Link
             to={`/details/${edp._id}`}
+            state={{ fromSearch: location }}
             className={styles.title}
             data-test-id="result-link"
           >
-            {truncateString(edp._source.name, 165)}
+            {name}
           </Link>
           <div className="ps-2 pe-4">
-            <QuickView edp={edp} />
+            <QuickView
+              edp={edp}
+              datasetRef={datasetRef}
+              dataset={dataset}
+              node={node}
+            />
           </div>
-          <QualityMetrics edp={edp} />
+          <QualityMetrics edp={edp} datasetRef={datasetRef} dataset={dataset} />
 
           <div>
             {isBookmarked(edp._id) && (
-              <span className="px-2 py-1">
+              <span className="px-2 py-1 bookmarked-item-icon">
                 <StarFill />
               </span>
             )}
           </div>
         </div>
 
-        <p className={styles.description}>
-          {truncateString(edp._source.description, 350)}
-        </p>
+        <p className={styles.description}>{truncateString(description, 350)}</p>
 
         <div className="d-flex mt-3 flex-wrap">
           <a

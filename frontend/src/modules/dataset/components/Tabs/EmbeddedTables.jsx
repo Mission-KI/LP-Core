@@ -19,6 +19,8 @@ function EmbeddedTables({ edp, datasetRef }) {
     };
   }, []);
 
+  $(".dt-search input").attr("placeholder", "Search...");
+
   const embeddedTables =
     edp?._source?.unstructuredTextDatasets[0]?.embeddedTables;
 

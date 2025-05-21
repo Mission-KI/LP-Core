@@ -16,7 +16,9 @@ import {
 } from "react-bootstrap-icons";
 import { renderTooltip } from "../../../common/utils/tooltip";
 
-const QualityMetrics = ({ edp }) => {
+const QualityMetrics = ({ edp, datasetRef, dataset }) => {
+  const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
+
   return (
     <div className="d-flex">
       {edp?._source?.freely_available ? (
@@ -50,7 +52,7 @@ const QualityMetrics = ({ edp }) => {
           </OverlayTrigger>
         </div>
       )}
-      {edp?._source?.structuredDatasets[0]?.datetimeColumnCount > 0 && (
+      {isStructuredDataset && dataset?.datetimeColumnCount > 0 && (
         <div className="ps-2">
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
@@ -82,7 +84,7 @@ const QualityMetrics = ({ edp }) => {
           </OverlayTrigger>
         </div>
       )}
-      {isDataTypeConsistent(edp) && (
+      {isStructuredDataset && isDataTypeConsistent(edp) && (
         <div className="ps-2">
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
@@ -98,23 +100,24 @@ const QualityMetrics = ({ edp }) => {
           </OverlayTrigger>
         </div>
       )}
-      {calculateAttributeIntegrity(edp) === "consistent" && (
-        <div className="ps-2">
-          <OverlayTrigger
-            delay={{ show: 100, hide: 700 }}
-            placement="top"
-            overlay={renderTooltip(
-              "Attribute integrity",
-              "/data-formats-and-analysis#attribute-integrity-section",
-            )}
-          >
-            <div>
-              <Sliders2 />
-            </div>
-          </OverlayTrigger>
-        </div>
-      )}
-      {getSignificantVariance(edp) && (
+      {isStructuredDataset &&
+        calculateAttributeIntegrity(edp) === "consistent" && (
+          <div className="ps-2">
+            <OverlayTrigger
+              delay={{ show: 100, hide: 700 }}
+              placement="top"
+              overlay={renderTooltip(
+                "Attribute integrity",
+                "/data-formats-and-analysis#attribute-integrity-section",
+              )}
+            >
+              <div>
+                <Sliders2 />
+              </div>
+            </OverlayTrigger>
+          </div>
+        )}
+      {isStructuredDataset && getSignificantVariance(edp) && (
         <div className="ps-2">
           <OverlayTrigger
             delay={{ show: 100, hide: 700 }}
@@ -163,6 +166,7 @@ const QualityMetrics = ({ edp }) => {
                       ? "KI/ML generierte Ergebnisdatensätze"
                       : "Unbekannter Datenstatus"}
             </span>,
+            "/data-formats-and-analysis#asset-properties-general",
           )}
         >
           <span

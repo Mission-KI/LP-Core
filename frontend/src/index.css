@@ -16,7 +16,7 @@
   --color-success: #20c996aa !important;
   --toastify-color-success: #20c996 !important;
   --search-bar-color: #ecedef;
-  --search-bar-hover-color: #e8e9ea;
+  --search-bar-hover-color: #f4f4f4;
   --header-color: #fff;
   --footer-color: #ededed;
   --content-over-widget-color: #fff;
@@ -121,13 +121,12 @@ p,
 }
 
 .btn-primary {
-  background-color: var(--color-primary) !important;
-  border-color: var(--color-primary) !important;
+  background-color: var(--color-primary-lighter) !important;
+  border-color: var(--color-primary-lighter) !important;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-hover) !important;
-  border-color: var(--color-primary-hover) !important;
+  opacity: 0.9;
 }
 
 .btn-outline-primary {
@@ -412,12 +411,17 @@ li.selected .pagination-btn,
 }
 
 div.dt-container div.dt-search input {
-  border-radius: 0.8rem !important;
-  border: 2px solid var(--color-light-gray) !important;
+  border-radius: 200rem !important;
+  border: 1px solid var(--color-darker-gray);
+  box-shadow: var(--bs-box-shadow-sm) !important;
+}
+
+div.dt-container div.dt-search input:hover {
+  background-color: var(--search-bar-hover-color) !important;
 }
 
 div.dt-container div.dt-search label {
-  color: var(--color-text-lighter) !important;
+  display: none !important;
 }
 
 .dataset-attribute-tabs {
@@ -858,4 +862,16 @@ input:checked + .slider:before {
 .tab-content {
   max-height: 700px;
   overflow: auto;
+}
+
+.transition-chevron {
+  transition: transform 0.3s ease;
+}
+
+.transition-chevron.rotate {
+  transform: rotate(-180deg);
+}
+
+.lh-sm {
+  line-height: 1.5 !important;
 }

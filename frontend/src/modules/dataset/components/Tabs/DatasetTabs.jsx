@@ -27,6 +27,10 @@ const DatasetTabs = ({ edp, datasetRef }) => {
   const doesDatasetHaveChildren = datasetHasChildren(edp, datasetRef);
   const isDocumentDataset = datasetRef.includes("#/documentDatasets");
   const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
+  const isArchiveDataset = datasetRef.includes("#/archiveDatasets");
+  const isSemiStructuredDataset = datasetRef.includes(
+    "#/semiStructuredDatasets",
+  );
   const isVideoDataset = datasetRef.includes("#/videoDatasets");
   const isAudioDataset = datasetRef.includes("#/audioDatasets");
   const isUnstructuredDataset = datasetRef.includes(
@@ -128,10 +132,14 @@ const DatasetTabs = ({ edp, datasetRef }) => {
             title: t("dataset.tabs.dataSeasonality"),
             component: <DataSeasonality edp={edp} />,
           },
+        ]
+      : []),
+    ...(isSemiStructuredDataset
+      ? [
           {
             eventKey: "schema",
             title: "Schema",
-            component: <Schema edp={edp} />,
+            component: <Schema dataset={dataset} />,
           },
         ]
       : []),
@@ -190,23 +198,33 @@ const DatasetTabs = ({ edp, datasetRef }) => {
   };
 
   return (
-    <Tabs
-      activeKey={activeKey}
-      id={styles.datasetAttributeTabs}
-      onSelect={(k) => toggleTab(k)}
-      className="dataset-attribute-tabs mb-3"
-    >
-      {tabs.map(({ eventKey, title, component }) => (
-        <Tab
-          key={eventKey}
-          eventKey={eventKey}
-          title={<span className="small text-uppercase">{title}</span>}
-          className={styles.tab}
-        >
-          {component}
-        </Tab>
-      ))}
-    </Tabs>
+    <>
+      <Tabs
+        activeKey={activeKey}
+        id={styles.datasetAttributeTabs}
+        onSelect={(k) => toggleTab(k)}
+        className="dataset-attribute-tabs mb-3"
+      >
+        {tabs.map(({ eventKey, title, component }) => (
+          <Tab
+            key={eventKey}
+            eventKey={eventKey}
+            title={<span className="small text-uppercase">{title}</span>}
+            className={styles.tab}
+          >
+            {component}
+          </Tab>
+        ))}
+      </Tabs>
+
+      {isArchiveDataset && !doesDatasetHaveChildren && (
+        <div className="mt-3">
+          <p className="text-muted text-center mt-5">
+            {t("dataset.noSupportedType")}
+          </p>
+        </div>
+      )}
+    </>
   );
 };
 

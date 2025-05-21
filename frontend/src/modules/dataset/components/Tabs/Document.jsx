@@ -1,8 +1,10 @@
-const Document = ({ edp, datasetRef }) => {
-  const documentIndex = parseInt(datasetRef.split("/")[2], 10);
+import { resolveDataset } from "../../utils/edp_utils";
 
-  const documentDatasets = edp?._source?.documentDatasets || [];
-  const document = documentDatasets[documentIndex] || {};
+const Document = ({ edp, datasetRef }) => {
+  if (!edp || !datasetRef) {
+    return <div>Invalid dataset reference!</div>;
+  }
+  const document = resolveDataset(edp, datasetRef);
 
   if (!document) {
     return <div>Document not found!</div>;

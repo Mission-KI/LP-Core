@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
 import PageNotFound from "../../../common/pages/PageNotFound";
-import { ArrowLeft } from "react-bootstrap-icons";
 import { getEdp } from "../../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "react-bootstrap-icons";
+import QualityMetrics from "../../../search/components/Results/QualityMetrics";
 
 const Dataset = () => {
   const { id } = useParams();
   const [edp, setEdp] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { t } = useTranslation();
-  const navigate = useNavigate();
   const { datasetName } = useParams();
   const datasetTree = edp?._source?.datasetTree;
   const dataset = datasetTree?.find((item) => item.name === datasetName);
   const datasetRef = dataset ? dataset.dataset["$ref"] : null;
+  const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEdp = async () => {
@@ -52,14 +52,21 @@ const Dataset = () => {
   return (
     <div>
       <span
-        onClick={() => navigate(-1)}
-        className="pointer d-flex align-items-center txt-lighter medium mt-4 pb-2"
+        onClick={() => {
+          navigate("/");
+        }}
+        className="d-flex align-items-center txt-lighter pointer medium mt-4 pb-2"
       >
         <ArrowLeft className="me-2" />
         {t("header.return")}
       </span>
 
-      <h3 className="mt-4 bold">{datasetName}</h3>
+      <div className="d-flex gap-5 mt-4">
+        <h3 className="bold mb-0" style={{ lineHeight: 1 }}>
+          {datasetName}
+        </h3>
+        <QualityMetrics edp={edp} datasetRef={datasetRef} dataset={dataset} />
+      </div>
 
       <DatasetAnalyticsSection edp={edp} datasetRef={datasetRef} />
     </div>

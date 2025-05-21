@@ -18,19 +18,23 @@ export const MotivationAndBasics_De = () => {
         zahlreichen domänenspezifischen Onthologien suchen kann.{" "}
       </p>
       <p className="regular text-justify">
-        Hier setzt die Dataset Search Engine (“daseen”) in Verbindung mit dem
-        verteilten Microservice Dienst Extended Dataset Profile Service (“EDPS”)
-        an. Daten Assets werden mit Hilfe des EDPS so nah wie möglich und so nah
-        wie nötig beim Datenanbieter auf ihre analytischen Eigenschaften
+        Hier setzt der Federated Data Scout an. Der Federated Data Scout besteht
+        aus der Dataset Search Engine (“daseen”) in Verbindung mit dem
+        verteilten Microservice Dienst Extended Dataset Profile Service
+        (“EDPS”). Daten Assets werden mit Hilfe des EDPS so nah wie möglich und
+        so nah wie nötig beim Datenanbieter auf ihre analytischen Eigenschaften
         untersucht. Diese werden dann standardisiert und maschinenlesbar in
-        einem Extended Dataset Profile (“EDP”) zusammengefasst. Dabei kann der
-        EDP flexibel durch Datenanbieter und Onthologie spezifische Metadaten
-        wie z.B. eine Beschreibung, den Verarbeitungsstatus oder
-        Datenlizenzbestimmungen erweitert werden. Nach Freigabe durch den
-        Datenanbieter kann der EDP dann auf daseen veröffentlicht werden und das
-        Daten Asset Datenportal- und Datenraum-übergreifend anhand aller im EDP
-        gespeicherten Metadaten gefunden werden. Das eigentliche Asset verbleibt
-        dabei immer beim Anbieter.
+        einem Extended Dataset Profile (“EDP”) zusammengefasst. Grundsätzlich
+        können der EDP sowie der EDPS flexibel durch Datenanbieter und
+        Onthologie spezifische Metadaten wie z.B. eine Beschreibung, den
+        Verarbeitungsstatus oder Datenlizenzbestimmungen erweitert werden. Im
+        Zusammenspiel mit daseen ist jedoch zu beachten, dass nur EDP, die einer
+        offiziellen EDP Schema Version entsprechen, in daseen unterstützt
+        werden. Nach Freigabe durch den Datenanbieter kann der EDP dann auf
+        daseen veröffentlicht werden und das Daten Asset Datenportal- und
+        Datenraum-übergreifend anhand aller im EDP gespeicherten Metadaten
+        gefunden werden. Das eigentliche Asset verbleibt dabei immer beim
+        Anbieter.
       </p>
       <p className="regular text-justify">
         Um den Einstieg in die Welt der Daten zu vereinfachen, sind die EDP nach

@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import { ChevronDown, List, SortDown, SortUp } from "react-bootstrap-icons";
 
 const Sorting = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [isOpen, setIsOpen] = useState(false);
 
   const onSortChange = (selectedValue) => {
     const params = new URLSearchParams(searchParams);
@@ -49,13 +50,16 @@ const Sorting = () => {
 
   return (
     <div>
-      <Dropdown>
+      <Dropdown onToggle={(isOpen) => setIsOpen(isOpen)}>
         <Dropdown.Toggle
           variant="text"
           className="btn rounded-lg py-0 px-0 mb-1"
         >
           <span className="medium txt-lighter">
-            Sort <ChevronDown className="small ms-1" />
+            Sort
+            <ChevronDown
+              className={`small ms-1 transition-chevron ${isOpen ? "rotate" : ""}`}
+            />
           </span>
         </Dropdown.Toggle>
         <Dropdown.Menu className="border-0 shadow mt-2">

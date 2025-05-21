@@ -28,62 +28,62 @@ const AdditionalStructuredDataAttributes = ({ edp }) => {
   return (
     <>
       <div className="col-6">
-        <p className="small mb-1 fw-500 text-uppercase">
+        <p className="small lh-sm pb-2 text-uppercase">
           {t("dataset.dataTypes")}
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1">{calculateDataTypesAttribute(edp)}</p>
+        <p className="small lh-sm pb-2">{calculateDataTypesAttribute(edp)}</p>
       </div>
       <div className="col-6 mt-3">
-        <p className="small mb-1 fw-500 text-uppercase">
+        <p className="small lh-sm pb-2 text-uppercase">
           {t("dataset.temporalCover")}
         </p>
       </div>
       <div className="col-6 mt-3">
-        <p className="small mb-1">{calculateTemporalCover(edp)}</p>
+        <p className="small lh-sm pb-2">{calculateTemporalCover(edp)}</p>
       </div>
       <div className="col-6">
         <p
           onClick={() => scienceInfoTabNavigate("temporal_consistency")}
-          className="small mb-1 fw-500 text-uppercase pointer"
+          className="small lh-sm pb-2 text-uppercase pointer"
         >
           {t("dataset.temporalConsistency")}
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1">{edp?._source?.periodicity ?? "N/A"}</p>
+        <p className="small lh-sm pb-2">{edp?._source?.periodicity ?? "N/A"}</p>
       </div>
       <div className="col-6 mt-3">
-        <p className="small mb-1 fw-500 text-uppercase">
+        <p className="small lh-sm pb-2 text-uppercase">
           {t("dataset.noOfColumns")}
         </p>
       </div>
       <div className="col-6 mt-3">
-        <p className="small mb-1">
+        <p className="small lh-sm pb-2">
           {edp?._source?.structuredDatasets?.[0]?.columnCount ?? "unknown"}
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1 fw-500 text-uppercase">
+        <p className="small lh-sm pb-2 text-uppercase">
           {t("dataset.noOfLines")}
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1">
+        <p className="small lh-sm pb-2">
           {edp?._source?.structuredDatasets[0]?.rowCount ?? "unknown"}
         </p>
       </div>
       <div className="col-6 mt-3">
         <p
           onClick={() => scienceInfoTabNavigate("numeric_value_distribution")}
-          className="small mb-1 fw-500 text-uppercase pointer"
+          className="small lh-sm pb-2 text-uppercase pointer"
         >
           {t("dataset.numericValueDistribution")}
         </p>
       </div>
       <div className="col-6 mt-3 d-flex align-items-center">
-        <p className="small mb-1">{topDistributions}</p>
+        <p className="small lh-sm pb-2">{topDistributions}</p>
         <OverlayTrigger
           placement="top"
           overlay={
@@ -111,36 +111,38 @@ const AdditionalStructuredDataAttributes = ({ edp }) => {
       <div className="col-6">
         <p
           onClick={() => scienceInfoTabNavigate("string_value_distribution")}
-          className="small mb-1 fw-500 text-uppercase pointer"
+          className="small lh-sm pb-2 text-uppercase pointer"
         >
           {t("dataset.stringValueDistribution")}
         </p>
       </div>
 
       <div className="col-6">
-        <p className="small mb-1">{getStringValueDistributionOverview(edp)}</p>
+        <p className="small lh-sm pb-2">
+          {getStringValueDistributionOverview(edp)}
+        </p>
       </div>
       <div className="col-6">
         <p
           onClick={() => scienceInfoTabNavigate("correlation_analysis")}
-          className="small mb-1 fw-500 text-uppercase pointer"
+          className="small lh-sm pb-2 text-uppercase pointer"
         >
           {t("dataset.numericCorrelationAnalysis")}
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1">{getNumericCorrelationSummary(edp)}</p>
+        <p className="small lh-sm pb-2">{getNumericCorrelationSummary(edp)}</p>
       </div>
       <div className="col-6">
         <p
           onClick={() => scienceInfoTabNavigate("anomaly_analysis")}
-          className="small mb-1 fw-500 text-uppercase pointer"
+          className="small lh-sm pb-2 text-uppercase pointer"
         >
           {t("dataset.numericOutlierAnalysis")}
         </p>
       </div>
       <div className="col-6">
-        <p className="small mb-1">
+        <p className="small lh-sm pb-2">
           {getNumericOutlierAnalysis(edp)}
           <OverlayTrigger
             placement="top"

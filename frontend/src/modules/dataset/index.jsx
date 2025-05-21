@@ -1,5 +1,6 @@
 import Dataset from "./pages/Dataset/Dataset";
 import Details from "./pages/Details/Details";
+import FindSimilar from "./pages/FindSimilar";
 
 const datasetRoutes = [
   {
@@ -9,6 +10,10 @@ const datasetRoutes = [
   {
     path: "/details/:id/:datasetName",
     element: <Dataset />,
+  },
+  {
+    path: "/details/:id/find-similar",
+    element: <FindSimilar />,
   },
 ];
 

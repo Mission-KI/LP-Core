@@ -1,5 +1,4 @@
 # Ignore environment files
-.env.*
 .vscode/
 
 # Ignore Python build and cache files
@@ -17,3 +16,5 @@ backend/daseen/_version.py
 
 # Ignore distribution files
 dist/
+nginx/certs/accounts/
+nginx/letsencrypt/accounts/
