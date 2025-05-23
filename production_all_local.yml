@@ -42,6 +42,8 @@ services:
         platforms:
           - linux/amd64
           - linux/arm64
+    ports:
+      - "127.0.0.1:3001:3001"
     image: docker.io/beebucket/daseen-frontend:${IMAGE_TAG:-latest}
     env_file:
       - .env
@@ -58,6 +60,8 @@ services:
         platforms:
           - linux/amd64
           - linux/arm64
+    ports:
+      - "127.0.0.1:3000:3000"
     image: docker.io/beebucket/daseen-landing:${IMAGE_TAG:-latest}
     env_file:
       - .env
