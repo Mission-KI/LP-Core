@@ -37,7 +37,7 @@ services:
   frontend:
     build:
       context: ./frontend
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.local
       x-bake:
         platforms:
           - linux/amd64
@@ -53,7 +53,7 @@ services:
   landing:
     build:
       context: ./landing
-      dockerfile: Dockerfile.prod
+      dockerfile: Dockerfile.local
       x-bake:
         platforms:
           - linux/amd64
