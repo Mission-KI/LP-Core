@@ -14,7 +14,7 @@ dependencies = [
     "djangorestframework-simplejwt>=5.3.1",
     "drf-nested-routers>=0.94.1",
     "drf-spectacular>=0.28.0",
-    "elasticsearch>=8.17.1",
+    "elasticsearch<9",
     "extended-dataset-profile", # version specified in tool.uv.sources
     "gunicorn>=23.0.0",
     "psycopg[binary]>=3.2.4",
