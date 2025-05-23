@@ -32,6 +32,7 @@ class ElasticDBWrapper:
             elastic_apikey=settings.ELASTICSEARCH_API_KEY,
             elastic_index=elastic_index,
             elastic_schema_index=f"{elastic_index}-schema",
+            elastic_timeout=10,
         )
 
     def __init__(self, config: ElasticConfig):
