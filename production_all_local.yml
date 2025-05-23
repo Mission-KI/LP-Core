@@ -71,11 +71,31 @@ services:
     restart: always
 
   elasticsearch:
+    ## Create the index and mapping using the following commands:
+    # curl -u 'elastic:<ELASTIC_PASSWORD>' -X PUT "http://localhost:9200/edp-data" \
+    # -H "Content-Type: application/json" \
+    # -d @mapping.json
+
+    ## Create the API key using the following command:
+    # curl -u 'elastic:<ELASTIC_PASSWORD>' -X POST "http://localhost:9200/_security/api_key"   -H "Content-Type: application/json"   -d '{
+    #   "name": "edp-data-read-key",
+    #   "role_descriptors": {
+    #     "edp_data_read_role": {
+    #       "index": [
+    #         {
+    #           "names": [ "edp-data" ],
+    #           "privileges": [ "read" ]
+    #         }
+    #       ]
+    #     }
+    #   }
+    # }'
     image: docker.elastic.co/elasticsearch/elasticsearch:8.18.1
     env_file:
       - .env
     environment:
       - discovery.type=single-node
+      - xpack.security.enabled=false
     ports:
       - "127.0.0.1:9200:9200"
     volumes:
@@ -87,19 +107,17 @@ services:
       timeout: 10s
       retries: 10
 
-  nginx:
-    image: nginx:latest
-    depends_on:
-      - backend
-      - frontend
-      - landing
-    restart: always
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.18.1
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_PUBLICBASEURL=http://localhost:5601
     ports:
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./nginx/certs:/etc/nginx/certs:ro
+      - "127.0.0.1:5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    restart: always
 
   minio:
     image: minio/minio:latest
