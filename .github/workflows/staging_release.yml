@@ -23,7 +23,8 @@ jobs:
       - uses: docker/setup-buildx-action@v3
 
       - name: Copy .env.staging to .env
-        run: cp .env.staging .env
+        run: cp .env.staging frontend/.env
+        run: cp .env.staging landing/.env
 
       - name: Build and push with Docker Bake
         uses: docker/bake-action@v6
