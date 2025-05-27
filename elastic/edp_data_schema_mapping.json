@@ -1,0 +1,9 @@
+{
+  "mappings": {
+    "properties": {
+      "schema": {
+        "type": "flattened"
+      }
+    }
+  }
+}

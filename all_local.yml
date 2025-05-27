@@ -1,0 +1,144 @@
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      interval: 10s
+      timeout: 15s
+      retries: 10
+    restart: always
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile.prod
+      secrets:
+        - github_token
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    image: docker.io/beebucket/daseen-backend:${IMAGE_TAG:-latest}
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    env_file:
+      - .env
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.local
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    ports:
+      - "127.0.0.1:3001:3001"
+    image: docker.io/beebucket/daseen-frontend:${IMAGE_TAG:-latest}
+    env_file:
+      - .env
+    volumes:
+      - "./frontend:/app"
+      - "/app/node_modules"
+    restart: always
+
+  landing:
+    build:
+      context: ./landing
+      dockerfile: Dockerfile.local
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
+    ports:
+      - "127.0.0.1:3000:3000"
+    image: docker.io/beebucket/daseen-landing:${IMAGE_TAG:-latest}
+    env_file:
+      - .env
+    volumes:
+      - "./landing:/landing"
+      - "/landing/node_modules"
+    restart: always
+
+  elasticsearch:
+    ## Create the index and mapping using the following commands:
+    # curl -u 'elastic:<ELASTIC_PASSWORD>' -X PUT "http://localhost:9200/edp-data" \
+    # -H "Content-Type: application/json" \
+    # -d @mapping.json
+
+    ## Create the API key using the following command:
+    # curl -u 'elastic:<ELASTIC_PASSWORD>' -X POST "http://localhost:9200/_security/api_key"   -H "Content-Type: application/json"   -d '{
+    #   "name": "edp-data-read-key",
+    #   "role_descriptors": {
+    #     "edp_data_read_role": {
+    #       "index": [
+    #         {
+    #           "names": [ "edp-data" ],
+    #           "privileges": [ "read" ]
+    #         }
+    #       ]
+    #     }
+    #   }
+    # }'
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.18.1
+    env_file:
+      - .env
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "127.0.0.1:9200:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200 || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.18.1
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - SERVER_PUBLICBASEURL=http://localhost:5601
+    ports:
+      - "127.0.0.1:5601:5601"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    restart: always
+
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    ports:
+      - "127.0.0.1:9000:9000"      # S3 API
+      - "127.0.0.1:9001:9001"      # MinIO Console
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    restart: always
+
+volumes:
+  frontend-build:
+  postgres_data:
+  esdata:
+  minio_data:
+
+secrets:
+  github_token:
+    environment: GITHUB_TOKEN
