@@ -113,6 +113,11 @@ i18n
               description:
                 "The Konstanz Data Portal contributes to the development of an urban data space and promotes the transparent provision of municipal data.",
             },
+            genesis: {
+              title: "Main database of the Federal Statistical Office",
+              description:
+                "GENESIS-Online contains detailed results of official statistics, for example data on the population, economy, elections, institutions and environment in Germany.",
+            },
           },
           footer: {
             c: "© beebucket 2024",
@@ -225,6 +230,11 @@ i18n
               title: "Zentrale Plattform für Open Data in der Stadt Konstanz",
               description:
                 "Das Datenportal Konstanz trägt zum Aufbau eines urbanen Datenraums bei und fördert die transparente Bereitstellung kommunaler Daten.",
+            },
+            genesis: {
+              title: "Hauptdatenbank des Statistischen Bundesamtes",
+              description:
+                "GENESIS-Online enthält tief gegliederte Ergebnisse der amtlichen Statistik, beispielweise Daten zu Bevölkerung, Wirtschaft, Wahlen, Institutionen und Umwelt in Deutschland.",
             },
           },
           footer: {
