@@ -155,7 +155,7 @@ export const useCategories = () => {
             amount_of_assets:
               getAssetCount("EuProGigant", "Pontus-X"),
             dataspace_filters: ["Pontus-X"],
-            publisher_filters: ["EuProGigant", "Pontus-X"],
+            publisher_filters: ["EuProGigant"],
             is_publisher: false,
           },
         ],
@@ -288,7 +288,7 @@ export const useCategories = () => {
         image: GeomapsImg,
         amount_of_assets:
           getAssetCount("PANGAEA", "Geoportal.de") +
-          getAssetCount("GENESIS-Online", "Statistisches Bundesamt"),
+          getAssetCount("Statistisches Bundesamt", "GENESIS-Online"),
         tiles: [
           {
             id: 1,
@@ -322,9 +322,7 @@ export const useCategories = () => {
             description: t("dataSpaces.genesis.description"),
             amount_of_publishers: 1,
             amount_of_assets: getAssetCount(
-              "GENESIS-Online",
-              "Statistisches Bundesamt",
-            ),
+              "Statistisches Bundesamt", "GENESIS-Online"),
             dataspace_filters: ["GENESIS-Online"],
             publisher_filters: ["Statistisches Bundesamt"],
             is_publisher: false,
