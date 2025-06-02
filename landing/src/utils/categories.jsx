@@ -54,7 +54,7 @@ export const useCategories = () => {
         id: 1,
         title: t("categories.mobilityAndTransportation"),
         slug: "mobility-and-transportation",
-        amount_of_publishers: 5,
+        amount_of_publishers: 4,
         amount_of_assets:
           getAssetCount("BASt", "GovData") +
           getAssetCount(
@@ -62,8 +62,7 @@ export const useCategories = () => {
             "Mobility Data Space",
           ) +
           getAssetCount("Toll Collect GmbH", "mobilithek") +
-          getAssetCount("Autobahn GmbH", "mobilithek") +
-          getAssetCount("EuProGigant", "Pontus-X"),
+          getAssetCount("Autobahn GmbH", "mobilithek"),
         image: MobilityImg,
         tiles: [
           {
@@ -145,8 +144,18 @@ export const useCategories = () => {
             publisher_filters: ["Autobahn GmbH"],
             is_publisher: true,
           },
+        ],
+      },
+      {
+        id: 2,
+        title: t("categories.industryAndProduction"),
+        slug: "industry-and-production",
+        amount_of_publishers: 1,
+        amount_of_assets:  getAssetCount("EuProGigant", "Pontus-X"),
+        image: ManufacturingImg,
+        tiles: [
           {
-            id: 7,
+            id: 1,
             name: "Pontus-X",
             title: t("dataSpaces.pontusx.title"),
             description: t("dataSpaces.pontusx.description"),
@@ -159,15 +168,6 @@ export const useCategories = () => {
             is_publisher: false,
           },
         ],
-      },
-      {
-        id: 2,
-        title: t("categories.industryAndProduction"),
-        slug: "industry-and-production",
-        amount_of_publishers: 0,
-        amount_of_assets: 0,
-        image: ManufacturingImg,
-        tiles: [],
       },
       {
         id: 3,
