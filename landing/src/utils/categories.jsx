@@ -308,7 +308,10 @@ export const useCategories = () => {
             title: t("dataSpaces.genesis.title"),
             description: t("dataSpaces.genesis.description"),
             amount_of_publishers: 1,
-            amount_of_assets: getAssetCount("GENESIS-Online", "Statistisches Bundesamt"),
+            amount_of_assets: getAssetCount(
+              "GENESIS-Online",
+              "Statistisches Bundesamt",
+            ),
             dataspace_filters: ["GENESIS-Online"],
             publisher_filters: ["Statistisches Bundesamt"],
             is_publisher: false,
