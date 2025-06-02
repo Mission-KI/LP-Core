@@ -118,6 +118,11 @@ i18n
               description:
                 "GENESIS-Online contains detailed results of official statistics, for example data on the population, economy, elections, institutions and environment in Germany.",
             },
+            pontusx: {
+              title: "Pontus-X",
+              description:
+                "Pontus-X is the largest publicly available European X-Ecosystem, based on Gaia-X, and a Dataspace Lighthouse.",
+            },
           },
           footer: {
             c: "© beebucket 2024",
@@ -235,6 +240,11 @@ i18n
               title: "Hauptdatenbank des Statistischen Bundesamtes",
               description:
                 "GENESIS-Online enthält tief gegliederte Ergebnisse der amtlichen Statistik, beispielweise Daten zu Bevölkerung, Wirtschaft, Wahlen, Institutionen und Umwelt in Deutschland.",
+            },
+            pontusx: {
+              title: "Pontus-X",
+              description:
+                "Pontus-X ist das größte öffentlich zugängliche europäische X-Ecosystem, das auf Gaia-X basiert, und ein Dataspace-Leuchtturm.",
             },
           },
           footer: {

@@ -21,6 +21,7 @@ import pangaea from "../assets/img/dataspace_logos/pangaea.png";
 import geoportal from "../assets/img/dataspace_logos/geoportal.png";
 import konstanz from "../assets/img/dataspace_logos/konstanz.jpg";
 import genesis from "../assets/img/dataspace_logos/logo_genesis_online.png";
+import pontusx from "../assets/img/dataspace_logos/logo_pontusx.jpg";
 
 export const useCategories = () => {
   const { t } = useTranslation();
@@ -53,7 +54,7 @@ export const useCategories = () => {
         id: 1,
         title: t("categories.mobilityAndTransportation"),
         slug: "mobility-and-transportation",
-        amount_of_publishers: 4,
+        amount_of_publishers: 5,
         amount_of_assets:
           getAssetCount("BASt", "GovData") +
           getAssetCount(
@@ -62,8 +63,7 @@ export const useCategories = () => {
           ) +
           getAssetCount("Toll Collect GmbH", "mobilithek") +
           getAssetCount("Autobahn GmbH", "mobilithek") +
-          getAssetCount("BASt", "GovData") +
-          getAssetCount("Toll Collect GmbH", "mobilithek"),
+          getAssetCount("EuProGigant", "Pontus-X"),
         image: MobilityImg,
         tiles: [
           {
@@ -144,6 +144,19 @@ export const useCategories = () => {
             dataspace_filters: [],
             publisher_filters: ["Autobahn GmbH"],
             is_publisher: true,
+          },
+          {
+            id: 7,
+            name: "Pontus-X",
+            title: t("dataSpaces.pontusx.title"),
+            description: t("dataSpaces.pontusx.description"),
+            image: pontusx,
+            amount_of_publishers: 1,
+            amount_of_assets:
+              getAssetCount("EuProGigant", "Pontus-X"),
+            dataspace_filters: ["Pontus-X"],
+            publisher_filters: ["EuProGigant", "Pontus-X"],
+            is_publisher: false,
           },
         ],
       },
