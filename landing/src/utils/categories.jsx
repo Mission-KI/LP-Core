@@ -20,6 +20,8 @@ import { getPublisherAssetCounts } from "../api/elastic";
 import pangaea from "../assets/img/dataspace_logos/pangaea.png";
 import geoportal from "../assets/img/dataspace_logos/geoportal.png";
 import konstanz from "../assets/img/dataspace_logos/konstanz.jpg";
+import genesis from "../assets/img/dataspace_logos/logo_genesis_online.png";
+import pontusx from "../assets/img/dataspace_logos/logo_pontusx.jpg";
 
 export const useCategories = () => {
   const { t } = useTranslation();
@@ -60,9 +62,7 @@ export const useCategories = () => {
             "Mobility Data Space",
           ) +
           getAssetCount("Toll Collect GmbH", "mobilithek") +
-          getAssetCount("Autobahn GmbH", "mobilithek") +
-          getAssetCount("BASt", "GovData") +
-          getAssetCount("Toll Collect GmbH", "mobilithek"),
+          getAssetCount("Autobahn GmbH", "mobilithek"),
         image: MobilityImg,
         tiles: [
           {
@@ -150,10 +150,23 @@ export const useCategories = () => {
         id: 2,
         title: t("categories.industryAndProduction"),
         slug: "industry-and-production",
-        amount_of_publishers: 0,
-        amount_of_assets: 0,
+        amount_of_publishers: 1,
+        amount_of_assets: getAssetCount("EuProGigant", "Pontus-X"),
         image: ManufacturingImg,
-        tiles: [],
+        tiles: [
+          {
+            id: 1,
+            name: "Pontus-X",
+            title: t("dataSpaces.pontusx.title"),
+            description: t("dataSpaces.pontusx.description"),
+            image: pontusx,
+            amount_of_publishers: 1,
+            amount_of_assets: getAssetCount("EuProGigant", "Pontus-X"),
+            dataspace_filters: ["Pontus-X"],
+            publisher_filters: ["EuProGigant"],
+            is_publisher: false,
+          },
+        ],
       },
       {
         id: 3,
@@ -270,9 +283,11 @@ export const useCategories = () => {
         id: 6,
         title: t("categories.geodata"),
         slug: "geodata-and-weather",
-        amount_of_publishers: 1,
+        amount_of_publishers: 2,
         image: GeomapsImg,
-        amount_of_assets: 0,
+        amount_of_assets:
+          getAssetCount("PANGAEA", "Geoportal.de") +
+          getAssetCount("Statistisches Bundesamt", "GENESIS-Online"),
         tiles: [
           {
             id: 1,
@@ -296,6 +311,21 @@ export const useCategories = () => {
             amount_of_assets: getAssetCount("PANGAEA", "Geoportal.de"),
             dataspace_filters: ["Geoportal.de"],
             publisher_filters: ["PANGAEA"],
+            is_publisher: false,
+          },
+          {
+            id: 3,
+            image: genesis,
+            name: "GENESIS-Online",
+            title: t("dataSpaces.genesis.title"),
+            description: t("dataSpaces.genesis.description"),
+            amount_of_publishers: 1,
+            amount_of_assets: getAssetCount(
+              "Statistisches Bundesamt",
+              "GENESIS-Online",
+            ),
+            dataspace_filters: ["GENESIS-Online"],
+            publisher_filters: ["Statistisches Bundesamt"],
             is_publisher: false,
           },
         ],
