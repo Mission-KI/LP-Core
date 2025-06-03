@@ -20,6 +20,7 @@ import { getPublisherAssetCounts } from "../api/elastic";
 import pangaea from "../assets/img/dataspace_logos/pangaea.png";
 import geoportal from "../assets/img/dataspace_logos/geoportal.png";
 import konstanz from "../assets/img/dataspace_logos/konstanz.jpg";
+import genesis from "../assets/img/dataspace_logos/logo_genesis_online.png";
 
 export const useCategories = () => {
   const { t } = useTranslation();
@@ -270,9 +271,11 @@ export const useCategories = () => {
         id: 6,
         title: t("categories.geodata"),
         slug: "geodata-and-weather",
-        amount_of_publishers: 1,
+        amount_of_publishers: 2,
         image: GeomapsImg,
-        amount_of_assets: 0,
+        amount_of_assets:
+          getAssetCount("PANGAEA", "Geoportal.de") +
+          getAssetCount("GENESIS-Online", "Statistisches Bundesamt"),
         tiles: [
           {
             id: 1,
@@ -296,6 +299,21 @@ export const useCategories = () => {
             amount_of_assets: getAssetCount("PANGAEA", "Geoportal.de"),
             dataspace_filters: ["Geoportal.de"],
             publisher_filters: ["PANGAEA"],
+            is_publisher: false,
+          },
+          {
+            id: 3,
+            image: genesis,
+            name: "GENESIS-Online",
+            title: t("dataSpaces.genesis.title"),
+            description: t("dataSpaces.genesis.description"),
+            amount_of_publishers: 1,
+            amount_of_assets: getAssetCount(
+              "GENESIS-Online",
+              "Statistisches Bundesamt",
+            ),
+            dataspace_filters: ["GENESIS-Online"],
+            publisher_filters: ["Statistisches Bundesamt"],
             is_publisher: false,
           },
         ],
