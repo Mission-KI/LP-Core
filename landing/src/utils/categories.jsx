@@ -151,7 +151,7 @@ export const useCategories = () => {
         title: t("categories.industryAndProduction"),
         slug: "industry-and-production",
         amount_of_publishers: 1,
-        amount_of_assets:  getAssetCount("EuProGigant", "Pontus-X"),
+        amount_of_assets: getAssetCount("EuProGigant", "Pontus-X"),
         image: ManufacturingImg,
         tiles: [
           {
@@ -161,8 +161,7 @@ export const useCategories = () => {
             description: t("dataSpaces.pontusx.description"),
             image: pontusx,
             amount_of_publishers: 1,
-            amount_of_assets:
-              getAssetCount("EuProGigant", "Pontus-X"),
+            amount_of_assets: getAssetCount("EuProGigant", "Pontus-X"),
             dataspace_filters: ["Pontus-X"],
             publisher_filters: ["EuProGigant"],
             is_publisher: false,
@@ -322,7 +321,9 @@ export const useCategories = () => {
             description: t("dataSpaces.genesis.description"),
             amount_of_publishers: 1,
             amount_of_assets: getAssetCount(
-              "Statistisches Bundesamt", "GENESIS-Online"),
+              "Statistisches Bundesamt",
+              "GENESIS-Online",
+            ),
             dataspace_filters: ["GENESIS-Online"],
             publisher_filters: ["Statistisches Bundesamt"],
             is_publisher: false,
