@@ -123,6 +123,10 @@ i18n
               description:
                 "Pontus-X is the largest publicly available European X-Ecosystem, based on Gaia-X, and a Dataspace Lighthouse.",
             },
+            aiamo: {
+              title: "AIAMO - Artificial Intelligence And Mobility",
+              description: "The AIAMOnexus provides members of the ITS industry with AI-powered mobility data by combining the AIAMO mobility data integration zone with advanced AI base models."
+            },
           },
           footer: {
             c: "© beebucket 2024",
@@ -245,6 +249,10 @@ i18n
               title: "Pontus-X",
               description:
                 "Pontus-X ist das größte öffentlich zugängliche europäische X-Ecosystem, das auf Gaia-X basiert, und ein Dataspace-Leuchtturm.",
+            },
+            aiamo: {
+              title: "AIAMO - Artificial Intelligence And Mobility",
+              description: "Der AIAMOnexus versorgt die Mitglieder der ITS-Branche mit KI-gestützten Mobilitätsdaten, indem er die AIAMO-Integrationszone für Mobilitätsdaten mit fortschrittlichen KI-Grundmodellen kombiniert."
             },
           },
           footer: {
