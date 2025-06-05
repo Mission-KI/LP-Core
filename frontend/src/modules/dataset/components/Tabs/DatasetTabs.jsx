@@ -95,7 +95,7 @@ const DatasetTabs = ({ edp, datasetRef }) => {
           {
             eventKey: "attribute_list",
             title: t("dataset.tabs.attributeList"),
-            component: <AttributeList edp={edp} />,
+            component: <AttributeList dataset={dataset} />,
           },
           {
             eventKey: "temporal_consistency",
