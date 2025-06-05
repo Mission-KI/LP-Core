@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { getNumericOutlierAnalysis } from "../../utils/edp_utils";
 
-const AdditionalStructuredDataAttributes = ({ edp }) => {
+const AdditionalStructuredDataAttributes = ({ edp, dataset }) => {
   const navigate = useNavigate();
   const detailViewPath = `/details/${edp._id}`;
 
@@ -60,9 +60,7 @@ const AdditionalStructuredDataAttributes = ({ edp }) => {
         </p>
       </div>
       <div className="col-6 mt-3">
-        <p className="small lh-sm pb-2">
-          {edp?._source?.structuredDatasets?.[0]?.columnCount ?? "unknown"}
-        </p>
+        <p className="small lh-sm pb-2">{dataset?.columnCount ?? "unknown"}</p>
       </div>
       <div className="col-6">
         <p className="small lh-sm pb-2 text-uppercase">
@@ -70,9 +68,7 @@ const AdditionalStructuredDataAttributes = ({ edp }) => {
         </p>
       </div>
       <div className="col-6">
-        <p className="small lh-sm pb-2">
-          {edp?._source?.structuredDatasets[0]?.rowCount ?? "unknown"}
-        </p>
+        <p className="small lh-sm pb-2">{dataset?.rowCount ?? "unknown"}</p>
       </div>
       <div className="col-6 mt-3">
         <p
