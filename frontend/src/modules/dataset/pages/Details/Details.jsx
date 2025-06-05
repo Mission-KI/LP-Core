@@ -8,6 +8,7 @@ import { ArrowLeft } from "react-bootstrap-icons";
 import EDPInfoSection from "../../components/EDPInfoSection";
 import DatasetAnalyticsSection from "../../components/DatasetAnalyticsSection";
 import { resolveDataset } from "../../utils/edp_utils";
+import Breadcrumbs from "../../../common/components/Breadcrumbs";
 
 function Details() {
   const { id } = useParams();
@@ -64,28 +65,32 @@ function Details() {
   const dataset = resolveDataset(edp, datasetRef);
 
   return (
-    <div className="mb-5 pb-3">
-      <span
-        onClick={() => {
-          if (canGoBack) {
-            navigate(fromSearch.pathname + fromSearch.search);
-          } else {
-            navigate("/");
-          }
-        }}
-        className="d-flex align-items-center txt-lighter pointer medium mt-4 pb-2"
-      >
-        <ArrowLeft className="me-2" />
-        {t("header.return")}
-      </span>
+    <>
+      <Breadcrumbs edp={edp} />
 
-      <EDPInfoSection edp={edp} datasetRef={datasetRef} dataset={dataset} />
-      <DatasetAnalyticsSection
-        edp={edp}
-        datasetRef={datasetRef}
-        dataset={dataset}
-      />
-    </div>
+      <div className="mb-5 pb-3">
+        <span
+          onClick={() => {
+            if (canGoBack) {
+              navigate(fromSearch.pathname + fromSearch.search);
+            } else {
+              navigate("/");
+            }
+          }}
+          className="d-flex align-items-center txt-lighter pointer medium mt-4 pb-2"
+        >
+          <ArrowLeft className="me-2" />
+          {t("header.return")}
+        </span>
+
+        <EDPInfoSection edp={edp} datasetRef={datasetRef} dataset={dataset} />
+        <DatasetAnalyticsSection
+          edp={edp}
+          datasetRef={datasetRef}
+          dataset={dataset}
+        />
+      </div>
+    </>
   );
 }
 

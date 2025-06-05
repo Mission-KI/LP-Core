@@ -7,15 +7,19 @@ import Spinner from "react-bootstrap/Spinner";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft } from "react-bootstrap-icons";
 import QualityMetrics from "../../../search/components/Results/QualityMetrics";
+import { resolveDataset } from "../../utils/edp_utils";
+import Breadcrumbs from "../../../common/components/Breadcrumbs";
 
 const Dataset = () => {
   const { id } = useParams();
   const [edp, setEdp] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { datasetName } = useParams();
+  const { datasetRef } = useParams();
   const datasetTree = edp?._source?.datasetTree;
-  const dataset = datasetTree?.find((item) => item.name === datasetName);
-  const datasetRef = dataset ? dataset.dataset["$ref"] : null;
+  const datasetTreeItem = datasetTree?.find(
+    (item) => item.dataset["$ref"] === datasetRef,
+  );
+  const dataset = resolveDataset(edp, datasetRef);
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -51,6 +55,8 @@ const Dataset = () => {
 
   return (
     <div>
+      <Breadcrumbs edp={edp} dataset_name={datasetTreeItem?.name} />
+
       <span
         onClick={() => {
           navigate("/");
@@ -63,7 +69,7 @@ const Dataset = () => {
 
       <div className="d-flex gap-5 mt-4">
         <h3 className="bold mb-0" style={{ lineHeight: 1 }}>
-          {datasetName}
+          {datasetTreeItem?.name}
         </h3>
         <QualityMetrics edp={edp} datasetRef={datasetRef} dataset={dataset} />
       </div>

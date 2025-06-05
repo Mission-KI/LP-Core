@@ -39,7 +39,7 @@ const TreeNode = ({ node, edp, childrenMap, expandedByDefault }) => {
               <FileEarmarkFill className="me-2 txt-danger" />
             )}
             <Link
-              to={`/details/${edp?._id}/${encodeURIComponent(node?.name)}`}
+              to={`/details/${edp?._id}/${encodeURIComponent(node.dataset["$ref"])}`}
               className="txt-regular hover-underline"
             >
               {node.name}
