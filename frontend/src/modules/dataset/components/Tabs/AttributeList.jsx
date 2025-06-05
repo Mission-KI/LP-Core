@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import $ from "jquery";
 import { useTranslation } from "react-i18next";
 
-function AttributeList({ edp }) {
+function AttributeList({ dataset }) {
   useEffect(() => {
     const table = $("#attributeTable").DataTable({
       paging: false,
@@ -40,40 +40,34 @@ function AttributeList({ edp }) {
             </tr>
           </thead>
           <tbody>
-            {edp?._source?.structuredDatasets?.[0]?.numericColumns.map(
-              (column, index) => (
-                <tr key={index}>
-                  <td className="txt-lighter w-25">{column.name}</td>
-                  <td className="txt-lighter w-25">numeric</td>
-                  <td className="txt-lighter w-25">{column.dataType}</td>
-                  <td className="text-danger w-25">N/A</td>
-                </tr>
-              ),
-            )}
-            {edp?._source?.structuredDatasets?.[0]?.stringColumns.map(
-              (column, index) => (
-                <tr key={index}>
-                  <td className="txt-lighter w-25">{column.name}</td>
-                  <td className="txt-lighter w-25">string</td>
-                  <td className="txt-lighter w-25">string</td>
-                  <td className="text-danger w-25">N/A</td>
-                </tr>
-              ),
-            )}
-            {edp?._source?.structuredDatasets?.[0]?.datetimeColumns.map(
-              (column, index) => (
-                <tr key={index}>
-                  <td className="txt-lighter w-25">{column.name}</td>
-                  <td className="txt-lighter w-25">date/time</td>
-                  <td className="txt-lighter w-25">date/time</td>
-                  <td className="txt-lighter w-25">
-                    {column.periodicity ?? (
-                      <span className="text-danger">N/A</span>
-                    )}
-                  </td>
-                </tr>
-              ),
-            )}
+            {dataset.numericColumns.map((column, index) => (
+              <tr key={index}>
+                <td className="txt-lighter w-25">{column.name}</td>
+                <td className="txt-lighter w-25">numeric</td>
+                <td className="txt-lighter w-25">{column.dataType}</td>
+                <td className="text-danger w-25">N/A</td>
+              </tr>
+            ))}
+            {dataset.stringColumns.map((column, index) => (
+              <tr key={index}>
+                <td className="txt-lighter w-25">{column.name}</td>
+                <td className="txt-lighter w-25">string</td>
+                <td className="txt-lighter w-25">string</td>
+                <td className="text-danger w-25">N/A</td>
+              </tr>
+            ))}
+            {dataset.datetimeColumns.map((column, index) => (
+              <tr key={index}>
+                <td className="txt-lighter w-25">{column.name}</td>
+                <td className="txt-lighter w-25">date/time</td>
+                <td className="txt-lighter w-25">date/time</td>
+                <td className="txt-lighter w-25">
+                  {column.periodicity ?? (
+                    <span className="text-danger">N/A</span>
+                  )}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

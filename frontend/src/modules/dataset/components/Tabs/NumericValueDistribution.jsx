@@ -5,7 +5,7 @@ import $ from "jquery";
 import ImageView from "../../../common/components/ImageView/ImageView";
 import { imageBasePath } from "../../../common/api/config";
 
-function NumericValueDistribution({ edp }) {
+function NumericValueDistribution({ edp, dataset }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -52,7 +52,7 @@ function NumericValueDistribution({ edp }) {
           </div>
 
           <div className="row">
-            {edp?._source?.structuredDatasets[0]?.numericColumns
+            {dataset?.numericColumns
               .filter((column) =>
                 column.name.toLowerCase().includes(searchQuery.toLowerCase()),
               )
@@ -101,15 +101,13 @@ function NumericValueDistribution({ edp }) {
                 </tr>
               </thead>
               <tbody>
-                {edp?._source?.structuredDatasets[0]?.numericColumns.map(
-                  (column, index) => (
-                    <tr key={index} className="hover">
-                      <td className="w-33">{column.name}</td>
-                      <td className="w-33">{column.distribution}</td>
-                      <td className="w-33">{column.numberUnique}</td>
-                    </tr>
-                  ),
-                )}
+                {dataset?.numericColumns.map((column, index) => (
+                  <tr key={index} className="hover">
+                    <td className="w-33">{column.name}</td>
+                    <td className="w-33">{column.distribution}</td>
+                    <td className="w-33">{column.numberUnique}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

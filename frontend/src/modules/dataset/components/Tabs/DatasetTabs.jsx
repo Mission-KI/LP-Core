@@ -95,42 +95,44 @@ const DatasetTabs = ({ edp, datasetRef }) => {
           {
             eventKey: "attribute_list",
             title: t("dataset.tabs.attributeList"),
-            component: <AttributeList edp={edp} />,
+            component: <AttributeList dataset={dataset} />,
           },
           {
             eventKey: "temporal_consistency",
             title: t("dataset.tabs.temporalConsistency"),
-            component: <TemporalConsistency edp={edp} />,
+            component: <TemporalConsistency dataset={dataset} />,
           },
           {
             eventKey: "numeric_value_distribution",
             title: t("dataset.tabs.numericValueDistribution"),
-            component: <NumericValueDistribution edp={edp} />,
+            component: <NumericValueDistribution edp={edp} dataset={dataset} />,
           },
           {
             eventKey: "string_value_distribution",
             title: t("dataset.tabs.stringValueDistribution"),
-            component: <StringValueDistribution edp={edp} />,
+            component: <StringValueDistribution dataset={dataset} edp={edp} />,
           },
           {
             eventKey: "numeric_correlation_analysis",
             title: t("dataset.tabs.numericCorrelationAnalysis"),
-            component: <NumericCorrelationAnalysis edp={edp} />,
+            component: (
+              <NumericCorrelationAnalysis dataset={dataset} edp={edp} />
+            ),
           },
           {
             eventKey: "numeric_outlier_analysis",
             title: t("dataset.tabs.numericOutlierAnalysis"),
-            component: <NumericOutlierAnalysis edp={edp} />,
+            component: <NumericOutlierAnalysis dataset={dataset} edp={edp} />,
           },
           {
             eventKey: "attribute_integrity",
             title: t("dataset.tabs.attributeIntegrity"),
-            component: <AttributeIntegrity edp={edp} />,
+            component: <AttributeIntegrity dataset={dataset} />,
           },
           {
             eventKey: "data_seasonality",
             title: t("dataset.tabs.dataSeasonality"),
-            component: <DataSeasonality edp={edp} />,
+            component: <DataSeasonality dataset={dataset} edp={edp} />,
           },
         ]
       : []),

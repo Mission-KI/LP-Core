@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import $ from "jquery";
 import { useTranslation } from "react-i18next";
 
-function AttributeIntegrity({ edp }) {
+function AttributeIntegrity({ dataset }) {
   useEffect(() => {
     const table = $("#consistencyTable").DataTable({
       paging: false,
@@ -45,33 +45,27 @@ function AttributeIntegrity({ edp }) {
             </tr>
           </thead>
           <tbody>
-            {edp?._source?.structuredDatasets[0]?.numericColumns?.map(
-              (column, index) => (
-                <tr key={index}>
-                  <td className="w-33">{column.name}</td>
-                  <td className="w-33">{column.nullCount ? "Yes" : "No"}</td>
-                  <td className="w-33">{column.nullCount}</td>
-                </tr>
-              ),
-            )}
-            {edp?._source?.structuredDatasets[0]?.stringColumns?.map(
-              (column, index) => (
-                <tr key={index}>
-                  <td className="w-33">{column.name}</td>
-                  <td className="w-33">{column.nullCount ? "Yes" : "No"}</td>
-                  <td className="w-33">{column.nullCount}</td>
-                </tr>
-              ),
-            )}
-            {edp?._source?.structuredDatasets?.[0]?.datetimeColumns?.map(
-              (column, index) => (
-                <tr key={index}>
-                  <td className="w-33">{column.name}</td>
-                  <td className="w-33">{column.nullCount ? "Yes" : "No"}</td>
-                  <td className="w-33">{column.nullCount}</td>
-                </tr>
-              ),
-            )}
+            {dataset?.numericColumns?.map((column, index) => (
+              <tr key={index}>
+                <td className="w-33">{column.name}</td>
+                <td className="w-33">{column.nullCount ? "Yes" : "No"}</td>
+                <td className="w-33">{column.nullCount}</td>
+              </tr>
+            ))}
+            {dataset?.stringColumns?.map((column, index) => (
+              <tr key={index}>
+                <td className="w-33">{column.name}</td>
+                <td className="w-33">{column.nullCount ? "Yes" : "No"}</td>
+                <td className="w-33">{column.nullCount}</td>
+              </tr>
+            ))}
+            {dataset.datetimeColumns.map((column, index) => (
+              <tr key={index}>
+                <td className="w-33">{column.name}</td>
+                <td className="w-33">{column.nullCount ? "Yes" : "No"}</td>
+                <td className="w-33">{column.nullCount}</td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
