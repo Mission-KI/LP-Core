@@ -125,7 +125,7 @@ i18n
             },
             aiamo: {
               title: "AIAMO - Artificial Intelligence And Mobility",
-              description: "The AIAMOnexus provides members of the ITS industry with AI-powered mobility data by combining the AIAMO mobility data integration zone with advanced AI base models."
+              description: "The AIAMOnexus provides members of the ITS industry with AI-powered mobility data by combining the AIAMO mobility data integration zone with advanced AI foundation models."
             },
           },
           footer: {
@@ -252,7 +252,7 @@ i18n
             },
             aiamo: {
               title: "AIAMO - Artificial Intelligence And Mobility",
-              description: "Der AIAMOnexus versorgt die Mitglieder der ITS-Branche mit KI-gestützten Mobilitätsdaten, indem er die AIAMO-Integrationszone für Mobilitätsdaten mit fortschrittlichen KI-Grundmodellen kombiniert."
+              description: "Der AIAMOnexus versorgt die Mitglieder der ITS-Branche mit KI-gestützten Mobilitätsdaten, indem er die AIAMO-Integrationszone für Mobilitätsdaten mit fortschrittlichen AI Foundation Models kombiniert."
             },
           },
           footer: {
