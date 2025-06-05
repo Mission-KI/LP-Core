@@ -54,6 +54,7 @@ export const DataspaceFilter = ({ dataSpaces }) => {
               <Dropdown.Item
                 key={key}
                 as="div"
+                onClick={() => handleToggle(dataSpace.key)}
                 className="d-flex align-items-center"
               >
                 <input
