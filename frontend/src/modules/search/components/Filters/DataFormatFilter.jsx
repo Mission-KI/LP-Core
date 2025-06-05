@@ -54,6 +54,7 @@ export const DataFormatFilter = ({ dataFormats }) => {
               <Dropdown.Item
                 key={key}
                 as="div"
+                onClick={() => handleToggle(dataFormat.key)}
                 className="d-flex align-items-center"
               >
                 <input
