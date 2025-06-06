@@ -40,7 +40,7 @@ const Dataset = ({ node, childrenMap, edp }) => {
           ) : (
             <div className="d-flex align-items-center flex-wrap">
               <Link
-                to={`/details/${edp?._id}/${encodeURIComponent(node?.name)}`}
+                to={`/details/${edp?._id}/${encodeURIComponent(datasetRef)}`}
                 className="txt-primary hover-underline"
               >
                 {node.name}
