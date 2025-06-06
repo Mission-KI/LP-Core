@@ -22,6 +22,7 @@ import geoportal from "../assets/img/dataspace_logos/geoportal.png";
 import konstanz from "../assets/img/dataspace_logos/konstanz.jpg";
 import genesis from "../assets/img/dataspace_logos/logo_genesis_online.png";
 import pontusx from "../assets/img/dataspace_logos/logo_pontusx.jpg";
+import aiamo from "../assets/img/dataspace_logos/logo_aiamo.png";
 
 export const useCategories = () => {
   const { t } = useTranslation();
@@ -107,6 +108,18 @@ export const useCategories = () => {
             dataspace_filters: ["mobilithek"],
             publisher_filters: ["Toll Collect GmbH", "Autobahn GmbH"],
             is_publisher: false,
+          },
+          {
+            id: 7,
+            name: "AIAMO",
+            title: t("dataSpaces.aiamo.title"),
+            description: t("dataSpaces.aiamo.description"),
+            image: aiamo,
+            amount_of_publishers: 0,
+            amount_of_assets: 0,
+            dataspace_filters: ["AIAMO"],
+            publisher_filters: [],
+            is_publisher: true,
           },
           {
             id: 4,
