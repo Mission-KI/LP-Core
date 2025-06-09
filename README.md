@@ -40,7 +40,13 @@ Once running, access the following:
 - **Landing Page**: [http://localhost:3000](http://localhost:3000)
 - **Backend API**: [http://localhost:8000](http://localhost:8000)
 - **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **Swagger UI Prodcution**: [https://dvz9w1anayk5n.cloudfront.net/docs/](https://dvz9w1anayk5n.cloudfront.net/docs/)
 - **API Documentation**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+Creating, updating, or deleting EDPs, as well as accessing the monitoring interface, is restricted to authorized users.
+daseen only allows the upload of EDPs. Each uploaded EDP undergoes schema validation.
+If the EDP is not valid, the API returns an error message.
+The schema that an EDP conforms to can also be retrieved via the API.
 
 ## Contributing
 
