@@ -5,12 +5,25 @@ const About_En = () => {
       <h5 className="mt-5 mb-3" id="version-info">
         Version information
       </h5>
-      <p className="regular text-justify">15.05.2025</p>
+      <p className="regular text-justify">10.06.2025</p>
       <h5 className="mt-5 mb-3" id="latest-changes">
         Latest changes
       </h5>
-      <p> - Re-design of "Get Similar EDP" functionality</p>
-      <p> - Extended filter options on similar EDP</p>
+      <p>
+        {" "}
+        - Added multiple new data spaces and publishers to landing page
+        categories
+      </p>
+      <p>
+        {" "}
+        - Fixed bug in filters which led to partial results in case several
+        selections were made in dropdown filters
+      </p>
+      <p>
+        {" "}
+        - Fixed bug which led to incorrect views in nested structures in case
+        nested elements had identical names
+      </p>
       <p> - Cosmetic improvements</p>
       <h5 className="mt-5 mb-3" id="registration-section">
         Registration
