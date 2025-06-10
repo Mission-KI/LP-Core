@@ -55,7 +55,7 @@ export const useCategories = () => {
         id: 1,
         title: t("categories.mobilityAndTransportation"),
         slug: "mobility-and-transportation",
-        amount_of_publishers: 4,
+        amount_of_publishers: 17,
         amount_of_assets:
           getAssetCount("BASt", "GovData") +
           getAssetCount(
@@ -63,6 +63,22 @@ export const useCategories = () => {
             "Mobility Data Space",
           ) +
           getAssetCount("Toll Collect GmbH", "mobilithek") +
+          getAssetCount(
+            "Bundesamt für Seeschifffahrt und Hydrographie (BSH)",
+            "mobilithek",
+          ) +
+          getAssetCount("Stadt Moers", "mobilithek") +
+          getAssetCount("Bundesanstalt für Wasserbau", "mobilithek") +
+          getAssetCount("Bundesanstalt für Gewässerkunde", "mobilithek") +
+          getAssetCount("Landeshauptstadt Kiel", "mobilithek") +
+          getAssetCount("Kreis Kleve", "mobilithek") +
+          getAssetCount("MobiData BW", "mobilithek") +
+          getAssetCount("TU Dresden", "mobilithek") +
+          getAssetCount("4traffic GbR", "mobilithek") +
+          getAssetCount("FH Dortmund", "mobilithek") +
+          getAssetCount("MotionTag GmbH", "mobilithek") +
+          getAssetCount("Stadt Wedel", "mobilithek") +
+          getAssetCount("Tourismus-Zentrale St. Peter-Ording", "mobilithek") +
           getAssetCount("Autobahn GmbH", "mobilithek"),
         image: MobilityImg,
         tiles: [
@@ -97,29 +113,52 @@ export const useCategories = () => {
           },
           {
             id: 3,
-            name: "Mobilithek",
+            name: "mobilithek",
             title: t("dataSpaces.mobilithek.title"),
             description: t("dataSpaces.mobilithek.description"),
             image: mobilithek,
-            amount_of_publishers: 2,
+            amount_of_publishers: 15,
             amount_of_assets:
               getAssetCount("Toll Collect GmbH", "mobilithek") +
+              getAssetCount(
+                "Bundesamt für Seeschifffahrt und Hydrographie (BSH)",
+                "mobilithek",
+              ) +
+              getAssetCount("Stadt Moers", "mobilithek") +
+              getAssetCount("Bundesanstalt für Wasserbau", "mobilithek") +
+              getAssetCount("Bundesanstalt für Gewässerkunde", "mobilithek") +
+              getAssetCount("Landeshauptstadt Kiel", "mobilithek") +
+              getAssetCount("Kreis Kleve", "mobilithek") +
+              getAssetCount("MobiData BW", "mobilithek") +
+              getAssetCount("TU Dresden", "mobilithek") +
+              getAssetCount("4traffic GbR", "mobilithek") +
+              getAssetCount("FH Dortmund", "mobilithek") +
+              getAssetCount("MotionTag GmbH", "mobilithek") +
+              getAssetCount("Stadt Wedel", "mobilithek") +
+              getAssetCount(
+                "Tourismus-Zentrale St. Peter-Ording",
+                "mobilithek",
+              ) +
               getAssetCount("Autobahn GmbH", "mobilithek"),
             dataspace_filters: ["mobilithek"],
-            publisher_filters: ["Toll Collect GmbH", "Autobahn GmbH"],
+            publisher_filters: [
+              "Toll Collect GmbH",
+              "Bundesamt für Seeschifffahrt und Hydrographie (BSH)",
+              "Stadt Moers",
+              "Bundesanstalt für Wasserbau",
+              "Bundesanstalt für Gewässerkunde",
+              "Landeshauptstadt Kiel",
+              "Kreis Kleve",
+              "MobiData BW",
+              "TU Dresden",
+              "4traffic GbR",
+              "FH Dortmund",
+              "MotionTag GmbH",
+              "Stadt Wedel",
+              "Tourismus-Zentrale St. Peter-Ording",
+              "Autobahn GmbH",
+            ],
             is_publisher: false,
-          },
-          {
-            id: 7,
-            name: "AIAMO",
-            title: t("dataSpaces.aiamo.title"),
-            description: t("dataSpaces.aiamo.description"),
-            image: aiamo,
-            amount_of_publishers: 0,
-            amount_of_assets: 0,
-            dataspace_filters: ["AIAMO"],
-            publisher_filters: [],
-            is_publisher: true,
           },
           {
             id: 4,
@@ -155,6 +194,18 @@ export const useCategories = () => {
             amount_of_assets: 0,
             dataspace_filters: [],
             publisher_filters: ["Autobahn GmbH"],
+            is_publisher: true,
+          },
+          {
+            id: 7,
+            name: "AIAMO",
+            title: t("dataSpaces.aiamo.title"),
+            description: t("dataSpaces.aiamo.description"),
+            image: aiamo,
+            amount_of_publishers: 0,
+            amount_of_assets: 0,
+            dataspace_filters: ["AIAMO"],
+            publisher_filters: [],
             is_publisher: true,
           },
         ],
@@ -211,7 +262,7 @@ export const useCategories = () => {
             ),
             dataspace_filters: ["GovData"],
             publisher_filters: ["Transparenzportal Hamburg"],
-            is_publisher: true,
+            is_publisher: false,
           },
         ],
       },
@@ -220,7 +271,7 @@ export const useCategories = () => {
         title: t("categories.administration"),
         slug: "administration-and-public-sector",
         image: GovernmentImg,
-        amount_of_publishers: 9,
+        amount_of_publishers: 13,
         amount_of_assets:
           getAssetCount("BASt", "GovData") +
           getAssetCount("Open-Data Schleswig-Holstein", "GovData") +
@@ -230,6 +281,13 @@ export const useCategories = () => {
           getAssetCount("Landesdatenbank NRW", "GovData") +
           getAssetCount("Freistaat Bayern", "GovData") +
           getAssetCount("Statistisches Bundesamt", "GovData") +
+          getAssetCount("Stadt Lahr", "GovData") +
+          getAssetCount("Schleswig-Holstein", "GovData") +
+          getAssetCount(
+            "LGB - Landesvermessung und Geobasisinformation Brandenburg",
+            "GovData",
+          ) +
+          getAssetCount("Offene Daten Bonn", "GovData") +
           getAssetCount("Statistik Nord", "GovData"),
         tiles: [
           {
@@ -238,7 +296,7 @@ export const useCategories = () => {
             title: t("dataSpaces.govdata.title"),
             description: t("dataSpaces.govdata.description"),
             image: govdata,
-            amount_of_publishers: 9,
+            amount_of_publishers: 13,
             amount_of_assets:
               getAssetCount("BASt", "GovData") +
               getAssetCount("Open-Data Schleswig-Holstein", "GovData") +
@@ -248,6 +306,13 @@ export const useCategories = () => {
               getAssetCount("Landesdatenbank NRW", "GovData") +
               getAssetCount("Freistaat Bayern", "GovData") +
               getAssetCount("Statistisches Bundesamt", "GovData") +
+              getAssetCount("Stadt Lahr", "GovData") +
+              getAssetCount("Schleswig-Holstein", "GovData") +
+              getAssetCount(
+                "LGB - Landesvermessung und Geobasisinformation Brandenburg",
+                "GovData",
+              ) +
+              getAssetCount("Offene Daten Bonn", "GovData") +
               getAssetCount("Statistik Nord", "GovData"),
             dataspace_filters: ["GovData"],
             publisher_filters: [
@@ -259,6 +324,10 @@ export const useCategories = () => {
               "Landesdatenbank NRW",
               "Freistaat Bayern",
               "Statistisches Bundesamt",
+              "Stadt Lahr",
+              "Schleswig-Holstein",
+              "LGB - Landesvermessung und Geobasisinformation Brandenburg",
+              "Offene Daten Bonn",
               "Statistik Nord",
             ],
             is_publisher: false,
@@ -296,26 +365,19 @@ export const useCategories = () => {
         id: 6,
         title: t("categories.geodata"),
         slug: "geodata-and-weather",
-        amount_of_publishers: 2,
+        amount_of_publishers: 4,
         image: GeomapsImg,
         amount_of_assets:
           getAssetCount("PANGAEA", "Geoportal.de") +
-          getAssetCount("Statistisches Bundesamt", "GENESIS-Online"),
+          getAssetCount("Statistisches Bundesamt", "GENESIS-Online") +
+          getAssetCount(
+            "LGB - Landesvermessung und Geobasisinformation Brandenburg",
+            "GovData",
+          ) +
+          getAssetCount("Bundesanstalt für Gewässerkunde", "mobilithek"),
         tiles: [
           {
             id: 1,
-            image: pangaea,
-            name: "PANGAEA",
-            title: t("publishers.pangaea.title"),
-            description: t("publishers.pangaea.description"),
-            amount_of_publishers: 1,
-            amount_of_assets: getAssetCount("PANGAEA", "Geoportal.de"),
-            dataspace_filters: [],
-            publisher_filters: ["PANGAEA"],
-            is_publisher: true,
-          },
-          {
-            id: 2,
             image: geoportal,
             name: "Geoportal.de",
             title: t("dataSpaces.geoportal.title"),
@@ -327,7 +389,7 @@ export const useCategories = () => {
             is_publisher: false,
           },
           {
-            id: 3,
+            id: 2,
             image: genesis,
             name: "GENESIS-Online",
             title: t("dataSpaces.genesis.title"),
@@ -340,6 +402,50 @@ export const useCategories = () => {
             dataspace_filters: ["GENESIS-Online"],
             publisher_filters: ["Statistisches Bundesamt"],
             is_publisher: false,
+          },
+          {
+            id: 3,
+            image: govdata,
+            name: "GovData",
+            title: t("dataSpaces.govdata.title"),
+            description: t("dataSpaces.govdata.description"),
+            amount_of_publishers: 1,
+            amount_of_assets: getAssetCount(
+              "LGB - Landesvermessung und Geobasisinformation Brandenburg",
+              "GovData",
+            ),
+            dataspace_filters: ["GovData"],
+            publisher_filters: [
+              "LGB - Landesvermessung und Geobasisinformation Brandenburg",
+            ],
+            is_publisher: false,
+          },
+          {
+            id: 4,
+            image: mobilithek,
+            name: "mobilithek",
+            title: t("dataSpaces.mobilithek.title"),
+            description: t("dataSpaces.mobilithek.description"),
+            amount_of_publishers: 1,
+            amount_of_assets: getAssetCount(
+              "Bundesanstalt für Gewässerkunde",
+              "mobilithek",
+            ),
+            dataspace_filters: ["mobilithek"],
+            publisher_filters: ["Bundesanstalt für Gewässerkunde"],
+            is_publisher: false,
+          },
+          {
+            id: 5,
+            image: pangaea,
+            name: "PANGAEA",
+            title: t("publishers.pangaea.title"),
+            description: t("publishers.pangaea.description"),
+            amount_of_publishers: 1,
+            amount_of_assets: getAssetCount("PANGAEA", "Geoportal.de"),
+            dataspace_filters: [],
+            publisher_filters: ["PANGAEA"],
+            is_publisher: true,
           },
         ],
       },
