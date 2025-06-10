@@ -70,7 +70,7 @@
     ]
   },
   "devDependencies": {
-    "@playwright/test": "^1.48.1",
+    "@playwright/test": "^1.52.0",
     "@types/node": "^22.7.9",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^8.57.1",
