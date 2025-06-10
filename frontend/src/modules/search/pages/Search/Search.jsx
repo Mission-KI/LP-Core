@@ -74,11 +74,13 @@ function Search() {
 
   const handlePageChange = (selectedItem) => {
     const newPage = selectedItem.selected + 1;
-    const updatedParams = new URLSearchParams(searchParams);
+    const currentUrl = new URL(window.location.href);
+    const updatedParams = new URLSearchParams(currentUrl.search);
 
-    updatedParams.set("page", newPage);
+    updatedParams.delete("page");
+    updatedParams.append("page", newPage);
 
-    navigate(`?${updatedParams.toString()}`);
+    navigate(`${currentUrl.pathname}?${updatedParams.toString()}`);
   };
 
   return (

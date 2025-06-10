@@ -38,13 +38,12 @@ export const getEdps = async (from = 0, size = 10, expertMode) => {
             path: "assetRefs",
             query: {
               bool: {
-                must: [
-                  {
-                    term: {
-                      "assetRefs.dataSpace.name.keyword": values[0],
-                    },
+                should: values.map((value) => ({
+                  term: {
+                    "assetRefs.dataSpace.name.keyword": value,
                   },
-                ],
+                })),
+                minimum_should_match: 1,
               },
             },
           },
@@ -55,13 +54,12 @@ export const getEdps = async (from = 0, size = 10, expertMode) => {
             path: "assetRefs",
             query: {
               bool: {
-                must: [
-                  {
-                    term: {
-                      "assetRefs.publisher.name.keyword": values[0],
-                    },
+                should: values.map((value) => ({
+                  term: {
+                    "assetRefs.publisher.name.keyword": value,
                   },
-                ],
+                })),
+                minimum_should_match: 1,
               },
             },
           },
@@ -81,13 +79,12 @@ export const getEdps = async (from = 0, size = 10, expertMode) => {
             path: "assetRefs",
             query: {
               bool: {
-                must: [
-                  {
-                    term: {
-                      "assetRefs.license.name.keyword": values[0],
-                    },
+                should: values.map((value) => ({
+                  term: {
+                    "assetRefs.license.name.keyword": value,
                   },
-                ],
+                })),
+                minimum_should_match: 1,
               },
             },
           },
