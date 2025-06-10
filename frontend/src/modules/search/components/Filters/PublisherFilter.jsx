@@ -54,6 +54,7 @@ export const PublisherFilter = ({ publishers }) => {
               <Dropdown.Item
                 key={key}
                 as="div"
+                onClick={() => handleToggle(publisher.key)}
                 className="d-flex align-items-center"
               >
                 <input

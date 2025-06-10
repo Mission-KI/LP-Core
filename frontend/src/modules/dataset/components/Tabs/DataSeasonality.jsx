@@ -2,7 +2,7 @@ import { useState } from "react";
 import SeasonalityDetailView from "../SeasonalityDetailView";
 import { imageBasePath } from "../../../common/api/config";
 
-function DataSeasonality({ edp }) {
+function DataSeasonality({ dataset, edp }) {
   const [selectedTab, setSelectedTab] = useState("Original Timeseries");
   const [searchQuery, setSearchQuery] = useState("");
   const [showDetailViewModal, setShowDetailViewModal] = useState(false);
@@ -16,7 +16,7 @@ function DataSeasonality({ edp }) {
   ];
 
   const filteredColumns =
-    edp?._source?.structuredDatasets?.[0]?.numericColumns?.filter((column) =>
+    dataset?.numericColumns?.filter((column) =>
       column.name.toLowerCase().includes(searchQuery.toLowerCase()),
     ) || [];
 

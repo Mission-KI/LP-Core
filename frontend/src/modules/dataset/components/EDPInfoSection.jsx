@@ -69,18 +69,24 @@ const EDPInfoSection = ({ edp, datasetRef, dataset }) => {
           {edp._source?.assetRefs?.[0]?.dataSpace?.name}
         </a>
 
-        <a
-          href={
-            edp._source?.assetRefs?.[0]?.publisher?.url?.startsWith("http")
-              ? edp._source.assetRefs[0].publisher.url
-              : `https://${edp._source.assetRefs[0].publisher.url}`
-          }
-          target="_blank"
-          rel="noopener noreferrer"
-          className="small txt-primary pe-3"
-        >
-          {edp._source?.assetRefs?.[0]?.publisher?.name}
-        </a>
+        {edp._source?.assetRefs?.[0]?.publisher?.url ? (
+          <a
+            href={
+              edp._source.assetRefs[0].publisher.url.startsWith("http")
+                ? edp._source.assetRefs[0].publisher.url
+                : `https://${edp._source.assetRefs[0].publisher.url}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="small txt-primary pe-3"
+          >
+            {edp._source?.assetRefs?.[0]?.publisher?.name}
+          </a>
+        ) : (
+          <span className="small pe-3">
+            {edp._source?.assetRefs?.[0]?.publisher?.name}
+          </span>
+        )}
 
         <a
           href={edp._source?.assetRefs?.[0]?.license?.url}

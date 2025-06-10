@@ -54,6 +54,7 @@ export const LicenseFilter = ({ licenses }) => {
               <Dropdown.Item
                 key={key}
                 as="div"
+                onClick={() => handleToggle(license.key)}
                 className="d-flex align-items-center"
               >
                 <input

@@ -21,7 +21,7 @@ const DataScienceInfo = ({ edp, datasetRef, dataset }) => {
         {isArchiveDataset && <AdditionalArchiveAttributes dataset={dataset} />}
 
         {isStructuredDataset && (
-          <AdditionalStructuredDataAttributes edp={edp} />
+          <AdditionalStructuredDataAttributes edp={edp} dataset={dataset} />
         )}
       </div>
     </div>

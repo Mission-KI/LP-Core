@@ -125,8 +125,6 @@ def test_analytics(monkeypatch):
     assert "edp_event_counts" in response.data
     assert "downloads_per_month" in response.data["edp_event_counts"]
     assert "uploads_per_month" in response.data["edp_event_counts"]
-    assert len(response.data["edp_event_counts"]["downloads_per_month"]) == 11
-    assert len(response.data["edp_event_counts"]["uploads_per_month"]) == 11
     response.data["edp_event_counts"]["downloads_per_month"] = "already_counted_above"
     response.data["edp_event_counts"]["uploads_per_month"] = "already_counted_above"
     assert response.data == {

@@ -6,7 +6,7 @@ import $ from "jquery";
 import { useTranslation } from "react-i18next";
 import { imageBasePath } from "../../../common/api/config";
 
-function NumericOutlierAnalysis({ edp }) {
+function NumericOutlierAnalysis({ dataset, edp }) {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function NumericOutlierAnalysis({ edp }) {
             </div>
           </div>
           <div className="row">
-            {edp?._source?.structuredDatasets[0]?.numericColumns
+            {dataset?.numericColumns
               .filter((column) =>
                 column.name.toLowerCase().includes(searchQuery.toLowerCase()),
               )
@@ -137,23 +137,21 @@ function NumericOutlierAnalysis({ edp }) {
                 </tr>
               </thead>
               <tbody>
-                {edp?._source?.structuredDatasets[0]?.numericColumns.map(
-                  (column, index) => (
-                    <tr key={index} className="hover">
-                      <td className="small">{column.name}</td>
-                      <td className="small">{column.upperQuantile}</td>
-                      <td className="small">{column.lowerQuantile}</td>
-                      <td className="small">{column.percentileOutlierCount}</td>
-                      <td className="small">{column.upperZScore}</td>
-                      <td className="small">{column.lowerZScore}</td>
-                      <td className="small">{column.zScoreOutlierCount}</td>
-                      <td className="small">{column.upperIQR}</td>
-                      <td className="small">{column.lowerIQR}</td>
-                      <td className="small">{column.iqr}</td>
-                      <td className="small">{column.iqrOutlierCount}</td>
-                    </tr>
-                  ),
-                )}
+                {dataset?.numericColumns.map((column, index) => (
+                  <tr key={index} className="hover">
+                    <td className="small">{column.name}</td>
+                    <td className="small">{column.upperQuantile}</td>
+                    <td className="small">{column.lowerQuantile}</td>
+                    <td className="small">{column.percentileOutlierCount}</td>
+                    <td className="small">{column.upperZScore}</td>
+                    <td className="small">{column.lowerZScore}</td>
+                    <td className="small">{column.zScoreOutlierCount}</td>
+                    <td className="small">{column.upperIQR}</td>
+                    <td className="small">{column.lowerIQR}</td>
+                    <td className="small">{column.iqr}</td>
+                    <td className="small">{column.iqrOutlierCount}</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

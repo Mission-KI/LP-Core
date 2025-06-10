@@ -23,6 +23,8 @@ class ElasticDBWrapper:
             raise APIException(detail="Missing elastic configuration")
         url_data = HttpUrl(settings.ELASTICSEARCH_URL)
         host_url = f"{url_data.scheme}://{url_data.host}"
+        if url_data.port is not None:
+            host_url += f":{url_data.port}"
         if url_data.path is None or url_data.path.count("/") != 1:
             raise APIException("Invalid elasticsearch url configured")
         elastic_index = url_data.path[1:]
@@ -32,6 +34,7 @@ class ElasticDBWrapper:
             elastic_apikey=settings.ELASTICSEARCH_API_KEY,
             elastic_index=elastic_index,
             elastic_schema_index=f"{elastic_index}-schema",
+            elastic_timeout=10,
         )
 
     def __init__(self, config: ElasticConfig):

@@ -552,7 +552,8 @@ def test_create_success(auth_client: APIClient):
     response = auth_client.post(reverse("edp-base"))
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_201_CREATED, response.json()
-    assert isinstance(response.data, dict) and "id" in response.data and isinstance(response.data["id"], uuid.UUID)
+    body = response.json()
+    assert "id" in body and uuid.UUID(body["id"])
     check_event_log(
         url=response.request["PATH_INFO"], status="success", message="EDP resource created", expect_id=False
     )
@@ -753,3 +754,26 @@ def test_index_current_schema_success(mock_index):
         document={"schema": CURRENT_SCHEMA.model_json_schema(by_alias=True)},
         op_type="create",
     )
+
+
+@pytest.mark.django_db()
+@pytest.mark.parametrize(
+    "service_base_url",
+    [
+        "https://example.com",
+        "https://example.com/",
+        "http://example.com/",
+        "http://localhost",
+        "https://127.0.0.1:8000/",
+        "https://127.0.0.1/api",
+        "https://127.0.0.1/api/",
+    ],
+)
+def test_create_resource_id_with_service_base_url(auth_client: APIClient, service_base_url):
+    response = auth_client.post(reverse("edp-base"), HTTP_X_SERVICE_BASE_URL=service_base_url)
+    assert response.status_code == 201
+    data = response.json()
+    assert "id" in data
+    assert "rawZIPUploadURL" in data
+    service_base_url = service_base_url.rstrip("/")
+    assert data["rawZIPUploadURL"] == f"{service_base_url}/connector/edp/{data['id']}/edp.zip/"
