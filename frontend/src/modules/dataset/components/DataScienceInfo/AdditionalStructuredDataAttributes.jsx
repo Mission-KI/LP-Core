@@ -9,12 +9,12 @@ import {
 import { InfoCircleFill, QuestionCircle } from "react-bootstrap-icons";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { getNumericOutlierAnalysis } from "../../utils/edp_utils";
 
 const AdditionalStructuredDataAttributes = ({ edp, dataset }) => {
   const navigate = useNavigate();
-  const detailViewPath = `/details/${edp._id}`;
+  const location = useLocation();
 
   const topDistributions = getTopNumericDistributions(edp);
   const allDistributions = getUniqueNumericDistributions(edp);
@@ -22,7 +22,10 @@ const AdditionalStructuredDataAttributes = ({ edp, dataset }) => {
   const { t } = useTranslation();
 
   const scienceInfoTabNavigate = (hash) => {
-    navigate(detailViewPath + "#" + hash);
+    navigate({
+      pathname: location.pathname,
+      hash: hash,
+    });
   };
 
   return (
@@ -120,7 +123,7 @@ const AdditionalStructuredDataAttributes = ({ edp, dataset }) => {
       </div>
       <div className="col-6">
         <p
-          onClick={() => scienceInfoTabNavigate("correlation_analysis")}
+          onClick={() => scienceInfoTabNavigate("numeric_correlation_analysis")}
           className="small lh-sm pb-2 text-uppercase pointer"
         >
           {t("dataset.numericCorrelationAnalysis")}
@@ -131,7 +134,7 @@ const AdditionalStructuredDataAttributes = ({ edp, dataset }) => {
       </div>
       <div className="col-6">
         <p
-          onClick={() => scienceInfoTabNavigate("anomaly_analysis")}
+          onClick={() => scienceInfoTabNavigate("numeric_outlier_analysis")}
           className="small lh-sm pb-2 text-uppercase pointer"
         >
           {t("dataset.numericOutlierAnalysis")}
