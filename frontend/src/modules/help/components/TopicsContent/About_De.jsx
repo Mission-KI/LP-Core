@@ -10,17 +10,14 @@ const About_De = () => {
         Neueste Änderungen
       </h5>
       <p>
-        {" "}
         - Mehrere neue Datenräume, Datenportale und Datenanbieter zu Landing
         Page Kategorien hinzugefügt
       </p>
       <p>
-        {" "}
         - Fehler in Filtern behoben, der zu Teilergebnissen führte, wenn mehrere
         Elemente in Dropdown-Filtern ausgewählt wurden
       </p>
       <p>
-        {" "}
         - Fehler behoben, der zu falschen Ansichten in verschachtelten
         Strukturen führte, wenn untergeordnete Elemente identische Namen hatten
       </p>

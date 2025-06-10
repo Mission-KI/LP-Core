@@ -10,17 +10,14 @@ const About_En = () => {
         Latest changes
       </h5>
       <p>
-        {" "}
         - Added multiple new data spaces and publishers to landing page
         categories
       </p>
       <p>
-        {" "}
         - Fixed bug in filters which led to partial results in case several
         selections were made in dropdown filters
       </p>
       <p>
-        {" "}
         - Fixed bug which led to incorrect views in nested structures in case
         nested elements had identical names
       </p>
