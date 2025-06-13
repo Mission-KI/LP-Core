@@ -9,11 +9,39 @@ from django.utils.timezone import now
 from ..models import EventLog
 
 
-def get_elastic_monitoring_analytics(data_space_name: str, publisher: Optional[str] = None):
-    filters = [{"term": {"assetRefs.dataSpace.name.keyword": data_space_name}}]
+def get_elastic_monitoring_analytics(dataspace: Optional[str] = None, publisher: Optional[str] = None):
+    filters = []
 
+    if dataspace:
+        filters.append({"term": {"assetRefs.dataSpace.name.keyword": dataspace}})
     if publisher:
         filters.append({"term": {"assetRefs.publisher.name.keyword": publisher}})
+
+    publishers_list_aggs = {
+        "nested": {"path": "assetRefs"},
+        "aggs": {
+            "publishers": {
+                "terms": {"field": "assetRefs.publisher.name.keyword", "size": 100},
+                "aggs": {"asset_count": {"value_count": {"field": "assetRefs.publisher.name.keyword"}}},
+            }
+        },
+    }
+
+    if dataspace:
+        publishers_list_aggs = {
+            "nested": {"path": "assetRefs"},
+            "aggs": {
+                "filtered": {
+                    "filter": {"term": {"assetRefs.dataSpace.name.keyword": dataspace}},
+                    "aggs": {
+                        "publishers": {
+                            "terms": {"field": "assetRefs.publisher.name.keyword", "size": 100},
+                            "aggs": {"asset_count": {"value_count": {"field": "assetRefs.publisher.name.keyword"}}},
+                        }
+                    },
+                }
+            },
+        }
 
     query = {
         "size": 0,
@@ -50,24 +78,16 @@ def get_elastic_monitoring_analytics(data_space_name: str, publisher: Optional[s
                 "filter": {"term": {"assetProcessingStatus.keyword": "AI/ML Result Data"}},
                 "aggs": {"count": {"value_count": {"field": "assetProcessingStatus.keyword"}}},
             },
-            "publishers_list": {
+            "publishers_list": {"global": {}, "aggs": {"filtered_by_dataspace": publishers_list_aggs}},
+            "dataSpaces_list": {
                 "global": {},
                 "aggs": {
-                    "filtered_by_dataspace": {
+                    "nested_dataSpaces": {
                         "nested": {"path": "assetRefs"},
                         "aggs": {
-                            "filtered": {
-                                "filter": {"term": {"assetRefs.dataSpace.name.keyword": data_space_name}},
-                                "aggs": {
-                                    "publishers": {
-                                        "terms": {"field": "assetRefs.publisher.name.keyword", "size": 100},
-                                        "aggs": {
-                                            "asset_count": {
-                                                "value_count": {"field": "assetRefs.publisher.name.keyword"}
-                                            }
-                                        },
-                                    }
-                                },
+                            "dataSpaces": {
+                                "terms": {"field": "assetRefs.dataSpace.name.keyword", "size": 100},
+                                "aggs": {"asset_count": {"value_count": {"field": "assetRefs.dataSpace.name.keyword"}}},
                             }
                         },
                     }
@@ -79,8 +99,10 @@ def get_elastic_monitoring_analytics(data_space_name: str, publisher: Optional[s
     return elasticsearch_request("POST", "_search", query)
 
 
-def get_edp_event_counts(data_space_name: str, publisher: Optional[str] = None):
-    edp_events = EventLog.objects.filter(dataspace__name=data_space_name)
+def get_edp_event_counts(dataspace: Optional[str] = None, publisher: Optional[str] = None):
+    edp_events = EventLog.objects
+    if dataspace:
+        edp_events = edp_events.filter(dataspace__name=dataspace)
     if publisher:
         edp_events = edp_events.filter(metadata__assetRefs__0__publisher__name=publisher)
 

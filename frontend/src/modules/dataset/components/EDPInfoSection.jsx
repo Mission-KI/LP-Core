@@ -3,12 +3,14 @@ import QualityMetrics from "../../search/components/Results/QualityMetrics";
 import moment from "moment";
 import { ChevronDown, ChevronUp } from "react-bootstrap-icons";
 import { useState } from "react";
-import { truncateString } from "../../common/utils/format_utils";
+import { stripHtmlTags, truncateString } from "../../common/utils/format_utils";
 import { useTranslation } from "react-i18next";
 
-const EDPInfoSection = ({ edp }) => {
+const EDPInfoSection = ({ edp, datasetRef, dataset }) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const { t } = useTranslation();
+  const name = stripHtmlTags(edp?._source?.name);
+  const description = stripHtmlTags(edp?._source?.description);
 
   const toggleDescriptionExpanded = () => {
     setIsDescriptionExpanded((prev) => !prev);
@@ -19,22 +21,26 @@ const EDPInfoSection = ({ edp }) => {
       <div className="d-flex justify-content-between mb-4">
         <div className="d-flex">
           <h2 className="bold d-block pe-3 mb-0" style={{ maxWidth: 600 }}>
-            {edp?._source?.name}
+            {name}
           </h2>
           <div className="pt-2">
-            <QualityMetrics edp={edp} />
+            <QualityMetrics
+              edp={edp}
+              datasetRef={datasetRef}
+              dataset={dataset}
+            />
           </div>
         </div>
-        <EDPActions edp={edp} />
+        <EDPActions edp={edp} datasetRef={datasetRef} dataset={dataset} />
       </div>
 
       <div>
         <p className="mt-3 mb-2">
           {isDescriptionExpanded
-            ? edp?._source?.description
-            : truncateString(edp?._source?.description, 450)}
+            ? description
+            : truncateString(description, 450)}
         </p>
-        {edp?._source?.description?.length > 450 && (
+        {description?.length > 450 && (
           <button
             className="btn btn-link txt-lighter medium p-0"
             onClick={toggleDescriptionExpanded}
@@ -63,18 +69,24 @@ const EDPInfoSection = ({ edp }) => {
           {edp._source?.assetRefs?.[0]?.dataSpace?.name}
         </a>
 
-        <a
-          href={
-            edp._source?.assetRefs?.[0]?.publisher?.url?.startsWith("http")
-              ? edp._source.assetRefs[0].publisher.url
-              : `https://${edp._source.assetRefs[0].publisher.url}`
-          }
-          target="_blank"
-          rel="noopener noreferrer"
-          className="small txt-primary pe-3"
-        >
-          {edp._source?.assetRefs?.[0]?.publisher?.name}
-        </a>
+        {edp._source?.assetRefs?.[0]?.publisher?.url ? (
+          <a
+            href={
+              edp._source.assetRefs[0].publisher.url.startsWith("http")
+                ? edp._source.assetRefs[0].publisher.url
+                : `https://${edp._source.assetRefs[0].publisher.url}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="small txt-primary pe-3"
+          >
+            {edp._source?.assetRefs?.[0]?.publisher?.name}
+          </a>
+        ) : (
+          <span className="small pe-3">
+            {edp._source?.assetRefs?.[0]?.publisher?.name}
+          </span>
+        )}
 
         <a
           href={edp._source?.assetRefs?.[0]?.license?.url}

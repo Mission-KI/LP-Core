@@ -1,4 +1,3 @@
-import React from "react";
 import { useTranslation } from "react-i18next";
 import Dropdown from "react-bootstrap/Dropdown";
 import { Globe2 } from "react-bootstrap-icons";

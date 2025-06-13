@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Gear, Star, StarFill } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 import SettingsModal from "../../common/components/SettingsModal/SettingsModal";

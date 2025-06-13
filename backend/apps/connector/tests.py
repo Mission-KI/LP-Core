@@ -21,9 +21,16 @@ from django.http import HttpResponse
 from django.urls import reverse
 from elastic_transport import ApiResponseMeta, HttpHeaders, NodeConfig, TlsError
 from elasticsearch import AuthenticationException, ConflictError, Elasticsearch
-from extended_dataset_profile import CURRENT_SCHEMA, Version
+from extended_dataset_profile import (
+    CURRENT_SCHEMA,
+    AssetReference,
+    DataSpace,
+    ExtendedDatasetProfile,
+    License,
+    Publisher,
+    Version,
+)
 from extended_dataset_profile import __version__ as current_schema_version
-from extended_dataset_profile.models.v0.edp import AssetReference, DataSpace, ExtendedDatasetProfile, License, Publisher
 from moto import mock_aws
 from pydantic import AnyUrl
 from pytest import MonkeyPatch
@@ -292,6 +299,7 @@ def test_upload_user_edp_dataspace_mismatch(dataspace: None | str):
 @mock_aws
 @pytest.mark.django_db()
 def test_upload_user_edp_superuser(monkeypatch: MonkeyPatch):
+    ElasticDBWrapper.SCHEMA_ADDED_TO_DB = True
     auth_client = APIClient()
     user = User.objects.create_user(username="test", password="test")  # no dataspace assigned
     user.is_superuser = True
@@ -390,7 +398,7 @@ def test_delete_edp_by_id_success(auth_client: APIClient, monkeypatch: MonkeyPat
         status="success",
         type=EventLog.TYPE_UPLOAD,
         message="upload done",
-        dataspace=Dataspace.objects.create(name="Pontus-X"),
+        dataspace=Dataspace.objects.get_or_create(name="Pontus-X")[0],
         metadata={
             "id": str(id),
             "assetRefs": [mini_edp().assetRefs[0].model_dump(mode="json")],
@@ -544,7 +552,8 @@ def test_create_success(auth_client: APIClient):
     response = auth_client.post(reverse("edp-base"))
     assert isinstance(response, Response)
     assert response.status_code == status.HTTP_201_CREATED, response.json()
-    assert isinstance(response.data, dict) and "id" in response.data and isinstance(response.data["id"], uuid.UUID)
+    body = response.json()
+    assert "id" in body and uuid.UUID(body["id"])
     check_event_log(
         url=response.request["PATH_INFO"], status="success", message="EDP resource created", expect_id=False
     )
@@ -745,3 +754,26 @@ def test_index_current_schema_success(mock_index):
         document={"schema": CURRENT_SCHEMA.model_json_schema(by_alias=True)},
         op_type="create",
     )
+
+
+@pytest.mark.django_db()
+@pytest.mark.parametrize(
+    "service_base_url",
+    [
+        "https://example.com",
+        "https://example.com/",
+        "http://example.com/",
+        "http://localhost",
+        "https://127.0.0.1:8000/",
+        "https://127.0.0.1/api",
+        "https://127.0.0.1/api/",
+    ],
+)
+def test_create_resource_id_with_service_base_url(auth_client: APIClient, service_base_url):
+    response = auth_client.post(reverse("edp-base"), HTTP_X_SERVICE_BASE_URL=service_base_url)
+    assert response.status_code == 201
+    data = response.json()
+    assert "id" in data
+    assert "rawZIPUploadURL" in data
+    service_base_url = service_base_url.rstrip("/")
+    assert data["rawZIPUploadURL"] == f"{service_base_url}/connector/edp/{data['id']}/edp.zip/"

@@ -27,6 +27,10 @@ const DatasetTabs = ({ edp, datasetRef }) => {
   const doesDatasetHaveChildren = datasetHasChildren(edp, datasetRef);
   const isDocumentDataset = datasetRef.includes("#/documentDatasets");
   const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
+  const isArchiveDataset = datasetRef.includes("#/archiveDatasets");
+  const isSemiStructuredDataset = datasetRef.includes(
+    "#/semiStructuredDatasets",
+  );
   const isVideoDataset = datasetRef.includes("#/videoDatasets");
   const isAudioDataset = datasetRef.includes("#/audioDatasets");
   const isUnstructuredDataset = datasetRef.includes(
@@ -91,47 +95,53 @@ const DatasetTabs = ({ edp, datasetRef }) => {
           {
             eventKey: "attribute_list",
             title: t("dataset.tabs.attributeList"),
-            component: <AttributeList edp={edp} />,
+            component: <AttributeList dataset={dataset} />,
           },
           {
             eventKey: "temporal_consistency",
             title: t("dataset.tabs.temporalConsistency"),
-            component: <TemporalConsistency edp={edp} />,
+            component: <TemporalConsistency dataset={dataset} />,
           },
           {
             eventKey: "numeric_value_distribution",
             title: t("dataset.tabs.numericValueDistribution"),
-            component: <NumericValueDistribution edp={edp} />,
+            component: <NumericValueDistribution edp={edp} dataset={dataset} />,
           },
           {
             eventKey: "string_value_distribution",
             title: t("dataset.tabs.stringValueDistribution"),
-            component: <StringValueDistribution edp={edp} />,
+            component: <StringValueDistribution dataset={dataset} edp={edp} />,
           },
           {
             eventKey: "numeric_correlation_analysis",
             title: t("dataset.tabs.numericCorrelationAnalysis"),
-            component: <NumericCorrelationAnalysis edp={edp} />,
+            component: (
+              <NumericCorrelationAnalysis dataset={dataset} edp={edp} />
+            ),
           },
           {
             eventKey: "numeric_outlier_analysis",
             title: t("dataset.tabs.numericOutlierAnalysis"),
-            component: <NumericOutlierAnalysis edp={edp} />,
+            component: <NumericOutlierAnalysis dataset={dataset} edp={edp} />,
           },
           {
             eventKey: "attribute_integrity",
             title: t("dataset.tabs.attributeIntegrity"),
-            component: <AttributeIntegrity edp={edp} />,
+            component: <AttributeIntegrity dataset={dataset} />,
           },
           {
             eventKey: "data_seasonality",
             title: t("dataset.tabs.dataSeasonality"),
-            component: <DataSeasonality edp={edp} />,
+            component: <DataSeasonality dataset={dataset} edp={edp} />,
           },
+        ]
+      : []),
+    ...(isSemiStructuredDataset
+      ? [
           {
             eventKey: "schema",
             title: "Schema",
-            component: <Schema edp={edp} />,
+            component: <Schema dataset={dataset} />,
           },
         ]
       : []),
@@ -190,23 +200,33 @@ const DatasetTabs = ({ edp, datasetRef }) => {
   };
 
   return (
-    <Tabs
-      activeKey={activeKey}
-      id={styles.datasetAttributeTabs}
-      onSelect={(k) => toggleTab(k)}
-      className="dataset-attribute-tabs mb-3"
-    >
-      {tabs.map(({ eventKey, title, component }) => (
-        <Tab
-          key={eventKey}
-          eventKey={eventKey}
-          title={<span className="small text-uppercase">{title}</span>}
-          className={styles.tab}
-        >
-          {component}
-        </Tab>
-      ))}
-    </Tabs>
+    <>
+      <Tabs
+        activeKey={activeKey}
+        id={styles.datasetAttributeTabs}
+        onSelect={(k) => toggleTab(k)}
+        className="dataset-attribute-tabs mb-3"
+      >
+        {tabs.map(({ eventKey, title, component }) => (
+          <Tab
+            key={eventKey}
+            eventKey={eventKey}
+            title={<span className="small text-uppercase">{title}</span>}
+            className={styles.tab}
+          >
+            {component}
+          </Tab>
+        ))}
+      </Tabs>
+
+      {isArchiveDataset && !doesDatasetHaveChildren && (
+        <div className="mt-3">
+          <p className="text-muted text-center mt-5">
+            {t("dataset.noSupportedType")}
+          </p>
+        </div>
+      )}
+    </>
   );
 };
 

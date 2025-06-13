@@ -1,4 +1,4 @@
-import React, {
+import {
   createContext,
   useState,
   useContext,
@@ -20,6 +20,9 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
+  const [isSuperuser, setIsSuperuser] = useState(false);
+  const [isMonitoringUser, setIsMonitoringUser] = useState(false);
+  const [dataspaceName, setDataspaceName] = useState("");
   const [token, setToken] = useState("");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -31,9 +34,11 @@ export const AuthProvider = ({ children }) => {
       const decodedToken = jwtDecode(response.access);
       setAuthenticated(true);
       setUsername(decodedToken.username);
+      setIsSuperuser(decodedToken.is_superuser);
+      setIsMonitoringUser(decodedToken.is_monitoring_user);
+      setDataspaceName(decodedToken.dataspace_name);
       setToken(response.access);
       localStorage.setItem("accessToken", response.access);
-      navigate("/monitoring/dashboard");
       return { success: true };
     } else {
       return { success: false, message: response.message || "Login failed" };
@@ -43,6 +48,9 @@ export const AuthProvider = ({ children }) => {
   const handleLogout = useCallback(() => {
     setAuthenticated(false);
     setUsername("");
+    setIsSuperuser(false);
+    setIsMonitoringUser(false);
+    setDataspaceName("");
     setToken("");
     localStorage.removeItem("accessToken");
     navigate("/");
@@ -61,17 +69,28 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedToken = localStorage.getItem("accessToken");
     if (storedToken) {
-      checkTokenExpiration(storedToken);
-      setUsername(jwtDecode(storedToken).username);
-      setAuthenticated(true);
-      setToken(storedToken);
+      try {
+        const decoded = jwtDecode(storedToken);
+        checkTokenExpiration(storedToken);
+        setUsername(decoded.username);
+        setDataspaceName(decoded.dataspace_name);
+        setIsSuperuser(decoded.is_superuser);
+        setIsMonitoringUser(decoded.is_monitoring_user);
+        setAuthenticated(true);
+        setToken(storedToken);
+      } catch (error) {
+        handleLogout();
+      }
     }
     setLoading(false);
-  }, [checkTokenExpiration]);
+  }, [checkTokenExpiration, handleLogout]);
 
   const value = {
     authenticated,
     username,
+    isSuperuser,
+    dataspaceName,
+    isMonitoringUser,
     token,
     login: handleLogin,
     logout: handleLogout,

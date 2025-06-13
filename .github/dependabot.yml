@@ -21,15 +21,27 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-    commit-message:
-      prefix: "build(deps):"
-      include: "scope"
-    labels:
-      - "dependencies"
-      - "automated updates"
     reviewers:
       - "nenadblagov"
       - "kb-beebucket"
     target-branch: "dev"
     registries:
       - edp-repo
+
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "nenadblagov"
+      - "kb-beebucket"
+    target-branch: "dev"
+
+  - package-ecosystem: "npm"
+    directory: "/landing"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "nenadblagov"
+      - "kb-beebucket"
+    target-branch: "dev"

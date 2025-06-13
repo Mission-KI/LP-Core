@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import ImageView from "../../../common/components/ImageView/ImageView";
 import $ from "jquery";
 import { imageBasePath } from "../../../common/api/config";
 
-function StringValueDistribution({ edp }) {
+function StringValueDistribution({ dataset, edp }) {
+  const [searchQuery, setSearchQuery] = useState("");
   const [defaultTab, setDefaultTab] = useState("graphics");
 
   useEffect(() => {
-    const hasDistributionGraph =
-      edp?._source?.structuredDatasets[0]?.stringColumns.some(
-        (column) => column.distributionGraph,
-      );
+    const hasDistributionGraph = dataset?.stringColumns.some(
+      (column) => column.distributionGraph,
+    );
 
     if (!hasDistributionGraph) {
       setDefaultTab("table");
     }
-  }, [edp]);
+  }, [dataset]);
 
   useEffect(() => {
     const table = $("#stringValueDistributionTable").DataTable({
@@ -33,7 +33,7 @@ function StringValueDistribution({ edp }) {
     return () => {
       table.destroy();
     };
-  }, [edp]);
+  }, [dataset]);
 
   const getUniqueValueText = (num) => {
     if (num === 1) return "homogen";
@@ -50,22 +50,51 @@ function StringValueDistribution({ edp }) {
     >
       <Tab eventKey="graphics" title="Graphics">
         <div className="container">
+          <div className="dt-container dt-bootstrap5 dt-empty-footer mb-3">
+            <div className="row">
+              <div className="d-md-flex justify-content-between align-items-center dt-layout-end col-md-auto ms-auto">
+                <div className="dt-search">
+                  <label for="dt-search-10">Search:</label>
+                  <input
+                    type="search"
+                    className="form-control form-control-sm"
+                    id="dt-search-8"
+                    placeholder="Search..."
+                    aria-controls="anomalyTable"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="row">
-            {edp?._source?.structuredDatasets[0]?.stringColumns.map(
-              (column, index) =>
-                column.distributionGraph && (
-                  <div className="col-md-3 mb-3" key={index}>
-                    <ImageView
-                      url={
-                        imageBasePath +
-                        edp?._id +
-                        "/" +
-                        column.distributionGraph
-                      }
-                    />
-                  </div>
-                ),
-            )}
+            {dataset?.stringColumns
+              .filter((column) =>
+                column.name.toLowerCase().includes(searchQuery.toLowerCase()),
+              )
+              .map(
+                (column) =>
+                  column.distributionGraph && (
+                    <div
+                      className="col-md-3 mb-3 image-card"
+                      data-name={column.name}
+                      key={column.name}
+                    >
+                      <ImageView
+                        url={
+                          imageBasePath +
+                          edp?._id +
+                          "/" +
+                          column.distributionGraph
+                        }
+                      />
+                      <p className="small text-center txt-lighter">
+                        {column.name}
+                      </p>
+                    </div>
+                  ),
+              )}
           </div>
         </div>
       </Tab>
@@ -89,17 +118,15 @@ function StringValueDistribution({ edp }) {
                 </tr>
               </thead>
               <tbody>
-                {edp?._source?.structuredDatasets[0]?.stringColumns.map(
-                  (column, index) => (
-                    <tr key={index} className="hover">
-                      <td className="w-33">{column.name}</td>
-                      <td className="w-33">NA</td>
-                      <td className="w-33">
-                        {getUniqueValueText(column.numberUnique)}
-                      </td>
-                    </tr>
-                  ),
-                )}
+                {dataset?.stringColumns.map((column, index) => (
+                  <tr key={index} className="hover">
+                    <td className="w-33">{column.name}</td>
+                    <td className="w-33">N/A</td>
+                    <td className="w-33">
+                      {getUniqueValueText(column.numberUnique)}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

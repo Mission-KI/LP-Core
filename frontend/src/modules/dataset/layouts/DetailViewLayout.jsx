@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Outlet } from "react-router";
 import { getEdp } from "../../common/api/elastic";
 import Spinner from "react-bootstrap/Spinner";
 import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
 import "datatables.net-bs5";
 import PageNotFound from "../../common/pages/PageNotFound";
-import Breadcrumbs from "../../common/components/Breadcrumbs";
 import Footer from "../../common/components/Footer/Footer";
 
 function DetailViewLayout() {
@@ -46,7 +45,6 @@ function DetailViewLayout() {
   return (
     <>
       <div className="container-fluid px-5">
-        <Breadcrumbs />
         <Outlet />
         <Footer />
       </div>

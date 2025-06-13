@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import $ from "jquery";
 
 function EmbeddedTables({ edp, datasetRef }) {
@@ -18,6 +18,8 @@ function EmbeddedTables({ edp, datasetRef }) {
       table.destroy();
     };
   }, []);
+
+  $(".dt-search input").attr("placeholder", "Search...");
 
   const embeddedTables =
     edp?._source?.unstructuredTextDatasets[0]?.embeddedTables;

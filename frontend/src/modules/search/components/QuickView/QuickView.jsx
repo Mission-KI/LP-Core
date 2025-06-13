@@ -1,14 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Dropdown } from "react-bootstrap";
 import { InfoCircleFill } from "react-bootstrap-icons";
 import styles from "./QuickView.module.css";
 import DataScienceInfo from "../../../dataset/components/DataScienceInfo/DataScienceInfo";
 import EDPActions from "../../../dataset/components/EDPActions";
 
-function QuickView({ edp }) {
+function QuickView({ edp, datasetRef, dataset, node }) {
   const [show, setShow] = useState(false);
   const dropdownRef = useRef(null);
-  const datasetRef = edp?._source?.datasetTree[0]?.dataset?.$ref;
 
   const toggleDropdown = () => {
     setShow((prevShow) => !prevShow);
@@ -48,9 +47,18 @@ function QuickView({ edp }) {
         <div className="container">
           <div>
             <div className="pb-4">
-              <EDPActions edp={edp} />
+              <EDPActions
+                edp={edp}
+                datasetRef={datasetRef}
+                dataset={dataset}
+                node={node}
+              />
             </div>
-            <DataScienceInfo edp={edp} datasetRef={datasetRef} />
+            <DataScienceInfo
+              edp={edp}
+              datasetRef={datasetRef}
+              dataset={dataset}
+            />
           </div>
         </div>
       </Dropdown.Menu>

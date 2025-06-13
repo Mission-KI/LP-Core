@@ -10,17 +10,23 @@ jobs:
   build_and_push_staging:
     runs-on: ubuntu-24.04
     name: Build and Push Staging Containers
+
     steps:
+      - uses: actions/checkout@v4
+
       - uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - uses: actions/checkout@v4
+
       - uses: docker/setup-qemu-action@v3
       - uses: docker/setup-buildx-action@v3
 
-      - name: Create dummy .env file
-        run: touch .env
+      - name: Copy .env.staging to root, frontend and landing
+        run: |
+          cp .env.staging .env
+          cp .env.staging frontend/.env
+          cp .env.staging landing/.env
 
       - name: Build and push with Docker Bake
         uses: docker/bake-action@v6
@@ -32,8 +38,12 @@ jobs:
             backend.tags=docker.io/beebucket/daseen-backend:staging
             frontend.tags=docker.io/beebucket/daseen-frontend:staging
             landing.tags=docker.io/beebucket/daseen-landing:staging
-            *.cache-from=type=gha
-            *.cache-to=type=gha,mode=max
+            frontend.cache-from=type=gha,scope=frontend
+            frontend.cache-to=type=gha,mode=max,scope=frontend
+            landing.cache-from=type=gha,scope=landing
+            landing.cache-to=type=gha,mode=max,scope=landing
+            backend.cache-from=type=gha,scope=backend
+            backend.cache-to=type=gha,mode=max,scope=backend
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_HUB_API_KEY }}
 

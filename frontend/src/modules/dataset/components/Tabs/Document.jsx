@@ -1,10 +1,10 @@
-import React from "react";
+import { resolveDataset } from "../../utils/edp_utils";
 
 const Document = ({ edp, datasetRef }) => {
-  const documentIndex = parseInt(datasetRef.split("/")[2], 10);
-
-  const documentDatasets = edp?._source?.documentDatasets || [];
-  const document = documentDatasets[documentIndex] || {};
+  if (!edp || !datasetRef) {
+    return <div>Invalid dataset reference!</div>;
+  }
+  const document = resolveDataset(edp, datasetRef);
 
   if (!document) {
     return <div>Document not found!</div>;

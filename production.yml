@@ -12,6 +12,7 @@ services:
       interval: 10s
       timeout: 15s
       retries: 10
+    restart: always
 
   backend:
     build:
@@ -31,6 +32,7 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    restart: always
 
   frontend:
     build:
@@ -46,6 +48,7 @@ services:
     volumes:
       - "./frontend:/app"
       - "/app/node_modules"
+    restart: always
 
   landing:
     build:
@@ -61,6 +64,7 @@ services:
     volumes:
       - "./landing:/landing"
       - "/landing/node_modules"
+    restart: always
 
   nautilus:
     image: docker.io/beebucket/nautilus:latest
@@ -78,13 +82,30 @@ services:
       - backend
       - frontend
       - landing
-    restart: always
     ports:
       - "443:443"
+      - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./nginx/certificates:/etc/letsencrypt:ro
+      - ./nginx/html:/usr/share/nginx/html
+    restart: always
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./nginx/certificates:/etc/letsencrypt
+      - ./nginx/html:/usr/share/nginx/html
+    restart: always
+    entrypoint: >
+      sh -c "trap exit TERM;
+             while :; do
+               certbot renew --webroot -w /usr/share/nginx/html --quiet &&
+               nginx -s reload;
+               sleep 12h;
+             done"
+
 
 volumes:
   frontend-build:

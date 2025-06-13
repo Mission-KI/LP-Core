@@ -1,16 +1,14 @@
 import GeneralEdpScienceOverview from "./GeneralEdpScienceOverview";
 import AdditionalArchiveAttributes from "./AdditionalArchiveAttributes";
 import AdditionalStructuredDataAttributes from "./AdditionalStructuredDataAttributes";
-import { resolveDataset } from "../../utils/edp_utils";
 
-const DataScienceInfo = ({ edp, datasetRef }) => {
+const DataScienceInfo = ({ edp, datasetRef, dataset }) => {
+  const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
+  const isArchiveDataset = datasetRef.includes("#/archiveDatasets");
+
   const datasetTreeItem = edp?._source?.datasetTree?.find(
     (item) => item.dataset.$ref === datasetRef,
   );
-  const dataset = resolveDataset(edp, datasetRef);
-
-  const isStructuredDataset = datasetRef.includes("#/structuredDatasets");
-  const isArchiveDataset = datasetRef.includes("#/archiveDatasets");
 
   return (
     <div>
@@ -20,12 +18,10 @@ const DataScienceInfo = ({ edp, datasetRef }) => {
           edp={edp}
         />
 
-        {isArchiveDataset && (
-          <AdditionalArchiveAttributes dataset={dataset} edp={edp} />
-        )}
+        {isArchiveDataset && <AdditionalArchiveAttributes dataset={dataset} />}
 
         {isStructuredDataset && (
-          <AdditionalStructuredDataAttributes edp={edp} />
+          <AdditionalStructuredDataAttributes edp={edp} dataset={dataset} />
         )}
       </div>
     </div>

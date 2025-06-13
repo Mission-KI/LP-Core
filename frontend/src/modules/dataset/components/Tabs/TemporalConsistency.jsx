@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import $ from "jquery";
 import { useTranslation } from "react-i18next";
 
-function TemporalConsistency({ edp }) {
+function TemporalConsistency({ dataset }) {
   useEffect(() => {
     const table = $("#temporalConsistencyTable").DataTable({
       paging: false,
@@ -41,19 +41,16 @@ function TemporalConsistency({ edp }) {
             </tr>
           </thead>
           <tbody>
-            {edp?._source?.structuredDatasets[0]?.datetimeColumns.map(
-              (column) =>
-                column?.temporalConsistencies.map(
-                  (temporalConsistency, index) => (
-                    <tr key={index} className="hover">
-                      <td className="w-33">{column.name}</td>
-                      <td className="w-33">{temporalConsistency.timeScale}</td>
-                      <td className="w-33">
-                        {temporalConsistency.numberOfGaps}
-                      </td>
-                    </tr>
-                  ),
+            {dataset?.datetimeColumns.map((column) =>
+              column?.temporalConsistencies.map(
+                (temporalConsistency, index) => (
+                  <tr key={index} className="hover">
+                    <td className="w-33">{column.name}</td>
+                    <td className="w-33">{temporalConsistency.timeScale}</td>
+                    <td className="w-33">{temporalConsistency.numberOfGaps}</td>
+                  </tr>
                 ),
+              ),
             )}
           </tbody>
         </table>

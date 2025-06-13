@@ -113,6 +113,21 @@ i18n
               description:
                 "The Konstanz Data Portal contributes to the development of an urban data space and promotes the transparent provision of municipal data.",
             },
+            genesis: {
+              title: "Main database of the Federal Statistical Office",
+              description:
+                "GENESIS-Online contains detailed results of official statistics, for example data on the population, economy, elections, institutions and environment in Germany.",
+            },
+            pontusx: {
+              title: "Pontus-X",
+              description:
+                "Pontus-X is the largest publicly available European X-Ecosystem, based on Gaia-X, and a Dataspace Lighthouse.",
+            },
+            aiamo: {
+              title: "AIAMO - Artificial Intelligence And Mobility",
+              description:
+                "The AIAMOnexus provides members of the ITS industry with AI-powered mobility data by combining the AIAMO mobility data integration zone with advanced AI foundation models.",
+            },
           },
           footer: {
             c: "© beebucket 2024",
@@ -225,6 +240,21 @@ i18n
               title: "Zentrale Plattform für Open Data in der Stadt Konstanz",
               description:
                 "Das Datenportal Konstanz trägt zum Aufbau eines urbanen Datenraums bei und fördert die transparente Bereitstellung kommunaler Daten.",
+            },
+            genesis: {
+              title: "Hauptdatenbank des Statistischen Bundesamtes",
+              description:
+                "GENESIS-Online enthält tief gegliederte Ergebnisse der amtlichen Statistik, beispielweise Daten zu Bevölkerung, Wirtschaft, Wahlen, Institutionen und Umwelt in Deutschland.",
+            },
+            pontusx: {
+              title: "Pontus-X",
+              description:
+                "Pontus-X ist das größte öffentlich zugängliche europäische X-Ecosystem, das auf Gaia-X basiert, und ein Dataspace-Leuchtturm.",
+            },
+            aiamo: {
+              title: "AIAMO - Artificial Intelligence And Mobility",
+              description:
+                "Der AIAMOnexus versorgt die Mitglieder der ITS-Branche mit KI-gestützten Mobilitätsdaten, indem er die AIAMO-Integrationszone für Mobilitätsdaten mit fortschrittlichen AI Foundation Models kombiniert.",
             },
           },
           footer: {

@@ -2,21 +2,36 @@ const About_De = () => {
   return (
     <div className="col-md-10">
       <h1 className="bold mb-5">Über daseen</h1>
-      <p className="fw-500 mt-3">Versionsinformationen</p>
-      <p className="regular text-justify">14.04.2025</p>
-      <p className="fw-500 mt-3">Neueste Änderungen</p>
-      <p> - Erweiterter Hilfebereich</p>
-      <p> - Unterstützung des Datentyps Audio</p>
-      <p> - Unterstützung des Datentyps Video</p>
-      <p> - Neue Funktion: Ähnliche EDP finden</p>
-      <p className="fw-500 mt-3" id="registration-section">
-        Registrierung
+      <h5 className="mt-5 mb-3" id="version-info">
+        Versionsinformationen
+      </h5>
+      <p className="regular text-justify">10.06.2025</p>
+      <h5 className="mt-5 mb-3" id="latest-changes">
+        Neueste Änderungen
+      </h5>
+      <p>
+        - Mehrere neue Datenräume, Datenportale und Datenanbieter zu Landing
+        Page Kategorien hinzugefügt
       </p>
-      Datenanbieter sowie Datenraum- und Datenportalbetreiber können sich über
-      den folgenden Kontakt verbinden: &nbsp;
-      <a href="https://beebucket.ai/en/contact/" target="_blank">
-        Beebucket
-      </a>
+      <p>
+        - Fehler in Filtern behoben, der zu Teilergebnissen führte, wenn mehrere
+        Elemente in Dropdown-Filtern ausgewählt wurden
+      </p>
+      <p>
+        - Fehler behoben, der zu falschen Ansichten in verschachtelten
+        Strukturen führte, wenn untergeordnete Elemente identische Namen hatten
+      </p>
+      <p> - Kosmetische Optimierungen</p>
+      <h5 className="mt-5 mb-3" id="registration-section">
+        Registrierung
+      </h5>
+      <p>
+        Datenanbieter sowie Datenraum- und Datenportalbetreiber können sich über
+        den folgenden Kontakt verbinden: &nbsp;
+        <a href="https://beebucket.ai/en/contact/" target="_blank">
+          Beebucket
+        </a>
+      </p>
     </div>
   );
 };

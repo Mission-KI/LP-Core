@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import SeasonalityDetailView from "../SeasonalityDetailView";
 import { imageBasePath } from "../../../common/api/config";
 
-function DataSeasonality({ edp }) {
+function DataSeasonality({ dataset, edp }) {
   const [selectedTab, setSelectedTab] = useState("Original Timeseries");
   const [searchQuery, setSearchQuery] = useState("");
   const [showDetailViewModal, setShowDetailViewModal] = useState(false);
@@ -16,7 +16,7 @@ function DataSeasonality({ edp }) {
   ];
 
   const filteredColumns =
-    edp?._source?.structuredDatasets?.[0]?.numericColumns?.filter((column) =>
+    dataset?.numericColumns?.filter((column) =>
       column.name.toLowerCase().includes(searchQuery.toLowerCase()),
     ) || [];
 
@@ -45,13 +45,13 @@ function DataSeasonality({ edp }) {
         </div>
         <div className="d-flex align-items-center">
           <div className="pe-1">
-            <span className="small txt-lighter">Search attribute</span>
+            <span className="small txt-lighter">Search attributes</span>
           </div>
           <div>
             <input
               type="text"
-              className="form-control rounded-lg small"
-              placeholder="Search attribute name"
+              className="form-control rounded-lg small shadow-sm"
+              placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />

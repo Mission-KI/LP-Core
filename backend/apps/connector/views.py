@@ -9,9 +9,11 @@ from apps.monitoring.models import EventLog
 from apps.monitoring.utils.logging import create_log
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema
 from extended_dataset_profile import CURRENT_SCHEMA, ExtendedDatasetProfile
+from pydantic import AnyHttpUrl
 from rest_framework import parsers, status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.exceptions import APIException, PermissionDenied, UnsupportedMediaType
@@ -44,7 +46,7 @@ def _do_upload(request: Request, id: str, zip_file):
     metadata: dict[str, Any] = {"id": id, "schemaVersion": str(edp_model.schemaVersion)}
     if isinstance(edp_model, ExtendedDatasetProfile) and len(edp_model.assetRefs) > 0:
         metadata["assetRefs"] = [ref.model_dump(mode="json") for ref in edp_model.assetRefs]
-    create_log(request, "EDP upload done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_UPLOAD)
+    create_log(request, "EDP upload done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_UPLOAD, edp_dataspace)
     return Response(
         {"message": "EDP uploaded successfully", "edp": edp_model.model_dump(mode="json"), "id": id},
         status=status.HTTP_200_OK,
@@ -99,11 +101,20 @@ class RawZipUploadView(APIView):
 @check_connector_user_permission(EventLog.TYPE_UPLOAD, "Resource ID create failed")
 def create_resource_id(request: Request):
     try:
+        base_url = None
+        if "x-service-base-url" in request.headers:
+            base_url = str(AnyHttpUrl(request.headers["x-service-base-url"]))
+
         resource = ResourceStatus.objects.create()
         create_log(
             request, "EDP resource created", EventLog.STATUS_SUCCESS, {"id": str(resource.id)}, EventLog.TYPE_UPLOAD
         )
-        return Response({"id": resource.id}, status=status.HTTP_201_CREATED)
+        body = {"id": str(resource.id)}
+        if base_url is not None:
+            base_url = base_url.rstrip("/")
+            body["rawZIPUploadURL"] = f"{base_url}{reverse('edp-raw-zip-upload', args=[resource.id, 'edp.zip'])}"
+
+        return Response(body, status=status.HTTP_201_CREATED)
     except Exception as e:
         message = f"An unknown error occurred ({type(e)}): {str(e)}"
         create_log(request, f"EDP resource create failed: {message}", EventLog.STATUS_FAIL, EventLog.TYPE_UPLOAD)
@@ -159,9 +170,12 @@ class EDPUploadDeleteView(APIView):
             )
 
             metadata = {"id": id}
-            if upload_event_query.count() > 0:
-                metadata = upload_event_query.last().metadata.copy()
-            create_log(request, "EDP delete done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_DELETE)
+            last_filtered_event = upload_event_query.last()
+            data_space = None
+            if last_filtered_event is not None:
+                metadata = last_filtered_event.metadata.copy()
+                data_space = last_filtered_event.dataspace.name
+            create_log(request, "EDP delete done", EventLog.STATUS_SUCCESS, metadata, EventLog.TYPE_DELETE, data_space)
 
             return Response(
                 {"message": "EDP deleted successfully", "id": id},

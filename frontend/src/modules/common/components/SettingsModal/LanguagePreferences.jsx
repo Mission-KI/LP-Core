@@ -1,4 +1,3 @@
-import React from "react";
 import LanguageSelector from "../widgets/LanguageSelector";
 import { useTranslation } from "react-i18next";
 

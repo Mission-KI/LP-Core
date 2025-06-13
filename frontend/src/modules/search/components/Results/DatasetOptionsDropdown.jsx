@@ -26,7 +26,7 @@ function DatasetOptionsDropdown({ edp }) {
     <Dropdown className="mt-1">
       <Dropdown.Toggle
         as="div"
-        className="hover-lg rounded px-1 py-0 m-0 pointer"
+        className="hover-lg rounded px-1 py-0 m-0 pointer options-dropdown"
       >
         <ThreeDotsVertical />
       </Dropdown.Toggle>

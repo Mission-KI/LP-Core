@@ -4,6 +4,9 @@ export const MotivationAndBasics_En = () => {
   return (
     <div className="col-md-10">
       <h1 className="bold mb-3">Motivation and Basics</h1>
+      <h4 className="mt-5 mb-3" id="motivation">
+        Motivation
+      </h4>
       <p className="regular text-justify">
         Trustworthy artificial intelligence (“AI”) requires for effective
         training and precise predictions above all high-quality data. Although
@@ -14,18 +17,21 @@ export const MotivationAndBasics_En = () => {
         independently of the numerous domain-specific ontologies.
       </p>
       <p className="regular text-justify">
-        This is where the Dataset Search Engine (“daseen”) in conjunction with
-        the distributed microservice Extended Dataset Profile Service (“EDPS”)
-        gets in action. With the help of EDPS, data assets are analyzed as
+        This is where the Federated Data Scout gets in action. The Federated
+        Data Scout consists of the Dataset Search Engine (“daseen”) in
+        conjunction with the distributed microservice Extended Dataset Profile
+        Service (“EDPS”). With the help of EDPS, data assets are analyzed as
         closely as possible and as close as necessary to the data provider for
         their analytical properties. These are then standardized and summarized
-        machine-readable in an Extended Dataset Profile (“EDP”). The EDP can be
-        flexibly customized with data providers and ontology specific metadata
-        such as a description, the processing status or data license terms.
-        After approval by the data provider, the EDP can then be published on
-        daseen and the data asset can be found across data portals and data
-        spaces using all metadata stored in the EDP. The actual asset always
-        remains with the provider.
+        machine-readable in an Extended Dataset Profile (“EDP”). In principle,
+        the EDP and the EDPS can be flexibly customized by data providers and
+        onthology specific metadata such as a description, the processing status
+        or data license terms. When interacting with daseen, however, it should
+        be noted that only EDP following an official EDP schema version are
+        supported in daseen. After approval by the data provider, the EDP can
+        then be published on daseen and the data asset can be found across data
+        portals and data spaces using all metadata stored in the EDP. The actual
+        asset always remains with the provider.
       </p>
       <p className="regular text-justify">
         To simplify access to the world of data, the EDP are pre-sorted
@@ -58,7 +64,9 @@ export const MotivationAndBasics_En = () => {
         alt="Zielarchitektur"
         className="w-100 my-4"
       />
-      <h5 className="mt-4">Target groups and use cases</h5>
+      <h4 className="mt-5 mb-3" id="target-groups">
+        Target groups and use cases
+      </h4>
       <p className="regular text-justify">
         The following paragraph describes the different target groups and use
         cases.{" "}
@@ -86,13 +94,17 @@ export const MotivationAndBasics_En = () => {
           the data sovereignty of the data provider.
         </li>
       </ul>
-      <h5 className="mt-4">Target group data user</h5>
+      <h5 className="bold mt-4" id="target-group-user">
+        Target group data user
+      </h5>
       <p className="regular text-justify">
         The data user is a person, organization or software, that actively
         searches for data to train an AI model, analyze data or provision
         another data service.
       </p>
-      <h5 className="mt-4">Advantages for the data user</h5>
+      <h6 className="bold mt-4" id="advantages-user">
+        Advantages for the data user
+      </h6>
       <ul className="regular text-justify">
         <li>
           The landing page offers an easy access to the world of daseen by
@@ -119,7 +131,9 @@ export const MotivationAndBasics_En = () => {
           stored.
         </li>
       </ul>
-      <h5 className="mt-4">Target group data publisher</h5>
+      <h5 className="bold mt-4" id="target-group-publisher">
+        Target group data publisher
+      </h5>
       <p className="regular text-justify">
         A data publisher or provider is a person, organization or institution
         that makes data available in a data space or publishes it via a data
@@ -142,7 +156,9 @@ export const MotivationAndBasics_En = () => {
         In an open data portal, the data provider publishes the data via the
         portal so that other users can search, view and retrieve it.
       </p>
-      <h5 className="mt-4">Advantages for the data publisher</h5>
+      <h6 className="bold mt-4" id="advantages-publisher">
+        Advantages for the data publisher
+      </h6>
       <ul className="regular text-justify">
         <li>
           Visibility of data offerings across data portals and data spaces
@@ -176,14 +192,18 @@ export const MotivationAndBasics_En = () => {
           ready to pay for access to data that has already been analyzed.
         </li>
       </ul>
-      <h5 className="mt-4">Target group operators</h5>
+      <h5 className="bold mt-4" id="target-group-operator">
+        Target group operators
+      </h5>
       <p className="regular text-justify">
         An operator has closed data spaces [
         <a href="/help/motivation-and-basics#dataspace">learn more</a>] or open
         data portals [
         <a href="/help/motivation-and-basics#dataportal">learn more</a>].
       </p>
-      <h5 className="mt-4">Advantages for the operators</h5>
+      <h6 className="bold mt-4" id="advantages-operator">
+        Advantages for the operators
+      </h6>
       <ul className="regular text-justify">
         <li>
           The visibility, awareness and reputation of its platform are
@@ -197,18 +217,26 @@ export const MotivationAndBasics_En = () => {
           By becoming part of daseen, he is part of a growing data ecosystem.
         </li>
       </ul>
-      <h5 className="mt-4">Terminology briefly explained</h5>
-      <h5 className="mt-4">What is an asset?</h5>
+      <h4 className="mt-5 mb-3" id="terminology">
+        Terminology briefly explained
+      </h4>
+      <h5 className="bold mt-4" id="what-is-an-asset">
+        What is an asset?
+      </h5>
       An asset (“data asset”) refers to a data offering provided in the data
       space or data portal.
-      <h5 className="mt-4">What is a data set?</h5>A data asset can consist of
-      one or more data records. A dataset is an object to which a unique data
-      format can be assigned [
+      <h5 className="bold mt-4" id="what-is-a-dataset">
+        What is a data set?
+      </h5>
+      A data asset can consist of one or more data records. A dataset is an
+      object to which a unique data format can be assigned [
       <a href="/help/data-formats-and-analysis#formats">
         more on the data formats supported in daseen
       </a>
       ].
-      <h5 className="mt-4">What is an EDP?</h5>
+      <h5 className="bold mt-4" id="what-is-an-edp">
+        What is an EDP?
+      </h5>
       <p className="regular text-justify">
         An EDP ("Extended Dataset Profile“) you use in the context of data
         spaces, data catalogs or data infrastructures.
@@ -266,12 +294,12 @@ export const MotivationAndBasics_En = () => {
           facilitates their integrated use.
         </li>
       </ul>
-      <h5 className="mt-4" id="dataspace-dataportal">
+      <h5 className="bold mt-4" id="dataspace-dataportal">
         What is a data space or data portal?
       </h5>
-      <h5 className="mt-4" id="dataspace">
+      <h6 className="bold mt-4" id="dataspace">
         Data space
-      </h5>
+      </h6>
       <p className="regular text-justify">
         A closed data space can be regarded as a shared digital space in which
         different organizations or individuals can exchange data assets - but in
@@ -313,9 +341,9 @@ export const MotivationAndBasics_En = () => {
         </li>
         <li>It also promotes cooperation, trust and transparency.</li>
       </ul>
-      <h5 className="mt-4" id="dataportal">
+      <h6 className="bold mt-4" id="dataspace">
         Data portal
-      </h5>
+      </h6>
       <p className="regular text-justify">
         An open data portal is a website or platform that makes it possible to
         find, view and download data. It can be thought of as a kind of catalog
